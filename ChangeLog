@@ -1,5 +1,8 @@
 *** 0.2.2 ****
 
+	* lib/gst-plugins.cygclass (gst_plugins_autoreconf):
+	Use gnome2_autoreconf to avoid breaking po/Makefile.in.in.
+
 	* bin/cygport.in (verbose, cygconf),
 	  lib/cvs.cygclass (cvs_unpack),
 	  lib/gnome2.cygclass (gnome2_autoreconf),
