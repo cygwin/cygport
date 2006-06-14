@@ -1,0 +1,80 @@
+0.2.1:
+	New check_prog_req function, which errors if program was not found.
+	During package phase, verifies that no files were duplicated or 
+	  omitted in the binary packages.
+	Enhancements to qt3 and kde3 cygclasses.
+	Enhancements to cygautoreconf and gnome2_autoreconf.
+	gnome2 cygclass provides a default CVS_URI.
+
+0.2.0:
+	New cygclass: svn, for creating packages from SVN snapshots.
+	Implements CYGCONF_SOURCE, to be defined as the directory where
+	  the configure script is located, for use when not building in ${B}, 
+	  e.g. when running multiple configures from the same source.
+	Supports SRC_DIR='.', for the unusual case where a source doesn't 
+	  decompress into a subdir.
+	Supports more compression formats, as well as *.sh sources (for
+	  wrappers and the like).
+	Improved --help and --version output.
+	Additional documentation in README.
+	cygport(1) manual page.
+	Numerous code improvements.
+
+0.1.93:
+	Patches are now created in the /patch directory for easier access.
+	NEW cygclass: cvs, for creating packages from CVS snapshots.
+	gst-plugin.cygclass updated for newest plugins in -good and -bad.
+	dodoc only installs if file present and non-empty; otherwise ignores.
+
+0.1.92:
+	pygtk.cygclass supports gnome-python and nautilus-python.
+	fox.cygclass allows applications to be built separately from libs.
+	Bug fixes.
+
+0.1.91:
+	NEW hash-based check_prog is back; which dependency removed.
+	Define LIBPERL, LIBPYTHON, and LIBRUBY in respective cygclasses.
+	Add support to pygtk.cygclass for modular gnome-python* packages.
+	Added to utils.cygclass: check_pkg_config, equiv. to PKG_CHECK_MODULES.
+	More sanity checks.
+
+0.1.90:
+	NEW variable: DEPS_PATH, for adding to PATH during deps command.
+	Source now has bootstrap mode and a corresponding test script.
+	font.cyglass totally rewritten.
+	NEW command: oldpatch, for applying patches from previous releases.
+	NEW postinstall command for system fonts in /usr/share/fonts.
+	xorg.cygclass automatically handles font package configure options.
+	Functions fetch() and unpack() can be generally used.
+	Bug fixes.
+
+0.1.6:
+	NEW cygclasses: gst-plugins, ruby-gnome2.
+	Use individual releases for xorg instead of X11R7.0.
+
+0.1.5:
+	Use which(1) instead of check_prog.
+	Bug fixes.
+
+0.1.4:
+	NEW function: check_prog.
+	Implement DESCRIPTION and HOMEPAGE for info command.
+	Several fixes for when prep is run more than once.
+	Numerous minor enhancements and bugfixes.
+
+0.1.3:
+	NEW function: make_managed_mount.
+	NEW postinstall script for GTK2 modules.
+	Fixes for Perl, Python, and Ruby cygclasses.
+
+0.1.2:
+	NEW cygport option: info, for showing cygport information.
+	NEW cygclass: fox.
+	Assorted fixes.
+
+0.1.1:
+	NEW cygclass: pygtk.
+	Fixes for several cygclasses.
+
+0.1.0:
+	First public test release.

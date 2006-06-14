@@ -1,0 +1,50 @@
+################################################################################
+#
+# distutils.cygclass - functions for building Distutils Python modules
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+inherit python
+
+distutils_compile() {
+	if [ ! -e setup.py ]
+	then
+		error "No Python Distutils module detected"
+	fi
+	
+	${PYTHON} setup.py config || error "setup.py config failed"
+	${PYTHON} setup.py build "${@}" || error "setup.py build failed"
+}
+
+distutils_test() {
+	:
+}
+
+distutils_install() {
+	if [ ! -e setup.py ]
+	then
+		error "No Python Distutils module detected"
+	fi
+
+	${PYTHON} setup.py install -O0 --root=${D} "${@}" || error "setup.py install failed"
+	python_optimize ${PYTHON_SITELIB}
+}
+
+src_compile() {
+	lndirs
+	cd ${B}
+	distutils_compile
+}
+
+src_test() {
+	distutils_test
+}
+
+src_install() {
+	cd ${B}
+	distutils_install
+}

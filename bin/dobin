@@ -1,0 +1,26 @@
+#!/bin/bash
+################################################################################
+#
+# dobin - installs executable to install path bindir
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+bindir=/usr/bin
+
+dodir ${bindir}
+
+for i in "${@}"
+do
+	if [ ! -e ${i} ]
+	then
+		error "file ${i} does not exist"
+	fi
+
+	/bin/install -m0755 ${i} ${D}${bindir} || error "dobin ${i} failed"
+done
+

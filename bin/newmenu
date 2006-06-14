@@ -1,0 +1,22 @@
+#!/bin/bash
+################################################################################
+#
+# newmenu - installs desktop menu to install path with new name
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+menudir=/usr/share/pixmaps
+
+dodir ${menudir}
+
+if [ ! -e ${1} ]
+then
+	error "file ${1} does not exist"
+fi
+
+/bin/install -m0644 ${1} ${D}${menudir}/${2} || error "newmenu ${1} failed"

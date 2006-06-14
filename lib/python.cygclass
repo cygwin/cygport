@@ -1,0 +1,31 @@
+################################################################################
+#
+# python.cygclass - functions for installing Python modules
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+check_prog_req python
+
+PYTHON=/usr/bin/python
+PYTHON_VERSION=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_version();')
+PYTHON_LIB=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_lib(0,1);')
+PYTHON_SITELIB=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_lib(0,0);')
+PYTHON_INCLUDEDIR=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_inc();')
+LIBPYTHON="-L${PYTHON_LIB}/config -lpython${PYTHON_VERSION}"
+
+python_optimize() {
+	local pyd
+	for pyd in "${@}"
+	do
+		if [ ! -d ${D}${pyd} ]
+		then
+			error "directory ${pyd} does not exist"
+		fi
+		${PYTHON} ${PYTHON_LIB}/compileall.py ${D}${pyd}
+		${PYTHON} -OO ${PYTHON_LIB}/compileall.py ${D}${pyd}
+	done
+}

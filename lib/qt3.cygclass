@@ -1,0 +1,48 @@
+################################################################################
+#
+# qt3.cygclass - functions for building Qt3-dependent packages
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+QTDIR=/usr/lib/qt3
+QBINDIR=/usr/lib/qt3/bin
+QINCLUDEDIR=/usr/include/qt3
+QLIBDIR=/usr/lib/qt3/lib
+QDATADIR=/usr/share/qt3
+
+qt3_qmake() {
+	local pro
+
+	if [ ! -x ${QBINDIR}/qmake ]
+	then
+		error "qt3-devel is required to build this package"
+	fi
+
+	for pro in $(find . -name '*.pro')
+	do
+		rm -f ${pro%/*}/Makefile
+
+		${QBINDIR}/qmake -spec cygwin-g++ -o ${pro%/*}/Makefile ${pro} \
+			|| error "qmake ${pro} failed"
+	done
+}
+
+# FIXME: This won't work for most packages!!!
+qt3_install() {
+	make install INSTALL_ROOT=${D} PREFIX=/usr || error "make install failed"
+}
+
+src_compile() {
+	lndirs
+	cd ${B}
+	qt3_qmake
+	cygmake
+}
+
+src_test() {
+	:
+}

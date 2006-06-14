@@ -1,0 +1,27 @@
+#!/bin/bash
+################################################################################
+#
+# newdoc - installs file into documentation directory with new name
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+if [ -n "${_docinto_dir}" ]
+then
+	docdir=/usr/share/doc/${P}/${_docinto_dir}
+else
+	docdir=/usr/share/doc/${P}
+fi
+
+dodir ${docdir}
+
+if [ ! -e ${1} ]
+then
+	error "file ${1} does not exist"
+fi
+
+/bin/install -m0644 ${1} ${D}${docdir}/${2} || error "newdoc ${1} failed"

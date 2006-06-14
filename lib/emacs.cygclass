@@ -1,0 +1,35 @@
+################################################################################
+#
+# emacs.cygclass - functions for installing Emacs lisp files
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+EMACS_SITE=/usr/share/emacs/site-lisp
+
+doemacs() {
+	dodir ${EMACS_SITE}
+
+	for i in "${@}"
+	do
+		if [ ! -e ${i} ]
+		then
+			error "file ${i} does not exist"
+		fi
+
+		/bin/install -m0644 ${i} ${D}/${EMACS_SITE} || error "doemacs ${i} failed"
+	done
+}
+
+emacs_compile() {
+	if check_prog emacs
+	then
+		emacs --batch -f batch-byte-compile --no-site-file --no-init-file \
+			${D}${EMACS_SITE}/*.el
+	else
+		warning "emacs not installed, cannot compile lisp files"
+	fi
+}

@@ -1,0 +1,26 @@
+#!/bin/bash
+################################################################################
+#
+# doins - installs file into insinto directory
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+if [ -z "${_insinto_dir}" -o ! -d ${D}${_insinto_dir} ]
+then
+	error "insinto must be called before doins"
+fi
+
+for i in "${@}"
+do
+	if [ ! -e ${i} ]
+	then
+		error "file ${i} does not exist"
+	fi
+
+	/bin/install -m0644 ${i} ${D}${_insinto_dir} || error "doins ${i} failed"
+done

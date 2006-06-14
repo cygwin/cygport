@@ -1,0 +1,98 @@
+################################################################################
+#
+# xorg.cygclass - functions for building Xorg components
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+XORG_RELEASE=${XORG_RELEASE:-X11R7.0}
+
+case ${PN} in
+	xorg-util-macros|xorg-encodings|xorg-font*|xorg-scripts)
+		ORIG_PN=${PN/xorg-/}
+		;;
+	*)
+		ORIG_PN=${PN}
+		;;
+esac
+
+case ${PN} in
+	xbitmaps|xcursor-themes|xkbdata)
+		xorg_cat=data
+		;;
+	xorg-docs|xorg-sgml*)
+		xorg_cat=doc
+		;;
+	xorg-encodings|xorg-font*)
+		xorg_cat=font
+		;;
+	lib*|xtrans)
+		xorg_cat=lib
+		;;
+	*proto|*protocol|evieext)
+		xorg_cat=proto
+		;;
+	*make*|lndir|xorg-cf-files|xorg-util-macros)
+		xorg_cat=util
+		;;
+	xorg-server*)
+		xorg_cat=xserver
+		;;
+	*)
+		xorg_cat=app
+		;;
+esac
+
+DESCRIPTION="X.org ${ORIG_PN} component"
+HOMEPAGE="http://xorg.freedesktop.org/"
+SRC_URI="http://xorg.freedesktop.org/releases/individual/${xorg_cat}/${ORIG_PN}-${PV}.tar.bz2"
+SRC_DIR="${ORIG_PN}-${PV}"
+
+xorg_compile() {
+	local xorg_conf
+	case ${PN} in
+		xorg-font-*-75dpi)
+			xorg_conf="--with-fontdir=/usr/share/fonts/75dpi"
+			;;
+		xorg-font-*-100dpi)
+			xorg_conf="--with-fontdir=/usr/share/fonts/100dpi"
+			;;
+		xorg-font-*-speedo)
+			xorg_conf="--with-fontdir=/usr/share/fonts/Speedo"
+			;;
+		xorg-font-*-ttf)
+			xorg_conf="--with-fontdir=/usr/share/fonts/TTF"
+			;;
+		xorg-font-*-type1)
+			xorg_conf="--with-fontdir=/usr/share/fonts/Type1"
+			;;
+		xorg-font-*-cyrillic)
+			xorg_conf="--with-fontdir=/usr/share/fonts/cyrillic"
+			;;
+		xorg-font-*-misc)
+			xorg_conf="--with-fontdir=/usr/share/fonts/misc"
+			;;
+	esac
+
+	cygconf --disable-static ${xorg_conf} ${@}
+
+	cygmake
+}
+
+src_compile() {
+	case ${PN} in
+		xorg-util-macros|*proto*|evieext|xbitmaps|xcursor-themes|xtrans|xorg-sgml-doctools|xorg-docs|xorg-encodings|xorg-font*)
+			# these are just data and don't benefit from autoreconf
+			;;
+		*)
+			cd ${S}
+			cygautoreconf
+			;;
+	esac
+
+	cd ${B}
+	xorg_compile
+}

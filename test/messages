@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e
+
+if [ "x${_name}" = "x${PACKAGE}" ]
+then
+	echo "This test will not run within a cygport process."
+	echo "You will need to call 'make check' manually."
+	exit 77		# SKIP
+fi
+
+export CYGPORT_BOOTSTRAP=1
+
+${top_builddir}/bin/cygport --help
+echo
+
+${top_builddir}/bin/cygport --version
+echo
+
+cat > foo-1.2.3-4.cygport <<-_EOF
+	DESCRIPTION="Cygport messages test package"
+	HOMEPAGE="http://cygwinports.dotsrc.org/"
+	SRC_URI="http://cygwinports.dotsrc.org/${P}.ABC"
+	_EOF
+
+${top_builddir}/bin/cygport foo-1.2.3-4.cygport info
+echo
+
+rm -f foo-1.2.3-4.cygport

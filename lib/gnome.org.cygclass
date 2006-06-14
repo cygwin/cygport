@@ -1,0 +1,13 @@
+################################################################################
+#
+# gnome.org.cygclass - sets SRC_URI for ftp.gnome.org packages
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+HOMEPAGE="http://www.gnome.org/"
+SRC_URI="http://ftp.gnome.org/pub/gnome/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
+CVS_URI=":pserver:anonymous@anoncvs.gnome.org:/cvs/gnome"

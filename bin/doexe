@@ -1,0 +1,26 @@
+#!/bin/bash
+################################################################################
+#
+# doexe - installs executable into exeinto directory
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+if [ -z "${_exeinto_dir}" -o ! -d ${D}${_exeinto_dir} ]
+then
+	error "exeinto must be called before doexe"
+fi
+
+for i in "${@}"
+do
+	if [ ! -e ${i} ]
+	then
+		error "file ${i} does not exist"
+	fi
+
+	/bin/install -m0755 ${i} ${D}${_exeinto_dir} || error "doexe ${i} failed"
+done

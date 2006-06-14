@@ -1,0 +1,59 @@
+################################################################################
+#
+# utils.cygclass - assortment of miscellaneous functions
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+# checks for presence of headers in standard include path
+check_header() {
+	local h;
+
+	for h in "${@}"
+	do
+		if [ ! -e /usr/include/${h} -a ! -e /usr/include/w32api/${h} ]
+		then
+			return 1;
+		fi
+	done
+
+	return 0;
+}
+
+# checks for presence of link libraries in standard library path
+check_lib() {
+	local l;
+
+	for l in "${@}"
+	do
+		if [ ! -e /usr/lib/lib${l}.a -a ! -e /usr/lib/lib${l}.dll.a -a ! -e /usr/lib/w32api/lib${l}.a ]
+		then
+			return 1;
+		fi
+	done
+
+	return 0
+}
+
+# equivalent of PKG_CHECK_MODULES aclocal macro
+# e.g.: check_pkg_config GLADE "gtk+-2.0 >= 2.6.0 libglade-2.0"
+# will use pkg-config to verify that those devel packages are present,
+# and define GLADE_CFLAGS and GLADE_LIBS accordingly
+check_pkg_config() {
+	local modname=${1};
+	shift;
+
+	check_prog_req pkg-config;
+
+	if ! pkg-config --exists ${*}
+	then
+		return 1;
+	fi
+
+	export ${modname}_CFLAGS="$(pkg-config --cflags ${*})";
+	export ${modname}_LIBS="$(pkg-config --libs ${*})";
+	return 0;
+}

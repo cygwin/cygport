@@ -1,0 +1,23 @@
+#!/bin/bash
+################################################################################
+#
+# newins - installs file into insinto directory with new name
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+if [ -z "${_insinto_dir}" -o ! -d ${D}${_insinto_dir} ]
+then
+	error "insinto must be called before newins"
+fi
+
+if [ ! -e ${1} ]
+then
+	error "file ${1} does not exist"
+fi
+
+/bin/install -m0644 ${1} ${D}${_insinto_dir}/${2} || error "newins ${1} failed"

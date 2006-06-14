@@ -1,0 +1,79 @@
+################################################################################
+#
+# pygtk.cygclass - functions for building PyGTK and Gnome-Python packages
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+pygtk_mod=$(echo ${PN} | sed -e 's:^py::' -e "s:${PV_MAJ}$::")
+
+case ${pygtk_mod} in
+	gobject|gtk)
+		pygtk_subdir=.
+		ORIG_PN=py${pygtk_mod}
+		;;
+	bonobo|gconf|gnome|gnomecanvas|gnomevfs)
+		pygtk_subdir=${pygtk_mod}
+		ORIG_PN=gnome-python
+		;;
+	gnomeapplet|gnomeprint|gtksourceview|mediaprofiles|metacity|wnck)
+		pygtk_subdir=${pygtk_mod}
+		ORIG_PN=gnome-python-desktop
+		;;
+	gtkhtml)
+		pygtk_subdir=gtkhtml2
+		ORIG_PN=gnome-python-extras
+		;;
+	egg|gtkspell|gda|gdl)
+		pygtk_subdir=${pygtk_mod}
+		ORIG_PN=gnome-python-extras
+		;;
+	nautilus)
+		pygtk_subdir=.
+		ORIG_PN=nautilus-python
+		;;
+	gtkglext)
+		pygtk_subdir=.
+		ORIG_PN=${PN}
+		;;
+esac
+
+inherit gnome.org python
+
+DESCRIPTION="Python ${pygtk_mod} bindings"
+HOMEPAGE="http://www.pygtk.org/"
+
+pygtk_compile() {
+	cygconf --disable-static "${@}"
+	cd ${pygtk_subdir}
+	cygmake LIBS="-no-undefined ${LIBPYTHON}"
+}
+
+pygtk_install() {
+	cd ${pygtk_subdir}
+	cyginstall
+
+	# FIXME: are gnome-python-{desktop,extras}-2.0.pc actually used for
+	# anything?  How should they be packaged?
+	case ${pygtk_mod} in
+		gnomevfs)
+			insinto /usr/lib/pkgconfig
+			doins ${B}/${ORIG_PN}-*.pc
+			;;
+	esac
+}
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	cd ${B}
+	pygtk_compile
+}
+
+src_install() {
+	cd ${B}
+	pygtk_install
+}

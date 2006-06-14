@@ -1,0 +1,18 @@
+#!/bin/bash
+################################################################################
+#
+# dosym - creates symlink to install path
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+if [ ! -d ${D}${2%/*} ]
+then
+	error "install directory ${2%/*} does not exist"
+fi
+
+ln -sf ${1} ${D}${2} || error "dosym ${1} failed"

@@ -1,0 +1,23 @@
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+
+DESCRIPTION="Next-generation Cygwin packaging application"
+HOMEPAGE="http://cygwinports.dotsrc.org/"
+SRC_URI="http://easynews.dl.sourceforge.net/cygwin-ports/${P}.tar.bz2"
+
+src_compile() {
+	# this package is only scripts, so we can skip cygautoreconf
+	cd ${B}
+	cygconf
+	cygmake
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	make_etc_defaults /etc/cygport.conf
+
+	dodoc ${S}/data/sample.cygport
+}

@@ -1,0 +1,95 @@
+################################################################################
+#
+# kde3.cygclass - functions for building KDE 3.x packages
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+inherit qt3
+
+HOMEPAGE="http://www.kde.org/"
+
+case ${PN} in
+	arts)
+		ftp_pv=3.${PVP[1]}.${PVP[2]}
+		;;
+	kdevelop)
+		ftp_pv=3.$((PVP[1] + 2)).${PVP[2]}
+		;;
+	*)
+		ftp_pv=${PV}
+		;;
+esac
+
+case ${PN} in
+	kde-i18n-*)
+		SRC_URI="ftp://ftp.kde.org/pub/kde/stable/${ftp_pv}/src/kde-i18n/${P}.tar.bz2"
+		;;
+	koffice)
+		SRC_URI="ftp://ftp.kde.org/pub/kde/stable/koffice-${PV}/src/${P}.tar.bz2"
+		;;
+	koffice-l10n-*)
+		SRC_URI="ftp://ftp.kde.org/pub/kde/stable/koffice-${PV}/src/koffice-l10n/${P}.tar.bz2"
+		;;
+	*)
+		SRC_URI="ftp://ftp.kde.org/pub/kde/stable/${ftp_pv}/src/${P}.tar.bz2"
+		;;
+esac
+
+kde3_autoreconf() {
+	if [ ! -e admin/Makefile.common ]
+	then
+		error "No KDE source package detected"
+	fi
+
+	find . -name '*.ui' -print | xargs -r touch
+	cp -f /usr/share/libtool/ltmain.sh admin/ltmain.sh
+	cp -f /usr/share/aclocal/libtool.m4 admin/libtool.m4.in
+	make -f admin/Makefile.common || error "KDE autoreconf failed"
+}
+
+kde3_compile() {
+	cygconf \
+		--includedir=/usr/include/kde \
+		--libexecdir=/usr/lib/kde3/bin \
+		--disable-static \
+		--disable-debug --without-debug \
+		--disable-dependency-tracking \
+		--with-x --without-xinerama \
+		--disable-mitshm \
+		--with-qt-dir=${QTDIR} \
+		--with-qt-includes=${QINCLUDEDIR} \
+		--with-qt-libraries=${QLIBDIR} --enable-mt \
+		--with-distribution=Cygwin \
+		--disable-libfam --disable-dnotify \
+		--without-arts --disable-arts \
+		--with-ipv6-lookup=no \
+		--with-ssl-dir=/usr \
+		--with-gssapi=no \
+		--enable-fast-malloc=no \
+		--with-berkeley-db \
+		--with-db-name=db-4.3 \
+		--with-db-include-dir=/usr/include/db4.3 \
+		"${@}"
+
+	cygmake
+}
+
+kde3_install() {
+	cyginstall destdir=${D}
+}
+
+src_compile() {
+	cd ${S}
+	kde3_autoreconf
+	cd ${B}
+	kde3_compile
+}
+
+src_install() {
+	cd ${B}
+	kde3_install
+}

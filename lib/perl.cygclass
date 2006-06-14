@@ -1,0 +1,126 @@
+################################################################################
+#
+# perl.cygclass - functions for building CPAN Perl modules
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+check_prog_req perl
+
+PERL=/usr/bin/perl
+PERL_VERSION=$(${PERL} -MConfig -e 'print $Config{api_revision}.".".$Config{api_version};')
+PERL_LIB=$(${PERL} -MConfig -e 'print $Config{privlib};')
+PERL_ARCHLIB=$(${PERL} -MConfig -e 'print $Config{archlib};')
+PERL_VENDORARCH=$(${PERL} -MConfig -e 'print $Config{vendorarch};')
+PERL_VENDORLIB=$(${PERL} -MConfig -e 'print $Config{vendorlib};')
+LIBPERL="-L${PERL_ARCHLIB}/CORE -lperl"
+
+ORIG_PN=${ORIG_PN:-${PN#perl-}}
+SRC_DIR="${ORIG_PN}-${PV}"
+
+DESCRIPTION="Perl ${ORIG_PN//-/::} module"
+
+if [ -n "${CPAN_AUTHOR}" ]
+then
+	cpan_author_web=$(echo ${CPAN_AUTHOR} | tr '[:upper:]' '[:lower:]')
+	cpan_author_ftp=$(echo ${CPAN_AUTHOR} | tr '[:lower:]' '[:upper:]')
+	HOMEPAGE="http://search.cpan.org/~${cpan_author_web}/${ORIG_PN}/"
+	SRC_URI="http://search.cpan.org/CPAN/authors/id/${cpan_author_ftp:0:1}/${cpan_author_ftp:0:2}/${cpan_author_ftp}/${ORIG_PN}-${PV}.${CPAN_TARBALL_SUFFIX:-tar.gz}"
+fi
+
+check_perl_module() {
+	local mod;
+
+	if [ -z "${*}" ]
+	then
+		error "check_perl_module requires at least one argument"
+	fi
+
+	for mod in ${@}
+	do
+		if ! ${PERL} -M${mod} -e '' &> /dev/null
+		then
+			return 2
+		fi
+	done
+
+	return 0
+}
+
+perl_compile() {
+	if [ -e Build.PL ]
+	then
+		${PERL} Build.PL --prefix /usr installdirs=vendor ${@} || error "Module::Build creation failed"
+		${PERL} Build || error "Module::Build build failed"
+	elif [ -e Makefile.PL ]
+	then
+		${PERL} Makefile.PL PREFIX=/usr INSTALLDIRS=vendor ${@} || error "Perl Makefile creation failed"
+		cygmake all manifypods
+	else
+		error "No Perl module detected"
+	fi
+}
+
+perl_test() {
+	if [ -f Build ]
+	then
+		${PERL} Build test
+	elif [ -f Makefile ]
+	then
+		make test
+	else
+		error "No Perl module detected"
+	fi
+}
+
+perl_install() {
+	if [ -f Build ]
+	then
+		${PERL} Build install destdir=${D} || error "Module::Build install failed"
+	elif [ -f Makefile ]
+	then
+		cyginstall
+	else
+		error "No Perl module detected"
+	fi
+}
+
+perl_postinst() {
+	local localpod=${PERL_ARCHLIB}/perllocal.pod
+	local poddir=/usr/share/perl/cygwin-pods/${PERL_VERSION}
+
+	if [ -f ${D}${localpod} ]
+	then
+		dodir ${poddir}
+		sed -e "s:${D}::g" ${D}${localpod} > ${D}${poddir}/${PN/perl-/}.pod
+		rm -f ${D}${localpod}
+
+		dodir /etc/postinstall
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			cat ${poddir}/${PN/perl-/}.pod >> ${localpod}
+
+			_EOF
+	fi
+
+	find ${D}${PERL_VENDORLIB} -name .packlist | xargs -r sed -i -e "s:${D}::g"
+}
+
+src_compile() {
+	lndirs
+	cd ${B}
+	perl_compile
+}
+
+src_test() {
+	cd ${B}
+	perl_test
+}
+
+src_install() {
+	cd ${B}
+	perl_install
+	perl_postinst
+}

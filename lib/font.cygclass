@@ -1,0 +1,44 @@
+################################################################################
+#
+# font.cygclass - functions for installing X11 fonts
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+FONTSDIR="/usr/share/fonts"
+
+fontinto() {
+	if [ -n "${2}" ]
+	then
+		error "fontinto accepts only one argument"
+	fi
+
+	case ${1} in
+		/*)
+			error "argument should be only a subdirectory, not a full path"
+			;;
+	esac
+
+	dodir ${FONTSDIR}/${1}
+	export _fontinto_dir=${FONTSDIR}/${1}
+}
+
+dofont() {
+	if [ -z "${_fontinto_dir}" -o ! -d ${D}${_fontinto_dir} ]
+	then
+		error "fontinto must be called before dofont"
+	fi
+
+	for i in "${@}"
+	do
+		if [ ! -e ${i} ]
+		then
+			error "file ${i} does not exist"
+		fi
+
+		/bin/install -m0644 ${i} ${D}${_fontinto_dir} || error "dofont ${i} failed"
+	done
+}

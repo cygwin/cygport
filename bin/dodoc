@@ -1,0 +1,37 @@
+#!/bin/bash
+################################################################################
+#
+# dodoc - installs file into documentation directory
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+if [ -n "${_docinto_dir}" ]
+then
+	docdir=/usr/share/doc/${P}/${_docinto_dir}
+else
+	docdir=/usr/share/doc/${P}
+fi
+
+dodir ${docdir}
+
+for i in "${@}"
+do
+	if [ -f ${i} -o -L ${i} ]
+	then
+		if [ "x$(file -b ${i})" != "xempty" ]
+		then
+			/bin/install -m0644 ${i} ${D}${docdir} || error "dodoc ${i} failed"
+		fi
+	elif [ -f ${i}.txt -o -L ${i}.txt ]
+	then
+		if [ "x$(file -b ${i}.txt)" != "xempty" ]
+		then
+			/bin/install -m0644 ${i}.txt ${D}${docdir} || error "dodoc ${i}.txt failed"
+		fi
+	fi
+done

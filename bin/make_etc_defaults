@@ -1,0 +1,31 @@
+#!/bin/bash
+################################################################################
+#
+# prep_etc_defaults - postinstall steps for /etc/defaults config files
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+for etc in "${@}"
+do
+	if [ ! -f ${D}${etc} ]
+	then
+		error "file ${etc} does not exist"
+	fi
+
+	dodir /etc/defaults${etc%/*}
+	/bin/mv ${D}${etc} ${D}/etc/defaults${etc}
+
+	dodir /etc/postinstall
+	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+		if [ ! -f ${etc} ]
+		then
+		    /bin/cp /etc/defaults${etc} ${etc}
+		fi
+		
+		_EOF
+done

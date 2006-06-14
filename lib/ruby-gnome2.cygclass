@@ -1,0 +1,64 @@
+################################################################################
+#
+# ruby-gnome2.cygclass - functions for building Ruby GNOME 2.x bindings
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+inherit ruby
+
+rbg2_pn=${PN/ruby-/}
+
+case ${rbg2_pn} in
+	gtkhtml2)
+		rbg2_subdir=${rbg2_pn}
+		;;
+	*)
+		rbg2_subdir=${rbg2_pn%2}
+		;;
+esac
+
+ORIG_PN=ruby-gnome2-all
+
+DESCRIPTION="Ruby ${rbg2_pn} bindings"
+HOMEPAGE="http://ruby-gnome2.sourceforge.jp/"
+SRC_URI="http://easynews.dl.sourceforge.net/ruby-gnome2/${ORIG_PN}-${PV}.tar.gz"
+SRC_DIR=${ORIG_PN}-${PV}
+
+# FIXME: CAIRO_PATH is supposed to be the rcairo builddir, so this
+# actually produces a bogus -L flag.
+export CAIRO_PATH="${RUBY_SITEARCH}"
+
+DEPS_PATH="${RUBY_SITEARCH}"
+
+ruby_gnome2_compile() {
+	cd ${rbg2_subdir}
+
+	${RUBY} extconf.rb || error "extconf.rb failed"
+
+	cygmake -j1 LOCAL_LIBS="-L${RUBY_SITEARCH}"
+
+	rdoc src -o rdoc
+}
+
+ruby_gnome2_install() {
+	cd ${rbg2_subdir}
+	ruby_install
+
+	insinto ${RUBY_SITEARCH}
+	doins ${B}/${rbg2_subdir}/src/libruby-${rbg2_pn}.a
+}
+
+src_compile() {
+	lndirs
+	cd ${B}
+	ruby_gnome2_compile
+}
+
+src_install() {
+	cd ${B}
+	ruby_gnome2_install
+}

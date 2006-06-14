@@ -1,0 +1,128 @@
+cygport
+------------------------------------------
+This is cygport, a revolutionary new method for building and maintaining
+packages for the Cygwin distribution.
+
+Runtime requirements:
+  cygwin
+  autoconf
+  automake
+  bash
+  bzip2
+  coreutils
+  diffstat
+  diffutils
+  file
+  grep
+  gzip
+  libtool1.5
+  lndir
+  make
+  patch
+  sed
+  tar
+  unzip
+  wget
+
+Build requirements:
+  cygwin-1.5.20-1 (20060604)
+  gawk-3.1.5-2
+  help2man-1.35.1-1
+  make-3.80-1
+  sed-4.1.4-1
+
+Canonical website:
+  http://cygwinports.dotsrc.org/
+
+Canonical download:
+  http://prdownloads.sourceforge.net/cygwin-ports/
+
+-------------------------------------------
+
+Build instructions:
+  unpack cygport-0.2.2-X-src.tar.bz2
+    if you use setup to install this src package, it will be
+	 unpacked under /usr/src automatically
+  cd /usr/src
+  cygport ./cygport-0.2.2-X.cygport all
+
+This will create:
+  /usr/src/cygport-0.2.2-X-src.tar.bz2
+  /usr/src/cygport-0.2.2-X.tar.bz2
+
+-------------------------------------------
+
+Files included in the binary package:
+
+  /etc/defaults/etc/cygport.conf
+  /etc/postinstall/cygport.sh
+  /usr/bin/cygport
+  /usr/lib/cygport/bin/dobin
+  /usr/lib/cygport/bin/dodoc
+  /usr/lib/cygport/bin/doexe
+  /usr/lib/cygport/bin/doicon
+  /usr/lib/cygport/bin/doins
+  /usr/lib/cygport/bin/dolib
+  /usr/lib/cygport/bin/doman
+  /usr/lib/cygport/bin/domenu
+  /usr/lib/cygport/bin/dosbin
+  /usr/lib/cygport/bin/dosym
+  /usr/lib/cygport/bin/make_desktop_entry
+  /usr/lib/cygport/bin/make_etc_defaults
+  /usr/lib/cygport/bin/make_managed_mount
+  /usr/lib/cygport/bin/newbin
+  /usr/lib/cygport/bin/newdoc
+  /usr/lib/cygport/bin/newexe
+  /usr/lib/cygport/bin/newicon
+  /usr/lib/cygport/bin/newins
+  /usr/lib/cygport/bin/newman
+  /usr/lib/cygport/bin/newmenu
+  /usr/lib/cygport/bin/prep_fonts_dir.sh
+  /usr/lib/cygport/bin/prep_freedesktop_mime.sh
+  /usr/lib/cygport/bin/prep_gconf_schemas.sh
+  /usr/lib/cygport/bin/prep_gnu_info.sh
+  /usr/lib/cygport/bin/prep_gtk2_modules.sh
+  /usr/lib/cygport/bin/prep_libtool_modules.sh
+  /usr/lib/cygport/bin/prep_scrollkeeper_omf.sh
+  /usr/lib/cygport/lib/cvs.cygclass
+  /usr/lib/cygport/lib/distutils.cygclass
+  /usr/lib/cygport/lib/emacs.cygclass
+  /usr/lib/cygport/lib/font.cygclass
+  /usr/lib/cygport/lib/fox.cygclass
+  /usr/lib/cygport/lib/gnome.org.cygclass
+  /usr/lib/cygport/lib/gnome2.cygclass
+  /usr/lib/cygport/lib/gst-plugins.cygclass
+  /usr/lib/cygport/lib/gtk2-perl.cygclass
+  /usr/lib/cygport/lib/gtkmm.cygclass
+  /usr/lib/cygport/lib/kde3.cygclass
+  /usr/lib/cygport/lib/perl.cygclass
+  /usr/lib/cygport/lib/pygtk.cygclass
+  /usr/lib/cygport/lib/python.cygclass
+  /usr/lib/cygport/lib/qt3.cygclass
+  /usr/lib/cygport/lib/ruby.cygclass
+  /usr/lib/cygport/lib/ruby-gnome2.cygclass
+  /usr/lib/cygport/lib/svn.cygclass
+  /usr/lib/cygport/lib/utils.cygclass
+  /usr/lib/cygport/lib/xorg.cygclass
+  /usr/share/doc/Cygwin/cygport-0.2.2.README
+  /usr/share/doc/cygport-0.2.2/AUTHORS
+  /usr/share/doc/cygport-0.2.2/COPYING
+  /usr/share/doc/cygport-0.2.2/ChangeLog
+  /usr/share/doc/cygport-0.2.2/INSTALL
+  /usr/share/doc/cygport-0.2.2/NEWS
+  /usr/share/doc/cygport-0.2.2/README
+  /usr/share/doc/cygport-0.2.2/TODO
+  /usr/share/doc/cygport-0.2.2/sample.cygport
+  /usr/share/man/man1/cygport.1.gz
+
+------------------
+
+Port Notes:
+
+----- version 0.2.2-1 -----
+Version bump.
+See ChangeLog and NEWS for more information about this and past releases.
+
+
+Cygwin port maintained by:
+http://cygwinports.dotsrc.org/

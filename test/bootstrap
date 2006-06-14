@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+if [ "x${_name}" = "x${PACKAGE}" ]
+then
+	echo "This test will not run within a cygport process."
+	echo "You will need to call 'make check' manually."
+	exit 77		# SKIP
+fi
+
+export CYGPORT_BOOTSTRAP=1
+
+if [ ! -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.bz2 ]
+then
+	( cd ${top_builddir} && ${MAKE} dist-bzip2 )
+fi
+
+cp -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.bz2 .
+cp -f ${top_srcdir}/data/sample.cygport ${PACKAGE}-${VERSION}-1.cygport
+
+${top_builddir}/bin/cygport ${PACKAGE}-${VERSION}-1.cygport prep compile install pkg
+
+cp -r ${PACKAGE}-${VERSION}-1/dist/${PACKAGE} .
+
+${top_builddir}/bin/cygport ${PACKAGE}-${VERSION}-1.cygport finish

@@ -1,0 +1,45 @@
+#!/bin/bash
+################################################################################
+#
+# prep_managed_mount - postinstall/preremove steps for installed managed mounts
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+for d in "${@}"
+do
+	if [ ! -d ${D}${d} ]
+	then
+		error "directory ${d} does not exist"
+	fi
+
+	dodir /etc/postinstall /etc/preremove
+
+	cd ${D}${d}
+	tar jcf ${D}/etc/postinstall/${d//\//_}.tar.bz2 *
+
+	cd ${D}
+	rm -fr ${D}${d}
+
+	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+		if [ ! -d ${d} ]
+		then
+		    mkdir -p ${d}
+		    mount -o managed \$(cygpath -w ${d}) ${d}
+		    tar jxf /etc/postinstall/${d//\//_}.tar.bz2 -C ${d}
+		fi
+		
+		_EOF
+
+	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+	    rm -fr ${d}/*
+	    sleep 1
+	    umount ${d}
+	    rmdir ${d}
+		
+		_EOF
+done

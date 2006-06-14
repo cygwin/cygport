@@ -1,0 +1,20 @@
+This is an wishlist of features to add in future releases, in no
+particular order:
+
+* Documentation (format??)
+* Fix all FIXMEs
+* Debug and/or Verbose mode
+* l10n ??
+* mirror:// support in src_fetch()
+* flag-o-matic functions
+* Additional cygclasses:
+	- docbook
+	- git
+	- kde3-split
+	- xfce
+
+* Whenever gstreamer starts new branch:
+	mv gst-plugins.cygclass gst-plugins0.10.cygclass
+	New gst-plugins.cygclass wrapper:
+		inherit gst-plugins${PVP[0]}.$((PVP[1] + PVP[1] % 2))
+    i.e. both 0.11.x and 0.12.x should use gst-plugins0.12

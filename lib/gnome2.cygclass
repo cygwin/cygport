@@ -1,0 +1,135 @@
+################################################################################
+#
+# gnome2.cygclass - functions for building GNOME 2.x packages
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+inherit gnome.org
+
+gnome2_autoreconf() {
+	local aclocal_flags
+	local f
+
+	if [ -f configure.ac ]
+	then
+		configure_ac="configure.ac"
+	elif [ -f configure.in ]
+	then
+		configure_ac="configure.in"
+	else
+		error "cannot find configure.ac or configure.in"
+	fi
+
+	export WANT_AUTOCONF WANT_AUTOMAKE
+
+	if grep -q "^A[CM]_PROG_LIBTOOL" ${configure_ac}
+	then
+		check_prog_req libtoolize libtool1.5
+		verbose libtoolize --copy --force || error "libtoolize failed"
+	fi	
+
+	if grep -q "^AM_GLIB_GNU_GETTEXT" ${configure_ac}
+	then
+		check_prog_req glib-gettextize glib2-devel
+		verbose glib-gettextize --copy --force || error "glib-gettextize failed"
+	elif grep -q "^AM_GNU_GETTEXT" ${configure_ac}
+	then
+		if grep -q "^AM_GNU_GETTEXT_VERSION" ${configure_ac}
+		then
+			check_prog_req autopoint gettext-devel
+			verbose autopoint --force || error "autopoint failed"
+		else
+			check_prog_req gettextize gettext-devel
+			verbose gettextize --copy --force || error "gettextize failed"
+		fi
+	fi
+
+	if grep -q "^AC_PROG_INTLTOOL" ${configure_ac} || grep -q "^IT_PROG_INTLTOOL" ${configure_ac}
+	then
+		check_prog_req intltoolize intltool
+		verbose intltoolize --copy --force || error "intltoolize failed"
+	fi
+	
+	if grep -q "^GTK_DOC_CHECK" ${configure_ac}
+	then
+		check_prog_req gtkdocize gtk-doc
+		verbose gtkdocize --copy || error "gtkdocize failed"
+	fi
+
+	if [ -f omf-install/Makefile.am -o -f omf.make -o -f xmldocs.make ]
+	then
+		check_prog_req gnome-doc-common gnome-common
+		verbose gnome-doc-common --copy || error "gnome-doc-common failed"
+	fi
+
+	if grep -q "^GNOME_DOC_INIT" ${configure_ac} && [ "x${PN}" != "xgnome-doc-utils" ]
+	then
+		check_prog_req gnome-doc-prepare gnome-doc-utils
+		verbose gnome-doc-prepare --copy --force || error "gnome-doc-prepare failed"
+	fi
+	
+	if grep -q "^ACLOCAL_AMFLAGS" Makefile.am
+	then
+		aclocal_flags="$(grep '^ACLOCAL_AMFLAGS' Makefile.am | sed -e 's!^ACLOCAL_AMFLAGS.*=!!')"
+	fi
+
+	case "$(aclocal --version | head -n 1 | cut -d ' ' -f 4)" in
+		1.8*|1.9*)  aclocal_flags="--force ${aclocal_flags}" ;;
+	esac
+
+	verbose aclocal ${aclocal_flags} || error "aclocal failed"
+	verbose autoconf --force || error "autoconf failed"
+
+	if grep -q "^A[CM]_CONFIG_HEADER" ${configure_ac}
+	then
+		verbose autoheader --force || error "autoheader failed"
+		touch config.h.in
+	fi
+
+	for f in COPYING INSTALL
+	do
+		if [ -f ${f} ]
+		then
+			cp -f ${f} ${f}.temp
+		fi
+	done
+
+	verbose automake --add-missing --copy --force-missing --gnu || error "automake failed"
+
+	for f in COPYING INSTALL
+	do
+		if [ -f ${f}.temp ]
+		then
+			mv -f ${f}.temp ${f}
+		fi
+	done
+}
+
+gnome2_compile() {
+	cygconf \
+		--enable-gtk-doc \
+		--disable-schemas-install \
+		--disable-scrollkeeper \
+		--disable-static \
+		"${@}"
+	cygmake
+}
+
+src_compile() {
+	case ${PN} in
+		gnome-backgrounds|gnome-common|gnome-icon-theme|gnome-themes|gnome-themes-extras|gnome-games-extra-data)
+			# These are just data and don't benefit from autoreconf
+			;;
+		*)
+			cd ${S}
+			gnome2_autoreconf
+			;;
+	esac
+
+	cd ${B}
+	gnome2_compile
+}

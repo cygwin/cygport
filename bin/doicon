@@ -1,0 +1,25 @@
+#!/bin/bash
+################################################################################
+#
+# doicon - installs desktop menu icon to install path
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+pixmapsdir=/usr/share/pixmaps
+
+dodir ${pixmapsdir}
+
+for i in "${@}"
+do
+	if [ ! -e ${i} ]
+	then
+		error "file ${i} does not exist"
+	fi
+
+	/bin/install -m0644 ${i} ${D}${pixmapsdir} || error "doicon ${i} failed"
+done

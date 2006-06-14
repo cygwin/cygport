@@ -1,0 +1,43 @@
+################################################################################
+#
+# svn.cygclass - functions for building packages from SVN checkouts
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+_USE_SVN_FETCH=1
+
+if [ -z "${SVN_URI}" ]
+then
+	error "SVN_URI must be defined"
+fi
+
+SVN_URI=${SVN_URI%/}
+SVN_MODULE=${SVN_URI##*/}
+
+SRC_URI="${SVN_MODULE}-${PV}.tar.bz2"
+SRC_DIR="${SVN_MODULE}"
+
+svn_fetch() {
+	local svn_rev
+
+	check_prog_req svn subversion
+
+	if [ -n "${SVN_REV}" ]
+	then
+		svn_rev="-r ${SVN_REV}"
+	elif [ -n "${SVN_DATE}" ]
+	then
+		svn_rev="-r {${SVN_DATE}}"
+	fi
+
+	# T likely doesn't exist at this point, so create it first
+	mkdir -p ${T}
+	cd ${T}
+	verbose svn checkout ${SVN_URI} ${svn_rev}
+
+	tar jcf ${top}/${SRC_URI} --exclude=.svn ${SVN_MODULE}
+}

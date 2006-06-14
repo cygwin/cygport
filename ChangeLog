@@ -1,0 +1,541 @@
+*** 0.2.2 ****
+
+	* bin/cygport.in (verbose, cygconf),
+	  lib/cvs.cygclass (cvs_unpack),
+	  lib/gnome2.cygclass (gnome2_autoreconf),
+	  lib/svn.cygclass (svn_unpack):
+	New function to print a command before execution, as make does.
+	Use throughout.
+
+	* bin/cygport.in (pkg_pkgcheck):
+	Only warn where files are missing, as there are cases where that's 
+	acceptable, but error if files are duplicated.
+
+	* bin/cygport.in (pkg_diff):
+	Ignore intltool.m4, except for within intltool.
+	Ignore omf.make and xmldocs.make, except for within gnome-common.
+
+	* lib/xorg.cygclass:
+	Don't force WANT_AUTOMAKE.
+
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Only pass --force to aclocal-1.8/1.9; earlier versions don't accept it.
+
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.2.1 ****
+
+	* bin/cygport.in (pkg_pkgcheck):
+	New internal function for detecting duplicate and missing files from 
+	binary packages.  Patch provided by Reini Urban:
+	http://www.cygwin.com/ml/cygwin/2006-06/msg00140.html
+
+	* bin/cygport.in (cygautoreconf):
+	Run touch config.h.in if present, since autoheader doesn't if unchanged.
+
+	* lib/kde3.cygclass:
+	Support koffice.
+
+	* lib/qt3.cygclass (qt3_qmake):
+	Simplified.
+	Don't define src_install(), as qt3_install doesn't always work.
+
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Totally rewritten based on gnome-autogen.sh.
+
+	* bin/cygconf.in (check_prog_req, cygautoreconf, unpack),
+	  lib/cvs.cygclass (cvs_unpack),
+	  lib/gst-plugins.cygclass (gst_plugins_autoreconf),
+	  lib/perl.cygclass,
+	  lib/python.cygclass,
+	  lib/ruby.cygclass,
+	  lib/svn.cygclass (svn_unpack),
+	  lib/utils.cygclass (check_pkg_config):
+	New check_prog_req() function which errors if command not found.
+	Use check_prog_req throughout.
+
+	* lib/perl.cygclass (SRC_URI, perl_compile):
+	Accept CPAN_TARBALL_SUFFIX and default to tar.gz.
+	Pass arguments to perl_compile() to perl Build.PL/Makefile.PL.
+	Pass --prefix /usr to Build.PL.
+
+	* doc/Makefile.am (DISTCLEANFILES):
+	Added cygport.1.
+
+	* lib/gnome.org.cygclass:
+	Point CVS_URI to GNOME's CVS server.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.2.0 ***
+
+	* bin/Makefile.am (privbin_SCRIPTS),
+	  bin/cygport.in (__prepetc),
+	  bin/prep_perl_modules.sh,
+	  lib/perl.cygclass (perl_postinst):
+	Moved the perl postinstall steps into perl.cygclass.
+
+	* bin/make_desktop_entry:
+	Properly handle desktop commands with arguments.
+
+	* lib/gtkmm.cygclass:
+	Restrict the tests directory, if present, to src_test().
+
+	* lib/perl.cygclass (check_perl_module):
+	New function for verifying presence of given Perl module(s).
+
+	* bin/cygport.in (inherit):
+	Prevent cygclasses from being imported more than once.
+
+	* bin/cygport.in:
+	Check that cygport version is as least CYGPORT_DEPEND, if defined.
+
+	* bin/cygport.in:
+	New __step function (for now, internal use only) for low-level messages.
+
+	* lib/ruby.cygclass:
+	Don't install examples, samples, etc.
+	Run rdoc on dirs defined in RDOC_SOURCE.
+
+	* configure.ac (AC_CONFIG_FILES),
+	  bin/Makefile.am:
+	Create cygport during make instead of by config.status.
+
+	* README:
+	Documented PKG_* variable usage, USE_DESTDIR, and other new features.
+
+	* autogen.sh,
+	  configure.ac (AC_CONFIG_FILES),
+	  Makefile.am (SUBDIRS),
+	  data/sample.cygport (src_compile),
+	  doc/Makefile.am:
+	Create a basic man1 page, built with help2man(1).
+
+	* test/messages:
+	Test the --version argument also.
+	Remove the fake .cygport file after execution.
+
+	* bin/cygport.in (__mkdirs, apply_patch, src_prep, pkg_diff):
+	Allow SRC_DIR='.' and multiple files in SRC_URI; implementing:
+		Create top-level /origsrc dir, instead of ${S}-orig;
+		apply_patch tests different -p? args to determine correct patch level;
+		Other transparent changes to accomodate.
+
+	* Makefile.am (dist-hook):
+	chmod 644 INSTALL.
+
+	* bin/cygport.in:
+	Formatting improvements.
+
+	* bin/cygport.in (cygtest):
+	Assure presence of Makefile, else error.
+
+	* bin/cygport.in (__show_help, __show_version):
+	List download and almostall commands in --help.
+	Improve conformance with GNU Coding standards and help2man formatting.
+
+	* bin/cygport.in (cygconf):
+	Support running ${S}/configure in subdirs of ${B}; useful if running
+	multiple configure's from the same tarball (e.g. fxscintilla, fftw3, 
+	wxWidgets).
+	Implement CYGCONF_SOURCE, to be set to the directory containing 
+	configure, for those cases that it's not ${S}.
+
+	* bin/cygport.in (unpack):
+	Support RAR archives with unrar.
+	Support non-tar .bz2 and .gz archives.
+	Support .c, .patch, and .sh files.
+	Ignore .md5 and .sig files.
+	Support multiple arguments.
+
+	* bin/cygport.in (pkg_diff):
+	Ignore texinfo.tex and ylwrap.
+
+	* test/bootstrap, test/messages:
+	SKIP tests if called by 'cygport check'.
+
+	* bin/cygport.in (apply_patch):
+	Pass -t (--batch) to patch, and remove -Z (--set-utc).
+
+	* bin/cygport.in (src_fetch),
+	  lib/Makefile.am (cygclass_DATA),
+	  lib/svn.cygclass:
+	New cygclass for creating packages from SVN snapshots.
+
+	* lib/python.cygclass (python_optimize),
+	  lib/ruby.cygclass (ruby_install):
+	Localize variables.
+
+	* lib/fox.cygclass:
+	Improved documentation.
+
+	* lib/emacs.cygclass (emacs_compile):
+	Only compile if check_prog emacs successful, else throw a warning.
+
+	* Added explicit GPL-2 licensing in headers of all relevant files.
+
+	* bin/cygport.in (cygautoreconf):
+	Tidying.
+
+	* bin/dodoc:
+	Assure that the given doc name is not a directory.
+	Install .txt file if extensionless file is not present.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.93 ***
+
+	* bin/prep_libtool_modules.sh:
+	Check that .la files are actually from libtool; this was failing on
+	/usr/share/xmodmap/xmodmap.la from gnome-applets, where .la there is 
+	just a language code.
+
+	* bin/cygport.in (cygconf):
+	Simplify configure directory logic.
+
+	* bin/cygport.in (error):
+	Assure that error() exits with a non-zero value.
+
+	* bin/cygport.in (src_fetch),
+	  lib/Makefile.am (cygclass_DATA),
+	  lib/cvs.cygclass:
+	New cygclass for creating packages from CVS snapshots.
+
+	* bin/cygport.in (pkg_diff):
+	Create a new ${PF}/patch directory, for easier access to patches.
+
+	* bin/cygport.in (cygconf):
+	Define --exec-prefix=/usr.
+
+	* lib/gst-plugins.cygclass:
+	Added support for new plugins in gst-plugins-{good,bad}-0.10.3.
+	Added support for gnonlin.
+
+	* bin/cygport.in (__prepdoc),
+	  bin/dodoc:
+	Move all doc checks into dodoc.
+
+	* lib/fox.cygclass (fox_autoreconf):
+	Fix sed for apps Makefile.in.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.92 ***
+
+	* bin/cygport.in:
+	More error-handling fixes.
+
+	* bin/prep_perl_modules.sh:
+	Module::Build started making .packlist files, so sed them too.
+
+	* bin/cygport.in (pkg_diff):
+	Ignore gnome-doc-utils.make, unless building gnome-doc-utils itself.
+
+	* lib/fox.cygclass:
+	Reworked to allow building the libraries and apps separately.
+
+	* lib/pygtk.cygclass:
+	Add support for pynautilus (nautilus-python).
+	Add support for gnome-python-desktop and gnome-python-extras 
+	packages whose C libraries are currently available.
+	Add support for pygtkglext.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.91 ***
+
+	* lib/pygtk.cygclass:
+	Add support for modular gnome-python* packages.
+
+	* lib/perl.cygclass,
+	  lib/python.cygclass,
+	  lib/ruby.cygclass:
+	Define LIBPERL, LIBPYTHON, and LIBRUBY.
+
+	* lib/utils.cygclass:
+	New function: check_pkg_config, equivalent to PKG_CHECK_MODULES.
+
+	* bin/cygport.in,
+	  lib/gnome2.cygclass,
+	  lib/gst-plugins.cygclass,
+	  lib/perl.cygclass,
+	  lib/python.cygclass,
+	  lib/ruby.cygclass:
+	check_prog is back, this time based on hash.
+	Use check_prog throughout to verify presence of programs.
+
+	* bin/cygport.in:
+	Sanity check PKG_* variables for the same package quantity.
+	Provide a non-DESTDIR cyginstall if USE_DESTDIR=0.
+	Improve stage messages.
+	Try again to fix multi-command error handling.
+
+	* bin/prep_gtk2_modules.sh:
+	Get GTK_API via pkg-config.
+
+	* lib/gst-plugins.cygclass:
+	gst-plugins-ugly doesn't have sys/Makefile, so don't try to make it.
+
+	* test/Makefile.am,
+	  test/bootstrap,
+	  test/messages:
+	Move 'info' and '--help' tests into a separate messages test.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.90 ***
+
+	* bin/cygport.in,
+	  lib/gtk2-perl.cygclass,
+	  lib/ruby-gnome2.cygclass:
+	Implement DEPS_PATH for adding to PATH during __list_deps(), and defined
+	DEPS_PATH for gtk2-perl and ruby-gnome2 packages, which need it most.
+
+	* bin/cygport.in,
+	  lib/gnome2.cygclass:
+	When ORIG_PN is defined, SRC_DIR defaults to $ORIG_PN-$PV.
+	Remove similar logic from gnome2 and make it global.
+
+	* lib/gnome2.cygclass:
+	Don't run autoreconf on specific data-only packages.
+
+	* lib/font.cygclass:
+	Rewritten to provide fontinto and dofont.
+
+	* Makefile.am,
+	  configure.ac,
+	  bin/cygport.in,
+	  test/Makefile.am,
+	  test/bootstrap:
+	Add CYGPORT_BOOTSTRAP mode for running cygport from the builddir,
+	and add a bootstrap test which uses this.
+
+	* CYGWIN-PATCHES/README,
+	  CYGWIN-PATCHES/setup.hint,
+	  Makefile.am:
+	Maintain the Cygwin README and setup.hint as part of the sources.
+
+	* lib/perl.cygclass:
+	Allow CPAN_AUTHOR to be defined as upper or lower case.
+
+	* bin/prep_libtool_modules.sh:
+	Fixed test for versioned modules.
+
+	* lib/xorg.cygclass:
+	Handle xorg-font-* fontdir configure option automatically.
+
+	* lib/gnome.org.cygclass,
+	  lib/gtk2-perl.cygclass,
+	  lib/gtkmm.cygclass,
+	  lib/perl.cygclass,
+	  lib/pygtk.cygclass:
+	Define DESCRIPTION and/or HOMEPAGE.
+
+	* bin/cygport.in:
+	New command: oldpatch, for applying patches from a previous release.
+	Implement a for loop in apply_patch().
+	Label some private functions with a __ prefix.
+	Clean up cygconf() code and output.
+
+	* bin/*, lib/*:
+	Use bash parameter expansion in place of basename and dirname.
+
+	* lib/ruby.cygclass:
+	Use 'cp -Lr' for examples, etc.
+
+	* lib/gnome2.cygclass:
+	Don't run gtkdocize for gtk-doc, or intltoolize for intltool.
+
+	* bin/cygport.in:
+	Define cygconf sbindir without final forward slash.
+	Correctly handle lack of arguments.
+	Use curl for fetch() if wget is not present.
+	Make fetch() and unpack() externally useful.
+	Colorize error(), warning(), and inform().
+	Handle DIFF_EXCLUDES without specifying '-x'.
+
+	* bin/Makefile.am,
+	  bin/cygport.in,
+	  bin/prep_fonts_dir.sh:
+	New postinstall command for system fonts.
+
+	* bin/prep_gtk2_modules.sh:
+	Define GTK_API.
+
+	* lib/xorg.cygclass:
+	Handle doc and font packages correctly.
+
+	* lib/perl.cygclass:
+	Fix definition of HOMEPAGE.
+
+	* lib/gst-plugins.cygclass:
+	Make more robust.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.6 ***
+
+	* bin/cygport.in:
+	Attempt to fix error handling when given multiple commands.
+
+	* lib/xorg.cygclass:
+	Use releases/individual/ packages instead of X11R7.0.
+
+	* lib/Makefile.am,
+	  lib/gst-plugins.cygclass,
+	  lib/ruby-gnome2.cygclass:
+	TWO new cygclasses: gst-plugins and ruby-gnome2.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.5 ***
+
+	* bin/cygport.in,
+	  README:
+	Rename {F} to {C}.
+
+	* bin/prep_libtool_modules.sh:
+	Fix non-existant shared module check.
+
+	* bin/cygport.in,
+	  lib/gnome2.cygclass,
+	  lib/perl.cygclass,
+	  README:
+	check_prog didn't work; require and use which(1) instead.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.4 ***
+
+	* bin/*:
+	'set -e' on all scripts.
+
+	* bin/cygport.in:
+	Added check_prog() function and use it internally.
+	diffstat patches upon creation if diffstat is installed.
+
+	* lib/fox.cygclass:
+	Set appropriate DOCS and DESCRIPTION.
+
+	* lib/perl.cygclass:
+	Set default HOMEPAGE to CPAN_AUTHOR's search.cpan.org module page.
+
+	* lib/gnome2.cygclass:
+	Set default HOMEPAGE to gnome.org.
+	Don't run gnome-doc-prepare when building gnome-doc-utils.
+
+	* bin/cygport.in:
+	Add pkg_dist() to packaging stages.
+	Check for setup.hint files presence during pkg_dist().
+	Avoid recursive directory loops with top-level CYGWIN-PATCHES symlink.
+	Create ${S}-orig only if nonexistant.
+	Exclude more file patterns from gtk-doc package diffs.
+	Localize function variables.
+
+	* bin/prep_libtool_modules.sh:
+	Raise error if dynamic module is missing.
+
+	* configure.in: 
+	Post-release version bump.
+
+*** 0.1.3 ***
+
+	* bin/Makefile.am,
+	  bin/cygport.in,
+	  bin/prep_gtk2_modules.sh:
+	New postinstall script for Pango and GTK2 modules.
+
+	* lib/gnome2.cygclass:
+	Also update gnome-doc-utils.make.
+
+	* bin/cygport.in:
+	Look for multiple-package Cygwin READMEs also by PKG_HINTS names.
+	Switch from exit to return in error().
+	Wait a second before removing workdir.
+	Fix gtk-doc dependent patch excludes.
+	Remove src_orig_pkg during src_fetch() if already present.
+	Removed clean().
+	export inherit().
+	
+	* bin/Makefile.am,
+	  bin/make_managed_mount:
+	New command for making installable managed mounts.
+
+	* bin/make_desktop_entry:
+	Removed extraneous warning.
+
+	* lib/ruby.cygclass:
+	Added Ruby directory variables.
+
+	* lib/python.cygclass,
+	  lib/distutils.cygclass,
+	  lib/pygtk.cygclass:
+	Consistent naming for Python directory variables.
+
+	* lib/perl.cygclass,
+	  lib/gtk2-perl.cygclass:
+	Consistent naming for Perl directory variables.
+
+	* bin/prep_perl_localpod.sh:
+	inherit perl.
+
+	* configure.in: 
+	Post-release version bump.
+
+*** 0.1.2 ***
+
+	* bin/cygport.in:
+	Create top-level symlink to CYGWIN-PATCHES directory.
+	Fix error message.
+	Fix LDFLAGS export.
+
+	* lib/Makefile.am,
+	  lib/fox.cygclass:
+	New cygclass for the FOX Toolkit.
+	
+	* lib/kde3.cygclass,
+	  lib/qt3.cygclass:
+	Fix handling of Q*DIR variables.
+
+	* lib/kde3.cygclass:
+	Set HOMEPAGE and SRC_URI.
+
+	* configure.in: 
+	Post-release version bump.
+
+*** 0.1.1 ***
+
+	* lib/xorg.cygclass:
+	Accomodate xorg-scripts.
+
+	* lib/gtk2-perl.cygclass:
+	Gtk2 (>=1.120) now requires Cairo at link time.
+
+	* lib/Makefile.am,
+	  lib/pygtk.cyglass:
+	New cygclass for PyGTK packages.
+
+	* bin/prep_perl_localpod.sh:
+	Fix .packlist only for EU::MM modules; Module::Build doesn't use .packlist.
+
+	* lib/perl.cygclass: 
+	Set SRC_URI based on value of CPAN_AUTHOR.
+
+	* bin/cygport.in: 
+	declare PVP as an array.
+
+	* configure.in: 
+	Post-release version bump.
+
+*** 0.1.0 ***
+
+	First public test release.

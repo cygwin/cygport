@@ -1,0 +1,48 @@
+#!/bin/bash
+################################################################################
+#
+# newman - installs manual pages to install path with new name
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+mandir=/usr/share/man
+
+if [ ! -e ${1} ]
+then
+	error "file ${1} does not exist"
+fi
+
+case ${2} in
+	*.1|*.1m|*.1x|*.1.bz2|*.1.gz)
+		mansection=1
+		;;
+	*.3|*.3pm|*.3t)
+		mansection=3
+		;;
+	*.4)
+		mansection=4
+		;;
+	*.5)
+		mansection=5
+		;;
+	*.6|*.6x)
+		mansection=6
+		;;
+	*.7)
+		mansection=7
+		;;
+	*.8)
+		mansection=8
+		;;
+	*)
+		error "unknown man section"
+		;;
+esac
+
+dodir ${mandir}/man${mansection}
+/bin/install -m0644 ${1} ${D}${mandir}/man${mansection}/${2} || error "newman ${1} failed"

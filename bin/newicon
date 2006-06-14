@@ -1,0 +1,22 @@
+#!/bin/bash
+################################################################################
+#
+# newicon - installs desktop menu icon to install path with new name
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+pixmapsdir=/usr/share/pixmaps
+
+dodir ${pixmapsdir}
+
+if [ ! -e ${1} ]
+then
+	error "file ${1} does not exist"
+fi
+
+/bin/install -m0644 ${1} ${D}${pixmapsdir}/${2} || error "newicon ${1} failed"

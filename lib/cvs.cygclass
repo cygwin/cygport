@@ -1,0 +1,45 @@
+################################################################################
+#
+# cvs.cygclass - functions for building packages from CVS checkouts
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+_USE_CVS_FETCH=1
+
+if [ -z "${CVS_URI}" ]
+then
+	error "CVS_URI must be defined"
+fi
+
+CVS_MODULE=${CVS_MODULE:-${ORIG_PN:-${PN}}}
+
+SRC_URI="${CVS_MODULE}-${PV}.tar.bz2"
+SRC_DIR="${CVS_MODULE}"
+
+cvs_fetch() {
+	local cvs_branch
+	local cvs_date
+
+	check_prog_req cvs
+
+	if [ -n "${CVS_BRANCH}" ]
+	then
+		cvs_branch="-r ${CVS_BRANCH}"
+	fi
+
+	if [ -n "${CVS_DATE}" ]
+	then
+		cvs_date="-D ${CVS_DATE}"
+	fi
+
+	# T likely doesn't exist at this point, so create it first
+	mkdir -p ${T}
+	cd ${T}
+	verbose cvs -d ${CVS_URI} checkout ${cvs_branch} ${cvs_date} ${CVS_MODULE}
+
+	tar jcf ${top}/${SRC_URI} --exclude=CVS --exclude=.cvsignore ${CVS_MODULE}
+}

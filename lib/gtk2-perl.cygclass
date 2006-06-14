@@ -1,0 +1,79 @@
+################################################################################
+#
+# gtk2-perl.cygclass - functions for building Gtk2-Perl bindings
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+inherit perl
+
+HOMEPAGE="http://gtk2-perl.sourceforge.net/"
+SRC_URI="http://easynews.dl.sourceforge.net/gtk2-perl/${ORIG_PN}-${PV}.tar.gz"
+
+DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib2:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS"
+
+gtk2_perl_compile() {
+	${PERL} Makefile.PL PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
+
+	local ldflags
+	case ${ORIG_PN} in
+		Glib)
+			ldflags=""
+			;;
+		Gtk2)
+			ldflags="${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a \
+			${PERL_VENDORARCH}/auto/Cairo/libCairo.dll.a"
+			;;
+		Gnome2-GConf|Gnome2-VFS|GStreamer)
+			ldflags="${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a"
+			;;
+		Gnome2)
+			ldflags="${PERL_VENDORARCH}/auto/Gnome2/VFS/libVFS.dll.a \
+			${PERL_VENDORARCH}/auto/Gtk2/libGtk2.dll.a \
+			${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a"
+			;;
+		*)
+			ldflags="${PERL_VENDORARCH}/auto/Gtk2/libGtk2.dll.a \
+			${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a"
+			;;
+	esac
+
+	cygmake all OTHERLDFLAGS="${ldflags}"
+	make manifypods || true		# manifypods *will* bail out
+
+	local man3pm
+	for pod in $(find blib/lib/G* -name '*.pod' | sed -e 's:^blib/lib/::')
+	do
+		man3pm=$(echo ${pod} | sed -e 's:/:.:g' -e 's:\.pod$:.3pm:')
+		if [ ! -f blib/man3/${man3pm} ]
+		then
+			${PERL} "-MExtUtils::Command::MM" -e pod2man "--" \
+				--section=3 --perm_rw=644 \
+				blib/lib/${pod} blib/man3/${man3pm}
+		fi
+	done
+	if [ ! -f blib/man3/${ORIG_PN//\-/\.}.3pm ]
+	then
+		${PERL} "-MExtUtils::Command::MM" -e pod2man "--" \
+			--section=3 --perm_rw=644 \
+			blib/lib/${ORIG_PN//\-/\/}.pm blib/man3/${ORIG_PN//\-/\.}.3pm
+	fi
+}
+
+gtk2_perl_install() {
+	perl_install
+}
+
+src_compile() {
+	lndirs
+	cd ${B}
+	gtk2_perl_compile
+}
+
+src_install() {
+	cd ${B}
+	gtk2_perl_install
+}
