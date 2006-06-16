@@ -50,7 +50,7 @@ HOMEPAGE="http://gstreamer.freedesktop.org/"
 SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
 SRC_DIR=${ORIG_PN}-${PV}
 
-DIFF_EXCLUDES='po m4'
+DIFF_EXCLUDES='po m4 autoregen.sh stamp-h.in'
 
 case ${gst_srcpn} in
 	base)
