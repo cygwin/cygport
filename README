@@ -153,20 +153,20 @@ instead of a path:
 
 All other arguments are interpreted as a COMMAND, which may be:
 
-    prep     - create working directory, unpack the source and apply patches
-    compile  - run all compilation steps
-    install  - install into a DESTDIR, and run post-installation steps
-    package  - create binary and source packages
-    finish   - delete the working directory
-    all      - run all of the above
-    
+    prep      - create working directory, unpack the source and apply patches
+    compile   - run all compilation steps
+    install   - install into a DESTDIR, and run post-installation steps
+    package   - create binary and source packages
+    finish    - delete the working directory
+    all       - run all of the above, including finish
+    almostall - run all of the above, except for finish
+
 Other COMMANDs are meant primarily for maintainers:
 
     fetch    - download the original source from the Internet
     check    - run the testsuite
     list     - create a file listing suitable for the Cygwin README
     deps     - list direct dependencies of all executables
-    dist     - copy packages into a directory structure suitable for upload
 
 For compatibility, the sole arguments --help or --version may also be
 passed to cygport.
@@ -189,11 +189,10 @@ all comments are ignored during execution of cygport.
 
 At a minimum, the following must be considered:
 
-SRC_URI must be defined to a wget-downloadable URL; this is also passed
-to filename(1) in order to determine the original source package and
-assume its top directory name; if the latter does not conform to
-PKGNAME-VERSION (in cygport syntax, ${PN}-${PV}, or ${P}), then define
-SRC_DIR.
+SRC_URI must be defined to a wget-downloadable URL; this is also used to
+determine the original source package and assume its top directory name;
+if the latter does not conform to PKGNAME-VERSION (in cygport syntax,
+${PN}-${PV}, or ${P}), then define SRC_DIR.
 
 If the source package contains illegal Windows filenames, or filenames
 in the same directory with the same name but different capitalizations
@@ -307,14 +306,14 @@ everything under ${D} for you.  Some examples:
 	# create directories
     dodir /usr/share/foo/bar /usr/share/foo/misc
 
-	# install 755 into ${D}/usr/bin
+	# install -m755 into ${D}/usr/bin
     dobin foo.exe
 
-	# install 644 into a custom directory
+	# install -m644 into a custom directory
     insinto /usr/include/foo-1.0
     doins ${S}/src/foo.h
 
-	# install 644 into ${D}/usr/lib
+	# install -m644 into ${D}/usr/lib
     dolib libfoo.dll.a    
 
 The default src_install() is defined simply as:
@@ -420,7 +419,7 @@ addition to the packages own dependencies:
 
     cygwin
     autoconf (wrapper) and autoconf2.*
-    automake1.*
+    automake (wrapper) and automake1.*
     bash
     bzip2
     coreutils
@@ -449,6 +448,12 @@ Periodically, test versions are posted to the Cygwin Ports repository,
 which is setup.exe enabled.  Add this address to your server list:
 
     ftp://sunsite.dk/projects/cygwinports/
+
+cygport is hosted on CVS.  Those interested in helping with cygport
+development, or testing the newest features should use the CVS version.
+Instructions for browsing and retrieving sources from CVS are available at:
+
+	http://sourceforge.net/cvs/?group_id=99645
 
 
 8. SUPPORT
