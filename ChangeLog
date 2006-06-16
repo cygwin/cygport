@@ -1,5 +1,8 @@
 *** 0.2.2 ****
 
+	* lib/ruby.cygclass (ruby_compile, ruby_install):
+	Accept arguments and pass them to appropriate commands.
+
 	* lib/gst-plugins.cygclass (gst_plugins_autoreconf):
 	Use gnome2_autoreconf to avoid breaking po/Makefile.in.in.
 

@@ -21,15 +21,15 @@ LIBRUBY="-lruby"
 ruby_compile() {
 	if [ -e install.rb ]
 	then
-		${RUBY} install.rb config --prefix=/usr || error "install.rb config failed"
+		${RUBY} install.rb config --prefix=/usr ${@} || error "install.rb config failed"
 		${RUBY} install.rb setup || error "install.rb setup failed"
 	elif [ -e setup.rb ]
 	then
-		${RUBY} setup.rb config --prefix=/usr || error "setup.rb config failed"
+		${RUBY} setup.rb config --prefix=/usr ${@} || error "setup.rb config failed"
 		${RUBY} setup.rb setup || error "setup.rb setup failed"
 	elif [ -e extconf.rb ]
 	then
-		${RUBY} extconf.rb || error "extconf.rb failed"
+		${RUBY} extconf.rb ${@} || error "extconf.rb failed"
 		cygmake
 	else
 		error "No Ruby module detected"
@@ -44,14 +44,14 @@ ruby_compile() {
 ruby_install() {
 	if [ -f Makefile ]
 	then
-		cyginstall
+		cyginstall ${@}
 	elif [ -e install.rb ]
 	then
-		${RUBY} install.rb config --prefix=${D}/usr || error "install.rb config failed"
+		${RUBY} install.rb config --prefix=${D}/usr ${@} || error "install.rb config failed"
 		${RUBY} install.rb install || error "install.rb install failed"
 	elif [ -e setup.rb ]
 	then
-		${RUBY} setup.rb config --prefix=${D}/usr || error "setup.rb config failed"
+		${RUBY} setup.rb config --prefix=${D}/usr ${@} || error "setup.rb config failed"
 		${RUBY} setup.rb install || error "setup.rb install failed"
 	else
 		error "No Ruby module detected"
@@ -60,7 +60,7 @@ ruby_install() {
 	if [ -d rdoc ] 
 	then
 		dodir /usr/share/doc/${P}
-		cp -r rdoc ${D}/usr/share/doc/${P}
+		cp -r rdoc ${D}/usr/share/doc/${P}/
 	fi
 }
 
