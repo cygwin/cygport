@@ -10,9 +10,6 @@
 
 # Borrowed heavily from Gentoo's gst-plugins* eclasses
 
-# used by gst_plugins_autoreconf
-inherit gnome2
-
 gst_pn=${PN/gstreamer${PVP[0]}${PVP[1]}-plugins-/}
 
 case ${gst_pn} in
@@ -77,7 +74,12 @@ case ${gst_srcpn} in
 esac
 
 gst_plugins_autoreconf() {
-	gnome2_autoreconf
+	# gstreamer tarballs include autogen.sh, so use it
+	if [ ! -f autogen.sh ]
+	then
+		error "Could not find autogen.sh"
+	fi
+	NOCONFIGURE=1 ./autogen.sh || error "autogen.sh failed"
 
 	case ${gst_pn} in
 		base|good|bad|ugly|ffmpeg|nonlin)

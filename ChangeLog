@@ -1,5 +1,8 @@
 *** 0.2.2 ****
 
+	* lib/gst-plugins.cygclass (gst_plugins_autoreconf):
+	GStreamer tarballs include autogen.sh, so use it instead.
+
 	* lib/ruby.cygclass (ruby_compile, ruby_install):
 	Accept arguments and pass them to appropriate commands.
 
