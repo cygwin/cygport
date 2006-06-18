@@ -53,7 +53,7 @@ check_perl_module() {
 perl_compile() {
 	if [ -e Build.PL ]
 	then
-		${PERL} Build.PL --prefix /usr installdirs=vendor ${@} || error "Module::Build creation failed"
+		${PERL} Build.PL installdirs=vendor ${@} || error "Module::Build creation failed"
 		${PERL} Build || error "Module::Build build failed"
 	elif [ -e Makefile.PL ]
 	then

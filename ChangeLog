@@ -1,5 +1,8 @@
 *** 0.2.2 ****
 
+	* lib/perl.cygclass (perl_compile):
+	Don't pass --prefix /usr to Build.PL after all.
+
 	* README:  Various updates.
 
 	* lib/gst-plugins.cygclass (gst_plugins_autoreconf):
