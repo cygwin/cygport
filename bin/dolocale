@@ -1,0 +1,31 @@
+#!/bin/bash
+################################################################################
+#
+# dolocale - installs GNU gettext message files
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+set -e
+
+_textdomain=${_pkg_textdomain:-${ORIG_PN:-${PN}}}
+
+localedir=/usr/share/locale
+
+dodir ${localedir}
+
+for i in "${@}"
+do
+	if [ ! -e ${i} ]
+	then
+		error "dolocale: ${i} not found"
+	fi
+
+	mylang=$(echo ${i##*/} | sed -e 's!\.mo$!!')
+	lc_dir=${localedir}/${mylang}/LC_MESSAGES
+
+	dodir ${lc_dir}
+	/bin/install -m0644 ${i} ${D}${lc_dir}/${_textdomain}.mo || error "dolocale ${i} failed"
+done
