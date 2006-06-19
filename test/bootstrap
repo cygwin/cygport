@@ -11,10 +11,7 @@ fi
 
 export CYGPORT_BOOTSTRAP=1
 
-if [ ! -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.bz2 ]
-then
-	( cd ${top_builddir} && ${MAKE} dist-bzip2 )
-fi
+${MAKE} -C ${top_builddir} dist-bzip2
 
 cp -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.bz2 .
 cp -f ${top_srcdir}/data/sample.cygport ${PACKAGE}-${VERSION}-1.cygport

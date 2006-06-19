@@ -1,5 +1,11 @@
 *** 0.2.2 ****
 
+	* Makefile.am,
+	  doc/Makefile.am,
+	  test/Makefile.am,
+	  test/bootstrap:
+	Fixed *clean make targets.
+
 	* lib/perl.cygclass (perl_compile):
 	Don't pass --prefix /usr to Build.PL after all.
 

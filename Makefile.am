@@ -5,3 +5,5 @@ EXTRA_DIST = CYGWIN-PATCHES/README CYGWIN-PATCHES/setup.hint \
 
 dist-hook:
 	chmod 644 $(top_distdir)/INSTALL
+
+DISTCLEANFILES = $(PACKAGE)-$(VERSION).tar.bz2 $(PACKAGE)-$(VERSION).tar.gz
