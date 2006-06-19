@@ -1,5 +1,8 @@
 *** 0.2.2 ****
 
+	* lib/xorg.cygclass:
+	Accept package-defined ORIG_PN.
+
 	* lib/xorg.cygclass (xorg_compile):
 	Add -DX_LOCALE to CPPFLAGS.
 
