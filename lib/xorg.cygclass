@@ -15,7 +15,7 @@ case ${PN} in
 		ORIG_PN=${PN/xorg-/}
 		;;
 	*)
-		ORIG_PN=${PN}
+		ORIG_PN=${ORIG_PN:-${PN}}
 		;;
 esac
 
