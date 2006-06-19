@@ -1,5 +1,8 @@
 *** 0.2.2 ****
 
+	* lib/xorg.cygclass (xorg_compile):
+	Add -DX_LOCALE to CPPFLAGS.
+
 	* Makefile.am,
 	  doc/Makefile.am,
 	  test/Makefile.am,
