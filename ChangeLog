@@ -1,5 +1,8 @@
 *** 0.2.2 ****
 
+	* lib/kde3.cygclass (kde3_compile):
+	Add --disable-rpath to configure options.
+
 	* lib/xorg.cygclass:
 	Accept package-defined ORIG_PN.
 

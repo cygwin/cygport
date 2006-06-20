@@ -55,6 +55,7 @@ kde3_compile() {
 	cygconf \
 		--includedir=/usr/include/kde \
 		--libexecdir=/usr/lib/kde3/bin \
+		--disable-rpath \
 		--disable-static \
 		--disable-debug --without-debug \
 		--disable-dependency-tracking \
