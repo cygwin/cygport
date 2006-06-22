@@ -52,6 +52,8 @@ kde3_autoreconf() {
 }
 
 kde3_compile() {
+	export DO_NOT_COMPILE
+
 	cygconf \
 		--includedir=/usr/include/kde \
 		--libexecdir=/usr/lib/kde3/bin \
