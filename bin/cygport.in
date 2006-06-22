@@ -679,7 +679,7 @@ readonly -f lndirs cygautoreconf cygconf cygmake
 cygtest() {
 	if [ -e Makefile ]
 	then
-		if [ -f ${S}/Makefile.am ]
+		if [ -f ${S}/Makefile.am -o -f ${S}/GNUmakefile.am ]
 		then
 			make check;
 		else
@@ -1112,6 +1112,11 @@ pkg_diff() {
 	if [ -f ${S}/Makefile.am ]
 	then
 		default_excludes="${default_excludes} -x Makefile.in*";
+	fi
+
+	if [ -f ${S}/GNUmakefile.am ]
+	then
+		default_excludes="${default_excludes} -x GNUmakefile.in*";
 	fi
 
 	# exclude configure only if using autoconf

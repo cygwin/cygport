@@ -1,5 +1,8 @@
 *** 0.2.2 ****
 
+	* bin/cygport.in (src_test, pkg_diff):
+	Support GNUmakefile.{am,in} files.
+
 	* lib/kde3.cygclass (kde3_compile):
 	Add --disable-rpath to configure options.
 
