@@ -1079,17 +1079,17 @@ pkg_pkgcheck() {
 		# detect duplicates and/or missing files
 		diff -u0 ${tmp2} ${tmp1} | grep -E -v '^@' > ${T}/pkgcheck.diff
 
+		if grep -E '^-[^\-]' ${T}/pkgcheck.diff > /dev/null
+		then
+			warning "Packages are missing files:";
+			grep -E '^-[^\-]' ${T}/pkgcheck.diff;
+	    fi
+
 		if grep -E '^\+[^\+]' ${T}/pkgcheck.diff > /dev/null
 		then
 			warning "Packages contain duplicate files:";
 			grep -E '^\+[^\+]' ${T}/pkgcheck.diff;
 			error "Packages contain duplicate files:";
-	    fi
-
-		if grep -E '^-[^\-]' ${T}/pkgcheck.diff > /dev/null
-		then
-			warning "Packages are missing files:";
-			grep -E '^-[^\-]' ${T}/pkgcheck.diff;
 	    fi
 	fi
 
