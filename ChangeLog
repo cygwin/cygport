@@ -1,5 +1,8 @@
 *** 0.2.2 ****
 
+	* lib/xorg.cygclass (src_compile):
+	Don't skip cygautoreconf with xorg-docs.
+
 	* bin/cygport.in (pkg_pkgcheck):
 	Properly check where there are both missing and duplicate files.
 

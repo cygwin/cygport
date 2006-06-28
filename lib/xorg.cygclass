@@ -86,7 +86,7 @@ xorg_compile() {
 
 src_compile() {
 	case ${PN} in
-		xorg-util-macros|*proto*|evieext|xbitmaps|xcursor-themes|xtrans|xorg-sgml-doctools|xorg-docs|xorg-encodings|xorg-font*)
+		xorg-util-macros|*proto*|evieext|xbitmaps|xcursor-themes|xtrans|xorg-sgml-doctools|xorg-encodings|xorg-font*)
 			# these are just data and don't benefit from autoreconf
 			;;
 		*)
