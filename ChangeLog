@@ -1,5 +1,8 @@
 *** 0.2.2 ****
 
+	* bin/cygport.in (unpack):
+	Support *.pl and *.py scripts.
+
 	* lib/xorg.cygclass (src_compile):
 	Don't skip cygautoreconf with xorg-docs.
 

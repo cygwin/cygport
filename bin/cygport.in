@@ -349,7 +349,7 @@ unpack() {
 		# determine correct source decompression command
 		case ${unpack_file_path} in
 			*.md5|*.sig)  continue ;;
-			*.c|*.patch|*.sh)  unpack_cmd="cp -t ." ;;
+			*.c|*.patch|*.pl|*.py|*.sh)  unpack_cmd="cp -t ." ;;
 			*.tar.bz2|*.tbz2|*.tbz) unpack_cmd="tar jxf" ;;
 			*.tar.gz|*.tgz|*.tar.Z) unpack_cmd="tar zxf" ;;
 			*.tar)  unpack_cmd="tar xf"  ;;
