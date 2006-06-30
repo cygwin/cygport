@@ -1,3 +1,11 @@
+0.2.2:
+	pkg_diff(): Handle GNUmakefile.{am,in} files.
+	unpack(): Handle .pl and .py with cp -t.
+	verbose(): New function to print to console a command before execution.
+	gst-plugins.cygclass: Fix autoreconf step.
+	xorg.cygclass: Accomodate X11R7.1.
+	Fixes and improvements.
+
 0.2.1:
 	New check_prog_req function, which errors if program was not found.
 	During package phase, verifies that no files were duplicated or 

@@ -1,3 +1,7 @@
+
+	* configure.ac:
+	Post-release version bump.
+
 *** 0.2.2 ****
 
 	* bin/cygport.in (unpack):

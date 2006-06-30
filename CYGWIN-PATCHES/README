@@ -25,11 +25,11 @@ Runtime requirements:
   wget
 
 Build requirements:
-  cygwin-1.5.20-1 (20060604)
+  cygwin-1.5.20-1
   gawk-3.1.5-2
   help2man-1.35.1-1
   make-3.80-1
-  sed-4.1.4-1
+  sed-4.1.5-1
 
 Canonical website:
   http://cygwinports.dotsrc.org/
@@ -40,15 +40,15 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack cygport-0.2.2-X-src.tar.bz2
+  unpack cygport-0.2.3-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./cygport-0.2.2-X.cygport all
+  cygport ./cygport-0.2.3-X.cygport all
 
 This will create:
-  /usr/src/cygport-0.2.2-X-src.tar.bz2
-  /usr/src/cygport-0.2.2-X.tar.bz2
+  /usr/src/cygport-0.2.3-X-src.tar.bz2
+  /usr/src/cygport-0.2.3-X.tar.bz2
 
 -------------------------------------------
 
@@ -104,22 +104,22 @@ Files included in the binary package:
   /usr/lib/cygport/lib/svn.cygclass
   /usr/lib/cygport/lib/utils.cygclass
   /usr/lib/cygport/lib/xorg.cygclass
-  /usr/share/doc/Cygwin/cygport-0.2.2.README
-  /usr/share/doc/cygport-0.2.2/AUTHORS
-  /usr/share/doc/cygport-0.2.2/COPYING
-  /usr/share/doc/cygport-0.2.2/ChangeLog
-  /usr/share/doc/cygport-0.2.2/INSTALL
-  /usr/share/doc/cygport-0.2.2/NEWS
-  /usr/share/doc/cygport-0.2.2/README
-  /usr/share/doc/cygport-0.2.2/TODO
-  /usr/share/doc/cygport-0.2.2/sample.cygport
+  /usr/share/doc/Cygwin/cygport-0.2.3.README
+  /usr/share/doc/cygport-0.2.3/AUTHORS
+  /usr/share/doc/cygport-0.2.3/COPYING
+  /usr/share/doc/cygport-0.2.3/ChangeLog
+  /usr/share/doc/cygport-0.2.3/INSTALL
+  /usr/share/doc/cygport-0.2.3/NEWS
+  /usr/share/doc/cygport-0.2.3/README
+  /usr/share/doc/cygport-0.2.3/TODO
+  /usr/share/doc/cygport-0.2.3/sample.cygport
   /usr/share/man/man1/cygport.1.gz
 
 ------------------
 
 Port Notes:
 
------ version 0.2.2-1 -----
+----- version 0.2.3-1 -----
 Version bump.
 See ChangeLog and NEWS for more information about this and past releases.
 
