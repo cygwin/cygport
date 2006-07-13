@@ -348,8 +348,8 @@ unpack() {
 
 		# determine correct source decompression command
 		case ${unpack_file_path} in
-			*.md5|*.sig)  continue ;;
-			*.c|*.patch|*.pl|*.py|*.sh)  unpack_cmd="cp -t ." ;;
+			*.asc|*.md5|*.sig|*.sign)  continue ;;
+			*.c|*.exe|*.patch|*.pl|*.py|*.sh)  unpack_cmd="cp -t ." ;;
 			*.tar.bz2|*.tbz2|*.tbz) unpack_cmd="tar jxf" ;;
 			*.tar.gz|*.tgz|*.tar.Z) unpack_cmd="tar zxf" ;;
 			*.tar)  unpack_cmd="tar xf"  ;;
@@ -386,12 +386,13 @@ unpack() {
 gpg_verify() {
 	local _file=${1};
 	local _filetype=${2};
+	local _sigext=${3:-sig};
 
-	if [ -f ${_file}.sig ]
+	if [ -f ${_file}.${sigext} ]
 	then
 		inform "${_filetype} signature follows:";
 		# we 'check_prog gpg' in src_prep
-		gpg --verify ${_file}.sig ${_file};
+		gpg --verify ${_file}.${sigext} ${_file};
 	else
 		inform "${_filetype} signature missing.";
 	fi
@@ -469,6 +470,7 @@ __oldpatch() {
 }
 
 src_prep() {
+	local sigext;
 	local src_pkg;
 	local n=1;
 
@@ -476,11 +478,18 @@ src_prep() {
 
 	__mkdirs;
 
+	# FIXME: dependent also on $SIG ??
 	if check_prog gpg
 	then
 		for src_pkg in ${_src_orig_pkgs}
 		do
-			gpg_verify ${src_pkg} "ORIGINAL PACKAGE $((n++))";
+			for sigext in asc sig sign
+			do
+				if [ -f ${src_pkg}.${sigext} ]
+				then
+					gpg_verify ${src_pkg} "ORIGINAL PACKAGE $((n++))" ${sigext};
+				fi
+			done
 		done
 
 		gpg_verify ${PF}.cygport "CYGPORT SCRIPT";

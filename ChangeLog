@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (gpg_verify, unpack, src_prep):
+	Accept .asc and .sign extensions for source GPG signatures.
+
 	* configure.ac:
 	Post-release version bump.
 
