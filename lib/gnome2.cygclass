@@ -110,7 +110,9 @@ gnome2_autoreconf() {
 }
 
 gnome2_compile() {
+	# GNOME packages require /var/lib for compatibility with scrollkeeper
 	cygconf \
+		--localstatedir=/var/lib
 		--enable-gtk-doc \
 		--disable-schemas-install \
 		--disable-scrollkeeper \

@@ -1,4 +1,9 @@
 
+	* bin/cygport.in (cygconf, cyginstall),
+	  lib/gnome2.cygclass (gnome2_compile):
+	Change default localstatedir to /var.
+	Override to /var/lib in gnome2 for scrollkeeper compatibility.
+
 	* bin/cygport.in (src_prep, pkg_srcpkg):
 	Don't include 0-byte .src.patch in source package.
 	Don't assume any patches are actually present.

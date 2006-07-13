@@ -624,7 +624,7 @@ cygconf() {
 	local confargs="--prefix=/usr --exec-prefix=/usr --bindir=/usr/bin \
 		--sbindir=/usr/sbin --libexecdir=/usr/sbin --datadir=/usr/share \
 		--infodir=/usr/share/info --mandir=/usr/share/man \
-		--localstatedir=/var/lib --sysconfdir=/etc \
+		--localstatedir=/var --sysconfdir=/etc \
 		${@} ${CYGCONF_ARGS}";
 
 	export CFLAGS=${CFLAGS:-"-O2 -pipe"};
@@ -793,7 +793,7 @@ cyginstall() {
 				datadir=${D}/usr/share \
 				infodir=${D}/usr/share/info \
 				mandir=${D}/usr/share/man \
-				localstatedir=${D}/var/lib \
+				localstatedir=${D}/var \
 				sysconfdir=${D}/etc \
 				${@} \
 				|| error "make install No-DESTDIR failed"
