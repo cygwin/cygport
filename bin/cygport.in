@@ -497,10 +497,11 @@ src_prep() {
 		if [ -f ${top}/${cygwin_patchfile} ]
 		then
 			gpg_verify ${top}/${cygwin_patchfile} "CYGWIN PATCH";
-			gpg_verify ${top}/${src_patchfile} "SOURCE PATCH";
-		elif [ -f ${top}/${old_patchfile} ]
+		fi
+
+		if [ -f ${top}/${src_patchfile} ]
 		then
-			gpg_verify ${top}/${old_patchfile} "PATCH";
+			gpg_verify ${top}/${src_patchfile} "SOURCE PATCH";
 		fi
 	else
 		inform "gnupg must be installed in order to check signatures.";
@@ -525,9 +526,6 @@ src_prep() {
 	if [ -f ${top}/${cygwin_patchfile} -o -f ${top}/${src_patchfile} ]
 	then
 		apply_patch ${top}/${cygwin_patchfile} ${top}/${src_patchfile};
-	elif [ -f ${top}/${old_patchfile} ]
-	then
-		apply_patch ${top}/${old_patchfile};
 	fi
 }
 
@@ -1222,7 +1220,12 @@ pkg_srcpkg() {
 
 	pkg_diff;
 
-	cp ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile} ${spkgdir};
+	cp ${patchdir}/${cygwin_patchfile} ${spkgdir};
+
+	if [ "x$(file -b ${patchdir}/${src_patchfile})" != "xempty" ]
+	then
+		cp ${patchdir}/${src_patchfile} ${spkgdir};
+	fi
 
 	__step "Creating source package";
 
@@ -1239,9 +1242,13 @@ pkg_srcpkg() {
 	then
 		if check_prog gpg
 		then
-			gpg_sign ${spkgdir}/${cygwin_patchfile} "CYGWIN PATCH";
-			gpg_sign ${spkgdir}/${src_patchfile} "SOURCE PATCH";
 			gpg_sign ${spkgdir}/${PF}.cygport "CYGPORT SCRIPT";
+			gpg_sign ${spkgdir}/${cygwin_patchfile} "CYGWIN PATCH";
+
+			if [ -f ${spkgdir}/${src_patchfile} ]
+			then
+				gpg_sign ${spkgdir}/${src_patchfile} "SOURCE PATCH";
+			fi
 		else
 			inform "gnupg must be installed in order to make signatures.";
 		fi
@@ -1413,7 +1420,6 @@ unset _src_uri;
 
 declare -r cygwin_patchfile=${PF}.cygwin.patch;
 declare -r src_patchfile=${PF}.src.patch;
-declare -r old_patchfile=${PF}.patch;
 
 if [ -n "${PKG_NAMES}" ]
 then

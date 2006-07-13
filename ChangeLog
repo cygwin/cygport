@@ -1,4 +1,9 @@
 
+	* bin/cygport.in (src_prep, pkg_srcpkg):
+	Don't include 0-byte .src.patch in source package.
+	Don't assume any patches are actually present.
+	Drop support for g-b-s unified patches.
+
 	* bin/cygport.in (gpg_verify, unpack, src_prep):
 	Accept .asc and .sign extensions for source GPG signatures.
 
