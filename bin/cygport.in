@@ -349,7 +349,6 @@ unpack() {
 		# determine correct source decompression command
 		case ${unpack_file_path} in
 			*.asc|*.md5|*.sig|*.sign)  continue ;;
-			*.c|*.exe|*.patch|*.pl|*.py|*.sh)  unpack_cmd="cp -t ." ;;
 			*.tar.bz2|*.tbz2|*.tbz) unpack_cmd="tar jxf" ;;
 			*.tar.gz|*.tgz|*.tar.Z) unpack_cmd="tar zxf" ;;
 			*.tar)  unpack_cmd="tar xf"  ;;
@@ -374,7 +373,7 @@ unpack() {
 					error "p7zip is required to unpack this source package";
 				fi
 				;;
-			*) error "File ${unpack_file_name} is of unknown type" ;;
+			*) unpack_cmd="cp -t ${S}" ;;
 		esac
 
 		__step "Unpacking source ${unpack_file_name}";

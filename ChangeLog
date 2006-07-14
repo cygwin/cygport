@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (unpack):
+	Handle all files which aren't archives nor GPG sigs with cp -t.
+
 	* bin/cygport.in (cygconf, cyginstall),
 	  lib/gnome2.cygclass (gnome2_compile):
 	Change default localstatedir to /var.
