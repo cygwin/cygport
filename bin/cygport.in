@@ -360,7 +360,7 @@ unpack() {
 				;;
 			*.zip)
 				check_prog_req unzip
-				unpack_cmd="unzip -q";
+				unpack_cmd="unzip -oq";
 				;;
 			*.7z)
 				if check_prog 7zr
@@ -373,7 +373,7 @@ unpack() {
 					error "p7zip is required to unpack this source package";
 				fi
 				;;
-			*) unpack_cmd="cp -t ${S}" ;;
+			*) unpack_cmd="cp -t ${SRC_DIR}" ;;
 		esac
 
 		__step "Unpacking source ${unpack_file_name}";
@@ -1106,7 +1106,6 @@ pkg_diff() {
 	local custom_excludes;
 	local exclude;
 	local difflevel;
-	local src_dir;
 	local default_excludes="-x CYGWIN-PATCHES -x aclocal.m4* \
 		-x ltmain.sh -x config.* -x depcomp -x install-sh -x missing \
 		-x mkinstalldirs -x autom4te.cache -x *compile \
@@ -1186,9 +1185,8 @@ pkg_diff() {
 			> ${patchdir}/${cygwin_patchfile} || true;
 		difflevel=1;
 	else
-		src_dir=${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}};
 		diff -urN \
-			${origsrcdir##*/}/${src_dir}/CYGWIN-PATCHES ${srcdir##*/}/${src_dir}/CYGWIN-PATCHES \
+			${origsrcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES ${srcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES \
 			> ${patchdir}/${cygwin_patchfile} || true;
 		difflevel=2;
 	fi
@@ -1387,11 +1385,12 @@ declare -r patchdir="${workdir}/patch";
 declare -r spkgdir="${workdir}/spkg";
 declare -r distdir="${workdir}/dist";
 
+SRC_DIR=${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}};
 if [ "x${SRC_DIR}" = "x." ]
 then
 	declare -r S=${srcdir};
 else
-	declare -r S=${srcdir}/${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}};
+	declare -r S=${srcdir}/${SRC_DIR};
 fi
 
 declare -rx B="${workdir}/build";
