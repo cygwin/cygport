@@ -88,7 +88,6 @@ gst_plugins_autoreconf() {
 				sed \
 					-e "s:\$(top_builddir)/gst-libs/gst/audio/libgstaudio:/usr/lib/libgstaudio:g" \
 					-e "s:\$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces:/usr/lib/libgstinterfaces:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/netbuffer/libgstnetbuffer:/usr/lib/libgstnetbuffer:g" \
 					-e "s:\$(top_builddir)/gst-libs/gst/riff/libgstriff:/usr/lib/libgstriff:g" \
 					-e "s:\$(top_builddir)/gst-libs/gst/rtp/libgstrtp:/usr/lib/libgstrtp:g" \
 					-e "s:\$(top_builddir)/gst-libs/gst/tag/libgsttag:/usr/lib/libgsttag:g" \
