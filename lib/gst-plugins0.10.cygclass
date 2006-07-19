@@ -1,0 +1,170 @@
+################################################################################
+#
+# gst-plugins0.10.cygclass - functions for building GStreamer 0.10 Plugins
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+# Borrowed heavily from Gentoo's gst-plugins* eclasses
+
+gst_pn=${PN/gstreamer${PVP[0]}${PVP[1]}-plugins-/}
+
+case ${gst_pn} in
+	base|good|bad|ugly)
+		gst_srcpn=${gst_pn}
+		GST_PLUGINS_DIR=.
+		GST_PLUGINS_MODULE=
+		ORIG_PN=gst-plugins-${gst_srcpn}
+		;;
+	ffmpeg)
+		gst_srcpn=ffmpeg
+		GST_PLUGINS_DIR=.
+		GST_PLUGINS_MODULE=
+		ORIG_PN=gst-ffmpeg
+		;;
+	nonlin)
+		gst_srcpn=nonlin
+		GST_PLUGINS_DIR=.
+		GST_PLUGINS_MODULE=
+		ORIG_PN=gnonlin
+		;;
+	opengl|oss|ximage|ximagesrc|xvimage)
+		gst_srcpn=${GST_PLUGINS_SRC}
+		GST_PLUGINS_DIR=${GST_PLUGINS_DIR:-sys/${gst_pn}}
+		GST_PLUGINS_MODULE=${GST_PLUGINS_MODULE:-${gst_pn}}
+		ORIG_PN=gst-plugins-${gst_srcpn}
+		;;
+	*)
+		gst_srcpn=${GST_PLUGINS_SRC}
+		GST_PLUGINS_DIR=${GST_PLUGINS_DIR:-ext/${gst_pn}}
+		GST_PLUGINS_MODULE=${GST_PLUGINS_MODULE:-${gst_pn}}
+		ORIG_PN=gst-plugins-${gst_srcpn}
+		;;
+esac
+
+DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
+HOMEPAGE="http://gstreamer.freedesktop.org/"
+SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
+SRC_DIR=${ORIG_PN}-${PV}
+
+DIFF_EXCLUDES='po m4 autoregen.sh stamp-h.in'
+
+case ${gst_srcpn} in
+	base)
+		my_gst_plugins="alsa cdparanoia freetypetest gnome_vfs gst_v4l \
+			gst_v4l2 libvisual ogg oggtest pango theora vorbis vorbistest \
+			x xshm xvideo"
+		;;
+	good)
+		my_gst_plugins="aalib aalibtest annodex cairo cdio esd esdtest flac \
+			gconf gconftool gdk_pixbuf hal jpeg ladspa libcaca libdv dv1394 \
+			libpng oss shout2 shout2test speex sunaudio taglib x xshm"
+		;;
+	bad)
+		my_gst_plugins="amrwb bz2 directfb divx dts faac faad gsm gst_v4l2 \
+			ivorbis libmms musepack musicbrainz neon opengl sdl sdltest \
+			soundtouch swfdec theoradec wavpack xvid"
+		;;
+	ugly)
+		my_gst_plugins="amrnb a52dec dvdread id3tag lame mad mpeg2dec sidplay"
+		;;
+esac
+
+gst_plugins_autoreconf() {
+	# gstreamer tarballs include autogen.sh, so use it
+	if [ ! -f autogen.sh ]
+	then
+		error "Could not find autogen.sh"
+	fi
+	NOCONFIGURE=1 ./autogen.sh || error "autogen.sh failed"
+
+	case ${gst_pn} in
+		base|good|bad|ugly|ffmpeg|nonlin)
+			;;
+		*)
+			# Remove generation of any other Makefiles except the plugin's Makefile
+			local makefiles="Makefile ${GST_PLUGINS_DIR%/*}/Makefile ${GST_PLUGINS_DIR}/Makefile"
+			sed -i \
+				-e "s:ac_config_files=.*:ac_config_files='${makefiles}':" \
+				${S}/configure
+
+			if [ "x${gst_srcpn}" = "xbase" ]
+			then
+				sed \
+					-e "s:\$(top_builddir)/gst-libs/gst/audio/libgstaudio:/usr/lib/libgstaudio:g" \
+					-e "s:\$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces:/usr/lib/libgstinterfaces:g" \
+					-e "s:\$(top_builddir)/gst-libs/gst/netbuffer/libgstnetbuffer:/usr/lib/libgstnetbuffer:g" \
+					-e "s:\$(top_builddir)/gst-libs/gst/riff/libgstriff:/usr/lib/libgstriff:g" \
+					-e "s:\$(top_builddir)/gst-libs/gst/rtp/libgstrtp:/usr/lib/libgstrtp:g" \
+					-e "s:\$(top_builddir)/gst-libs/gst/tag/libgsttag:/usr/lib/libgsttag:g" \
+					-e "s:\$(top_builddir)/gst-libs/gst/video/libgstvideo:/usr/lib/libgstvideo:g" \
+					-i ${S}/${GST_PLUGINS_DIR}/Makefile.in
+			fi
+			;;
+	esac
+}
+
+gst_plugins_compile() {
+	local plugin gst_conf
+
+	for plugin in ${GST_PLUGINS_MODULE}
+	do
+		my_gst_plugins=${my_gst_plugins/${plugin}/}
+	done
+	for plugin in ${my_gst_plugins}
+	do
+		gst_conf="${gst_conf} --disable-${plugin} "
+	done
+	for plugin in ${GST_PLUGINS_MODULE}
+	do
+		gst_conf="${gst_conf} --enable-${plugin} "
+	done
+
+	cygconf \
+		--enable-gtk-doc \
+		--disable-examples \
+		--disable-schemas-install \
+		--disable-static \
+		--disable-tests \
+		--disable-valgrind \
+		${gst_conf} "${@}"
+
+	if [ "x${GST_PLUGINS_DIR}" != "x." ]
+	then
+		if [ ! -d ${GST_PLUGINS_DIR} ]
+		then
+			error "GST_PLUGINS_DIR must be set to the plugin subdirectory"
+		fi
+	fi
+
+	cd ${GST_PLUGINS_DIR}
+	cygmake
+}
+
+gst_plugins_install() {
+	if [ "x${GST_PLUGINS_DIR}" != "x." ]
+	then
+		if [ ! -d ${GST_PLUGINS_DIR} ]
+		then
+			error "GST_PLUGINS_DIR must be set to the plugin subdirectory"
+		fi
+	fi
+
+	cd ${GST_PLUGINS_DIR}
+	cyginstall
+}
+
+src_compile() {
+	cd ${S}
+	gst_plugins_autoreconf
+	cd ${B}
+	gst_plugins_compile
+}
+
+src_install() {
+	cd ${B}
+	gst_plugins_install
+}

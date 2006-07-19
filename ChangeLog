@@ -1,4 +1,12 @@
 
+	* TODO, 
+	  lib/Makefile.am,
+	  lib/gst-plugins.cygclass,
+	  lib/gst-plugins0.8.cygclass,
+	  lib/gst-plugins0.10.cygclass:
+	Switch to versioned gst-plugins0.x cygclasses, and make gst-plugins
+	a wrapper which inherits the correct version, based on ${PV_MAJ_MIN}.
+
 	* bin/cygport.in (unpack):
 	Handle all files which aren't archives nor GPG sigs with cp -t.
 	Provide a default SRC_DIR of ${P}.
