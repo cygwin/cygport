@@ -14,45 +14,46 @@ gst_pn=${PN/gstreamer${PVP[0]}${PVP[1]}-plugins-/}
 
 case ${gst_pn} in
 	base|good|bad|ugly)
-		gst_srcpn=${gst_pn}
 		GST_PLUGINS_DIR=.
 		GST_PLUGINS_MODULE=
-		ORIG_PN=gst-plugins-${gst_srcpn}
+		ORIG_PN=gst-plugins-${gst_pn}
 		;;
 	ffmpeg)
-		gst_srcpn=ffmpeg
 		GST_PLUGINS_DIR=.
 		GST_PLUGINS_MODULE=
 		ORIG_PN=gst-ffmpeg
 		;;
 	nonlin)
-		gst_srcpn=nonlin
 		GST_PLUGINS_DIR=.
 		GST_PLUGINS_MODULE=
 		ORIG_PN=gnonlin
 		;;
+	fluendo-*)
+		GST_PLUGINS_DIR=.
+		GST_PLUGINS_MODULE=
+		ORIG_PN=gst-${gst_pn}
+		SRC_URI="http://core.fluendo.com/gstreamer/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
+		;;
 	opengl|oss|ximage|ximagesrc|xvimage)
-		gst_srcpn=${GST_PLUGINS_SRC}
 		GST_PLUGINS_DIR=${GST_PLUGINS_DIR:-sys/${gst_pn}}
 		GST_PLUGINS_MODULE=${GST_PLUGINS_MODULE:-${gst_pn}}
-		ORIG_PN=gst-plugins-${gst_srcpn}
+		ORIG_PN=gst-plugins-${GST_PLUGINS_SRC}
 		;;
 	*)
-		gst_srcpn=${GST_PLUGINS_SRC}
 		GST_PLUGINS_DIR=${GST_PLUGINS_DIR:-ext/${gst_pn}}
 		GST_PLUGINS_MODULE=${GST_PLUGINS_MODULE:-${gst_pn}}
-		ORIG_PN=gst-plugins-${gst_srcpn}
+		ORIG_PN=gst-plugins-${GST_PLUGINS_SRC}
 		;;
 esac
 
 DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
-HOMEPAGE="http://gstreamer.freedesktop.org/"
-SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
+HOMEPAGE="${HOMEPAGE:-http://gstreamer.freedesktop.org/}"
+SRC_URI="${SRC_URI:-http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2}"
 SRC_DIR=${ORIG_PN}-${PV}
 
 DIFF_EXCLUDES='po m4 autoregen.sh stamp-h.in'
 
-case ${gst_srcpn} in
+case ${GST_PLUGINS_SRC:-${gst_pn}} in
 	base)
 		my_gst_plugins="alsa cdparanoia freetypetest gnome_vfs gst_v4l \
 			gst_v4l2 libvisual ogg oggtest pango theora vorbis vorbistest \
@@ -91,7 +92,7 @@ gst_plugins_autoreconf() {
 				-e "s:ac_config_files=.*:ac_config_files='${makefiles}':" \
 				${S}/configure
 
-			if [ "x${gst_srcpn}" = "xbase" ]
+			if [ "x${GST_PLUGINS_SRC}" = "xbase" ]
 			then
 				sed \
 					-e "s:\$(top_builddir)/gst-libs/gst/audio/libgstaudio:/usr/lib/libgstaudio:g" \

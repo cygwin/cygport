@@ -1,4 +1,7 @@
 
+	* lib/gst-plugins0.10.cygclass:
+	Add support for Fluendo plugins.
+
 	* lib/gst-plugins0.8.cygclass:
 	Define DEPS_PATH, as 0.8 plugins can depend on others.
 	Build gconf and oss as part of the base plugins package.
