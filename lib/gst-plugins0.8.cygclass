@@ -16,7 +16,7 @@ case ${gst_pn} in
 	gstreamer${PVP[0]}${PVP[1]}-plugins)
 		gst_pn=base
 		GST_PLUGINS_DIR=.
-		GST_PLUGINS_MODULE=
+		GST_PLUGINS_MODULE="gconf gconftool oss"
 		ORIG_PN=gst-plugins
 		;;
 	ffmpeg)
@@ -48,16 +48,18 @@ SRC_DIR=${ORIG_PN}-${PV}
 
 DIFF_EXCLUDES='po m4 autoregen.sh stamp-h.in'
 
+DEPS_PATH="/usr/lib/gstreamer-${PV_MAJ_MIN}"
+
 # sys/ available on Cygwin
 my_gst_plugins="opengl oss x xshm xvideo"
 # ext/ available on Cygwin
 my_gst_plugins="${my_gst_plugins} a52dec aalib amrnb arts artsc audiofile \
 	audioresample cairo cdio dirac dts dvdnav dvdread esd faac faad flac \
-	gdk_pixbuf gdk-pixbuf-loader gnome_vfs gsm hermes ivorbis jack jpeg \
-	lame libcaca libdv libfame libmms libmng libpng libvisual mad mikmod \
-	mpeg2dec mpeg2enc mplex musepack musicbrainz nas pango polyp sdl \
-	shout shout2 sidplay smoothwave spc speex sndfile swfdec tarkin ogg \
-	theora vorbis wavpack x264 xine xvid"
+	gconf gconftool gdk_pixbuf gdk-pixbuf-loader gnome_vfs gsm hermes \
+	ivorbis jack jpeg lame libcaca libdv libfame libmms libmng libpng \
+	libvisual mad mikmod mpeg2dec mpeg2enc mplex musepack musicbrainz nas \
+	pango polyp sdl shout shout2 sidplay smoothwave spc speex sndfile swfdec \
+	tarkin ogg theora vorbis wavpack x264 xine xvid"
 # "compile test program"
 my_gst_plugins="${my_gst_plugins} aalibtest artstest esdtest freetypetest \
 	libfametest libmikmodtest sdltest shout2test oggtest vorbistest"
@@ -151,7 +153,7 @@ gst_plugins_install() {
 
 gst_plugins_postinst() {
 	dodir /etc/postinstall
-	echo "/usr/bin/gst-register-${PV_MAJ_MIN}" > ${D}/etc/postinstall/${PN}.sh
+	echo "LD_LIBRARY_PATH=/usr/lib/gstreamer-${PV_MAJ_MIN} /usr/bin/gst-register-${PV_MAJ_MIN}" > ${D}/etc/postinstall/${PN}.sh
 }
 
 src_compile() {

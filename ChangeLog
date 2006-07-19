@@ -1,4 +1,9 @@
 
+	* lib/gst-plugins0.8.cygclass:
+	Define DEPS_PATH, as 0.8 plugins can depend on others.
+	Build gconf and oss as part of the base plugins package.
+	Pass LD_LIBRARY_PATH to gst-register.
+
 	* TODO, 
 	  lib/Makefile.am,
 	  lib/gst-plugins.cygclass,
