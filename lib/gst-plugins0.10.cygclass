@@ -83,7 +83,7 @@ gst_plugins_autoreconf() {
 	NOCONFIGURE=1 ./autogen.sh || error "autogen.sh failed"
 
 	case ${gst_pn} in
-		base|good|bad|ugly|ffmpeg|nonlin)
+		base|good|bad|ugly|ffmpeg|fluendo-*|nonlin)
 			;;
 		*)
 			# Remove generation of any other Makefiles except the plugin's Makefile
