@@ -10,12 +10,13 @@
 
 inherit ruby
 
-rbg2_pn=${PN/ruby-/}
+rbg2_pn=${PN#ruby-}
 
 case ${rbg2_pn} in
 	gtkhtml2)
 		rbg2_subdir=${rbg2_pn}
 		;;
+
 	*)
 		rbg2_subdir=${rbg2_pn%2}
 		;;
@@ -45,11 +46,15 @@ ruby_gnome2_compile() {
 }
 
 ruby_gnome2_install() {
+	local implib
+
 	cd ${rbg2_subdir}
 	ruby_install
 
+	eval implib=$(grep -h 'PACKAGE_NAME.*=' extconf.rb | sed -e 's!.*= !!g')
+
 	insinto ${RUBY_SITEARCH}
-	doins ${B}/${rbg2_subdir}/src/libruby-${rbg2_pn}.a
+	doins src/libruby-${implib}.a
 }
 
 src_compile() {

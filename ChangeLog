@@ -1,4 +1,7 @@
 
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_install):
+	Derive correct name of implib from extconf.rb.
+
 	* bin/prep_gconf_schemas.sh:
 	GConf-2.14 shouldn't require the shutdown/kill commands anymore.
 
