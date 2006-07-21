@@ -1,3 +1,4 @@
+**** 0.2.3 *****
 
 	* bin/cygport.in (pkg_binpkg, pkg_dist):
 	If undefined, PKG_HINTS defaults to PKG_NAMES with split packages.

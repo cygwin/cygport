@@ -1,3 +1,13 @@
+0.2.3:
+	New cygclasses: gst-plugins0.8 (NEW), gst-plugins0.10 (prev. gst-plugins).
+	gst-plugins.cygclass: now a wrapper for versioned gst-pluginsX.Y.
+	ruby-gnome2.cygclass: fix import library installation.
+	cygconf(): --localstatedir=/var (gnome2 overrides to /var/lib).
+	GPG source signatures with .asc or .sign extensions are now accepted.
+	Files with unknown extensions are copied into ${S}.
+	Empty .src.patch files are no longer included in the -src package.
+	Dropped support for old g-b-s patches.
+
 0.2.2:
 	pkg_diff(): Handle GNUmakefile.{am,in} files.
 	unpack(): Handle .pl and .py with cp -t.
