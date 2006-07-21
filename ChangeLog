@@ -1,4 +1,7 @@
 
+	* bin/prep_gconf_schemas.sh:
+	GConf-2.14 shouldn't require the shutdown/kill commands anymore.
+
 	* lib/gst-plugins0.10.cygclass:
 	Add support for Fluendo plugins.
 
