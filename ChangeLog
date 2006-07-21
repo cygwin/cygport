@@ -1,4 +1,8 @@
 
+	* bin/cygport.in (pkg_binpkg, pkg_dist):
+	If undefined, PKG_HINTS defaults to PKG_NAMES with split packages.
+	CYGWIN-PATCHES/*.list files can be used instead of PKG_CONTENTS.
+
 	* lib/gst-plugins0.8.cygclass:
 	Fix the dependency locations for 0.8.
 	Use PATH instead of LD_LIBRARY_PATH for the postinstall.

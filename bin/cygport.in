@@ -236,7 +236,7 @@ __version_at_least() {
 	local have_r=${2#*-};
 	local -a want_va=(${want_v//[-\._]/ });
 	local -a have_va=(${have_v//[-\._]/ });
-	local n=0;
+	local -i n=0;
 
 	while [ -n "${want_ver[${n}]}" ]
 	do
@@ -247,7 +247,7 @@ __version_at_least() {
 		then
 			return 1;
 		else
-			let n+=1;
+			n+=1;
 			continue;
 		fi
 	done
@@ -412,7 +412,7 @@ __mkdirs() {
 
 apply_patch() {
 	local patchfile;
-	local patchlevel;
+	local -i patchlevel;
 
 	for patchfile in ${@}
 	do
@@ -430,7 +430,7 @@ apply_patch() {
 		fi
 
 		case ${patchfile} in
-			*.cygwin.patch) let patchlevel+=1 ;;
+			*.cygwin.patch) patchlevel+=1 ;;
 		esac
 
 		while [ ${patchlevel} -lt 3 ]
@@ -444,7 +444,7 @@ apply_patch() {
 				then
 					error "patch ${patchfile} will not apply";
 				else
-					let patchlevel+=1;
+					patchlevel+=1;
 					continue;
 				fi
 			fi
@@ -824,7 +824,7 @@ readonly -f dodir docinto exeinto insinto __prepinstalldirs cyginstall
 # installs standard docs, html docs, and Cygwin README
 __prepdoc() {
 	local html;
-	local n=1;
+	local -i n=1;
 	local default_docs="\
 		ABOUT-NLS ANNOUNCE ANNOUNCEMENTS AUTHOR AUTHORS \
 		BUG-REPORTS BUGS \
@@ -864,10 +864,6 @@ __prepdoc() {
 		then
 			insinto /usr/share/doc/Cygwin;
 			newins ${C}/${pkg_name[${n}]}.README ${pkg_name[${n}]}-${PV}.README;
-		elif [ -f ${C}/${pkg_hint[${n}]}.README ]
-		then
-			insinto /usr/share/doc/Cygwin;
-			newins ${C}/${pkg_hint[${n}]}.README ${pkg_name[${n}]}-${PV}.README;
 		fi
 
 		### setup.exe can't install "broken" symlinks
@@ -875,7 +871,7 @@ __prepdoc() {
 		#	dodir /usr/share/doc/Cygwin;
 		#	dosym ${P}.README /usr/share/doc/Cygwin/${pkg_name[${n}]}-${PV}.README;
 
-		let n+=1;
+		n+=1;
 	done
 }
 
@@ -1044,7 +1040,7 @@ readonly -f __list_files __list_deps __show_info
 ################################################################################
 
 pkg_binpkg() {
-	local n=0;
+	local -i n=0;
 
 	cd ${D};
 
@@ -1052,15 +1048,32 @@ pkg_binpkg() {
 
 	while [ -n "${pkg_name[${n}]}" ]
 	do
-		echo "${pkg_name[${n}]}-${PVR}.tar.bz2";
-		tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${PKG_CONTENTS[${n}]} || error "Binary package creation failed"
+		__step "${pkg_name[${n}]}-${PVR}.tar.bz2";
+
+		if [ -n "${PKG_CONTENTS[${n}]}" ]
+		then
+			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
+				${PKG_CONTENTS[${n}]} \
+				|| error "Binary package creation failed"
+		elif [ -f ${C}/${pkg_name[${n}]}.list ]
+		then
+			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
+				$(cat ${C}/${pkg_name[${n}]}.list) \
+				|| error "Binary package creation failed"
+		elif [ ${pkg_count} -eq 1 ]
+		then
+			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 * \
+				|| error "Binary package creation failed"
+		else
+			error "Either define PKG_CONTENTS[${n}], or create CYGWIN-PATCHES/${pkg_name[${n}]}.list file";
+		fi				
 		echo;
-		let n+=1;
+		n+=1;
 	done
 }
 
 pkg_pkgcheck() {
-	local n=0;
+	local -i n=0;
 	local tmp1="${T}/tmptar.log";
 	local tmp2="${T}/tmpfind.log";
 
@@ -1072,7 +1085,7 @@ pkg_pkgcheck() {
 	while [ -n "${pkg_name[${n}]}" ]
 	do
 		tar tjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 | grep -Ev "/$" >> ${tmp1}
-		let n+=1
+		n+=1
 	done
 
 	sort < ${tmp1} > "${tmp1}.sorted";
@@ -1116,51 +1129,50 @@ pkg_diff() {
 	# exclude Makefile.in only if using automake
 	if [ -f ${S}/Makefile.am ]
 	then
-		default_excludes="${default_excludes} -x Makefile.in*";
+		default_excludes+=" -x Makefile.in*";
 	fi
 
 	if [ -f ${S}/GNUmakefile.am ]
 	then
-		default_excludes="${default_excludes} -x GNUmakefile.in*";
+		default_excludes+=" -x GNUmakefile.in*";
 	fi
 
 	# exclude configure only if using autoconf
 	if [ -f ${S}/configure.in -o -f ${S}/configure.ac ]
 	then
-		default_excludes="${default_excludes} -x configure";
+		default_excludes+=" -x configure";
 	fi
 
 	# gtk-doc
 	if [ -f ${S}/gtk-doc.make ]
 	then
-		default_excludes="${default_excludes} -x *.stamp -x *.html \
-			-x *.bak -x *.sgml -x *.tmpl -x *.txt -x *.xml -x *.args \
-			-x *.devhelp* -x *.css -x *.hierarchy -x *.interfaces \
-			-x *.prerequisites -x *.signals -x *.top -x *.bottom -x gtk-doc.make";
+		default_excludes+=" -x *.stamp -x *.html -x *.bak -x *.sgml \
+			-x *.tmpl -x *.txt -x *.xml -x *.args -x *.devhelp* -x *.css \
+			-x *.hierarchy -x *.interfaces -x *.prerequisites -x *.signals \
+			-x *.top -x *.bottom -x gtk-doc.make";
 	fi
 
 	# GNOME miscellaneous
 	if [ "${PN}" != "gnome-doc-utils" ]
 	then
-		default_excludes="${default_excludes} -x gnome-doc-utils.make";
+		default_excludes+=" -x gnome-doc-utils.make";
 	fi
 
 	if [ "${PN}" != "intltool" ]
 	then
-		default_excludes="${default_excludes} -x intltool.m4";
+		default_excludes+=" -x intltool.m4";
 	fi
 
 	if [ "${PN}" != "gnome-common" ]
 	then
-		default_excludes="${default_excludes} -x omf.make -x xmldocs.make";
+		default_excludes+=" -x omf.make -x xmldocs.make";
 	fi
 
 	# KDE
 	if [ -f ${S}/admin/libtool.m4.in ]
 	then
-		default_excludes="${default_excludes} -x libtool.m4.in* \
-			-x configure.bak -x configure.in -x configure.files \
-			-x acinclude.m4";
+		default_excludes+=" -x libtool.m4.in* -x configure.bak \
+			-x configure.in -x configure.files -x acinclude.m4 -x subdirs";
 	fi
 
 	case ${DIFF_EXCLUDES} in
@@ -1170,7 +1182,7 @@ pkg_diff() {
 		*)
 			for exclude in ${DIFF_EXCLUDES}
 			do
-				custom_excludes="${custom_excludes} -x ${exclude}";
+				custom_excludes+=" -x ${exclude}";
 			done
 			;;
 	esac
@@ -1255,7 +1267,8 @@ pkg_srcpkg() {
 }
 
 pkg_dist() {
-	local n=1;
+	local -i n=1;
+	local -a pkg_hint;
 
 	rm -fr ${distdir}/*;
 
@@ -1264,6 +1277,18 @@ pkg_dist() {
 	mkdir -p ${distdir}/${PN};
 
 	cp ${top}/${PF}-src.tar.bz2 ${top}/${PF}.tar.bz2 ${distdir}/${PN};
+
+	if [ ${pkg_count} -gt 1 ]
+	then
+		pkg_hint=(${PKG_HINTS:-${PKG_NAMES}})
+	else
+		pkg_hint=(${PKG_HINTS:-setup})
+	fi
+
+	if [ ${#pkg_name[*]} -ne ${#pkg_hint[*]} ]
+	then
+		error "Different number of packages defined in PKG_NAMES and PKG_HINTS";
+	fi
 
 	if [ -f ${C}/${pkg_hint[0]%.hint}.hint ]
 	then
@@ -1284,12 +1309,12 @@ pkg_dist() {
 			warning "${pkg_hint[${n}]%.hint}.hint is missing";
 		fi
 
-		let n+=1;
+		n+=1;
 	done
 }
 
 finish() {
-	local n=0;
+	local -i n=0;
 
 	cd ${top};
 
@@ -1300,7 +1325,7 @@ finish() {
 #		FIXME: beep??
 #		echo $'\a';
 		sleep 1 || exit $?;
-		let n+=1;
+		n+=1;
 	done
 
 	__step "Removing work directory NOW.";
@@ -1419,41 +1444,12 @@ unset _src_uri;
 declare -r cygwin_patchfile=${PF}.cygwin.patch;
 declare -r src_patchfile=${PF}.src.patch;
 
-if [ -n "${PKG_NAMES}" ]
+declare -ar pkg_name=(${PKG_NAMES:-${PN}});
+declare -r pkg_count=${#pkg_name[*]}
+
+if [ "x${pkg_name[0]}" != "x${PN}" ]
 then
-	declare -ar pkg_name=(${PKG_NAMES});
-
-	if [ "x${pkg_name[0]}" != "x${PN}" ]
-	then
-		error "When defining PKG_NAMES, the first package should be ${PN}.";
-	fi
-
-	# FIXME: should default to ${PKG_NAMES}??
-	if [ -z "${PKG_HINTS}" ]
-	then
-		error "When defining PKG_NAMES, then PKG_HINTS must also be defined.";
-	fi
-
-	declare -ar pkg_hint=(${PKG_HINTS});
-
-	if [ -z "${PKG_CONTENTS[0]}" ]
-	then
-		error "When defining PKG_NAMES, then PKG_CONTENTS must also be defined.";
-	fi
-else
-	# PKG_NAMES undefined, building only one package
-	declare -ar pkg_name=(${PN});
-	declare -ar pkg_hint=(${PKG_HINTS:-setup});
-
-	if [ -z "${PKG_CONTENTS[0]}" ]
-	then
-		PKG_CONTENTS[0]='*';
-	fi
-fi
-
-if [ ${#pkg_name[*]} -ne ${#pkg_hint[*]} -o ${#pkg_name[*]} -ne ${#PKG_CONTENTS[*]} ]
-then
-	error "Inconsistent number of packages declared in PKG_* variables";
+	error "When defining PKG_NAMES, the first package should be ${PN}.";
 fi
 
 ################################################################################
