@@ -563,6 +563,8 @@ lndirs() {
 # Regenerates auto* files; most importantly, pulls in the Cygwin libtool
 cygautoreconf() {
 	local f;
+	local notool;
+	local tool;
 
 	# Automake will exit if these are not present
 	# dodoc won't install these, however, since they will be empty
@@ -601,6 +603,16 @@ cygautoreconf() {
 
 		export WANT_AUTOCONF=2.5;
 		export WANT_AUTOMAKE;
+
+		for tool in ACLOCAL LIBTOOL AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
+		do
+			notool=NO_${tool}
+			if [ -n "${!notool}" ]
+			then
+				export ${tool}=true
+			fi
+		done
+
 		/usr/bin/autoreconf-2.5x --install --force --verbose || error "autoreconf-2.5x failed"
 	fi	
 

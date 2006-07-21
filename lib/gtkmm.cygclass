@@ -17,19 +17,10 @@ DESCRIPTION="GNOME C++ bindings for ${ORIG_PN/mm/}-${PV_MAJ}.x"
 HOMEPAGE="http://www.gtkmm.org/"
 
 gtkmm_autoreconf() {
-	export WANT_AUTOCONF=2.5
-	export WANT_AUTOMAKE=${WANT_AUTOMAKE:-1.9}
-
-	# gtkmm doesn't use autoheader, but autoreconf thinks it does
-	if [ -d scripts ]
-	then
-   	 	/usr/bin/aclocal --force -I scripts || error "aclocal failed"
-	else
-		/usr/bin/aclocal --force || error "aclocal failed"
-	fi
-	/usr/bin/libtoolize --force || error "libtoolize failed"
-	/usr/bin/autoconf --force || error "autoconf failed"
-	/usr/bin/automake --add-missing --copy --force-missing || error "automake failed"
+	WANT_AUTOCONF=2.5
+	WANT_AUTOMAKE=${WANT_AUTOMAKE:-1.9}
+	NO_AUTOHEADER=1
+	cygautoreconf
 
 	sed -i -e '/^SUBDIRS = .*/s/tests//' Makefile.in
 }

@@ -1,4 +1,11 @@
 
+	* lib/gtkmm.cygclass (gtkmm_autoreconf):
+	Use cygautoreconf NO_AUTOHEADER.
+
+	* bin/cygport.in (cygautoreconf):
+	Accept NO_AUTO* variables to not use certain tools during autoreconf-2.5;
+	the most common use will be NO_AUTOHEADER.
+
 	* CYGWIN-PATCHES/README, configure.ac:
 	Post-release version bump.
 
