@@ -1,4 +1,8 @@
 
+	* lib/gst-plugins0.8.cygclass:
+	Fix the dependency locations for 0.8.
+	Use PATH instead of LD_LIBRARY_PATH for the postinstall.
+
 	* lib/ruby-gnome2.cygclass (ruby_gnome2_install):
 	Derive correct name of implib from extconf.rb.
 

@@ -82,18 +82,19 @@ gst_plugins_autoreconf() {
 			# Remove generation of any other Makefiles except the plugin's Makefile
 			local makefiles="Makefile ${GST_PLUGINS_DIR%/*}/Makefile ${GST_PLUGINS_DIR}/Makefile"
 			sed -i \
-				-e "s:ac_config_files=.*:ac_config_files='${makefiles}':" \
+				-e "s!ac_config_files=.*!ac_config_files='${makefiles}'!" \
 				${S}/configure
 
 			if [ "x${ORIG_PN}" = "xgst-plugins" ]
 			then
 				sed \
-					-e "s:\$(top_builddir)/gst-libs/gst/audio/libgstaudio:/usr/lib/libgstaudio:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces:/usr/lib/libgstinterfaces:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/riff/libgstriff:/usr/lib/libgstriff:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/rtp/libgstrtp:/usr/lib/libgstrtp:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/tag/libgsttag:/usr/lib/libgsttag:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/video/libgstvideo:/usr/lib/libgstvideo:g" \
+					-e "s!\$(top_builddir)/gst-libs/gst/audio/libgstaudio!/usr/lib/gstreamer-${PV_MAJ_MIN}/libgstaudio!g" \
+					-e "s!\$(top_builddir)/gst-libs/gst/gconf/libgstgconf!/usr/lib/libgstgconf!g" \
+					-e "s!\$(top_builddir)/gst-libs/gst/libgstinterfaces!/usr/lib/libgstinterfaces!g" \
+					-e "s!\$(top_builddir)/gst-libs/gst/riff/libgstriff!/usr/lib/gstreamer-${PV_MAJ_MIN}/libgstriff!g" \
+					-e "s!\$(top_builddir)/gst-libs/gst/resample/libgstresample!/usr/lib/gstreamer-${PV_MAJ_MIN}/libgstresample!g" \
+					-e "s!\$(top_builddir)/gst-libs/gst/tag/libgsttag!/usr/lib/gstreamer-${PV_MAJ_MIN}/libgsttag!g" \
+					-e "s!\$(top_builddir)/gst/videofilter/libgstvideofilter!/usr/lib/gstreamer-${PV_MAJ_MIN}/libgstvideofilter!g" \
 					-i ${S}/${GST_PLUGINS_DIR}/Makefile.in
 			fi
 			;;
@@ -153,7 +154,7 @@ gst_plugins_install() {
 
 gst_plugins_postinst() {
 	dodir /etc/postinstall
-	echo "LD_LIBRARY_PATH=/usr/lib/gstreamer-${PV_MAJ_MIN} /usr/bin/gst-register-${PV_MAJ_MIN}" > ${D}/etc/postinstall/${PN}.sh
+	echo PATH=\"\${PATH}:/usr/lib/gstreamer-${PV_MAJ_MIN}\" /usr/bin/gst-register-${PV_MAJ_MIN} > ${D}/etc/postinstall/${PN}.sh
 }
 
 src_compile() {
