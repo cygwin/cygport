@@ -94,6 +94,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/gst-plugins.cygclass
   /usr/lib/cygport/lib/gst-plugins0.8.cygclass
   /usr/lib/cygport/lib/gst-plugins0.10.cygclass
+  /usr/lib/cygport/lib/gstreamer.cygclass
   /usr/lib/cygport/lib/gtk2-perl.cygclass
   /usr/lib/cygport/lib/gtkmm.cygclass
   /usr/lib/cygport/lib/kde3.cygclass

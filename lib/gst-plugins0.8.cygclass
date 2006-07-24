@@ -24,11 +24,6 @@ case ${gst_pn} in
 		GST_PLUGINS_MODULE=
 		ORIG_PN=gst-ffmpeg
 		;;
-	nonlin)
-		GST_PLUGINS_DIR=.
-		GST_PLUGINS_MODULE=
-		ORIG_PN=gnonlin
-		;;
 	opengl|oss|ximage|ximagesrc|xvimage)
 		GST_PLUGINS_DIR=${GST_PLUGINS_DIR:-sys/${gst_pn}}
 		GST_PLUGINS_MODULE=${GST_PLUGINS_MODULE:-${gst_pn}}
@@ -41,12 +36,9 @@ case ${gst_pn} in
 		;;
 esac
 
-DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
-HOMEPAGE="http://gstreamer.freedesktop.org/"
-SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
-SRC_DIR=${ORIG_PN}-${PV}
+inherit gstreamer
 
-DIFF_EXCLUDES='po m4 autoregen.sh stamp-h.in'
+DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
 
 DEPS_PATH="/usr/lib/gstreamer-${PV_MAJ_MIN}"
 
@@ -68,12 +60,7 @@ my_gst_plugins="${my_gst_plugins} alsa cdaudio cdrom cdparanoia directfb
 divx dv1394 dxr3 ladspa osx_audio osx_video qcam sunaudio v4l v4l2 vcd"
 
 gst_plugins_autoreconf() {
-	# gstreamer tarballs include autogen.sh, so use it
-	if [ ! -f autogen.sh ]
-	then
-		error "Could not find autogen.sh"
-	fi
-	NOCONFIGURE=1 ./autogen.sh || error "autogen.sh failed"
+	gstreamer_autoreconf
 
 	case ${gst_pn} in
 		base|ffmpeg|nonlin)
@@ -93,7 +80,7 @@ gst_plugins_autoreconf() {
 					-e "s!\$(top_builddir)/gst-libs/gst/libgstinterfaces!/usr/lib/libgstinterfaces!g" \
 					-e "s!\$(top_builddir)/gst-libs/gst/riff/libgstriff!/usr/lib/gstreamer-${PV_MAJ_MIN}/libgstriff!g" \
 					-e "s!\$(top_builddir)/gst-libs/gst/resample/libgstresample!/usr/lib/gstreamer-${PV_MAJ_MIN}/libgstresample!g" \
-					-e "s!\$(top_builddir)/gst-libs/gst/tag/libgsttag!/usr/lib/gstreamer-${PV_MAJ_MIN}/libgsttag!g" \
+					-e "s!\$(top_builddir)/gst/tags/libgsttagedit!/usr/lib/gstreamer-${PV_MAJ_MIN}/libgsttagedit!g" \
 					-e "s!\$(top_builddir)/gst/videofilter/libgstvideofilter!/usr/lib/gstreamer-${PV_MAJ_MIN}/libgstvideofilter!g" \
 					-i ${S}/${GST_PLUGINS_DIR}/Makefile.in
 			fi
@@ -136,7 +123,9 @@ gst_plugins_compile() {
 	fi
 
 	cd ${GST_PLUGINS_DIR}
-	cygmake
+
+	# override GST_PLUGIN_LDFLAGS to avoid patching configure.ac each time
+	cygmake GST_PLUGIN_LDFLAGS="-module -avoid-version -no-undefined -export-symbols-regex '[_]*(gst_|Gst|GST_).*' -L\$(plugindir) \$(GST_LIBS)"
 }
 
 gst_plugins_install() {

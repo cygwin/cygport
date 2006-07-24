@@ -11,6 +11,7 @@ dist_cygclass_DATA = 			\
 	gst-plugins.cygclass		\
 	gst-plugins0.8.cygclass		\
 	gst-plugins0.10.cygclass	\
+	gstreamer.cygclass			\
 	gtk2-perl.cygclass			\
 	gtkmm.cygclass				\
 	kde3.cygclass				\

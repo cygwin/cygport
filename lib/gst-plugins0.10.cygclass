@@ -46,12 +46,9 @@ case ${gst_pn} in
 		;;
 esac
 
-DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
-HOMEPAGE="${HOMEPAGE:-http://gstreamer.freedesktop.org/}"
-SRC_URI="${SRC_URI:-http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2}"
-SRC_DIR=${ORIG_PN}-${PV}
+inherit gstreamer
 
-DIFF_EXCLUDES='po m4 autoregen.sh stamp-h.in'
+DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
 
 case ${GST_PLUGINS_SRC:-${gst_pn}} in
 	base)
@@ -75,12 +72,7 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 esac
 
 gst_plugins_autoreconf() {
-	# gstreamer tarballs include autogen.sh, so use it
-	if [ ! -f autogen.sh ]
-	then
-		error "Could not find autogen.sh"
-	fi
-	NOCONFIGURE=1 ./autogen.sh || error "autogen.sh failed"
+	gstreamer_autoreconf
 
 	case ${gst_pn} in
 		base|good|bad|ugly|ffmpeg|fluendo-*|nonlin)

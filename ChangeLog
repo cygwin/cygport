@@ -1,4 +1,12 @@
 
+	* CYGWIN-PATCHES/README,
+	  lib/Makefile.am,
+	  lib/gst-plugins0.8.cygclass,
+	  lib/gst-plugins0.10.cygclass,
+	  lib/gstreamer.cygclass:
+	Create a new gstreamer cygclass which can be used by both gst-plugins
+	as well as other GStreamer packages.
+
 	* lib/gtkmm.cygclass (gtkmm_autoreconf):
 	Use cygautoreconf NO_AUTOHEADER.
 
