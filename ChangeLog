@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (src_prep):
+	Verify that SRC_URI is correctly defined.
+
 	* CYGWIN-PATCHES/README,
 	  lib/Makefile.am,
 	  lib/gst-plugins0.8.cygclass,

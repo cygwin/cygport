@@ -513,6 +513,11 @@ src_prep() {
 		unpack ${top}/${src_pkg};
 	done
 
+	if [ ! -d ${origsrcdir}/${SRC_DIR} ]
+	then
+		error "SRC_DIR is not correctly defined"
+	fi
+
 	__step "Mirroring sources"
 
 	cp -fpr ${origsrcdir}/* ${srcdir};
