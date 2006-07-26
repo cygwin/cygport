@@ -16,7 +16,7 @@ case ${gst_pn} in
 	gstreamer${PVP[0]}${PVP[1]}-plugins)
 		gst_pn=base
 		GST_PLUGINS_DIR=.
-		GST_PLUGINS_MODULE="gconf gconftool oss"
+		GST_PLUGINS_MODULE="gconf gconftool oss smoothwave"
 		ORIG_PN=gst-plugins
 		;;
 	ffmpeg)
