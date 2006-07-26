@@ -56,7 +56,6 @@ kde3_compile() {
 
 	cygconf \
 		--includedir=/usr/include/kde \
-		--libexecdir=/usr/lib/kde3/bin \
 		--disable-pie \
 		--disable-rpath \
 		--disable-static \
@@ -83,7 +82,24 @@ kde3_compile() {
 }
 
 kde3_install() {
+	local doc kdepkg
+
 	cyginstall destdir=${D}
+
+	if [ -n "${PKG_NAMES[1]}" ]
+	then
+		for kdepkg in ${PKG_NAMES}
+		do
+			for doc in AUTHORS BUGS ChangeLog NEWS README TODO
+			do
+				if [ -f ${S}/${kdepkg}/${doc} ]
+				then
+					insinto /usr/share/doc/${kdepkg}-${PV}
+					doins ${S}/${kdepkg}/${doc}
+				fi
+			done
+		done
+	fi		
 }
 
 src_compile() {

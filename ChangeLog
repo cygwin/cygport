@@ -1,4 +1,7 @@
 
+	* lib/kde3.cygclass:
+	Install component-specific README files.
+
 	* lib/gst-plugins0.8.cygclass:
 	Build smoothwave with the base plugins, as it has no external deps.
 
