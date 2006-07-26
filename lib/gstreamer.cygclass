@@ -1,0 +1,45 @@
+################################################################################
+#
+# gstreamer.cygclass - common functions for building GStreamer components
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+gst_component=${PN#gstreamer*-}
+ORIG_PN=${ORIG_PN:-gst-${gst_component}}
+
+HOMEPAGE="${HOMEPAGE:-http://gstreamer.freedesktop.org/}"
+SRC_URI="${SRC_URI:-http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2}"
+SRC_DIR=${ORIG_PN}-${PV}
+
+CVS_URI=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/gstreamer"
+
+DIFF_EXCLUDES="common m4 po autoregen.sh stamp-h.in"
+
+gstreamer_cvs_checkout() {
+	check_prog_req cvs
+
+	if [ -z "${1}" ]
+	then
+		error "gst_cvs_checkout requires the CVS module as an argument"
+	fi
+
+	cvs -d ${CVS_URI} co ${@}
+}
+
+gstreamer_autoreconf() {
+	# gstreamer packages require a custom autogen.sh
+	if [ ! -f autogen.sh ]
+	then
+    	error "Could not find autogen.sh"
+	fi
+
+	NOCONFIGURE=1 ./autogen.sh || error "autogen.sh failed"
+}
+
+alias gst_autoreconf=gstreamer_autoreconf
+alias gst_cvs_checkout=gstreamer_cvs_checkout
+alias gst_cvs_co=gstreamer_cvs_checkout
