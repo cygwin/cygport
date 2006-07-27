@@ -1,5 +1,8 @@
 
-	* lib/kde3.cygclass:
+	* Makefile.am:
+	Since we refer to the README in help, have make install it.
+
+	* lib/kde3.cygclass (kde3_install):
 	Install component-specific README files.
 
 	* lib/gst-plugins0.8.cygclass:
