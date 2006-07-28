@@ -1,3 +1,9 @@
+0.2.4:
+	New cygclass: gstreamer (common functions for all GStreamer packages).
+	kde3.cygclass: install split package documentation.
+	xorg.cygclass: rename xorg-font-*-{75,100}dpi to xorg-font-*-dpi{75,100}.
+	cygautoreconf(): accept NO_AUTO* variables to disable individual steps.
+
 0.2.3:
 	New cygclasses: gst-plugins0.8 (NEW), gst-plugins0.10 (prev. gst-plugins).
 	gst-plugins.cygclass: now a wrapper for versioned gst-pluginsX.Y.

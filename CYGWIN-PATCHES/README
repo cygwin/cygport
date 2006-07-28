@@ -25,10 +25,10 @@ Runtime requirements:
   wget
 
 Build requirements:
-  cygwin-1.5.20-1
+  cygwin-1.5.21-1
   gawk-3.1.5-2
   help2man-1.35.1-1
-  make-3.80-1
+  make-3.81-1
   sed-4.1.5-1
 
 Canonical website:

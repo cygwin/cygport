@@ -1,3 +1,7 @@
+*** 0.2.4 ***
+
+	* ChangeLog, NEWS:
+	Tag for release.
 
 	* lib/xorg.cygclass:
 	Rename xorg-font-*-{75,100}dpi to xorg-font-*-dpi{75,100}.
@@ -34,7 +38,7 @@
 	* CYGWIN-PATCHES/README, configure.ac:
 	Post-release version bump.
 
-**** 0.2.3 *****
+*** 0.2.3 ***
 
 	* bin/cygport.in (pkg_binpkg, pkg_dist):
 	If undefined, PKG_HINTS defaults to PKG_NAMES with split packages.
@@ -86,7 +90,7 @@
 	* configure.ac:
 	Post-release version bump.
 
-*** 0.2.2 ****
+*** 0.2.2 ***
 
 	* bin/cygport.in (unpack):
 	Support *.pl and *.py scripts.
@@ -156,7 +160,7 @@
 	* configure.ac:
 	Post-release version bump.
 
-*** 0.2.1 ****
+*** 0.2.1 ***
 
 	* bin/cygport.in (pkg_pkgcheck):
 	New internal function for detecting duplicate and missing files from 
