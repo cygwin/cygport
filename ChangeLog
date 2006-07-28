@@ -10,6 +10,8 @@
 
 	* lib/gst-plugins0.8.cygclass:
 	Build smoothwave with the base plugins, as it has no external deps.
+	The flag --disable-gdk-pixbuf-loader is broken and defaults to no, so 
+	don't pass it.
 
 	* bin/cygport.in (src_prep):
 	Verify that SRC_URI is correctly defined.

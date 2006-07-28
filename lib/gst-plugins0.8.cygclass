@@ -47,7 +47,7 @@ my_gst_plugins="opengl oss x xshm xvideo"
 # ext/ available on Cygwin
 my_gst_plugins="${my_gst_plugins} a52dec aalib amrnb arts artsc audiofile \
 	audioresample cairo cdio dirac dts dvdnav dvdread esd faac faad flac \
-	gconf gconftool gdk_pixbuf gdk-pixbuf-loader gnome_vfs gsm hermes \
+	gconf gconftool gdk_pixbuf gnome_vfs gsm hermes \
 	ivorbis jack jpeg lame libcaca libdv libfame libmms libmng libpng \
 	libvisual mad mikmod mpeg2dec mpeg2enc mplex musepack musicbrainz nas \
 	pango polyp sdl shout shout2 sidplay smoothwave spc speex sndfile swfdec \
