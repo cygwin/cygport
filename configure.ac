@@ -1,6 +1,6 @@
 m4_define([cygport_major_version], [0])
 m4_define([cygport_minor_version], [2])
-m4_define([cygport_micro_version], [4])
+m4_define([cygport_micro_version], [5])
 m4_define([cygport_version],
           [cygport_major_version.cygport_minor_version.cygport_micro_version])
 
