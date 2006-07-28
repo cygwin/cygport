@@ -8,9 +8,11 @@
 #
 ################################################################################
 
-XORG_RELEASE=${XORG_RELEASE:-X11R7.0}
-
 case ${PN} in
+	xorg-font-*-dpi*)
+		ORIG_PN=${PN/xorg-/}
+		ORIG_PN=${ORIG_PN/-dpi/-}dpi
+		;;
 	xorg-util-macros|xorg-encodings|xorg-font*|xorg-scripts)
 		ORIG_PN=${PN/xorg-/}
 		;;
@@ -54,10 +56,10 @@ SRC_DIR="${ORIG_PN}-${PV}"
 xorg_compile() {
 	local xorg_conf
 	case ${PN} in
-		xorg-font-*-75dpi)
+		xorg-font-*-dpi75)
 			xorg_conf="--with-fontdir=/usr/share/fonts/75dpi"
 			;;
-		xorg-font-*-100dpi)
+		xorg-font-*-dpi100)
 			xorg_conf="--with-fontdir=/usr/share/fonts/100dpi"
 			;;
 		xorg-font-*-speedo)

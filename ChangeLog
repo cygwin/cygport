@@ -1,4 +1,7 @@
 
+	* lib/xorg.cygclass:
+	Rename xorg-font-*-{75,100}dpi to xorg-font-*-dpi{75,100}.
+
 	* Makefile.am:
 	Since we refer to the README in help, have make install it.
 
