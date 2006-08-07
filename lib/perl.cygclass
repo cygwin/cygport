@@ -28,7 +28,7 @@ then
 	cpan_author_web=$(echo ${CPAN_AUTHOR} | tr '[:upper:]' '[:lower:]')
 	cpan_author_ftp=$(echo ${CPAN_AUTHOR} | tr '[:lower:]' '[:upper:]')
 	HOMEPAGE="http://search.cpan.org/~${cpan_author_web}/${ORIG_PN}/"
-	SRC_URI="http://search.cpan.org/CPAN/authors/id/${cpan_author_ftp:0:1}/${cpan_author_ftp:0:2}/${cpan_author_ftp}/${ORIG_PN}-${PV}.${CPAN_TARBALL_SUFFIX:-tar.gz}"
+	SRC_URI="mirror://cpan/authors/id/${cpan_author_ftp:0:1}/${cpan_author_ftp:0:2}/${cpan_author_ftp}/${ORIG_PN}-${PV}.${CPAN_TARBALL_SUFFIX:-tar.gz}"
 fi
 
 check_perl_module() {

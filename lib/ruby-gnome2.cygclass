@@ -26,7 +26,7 @@ ORIG_PN=ruby-gnome2-all
 
 DESCRIPTION="Ruby ${rbg2_pn} bindings"
 HOMEPAGE="http://ruby-gnome2.sourceforge.jp/"
-SRC_URI="http://easynews.dl.sourceforge.net/ruby-gnome2/${ORIG_PN}-${PV}.tar.gz"
+SRC_URI="mirror://sourceforge/ruby-gnome2/${ORIG_PN}-${PV}.tar.gz"
 SRC_DIR=${ORIG_PN}-${PV}
 
 # FIXME: CAIRO_PATH is supposed to be the rcairo builddir, so this

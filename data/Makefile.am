@@ -1,4 +1,3 @@
 dist_sysconf_DATA = cygport.conf
 
-EXTRA_DIST = sample.cygport
-
+dist_pkgdata_DATA = mirrors sample.cygport

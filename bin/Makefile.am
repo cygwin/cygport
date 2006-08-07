@@ -4,6 +4,7 @@ cygport: cygport.in
 	sed -e "s!\@PACKAGE\@!$(PACKAGE)!"			\
 		-e "s!\@VERSION\@!$(VERSION)!"			\
 		-e "s!\@datadir\@!$(datadir)!"			\
+		-e "s!\@pkgdatadir\@!$(pkgdatadir)!"	\
 		-e "s!\@pkglibdir\@!$(pkglibdir)!"		\
 		-e "s!\@sysconfdir\@!$(sysconfdir)!"	\
 		$< > $@ ; \

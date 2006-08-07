@@ -25,10 +25,12 @@ then
 		/*) declare -rx _prefix=${top_srcdir} ;;
     esac
 
+	declare -r _privdatadir=${_prefix}/data;
 	declare -r _privdocdir=${_prefix};
 	declare -r _sysconfdir=${_prefix}/data;
 else
 	declare -rx _prefix=@pkglibdir@;
+	declare -r _privdatadir=@pkgdatadir@;
 	declare -r _privdocdir=@datadir@/doc/${_name}-${_version};
 	declare -r _sysconfdir=@sysconfdir@;
 fi
@@ -296,28 +298,55 @@ fetch() {
 	local uri;
 	local urifile;
 
-	for uri in "${@}"
+	uri=${1};
+	urifile=${uri##*/};
+
+	if check_prog wget
+	then
+		wget -O ${urifile} ${uri}
+	elif check_prog curl
+	then
+		curl --url ${uri} -o ${urifile}
+	else
+		error "Either wget or curl are required to fetch sources.";
+	fi
+}
+
+mirror_fetch() {
+	local miruri;
+	local mirname;
+	local mirvar;
+	local -a mirlist;
+	local -i n;
+
+	miruri=${1#mirror://};
+	mirname=${miruri%%/*};
+	mirvar=mirror_${mirname};
+
+	if [ -z "${!mirvar}" ]
+	then
+		error "unknown mirror ${mirname}";
+	fi
+
+	mirlist=(${!mirvar});
+
+	n=0;
+	while [ ${n} -lt ${#mirlist[*]} ]
 	do
-		urifile=${uri##*/};
-
-		case ${uri%/*} in
-			${uri}|.) error "No hostname specified for ${urifile}" ;;
-		esac
-
-		if check_prog wget
+		if fetch ${mirlist[${n}]}/${miruri#*/}
 		then
-			wget -O ${urifile} ${uri} || error "wget ${urifile} failed"
-		elif check_prog curl
-		then
-			curl --url ${uri} -o ${urifile} || error "curl ${urifile} failed"
-		else
-			error "Either wget or curl are required to fetch sources.";
+			return 0;
 		fi
+		n+=1;
 	done
+
+	error "Could not download ${1##*/}";
 }
 
 # downloads sources from Internet if not present
 src_fetch() {
+	local uri;
+
 	cd ${top};
 
 	if [ -n "${_USE_CVS_FETCH}" ]
@@ -327,7 +356,14 @@ src_fetch() {
 	then
 		svn_fetch;
 	else
-		fetch ${SRC_URI};
+		for uri in ${SRC_URI}
+		do
+			case ${uri%/*} in
+				mirror:*)      mirror_fetch ${uri} ;;
+				http:*|ftp:*)  fetch ${uri} || error "Download ${uri##*/} failed" ;;
+				${uri}|.)      error "Invalid download URI ${uri}" ;;
+			esac
+		done
 	fi
 }
 
@@ -1397,6 +1433,8 @@ inherit() {
 
 export -f inherit
 readonly -f inherit
+
+source ${_privdatadir}/mirrors || warning "could not read mirrors file"
 
 if [ -e ${_sysconfdir}/${_name}.conf ]
 then

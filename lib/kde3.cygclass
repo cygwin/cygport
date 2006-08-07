@@ -26,16 +26,16 @@ esac
 
 case ${PN} in
 	kde-i18n-*)
-		SRC_URI="ftp://ftp.kde.org/pub/kde/stable/${ftp_pv}/src/kde-i18n/${P}.tar.bz2"
+		SRC_URI="mirror://kde/stable/${ftp_pv}/src/kde-i18n/${P}.tar.bz2"
 		;;
 	koffice)
-		SRC_URI="ftp://ftp.kde.org/pub/kde/stable/koffice-${PV}/src/${P}.tar.bz2"
+		SRC_URI="mirror://kde/stable/koffice-${PV}/src/${P}.tar.bz2"
 		;;
 	koffice-l10n-*)
-		SRC_URI="ftp://ftp.kde.org/pub/kde/stable/koffice-${PV}/src/koffice-l10n/${P}.tar.bz2"
+		SRC_URI="mirror://kde/stable/koffice-${PV}/src/koffice-l10n/${P}.tar.bz2"
 		;;
 	*)
-		SRC_URI="ftp://ftp.kde.org/pub/kde/stable/${ftp_pv}/src/${P}.tar.bz2"
+		SRC_URI="mirror://kde/stable/${ftp_pv}/src/${P}.tar.bz2"
 		;;
 esac
 

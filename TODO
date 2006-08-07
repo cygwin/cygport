@@ -5,7 +5,6 @@ particular order:
 * Fix all FIXMEs
 * Debug and/or Verbose mode
 * l10n ??
-* mirror:// support in src_fetch()
 * flag-o-matic functions
 * Additional cygclasses:
 	- docbook

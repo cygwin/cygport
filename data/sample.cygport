@@ -4,7 +4,7 @@
 
 DESCRIPTION="Next-generation Cygwin packaging application"
 HOMEPAGE="http://cygwinports.dotsrc.org/"
-SRC_URI="http://easynews.dl.sourceforge.net/cygwin-ports/${P}.tar.bz2"
+SRC_URI="mirror://sourceforge/cygwin-ports/${P}.tar.bz2"
 
 src_compile() {
 	# this package is only scripts, so we can skip cygautoreconf
@@ -18,6 +18,4 @@ src_install() {
 	cyginstall
 
 	make_etc_defaults /etc/cygport.conf
-
-	dodoc ${S}/data/sample.cygport
 }

@@ -1,4 +1,10 @@
 
+	* CYGWIN-PATCHES/README, TODO, bin/Makefile.am, bin/cygport.in, 
+	  data/Makefile.am, data/cygport.conf, data/mirrors,
+	  data/sample.cygport, lib/gnome.org.cygclass, lib/perl.cygclass,
+	  lib/gtk2-perl.cygclass, lib/kde3.cygclass, lib/ruby-gnome2.cygclass:
+	Implement mirror:// SRC_URIs and use throughout.
+
 	* lib/gnome2.cygclass (gnome2_autoreconf):
 	Touch files whose presence is required by automake.
 

@@ -11,7 +11,7 @@
 inherit perl
 
 HOMEPAGE="http://gtk2-perl.sourceforge.net/"
-SRC_URI="http://easynews.dl.sourceforge.net/gtk2-perl/${ORIG_PN}-${PV}.tar.gz"
+SRC_URI="mirror://sourceforge/gtk2-perl/${ORIG_PN}-${PV}.tar.gz"
 
 DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib2:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS"
 

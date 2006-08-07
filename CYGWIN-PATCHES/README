@@ -107,6 +107,8 @@ Files included in the binary package:
   /usr/lib/cygport/lib/svn.cygclass
   /usr/lib/cygport/lib/utils.cygclass
   /usr/lib/cygport/lib/xorg.cygclass
+  /usr/share/cygport/mirrors
+  /usr/share/cygport/sample.cygport
   /usr/share/doc/Cygwin/cygport-0.2.5.README
   /usr/share/doc/cygport-0.2.5/AUTHORS
   /usr/share/doc/cygport-0.2.5/COPYING
@@ -115,7 +117,6 @@ Files included in the binary package:
   /usr/share/doc/cygport-0.2.5/NEWS
   /usr/share/doc/cygport-0.2.5/README
   /usr/share/doc/cygport-0.2.5/TODO
-  /usr/share/doc/cygport-0.2.5/sample.cygport
   /usr/share/man/man1/cygport.1.gz
 
 ------------------
