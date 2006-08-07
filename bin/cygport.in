@@ -609,7 +609,7 @@ cygautoreconf() {
 
 	# Automake will exit if these are not present
 	# dodoc won't install these, however, since they will be empty
-	for f in AUTHORS ChangeLog NEWS
+	for f in AUTHORS ChangeLog NEWS README
 	do
 		if [ ! -f ${f} ]
 		then

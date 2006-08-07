@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (cygautoreconf):
+	Touch README as well to prevent automake failure.
+
 	* CYGWIN-PATCHES/README, TODO, bin/Makefile.am, bin/cygport.in, 
 	  data/Makefile.am, data/cygport.conf, data/mirrors,
 	  data/sample.cygport, lib/gnome.org.cygclass, lib/perl.cygclass,
