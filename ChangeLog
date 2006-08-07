@@ -1,4 +1,7 @@
 
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Touch files whose presence is required by automake.
+
 	* lib/gst-plugins0.8.cygclass:
 	Support gst-monkeysaudio.
 

@@ -90,6 +90,14 @@ gnome2_autoreconf() {
 		touch config.h.in
 	fi
 
+	for f in AUTHORS ChangeLog NEWS README
+	do
+		if [ ! -f ${f} ]
+		then
+			touch ${f}
+		fi
+	done
+
 	for f in COPYING INSTALL
 	do
 		if [ -f ${f} ]
