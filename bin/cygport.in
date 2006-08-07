@@ -272,7 +272,8 @@ then
 fi
 
 # check now for all mandatory programs
-for _myprog in bzip2 cat chmod cp cygcheck diff find grep gzip install ln mkdir mv patch rm sed sort tar xargs
+for _myprog in bzip2 cat chmod cp cygcheck diff find grep gzip install ln \
+               mkdir mv objdump patch rm sed sort strip tar xargs
 do
 	if ! check_prog ${_myprog}
 	then
@@ -1022,11 +1023,15 @@ __prepstrip() {
 	echo "Stripping executables:";
 
 	# Ruby and Apache2 modules should be *.so, nothing else!!!
-	for exe in $(find * -name '*.dll' -o -name '*.exe' -o -name '*.so')
+	for exe in $(find * -type f -name '*.dll' -o -name '*.exe' -o -name '*.so')
 	do
-		echo "        ${exe}";
 		chmod 0755 ${exe};
-		strip ${exe};
+		# Mono assemblies must not be stripped!
+		if ! objdump -p ${exe} | grep -q "DLL Name: mscoree.dll"
+		then
+			echo "        ${exe}";
+			strip ${exe};
+		fi
 	done
 
 	find * -name '*.la' | xargs -r 	prep_libtool_modules.sh || error "Libtool module postinstall failed"

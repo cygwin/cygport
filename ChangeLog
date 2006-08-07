@@ -1,4 +1,9 @@
 
+	* CYGWIN-PATCHES/README, CYGWIN-PATCHES/setup.hint,
+	  README, bin/cygport.in (__prepstrip):
+	Do not strip Mono assemblies during postinstall.
+	Require binutils for objdump and strip.
+
 	* bin/cygport.in (cygautoreconf):
 	Touch README as well to prevent automake failure.
 

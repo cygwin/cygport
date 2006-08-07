@@ -421,6 +421,7 @@ addition to the packages own dependencies:
     autoconf (wrapper) and autoconf2.*
     automake (wrapper) and automake1.*
     bash
+	binutils
     bzip2
     coreutils
     diffstat
