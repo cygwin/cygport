@@ -19,10 +19,10 @@ case ${gst_pn} in
 		GST_PLUGINS_MODULE="gconf gconftool oss smoothwave"
 		ORIG_PN=gst-plugins
 		;;
-	ffmpeg)
+	ffmpeg|monkeysaudio)
 		GST_PLUGINS_DIR=.
 		GST_PLUGINS_MODULE=
-		ORIG_PN=gst-ffmpeg
+		ORIG_PN=gst-${gst_pn}
 		;;
 	opengl|oss|ximage|ximagesrc|xvimage)
 		GST_PLUGINS_DIR=${GST_PLUGINS_DIR:-sys/${gst_pn}}
@@ -63,7 +63,7 @@ gst_plugins_autoreconf() {
 	gstreamer_autoreconf
 
 	case ${gst_pn} in
-		base|ffmpeg|nonlin)
+		base|ffmpeg|monkeysaudio)
 			;;
 		*)
 			# Remove generation of any other Makefiles except the plugin's Makefile
