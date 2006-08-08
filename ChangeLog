@@ -1,4 +1,7 @@
 
+	* bin/dodoc:
+	Don't overwrite already-installed files.
+
 	* CYGWIN-PATCHES/README, CYGWIN-PATCHES/setup.hint,
 	  README, bin/cygport.in (__prepstrip):
 	Do not strip Mono assemblies during postinstall.

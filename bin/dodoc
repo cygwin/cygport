@@ -23,13 +23,13 @@ for i in "${@}"
 do
 	if [ -f ${i} -o -L ${i} ]
 	then
-		if [ "x$(file -b ${i})" != "xempty" ]
+		if [ "x$(file -b ${i})" != "xempty" -a ! -f ${D}${docdir}/${i} ]
 		then
 			/bin/install -m0644 ${i} ${D}${docdir} || error "dodoc ${i} failed"
 		fi
 	elif [ -f ${i}.txt -o -L ${i}.txt ]
 	then
-		if [ "x$(file -b ${i}.txt)" != "xempty" ]
+		if [ "x$(file -b ${i}.txt)" != "xempty" -a ! -f ${D}${docdir}/${i}.txt ]
 		then
 			/bin/install -m0644 ${i}.txt ${D}${docdir} || error "dodoc ${i}.txt failed"
 		fi
