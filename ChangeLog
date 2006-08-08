@@ -1,4 +1,7 @@
 
+	* bin/cygport.in, lib/xorg.cygclass:
+	Provide universal default {C,CPP,CXX,F77,GCJ}FLAGS and MAKEOPTS.
+
 	* bin/dodoc:
 	Don't overwrite already-installed files.
 

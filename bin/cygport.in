@@ -30,12 +30,12 @@ then
 	declare -r _sysconfdir=${_prefix}/data;
 else
 	declare -rx _prefix=@pkglibdir@;
-	declare -r _privdatadir=@pkgdatadir@;
-	declare -r _privdocdir=@datadir@/doc/${_name}-${_version};
-	declare -r _sysconfdir=@sysconfdir@;
+	declare -r  _privdatadir=@pkgdatadir@;
+	declare -r  _privdocdir=@datadir@/doc/${_name}-${_version};
+	declare -r  _sysconfdir=@sysconfdir@;
 fi
 
-declare -r _privbindir=${_prefix}/bin;
+declare -r  _privbindir=${_prefix}/bin;
 declare -rx _privlibdir=${_prefix}/lib;
 
 declare -r os_path="$PATH";
@@ -680,13 +680,6 @@ cygconf() {
 		--localstatedir=/var --sysconfdir=/etc \
 		${@} ${CYGCONF_ARGS}";
 
-	export CFLAGS=${CFLAGS:-"-O2 -pipe"};
-	export CPPFLAGS=${CPPFLAGS};
-	export CXXFLAGS=${CXXFLAGS:-"-O2 -pipe"};
-	export F77FLAGS=${F77FLAGS:-"-O2 -pipe"};
-	export GCJFLAGS=${GCJFLAGS:-"-O2 -pipe"};
-	export LDFLAGS=${LDFLAGS};
-
 	# AC_HAVE_MMAP fails despite a working mmap, so we force this to yes
 	# (see http://www.cygwin.com/ml/cygwin/2004-09/msg00741.html
 	# and following thread for details)
@@ -712,7 +705,7 @@ cygconf() {
 # standard GNU make call
 # if parallel build doesn't work for a package, call 'cygmake -j1'
 cygmake() {
-	make ${MAKEOPTS:-"-j2"} "${@}" || error "make failed"
+	make ${MAKEOPTS} "${@}" || error "make failed"
 }
 
 # provides default src_compile
@@ -1439,6 +1432,15 @@ inherit() {
 export -f inherit
 readonly -f inherit
 
+# Values which can be overridden either system-wide or per package
+declare -x CFLAGS="-O2 -pipe ";
+declare -x CPPFLAGS="";
+declare -x CXXFLAGS="-O2 -pipe ";
+declare -x F77FLAGS="-O2 -pipe ";
+declare -x GCJFLAGS="-O2 -pipe ";
+declare -x LDFLAGS="";
+declare    MAKEOPTS="-j2 "
+
 source ${_privdatadir}/mirrors || warning "could not read mirrors file"
 
 if [ -e ${_sysconfdir}/${_name}.conf ]
@@ -1505,7 +1507,7 @@ declare -r cygwin_patchfile=${PF}.cygwin.patch;
 declare -r src_patchfile=${PF}.src.patch;
 
 declare -ar pkg_name=(${PKG_NAMES:-${PN}});
-declare -r pkg_count=${#pkg_name[*]}
+declare -r  pkg_count=${#pkg_name[*]}
 
 if [ "x${pkg_name[0]}" != "x${PN}" ]
 then

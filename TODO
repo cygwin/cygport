@@ -5,8 +5,8 @@ particular order:
 * Fix all FIXMEs
 * Debug and/or Verbose mode
 * l10n ??
-* flag-o-matic functions
 * Additional cygclasses:
 	- docbook
 	- git
+	- gtk-sharp
 	- xfce

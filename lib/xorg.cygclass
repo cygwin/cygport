@@ -79,7 +79,7 @@ xorg_compile() {
 			;;
 	esac
 
-	CPPFLAGS="${CPPFLAGS} -DX_LOCALE"
+	CPPFLAGS+=" -DX_LOCALE"
 
 	cygconf --disable-static ${xorg_conf} ${@}
 
