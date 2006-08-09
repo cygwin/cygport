@@ -205,7 +205,7 @@ The directories are defined by cygport as follows:
     S is the original source directory; you should NOT compile here.
     B is the build directory, where all compilation should take place.
     D is the installation directory (DESTDIR).
-	C is the CYGWIN-PATCHES directory.
+    C is the CYGWIN-PATCHES directory.
 
 All compilation is handled in the src_compile() function.
 
@@ -224,13 +224,13 @@ The 'cygconf' command should be run from ${B}, and it passes the
 following arguments to configure:
 
     --prefix=/usr
-	--exec-prefix=/usr
+    --exec-prefix=/usr
     --libexecdir=/usr/sbin
-	--datadir=/usr/share
+    --datadir=/usr/share
     --infodir=/usr/share/info
     --mandir=/usr/share/man
     --sysconfdir=/etc
-    --localstatedir=/var/lib
+    --localstatedir=/var
 
 These arguments will install everything according to the Cygwin
 packaging guidelines. Additional arguments can be passed to configure as
@@ -253,7 +253,7 @@ as well on Cygwin as it does on Linux.  Some packages, however, use make
 rules that break parallel jobs, in which case you can do one of the
 following:
 
-    MAKEOPTS="${MAKEOPTS} -j1"
+    MAKEOPTS+=" -j1"
 
     cygmake -j1
 
@@ -303,17 +303,17 @@ identical to their Gentoo counterparts.  When specifying directories,
 write as if your installing to the system; the scripts will do
 everything under ${D} for you.  Some examples:
 
-	# create directories
+    # create directories
     dodir /usr/share/foo/bar /usr/share/foo/misc
 
-	# install -m755 into ${D}/usr/bin
+    # install -m755 into ${D}/usr/bin
     dobin foo.exe
 
-	# install -m644 into a custom directory
+    # install -m644 into a custom directory
     insinto /usr/include/foo-1.0
     doins ${S}/src/foo.h
 
-	# install -m644 into ${D}/usr/lib
+    # install -m644 into ${D}/usr/lib
     dolib libfoo.dll.a    
 
 The default src_install() is defined simply as:
@@ -372,19 +372,19 @@ libraries, and API documentation.  In order to create separate binary
 packages for each of these, all that is necessary is to define a few
 variables:
 
-	PKG_NAMES="${PN} ${PN}-devel ${PN}-doc"
-	PKG_HINTS="setup devel doc"
-	PKG_CONTENTS[0]="etc/ usr/bin/ usr/lib/bonobo/ usr/share/doc/ \
-		usr/share/man/"
-	PKG_CONTENTS[1]='usr/include/ usr/lib/lib* usr/lib/pkgconfig/'
-	PKG_CONTENTS[2]='usr/share/gtk-doc/'
+    PKG_NAMES="${PN} ${PN}-devel ${PN}-doc"
+    PKG_HINTS="setup devel doc"
+    PKG_CONTENTS[0]="etc/ usr/bin/ usr/lib/bonobo/ usr/share/doc/ \
+        usr/share/man/"
+    PKG_CONTENTS[1]='usr/include/ usr/lib/lib* usr/lib/pkgconfig/'
+    PKG_CONTENTS[2]='usr/share/gtk-doc/'
 
 Or an ordinary library package may look like:
 
-	PKG_NAMES="${PN} lib${PN}2"
-	PKG_HINTS='setup runtime'
-	PKG_CONTENTS[0]='--exclude=usr/bin/*.dll usr/'
-	PKG_CONTENTS[1]='usr/bin/*.dll'
+    PKG_NAMES="${PN} lib${PN}2"
+    PKG_HINTS='setup runtime'
+    PKG_CONTENTS[0]='--exclude=usr/bin/*.dll usr/'
+    PKG_CONTENTS[1]='usr/bin/*.dll'
 
 PKG_NAMES is a string list of package names; the first package name must 
 be ${PN}.
@@ -392,10 +392,13 @@ be ${PN}.
 PKG_HINTS is a string list of setup.hint names; the .hint extension is
 optional here (but mandatory for the files themselves).  These will be
 installed as setup.hint in the corresponding directory of dist/${PN}/.
+PKG_HINTS will default to PKG_NAMES if left undefined.
 
 PKG_CONTENTS[?] is an array; each element (starting with 0) should be
 defined as the files to include in the corresponding binary package as
-arguments to tar(1).
+arguments to tar(1).  Alternatively, a PKG_NAME.list file can be created 
+in CYGWIN-PATCHES with the argument list, in which case the PKG_CONTENTS 
+member should not be defined.
 
 cygport will check that all PKG_* variables refer to the same number of
 packages.
@@ -403,13 +406,13 @@ packages.
 During the 'package' phase, the additional packages will be created as
 subdirectories of dist/${PN}/ for easy transfer to release/, e.g.:
 
-	libgnome2/libgnome2-devel/libgnome2-devel-2.14.0-1.tar.bz2
-	libgnome2/libgnome2-devel/setup.hint	# ${C}/devel.hint
-	libgnome2/libgnome2-doc/libgnome2-doc-2.14.0-1.tar.bz2
-	libgnome2/libgnome2-doc/setup.hint		# ${C}/doc.hint
-	libgnome2/libgnome2-2.14.0-1-src.tar.bz2
-	libgnome2/libgnome2-2.14.0-1.tar.bz2
-	libgnome2/setup.hint					# ${C}/setup.hint
+    libgnome2/libgnome2-devel/libgnome2-devel-2.14.0-1.tar.bz2
+    libgnome2/libgnome2-devel/setup.hint    # ${C}/devel.hint
+    libgnome2/libgnome2-doc/libgnome2-doc-2.14.0-1.tar.bz2
+    libgnome2/libgnome2-doc/setup.hint        # ${C}/doc.hint
+    libgnome2/libgnome2-2.14.0-1-src.tar.bz2
+    libgnome2/libgnome2-2.14.0-1.tar.bz2
+    libgnome2/setup.hint                    # ${C}/setup.hint
 
 
 6. REQUIREMENTS
@@ -421,23 +424,23 @@ addition to the packages own dependencies:
     autoconf (wrapper) and autoconf2.*
     automake (wrapper) and automake1.*
     bash
-	binutils
+    binutils
     bzip2
     coreutils
     diffstat
     diffutils
-	file
+    file
     grep
     gzip
     intltool
     libtool1.5
     lndir
-	make
+    make
     patch
     sed
     tar
     unzip
-	wget
+    wget
 
 7. DOWNLOAD AND INSTALLATION
 
@@ -454,7 +457,7 @@ cygport is hosted on CVS.  Those interested in helping with cygport
 development, or testing the newest features should use the CVS version.
 Instructions for browsing and retrieving sources from CVS are available at:
 
-	http://sourceforge.net/cvs/?group_id=99645
+    http://sourceforge.net/cvs/?group_id=99645
 
 
 8. SUPPORT
