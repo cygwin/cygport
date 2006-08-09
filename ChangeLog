@@ -1,4 +1,7 @@
 
+	* lib/perl.cygclass:
+	Check for Module::Build before use.
+
 	* bin/cygport.in, lib/xorg.cygclass:
 	Provide universal default {C,CPP,CXX,F77,GCJ}FLAGS and MAKEOPTS.
 
