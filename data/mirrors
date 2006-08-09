@@ -1,3 +1,13 @@
+################################################################################
+#
+# mirrors - default list for mirror:// URI resolution
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
 # http://www.cpan.org/SITES.html
 # cat SITES.html | egrep '^ *<A HREF=.*(CPAN|cpan).*(ht|f)tp:' | \
 #   sed -e 's! *<A HREF="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'

@@ -1,4 +1,7 @@
 
+	* data/cygport.conf, data/mirrors:
+	Fix headers.
+
 	* lib/perl.cygclass:
 	Check for Module::Build before use.
 
