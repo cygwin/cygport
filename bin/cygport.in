@@ -555,7 +555,7 @@ src_prep() {
 		error "SRC_DIR is not correctly defined"
 	fi
 
-	__step "Mirroring sources"
+	__step "Preparing working source directory";
 
 	cp -fpr ${origsrcdir}/* ${srcdir};
 
