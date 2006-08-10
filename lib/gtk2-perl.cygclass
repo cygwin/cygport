@@ -65,6 +65,7 @@ gtk2_perl_compile() {
 
 gtk2_perl_install() {
 	perl_install
+	perl_postinst
 }
 
 src_compile() {

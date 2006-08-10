@@ -1,4 +1,7 @@
 
+	* lib/gtk2-perl.cygclass (gtk2_perl_install):
+	Add missing perl_postinst.
+
 	* data/cygport.conf, data/mirrors:
 	Fix headers.
 
