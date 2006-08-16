@@ -90,7 +90,7 @@ gnome2_autoreconf() {
 		touch config.h.in
 	fi
 
-	for f in AUTHORS ChangeLog NEWS README
+	for f in AUTHORS COPYING ChangeLog INSTALL NEWS README
 	do
 		if [ ! -f ${f} ]
 		then
@@ -100,20 +100,14 @@ gnome2_autoreconf() {
 
 	for f in COPYING INSTALL
 	do
-		if [ -f ${f} ]
-		then
-			cp -f ${f} ${f}.temp
-		fi
+		cp -f ${f} ${f}.temp
 	done
 
 	verbose automake --add-missing --copy --force-missing --gnu || error "automake failed"
 
 	for f in COPYING INSTALL
 	do
-		if [ -f ${f}.temp ]
-		then
-			mv -f ${f}.temp ${f}
-		fi
+		mv -f ${f}.temp ${f}
 	done
 }
 

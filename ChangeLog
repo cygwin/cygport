@@ -1,4 +1,9 @@
 
+	* bin/cygport.in (cygautoreconf),
+	  lib/gnome2.cygclass (gnome2_autoreconf):
+	Prevent automake from installing COPYING and INSTALL where not
+	originally included.
+
 	* bin/cygport.in (src_test, pkg_diff):
 	Handle various Makefile names.
 

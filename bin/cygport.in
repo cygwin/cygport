@@ -610,7 +610,7 @@ cygautoreconf() {
 
 	# Automake will exit if these are not present
 	# dodoc won't install these, however, since they will be empty
-	for f in AUTHORS ChangeLog NEWS README
+	for f in AUTHORS COPYING ChangeLog INSTALL NEWS README
 	do
 		if [ ! -f ${f} ]
 		then
@@ -622,10 +622,7 @@ cygautoreconf() {
 	# restore them afterwards
 	for f in COPYING INSTALL
 	do
-		if [ -f ${f} ]
-		then
-			cp ${f} ${f}.temp;
-		fi
+		cp ${f} ${f}.temp;
 	done
 
 	if [ "x${WANT_AUTOCONF}" = "x2.1" ]
@@ -665,10 +662,7 @@ cygautoreconf() {
 
 	for f in COPYING INSTALL
 	do
-		if [ -f ${f}.temp ]
-		then
-			mv -f ${f}.temp ${f};
-		fi
+		mv -f ${f}.temp ${f};
 	done
 }
 
