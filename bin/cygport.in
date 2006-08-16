@@ -730,9 +730,9 @@ readonly -f lndirs cygautoreconf cygconf cygmake
 
 # runs 'make check' for automake-based packages, otherwise 'make test'
 cygtest() {
-	if [ -e Makefile ]
+	if [ -e Makefile -o -e GNUmakefile -o -e makefile ]
 	then
-		if [ -f ${S}/Makefile.am -o -f ${S}/GNUmakefile.am ]
+		if [ -f ${S}/Makefile.am -o -f ${S}/GNUmakefile.am -o -f ${S}/makefile.am ]
 		then
 			make check;
 		else
@@ -1018,9 +1018,9 @@ __prepstrip() {
 	# Ruby and Apache2 modules should be *.so, nothing else!!!
 	for exe in $(find * -type f -name '*.dll' -o -name '*.exe' -o -name '*.so')
 	do
-		chmod 0755 ${exe};
+		chmod +x ${exe};
 		# Mono assemblies must not be stripped!
-		if ! objdump -p ${exe} | grep -q "DLL Name: mscoree.dll"
+		if [ -w ${exe} ] && ! objdump -p ${exe} | grep -q "DLL Name: mscoree.dll"
 		then
 			echo "        ${exe}";
 			strip ${exe};
@@ -1172,21 +1172,19 @@ pkg_diff() {
 	local difflevel;
 	local default_excludes="-x CYGWIN-PATCHES -x aclocal.m4* \
 		-x ltmain.sh -x config.* -x depcomp -x install-sh -x missing \
-		-x mkinstalldirs -x autom4te.cache -x *compile \
+		-x mkinstalldirs -x autom4te.cache -x *compile -x Makefile.in.in \
 		-x intltool*.in -x xml-i18n-*.in -x *.pyc -x *.mo -x *.gmo \
 		-x ABOUT-NLS -x Makevars.template -x COPYING -x INSTALL \
 		-x *.orig -x *.rej -x *~ -x *.temp -x texinfo.tex -x ylwrap";
 
 	# exclude Makefile.in only if using automake
-	if [ -f ${S}/Makefile.am ]
-	then
-		default_excludes+=" -x Makefile.in*";
-	fi
-
-	if [ -f ${S}/GNUmakefile.am ]
-	then
-		default_excludes+=" -x GNUmakefile.in*";
-	fi
+	for mf in Makefile GNUmakefile makefile
+	do
+		if [ -f ${S}/${mf}.am ]
+		then
+			default_excludes+=" -x ${mf}.in";
+		fi
+	done
 
 	# exclude configure only if using autoconf
 	if [ -f ${S}/configure.in -o -f ${S}/configure.ac ]

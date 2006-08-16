@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (src_test, pkg_diff):
+	Handle various Makefile names.
+
 	* bin/prep_libtool_modules.sh:
 	Ignore ../bin/ when looking for module versioning.
 
