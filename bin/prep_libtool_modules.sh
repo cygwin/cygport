@@ -42,7 +42,7 @@ do
 		fi
 
 		# warn if -avoid-version was not used with -module (which 99.9% of time should be)
-		if [ "${dlname}" != "cyg${ltlibname#lib}.dll" -a "${dlname}" != "${ltlibname}.dll" ]
+		if [ "${dlname#../bin/}" != "cyg${ltlibname#lib}.dll" -a "${dlname#../bin/}" != "${ltlibname}.dll" ]
 		then
 			warning "${lib_la} appears to be a versioned module.  This is likely undesirable."
 		fi
