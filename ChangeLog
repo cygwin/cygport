@@ -1,4 +1,7 @@
 
+	* data/Makefile.am:
+	Don't clobber cygport.conf on a local install.
+
 	* bin/cygport.in (cygautoreconf),
 	  lib/gnome2.cygclass (gnome2_autoreconf):
 	Prevent automake from installing COPYING and INSTALL where not
