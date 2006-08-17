@@ -42,9 +42,11 @@ do
 		fi
 
 		# warn if -avoid-version was not used with -module (which 99.9% of time should be)
-		if [ "${dlname#../bin/}" != "cyg${ltlibname#lib}.dll" -a "${dlname#../bin/}" != "${ltlibname}.dll" ]
+		if [ "${dlname#../bin/}" != "cyg${ltlibname#lib}.dll" \
+		     -a "${dlname#../bin/}" != "${ltlibname}.dll" \
+		     -a "${dlname}" != "${ltlibname}.so" ]
 		then
-			warning "${lib_la} appears to be a versioned module.  This is likely undesirable."
+			warning "${lib_la} appears to be a versioned module."
 		fi
 
 		rm -f ${ltlibdir}/${ltlibname}.a ${ltlibdir}/${ltlibname}.dll.a

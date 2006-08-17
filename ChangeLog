@@ -9,6 +9,7 @@
 
 	* bin/prep_libtool_modules.sh:
 	Ignore ../bin/ when looking for module versioning.
+	Support Apache2 .so modules.
 
 	* lib/gtk2-perl.cygclass (gtk2_perl_install):
 	Add missing perl_postinst.
