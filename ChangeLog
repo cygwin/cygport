@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README, lib/Makefile.am (cygclass_DATA), 
+	  lib/mono.cygclass:
+	New mono.cygclass for building Mono C# packages.
+
 	* CYGWIN-PATCHES/README, TODO, bin/cygport.in (src_unpack),
 	  lib/Makefile.am (cygclass_DATA), lib/git.cygclass:
 	New git.cygclass for git snapshots.

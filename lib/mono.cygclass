@@ -1,0 +1,51 @@
+################################################################################
+#
+# mono.cygclass - functions for building Mono assemblies
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+MONO=/usr/bin/mono
+MCS=/usr/bin/mcs
+GMCS=/usr/bin/gmcs
+GACUTIL=/usr/bin/gacutil
+
+HOMEPAGE="http://www.mono-project.com/"
+SRC_URI="http://go-mono.com/sources/${ORIG_PN:-${PN}}/${ORIG_PN:-${PN}}-${PV}.${MONO_SOURCE_TYPE:-tar.gz}"
+SRC_DIR="${ORIG_PN:-${PN}}-${PV}"
+
+SVN_URI="svn://svn.myrealbox.com/source/trunk/${SVN_MODULE:-${ORIG_PN:-${PN}}}"
+
+CYGCONF_ARGS+=" --disable-static"
+MAKEOPTS+=" -j1"
+
+mono_wrapper() {
+	local massembly
+	local massemblyfile
+	local massemblypath
+	local mscript
+
+	mscript=${1}
+	massembly=${2}
+	massemblyfile=${massembly##*/}
+	massemblypath=${massembly%/*}
+
+	dodir /usr/bin
+
+	if [ -f ${D}/usr/bin/${massemblyfile} ]
+	then
+		dodir ${massemblypath}
+		mv ${D}/usr/bin/${massemblyfile} ${D}${massemblypath}
+	fi
+
+	if [ ! -f ${D}${massembly} ]
+	then
+		error "${massemblyfile} is not installed into ${massemblypath}"
+	fi
+
+	echo -e "#!/bin/sh\nexec /usr/bin/mono ${2} \"\$@\"" > ${D}/usr/bin/${mscript}
+	chmod +x ${D}/usr/bin/${mscript}
+}

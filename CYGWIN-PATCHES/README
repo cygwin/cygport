@@ -100,6 +100,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/gtk2-perl.cygclass
   /usr/lib/cygport/lib/gtkmm.cygclass
   /usr/lib/cygport/lib/kde3.cygclass
+  /usr/lib/cygport/lib/mono.cygclass
   /usr/lib/cygport/lib/perl.cygclass
   /usr/lib/cygport/lib/pygtk.cygclass
   /usr/lib/cygport/lib/python.cygclass

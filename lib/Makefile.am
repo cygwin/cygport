@@ -16,6 +16,7 @@ dist_cygclass_DATA = 			\
 	gtk2-perl.cygclass			\
 	gtkmm.cygclass				\
 	kde3.cygclass				\
+	mono.cygclass				\
 	perl.cygclass				\
 	pygtk.cygclass				\
 	python.cygclass				\
