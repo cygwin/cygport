@@ -17,7 +17,7 @@ fi
 
 GIT_URI=${GIT_URI%/}
 GIT_MODULE=${GIT_URI##*/}
-GIT_MODULE=${GIT_URI%.git}
+GIT_MODULE=${GIT_MODULE%.git}
 		
 SRC_URI="${GIT_MODULE}-${PV}.tar.bz2"
 SRC_DIR="${GIT_MODULE}"
@@ -28,7 +28,7 @@ git_fetch() {
 	# T likely doesn't exist at this point, so create it first
 	mkdir -p ${T}
 	cd ${T}
-	verbose git clone ${GIT_URI} ${GIT_MODULE}
+	verbose git clone -q ${GIT_URI} ${GIT_MODULE}
 	if [ -n "${GIT_BRANCH}" ]
 	then
 		cd ${T}/${GIT_MODULE}
