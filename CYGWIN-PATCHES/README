@@ -90,6 +90,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/emacs.cygclass
   /usr/lib/cygport/lib/font.cygclass
   /usr/lib/cygport/lib/fox.cygclass
+  /usr/lib/cygport/lib/git.cygclass
   /usr/lib/cygport/lib/gnome.org.cygclass
   /usr/lib/cygport/lib/gnome2.cygclass
   /usr/lib/cygport/lib/gst-plugins.cygclass

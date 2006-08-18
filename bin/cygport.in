@@ -356,6 +356,9 @@ src_fetch() {
 	elif [ -n "${_USE_SVN_FETCH}" ]
 	then
 		svn_fetch;
+	elif [ -n "${_USE_GIT_FETCH}" ]
+	then
+		git_fetch;
 	else
 		for uri in ${SRC_URI}
 		do

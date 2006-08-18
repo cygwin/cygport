@@ -7,6 +7,5 @@ particular order:
 * l10n ??
 * Additional cygclasses:
 	- docbook
-	- git
 	- gtk-sharp
 	- xfce

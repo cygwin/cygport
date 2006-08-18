@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README, TODO, bin/cygport.in (src_unpack),
+	  lib/Makefile.am (cygclass_DATA), lib/git.cygclass:
+	New git.cygclass for git snapshots.
+
 	* bin/cygport.in (unpack):
 	Fix handling of non-tar .bz2 and .gz archives.
 
