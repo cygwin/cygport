@@ -373,6 +373,7 @@ unpack() {
 	local unpack_cmd;
 	local unpack_file_path;
 	local unpack_file_name;
+	local unpack_out;
 
 	for unpack_file_path in ${@}
 	do
@@ -389,14 +390,24 @@ unpack() {
 			*.tar.bz2|*.tbz2|*.tbz) unpack_cmd="tar jxf" ;;
 			*.tar.gz|*.tgz|*.tar.Z) unpack_cmd="tar zxf" ;;
 			*.tar)  unpack_cmd="tar xf"  ;;
-			*.bz2)  unpack_cmd="bunzip2" ;;
-			*.gz)   unpack_cmd="gunzip"  ;;
+			*.bz2)
+				unpack_cmd="bunzip2 -c";
+				unpack_out="${unpack_file_name%.bz2}";
+				;;
+			*.gz)
+				unpack_cmd="gunzip -c";
+				unpack_out="${unpack_file_name%.gz}";
+				;;
 			*.rar)
-				check_prog_req unrar
+				check_prog_req unrar;
 				unpack_cmd="unrar x -inul";
 				;;
+			*.xar)
+				check_prog_req xar;
+				unpack_cmd="xar -xf";
+				;;
 			*.zip)
-				check_prog_req unzip
+				check_prog_req unzip;
 				unpack_cmd="unzip -oq";
 				;;
 			*.7z)
@@ -415,7 +426,18 @@ unpack() {
 
 		__step "Unpacking source ${unpack_file_name}";
 
-		${unpack_cmd} ${unpack_file_path} || error "${unpack_cmd} ${unpack_file_name} failed"
+		if [ -n "${unpack_out}" ]
+		then
+			if ! ${unpack_cmd} ${unpack_file_path} > ${unpack_out}
+			then
+				error "${unpack_cmd} ${unpack_file_name} failed";
+			fi
+		else
+			if ! ${unpack_cmd} ${unpack_file_path}
+			then
+				error "${unpack_cmd} ${unpack_file_name} failed";
+			fi
+		fi
 	done
 }
 
