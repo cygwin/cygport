@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (pkg_diff):
+	Ignore KDE configure.in files only if ${S}/configure.in.in is present.
+
 	* CYGWIN-PATCHES/README, lib/Makefile.am (cygclass_DATA), 
 	  lib/mono.cygclass:
 	New mono.cygclass for building Mono C# packages.

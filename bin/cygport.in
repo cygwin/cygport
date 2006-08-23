@@ -1240,7 +1240,12 @@ pkg_diff() {
 	if [ -f ${S}/admin/libtool.m4.in ]
 	then
 		default_excludes+=" -x libtool.m4.in* -x configure.bak \
-			-x configure.in -x configure.files -x acinclude.m4 -x subdirs";
+			-x configure.files -x acinclude.m4 -x subdirs";
+
+		if [ -f ${S}/configure.in.in ]
+		then
+			default_excludes+=" -x configure.in";
+		fi
 	fi
 
 	case ${DIFF_EXCLUDES} in
