@@ -1,17 +1,8 @@
-# Copyright (C) 2006 Yaakov Selkowitz
-# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
-# Distributed under the terms of the GNU General Public License v2
-
 DESCRIPTION="Next-generation Cygwin packaging application"
 HOMEPAGE="http://cygwinports.dotsrc.org/"
 SRC_URI="mirror://sourceforge/cygwin-ports/${P}.tar.bz2"
 
-src_compile() {
-	# this package is only scripts, so we can skip cygautoreconf
-	cd ${B}
-	cygconf
-	cygmake
-}
+# We use the standard src_compile and src_test.
 
 src_install() {
 	cd ${B}
