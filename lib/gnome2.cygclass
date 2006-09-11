@@ -12,6 +12,9 @@ inherit gnome.org
 
 gnome2_autoreconf() {
 	local aclocal_flags
+	local configure_ac
+	local config_h
+	local d
 	local f
 
 	if [ -f configure.ac ]
@@ -30,9 +33,9 @@ gnome2_autoreconf() {
 	then
 		check_prog_req libtoolize libtool1.5
 		verbose libtoolize --copy --force || error "libtoolize failed"
-	fi	
+	fi
 
-	if grep -q "^AM_GLIB_GNU_GETTEXT" ${configure_ac}
+	if grep -q "^AM_GLIB_GNU_GETTEXT" ${configure_ac} && [ "x${PN}" != "xglib2" ]
 	then
 		check_prog_req glib-gettextize glib2-devel
 		verbose glib-gettextize --copy --force || error "glib-gettextize failed"
@@ -48,13 +51,13 @@ gnome2_autoreconf() {
 		fi
 	fi
 
-	if grep -q "^AC_PROG_INTLTOOL" ${configure_ac} || grep -q "^IT_PROG_INTLTOOL" ${configure_ac}
+	if grep -q "^[AI][CT]_PROG_INTLTOOL" ${configure_ac} && [ "x${PN}" != "xintltool" ]
 	then
 		check_prog_req intltoolize intltool
 		verbose intltoolize --copy --force || error "intltoolize failed"
 	fi
 	
-	if grep -q "^GTK_DOC_CHECK" ${configure_ac}
+	if grep -q "^GTK_DOC_CHECK" ${configure_ac} && [ "x${PN}" != "xgtk-doc" ]
 	then
 		check_prog_req gtkdocize gtk-doc
 		verbose gtkdocize --copy || error "gtkdocize failed"
@@ -82,28 +85,32 @@ gnome2_autoreconf() {
 	esac
 
 	verbose aclocal ${aclocal_flags} || error "aclocal failed"
+
+	for d in $(grep AC_CONFIG_SUBDIRS ${configure_ac} | sed 's!AC_CONFIG_SUBDIRS(\(.*\))!\1!g')
+	do
+		(cd ${d}
+		gnome2_autoreconf)
+	done
+
 	verbose autoconf --force || error "autoconf failed"
 
 	if grep -q "^A[CM]_CONFIG_HEADER" ${configure_ac}
 	then
 		verbose autoheader --force || error "autoheader failed"
-		touch config.h.in
+		for config_h in $(grep 'A[CM]_CONFIG_HEADERS*' ${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')
+		do
+			touch ${config_h}.in
+		done
 	fi
 
-	for f in AUTHORS COPYING ChangeLog INSTALL NEWS README
-	do
-		if [ ! -f ${f} ]
-		then
-			touch ${f}
-		fi
-	done
+	touch AUTHORS COPYING ChangeLog INSTALL NEWS README
 
 	for f in COPYING INSTALL
 	do
 		cp -f ${f} ${f}.temp
 	done
 
-	verbose automake --add-missing --copy --force-missing --gnu || error "automake failed"
+	verbose automake --add-missing --copy --force-missing || error "automake failed"
 
 	for f in COPYING INSTALL
 	do

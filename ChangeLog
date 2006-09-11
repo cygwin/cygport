@@ -1,4 +1,8 @@
 
+	* bin/cygport.in (cygautoreconf),
+	  lib/gnome2.cygclass (gnome2_autoreconf):
+	Improve detection of AC_CONFIG_SUBDIRS and AC_CONFIG_HEADERS.
+
 	* bin/cygport.in (pkg_diff):
 	Ignore KDE configure.in files only if ${S}/configure.in.in is present.
 
