@@ -1,4 +1,7 @@
 
+	* lib/qt3.cygclass (doqt3inc, doqt3lib, qt3pluginto, doqt3plugin):
+	New convenience functions for qt3 src_install().
+
 	* bin/cygport.in (cygautoreconf),
 	  lib/gnome2.cygclass (gnome2_autoreconf):
 	Improve detection of AC_CONFIG_SUBDIRS and AC_CONFIG_HEADERS.

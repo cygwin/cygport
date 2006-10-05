@@ -46,3 +46,36 @@ src_compile() {
 src_test() {
 	:
 }
+
+#
+# Convenience functions for custom src_install()
+#
+
+doqt3inc() {
+	insinto ${QINCLUDEDIR}
+	doins ${@}
+}
+
+doqt3lib() {
+	insinto ${QLIBDIR}
+	doins ${@}
+}
+
+qt3pluginto() {
+	if [ -z "${1}" -o -n "${2}" ]
+	then
+		error "qt3pluginto requires exactly one argument"
+	fi
+
+	export __QT3_PLUGIN_SUBDIR=${1}
+}
+
+doqt3plugin() {
+	if [ -z "${__QT3_PLUGIN_SUBDIR}" ]
+	then
+		error "qt3pluginto must be called before doqt3plugin"
+	fi
+
+	exeinto ${QTDIR}/plugins/${__QT3_PLUGIN_SUBDIR}
+	doexe ${@}
+}
