@@ -1,4 +1,7 @@
 
+	* lib/gtkmm.cygclass (gtkmm_autoreconf):
+	Define ACLOCAL to search the scripts directory.
+
 	* lib/qt3.cygclass (doqt3inc, doqt3lib, qt3pluginto, doqt3plugin):
 	New convenience functions for qt3 src_install().
 
