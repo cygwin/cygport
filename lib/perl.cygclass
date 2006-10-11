@@ -108,7 +108,7 @@ perl_postinst() {
 			_EOF
 	fi
 
-	find ${D}${PERL_VENDORLIB} -name .packlist | xargs -r sed -i -e "s:${D}::g"
+	find ${D}${PERL_VENDORLIB} -name .packlist -exec sed -i -e "s:${D}::g" '{}' +
 }
 
 src_compile() {

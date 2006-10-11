@@ -45,7 +45,7 @@ kde3_autoreconf() {
 		error "No KDE source package detected"
 	fi
 
-	find . -name '*.ui' -print | xargs -r touch
+	find . -name '*.ui' -exec touch '{}' +
 	cp -f /usr/share/libtool/ltmain.sh admin/ltmain.sh
 	cp -f /usr/share/aclocal/libtool.m4 admin/libtool.m4.in
 	make -f admin/Makefile.common || error "KDE autoreconf failed"

@@ -163,7 +163,7 @@ export -f error warning inform verbose
 # Locate the cygport file and set package name and version
 #
 ################################################################################
-declare -r cygportfile=$(echo ${1##*/} | sed -e 's:\.cygport::').cygport;
+declare -r cygportfile=$(echo ${1##*/} | sed -e 's!\.cygport!!').cygport;
 
 _topdir=${1%/*}
 
@@ -495,7 +495,7 @@ apply_patch() {
 			*.cygwin.patch) patchlevel+=1 ;;
 		esac
 
-		while [ ${patchlevel} -lt 3 ]
+		while [ ${patchlevel} -le 3 ]
 		do
 			if patch -t -s --dry-run -p${patchlevel} < ${patchfile} &> /dev/null
 			then
@@ -504,7 +504,7 @@ apply_patch() {
 			else
 				if [ ${patchlevel} -eq 3 ]
 				then
-					error "patch ${patchfile} will not apply";
+					error "patch ${patchfile##*/} will not apply";
 				else
 					patchlevel+=1;
 					continue;
@@ -686,8 +686,9 @@ cygautoreconf() {
 			notool=NO_${tool}
 			if [ -n "${!notool}" ]
 			then
-				export ${tool}=true
+				declare ${tool}=true
 			fi
+			export ${tool}
 		done
 
 		/usr/bin/autoreconf-2.5x --install --force --verbose || error "autoreconf-2.5x failed"
@@ -855,18 +856,18 @@ __prepinstalldirs() {
 	rm -fr ${D}/*;
 
 	# circumvent pointless libtool relinking during install
-	find ${B} -name '*.la' | xargs -r sed -i -e 's:^relink_command=.*::';
-	find ${B} -type f | xargs -r touch -t $(date +%Y%m%d%H%M.%S);
+	find ${B} -name '*.la' -exec sed -i -e 's!^relink_command=.*!!' '{}' +;
+	find ${B} -type f -exec touch -t $(date +%Y%m%d%H%M.%S) '{}' +;
 }
 
 # run 'make install'
 cyginstall() {
 	case ${USE_DESTDIR:-1} in
 		1|[Yy]|[Yy][Ee][Ss])
-			make install DESTDIR=${D} "${@}" || error "make install DESTDIR failed"
+			make ${MAKEOPTS} install DESTDIR=${D} "${@}" || error "make install DESTDIR failed"
 			;;
 		0|[Nn]|[Nn][Oo])
-			make install \
+			make ${MAKEOPTS} install \
 				prefix=${D}/usr \
 				bindir=${D}/usr/bin/ \
 				includedir=${D}/usr/include \
@@ -1025,7 +1026,7 @@ __prepetc() {
 	do
 		if [ -d ${D}${d} ]
 		then
-			find ${D}${d} -type f -print0 | xargs -0 -r chmod 0755;
+			find ${D}${d} -type f -exec chmod 0755 '{}' +;
 		fi
 	done
 }
@@ -1064,7 +1065,7 @@ __prepstrip() {
 		fi
 	done
 
-	find * -name '*.la' | xargs -r 	prep_libtool_modules.sh || error "Libtool module postinstall failed"
+	find * -name '*.la' -exec prep_libtool_modules.sh '{}' \; || error "Libtool module postinstall failed"
 }
 
 src_postinst() {
@@ -1095,7 +1096,7 @@ __show_info() {
 __list_files() {
 	(cd ${D}
 	echo;
-	find . ! -type d | sed 's%^\.%  %' | sort
+	find . ! -type d | sed 's!^\.!  !' | sort
 	)
 }
 
@@ -1110,10 +1111,10 @@ __list_deps() {
 	export PATH="${D}/usr/bin:${DEPS_PATH}:${os_path}";
 
 	# Ruby and Apache2 modules should be *.so, nothing else!!!
-	find . -name '*.exe' -o -name '*.dll' -o -name '*.so' | \
-		xargs -r cygcheck | sed -ne '/^  [^ ]/ s,\\,/,gp' | sort -bu | \
+	find . -name '*.exe' -o -name '*.dll' -o -name '*.so' \
+		-exec cygcheck '{}' + | sed -ne '/^  [^ ]/ s,\\,/,gp' | sort -bu | \
 		xargs -r -n1 cygpath -u | xargs -r cygcheck -f | \
-		sed 's%^%  %' | sort -u;
+		sed 's!^!  !' | sort -u;
 	)
 }
 
@@ -1230,12 +1231,12 @@ pkg_diff() {
 	fi
 
 	# gtk-doc
-	if [ -f ${S}/gtk-doc.make ]
+	if [ -f ${S}/gtk-doc.make -a "${PN}" != "gtk-doc" ]
 	then
 		default_excludes+=" -x *.stamp -x *.html -x *.bak -x *.sgml \
 			-x *.tmpl -x *.txt -x *.xml -x *.args -x *.devhelp* -x *.css \
 			-x *.hierarchy -x *.interfaces -x *.prerequisites -x *.signals \
-			-x *.top -x *.bottom -x gtk-doc.make";
+			-x *.top -x *.bottom -x gtk-doc.make -x gtk-doc.m4";
 	fi
 
 	# GNOME miscellaneous

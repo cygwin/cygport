@@ -1,4 +1,14 @@
 
+	* bin/cygport.in (__prepstrip, pkg_diff),
+	  lib/kde3.cygclass (kde3_autoreconf),
+	  lib/perl.cygclass (perl_postinst):
+	Use find -exec instead of pipes and xargs.
+
+	* bin/cygport.in:
+	(apply_patch): Fix handling of patches that won't apply.
+	(cyginstall): Pass MAKEOPTS to make install.
+	(pkg_diff): Fix gtk-doc excludes.
+
 	* lib/gtkmm.cygclass (gtkmm_autoreconf):
 	Define ACLOCAL to search the scripts directory.
 
