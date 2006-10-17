@@ -86,7 +86,7 @@ gnome2_autoreconf() {
 
 	verbose aclocal ${aclocal_flags} || error "aclocal failed"
 
-	for d in $(grep AC_CONFIG_SUBDIRS ${configure_ac} | sed 's!AC_CONFIG_SUBDIRS(\(.*\))!\1!g')
+	for d in $(grep ^AC_CONFIG_SUBDIRS ${configure_ac} | sed 's!AC_CONFIG_SUBDIRS(\(.*\))!\1!g')
 	do
 		(cd ${d}
 		gnome2_autoreconf)
@@ -94,28 +94,31 @@ gnome2_autoreconf() {
 
 	verbose autoconf --force || error "autoconf failed"
 
-	if grep -q "^A[CM]_CONFIG_HEADER" ${configure_ac}
+	if grep -q "^A[CM]_CONFIG_HEADER" ${configure_ac} && [ -z "${NO_AUTOHEADER}" ]
 	then
 		verbose autoheader --force || error "autoheader failed"
-		for config_h in $(grep 'A[CM]_CONFIG_HEADERS*' ${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')
+		for config_h in $(grep '^A[CM]_CONFIG_HEADERS*' ${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')
 		do
 			touch ${config_h}.in
 		done
 	fi
 
-	touch AUTHORS COPYING ChangeLog INSTALL NEWS README
+	if [ -z "${NO_AUTOMAKE}" ]
+	then
+		touch AUTHORS COPYING ChangeLog INSTALL NEWS README
 
-	for f in COPYING INSTALL
-	do
-		cp -f ${f} ${f}.temp
-	done
+		for f in COPYING INSTALL
+		do
+			cp -f ${f} ${f}.temp
+		done
 
-	verbose automake --add-missing --copy --force-missing || error "automake failed"
+		verbose automake --add-missing --copy --force-missing || error "automake failed"
 
-	for f in COPYING INSTALL
-	do
-		mv -f ${f}.temp ${f}
-	done
+		for f in COPYING INSTALL
+		do
+			mv -f ${f}.temp ${f}
+		done
+	fi
 }
 
 gnome2_compile() {

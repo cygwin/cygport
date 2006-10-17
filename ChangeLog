@@ -1,4 +1,7 @@
 
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Accept NO_AUTOHEADER and NO_AUTOMAKE.
+
 	* bin/cygport.in (__prepstrip, pkg_diff),
 	  lib/kde3.cygclass (kde3_autoreconf),
 	  lib/perl.cygclass (perl_postinst):
