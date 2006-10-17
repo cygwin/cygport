@@ -1,4 +1,10 @@
 
+	* autogen.sh, Makefile.am, bin/cygport.in (cygautoreconf, cygconf):
+	Add support for autoconf-2.60.
+
+	* bin/cygport.in:
+	Fix error redirection.
+
 	* lib/gnome2.cygclass (gnome2_autoreconf):
 	Accept NO_AUTOHEADER and NO_AUTOMAKE.
 

@@ -1,6 +1,5 @@
 SUBDIRS = bin lib data doc test
 
-docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
 dist_doc_DATA = AUTHORS COPYING ChangeLog INSTALL NEWS README TODO
 
 EXTRA_DIST = CYGWIN-PATCHES/README CYGWIN-PATCHES/setup.hint

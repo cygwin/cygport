@@ -9,13 +9,16 @@ running() {
 	echo ">>> Running ${1}..."
 }
 
+export WANT_AUTOCONF=2.5
+export WANT_AUTOMAKE=1.9
+
 cd ${S}
 running aclocal
-aclocal-1.9 --force
+aclocal --force
 running autoconf
-autoconf-2.5x --force
+autoconf --force
 running automake
-automake-1.9 --add-missing --copy --force-missing
+automake --add-missing --copy --force-missing
 
 cd ${B}
 running configure

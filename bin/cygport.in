@@ -497,9 +497,9 @@ apply_patch() {
 
 		while [ ${patchlevel} -le 3 ]
 		do
-			if patch -t -s --dry-run -p${patchlevel} < ${patchfile} &> /dev/null
+			if patch -f -s --dry-run -p${patchlevel} < ${patchfile} &> /dev/null
 			then
-				patch -t -p${patchlevel} < ${patchfile} || error "patch ${patchfile##*/} failed"
+				patch -f -p${patchlevel} < ${patchfile} || error "patch ${patchfile##*/} failed"
 				break;
 			else
 				if [ ${patchlevel} -eq 3 ]
@@ -634,6 +634,7 @@ cygautoreconf() {
 	local notool;
 	local tool;
 	local ac_subdirs;
+	local ac_ver;
 	local configure_ac;
 	local config_h;
 
@@ -663,6 +664,8 @@ cygautoreconf() {
 		cp ${f} ${f}.temp;
 	done
 
+	check_prog_req autoreconf autoconf
+
 	if [ "x${WANT_AUTOCONF}" = "x2.1" ]
 	then
 		check_prog_req autoconf-2.13 autoconf2.1
@@ -671,15 +674,11 @@ cygautoreconf() {
 		then
 			warning "libtool1.5 is incompatible with autoconf-2.13";
 		fi
-
-		export WANT_AUTOCONF=2.1;
-		export WANT_AUTOMAKE;
-		/usr/bin/autoreconf-2.13 --force -i --verbose || error "autoreconf-2.13 failed"
 	else
-		check_prog_req autoconf-2.5x autoconf2.5
-
-		export WANT_AUTOCONF=2.5;
-		export WANT_AUTOMAKE;
+		if ! check_prog autoconf-2.60
+		then
+			check_prog_req autoconf-2.5x autoconf2.5
+		fi
 
 		for tool in ACLOCAL LIBTOOL AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
 		do
@@ -690,9 +689,11 @@ cygautoreconf() {
 			fi
 			export ${tool}
 		done
+	fi
 
-		/usr/bin/autoreconf-2.5x --install --force --verbose || error "autoreconf-2.5x failed"
-	fi	
+	export WANT_AUTOCONF=${WANT_AUTOCONF:-2.5};
+	export WANT_AUTOMAKE;
+	/usr/bin/autoreconf --force -i --verbose || error "autoreconf failed"
 
 	for d in . ${ac_subdirs}
 	do
@@ -713,31 +714,40 @@ cygautoreconf() {
 # standard configure call
 cygconf() {
 	local confargs="--prefix=/usr --exec-prefix=/usr --bindir=/usr/bin \
-		--sbindir=/usr/sbin --libexecdir=/usr/sbin --datadir=/usr/share \
-		--infodir=/usr/share/info --mandir=/usr/share/man \
-		--localstatedir=/var --sysconfdir=/etc \
-		${@} ${CYGCONF_ARGS}";
+		--sbindir=/usr/sbin --libexecdir=/usr/sbin --localstatedir=/var \
+		--sysconfdir=/etc"
+	local confdir;
+
+	if [ -n "${CYGCONF_SOURCE}" -a -x ${CYGCONF_SOURCE}/configure ]
+	then
+		confdir=${CYGCONF_SOURCE};
+	elif [ -x ${PWD/${B}/${S}}/configure ]
+	then
+		confdir=${PWD/${B}/${S}};
+	elif [ -x ${S}/configure ]
+	then
+		confdir=${S};
+	else
+		error "no configure script found";
+	fi
+
+	case "x$(grep -m 1 'GNU Autoconf' ${confdir}/configure | cut -d ' ' -f 6)" in
+		x2.60)
+			confargs+=" --datarootdir=/usr/share --docdir=/usr/share/doc/${P}"
+			;;
+		*)
+			confargs+=" --datadir=/usr/share --infodir=/usr/share/info \
+				--mandir=/usr/share/man"
+			;;
+	esac
 
 	# AC_HAVE_MMAP fails despite a working mmap, so we force this to yes
 	# (see http://www.cygwin.com/ml/cygwin/2004-09/msg00741.html
 	# and following thread for details)
 	export ac_cv_func_mmap_fixed_mapped=yes;
-	
-	if [ -n "${CYGCONF_SOURCE}" -a -x ${CYGCONF_SOURCE}/configure ]
-	then
-		verbose ${CYGCONF_SOURCE}/configure --srcdir="${CYGCONF_SOURCE}" ${confargs} \
-			|| error "configure failed"
-	elif [ -x ${PWD/${B}/${S}}/configure ]
-	then
-		verbose ${PWD/${B}/${S}}/configure --srcdir="${PWD/${B}/${S}}" ${confargs} \
-			|| error "configure failed"
-	elif [ -x ${S}/configure ]
-	then
-		verbose ${S}/configure --srcdir="${S}" ${confargs} \
-			|| error "configure failed"
-	else
-		error "no configure script found";
-	fi
+
+	verbose ${confdir}/configure --srcdir="${confdir}" ${confargs} \
+		${@} ${CYGCONF_ARGS} || error "configure failed"
 }
 
 # standard GNU make call
@@ -1065,7 +1075,7 @@ __prepstrip() {
 		fi
 	done
 
-	find * -name '*.la' -exec prep_libtool_modules.sh '{}' \; || error "Libtool module postinstall failed"
+	find * -name '*.la' -exec prep_libtool_modules.sh '{}' + || error "Libtool module postinstall failed"
 }
 
 src_postinst() {
@@ -1580,17 +1590,17 @@ do
 			;;
 		compile|build|make)
 			__stage Compiling;
-			src_compile | tee ${compilelog} 2>&1;
+			src_compile 2>&1 | tee ${compilelog};
 			_status=$?;
 			;;
 		check|test)
 			__stage Testing;
-			src_test | tee ${checklog} 2>&1;
+			src_test 2>&1 | tee ${checklog};
 			_status=$?;
 			;;
 		inst*)
 			__stage Installing;
-			(__prepinstalldirs && src_install && src_postinst) | tee ${installlog} 2>&1;
+			(__prepinstalldirs && src_install && src_postinst) 2>&1 | tee ${installlog};
 			_status=$?;
 			;;
 		list)
@@ -1607,7 +1617,7 @@ do
 			;;
 		package|pkg)
 			__stage Packaging;
-			(pkg_binpkg && pkg_pkgcheck && pkg_srcpkg && pkg_dist) | tee ${pkglog} 2>&1;
+			(pkg_binpkg && pkg_pkgcheck && pkg_srcpkg && pkg_dist) 2>&1 | tee ${pkglog};
 			_status=$?;
 			;;
 		diff|mkdiff|mkpatch)
@@ -1620,16 +1630,16 @@ do
 			;;
 		almostall)
 			__stage Preparing && src_prep && \
-			__stage Compiling && src_compile | tee ${compilelog} 2>&1 && \
-			__stage Installing && (__prepinstalldirs && src_install && src_postinst) | tee ${installlog} 2>&1 && \
-			__stage Packaging && (pkg_binpkg && pkg_pkgcheck && pkg_srcpkg && pkg_dist) | tee ${pkglog} 2>&1
+			__stage Compiling && src_compile 2>&1 | tee ${compilelog} && \
+			__stage Installing && (__prepinstalldirs && src_install && src_postinst) 2>&1 | tee ${installlog} && \
+			__stage Packaging && (pkg_binpkg && pkg_pkgcheck && pkg_srcpkg && pkg_dist) 2>&1 | tee ${pkglog}
 			_status=$?;
 			;;
 		all)
 			__stage Preparing && src_prep && \
-			__stage Compiling && src_compile | tee ${compilelog} 2>&1 && \
-			__stage Installing && (__prepinstalldirs && src_install && src_postinst) | tee ${installlog} 2>&1 && \
-			__stage Packaging && (pkg_binpkg && pkg_pkgcheck && pkg_srcpkg && pkg_dist) | tee ${pkglog} 2>&1 && \
+			__stage Compiling && src_compile 2>&1 | tee ${compilelog} && \
+			__stage Installing && (__prepinstalldirs && src_install && src_postinst) 2>&1 | tee ${installlog} && \
+			__stage Packaging && (pkg_binpkg && pkg_pkgcheck && pkg_srcpkg && pkg_dist) 2>&1 | tee ${pkglog} && \
 			finish;
 			_status=$?;
 			;;
