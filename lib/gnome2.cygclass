@@ -86,7 +86,7 @@ gnome2_autoreconf() {
 
 	verbose aclocal ${aclocal_flags} || error "aclocal failed"
 
-	for d in $(grep ^AC_CONFIG_SUBDIRS ${configure_ac} | sed 's!AC_CONFIG_SUBDIRS(\(.*\))!\1!g')
+	for d in $(grep ^AC_CONFIG_SUBDIRS ${configure_ac} | sed -e 's!A[CM]_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')
 	do
 		(cd ${d}
 		gnome2_autoreconf)

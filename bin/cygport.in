@@ -648,7 +648,7 @@ cygautoreconf() {
 		error "Could not find configure.ac or configure.in";
 	fi
 
-	ac_subdirs="$(grep AC_CONFIG_SUBDIRS ${configure_ac} | sed 's!AC_CONFIG_SUBDIRS(\(.*\))!\1!g')"
+	ac_subdirs="$(grep '^AC_CONFIG_SUBDIRS*' ${configure_ac} | sed -e 's!A[CM]_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
 
 	# Automake will exit if these are not present
 	# dodoc won't install these, however, since they will be empty

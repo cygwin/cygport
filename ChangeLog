@@ -1,4 +1,8 @@
 
+	* bin/cygport.in (cygautoreconf),
+	  lib/gnome2.cygclass (gnome2_autoreconf):
+	Fix handling of square-bracket quoting when parsing configure.ac.
+
 	* autogen.sh, Makefile.am, bin/cygport.in (cygautoreconf, cygconf):
 	Add support for autoconf-2.60.
 
