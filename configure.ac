@@ -7,9 +7,11 @@ m4_define([cygport_version],
 AC_INIT(cygport, [cygport_version],
 	[cygwin-ports-general@lists.sourceforge.net])
 
+AC_PREREQ([2.60])
+
 AC_CONFIG_SRCDIR([bin/dobin])
 
-AM_INIT_AUTOMAKE([1.9 dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.10 dist-bzip2 no-dist-gzip])
 
 AM_MAINTAINER_MODE
 

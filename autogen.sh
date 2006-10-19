@@ -10,7 +10,7 @@ running() {
 }
 
 export WANT_AUTOCONF=2.5
-export WANT_AUTOMAKE=1.9
+export WANT_AUTOMAKE=1.10
 
 cd ${S}
 running aclocal
@@ -24,5 +24,5 @@ cd ${B}
 running configure
 ${S}/configure \
 	--srcdir=${S} --enable-maintainer-mode \
-	--prefix=/usr --mandir=/usr/share/man --sysconfdir=/etc \
+	--prefix=/usr --datarootdir=/usr/share --sysconfdir=/etc \
 	"${@}"
