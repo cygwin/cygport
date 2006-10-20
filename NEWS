@@ -1,11 +1,22 @@
+0.2.5:
+	Supports autoconf-2.60, and requires it for building.
+	Fixed patch generation and application.
+	SRC_URI accepts Gentoo-style mirror:// URIs.
+	NEW git.cygclass: for GIT repository snapshots.
+	NEW mono.cygclass: for Mono C# and Gtk# assemblies.
+	cygautoreconf(): support AC_CONFIG_HEADERS and AC_CONFIG_SUBDIRS.
+	gst-plugins0.8.cygclass: support gst-monkeysaudio.
+	qt3.cygclass: new functions doqt3{inc,lib}, qt3pluginto, doqt3plugin.
+
 0.2.4:
-	New cygclass: gstreamer (common functions for all GStreamer packages).
+	NEW gstreamer.cygclass: common functions for all GStreamer packages.
 	kde3.cygclass: install split package documentation.
 	xorg.cygclass: rename xorg-font-*-{75,100}dpi to xorg-font-*-dpi{75,100}.
 	cygautoreconf(): accept NO_AUTO* variables to disable individual steps.
 
 0.2.3:
-	New cygclasses: gst-plugins0.8 (NEW), gst-plugins0.10 (prev. gst-plugins).
+	NEW gst-plugins0.8.cygclass: new for GStreamer 0.8 plugins.
+	NEW gst-plugins0.10.cygclass: previously gst-plugins.
 	gst-plugins.cygclass: now a wrapper for versioned gst-pluginsX.Y.
 	ruby-gnome2.cygclass: fix import library installation.
 	cygconf(): --localstatedir=/var (gnome2 overrides to /var/lib).
@@ -31,7 +42,7 @@
 	gnome2 cygclass provides a default CVS_URI.
 
 0.2.0:
-	New cygclass: svn, for creating packages from SVN snapshots.
+	NEW svn.cygclass: for creating packages from SVN snapshots.
 	Implements CYGCONF_SOURCE, to be defined as the directory where
 	  the configure script is located, for use when not building in ${B}, 
 	  e.g. when running multiple configures from the same source.
@@ -46,7 +57,7 @@
 
 0.1.93:
 	Patches are now created in the /patch directory for easier access.
-	NEW cygclass: cvs, for creating packages from CVS snapshots.
+	NEW cvs.cygclass: for creating packages from CVS snapshots.
 	gst-plugin.cygclass updated for newest plugins in -good and -bad.
 	dodoc only installs if file present and non-empty; otherwise ignores.
 

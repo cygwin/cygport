@@ -33,14 +33,14 @@ However, the g-b-s has many drawbacks:
    
 6) It is not designed to create more than one binary package per source
    package -- e.g.  whereby the foo source is separated into foo, libfoo1,
-   and foo-devel binary packages -- despite the fact that is often
+   and libfoo-devel binary packages -- despite the fact that is often
    desirable to do so.
 
 Having used the g-b-s in various forms for a couple of years, during
 which I've packaged hundreds of unique source packages (not counting
 versions), I have found various ways of 'getting by'.  I forked the
 g-b-s a while back, and created a few templates for various purposes. 
-This solution, however, is still severly limiting, as mentioned above.
+This solution, however, is still severely limiting, as mentioned above.
 
 In the meantime, I also had exposure to a Linux distribution and its
 packaging system, namely Gentoo Linux and Portage.  Being a source-based
@@ -126,12 +126,13 @@ rename); internal syntax is still, to some degree, similar to the g-b-s.
 3. USAGE
 
 Similar to a g-b-s source package, a cygport-generated -src tarball will
-contain the package .cygport, a patchfile, and the original source
+contain the package .cygport, one or two patchfiles, and the original source
 package, for example:
 
     foo-2.3.7.tar.gz
     foo2-2.3.7-1.cygport
-    foo2-2.3.7-1.patch
+    foo2-2.3.7-1.cygwin.patch
+    foo2-2.3.7-1.src.patch     (will be absent if package builds OOTB)
 
 GPG .sig files for any of the above may be present as well.  All these
 files must remain in the same directory.
@@ -213,7 +214,7 @@ All autotool-based packages should have autoreconf run on them before
 running configure, in order to pull in the current Cygwin libtool, and
 to assure that patches to configure.in or Makefile.am actually take
 affect.  The defaults are autoconf-2.5 and automake-1.9; these may be
-overrided by defining WANT_AUTOCONF and WANT_AUTOMAKE to the desired
+overridden by defining WANT_AUTOCONF and WANT_AUTOMAKE to the desired
 versions; be sure to remember that libtool-1.5 requires that
 autoconf-2.5 be used.  The 'cygautoreconf' command handles all this for
 you, and must be called at the beginning of the src_compile step. 
@@ -226,11 +227,14 @@ following arguments to configure:
     --prefix=/usr
     --exec-prefix=/usr
     --libexecdir=/usr/sbin
-    --datadir=/usr/share
-    --infodir=/usr/share/info
-    --mandir=/usr/share/man
     --sysconfdir=/etc
     --localstatedir=/var
+
+    (autoconf-2.13 or 2.5x)          (autoconf-2.60)
+    --datadir=/usr/share             --datarootdir=/usr/share
+    --infodir=/usr/share/info        --docdir=/usr/share/doc/${P}
+    --mandir=/usr/share/man
+
 
 These arguments will install everything according to the Cygwin
 packaging guidelines. Additional arguments can be passed to configure as
@@ -272,7 +276,7 @@ The src_test() function defines how to run the package testsuite, if
 any, during the check command The default is to run 'make check' if the
 package is autotool-based, otherwise 'make test' is run.  If a package
 does not conform to this rule, then a src_test() function should be
-included in the packge .cygport.  For example:
+included in the package .cygport.  For example:
 
     src_test() {
         cd ${B}
@@ -322,9 +326,9 @@ The default src_install() is defined simply as:
     cyginstall
 
 Many cygclasses also define default src_compile(), src_test(), and
-src_install() functions, which will override the aformentioned defaults.
+src_install() functions, which will override the aforementioned defaults.
 
-The postinstall stage is run automatically after src_install(), during
+The post-install stage is run automatically after src_install(), during
 which a number of steps are run:
     1) standard documentation is installed;
     2) postinstall and preremove scripts are created, if necessary;
@@ -434,7 +438,7 @@ addition to the packages own dependencies:
     gzip
     intltool
     libtool1.5
-    lndir
+    lndir  (xorg-x11-bin-lndir)
     make
     patch
     sed

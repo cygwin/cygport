@@ -1,3 +1,4 @@
+*** 0.2.5 ***
 
 	* bin/cygport.in (cygautoreconf),
 	  lib/gnome2.cygclass (gnome2_autoreconf):

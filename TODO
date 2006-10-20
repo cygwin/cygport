@@ -5,7 +5,12 @@ particular order:
 * Fix all FIXMEs
 * Debug and/or Verbose mode
 * l10n ??
+* PATCHES in SRC_URI
 * Additional cygclasses:
+	- bzr
 	- docbook
-	- gtk-sharp
 	- xfce
+* dosed
+* automatically remove empty dirs in D; keepdir()
+* cross-compiling
+* wget --no-check-certificate
