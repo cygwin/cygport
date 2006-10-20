@@ -86,20 +86,17 @@ kde3_install() {
 
 	cyginstall destdir=${D}
 
-	if [ -n "${PKG_NAMES[1]}" ]
-	then
-		for kdepkg in ${PKG_NAMES}
+	for kdepkg in ${PKG_NAMES:-${PN}}
+	do
+		for doc in AUTHORS BUGS ChangeLog NEWS README TODO
 		do
-			for doc in AUTHORS BUGS ChangeLog NEWS README TODO
-			do
-				if [ -f ${S}/${kdepkg}/${doc} ]
-				then
-					insinto /usr/share/doc/${kdepkg}-${PV}
-					doins ${S}/${kdepkg}/${doc}
-				fi
-			done
+			if [ -f ${S}/${kdepkg}/${doc} ]
+			then
+				insinto /usr/share/doc/${kdepkg}-${PV}
+				doins ${S}/${kdepkg}/${doc}
+			fi
 		done
-	fi		
+	done
 }
 
 src_compile() {

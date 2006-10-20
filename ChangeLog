@@ -1,4 +1,7 @@
 
+	* lib/kde3.cygclass (kde3_install):
+	Always install application subdir documentation.
+
 	* lib/gnome2.cygclass (gnome2_autoreconf):
 	Call aclocal --force with 1.10 as well.
 
