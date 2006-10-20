@@ -81,7 +81,7 @@ gnome2_autoreconf() {
 	fi
 
 	case "$(aclocal --version | head -n 1 | cut -d ' ' -f 4)" in
-		1.8*|1.9*)  aclocal_flags="--force ${aclocal_flags}" ;;
+		1.8*|1.9*|1.10*)  aclocal_flags="--force ${aclocal_flags}" ;;
 	esac
 
 	verbose aclocal ${aclocal_flags} || error "aclocal failed"
