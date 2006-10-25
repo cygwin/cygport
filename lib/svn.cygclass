@@ -16,7 +16,7 @@ then
 fi
 
 SVN_URI=${SVN_URI%/}
-SVN_MODULE=${SVN_URI##*/}
+SVN_MODULE=${SVN_MODULE:-${SVN_URI##*/}}
 
 SRC_URI="${SVN_MODULE}-${PV}.tar.bz2"
 SRC_DIR="${SVN_MODULE}"
@@ -37,7 +37,7 @@ svn_fetch() {
 	# T likely doesn't exist at this point, so create it first
 	mkdir -p ${T}
 	cd ${T}
-	verbose svn checkout ${SVN_URI} ${svn_rev}
+	verbose svn checkout ${SVN_URI} ${svn_rev} ${SVN_MODULE}
 
 	tar jcf ${top}/${SRC_URI} --exclude=.svn ${SVN_MODULE}
 }

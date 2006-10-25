@@ -1,4 +1,7 @@
 
+	* lib/svn.cygclass (svn_fetch):
+	Allow for SVN_MODULE != ${SVN_URI##*/}; fixes netpbm build.
+
 	* lib/kde3.cygclass (kde3_install):
 	Always install application subdir documentation.
 
