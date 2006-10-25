@@ -1,4 +1,9 @@
 
+	* bin/cygport.in (cygautoreconf),
+	  lib/gnome2.cygclass (gnome2_autoreconf):
+	Support AC_CONFIG_HEADERS([config.h:config.hin]) syntax.
+	Patch proposed by Eric Blake /ml/cygwin/2006-10/msg00786.html
+
 	* lib/svn.cygclass (svn_fetch):
 	Allow for SVN_MODULE != ${SVN_URI##*/}; fixes netpbm build.
 
