@@ -1111,14 +1111,12 @@ __show_info() {
 
 __list_files() {
 	(cd ${D}
-	echo;
 	find . ! -type d | sed 's!^\.!  !' | sort
 	)
 }
 
 __list_deps() {
 	(cd ${D}
-	echo;
 	# This prevents a package from listing itself as a dependency if
 	# already installed
 	#
@@ -1127,7 +1125,7 @@ __list_deps() {
 	export PATH="${D}/usr/bin:${DEPS_PATH}:${os_path}";
 
 	# Ruby and Apache2 modules should be *.so, nothing else!!!
-	find . -name '*.exe' -o -name '*.dll' -o -name '*.so' \
+	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' \) \
 		-exec cygcheck '{}' + | sed -ne '/^  [^ ]/ s,\\,/,gp' | sort -bu | \
 		xargs -r -n1 cygpath -u | xargs -r cygcheck -f | \
 		sed 's!^!  !' | sort -u;
