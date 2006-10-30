@@ -1,4 +1,8 @@
 
+	* bin/prep_gtk2_modules.sh:
+	Set GTK_API based on built gtk+-2.0 instead of system's.
+	Fixes built of gtk+-2.10 when 2.8 is installed.
+
 	* bin/cygport.in (cygautoreconf),
 	  lib/gnome2.cygclass (gnome2_autoreconf):
 	Support AC_CONFIG_HEADERS([config.h:config.hin]) syntax.

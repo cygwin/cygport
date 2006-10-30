@@ -10,7 +10,8 @@
 ################################################################################
 set -e
 
-GTK_API=$(pkg-config --variable=gtk_binary_version gtk+-2.0)
+export PKG_CONFIG_PATH="${B}:${PKG_CONFIG_PATH}"
+GTK_API=$(pkg-config --variable=gtk_binary_version gtk+-x11-2.0)
 
 # Pango modules
 if [ -d ${D}/usr/lib/pango ]
