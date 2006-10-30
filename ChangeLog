@@ -1,4 +1,8 @@
 
+	* bin/cygport.in (cygautoreconf),
+	  lib/gnome2.cygclass (gnome2_autoreconf):
+	Fix support for AC_CONFIG_HEADERS([config.h:config.hin]).
+
 	* lib/pygtk.cygclass:
 	Support pycairo.
 

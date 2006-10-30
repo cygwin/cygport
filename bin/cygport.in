@@ -637,6 +637,7 @@ cygautoreconf() {
 	local ac_ver;
 	local configure_ac;
 	local config_h;
+	local config_h_in;
 
 	if [ -f configure.ac ]
 	then
@@ -697,12 +698,17 @@ cygautoreconf() {
 
 	for d in . ${ac_subdirs}
 	do
-		config_h="$(grep 'A[CM]_CONFIG_HEADERS*' ${d}/${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g' -e 's!:.*!!')";
+		config_h="$(grep 'A[CM]_CONFIG_HEADERS*' ${d}/${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')";
 
-		if [ -n "${config_h}" ]
-		then
-			touch ${d}/${config_h}.in;
-		fi
+		case "${config_h}" in
+			*:*) config_h_in="$(echo "${config_h//:/ }" | cut -d ' ' -f 2-)" ;;
+			*) config_h_in="${config_h}.in" ;;
+		esac
+
+		for f in ${config_h_in}
+		do
+			touch ${d}/${f}
+		done
 	done
 
 	for f in COPYING INSTALL
