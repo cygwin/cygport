@@ -14,6 +14,7 @@ gnome2_autoreconf() {
 	local aclocal_flags
 	local configure_ac
 	local config_h
+	local config_h_in
 	local d
 	local f
 
@@ -97,9 +98,18 @@ gnome2_autoreconf() {
 	if grep -q "^A[CM]_CONFIG_HEADER" ${configure_ac} && [ -z "${NO_AUTOHEADER}" ]
 	then
 		verbose autoheader --force || error "autoheader failed"
-		for config_h in $(grep '^A[CM]_CONFIG_HEADERS*' ${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g' -e 's!:.*!!')
+
+		for config_h in $(grep '^A[CM]_CONFIG_HEADERS*' ${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')
 		do
-			touch ${config_h}.in
+			case "${config_h}" in
+				*:*) config_h_in="$(echo ${config_h//:/ } | cut -d ' ' -f 2-)" ;;
+				*) config_h_in="${config_h}.in" ;;
+			esac
+
+			for f in ${config_h_in}
+			do
+				touch ${f}
+			done
 		done
 	fi
 
