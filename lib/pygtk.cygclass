@@ -35,7 +35,7 @@ case ${pygtk_mod} in
 		pygtk_subdir=.
 		ORIG_PN=nautilus-python
 		;;
-	gtkglext)
+	*)
 		pygtk_subdir=.
 		ORIG_PN=${PN}
 		;;
@@ -68,6 +68,10 @@ pygtk_install() {
 
 src_compile() {
 	cd ${S}
+	if [ -d m4 ]
+	then
+		ACLOCAL='aclocal -I m4'
+	fi
 	cygautoreconf
 	cd ${B}
 	pygtk_compile

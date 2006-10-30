@@ -1,4 +1,7 @@
 
+	* lib/pygtk.cygclass:
+	Support pycairo.
+
 	* bin/prep_gtk2_modules.sh:
 	Set GTK_API based on built gtk+-2.0 instead of system's.
 	Fixes built of gtk+-2.10 when 2.8 is installed.
