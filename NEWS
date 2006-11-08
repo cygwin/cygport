@@ -1,3 +1,10 @@
+0.2.6:
+	Support AC_CONFIG_HEADERS(*:*) syntax.
+	Fix dependency listing.
+	Fix building gtk+-2.10 when gtk+-2.8 is installed.
+	pygtk: support pycairo.
+	svn: SVN_MODULE may be overridden.
+
 0.2.5:
 	Supports autoconf-2.60, and requires it for building.
 	Fixed patch generation and application.

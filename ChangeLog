@@ -1,3 +1,4 @@
+*** 0.2.6 ***
 
 	* bin/cygport.in (__list_deps):
 	Fix dependency listing.
