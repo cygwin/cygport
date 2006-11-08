@@ -1,5 +1,7 @@
 *** 0.2.6 ***
 
+	* data/mirrors [mirror_gnome]:  Add download.gnome.org.
+
 	* bin/cygport.in (__list_deps):
 	Fix dependency listing.
 	Patch proposed by Eric Blake /ml/cygwin/2006-10/msg00852.html
