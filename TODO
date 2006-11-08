@@ -1,16 +1,29 @@
 This is an wishlist of features to add in future releases, in no
 particular order:
 
-* Documentation (format??)
+* Documentation (man/info/HTML ??)
+* Complete test suite
 * Fix all FIXMEs
 * Debug and/or Verbose mode
 * l10n ??
 * PATCHES in SRC_URI
 * Additional cygclasses:
 	- bzr
+	- cross
 	- docbook
+	- doxygen
+	- relocate: http://cygwin.com/ml/cygwin/2006-10/msg00743.html
 	- xfce
+* Additional mirrors:
+	- debian
+	- gentoo
+	- kernel
+	- mysql
+* dolocale
 * dosed
 * automatically remove empty dirs in D; keepdir()
-* cross-compiling
 * wget --no-check-certificate
+* mixed download protocols: http://cygwin.com/ml/cygwin/2006-11/msg00137.html
+* Windows shortcuts for X11 programs
+	doico /path/to/pixmap.png [calls png(to|2)ico and doins]
+	make_win_shortcut Foo [run.exe foo.exe -wait --display=...]
