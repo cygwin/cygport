@@ -13,7 +13,7 @@ check_prog_req ruby
 RUBY=/usr/bin/ruby
 RUBY_VERSION=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["ruby_version"]')
 RUBY_LIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
-RUBY_ARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["arch"]')
+RUBY_ARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["archdir"]')
 RUBY_SITELIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitelibdir"]')
 RUBY_SITEARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitearchdir"]')
 LIBRUBY="-lruby"

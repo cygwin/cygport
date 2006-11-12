@@ -1,4 +1,7 @@
 
+	* lib/ruby.cygclass [RUBY_ARCH]:
+	Define as archdir, not arch.
+
 	* CYGWIN-PATCHES/README, configure.ac:
 	Post-release version bump.
 
