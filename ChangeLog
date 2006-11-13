@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README, TODO, lib/Makefile.am (cygclass_DATA),
+	  lib/cross.cygclass:
+	New cygclass for creating and using cross-compilers.
+
 	* lib/ruby.cygclass [RUBY_ARCH]:
 	Define as archdir, not arch.
 

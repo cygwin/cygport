@@ -9,7 +9,6 @@ particular order:
 * PATCHES in SRC_URI
 * Additional cygclasses:
 	- bzr
-	- cross
 	- docbook
 	- doxygen
 	- relocate: http://cygwin.com/ml/cygwin/2006-10/msg00743.html

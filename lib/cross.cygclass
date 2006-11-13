@@ -1,0 +1,91 @@
+################################################################################
+#
+# cross.cygclass - for building and using cross-compilers
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+################################################################################
+
+# FIXME: remove when adding support for crossing to Cygwin
+CROSS_BUILD=i686-pc-cygwin
+
+cross_config_sub() {
+	# cygport requires libtool anyway, so this need not be verified (?)
+	/usr/share/libtool/config.sub ${@} 2> /dev/null
+}
+
+__cross_test_target() {
+	local cross_n=4		# max length of host, e.g. i686-pc-linux-gnu
+	local try_target
+
+	while [ ${cross_n} -ge 1 ]
+	do
+		try_target=$(echo ${1} | cut -d '-' -f 1-${cross_n--})
+
+		if cross_config_sub ${try_target}
+		then
+			CROSS_TARGET=$(cross_config_sub ${try_target})
+			ORIG_PN=${ORIG_PN:-${PN#${try_target}-}}
+			break
+		else
+			let cross_n-=1
+		fi
+	done
+
+	case ${CROSS_TARGET} in
+		*-*-none|'') error "Unknown or invalid host declared"
+	esac
+}
+
+__cross_test_target ${PN}
+
+case ${ORIG_PN} in
+	binutils|gcc)
+		CROSS_HOST="${CROSS_BUILD}"
+		inform "Building cross-compiler for ${CROSS_TARGET}"
+		;;
+	*)
+		CROSS_HOST="${CROSS_TARGET}"
+		inform "Cross-compiling to ${CROSS_TARGET}"
+esac
+
+CYGCONF_ARGS+=" --build=${CROSS_BUILD} --host=${CROSS_HOST} --target=${CROSS_TARGET}"
+
+# FIXME: CROSS_F77, CROSS_GCJ
+CROSS_CC="${CROSS_HOST}-gcc"
+CROSS_CXX="${CROSS_HOST}-g++"
+PKG_CONFIG_LIBDIR="/usr/${CROSS_HOST}/lib/pkgconfig"
+
+docrossbin() {
+	local crossbindir=/usr/${CROSS_TARGET}/bin
+
+	dodir ${crossbindir}
+
+	for i in "${@}"
+	do
+		if [ ! -e ${i} ]
+		then
+			error "file ${i} does not exist"
+		fi
+
+		/bin/install -m0755 ${i} ${D}${crossbindir} || error "docrossbin ${i} failed"
+	done
+}
+
+docrosslib() {
+	local crosslibdir=/usr/${CROSS_TARGET}/lib
+
+	dodir ${crosslibdir}
+
+	for i in "${@}"
+	do
+		if [ ! -e ${i} ]
+		then
+			error "file ${i} does not exist"
+		fi
+
+		/bin/install -m0644 ${i} ${D}${crosslibdir} || error "docrosslib ${i} failed"
+	done
+}
