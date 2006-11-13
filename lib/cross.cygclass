@@ -8,6 +8,23 @@
 #
 ################################################################################
 
+##
+# cross.cygclass allows for the creation and use of cross-compilers.
+# PN should be prefixed with a valid one- or two-part OS prefix as recognized
+# by libtool's config.sub, e.g.:
+#
+#    ======== PN =======    ==== TRIPLET ====  == ORIG_PN ==
+#    mingw32-binutils    -> i386-pc-mingw32    binutils
+#    djgpp-gcc           -> i586-pc-msdosdjgpp gcc
+#    i686-linux-binutils -> i686-pc-linux-gnu  binutils
+#
+# If ORIG_PN is 'binutils' or 'gcc', a Cygwin-hosted cross-compiler will be 
+# built; otherwise, the package will be cross-compiled to the specified host.
+# 
+# This very likely needs much more work.  So far it's been used for 
+# ports/sys/i686-linux-binutils.
+#
+
 # FIXME: remove when adding support for crossing to Cygwin
 CROSS_BUILD=i686-pc-cygwin
 
