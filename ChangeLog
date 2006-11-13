@@ -1,4 +1,7 @@
 
+	* test/bootstrap, test/messages:
+	Allow test execution when called by cygport.
+
 	* CYGWIN-PATCHES/README, TODO, lib/Makefile.am (cygclass_DATA),
 	  lib/cross.cygclass:
 	New cygclass for creating and using cross-compilers.

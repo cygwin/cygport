@@ -2,13 +2,6 @@
 
 set -e
 
-if [ "x${_name}" = "x${PACKAGE}" ]
-then
-	echo "This test will not run within a cygport process."
-	echo "You will need to call 'make check' manually."
-	exit 77		# SKIP
-fi
-
 export CYGPORT_BOOTSTRAP=1
 
 ${MAKE} -C ${top_builddir} dist-bzip2
