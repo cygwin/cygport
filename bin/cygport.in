@@ -1144,12 +1144,15 @@ readonly -f __list_files __list_deps __show_info
 
 pkg_binpkg() {
 	local -i n=0;
+	local pkg_list;
+
+	pkg_list=(${PKG_LISTS:-${PKG_NAMES}});
 
 	cd ${D};
 
 	__step "Creating binary package(s)";
 
-	while [ -n "${pkg_name[${n}]}" ]
+	while [ ${n} -lt ${pkg_count} ]
 	do
 		__step "${pkg_name[${n}]}-${PVR}.tar.bz2";
 
@@ -1158,10 +1161,10 @@ pkg_binpkg() {
 			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
 				${PKG_CONTENTS[${n}]} \
 				|| error "Binary package creation failed"
-		elif [ -f ${C}/${pkg_name[${n}]}.list ]
+		elif [ -f ${C}/${pkg_list[${n}]}.list ]
 		then
 			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
-				$(cat ${C}/${pkg_name[${n}]}.list) \
+				$(cat ${C}/${pkg_list[${n}]}.list) \
 				|| error "Binary package creation failed"
 		elif [ ${pkg_count} -eq 1 ]
 		then

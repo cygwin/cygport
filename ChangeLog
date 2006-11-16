@@ -1,4 +1,8 @@
 
+
+	* bin/cygport.in (pkg_binpkg):
+	Accept PKG_LISTS variable to define .list names; defaults to PKG_NAMES.
+
 	* bin/cygport.in (pkg_diff):
 	Exclude mdate-sh from the .src.patch.
 
