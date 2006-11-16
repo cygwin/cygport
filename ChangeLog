@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (pkg_diff):
+	Exclude mdate-sh from the .src.patch.
+
 	* test/bootstrap, test/messages:
 	Allow test execution when called by cygport.
 

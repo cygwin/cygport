@@ -1226,7 +1226,7 @@ pkg_diff() {
 		-x ltmain.sh -x config.* -x depcomp -x install-sh -x missing \
 		-x mkinstalldirs -x autom4te.cache -x *compile -x Makefile.in.in \
 		-x intltool*.in -x xml-i18n-*.in -x *.pyc -x *.mo -x *.gmo \
-		-x ABOUT-NLS -x Makevars.template -x COPYING -x INSTALL \
+		-x ABOUT-NLS -x Makevars.template -x COPYING -x INSTALL -x mdate-sh \
 		-x *.orig -x *.rej -x *~ -x *.temp -x texinfo.tex -x ylwrap";
 
 	# exclude Makefile.in only if using automake
