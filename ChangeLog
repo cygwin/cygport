@@ -1,4 +1,10 @@
 
+	* lib/gst-plugins0.10.cygport:
+	Define GST_PLUGINDIR.
+	Accept GST_PLUGINS_EXT for building separate external plugins together 
+	    with base plugins.
+	Separate possible, impossible (i.e. Linux-specific) and configure test
+	    module options.
 
 	* bin/cygport.in (pkg_binpkg):
 	Accept PKG_LISTS variable to define .list names; defaults to PKG_NAMES.

@@ -10,13 +10,25 @@
 
 # Borrowed heavily from Gentoo's gst-plugins* eclasses
 
+GST_PLUGINDIR="/usr/lib/gstreamer-${PV_MAJ_MIN}"
+
 gst_pn=${PN/gstreamer${PVP[0]}${PVP[1]}-plugins-/}
 
 case ${gst_pn} in
 	base|good|bad|ugly)
 		GST_PLUGINS_DIR=.
-		GST_PLUGINS_MODULE=
 		ORIG_PN=gst-plugins-${gst_pn}
+
+		for plugin in ${GST_PLUGINS_EXT}
+		do
+			case ${plugin} in
+				mad) GST_PLUGINS_MODULE+=" id3tag mad" ;;
+				ximage|ximagesrc) GST_PLUGINS_MODULE+=" x" ;;
+				xvimage) GST_PLUGINS_MODULE+=" x xvideo" ;;
+				*) GST_PLUGINS_MODULE+=" ${plugin}" ;;
+			esac
+		done
+		unset plugin
 		;;
 	ffmpeg)
 		GST_PLUGINS_DIR=.
@@ -52,22 +64,27 @@ DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
 
 case ${GST_PLUGINS_SRC:-${gst_pn}} in
 	base)
-		my_gst_plugins="alsa cdparanoia freetypetest gnome_vfs gst_v4l \
-			gst_v4l2 libvisual ogg oggtest pango theora vorbis vorbistest \
-			x xshm xvideo"
+		my_gst_plugins="gnome_vfs libvisual ogg pango theora vorbis x xshm xvideo"
+		conftest_gst_plugins="freetypetest oggtest vorbistest"
+		never_gst_plugins="alsa cdparanoia gst_v4l gst_v4l2"
 		;;
 	good)
-		my_gst_plugins="aalib aalibtest annodex cairo cdio esd esdtest flac \
-			gconf gconftool gdk_pixbuf hal jpeg ladspa libcaca libdv dv1394 \
-			libpng oss shout2 shout2test speex sunaudio taglib x xshm"
+		my_gst_plugins="aalib annodex cairo cdio esd flac gconf gconftool \
+			gdk_pixbuf jpeg libcaca libdv libpng oss shout2 speex taglib x xshm"
+		conftest_gst_plugins="aalibtest esdtest shout2test"
+		never_gst_plugins="dv1394 hal ladspa sunaudio"
 		;;
 	bad)
-		my_gst_plugins="amrwb bz2 directfb divx dts faac faad gsm gst_v4l2 \
-			ivorbis libmms musepack musicbrainz neon opengl sdl sdltest \
-			soundtouch swfdec theoradec wavpack xvid"
+		my_gst_plugins="amrwb bz2 divx dts faac faad gsm ivorbis libmms \
+			musepack musicbrainz neon opengl sdl soundtouch swfdec theoradec \
+			wavpack xvid"
+		conftest_gst_plugins="sdltest"
+		never_gst_plugins="directfb gst_v4l2"
 		;;
 	ugly)
-		my_gst_plugins="amrnb a52dec dvdread id3tag lame mad mpeg2dec sidplay"
+		my_gst_plugins="amrnb a52dec dvdnav dvdread id3tag lame mad mpeg2dec sidplay"
+		conftest_gst_plugins=
+		never_gst_plugins=
 		;;
 esac
 
@@ -107,13 +124,13 @@ gst_plugins_compile() {
 	do
 		my_gst_plugins=${my_gst_plugins/${plugin}/}
 	done
-	for plugin in ${my_gst_plugins}
+	for plugin in ${my_gst_plugins} ${conftest_gst_plugins} ${never_gst_plugins}
 	do
-		gst_conf="${gst_conf} --disable-${plugin} "
+		gst_conf+=" --disable-${plugin}"
 	done
 	for plugin in ${GST_PLUGINS_MODULE}
 	do
-		gst_conf="${gst_conf} --enable-${plugin} "
+		gst_conf+=" --enable-${plugin}"
 	done
 
 	cygconf \
