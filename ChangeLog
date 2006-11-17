@@ -1,5 +1,5 @@
 
-	* lib/gst-plugins0.10.cygport:
+	* lib/gstreamer.cygclass, lib/gst-plugins0.10.cygclass:
 	Define GST_PLUGINDIR.
 	Accept GST_PLUGINS_EXT for building separate external plugins together 
 	    with base plugins.

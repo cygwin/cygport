@@ -10,8 +10,6 @@
 
 # Borrowed heavily from Gentoo's gst-plugins* eclasses
 
-GST_PLUGINDIR="/usr/lib/gstreamer-${PV_MAJ_MIN}"
-
 gst_pn=${PN/gstreamer${PVP[0]}${PVP[1]}-plugins-/}
 
 case ${gst_pn} in

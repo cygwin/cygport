@@ -19,6 +19,8 @@ CVS_URI=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/gstreamer"
 
 DIFF_EXCLUDES="common m4 po autoregen.sh stamp-h.in"
 
+GST_PLUGINDIR="/usr/lib/gstreamer-${PV_MAJ_MIN}"
+
 gstreamer_cvs_checkout() {
 	check_prog_req cvs
 
