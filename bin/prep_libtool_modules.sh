@@ -7,7 +7,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Header: /usr/src/cygport/tmp/cygport/bin/prep_libtool_modules.sh,v 1.5 2006-11-20 02:53:00 yselkowitz Exp $
+# $Id: prep_libtool_modules.sh,v 1.6 2006-11-20 05:48:58 yselkowitz Exp $
 #
 ################################################################################
 set -e

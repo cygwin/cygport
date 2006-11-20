@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# $Header: /usr/src/cygport/tmp/cygport/test/bootstrap,v 1.4 2006-11-20 03:01:02 yselkowitz Exp $
+# $Id: bootstrap,v 1.5 2006-11-20 05:48:59 yselkowitz Exp $
 
 set -e
 

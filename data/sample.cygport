@@ -1,4 +1,4 @@
-# $Header: /usr/src/cygport/tmp/cygport/data/sample.cygport,v 1.4 2006-11-20 03:01:00 yselkowitz Exp $
+# $Id: sample.cygport,v 1.5 2006-11-20 05:48:58 yselkowitz Exp $
 
 DESCRIPTION="Next-generation Cygwin packaging application"
 HOMEPAGE="http://cygwinports.dotsrc.org/"

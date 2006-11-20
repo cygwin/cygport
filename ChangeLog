@@ -2,7 +2,7 @@
 	* data/mirrors (mirror_gnome):
 	Remove download.gnome.org, as it just redirects to ftp.gnome.org.
 
-	* Add CVS $Header: /usr/src/cygport/tmp/cygport/ChangeLog,v 1.93 2006-11-20 04:02:12 yselkowitz Exp $ keywords.
+	* Add CVS Id keywords.
 
 	* lib/gstreamer.cygclass,
 	  lib/gst-plugins0.8.cygclass,

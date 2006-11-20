@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# $Header: /usr/src/cygport/tmp/cygport/test/messages,v 1.3 2006-11-20 03:01:02 yselkowitz Exp $
+# $Id: messages,v 1.4 2006-11-20 05:48:59 yselkowitz Exp $
 
 set -e
 

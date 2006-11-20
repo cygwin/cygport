@@ -26,3 +26,4 @@ particular order:
 * Windows shortcuts for X11 programs
 	doico /path/to/pixmap.png [calls png(to|2)ico and doins]
 	make_win_shortcut Foo [run.exe foo.exe -wait --display=...]
+* error(): use 'caller' builtin?

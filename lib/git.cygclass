@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Header: /usr/src/cygport/tmp/cygport/lib/git.cygclass,v 1.3 2006-11-20 03:01:01 yselkowitz Exp $
+# $Id: git.cygclass,v 1.4 2006-11-20 05:48:59 yselkowitz Exp $
 #
 ################################################################################
 
