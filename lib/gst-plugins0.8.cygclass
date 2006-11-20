@@ -18,6 +18,17 @@ case ${gst_pn} in
 		GST_PLUGINS_DIR=.
 		GST_PLUGINS_MODULE="gconf gconftool oss smoothwave"
 		ORIG_PN=gst-plugins
+
+		for plugin in ${GST_PLUGINS_EXT}
+		do
+			case ${plugin} in
+				sdl) GST_PLUGINS_MODULE+=" sdl x" ;;
+				ximage) GST_PLUGINS_MODULE+=" x" ;;
+				xvimage) GST_PLUGINS_MODULE+=" x xvideo" ;;
+				*) GST_PLUGINS_MODULE+=" ${plugin}" ;;
+			esac
+		done
+		unset plugin
 		;;
 	ffmpeg|monkeysaudio)
 		GST_PLUGINS_DIR=.
@@ -40,24 +51,24 @@ inherit gstreamer
 
 DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
 
-DEPS_PATH="/usr/lib/gstreamer-${PV_MAJ_MIN}"
+DEPS_PATH="${GST_PLUGINDIR}"
 
 # sys/ available on Cygwin
-my_gst_plugins="opengl oss x xshm xvideo"
+my_gst_plugins=" opengl oss x xshm xvideo"
 # ext/ available on Cygwin
-my_gst_plugins="${my_gst_plugins} a52dec aalib amrnb arts artsc audiofile \
+my_gst_plugins+=" a52dec aalib amrnb arts artsc audiofile \
 	audioresample cairo cdio dirac dts dvdnav dvdread esd faac faad flac \
 	gconf gconftool gdk_pixbuf gnome_vfs gsm hermes \
 	ivorbis jack jpeg lame libcaca libdv libfame libmms libmng libpng \
 	libvisual mad mikmod mpeg2dec mpeg2enc mplex musepack musicbrainz nas \
 	pango polyp sdl shout shout2 sidplay smoothwave spc speex sndfile swfdec \
-	tarkin ogg theora vorbis wavpack x264 xine xvid"
+	tarkin ogg theora vorbis wavpack x264 xine xvid "
 # "compile test program"
-my_gst_plugins="${my_gst_plugins} aalibtest artstest esdtest freetypetest \
+conftest_gst_plugins="aalibtest artstest esdtest freetypetest \
 	libfametest libmikmodtest sdltest shout2test oggtest vorbistest"
 # not available on Cygwin
-my_gst_plugins="${my_gst_plugins} alsa cdaudio cdrom cdparanoia directfb
-divx dv1394 dxr3 ladspa osx_audio osx_video qcam sunaudio v4l v4l2 vcd"
+never_gst_plugins="alsa cdaudio cdrom cdparanoia directfb divx dv1394 dxr3 \
+	ladspa osx_audio osx_video qcam sunaudio v4l v4l2 vcd"
 
 gst_plugins_autoreconf() {
 	gstreamer_autoreconf
@@ -93,15 +104,15 @@ gst_plugins_compile() {
 
 	for plugin in ${GST_PLUGINS_MODULE}
 	do
-		my_gst_plugins=${my_gst_plugins/${plugin}/}
+		my_gst_plugins=${my_gst_plugins/ ${plugin} / }
 	done
-	for plugin in ${my_gst_plugins}
+	for plugin in ${my_gst_plugins} ${conftest_gst_plugins} ${never_gst_plugins}
 	do
-		gst_conf="${gst_conf} --disable-${plugin} "
+		gst_conf+=" --disable-${plugin}"
 	done
 	for plugin in ${GST_PLUGINS_MODULE}
 	do
-		gst_conf="${gst_conf} --enable-${plugin} "
+		gst_conf+=" --enable-${plugin}"
 	done
 
 	cygconf \
@@ -142,8 +153,15 @@ gst_plugins_install() {
 }
 
 gst_plugins_postinst() {
+	local ext
+
 	dodir /etc/postinstall
 	echo PATH=\"\${PATH}:/usr/lib/gstreamer-${PV_MAJ_MIN}\" /usr/bin/gst-register-${PV_MAJ_MIN} > ${D}/etc/postinstall/${PN}.sh
+
+	for ext in ${GST_PLUGINS_EXT}
+	do
+		echo PATH=\"\${PATH}:/usr/lib/gstreamer-${PV_MAJ_MIN}\" /usr/bin/gst-register-${PV_MAJ_MIN} > ${D}/etc/postinstall/${PN}-${ext}.sh
+	done
 }
 
 src_compile() {
