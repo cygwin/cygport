@@ -1,5 +1,8 @@
 
-	* Add CVS $Header: /usr/src/cygport/tmp/cygport/ChangeLog,v 1.92 2006-11-20 03:01:00 yselkowitz Exp $ keywords.
+	* data/mirrors (mirror_gnome):
+	Remove download.gnome.org, as it just redirects to ftp.gnome.org.
+
+	* Add CVS $Header: /usr/src/cygport/tmp/cygport/ChangeLog,v 1.93 2006-11-20 04:02:12 yselkowitz Exp $ keywords.
 
 	* lib/gstreamer.cygclass,
 	  lib/gst-plugins0.8.cygclass,
@@ -23,7 +26,7 @@
 	  lib/cross.cygclass:
 	New cygclass for creating and using cross-compilers.
 
-	* lib/ruby.cygclass [RUBY_ARCH]:
+	* lib/ruby.cygclass (RUBY_ARCH):
 	Define as archdir, not arch.
 
 	* CYGWIN-PATCHES/README, configure.ac:
