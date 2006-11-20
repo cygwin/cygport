@@ -25,4 +25,3 @@ do
 
 	/bin/install -m0755 ${i} ${D}${bindir} || error "dobin ${i} failed"
 done
-
