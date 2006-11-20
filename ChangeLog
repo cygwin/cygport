@@ -1,4 +1,6 @@
 
+	* Add CVS $Header: /usr/src/cygport/tmp/cygport/ChangeLog,v 1.92 2006-11-20 03:01:00 yselkowitz Exp $ keywords.
+
 	* lib/gstreamer.cygclass,
 	  lib/gst-plugins0.8.cygclass,
 	  lib/gst-plugins0.10.cygclass:

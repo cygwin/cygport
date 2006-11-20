@@ -6,6 +6,8 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
+# $Header: /usr/src/cygport/tmp/cygport/lib/fox.cygclass,v 1.2 2006-11-20 03:01:01 yselkowitz Exp $
+#
 ################################################################################
 
 # This eclass allows building parallel-installable FOX Toolkit packages

@@ -6,6 +6,8 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
+# $Header: /usr/src/cygport/tmp/cygport/lib/pygtk.cygclass,v 1.3 2006-11-20 03:01:01 yselkowitz Exp $
+#
 ################################################################################
 
 pygtk_mod=$(echo ${PN} | sed -e 's:^py::' -e "s:${PV_MAJ}$::")

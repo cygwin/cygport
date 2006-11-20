@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# $Header: /usr/src/cygport/tmp/cygport/test/messages,v 1.3 2006-11-20 03:01:02 yselkowitz Exp $
+
 set -e
 
 export CYGPORT_BOOTSTRAP=1
