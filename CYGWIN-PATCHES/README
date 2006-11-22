@@ -26,12 +26,13 @@ Runtime requirements:
   wget
 
 Build requirements:
-  cygwin-1.5.21-2
+  cygwin-1.5.22-1
   autoconf2.5-2.60-1
   automake1.10-1.10-1
   gawk-3.1.5-2
   help2man-1.35.1-1
   make-3.81-1
+  man-1.5p-1
   sed-4.1.5-1
 
 Canonical website:
@@ -123,6 +124,7 @@ Files included in the binary package:
   /usr/share/doc/cygport-0.2.7/NEWS
   /usr/share/doc/cygport-0.2.7/README
   /usr/share/doc/cygport-0.2.7/TODO
+  /usr/share/doc/cygport-0.2.7/html/cygport.1.html
   /usr/share/man/man1/cygport.1.gz
 
 ------------------

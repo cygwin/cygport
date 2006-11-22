@@ -10,6 +10,7 @@ AM_INIT_AUTOMAKE([1.10 dist-bzip2 no-dist-gzip])
 AM_MAINTAINER_MODE
 
 AC_CHECK_PROGS(HELP2MAN, help2man, :)
+AC_CHECK_PROGS(MAN2HTML, man2html, :)
 
 AC_CONFIG_FILES([
 Makefile

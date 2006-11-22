@@ -1,4 +1,7 @@
 
+	* CYGWIN-PATCHES/README, autogen.sh, configure.ac, doc/Makefile.am:
+	Add HTML versions of man page with man2html.
+
 	* data/mirrors (mirror_gnome):
 	Remove download.gnome.org, as it just redirects to ftp.gnome.org.
 
