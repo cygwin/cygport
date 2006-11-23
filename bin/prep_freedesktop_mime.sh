@@ -7,7 +7,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: prep_freedesktop_mime.sh,v 1.4 2006-11-20 05:48:58 yselkowitz Exp $
+# $Id: prep_freedesktop_mime.sh,v 1.5 2006-11-23 04:14:58 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -33,7 +33,7 @@ fi
 if [ -d ${D}/usr/share/mime ]
 then
 	# make sure system-generated files aren't clobbered
-	rm -f ${D}/usr/share/mime/{aliases,globs,magic,subclasses,XMLnamespaces}
+	rm -f ${D}/usr/share/mime/{aliases,globs,magic,mime.cache,subclasses,XMLnamespaces}
 
 	if [ -z "${_already_updated_mime_db}" ]
 	then

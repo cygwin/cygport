@@ -6,13 +6,13 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: svn.cygclass,v 1.4 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: svn.cygclass,v 1.5 2006-11-23 04:14:59 yselkowitz Exp $
 #
 ################################################################################
 
 _USE_SVN_FETCH=1
 
-if [ -z "${SVN_URI}" ]
+if ! defined SVN_URI
 then
 	error "SVN_URI must be defined"
 fi
@@ -28,10 +28,10 @@ svn_fetch() {
 
 	check_prog_req svn subversion
 
-	if [ -n "${SVN_REV}" ]
+	if defined SVN_REV
 	then
 		svn_rev="-r ${SVN_REV}"
-	elif [ -n "${SVN_DATE}" ]
+	elif defined SVN_DATE
 	then
 		svn_rev="-r {${SVN_DATE}}"
 	fi

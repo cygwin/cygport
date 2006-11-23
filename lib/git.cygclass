@@ -6,13 +6,13 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: git.cygclass,v 1.4 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: git.cygclass,v 1.5 2006-11-23 04:14:59 yselkowitz Exp $
 #
 ################################################################################
 
 _USE_GIT_FETCH=1
 
-if [ -z "${GIT_URI}" ]
+if ! defined GIT_URI
 then
 	error "GIT_URI must be defined"
 fi

@@ -7,12 +7,12 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: dodoc,v 1.5 2006-11-20 05:48:57 yselkowitz Exp $
+# $Id: dodoc,v 1.6 2006-11-23 04:14:58 yselkowitz Exp $
 #
 ################################################################################
 set -e
 
-if [ -n "${_docinto_dir}" ]
+if defined _docinto_dir
 then
 	docdir=/usr/share/doc/${P}/${_docinto_dir}
 else

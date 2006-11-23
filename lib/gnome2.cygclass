@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: gnome2.cygclass,v 1.13 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: gnome2.cygclass,v 1.14 2006-11-23 04:14:59 yselkowitz Exp $
 #
 ################################################################################
 
@@ -97,7 +97,7 @@ gnome2_autoreconf() {
 
 	verbose autoconf --force || error "autoconf failed"
 
-	if grep -q "^A[CM]_CONFIG_HEADER" ${configure_ac} && [ -z "${NO_AUTOHEADER}" ]
+	if grep -q "^A[CM]_CONFIG_HEADER" ${configure_ac} && ! defined NO_AUTOHEADER
 	then
 		verbose autoheader --force || error "autoheader failed"
 
@@ -115,7 +115,7 @@ gnome2_autoreconf() {
 		done
 	fi
 
-	if [ -z "${NO_AUTOMAKE}" ]
+	if ! defined NO_AUTOMAKE
 	then
 		touch AUTHORS COPYING ChangeLog INSTALL NEWS README
 

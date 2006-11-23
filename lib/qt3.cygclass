@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: qt3.cygclass,v 1.4 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: qt3.cygclass,v 1.5 2006-11-23 04:14:59 yselkowitz Exp $
 #
 ################################################################################
 
@@ -73,7 +73,7 @@ qt3pluginto() {
 }
 
 doqt3plugin() {
-	if [ -z "${__QT3_PLUGIN_SUBDIR}" ]
+	if ! defined __QT3_PLUGIN_SUBDIR
 	then
 		error "qt3pluginto must be called before doqt3plugin"
 	fi

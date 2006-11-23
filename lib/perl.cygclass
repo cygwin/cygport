@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: perl.cygclass,v 1.7 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: perl.cygclass,v 1.8 2006-11-23 04:14:59 yselkowitz Exp $
 #
 ################################################################################
 
@@ -25,7 +25,7 @@ SRC_DIR="${ORIG_PN}-${PV}"
 
 DESCRIPTION="Perl ${ORIG_PN//-/::} module"
 
-if [ -n "${CPAN_AUTHOR}" ]
+if defined CPAN_AUTHOR
 then
 	cpan_author_web=$(echo ${CPAN_AUTHOR} | tr '[:upper:]' '[:lower:]')
 	cpan_author_ftp=$(echo ${CPAN_AUTHOR} | tr '[:lower:]' '[:upper:]')
@@ -34,9 +34,9 @@ then
 fi
 
 check_perl_module() {
-	local mod;
+	local mod
 
-	if [ -z "${*}" ]
+	if (( $# == 0 ))
 	then
 		error "check_perl_module requires at least one argument"
 	fi

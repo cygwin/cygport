@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cross.cygclass,v 1.4 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: cross.cygclass,v 1.5 2006-11-23 04:14:59 yselkowitz Exp $
 #
 ################################################################################
 
@@ -39,7 +39,7 @@ __cross_test_target() {
 	local cross_n=4		# max length of host, e.g. i686-pc-linux-gnu
 	local try_target
 
-	while [ ${cross_n} -ge 1 ]
+	while (( cross_n >= 1 ))
 	do
 		try_target=$(echo ${1} | cut -d '-' -f 1-${cross_n--})
 

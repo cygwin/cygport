@@ -6,9 +6,36 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.34 2006-11-20 05:44:27 yselkowitz Exp $
+# $Id: cygport.in,v 1.35 2006-11-23 04:14:58 yselkowitz Exp $
 #
 ################################################################################
+
+################################################################################
+#
+# Language extensions
+#
+################################################################################
+
+defined() {
+	if (( $# != 1 ))
+	then
+		error "defined accepts exactly one argument"
+	fi
+
+	if [ -n "${!1}" ]
+	then
+		return 0;
+	else
+		return 1;
+	fi
+}
+
+readonly -f defined
+export -f defined
+
+alias ifdef="if defined"
+alias ifndef="if ! defined"
+
 
 ################################################################################
 #
@@ -18,9 +45,9 @@
 set -e;
 
 declare -rx _name=@PACKAGE@;
-declare -r _version=@VERSION@;
+declare -r  _version=@VERSION@;
 
-if [ -n "${CYGPORT_BOOTSTRAP}" -a -n "${top_srcdir}" ]
+if defined CYGPORT_BOOTSTRAP && defined top_srcdir
 then
 	case ${top_srcdir} in
 		.*) declare -rx _prefix=$(pwd)/${top_srcdir} ;;
@@ -33,7 +60,7 @@ then
 else
 	declare -rx _prefix=@pkglibdir@;
 	declare -r  _privdatadir=@pkgdatadir@;
-	declare -r  _privdocdir=@datadir@/doc/${_name}-${_version};
+	declare -r  _privdocdir=@docdir@;
 	declare -r  _sysconfdir=@sysconfdir@;
 fi
 
@@ -42,6 +69,9 @@ declare -rx _privlibdir=${_prefix}/lib;
 
 declare -r os_path="$PATH";
 declare -x PATH="${_privbindir}:$PATH";
+
+declare -ar argv=(${0} ${@})
+declare -ir argc=$(( $# + 1 ))
 
 
 ################################################################################
@@ -89,7 +119,7 @@ __show_version() {
 }
 
 # Accept --help and --version arguments without specifying a cygport file
-case ${1} in
+case ${argv[1]} in
 	--help|-h|-\?)
 		__show_help;
 		exit 0;
@@ -99,14 +129,14 @@ case ${1} in
 		exit 0;
 		;;
 	-*)
-		echo "$0: unknown argument ${1}";
+		echo "${argv[0]}: unknown argument ${argv[1]}";
 		__show_help;
 		exit 1;
 		;;
 esac
 
 # Show help if no commands are given
-if [ -z "${1}" -o -z "${2}" ]
+if ! defined argv[1] || ! defined argv[2]
 then
 	__show_help;
 	exit 1;
@@ -165,11 +195,12 @@ export -f error warning inform verbose
 # Locate the cygport file and set package name and version
 #
 ################################################################################
-declare -r cygportfile=$(echo ${1##*/} | sed -e 's!\.cygport!!').cygport;
+declare -r PF=$(echo ${argv[1]##*/} | sed -e 's!\.cygport!!')
+declare -r cygportfile=${PF}.cygport;
 
-_topdir=${1%/*}
+_topdir=${argv[1]%/*};
 
-if [ "x${_topdir}" = "x${1}" ]
+if [ "x${_topdir}" = "x${argv[1]}" ]
 then
 	if [ -f /usr/src/${cygportfile} ]
 	then
@@ -187,15 +218,14 @@ then
 	error "${cygportfile} not found.";
 fi
 
-declare -rx PN=$(echo ${cygportfile%.cygport} | sed -e 's/\-[^\-]*\-[^\-]*$//');
-declare -rx PV=$(echo ${cygportfile%.cygport} | sed -e "s/${PN}\-//" -e 's/\-[^\-]*$//');
-declare -rx PR=$(echo ${cygportfile%.cygport} | sed -e "s/${PN}\-${PV}\-//");
-declare -rx P=${PN}-${PV};
-declare -rx PF=${PN}-${PV}-${PR};
-declare -rx PVR=${PV}-${PR};
+declare -rx  PN=$(echo ${PF} | sed -e 's/\-[^\-]*\-[^\-]*$//');
+declare -rx  PV=$(echo ${PF} | sed -e "s/${PN}\-//" -e 's/\-[^\-]*$//');
+declare -rx  PR=${PF#${PN}-${PV}-};
+declare -rx  P=${PN}-${PV};
+declare -rx  PVR=${PV}-${PR};
 declare -arx PVP=(${PV//[-\._]/ });
-declare -rx PV_MAJ=${PVP[0]};
-declare -rx PV_MAJ_MIN="${PVP[0]}.${PVP[1]}";
+declare -rx  PV_MAJ=${PVP[0]};
+declare -rx  PV_MAJ_MIN="${PVP[0]}.${PVP[1]}";
 
 
 ################################################################################
@@ -242,12 +272,12 @@ __version_at_least() {
 	local -a have_va=(${have_v//[-\._]/ });
 	local -i n=0;
 
-	while [ -n "${want_ver[${n}]}" ]
+	while defined want_ver[${n}]
 	do
-		if [ ${want_ver[${n}]} -lt ${have_ver[${n}]:-0} ]
+		if (( want_ver[n] < ${have_ver[${n}]:-0} ))
 		then
 			return 0;
-		elif [ ${want_ver[${n}]} -gt ${have_ver[${n}]:-0} ]
+		elif (( want_ver[n] > ${have_ver[${n}]:-0} ))
 		then
 			return 1;
 		else
@@ -258,7 +288,7 @@ __version_at_least() {
 
 	if [ "${want_r}" != "${want_v}" ]
 	then
-		if [ ${want_r} -gt ${have_r:-1} ]
+		if (( want_r > have_r ))
 		then
 			return 1;
 		fi
@@ -326,7 +356,7 @@ mirror_fetch() {
 	mirname=${miruri%%/*};
 	mirvar=mirror_${mirname};
 
-	if [ -z "${!mirvar}" ]
+	if ! defined ${mirvar}
 	then
 		error "unknown mirror ${mirname}";
 	fi
@@ -334,7 +364,7 @@ mirror_fetch() {
 	mirlist=(${!mirvar});
 
 	n=0;
-	while [ ${n} -lt ${#mirlist[*]} ]
+	while (( n < ${#mirlist[*]} ))
 	do
 		if fetch ${mirlist[${n}]}/${miruri#*/}
 		then
@@ -352,13 +382,13 @@ src_fetch() {
 
 	cd ${top};
 
-	if [ -n "${_USE_CVS_FETCH}" ]
+	if defined _USE_CVS_FETCH
 	then
 		cvs_fetch;
-	elif [ -n "${_USE_SVN_FETCH}" ]
+	elif defined _USE_SVN_FETCH
 	then
 		svn_fetch;
-	elif [ -n "${_USE_GIT_FETCH}" ]
+	elif defined _USE_GIT_FETCH
 	then
 		git_fetch;
 	else
@@ -431,7 +461,7 @@ unpack() {
 
 		__step "Unpacking source ${unpack_file_name}";
 
-		if [ -n "${unpack_out}" ]
+		if defined unpack_out
 		then
 			if ! ${unpack_cmd} ${unpack_file_path} > ${unpack_out}
 			then
@@ -466,7 +496,7 @@ __mkdirs() {
 
 	mkdir -p ${workdir};
 
-	if [ -n "${USE_MANAGED_MOUNT}" ]
+	if defined USE_MANAGED_MOUNT
 	then
 		mount -o managed $(cygpath -w ${workdir}) ${workdir} || error "managed mount creation failed"
 	fi
@@ -497,14 +527,14 @@ apply_patch() {
 			*.cygwin.patch) patchlevel+=1 ;;
 		esac
 
-		while [ ${patchlevel} -le 3 ]
+		while (( patchlevel <= 3 ))
 		do
 			if patch -f -s --dry-run -p${patchlevel} < ${patchfile} &> /dev/null
 			then
 				patch -f -p${patchlevel} < ${patchfile} || error "patch ${patchfile##*/} failed"
 				break;
 			else
-				if [ ${patchlevel} -eq 3 ]
+				if (( patchlevel == 3 ))
 				then
 					error "patch ${patchfile##*/} will not apply";
 				else
@@ -633,7 +663,6 @@ lndirs() {
 cygautoreconf() {
 	local d;
 	local f;
-	local notool;
 	local tool;
 	local ac_subdirs;
 	local ac_ver;
@@ -651,7 +680,7 @@ cygautoreconf() {
 		error "Could not find configure.ac or configure.in";
 	fi
 
-	ac_subdirs="$(grep 'AC_CONFIG_SUBDIRS*' ${configure_ac} | sed -e 's!A[CM]_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
+	ac_subdirs="$(grep 'A[CM]_CONFIG_SUBDIRS*' ${configure_ac} | sed -e 's!A[CM]_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
 
 	# Automake will exit if these are not present
 	# dodoc won't install these, however, since they will be empty
@@ -685,8 +714,7 @@ cygautoreconf() {
 
 		for tool in ACLOCAL LIBTOOL AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
 		do
-			notool=NO_${tool}
-			if [ -n "${!notool}" ]
+			if defined NO_${tool}
 			then
 				declare ${tool}=true
 			fi
@@ -726,7 +754,7 @@ cygconf() {
 		--sysconfdir=/etc"
 	local confdir;
 
-	if [ -n "${CYGCONF_SOURCE}" -a -x ${CYGCONF_SOURCE}/configure ]
+	if defined CYGCONF_SOURCE && [ -x ${CYGCONF_SOURCE}/configure ]
 	then
 		confdir=${CYGCONF_SOURCE};
 	elif [ -x ${PWD/${B}/${S}}/configure ]
@@ -834,9 +862,9 @@ dodir() {
 
 # set dodoc install subdir
 docinto() {
-	if [ -n "${2}" ]
+	if (( $# != 1 ))
 	then
-		error "docinto accepts only one argument";
+		error "docinto accepts exactly one argument";
 	fi
 
 	case ${1} in
@@ -849,9 +877,9 @@ docinto() {
 
 # set doexe install dir
 exeinto() {
-	if [ -n "${2}" ]
+	if (( $# != 1 ))
 	then
-		error "exeinto accepts only one argument";
+		error "exeinto accepts exactly one argument";
 	fi
 
 	dodir ${1};
@@ -860,9 +888,9 @@ exeinto() {
 
 # set doins install dir
 insinto() {
-	if [ -n "${2}" ]
+	if (( $# != 1 ))
 	then
-		error "insinto accepts only one argument";
+		error "insinto accepts exactly one argument";
 	fi
 
 	dodir ${1};
@@ -874,7 +902,7 @@ __prepinstalldirs() {
 	rm -fr ${D}/*;
 
 	# circumvent pointless libtool relinking during install
-	find ${B} -name '*.la' -exec sed -i -e 's!^relink_command=.*!!' '{}' +;
+	find ${B} -name '*.la' -exec sed -i -e '/^relink_command/d' '{}' +;
 	find ${B} -type f -exec touch -t $(date +%Y%m%d%H%M.%S) '{}' +;
 }
 
@@ -961,7 +989,7 @@ __prepdoc() {
 		touch ${D}/usr/share/doc/Cygwin/${P}.README;
 	fi		
 
-	while [ -n "${pkg_name[${n}]}" ]
+	while defined pkg_name[${n}]
 	do
 		if [ -f ${C}/${pkg_name[${n}]}.README ]
 		then
@@ -1154,11 +1182,11 @@ pkg_binpkg() {
 
 	__step "Creating binary package(s)";
 
-	while [ ${n} -lt ${pkg_count} ]
+	while (( n < pkg_count ))
 	do
 		__step "${pkg_name[${n}]}-${PVR}.tar.bz2";
 
-		if [ -n "${PKG_CONTENTS[${n}]}" ]
+		if defined PKG_CONTENTS[${n}]
 		then
 			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
 				${PKG_CONTENTS[${n}]} \
@@ -1168,12 +1196,12 @@ pkg_binpkg() {
 			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
 				$(cat ${C}/${pkg_list[${n}]}.list) \
 				|| error "Binary package creation failed"
-		elif [ ${pkg_count} -eq 1 ]
+		elif (( pkg_count == 1 ))
 		then
 			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 * \
 				|| error "Binary package creation failed"
 		else
-			error "Either define PKG_CONTENTS[${n}], or create CYGWIN-PATCHES/${pkg_name[${n}]}.list file";
+			error "Either define PKG_CONTENTS[${n}], or create CYGWIN-PATCHES/${pkg_list[${n}]}.list file";
 		fi				
 		echo;
 		n+=1;
@@ -1190,7 +1218,7 @@ pkg_pkgcheck() {
 
 	rm -f ${tmp1} ${tmp2};
 
-	while [ -n "${pkg_name[${n}]}" ]
+	while defined pkg_name[${n}]
 	do
 		tar tjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 | grep -Ev "/$" >> ${tmp1}
 		n+=1
@@ -1358,7 +1386,7 @@ pkg_srcpkg() {
 
 	cd ${spkgdir};
 
-	if [ -n "${SIG}" -a "x${SIG}" != "x0" ]
+	if defined SIG && [ "x${SIG}" != "x0" ]
 	then
 		if check_prog gpg
 		then
@@ -1389,14 +1417,14 @@ pkg_dist() {
 
 	cp ${top}/${PF}-src.tar.bz2 ${top}/${PF}.tar.bz2 ${distdir}/${PN};
 
-	if [ ${pkg_count} -gt 1 ]
+	if (( pkg_count > 1 ))
 	then
 		pkg_hint=(${PKG_HINTS:-${PKG_NAMES}})
 	else
 		pkg_hint=(${PKG_HINTS:-setup})
 	fi
 
-	if [ ${#pkg_name[*]} -ne ${#pkg_hint[*]} ]
+	if (( pkg_count != ${#pkg_hint[*]} ))
 	then
 		error "Different number of packages defined in PKG_NAMES and PKG_HINTS";
 	fi
@@ -1408,7 +1436,7 @@ pkg_dist() {
 		warning "${pkg_hint[0]%.hint}.hint is missing";
 	fi
 	
-	while [ -n "${pkg_name[${n}]}" ]
+	while defined pkg_name[${n}]
 	do
 		mkdir -p ${distdir}/${PN}/${pkg_name[${n}]};
 		cp ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${distdir}/${PN}/${pkg_name[${n}]};
@@ -1431,10 +1459,10 @@ finish() {
 
 	__step "Removing work directory in 5 seconds...";
 
-	while [ ${n} -lt 5 ]
+	while (( n < 5 ))
 	do
-#		FIXME: beep??
-#		echo $'\a';
+		# FIXME: beep?
+		# echo $'\a';
 		sleep 1 || exit $?;
 		n+=1;
 	done
@@ -1445,7 +1473,7 @@ finish() {
 
 	sleep 1;
 
-	if [ -n "${USE_MANAGED_MOUNT}" ]
+	if defined USE_MANAGED_MOUNT
 	then
 		umount ${workdir} || warning "managed mount removal failed";
 	fi
@@ -1469,19 +1497,17 @@ readonly -f pkg_binpkg pkg_diff gpg_sign pkg_srcpkg pkg_dist finish
 inherit() {
 	local class;
 	local classname;
-	local classvar;
 
 	for class in ${@}
 	do
 		classname=${class%.cygclass}
-		classvar="_${classname//[-\.]/_}_CYGCLASS_"
 
 		if [ ! -f ${_privlibdir}/${classname}.cygclass ]
 		then
 			error "inherit: unknown cygclass ${class}";
 		fi
 
-		if [ -z "${!classvar}" ]
+		if ! defined _${classname//[-\.]/_}_CYGCLASS_
 		then
 			source ${_privlibdir}/${classname}.cygclass || error "inherit ${classname} failed"
 			export _${classname//[-\.]/_}_CYGCLASS_=1
@@ -1510,7 +1536,7 @@ fi
 
 source ${top}/${cygportfile} || error "could not read ${cygportfile}"
 
-if [ -n "${CYGPORT_DEPEND}" ]
+if defined CYGPORT_DEPEND
 then
 	if ! __version_at_least ${CYGPORT_DEPEND} ${_version}
 	then
@@ -1550,12 +1576,11 @@ declare -r checklog="${logdir}/${PF}-check.log";
 declare -r installlog="${logdir}/${PF}-install.log";
 declare -r pkglog="${logdir}/${PF}-pkg.log";
 
-if [ -z "${SRC_URI}" ]
+if ! defined SRC_URI
 then
 	error "SRC_URI must be defined";
 fi
 
-unset _src_uri;
 for _src_uri in ${SRC_URI}
 do
 	_src_orig_pkgs="${_src_orig_pkgs} ${_src_uri##*/}";
@@ -1567,7 +1592,7 @@ declare -r cygwin_patchfile=${PF}.cygwin.patch;
 declare -r src_patchfile=${PF}.src.patch;
 
 declare -ar pkg_name=(${PKG_NAMES:-${PN}});
-declare -r  pkg_count=${#pkg_name[*]}
+declare -r  pkg_count=${#pkg_name[*]};
 
 if [ "x${pkg_name[0]}" != "x${PN}" ]
 then
@@ -1580,9 +1605,11 @@ fi
 #
 ################################################################################
 
-while [ -n "${2}" ]
+declare -i arg_n=2
+
+while (( arg_n < argc ))
 do
-	case ${2} in
+	case ${argv[${arg_n}]} in
 		download|fetch|wget|get)
 			src_fetch;
 			_status=$?;
@@ -1593,8 +1620,7 @@ do
 			_status=$?;
 			;;
 		oldpatch)
-			__oldpatch ${3};
-			shift;
+			__oldpatch ${argv[$((++arg_n))]};
 			_status=$?;
 			;;
 		compile|build|make)
@@ -1664,17 +1690,17 @@ do
 			# deprecated commands
 			;;
 		*)
-			error "unknown command ${2}";
+			error "unknown command ${argv[${arg_n}]}";
 			_status=$?;
 			;;
 	esac
 
-	if [ ${_status} -ne 0 ]
+	if (( _status != 0 ))
 	then
 		break;
 	fi
 
-	shift;
+	arg_n+=1;
 done
 
 exit ${_status};

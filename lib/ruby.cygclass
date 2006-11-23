@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: ruby.cygclass,v 1.5 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: ruby.cygclass,v 1.6 2006-11-23 04:14:59 yselkowitz Exp $
 #
 ################################################################################
 
@@ -37,7 +37,7 @@ ruby_compile() {
 		error "No Ruby module detected"
 	fi
 
-	if [ -n "${RDOC_SOURCE}" ]
+	if defined RDOC_SOURCE
 	then
 		rdoc ${RDOC_SOURCE} -o rdoc
 	fi

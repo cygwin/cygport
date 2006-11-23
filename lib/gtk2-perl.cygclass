@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: gtk2-perl.cygclass,v 1.5 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: gtk2-perl.cygclass,v 1.6 2006-11-23 04:14:59 yselkowitz Exp $
 #
 ################################################################################
 
@@ -18,9 +18,12 @@ SRC_URI="mirror://sourceforge/gtk2-perl/${ORIG_PN}-${PV}.tar.gz"
 DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib2:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS"
 
 gtk2_perl_compile() {
+	local ldflags
+	local man3pm
+	local pod
+
 	${PERL} Makefile.PL PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
 
-	local ldflags
 	case ${ORIG_PN} in
 		Glib)
 			ldflags=""
@@ -46,10 +49,9 @@ gtk2_perl_compile() {
 	cygmake all OTHERLDFLAGS="${ldflags}"
 	make manifypods || true		# manifypods *will* bail out
 
-	local man3pm
 	for pod in $(find blib/lib/G* -name '*.pod' | sed -e 's:^blib/lib/::')
 	do
-		man3pm=$(echo ${pod} | sed -e 's:/:.:g' -e 's:\.pod$:.3pm:')
+		man3pm=$(echo ${pod} | sed -e 's!/!.!g' -e 's!\.pod$!.3pm!')
 		if [ ! -f blib/man3/${man3pm} ]
 		then
 			${PERL} "-MExtUtils::Command::MM" -e pod2man "--" \
@@ -57,6 +59,7 @@ gtk2_perl_compile() {
 				blib/lib/${pod} blib/man3/${man3pm}
 		fi
 	done
+
 	if [ ! -f blib/man3/${ORIG_PN//\-/\.}.3pm ]
 	then
 		${PERL} "-MExtUtils::Command::MM" -e pod2man "--" \

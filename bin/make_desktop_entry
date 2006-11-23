@@ -7,16 +7,16 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: make_desktop_entry,v 1.4 2006-11-20 05:48:58 yselkowitz Exp $
+# $Id: make_desktop_entry,v 1.5 2006-11-23 04:14:58 yselkowitz Exp $
 #
 ################################################################################
 set -e
 
 dodir /usr/share/applications
 
-if [ -z "${1}" -o -z "${2}" ]
+if (( $# < 2 ))
 then
-	error "requires a minimum of two arguments"
+	error "make_desktop_entry requires a minimum of two arguments"
 fi
 
 cat > ${D}/usr/share/applications/${1%% *}.desktop <<-_EOF

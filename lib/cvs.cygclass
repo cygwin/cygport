@@ -6,13 +6,13 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cvs.cygclass,v 1.3 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: cvs.cygclass,v 1.4 2006-11-23 04:14:59 yselkowitz Exp $
 #
 ################################################################################
 
 _USE_CVS_FETCH=1
 
-if [ -z "${CVS_URI}" ]
+if ! defined CVS_URI
 then
 	error "CVS_URI must be defined"
 fi
@@ -28,12 +28,12 @@ cvs_fetch() {
 
 	check_prog_req cvs
 
-	if [ -n "${CVS_BRANCH}" ]
+	if defined CVS_BRANCH
 	then
 		cvs_branch="-r ${CVS_BRANCH}"
 	fi
 
-	if [ -n "${CVS_DATE}" ]
+	if defined CVS_DATE
 	then
 		cvs_date="-D ${CVS_DATE}"
 	fi

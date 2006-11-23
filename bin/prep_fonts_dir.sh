@@ -7,7 +7,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: prep_fonts_dir.sh,v 1.4 2006-11-20 05:48:58 yselkowitz Exp $
+# $Id: prep_fonts_dir.sh,v 1.5 2006-11-23 04:14:58 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -21,11 +21,12 @@ do
 done
 
 n=0
-while [ ${n} -lt 9 ]
+while (( n < 9 ))
 do
 	encodings="${encodings} -a microsoft-cp125${n}"
 	let n+=1
 done
+unset n
 
 dodir /etc/postinstall
 for fonttype in 100dpi 75dpi TTF Type1 cyrillic misc
