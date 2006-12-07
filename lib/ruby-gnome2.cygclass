@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: ruby-gnome2.cygclass,v 1.8 2006-12-07 09:51:05 yselkowitz Exp $
+# $Id: ruby-gnome2.cygclass,v 1.9 2006-12-07 10:39:48 yselkowitz Exp $
 #
 ################################################################################
 
@@ -16,16 +16,24 @@ rbg2_pn=${PN#ruby-}
 
 case ${rbg2_pn} in
 	gtkhtml2)
-		rbg2_subdir=${rbg2_pn}
+		rbg2_dir=${rbg2_pn}
+		rbg2_subdir_src=src
+		ORIG_PN=ruby-gnome2-all
+		;;
+	gdkpixbuf2|libglade2|panel-applet)
+		rbg2_dir=${rbg2_pn%2}
+		rbg2_subdir_src=.
 		ORIG_PN=ruby-gnome2-all
 		;;
 	gstreamer0.10)
 		# external package, be sure to override SRC_URI
-		rbg2_subdir=.
+		rbg2_dir=.
+		rbg2_subdir_src=src
 		ORIG_PN=${ORIG_PN:-${PN}}
 		;;
 	*)
-		rbg2_subdir=${rbg2_pn%2}
+		rbg2_dir=${rbg2_pn%2}
+		rbg2_subdir_src=src
 		ORIG_PN=ruby-gnome2-all
 		;;
 esac
@@ -44,25 +52,25 @@ MAKEOPTS+=" -j1"
 DEPS_PATH="${RUBY_SITEARCH}"
 
 ruby_gnome2_compile() {
-	cd ${rbg2_subdir}
+	cd ${rbg2_dir}
 
 	${RUBY} extconf.rb || error "extconf.rb failed"
 
 	cygmake -j1 LOCAL_LIBS="-L${RUBY_SITEARCH}"
 
-	rdoc src -o rdoc
+	rdoc ${rbg2_subdir_src} -o rdoc
 }
 
 ruby_gnome2_install() {
 	local implib
 
-	cd ${rbg2_subdir}
+	cd ${rbg2_dir}
 	ruby_install
 
 	eval implib=$(grep -h 'PACKAGE_NAME.*=' extconf.rb | sed -e 's!.*= !!g')
 
 	insinto ${RUBY_SITEARCH}
-	doins src/libruby-${implib}.a
+	doins ${rbg2_subdir_src}/libruby-${implib}.a
 }
 
 src_compile() {
