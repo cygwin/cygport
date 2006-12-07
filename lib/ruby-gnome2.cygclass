@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: ruby-gnome2.cygclass,v 1.6 2006-11-23 04:14:59 yselkowitz Exp $
+# $Id: ruby-gnome2.cygclass,v 1.7 2006-12-07 05:58:42 yselkowitz Exp $
 #
 ################################################################################
 
@@ -34,6 +34,8 @@ SRC_DIR=${ORIG_PN}-${PV}
 # FIXME: CAIRO_PATH is supposed to be the ruby-cairo builddir, so this
 # actually produces a bogus -L flag.
 export CAIRO_PATH="${RUBY_SITEARCH}"
+
+MAKEOPTS+=" -j1"
 
 DEPS_PATH="${RUBY_SITEARCH}"
 
