@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: ruby-gnome2.cygclass,v 1.7 2006-12-07 05:58:42 yselkowitz Exp $
+# $Id: ruby-gnome2.cygclass,v 1.8 2006-12-07 09:51:05 yselkowitz Exp $
 #
 ################################################################################
 
@@ -17,19 +17,23 @@ rbg2_pn=${PN#ruby-}
 case ${rbg2_pn} in
 	gtkhtml2)
 		rbg2_subdir=${rbg2_pn}
+		ORIG_PN=ruby-gnome2-all
 		;;
-
+	gstreamer0.10)
+		# external package, be sure to override SRC_URI
+		rbg2_subdir=.
+		ORIG_PN=${ORIG_PN:-${PN}}
+		;;
 	*)
 		rbg2_subdir=${rbg2_pn%2}
+		ORIG_PN=ruby-gnome2-all
 		;;
 esac
-
-ORIG_PN=ruby-gnome2-all
 
 DESCRIPTION="Ruby ${rbg2_pn} bindings"
 HOMEPAGE="http://ruby-gnome2.sourceforge.jp/"
 SRC_URI="mirror://sourceforge/ruby-gnome2/${ORIG_PN}-${PV}.tar.gz"
-SRC_DIR=${ORIG_PN}-${PV}
+SRC_DIR="${ORIG_PN}-${PV}"
 
 # FIXME: CAIRO_PATH is supposed to be the ruby-cairo builddir, so this
 # actually produces a bogus -L flag.

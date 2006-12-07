@@ -1,5 +1,6 @@
 	* lib/ruby-gnome2.cygclass:
 	Ruby-GNOME2 does not support parallel make.
+	Add support for modules outside of ruby-gnome2-all (e.g. gstreamer0.10).
 
 	* lib/pygtk.cygclass:
 	Add support for new bindings in gnome-python-desktop-2.16.
