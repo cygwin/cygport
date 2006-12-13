@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README, bin/Makefile.am, 
+	  bin/cygport.in (__prepetc), bin/prep_gtk_icon_theme.sh:
+	New postinstall step for calling gtk-update-icon-cache.
+
 	* lib/qt3.cygclass:  export QTDIR.
 
 	* bin/cygport.in (verbose, cygconf, cygmake, cyginstall):

@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.36 2006-12-13 02:09:31 yselkowitz Exp $
+# $Id: cygport.in,v 1.37 2006-12-13 03:19:11 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1042,6 +1042,12 @@ __prepetc() {
 	if [ -d ${D}/usr/share/info ]
 	then
 		prep_gnu_info.sh || error "GNU info postinstall failed"
+	fi
+
+	# GTK+ 2.x modules
+	if [ -d ${D}/usr/share/icons ]
+	then
+		prep_gtk_icon_theme.sh || error "GTK+ icon theme postinstall failed"
 	fi
 
 	# GTK+ 2.x modules
