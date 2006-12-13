@@ -1,4 +1,7 @@
 
+	* lib/perl.cygclass (perl_postinst):
+	Test for, and warn upon, use of site_perl instead of vendor_perl.
+	
 	* CYGWIN-PATCHES/README, bin/Makefile.am, 
 	  bin/cygport.in (__prepetc), bin/prep_gtk_icon_theme.sh:
 	New postinstall step for calling gtk-update-icon-cache.
