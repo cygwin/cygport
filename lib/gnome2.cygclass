@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: gnome2.cygclass,v 1.14 2006-11-23 04:14:59 yselkowitz Exp $
+# $Id: gnome2.cygclass,v 1.15 2006-12-13 07:10:46 yselkowitz Exp $
 #
 ################################################################################
 
@@ -89,10 +89,13 @@ gnome2_autoreconf() {
 
 	verbose aclocal ${aclocal_flags} || error "aclocal failed"
 
-	for d in $(grep ^AC_CONFIG_SUBDIRS ${configure_ac} | sed -e 's!A[CM]_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')
+	for d in $(grep AC_CONFIG_SUBDIRS ${configure_ac} | sed -e 's!.*AC_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')
 	do
-		(cd ${d}
-		gnome2_autoreconf)
+		if [ -d ${d} ]
+		then
+			(cd ${d}
+			gnome2_autoreconf)
+		fi
 	done
 
 	verbose autoconf --force || error "autoconf failed"
@@ -111,6 +114,7 @@ gnome2_autoreconf() {
 			for f in ${config_h_in}
 			do
 				touch ${f}
+				rm -f ${config_h%%:*}
 			done
 		done
 	fi

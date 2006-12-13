@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (cygautoreconf), lib/gnome2.cygclass (gnome2_autoreconf):
+	Assure that subdirs specified in AC_CONFIG_SUBDIRS grep actually exist.
+
 	* lib/perl.cygclass (perl_postinst):
 	Test for, and warn upon, use of site_perl instead of vendor_perl.
 	

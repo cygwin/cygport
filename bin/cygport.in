@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.37 2006-12-13 03:19:11 yselkowitz Exp $
+# $Id: cygport.in,v 1.38 2006-12-13 07:10:15 yselkowitz Exp $
 #
 ################################################################################
 
@@ -680,13 +680,16 @@ cygautoreconf() {
 		error "Could not find configure.ac or configure.in";
 	fi
 
-	ac_subdirs="$(grep 'A[CM]_CONFIG_SUBDIRS*' ${configure_ac} | sed -e 's!A[CM]_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
+	ac_subdirs="$(grep 'AC_CONFIG_SUBDIRS*' ${configure_ac} | sed -e 's!.*AC_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
 
 	# Automake will exit if these are not present
 	# dodoc won't install these, however, since they will be empty
 	for d in . ${ac_subdirs}
 	do
-		touch ${d}/{AUTHORS,COPYING,ChangeLog,INSTALL,NEWS,README};
+		if [ -d ${d} ]
+		then
+			touch ${d}/{AUTHORS,COPYING,ChangeLog,INSTALL,NEWS,README};
+		fi
 	done
 
 	# These can be overwritten by automake, so we back them up now and
@@ -728,17 +731,21 @@ cygautoreconf() {
 
 	for d in . ${ac_subdirs}
 	do
-		config_h="$(grep 'A[CM]_CONFIG_HEADERS*' ${d}/${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')";
+		if [ -d ${d} ]
+		then
+			config_h="$(grep 'A[CM]_CONFIG_HEADERS*' ${d}/${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')";
 
-		case "${config_h}" in
-			*:*) config_h_in="$(echo "${config_h//:/ }" | cut -d ' ' -f 2-)" ;;
-			*) config_h_in="${config_h}.in" ;;
-		esac
+			case "${config_h}" in
+				*:*) config_h_in="$(echo "${config_h//:/ }" | cut -d ' ' -f 2-)" ;;
+				*) config_h_in="${config_h}.in" ;;
+			esac
 
-		for f in ${config_h_in}
-		do
-			touch ${d}/${f}
-		done
+			for f in ${config_h_in}
+			do
+				touch ${d}/${f}
+				rm -f ${d}/${config_h%%:*}
+			done
+		fi
 	done
 
 	for f in COPYING INSTALL
