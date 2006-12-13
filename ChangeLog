@@ -1,4 +1,6 @@
 
+	* lib/qt3.cygclass:  export QTDIR.
+
 	* bin/cygport.in (verbose, cygconf, cygmake, cyginstall):
 	Preserve shell metacharacters in args.
 	Patch by Eric Blake <http://cygwin.com/ml/cygwin/2006-12/msg00440.html>.

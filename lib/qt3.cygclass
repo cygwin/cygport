@@ -6,11 +6,12 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: qt3.cygclass,v 1.5 2006-11-23 04:14:59 yselkowitz Exp $
+# $Id: qt3.cygclass,v 1.6 2006-12-13 03:14:32 yselkowitz Exp $
 #
 ################################################################################
 
-QTDIR=/usr/lib/qt3
+export QTDIR=/usr/lib/qt3
+
 QBINDIR=/usr/lib/qt3/bin
 QINCLUDEDIR=/usr/include/qt3
 QLIBDIR=/usr/lib/qt3/lib
