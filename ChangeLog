@@ -13,6 +13,7 @@
 
 	* lib/fox.cygclass (fox_compile):
 	Restore API reference doc generation.
+	Accept doxygen.cfg as well as Doxyfile.
 
 	* bin/*, lib/*:
 	New function: defined(), behaves like the CPP macro.  Use throughout.

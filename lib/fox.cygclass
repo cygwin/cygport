@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: fox.cygclass,v 1.4 2006-12-01 08:24:01 yselkowitz Exp $
+# $Id: fox.cygclass,v 1.5 2006-12-13 03:06:56 yselkowitz Exp $
 #
 ################################################################################
 
@@ -99,7 +99,7 @@ fox_compile() {
 	cd ${fox_subdir}
 	cygmake
 
-	if [ -f doc/Doxyfile ]
+	if [ -f doc/Doxyfile -o -f doc/doxygen.cfg ]
 	then
 		cygmake -C doc docs
 	fi
