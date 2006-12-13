@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.35 2006-11-23 04:14:58 yselkowitz Exp $
+# $Id: cygport.in,v 1.36 2006-12-13 02:09:31 yselkowitz Exp $
 #
 ################################################################################
 
@@ -173,7 +173,7 @@ inform() {
 # displays command to stdout before execution
 verbose() {
 	echo "${@}"
-	${@}
+	"${@}"
 }
 
 # for internal use only
@@ -783,7 +783,7 @@ cygconf() {
 	export ac_cv_func_mmap_fixed_mapped=yes;
 
 	verbose ${confdir}/configure --srcdir="${confdir}" ${confargs} \
-		${@} ${CYGCONF_ARGS} || error "configure failed"
+		"${@}" ${CYGCONF_ARGS} || error "configure failed"
 }
 
 # standard GNU make call
@@ -925,7 +925,7 @@ cyginstall() {
 				mandir=${D}/usr/share/man \
 				localstatedir=${D}/var \
 				sysconfdir=${D}/etc \
-				${@} \
+				"${@}" \
 				|| error "make install No-DESTDIR failed"
 			;;
 		*)
