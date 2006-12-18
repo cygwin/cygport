@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.39 2006-12-18 09:12:49 yselkowitz Exp $
+# $Id: cygport.in,v 1.40 2006-12-18 09:23:58 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1170,9 +1170,9 @@ __list_deps() {
 
 	# Ruby and Apache2 modules should be *.so, nothing else!!!
 	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' \) \
-		-exec cygcheck '{}' + | sed -ne '/^  [^ ]/ s,\\,/,gp' | sort -bu | \
-		xargs -r -n1 cygpath -u | xargs -r cygcheck -f | \
-		sed 's!^!  !' | sort -u;
+		-exec objdump -p '{}' + | grep "DLL Name:" | sort -u | \
+		cut -d ' ' -f 3 | xargs -r which | xargs -r cygcheck -f | \
+		sort -u | sed 's!^!  !';
 	)
 }
 

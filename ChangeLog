@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (__list_deps):  
+	New algorithm for calculating deps.  More accurate and usually faster.
+
 	* bin/cygport.in (fetch, src_fetch):  Support HTTPS with invalid certs.
 
 	* bin/cygport.in (cygautoreconf), lib/gnome2.cygclass (gnome2_autoreconf):
