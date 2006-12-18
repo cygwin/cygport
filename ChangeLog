@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (fetch, src_fetch):  Support HTTPS with invalid certs.
+
 	* bin/cygport.in (cygautoreconf), lib/gnome2.cygclass (gnome2_autoreconf):
 	Assure that subdirs specified in AC_CONFIG_SUBDIRS grep actually exist.
 
