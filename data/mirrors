@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mirrors,v 1.6 2006-11-20 05:48:58 yselkowitz Exp $
+# $Id: mirrors,v 1.7 2006-12-19 06:28:35 yselkowitz Exp $
 #
 ################################################################################
 
@@ -414,6 +414,11 @@ mirror_cpan="
 	ftp://cpan.dcc.uchile.cl/pub/lang/cpan
 "   # mirror_cpan
 
+# Gentoo Portage CVS repository (mostly for patches)
+mirror_portage="
+	http://sources.gentoo.org/viewcvs.py/*checkout*/gentoo-x86
+"
+
 # http://ftp.gnome.org/pub/GNOME/MIRRORS
 # cat MIRRORS | grep 'tp:' | sed -e 's!/$!!g'
 mirror_gnome="
@@ -694,6 +699,7 @@ mirror_kde="
 "   # mirror_kde
 
 mirror_sourceforge="
+	http://downloads.sourceforge.net
 	http://superb-west.dl.sourceforge.net
 	http://superb-east.dl.sourceforge.net
 	http://umn.dl.sourceforge.net
@@ -709,3 +715,62 @@ mirror_sourceforge="
 	http://nchc.dl.sourceforge.net
 	http://osdn.dl.sourceforge.net
 "   # mirror_sourceforge
+
+# http://vim.sourceforge.net/mirrors.php
+# cat mirrors.php | egrep '^  <a href="(ht|f)tp:' | \
+#	sed -e 's#  <a.*>\(.*\)</a>.*#\t\1#' -e 's#/$##'
+mirror_vim="
+	ftp://ftp.home.vim.org/pub/vim
+	http://ftp.vim.org/pub/vim
+	ftp://ftp.vim.org/pub/vim
+	ftp://ftp.us.vim.org/pub/vim
+	ftp://ftp2.us.vim.org/pub/vim
+	ftp://ftp3.us.vim.org/pub/mirrors/ftp.vim.org/vim
+	ftp://ftp4.us.vim.org/pub/vim
+	ftp://ftp9.us.vim.org/pub/vim
+	ftp://ftp.ca.vim.org/pub/vim
+	ftp://ftp.nl.vim.org/pub/vim
+	ftp://ftp2.nl.vim.org/pub/vim
+	ftp://ftp.de.vim.org
+	ftp://ftp3.de.vim.org/pub/vim
+	ftp://ftp.uk.vim.org/pub/vim
+	ftp://ftp2.uk.vim.org/pub/vim
+	ftp://ftp.ie.vim.org/pub/vim
+	ftp://ftp.fr.vim.org/pub/vim
+	ftp://ftp2.fr.vim.org/pub/Mirrors/vim
+	ftp://miroir-francais.fr/pub/vim
+	ftp://ftp.at.vim.org/pub/vim
+	ftp://ftp.dk.vim.org/pub/vim
+	ftp://ftp.se.vim.org/pub/mirrors/vim
+	ftp://ftp.es.vim.org/pub/vim
+	ftp://ftp.pt.vim.org/pub/vim
+	ftp://ftp.is.vim.org/pub/vim
+	ftp://ftp.il.vim.org/pub/vim
+	ftp://ftp.ro.vim.org/pub/vim
+	ftp://ftp.cz.vim.org/pub/vim
+	ftp://ftp.sk.vim.org/pub/vim
+	ftp://ftp.sg.vim.org/pub/vim
+	ftp://ftp.tw.vim.org/vim
+	ftp://ftp2.tw.vim.org/pub/vim
+	ftp://ftp.jp.vim.org/pub/vim
+	ftp://ftp.kr.vim.org/pub/vim
+	ftp://ftp2.kr.vim.org/pub/vim
+	http://www2.nl.vim.org
+	http://shattered.teched.net/vim-ftp-mirror
+	http://mirrors.24-7-solutions.net/pub/vim
+	http://ftp.tw.vim.org/pub/vim
+	http://ftp2.tw.vim.org/pub/vim
+	http://ftp.es.vim.org/pub/vim
+	http://www.pt.vim.org/pub/vim
+	http://pangora.org/vim.org/pub/vim
+	http://ftp.ie.vim.org/pub/vim
+	http://vim.miroir-francais.fr
+	http://ftp.il.vim.org/pub/vim
+	http://ftp.ru.vim.org/pub/vim
+	http://ftp.cz.vim.org/pub/vim
+	http://ftp2.sk.vim.org/pub/vim
+	http://zloba.ath.cx/pub/vim
+	http://ftp2.uk.vim.org/pub/vim
+	http://vim.mirror.fr
+	http://ftp2.kr.vim.org/pub/vim
+"	# mirror_vim

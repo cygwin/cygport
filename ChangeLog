@@ -1,4 +1,8 @@
 
+	* data/mirrors (mirror_portage): New mirror for gentoo-x86 CVS repo.
+	(mirror_sourceforge): Prepend downloads.sourceforge.net.
+	(mirror_vim): Added.
+
 	* bin/cygport.in (__list_deps): 
 	New algorithm for calculating deps.  More accurate and usually faster.
 
