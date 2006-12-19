@@ -6,7 +6,6 @@ particular order:
 * Fix all FIXMEs
 * Debug and/or Verbose mode
 * l10n ??
-* PATCHES in SRC_URI
 * Additional cygclasses:
 	- bzr
 	- docbook
