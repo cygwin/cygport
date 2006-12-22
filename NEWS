@@ -1,3 +1,26 @@
+0.2.7:
+	* Use PATCH_URI for upstream or third-party patches; these patches are
+	  included individually in the -src.tar.bz2 and do NOT get included in 
+	  the .src.patch.  See ports/apps/vim/gvim-7.0.178-1 and 
+	  ports/gnome/imlib/imlib-1.9.15-1 for examples of usage.
+	* PKG_LISTS should be defined for *.list names.
+	* Add gtk-update-icon-cache to postinstall as needed.
+	* New binary dependency method.
+	* cross.cygclass: NEW for cross-compilers and cross-compiling; NEEDS WORK.
+	* gst-plugins*: External-dep plugins in separate bin packages can be
+	  built together with the internal-dep plugins.
+	* pygtk: Support new bindings in 2.16.
+	* mirrors: Add rotator to sourceforge; add portage and vim.
+	* doc: HTML version of cygport.1.
+	* Handle HTTPS URIs with invalid certificates.
+	* Ignore mdate-sh in pkg_diff().
+	* Preserve shell metacharacters in args (Eric Blake).
+	* Fix AC_CONFIG_SUBDIRS and AC_CONFIG_HEADERS again.
+	* fox: Restore doxygenation.
+	* perl: Handle (incorrect) use of site_perl.
+	* ruby: Fix definition of RUBY_ARCH.
+	* ruby-gnome2: multiple build fixes.
+
 0.2.6:
 	Support AC_CONFIG_HEADERS(*:*) syntax.
 	Fix dependency listing.

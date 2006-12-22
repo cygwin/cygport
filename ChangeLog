@@ -1,3 +1,4 @@
+*** 0.2.7 ***
 
 	* TODO
 	* bin/cygport.in (src_fetch, src_prep, apply_patch, pkg_srcpkg):
