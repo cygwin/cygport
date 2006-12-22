@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.42 2006-12-22 07:18:02 yselkowitz Exp $
+# $Id: cygport.in,v 1.43 2006-12-22 07:22:11 yselkowitz Exp $
 #
 ################################################################################
 
@@ -719,10 +719,18 @@ cygautoreconf() {
 			warning "libtool1.5 is incompatible with autoconf-2.13";
 		fi
 	else
-		if ! check_prog autoconf-2.60
-		then
-			check_prog_req autoconf-2.5x autoconf2.5
-		fi
+		while true
+		do
+			for ac_ver in 2.61 2.60 2.59 2.5x
+			do
+				if check_prog autoconf-${ac_ver}
+				then
+					break 2;
+				fi
+			done
+
+			error "autoconf2.5 is required to build this package"
+		done
 
 		for tool in ACLOCAL LIBTOOL AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
 		do

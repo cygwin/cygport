@@ -1,5 +1,7 @@
 *** 0.2.7 ***
 
+	* bin/cygport.in: Support autoconf-2.61.
+
 	* bin/cygport.in: Move comment.
 	* doc/Makefile.am
 	* test/bootstrap: Fix make distcheck.
