@@ -1,14 +1,25 @@
 #!/bin/bash
 
-# $Id: bootstrap,v 1.5 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: bootstrap,v 1.6 2006-12-22 07:18:04 yselkowitz Exp $
 
 set -e
 
 export CYGPORT_BOOTSTRAP=1
 
-${MAKE} -C ${top_builddir} dist-bzip2
-
-cp -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.bz2 .
+if [ -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.bz2 ]
+then
+	# running under make distcheck
+	# make dist during make distcheck won't work because all files in 
+	# DISTDIR are read-only
+	cp -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.bz2 .
+elif [ -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.bz2 ]
+then
+	cp -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.bz2 .
+else
+	${MAKE} -C ${top_builddir} dist-bzip2
+	cp -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.bz2 .
+fi	
+	
 cp -f ${top_srcdir}/data/sample.cygport ${PACKAGE}-${VERSION}-1.cygport
 
 ${top_builddir}/bin/cygport ${PACKAGE}-${VERSION}-1.cygport prep compile install pkg

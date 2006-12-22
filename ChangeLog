@@ -1,5 +1,9 @@
 *** 0.2.7 ***
 
+	* bin/cygport.in: Move comment.
+	* doc/Makefile.am
+	* test/bootstrap: Fix make distcheck.
+
 	* TODO
 	* bin/cygport.in (src_fetch, src_prep, apply_patch, pkg_srcpkg):
 	Implement PATCH_URI for upstream or third-party patches.

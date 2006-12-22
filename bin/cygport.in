@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.41 2006-12-19 06:49:22 yselkowitz Exp $
+# $Id: cygport.in,v 1.42 2006-12-22 07:18:02 yselkowitz Exp $
 #
 ################################################################################
 
@@ -691,12 +691,12 @@ cygautoreconf() {
 
 	ac_subdirs="$(grep 'AC_CONFIG_SUBDIRS*' ${configure_ac} | sed -e 's!.*AC_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
 
-	# Automake will exit if these are not present
-	# dodoc won't install these, however, since they will be empty
 	for d in . ${ac_subdirs}
 	do
 		if [ -d ${d} ]
 		then
+			# Automake will exit if these are not present
+			# dodoc won't install these, however, since they will be empty
 			touch ${d}/{AUTHORS,COPYING,ChangeLog,INSTALL,NEWS,README};
 		fi
 	done
