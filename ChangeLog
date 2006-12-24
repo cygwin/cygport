@@ -1,5 +1,7 @@
 *** 0.2.7 ***
 
+	* data/mirrors (mirror_trolltech): Added.
+
 	* bin/cygport.in: Support autoconf-2.61.
 
 	* bin/cygport.in: Move comment.

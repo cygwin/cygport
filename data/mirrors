@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mirrors,v 1.7 2006-12-19 06:28:35 yselkowitz Exp $
+# $Id: mirrors,v 1.8 2006-12-24 08:59:25 yselkowitz Exp $
 #
 ################################################################################
 
@@ -715,6 +715,19 @@ mirror_sourceforge="
 	http://nchc.dl.sourceforge.net
 	http://osdn.dl.sourceforge.net
 "   # mirror_sourceforge
+
+# http://www.trolltech.com/developer/downloads/qt/x11
+mirror_trolltech="
+	ftp://ftp.trolltech.com
+	http://ftp.silug.org/mirrors/ftp.trolltech.com
+	ftp://ftp.silug.org/mirrors/ftp.trolltech.com
+	http://wftp.tu-chemnitz.de/pub/Qt
+	ftp://ftp.tu-chemnitz.de/pub/Qt
+	http://ftp.ntua.gr/pub/X11/Qt
+	ftp://ftp.ntua.gr/pub/X11/Qt
+	http://ftp.iasi.roedu.net/mirrors/ftp.trolltech.com
+	ftp://ftp.iasi.roedu.net/mirrors/ftp.trolltech.com
+"   # mirror_trolltech
 
 # http://vim.sourceforge.net/mirrors.php
 # cat mirrors.php | egrep '^  <a href="(ht|f)tp:' | \
