@@ -1,5 +1,7 @@
 *** 0.2.7 ***
 
+	* bin/cygport.in (__list_deps): Ignore KERNEL32.dll. Show mono dep.
+
 	* data/mirrors (mirror_trolltech): Added.
 
 	* bin/cygport.in: Support autoconf-2.61.

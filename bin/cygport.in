@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.43 2006-12-22 07:22:11 yselkowitz Exp $
+# $Id: cygport.in,v 1.44 2006-12-25 05:42:04 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1188,8 +1188,8 @@ __list_deps() {
 	# Ruby and Apache2 modules should be *.so, nothing else!!!
 	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' \) \
 		-exec objdump -p '{}' + | grep "DLL Name:" | sort -u | \
-		cut -d ' ' -f 3 | xargs -r which | xargs -r cygcheck -f | \
-		sort -u | sed 's!^!  !';
+		cut -d ' ' -f 3 | sed -e '/KERNEL32.dll/d' -e 's!mscoree.dll!mono.exe!' | \
+		xargs -r which | xargs -r cygcheck -f | sort -u | sed 's!^!  !';
 	)
 }
 
