@@ -1,5 +1,9 @@
 *** 0.2.7 ***
 
+	* CYGWIN-PATCHES/README
+	* configure.ac
+	* doc/Makefile.am: Use groff instead of man2html.
+
 	* bin/cygport.in (__list_deps): Ignore KERNEL32.dll. Show mono dep.
 
 	* data/mirrors (mirror_trolltech): Added.
