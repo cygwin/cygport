@@ -10,7 +10,7 @@
 	* gst-plugins*: External-dep plugins in separate bin packages can be
 	  built together with the internal-dep plugins.
 	* pygtk: Support new bindings in 2.16.
-	* mirrors: Add rotator to sourceforge; add portage and vim.
+	* mirrors: Add rotator to sourceforge; add portage, trolltech, vim.
 	* doc: HTML version of cygport.1.
 	* Handle HTTPS URIs with invalid certificates.
 	* Ignore mdate-sh in pkg_diff().
