@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: gtk2-perl.cygclass,v 1.6 2006-11-23 04:14:59 yselkowitz Exp $
+# $Id: gtk2-perl.cygclass,v 1.7 2006-12-31 05:48:42 yselkowitz Exp $
 #
 ################################################################################
 
@@ -15,7 +15,7 @@ inherit perl
 HOMEPAGE="http://gtk2-perl.sourceforge.net/"
 SRC_URI="mirror://sourceforge/gtk2-perl/${ORIG_PN}-${PV}.tar.gz"
 
-DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib2:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS"
+DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS"
 
 gtk2_perl_compile() {
 	local ldflags
