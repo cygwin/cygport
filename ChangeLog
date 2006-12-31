@@ -1,5 +1,5 @@
 
-	* lib/gtk2-perl.cygclass: Fix DEPS_PATH.
+	* lib/gtk2-perl.cygclass: Fix DEPS_PATH.  Fix Gnome2-Rsvg dependencies.
 
 	* CYGWIN-PATCHES/README
 	* configure.ac:
