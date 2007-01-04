@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.44 2006-12-25 05:42:04 yselkowitz Exp $
+# $Id: cygport.in,v 1.45 2007-01-04 02:35:26 yselkowitz Exp $
 #
 ################################################################################
 
@@ -506,18 +506,21 @@ __mkdirs() {
 }
 
 apply_patch() {
-	local patchfile;
+	local patchfile_name;
+	local patchfile_path;
 	local -i patchlevel=0;
 
-	for patchfile in ${@}
+	for patchfile_path in ${@}
 	do
-		if [ ! -e ${patchfile} ]
+		patchfile_name="${patchfile_path##*/}"
+
+		if [ ! -e ${patchfile_path} ]
 		then
-			inform "patch ${patchfile##*/} not found";
+			inform "patch ${patchfile_name} not found";
 			continue;
 		fi
 
-		case ${patchfile} in
+		case ${patchfile_name} in
 			${PF}.cygwin.patch)
 				if [ "${S}" = "${srcdir}" ]
 				then
@@ -531,13 +534,13 @@ apply_patch() {
 		do
 			if patch -N -s --dry-run -p${patchlevel} -i ${patchfile} &> /dev/null
 			then
-				inform "applying patch ${patchfile##*/}:";
-				patch -N -p${patchlevel} -i ${patchfile} || error "patch ${patchfile##*/} failed"
+				inform "applying patch ${patchfile_name}:";
+				patch -N -p${patchlevel} -i ${patchfile} || error "patch ${patchfile_name} failed"
 				break;
 			else
 				if (( patchlevel == 3 ))
 				then
-					error "patch ${patchfile##*/} will not apply";
+					error "patch ${patchfile_name} will not apply";
 				else
 					patchlevel+=1;
 					continue;

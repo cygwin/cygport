@@ -1,4 +1,9 @@
 
+	* bin/cygport.in (apply_patch):
+	Fix patchlevel for .cygwin.patch, making code more readable as well.
+	Reported by Christian Franke:
+	http://cygwin.com/ml/cygwin/2007-01/msg00036.html
+
 	* lib/gtk2-perl.cygclass: Fix DEPS_PATH.  Fix Gnome2-Rsvg dependencies.
 
 	* CYGWIN-PATCHES/README
