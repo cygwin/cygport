@@ -1,4 +1,6 @@
 
+	* Add .cvsignore files.
+
 	* bin/cygport.in (apply_patch):
 	Fix patchlevel for .cygwin.patch, making code more readable as well.
 	Reported by Christian Franke:
