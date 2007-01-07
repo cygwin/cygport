@@ -1,4 +1,10 @@
 
+	* autogen.sh: Fix ac-2.60 to 2.61 transition.
+	* bin/cygport.in (cygautoreconf): Use datarootdir with ac-2.61 also.
+	Prepare for ac-2.62.
+	Reported by Charles Wilson:
+	http://cygwin.com/ml/cygwin/2007-01/msg00109.html
+
     * bin/cygport.in (apply_patch): Correct variable names.
 	Patch by Charles Wilson:
 	http://cygwin.com/ml/cygwin/2007-01/msg00118.html

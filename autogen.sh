@@ -16,6 +16,7 @@ verbose() {
 }
 
 cd ${S}
+rm -fr autom4te.cache
 verbose aclocal --force
 verbose autoconf --force
 verbose automake --add-missing --copy --force-missing

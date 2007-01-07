@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.46 2007-01-07 08:00:43 yselkowitz Exp $
+# $Id: cygport.in,v 1.47 2007-01-07 08:45:36 yselkowitz Exp $
 #
 ################################################################################
 
@@ -724,7 +724,7 @@ cygautoreconf() {
 	else
 		while true
 		do
-			for ac_ver in 2.61 2.60 2.59 2.5x
+			for ac_ver in 2.62 2.61 2.60 2.59 2.5x
 			do
 				if check_prog autoconf-${ac_ver}
 				then
@@ -796,7 +796,7 @@ cygconf() {
 	fi
 
 	case "x$(grep -m 1 'GNU Autoconf' ${confdir}/configure | cut -d ' ' -f 6)" in
-		x2.60)
+		x2.6[0-9])
 			confargs+=" --datarootdir=/usr/share --docdir=/usr/share/doc/${P}"
 			;;
 		*)
