@@ -1,4 +1,8 @@
 
+    * bin/cygport.in (apply_patch): Correct variable names.
+	Patch by Charles Wilson:
+	http://cygwin.com/ml/cygwin/2007-01/msg00118.html
+
 	* Add .cvsignore files.
 
 	* bin/cygport.in (apply_patch):
