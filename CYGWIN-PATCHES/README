@@ -26,14 +26,14 @@ Runtime requirements:
   wget
 
 Build requirements:
-  cygwin-1.5.22-1
-  autoconf2.5-2.60-1
+  cygwin-1.5.23-2
+  autoconf2.5-2.61-1
   automake1.10-1.10-1
-  gawk-3.1.5-2
+  gawk-3.1.5-4
   groff-1.18.1-2
   help2man-1.35.1-1
   make-3.81-1
-  sed-4.1.5-1
+  sed-4.1.5-2
 
 Canonical website:
   http://cygwinports.dotsrc.org/
@@ -114,6 +114,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/ruby-gnome2.cygclass
   /usr/lib/cygport/lib/svn.cygclass
   /usr/lib/cygport/lib/utils.cygclass
+  /usr/lib/cygport/lib/wxwidgets.cygclass
   /usr/lib/cygport/lib/xorg.cygclass
   /usr/share/cygport/mirrors
   /usr/share/cygport/sample.cygport

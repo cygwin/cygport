@@ -26,4 +26,5 @@ dist_cygclass_DATA = 			\
 	ruby-gnome2.cygclass		\
 	svn.cygclass				\
 	utils.cygclass				\
+	wxwidgets.cygclass			\
 	xorg.cygclass

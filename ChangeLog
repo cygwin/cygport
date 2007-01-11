@@ -1,4 +1,9 @@
 
+	* CYGWIN-PATCHES/README
+	* lib/Makefile.am
+	* lib/wxwidgets.cygclass:
+	New cygclass for building wxWidgets-dependent packages.
+
 	* autogen.sh: Fix ac-2.60 to 2.61 transition.
 	* bin/cygport.in (cygautoreconf): Use datarootdir with ac-2.61 also.
 	Prepare for ac-2.62.
