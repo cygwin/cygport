@@ -1,3 +1,9 @@
+0.2.8:
+	* Support autoconf-2.61.
+	* Fix application of .cygwin.patch file.
+	* gtk2-perl: Update Gnome2-Rsvg deps.  Fix DEPS_PATH.
+	* wxwidgets: NEW cygclass for building wxWidgets-dependent packages.
+
 0.2.7:
 	* Use PATCH_URI for upstream or third-party patches; these patches are
 	  included individually in the -src.tar.bz2 and do NOT get included in 
