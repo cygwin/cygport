@@ -6,10 +6,11 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: gnome.org.cygclass,v 1.4 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: gnome.org.cygclass,v 1.5 2007-01-15 02:16:52 yselkowitz Exp $
 #
 ################################################################################
 
 HOMEPAGE="http://www.gnome.org/"
 SRC_URI="mirror://gnome/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
 CVS_URI=":pserver:anonymous@anoncvs.gnome.org:/cvs/gnome"
+SVN_URI="http://svn.gnome.org/svn/${ORIG_PN:-${PN}}"

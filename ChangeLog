@@ -1,4 +1,7 @@
 
+	* lib/gnome.org.cygclass: Add GNOME SVN_URI.
+	* lib/svn.cygclass: Append SVN_BRANCH (defaults to 'trunk') to SVN_URI.
+
 	* CYGWIN-PATCHES/README
 	* configure.ac:
 	Post-release version bump.
