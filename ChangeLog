@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (gpg_verify): Fix .sig extensions.
+	Patch by Eric Blake: http://cygwin.com/ml/cygwin/2007-01/msg00593.html
+
 	* lib/gnome.org.cygclass: Add GNOME SVN_URI.
 	* lib/svn.cygclass: Append SVN_BRANCH (defaults to 'trunk') to SVN_URI.
 
@@ -19,7 +22,7 @@
 	Reported by Charles Wilson:
 	http://cygwin.com/ml/cygwin/2007-01/msg00109.html
 
-    * bin/cygport.in (apply_patch): Correct variable names.
+	* bin/cygport.in (apply_patch): Correct variable names.
 	Patch by Charles Wilson:
 	http://cygwin.com/ml/cygwin/2007-01/msg00118.html
 

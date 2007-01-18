@@ -2,11 +2,11 @@
 ################################################################################
 #
 # cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.47 2007-01-07 08:45:36 yselkowitz Exp $
+# $Id: cygport.in,v 1.48 2007-01-18 06:35:44 yselkowitz Exp $
 #
 ################################################################################
 
@@ -482,11 +482,11 @@ gpg_verify() {
 	local _filetype=${2};
 	local _sigext=${3:-sig};
 
-	if [ -f ${_file}.${sigext} ]
+	if [ -f ${_file}.${_sigext} ]
 	then
 		inform "${_filetype} signature follows:";
 		# we 'check_prog gpg' in src_prep
-		gpg --verify ${_file}.${sigext} ${_file};
+		gpg --verify ${_file}.${_sigext} ${_file};
 	else
 		inform "${_filetype} signature missing.";
 	fi
