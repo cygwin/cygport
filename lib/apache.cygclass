@@ -1,0 +1,100 @@
+################################################################################
+#
+# apache.cygclass - functions for building Apache mod_* modules
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2007 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+# $Id: apache.cygclass,v 1.1 2007-01-31 23:31:25 yselkowitz Exp $
+#
+################################################################################
+
+case ${PN} in
+	apache-*)
+		ORIG_PN=${PN#apache-}
+		APACHE_MAJOR=1
+		APXS=/usr/sbin/apxs
+		LIBHTTPD='-lhttpd'
+		LT_SHREXT=''
+		;;
+	apache2-*)
+		ORIG_PN=${PN#apache2-}
+		APACHE_MAJOR=2
+		APXS=/usr/sbin/apxs2
+		LIBHTTPD='-lhttpd2core'
+		LT_SHREXT='-shrext .so'
+		;;
+	*)	error "PN should begin with apache- or apache2-" ;;
+esac
+
+ORIG_P="${ORIG_PN}-${PV}"
+SRC_DIR="${ORIG_P}"
+DESCRIPTION="Apache${APACHE_MAJOR} ${ORIG_PN} module"
+
+check_prog_req ${APXS} 
+
+# libhttpd variables
+for var in CFLAGS INCLUDEDIR LIBEXECDIR SYSCONFDIR
+do
+	eval APXS_${var}=$(${APXS} -q ${var})
+done
+APXS_LIBS="${LIBHTTPD}"
+
+# httpd variables
+HTTPD=$(${APXS} -q SBINDIR)/$(${APXS} -q TARGET)
+APACHE_VERSION=$(${HTTPD} -v | gawk '/version/ {print $3}' | gawk -F/ '{print $2}')
+
+case ${APACHE_VERSION:0:3} in
+	1.*)	APR_VERSION='' ;;
+	2.0)	APR_VERSION=${APR_VERSION:-0} ;;
+	2.2)	APR_VERSION=${APR_VERSION:-1} ;;
+	*)		error "Don't know anything about Apache ${APACHE_VERSION}" ;;
+esac
+
+# libapr variables
+case ${APR_VERSION} in
+	'')	APR_CONFIG=: ;;
+	0)	APR_CONFIG=/usr/bin/apr-config ;;
+	1)	APR_CONFIG=/usr/bin/apr-${APR_VERSION}-config ;;
+	*)	error "Illegal value ${APR_VERSION} for APR_VERSION" ;;
+esac
+APR_CFLAGS="$(${APR_CONFIG} --cppflags --includes)"
+APR_LIBS="$(${APR_CONFIG} --link-ld | sed 's#-lapr#-laprutil#') $(${APR_CONFIG} --link-ld --libs)"
+
+apache_compile() {
+	cygconf \
+		--disable-static \
+		--with-apr-config=${APR_CONFIG} \
+		--with-apxs=${APXS} "${@}"
+
+	cygmake \
+		${ORIG_PN}_la_CPPFLAGS="${APXS_CFLAGS} -I${APXS_INCLUDEDIR} ${APR_CFLAGS}" \
+		${ORIG_PN}_la_LDFLAGS="-module -avoid-version -no-undefined ${LT_SHREXT}" \
+		${ORIG_PN}_la_LIBADD="${LIBHTTPD} ${APR_LIBS}"
+}
+
+doapacheconf() {
+	insinto ${APXS_SYSCONFDIR}
+	newins ${1} ${ORIG_PN}.conf
+}
+
+apache_postinst() {
+	if [ -f ${D}${APXS_SYSCONFDIR}/${ORIG_PN}.conf ]
+	then
+		make_etc_defaults $(find ${D}${APXS_SYSCONFDIR} -type f | sed "s#^${D}##g")
+	fi
+}
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	cd ${B}
+	apache_compile
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+	apache_postinst
+}
