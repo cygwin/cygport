@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: ruby.cygclass,v 1.6 2006-11-23 04:14:59 yselkowitz Exp $
+# $Id: ruby.cygclass,v 1.7 2007-02-01 04:23:44 yselkowitz Exp $
 #
 ################################################################################
 
@@ -18,7 +18,7 @@ RUBY_LIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 RUBY_ARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["archdir"]')
 RUBY_SITELIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitelibdir"]')
 RUBY_SITEARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitearchdir"]')
-LIBRUBY="-lruby"
+LIBRUBY=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["LIBRUBYARG"]')
 
 ruby_compile() {
 	if [ -e install.rb ]
@@ -33,6 +33,10 @@ ruby_compile() {
 	then
 		${RUBY} extconf.rb ${@} || error "extconf.rb failed"
 		cygmake
+	elif [ -e Rakefile -o -e rakefile ]
+	then
+		check_prog_req rake
+		rake ${@} || error "rake failed"
 	else
 		error "No Ruby module detected"
 	fi
@@ -55,6 +59,10 @@ ruby_install() {
 	then
 		${RUBY} setup.rb config --prefix=${D}/usr ${@} || error "setup.rb config failed"
 		${RUBY} setup.rb install || error "setup.rb install failed"
+	elif [ -e Rakefile -o -e rakefile ]
+	then
+		check_prog_req rake
+		rake install || error "rake install failed"
 	else
 		error "No Ruby module detected"
 	fi

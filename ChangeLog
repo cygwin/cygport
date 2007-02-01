@@ -1,4 +1,7 @@
 
+	* lib/ruby.cygclass (ruby_compile, ruby_install):
+	Support ruby extensions which use solely rake.
+
 	* bin/cygport.in (gpg_verify): Fix .sig extensions.
 	Patch by Eric Blake: http://cygwin.com/ml/cygwin/2007-01/msg00593.html
 
