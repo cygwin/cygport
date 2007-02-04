@@ -1,4 +1,4 @@
-dist_pkgdata_DATA = mirrors sample.cygport
+dist_pkgdata_DATA = cygport.nanorc mirrors sample.cygport
 
 install-data-local:
 	if ! test -f $(DESTDIR)$(sysconfdir)/cygport.conf ; then \

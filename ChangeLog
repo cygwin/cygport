@@ -1,9 +1,12 @@
 
+	* data/Makefile.am
+	* data/cygport.nanorc:
+	nano(1) syntax highlighting rcfile for cygports and cygclasses.
+
 	* bin/cygport.in: Added postinstall command for developers.
 
 	* bin/cygport.in (apply_patch): Fix patchlevel redefinition.
 
-	* CYGWIN-PATCHES/README
 	* lib/Makefile.am
 	* lib/apache.cygclass:
 	New cygclass for building Apache mod_* modules.

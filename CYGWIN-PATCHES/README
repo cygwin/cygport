@@ -117,6 +117,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/utils.cygclass
   /usr/lib/cygport/lib/wxwidgets.cygclass
   /usr/lib/cygport/lib/xorg.cygclass
+  /usr/share/cygport/cygport.nanorc
   /usr/share/cygport/mirrors
   /usr/share/cygport/sample.cygport
   /usr/share/doc/Cygwin/cygport-0.2.9.README
