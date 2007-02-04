@@ -1,4 +1,6 @@
 
+	* lib/ruby.cygclass (ruby_install): Pass --prefix to setup.rb install.
+
 	* bin/cygport.in (__prepdoc): Add HISTORY to default_docs.
 
 	* bin/cygport.in (src_prep): 
