@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.51 2007-02-04 20:19:33 yselkowitz Exp $
+# $Id: cygport.in,v 1.52 2007-02-04 20:21:05 yselkowitz Exp $
 #
 ################################################################################
 
@@ -990,7 +990,7 @@ __prepdoc() {
 		ABOUT-NLS ANNOUNCE ANNOUNCEMENTS AUTHOR AUTHORS \
 		BUG-REPORTS BUGS \
 		Changes ChangeLog CONTRIBUTORS COPYING COPYING-DOCS COPYING.LIB COPYRIGHT CREDITS \
-		FAQ GPL HACKING HOW-TO-CONTRIBUTE INSTALL KNOWNBUG \
+		FAQ GPL HACKING HISTORY HOW-TO-CONTRIBUTE INSTALL KNOWNBUG \
 		LEGAL LICENCE LICENSE MAINTAINERS NEWS NLS NOTES \
 		PROGLIST README THANKS TODO WHATSNEW";
 

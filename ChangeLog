@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (__prepdoc): Add HISTORY to default_docs.
+
 	* bin/cygport.in (src_prep): 
 	Sanity check for origsrc/SRC_DIR before applying PATCH_URIs.
 
