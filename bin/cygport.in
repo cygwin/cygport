@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.49 2007-02-04 07:28:33 yselkowitz Exp $
+# $Id: cygport.in,v 1.50 2007-02-04 07:29:50 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1681,6 +1681,10 @@ do
 		inst*)
 			__stage Installing;
 			(__prepinstalldirs && src_install && src_postinst) 2>&1 | tee ${installlog};
+			_status=$?;
+			;;
+		postinst*)
+			src_postinst;
 			_status=$?;
 			;;
 		list)
