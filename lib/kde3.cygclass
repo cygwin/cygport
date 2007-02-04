@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: kde3.cygclass,v 1.10 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: kde3.cygclass,v 1.11 2007-02-04 04:06:48 yselkowitz Exp $
 #
 ################################################################################
 
@@ -70,7 +70,7 @@ kde3_compile() {
 		--with-qt-libraries=${QLIBDIR} --enable-mt \
 		--with-distribution=Cygwin \
 		--disable-libfam --disable-dnotify \
-		--without-arts --disable-arts \
+		--with-arts --enable-arts \
 		--with-ipv6-lookup=no \
 		--with-ssl-dir=/usr \
 		--with-gssapi=no \
@@ -78,9 +78,15 @@ kde3_compile() {
 		--with-berkeley-db \
 		--with-db-name=db-4.3 \
 		--with-db-include-dir=/usr/include/db4.3 \
+		--without-java \
 		"${@}"
 
 	cygmake
+
+	if make -n apidox &> /dev/null
+	then
+		cygmake -j1 apidox QTDOCDIR=/usr/share/qt3/doc/html
+	fi
 }
 
 kde3_install() {
@@ -96,6 +102,10 @@ kde3_install() {
 			then
 				insinto /usr/share/doc/${kdepkg}-${PV}
 				doins ${S}/${kdepkg}/${doc}
+			elif [ -f ${S}/${kdepkg#${PN}-}/${doc} ]
+			then
+				insinto /usr/share/doc/${kdepkg}-${PV}
+				doins ${S}/${kdepkg#${PN}-}/${doc}
 			fi
 		done
 	done

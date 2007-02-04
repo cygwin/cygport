@@ -1,4 +1,8 @@
 
+	* lib/kde3.cygclass (kde3_compile):
+	Enable arts by default. Run make apidox when applicable.
+	* (kde3_install): Handle alternate split-package naming.
+
 	* data/mirrors (mirror_berlios): Added.
 
 	* lib/ruby.cygclass (ruby_compile, ruby_install):
