@@ -1,4 +1,6 @@
 
+	* lib/qt3.cygclass: Add --enable-auto-import to LDFLAGS.
+
 	* lib/kde3.cygclass (kde3_compile):
 	Enable arts by default. Run make apidox when applicable.
 	* (kde3_install): Handle alternate split-package naming.
