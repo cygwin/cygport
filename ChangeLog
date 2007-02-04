@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (apply_patch): Fix patchlevel redefinition.
+
 	* CYGWIN-PATCHES/README
 	* lib/Makefile.am
 	* lib/apache.cygclass:

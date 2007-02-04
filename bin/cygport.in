@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.48 2007-01-18 06:35:44 yselkowitz Exp $
+# $Id: cygport.in,v 1.49 2007-02-04 07:28:33 yselkowitz Exp $
 #
 ################################################################################
 
@@ -508,7 +508,7 @@ __mkdirs() {
 apply_patch() {
 	local patchfile_name;
 	local patchfile_path;
-	local -i patchlevel=0;
+	local -i patchlevel;
 
 	for patchfile_path in ${@}
 	do
@@ -528,6 +528,8 @@ apply_patch() {
 				else
 					patchlevel=2
 				fi
+				;;
+			*) patchlevel=0 ;;
 		esac
 
 		while (( patchlevel <= 3 ))
