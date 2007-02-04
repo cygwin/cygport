@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.50 2007-02-04 07:29:50 yselkowitz Exp $
+# $Id: cygport.in,v 1.51 2007-02-04 20:19:33 yselkowitz Exp $
 #
 ################################################################################
 
@@ -614,17 +614,17 @@ src_prep() {
 		unpack ${top}/${src_pkg};
 	done
 
+	if [ ! -d ${origsrcdir}/${SRC_DIR} ]
+	then
+		error "SRC_DIR is not correctly defined"
+	fi
+
 	cd ${origsrcdir}/${SRC_DIR};
 	
 	for src_patch in ${_src_orig_patches}
 	do
 		apply_patch ${top}/${src_patch};
 	done
-
-	if [ ! -d ${origsrcdir}/${SRC_DIR} ]
-	then
-		error "SRC_DIR is not correctly defined"
-	fi
 
 	__step "Preparing working source directory";
 

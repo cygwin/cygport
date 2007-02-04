@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (src_prep): 
+	Sanity check for origsrc/SRC_DIR before applying PATCH_URIs.
+
 	* data/mirrors (mirror_gentoo): Added.
 
 	* data/mirrors (mirror_rubyforge): Added.
