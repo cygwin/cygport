@@ -1,4 +1,6 @@
 
+	* data/mirrors (mirror_gentoo): Added.
+
 	* data/mirrors (mirror_rubyforge): Added.
 
 	* data/Makefile.am

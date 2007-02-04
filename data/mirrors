@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mirrors,v 1.10 2007-02-04 18:23:46 yselkowitz Exp $
+# $Id: mirrors,v 1.11 2007-02-04 20:17:57 yselkowitz Exp $
 #
 ################################################################################
 
@@ -420,6 +420,197 @@ mirror_cpan="
 	http://cpan.dcc.uchile.cl
 	ftp://cpan.dcc.uchile.cl/pub/lang/cpan
 "   # mirror_cpan
+
+# Gentoo distfiles
+# http://www.gentoo.org/main/en/mirrors.xml
+# egrep '^<a href="(ht|f)tp:.*</a><br>$' mirrors.xml | \
+#	sed -e 's#<a href="\(.*\)".*</a>.*#\t\1#' -e 's#/$##' -e 's#$#/distfiles#'
+mirror_gentoo="
+	http://adelie.polymtl.ca/distfiles
+	ftp://gentoo.arcticnetwork.ca/pub/gentoo/distfiles
+	http://gentoo.arcticnetwork.ca/distfiles
+	ftp://mirrors.tera-byte.com/pub/gentoo/distfiles
+	http://gentoo.mirrors.tera-byte.com/distfiles
+	http://gentoo.osuosl.org/distfiles
+	ftp://distro.ibiblio.org/pub/linux/distributions/gentoo/distfiles
+	http://distro.ibiblio.org/pub/linux/distributions/gentoo/distfiles
+	ftp://ftp.gtlib.gatech.edu/pub/gentoo/distfiles
+	http://www.gtlib.gatech.edu/pub/gentoo/distfiles
+	ftp://mirror.iawnet.sandia.gov/pub/gentoo/distfiles
+	ftp://ftp.ussg.iu.edu/pub/linux/gentoo/distfiles
+	ftp://ftp.ucsb.edu/pub/mirrors/linux/gentoo/distfiles
+	http://ftp.ucsb.edu/pub/mirrors/linux/gentoo/distfiles
+	http://gentoo.chem.wisc.edu/gentoo/distfiles
+	ftp://gentoo.chem.wisc.edu/gentoo/distfiles
+	http://cudlug.cudenver.edu/gentoo/distfiles
+	http://gentoo.mirrors.tds.net/gentoo/distfiles
+	ftp://gentoo.mirrors.tds.net/gentoo/distfiles
+	http://gentoo.netnitco.net/distfiles
+	ftp://gentoo.netnitco.net/pub/mirrors/gentoo/source/distfiles
+	http://mirror.espri.arizona.edu/gentoo/distfiles
+	http://mirrors.acm.cs.rpi.edu/gentoo/distfiles
+	ftp://ftp.ndlug.nd.edu/pub/gentoo/distfiles
+	http://open-systems.ufl.edu/mirrors/gentoo/distfiles
+	http://gentoo.llarian.net/distfiles
+	ftp://gentoo.llarian.net/pub/gentoo/distfiles
+	http://gentoo.binarycompass.org/distfiles
+	http://mirror.datapipe.net/gentoo/distfiles
+	ftp://mirror.datapipe.net/gentoo/distfiles
+	http://prometheus.cs.wmich.edu/gentoo/distfiles
+	http://modzer0.cs.uaf.edu/public/gentoo/distfiles
+	http://mirror.usu.edu/mirrors/gentoo/distfiles
+	ftp://mirror.usu.edu/mirrors/gentoo/distfiles
+	ftp://lug.mtu.edu/gentoo/distfiles
+	http://mirror.phy.olemiss.edu/mirror/gentoo/distfiles
+	ftp://mirror.mcs.anl.gov/pub/gentoo/distfiles
+	http://gentoo.mirrors.easynews.com/linux/gentoo/distfiles
+	http://gentoo.cites.uiuc.edu/pub/gentoo/distfiles
+	ftp://gentoo.cites.uiuc.edu/pub/gentoo/distfiles
+	ftp://ftp.wwc.edu/pub/mirrors/ftp.gentoo.org/distfiles
+	http://mirror.utdlug.org/linux/distributions/gentoo/distfiles
+	ftp://mirror.utdlug.org/linux/distributions/gentoo/distfiles
+	http://gentoo.localhost.net.ar/distfiles
+	ftp://mirrors.localhost.net.ar/pub/mirrors/gentoo/distfiles
+	http://www.las.ic.unicamp.br/pub/gentoo/distfiles
+	ftp://ftp.las.ic.unicamp.br/pub/gentoo/distfiles
+	http://gentoo.inode.at/distfiles
+	ftp://gentoo.inode.at/source/distfiles
+	http://gd.tuwien.ac.at/opsys/linux/gentoo/distfiles
+	ftp://gd.tuwien.ac.at/opsys/linux/gentoo/distfiles
+	http://ftp.belnet.be/mirror/rsync.gentoo.org/gentoo/distfiles
+	ftp://ftp.belnet.be/mirror/rsync.gentoo.org/gentoo/distfiles
+	http://mirrors.ludost.net/gentoo/distfiles
+	ftp://mirrors.ludost.net/gentoo/distfiles
+	http://mirror.bih.net.ba/gentoo/distfiles
+	ftp://mirror.bih.net.ba/gentoo/distfiles
+	ftp://ftp.sh.cvut.cz/MIRRORS/gentoo/gentoo/distfiles
+	http://gentoo.supp.name/distfiles
+	http://mirror.uni-c.dk/pub/gentoo/distfiles
+	http://ftp.linux.ee/pub/gentoo/distfiles/distfiles
+	ftp://ftp.linux.ee/pub/gentoo/distfiles/distfiles
+	http://trumpetti.atm.tut.fi/gentoo/distfiles
+	ftp://trumpetti.atm.tut.fi/gentoo/distfiles
+	http://ftp.public.fix.fi/gentoo/distfiles
+	ftp://ftp.public.fix.fi/gentoo/distfiles
+	http://gentoo.modulix.net/gentoo/distfiles
+	http://ftp.club-internet.fr/pub/mirrors/gentoo/distfiles
+	ftp://gentoo.imj.fr/pub/gentoo/distfiles
+	ftp://ftp.free.fr/mirrors/ftp.gentoo.org/distfiles
+	ftp://ftp.tu-clausthal.de/pub/linux/gentoo/distfiles
+	ftp://sunsite.informatik.rwth-aachen.de/pub/Linux/gentoo/distfiles
+	http://linux.rz.ruhr-uni-bochum.de/download/gentoo-mirror/distfiles
+	ftp://linux.rz.ruhr-uni-bochum.de/gentoo-mirror/distfiles
+	http://ftp.uni-erlangen.de/pub/mirrors/gentoo/distfiles
+	ftp://ftp.uni-erlangen.de/pub/mirrors/gentoo/distfiles
+	http://ftp6.uni-erlangen.de/pub/mirrors/gentoo/distfiles
+	ftp://ftp6.uni-erlangen.de/pub/mirrors/gentoo/distfiles
+	ftp://ftp.join.uni-muenster.de/pub/linux/distributions/gentoo/distfiles
+	ftp://ftp.wh2.tu-dresden.de/pub/mirrors/gentoo/distfiles
+	ftp://ftp.join.uni-muenster.de/pub/linux/distributions/gentoo/distfiles
+	ftp://ftp6.uni-muenster.de/pub/linux/distributions/gentoo/distfiles
+	ftp://ftp.ipv6.uni-muenster.de/pub/linux/distributions/gentoo/distfiles
+	http://mirrors.sec.informatik.tu-darmstadt.de/gentoo/distfiles
+	http://ftp-stud.fht-esslingen.de/pub/Mirrors/gentoo/distfiles
+	ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/gentoo/distfiles
+	ftp://ftp.gentoo.mesh-solutions.com/gentoo/distfiles
+	http://pandemonium.tiscali.de/pub/gentoo/distfiles
+	ftp://pandemonium.tiscali.de/pub/gentoo/distfiles
+	http://gentoo.intergenia.de/distfiles
+	http://gentoo.mneisen.org/distfiles
+	ftp://ftp.mneisen.org/gentoo/distfiles
+	ftp://files.gentoo.org/distfiles
+	http://files.gentoo.org/distfiles
+	ftp://ftp.ntua.gr/pub/linux/gentoo/distfiles
+	http://ftp.ntua.gr/pub/linux/gentoo/distfiles
+	ftp://ftp.uoi.gr/mirror/OS/gentoo/distfiles
+	http://ftp.uoi.gr/mirror/OS/gentoo/distfiles
+	http://ftp.physics.auth.gr/pub/mirrors/gentoo/distfiles
+	ftp://ftp.physics.auth.gr/pub/mirrors/gentoo/distfiles
+	http://gentoo.inf.elte.hu/distfiles
+	ftp://gentoo.inf.elte.hu/distfiles
+	ftp://ftp.nyx.hu/gentoo/distfiles
+	http://ftp.rhnet.is/pub/gentoo/distfiles
+	ftp://ftp.rhnet.is/pub/gentoo/distfiles
+	http://ftp.heanet.ie/pub/gentoo/distfiles
+	ftp://ftp.heanet.ie/pub/gentoo/distfiles
+	http://www.die.unipd.it/pub/Linux/distributions/gentoo-sources/distfiles
+	ftp://ftp.unina.it/pub/linux/distributions/gentoo/distfiles
+	http://ftp.snt.utwente.nl/pub/os/linux/gentoo/distfiles
+	ftp://ftp.snt.utwente.nl/pub/os/linux/gentoo/distfiles
+	http://ftp.snt.ipv6.utwente.nl/pub/os/linux/gentoo/distfiles
+	ftp://ftp.snt.ipv6.utwente.nl/pub/os/linux/gentoo/distfiles
+	ftp://mirror.scarlet-internet.nl/pub/gentoo/distfiles
+	http://gentoo.tiscali.nl/distfiles
+	ftp://gentoo.tiscali.nl/pub/mirror/gentoo/distfiles
+	http://mirror.gentoo.no/distfiles
+	http://darkstar.ist.utl.pt/gentoo/distfiles
+	ftp://darkstar.ist.utl.pt/pub/gentoo/distfiles
+	ftp://ftp.rnl.ist.utl.pt/pub/gentoo/distfiles
+	http://cesium.di.uminho.pt/pub/gentoo/distfiles
+	ftp://cesium.di.uminho.pt/pub/gentoo/distfiles
+	http://src.gentoo.pl/distfiles
+	http://gentoo.prz.rzeszow.pl/distfiles
+	http://gentoo.zie.pg.gda.pl/distfiles
+	http://gentoo.po.opole.pl/distfiles
+	ftp://gentoo.po.opole.pl/distfiles
+	ftp://mirror.icis.pcz.pl/gentoo/distfiles
+	ftp://ftp.lug.ro/gentoo/distfiles
+	http://ftp.lug.ro/gentoo/distfiles
+	http://ftp.roedu.net/pub/mirrors/gentoo.org/distfiles
+	ftp://ftp.roedu.net/pub/mirrors/gentoo.org/distfiles
+	ftp://ftp.romnet.org/gentoo/distfiles
+	http://ftp.romnet.org/gentoo/distfiles
+	http://mirrors.evolva.ro/gentoo/distfiles
+	ftp://mirrors.evolva.ro/gentoo/distfiles
+	http://gentoo.ynet.sk/pub/distfiles
+	http://linuv.uv.es/mirror/gentoo/distfiles
+	ftp://ftp.du.se/pub/os/gentoo/distfiles
+	http://ftp.du.se/pub/os/gentoo/distfiles
+	http://ds.thn.htu.se/linux/gentoo/distfiles
+	http://mirror.switch.ch/ftp/mirror/gentoo/distfiles
+	ftp://mirror.switch.ch/mirror/gentoo/distfiles
+	ftp://ftp.solnet.ch/mirror/Gentoo/distfiles
+	http://gentoo.mirror.solnet.ch/distfiles
+	http://ftp.ankara.edu.tr/gentoo/distfiles
+	ftp://ftp.ankara.edu.tr/gentoo/distfiles
+	http://gentoo.blueyonder.co.uk/distfiles
+	ftp://mirrors.blueyonder.co.uk/mirrors/gentoo/distfiles
+	http://www.mirrorservice.org/sites/www.ibiblio.org/gentoo/distfiles
+	ftp://ftp.mirrorservice.org/sites/www.ibiblio.org/gentoo/distfiles
+	http://mirror.etf.bg.ac.yu/gentoo/distfiles
+	http://public.planetmirror.com/pub/gentoo/distfiles
+	ftp://ftp.planetmirror.com/pub/gentoo/distfiles
+	http://mirror.pacific.net.au/linux/Gentoo/distfiles
+	ftp://mirror.pacific.net.au/linux/Gentoo/distfiles
+	http://mirror.isp.net.au/ftp/pub/gentoo/distfiles
+	ftp://mirror.isp.net.au/pub/gentoo/distfiles
+	ftp://ftp.swin.edu.au/gentoo/distfiles
+	http://ftp.swin.edu.au/gentoo/distfiles
+	http://mirror.gentoo.gr.jp/distfiles
+	http://gentoo.gg3.net/distfiles
+	ftp://gg3.net/pub/linux/gentoo/distfiles
+	ftp://ftp.ecc.u-tokyo.ac.jp/GENTOO/distfiles
+	http://gentoo.channelx.biz/distfiles
+	http://ftp.jaist.ac.jp/pub/Linux/Gentoo/distfiles
+	ftp://ftp.jaist.ac.jp/pub/Linux/Gentoo/distfiles
+	http://fido.online.kz/gentoo/distfiles
+	ftp://fido.online.kz/gentoo/pub/distfiles
+	http://ftp.gentoo.or.kr/distfiles
+	http://gentoo.kems.net/distfiles
+	ftp://gentoo.kems.net/mirrors/gentoo/distfiles
+	http://mirrors.64hosting.com/pub/mirrors/gentoo/distfiles
+	ftp://mirrors.64hosting.com/pub/mirrors/gentoo/distfiles
+	http://ftp.isu.edu.tw/pub/Linux/Gentoo/distfiles
+	ftp://ftp.isu.edu.tw/pub/Linux/Gentoo/distfiles
+	http://ftp.twaren.net/Linux/Gentoo/distfiles
+	ftp://ftp.twaren.net/Linux/Gentoo/distfiles
+	http://ftp.ncnu.edu.tw/Linux/Gentoo/distfiles
+	ftp://ftp.ncnu.edu.tw/Linux/Gentoo/distfiles
+	http://cdot.senecac.on.ca/software/gentoo/distfiles
+	http://securehost.com/mirror/gentoo/distfiles
+	http://mirror.averse.net/pub/gentoo/distfiles
+	ftp://mirror.averse.net/pub/gentoo/distfiles
+"	# mirror_gentoo
 
 # Gentoo Portage CVS repository (mostly for patches)
 mirror_portage="
