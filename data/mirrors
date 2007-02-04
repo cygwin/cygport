@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mirrors,v 1.9 2007-02-04 03:44:00 yselkowitz Exp $
+# $Id: mirrors,v 1.10 2007-02-04 18:23:46 yselkowitz Exp $
 #
 ################################################################################
 
@@ -704,6 +704,16 @@ mirror_kde="
 	http://www.mirrorservice.org/sites/ftp.kde.org/pub/kde
 	ftp://ftp.mirror.ac.uk/sites/ftp.kde.org/pub/kde
 "   # mirror_kde
+
+# http://rubyforge.org/credits/
+mirror_rubyforge="
+	http://rubyforge-files.ruby-forum.com
+	http://files.rubyforge.mmmultiworks.com
+	http://files.ruby.inoack.com
+	http://rubyforge.iasi.roedu.net/files
+	http://rubyforge.rubyuser.de
+	http://files.rubyforge.vm.bytemark.co.uk
+"	# mirror_rubyforge
 
 mirror_sourceforge="
 	http://downloads.sourceforge.net

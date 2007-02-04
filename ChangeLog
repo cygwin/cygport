@@ -1,4 +1,6 @@
 
+	* data/mirrors (mirror_rubyforge): Added.
+
 	* data/Makefile.am
 	* data/cygport.nanorc:
 	nano(1) syntax highlighting rcfile for cygports and cygclasses.
