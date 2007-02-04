@@ -1,4 +1,6 @@
 
+	* data/mirrors (mirror_berlios): Added.
+
 	* lib/ruby.cygclass (ruby_compile, ruby_install):
 	Support ruby extensions which use solely rake.
 
