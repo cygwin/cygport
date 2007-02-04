@@ -1,4 +1,9 @@
 
+	* CYGWIN-PATCHES/README
+	* lib/Makefile.am
+	* lib/apache.cygclass:
+	New cygclass for building Apache mod_* modules.
+
 	* lib/qt3.cygclass: Add --enable-auto-import to LDFLAGS.
 
 	* lib/kde3.cygclass (kde3_compile):

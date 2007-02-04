@@ -1,6 +1,7 @@
 cygclassdir = $(pkglibdir)/lib
 
 dist_cygclass_DATA = 			\
+	apache.cygclass				\
 	cross.cygclass				\
 	cvs.cygclass				\
 	distutils.cygclass			\

@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: apache.cygclass,v 1.1 2007-01-31 23:31:25 yselkowitz Exp $
+# $Id: apache.cygclass,v 1.2 2007-02-04 07:26:55 yselkowitz Exp $
 #
 ################################################################################
 
@@ -16,14 +16,14 @@ case ${PN} in
 		APACHE_MAJOR=1
 		APXS=/usr/sbin/apxs
 		LIBHTTPD='-lhttpd'
-		LT_SHREXT=''
+		lt_shrext=''
 		;;
 	apache2-*)
 		ORIG_PN=${PN#apache2-}
 		APACHE_MAJOR=2
 		APXS=/usr/sbin/apxs2
 		LIBHTTPD='-lhttpd2core'
-		LT_SHREXT='-shrext .so'
+		lt_shrext='-shrext .so'
 		;;
 	*)	error "PN should begin with apache- or apache2-" ;;
 esac
@@ -32,19 +32,19 @@ ORIG_P="${ORIG_PN}-${PV}"
 SRC_DIR="${ORIG_P}"
 DESCRIPTION="Apache${APACHE_MAJOR} ${ORIG_PN} module"
 
-check_prog_req ${APXS} 
+check_prog_req ${APXS} ${PN%-${ORIG_PN}}
 
 # libhttpd variables
 for var in CFLAGS INCLUDEDIR LIBEXECDIR SYSCONFDIR
 do
-	eval APXS_${var}=$(${APXS} -q ${var})
+	eval APXS_${var}=\"$(${APXS} -q ${var})\"
 done
-APXS_LIBS="${LIBHTTPD}"
+APXS_LIBS_SHLIB="${LIBHTTPD}"
 
-# httpd variables
 HTTPD=$(${APXS} -q SBINDIR)/$(${APXS} -q TARGET)
-APACHE_VERSION=$(${HTTPD} -v | gawk '/version/ {print $3}' | gawk -F/ '{print $2}')
+APACHE_VERSION=$(${HTTPD} -v | cut -d ' ' -f 3 | cut -d / -f 2)
 
+# libapr variables
 case ${APACHE_VERSION:0:3} in
 	1.*)	APR_VERSION='' ;;
 	2.0)	APR_VERSION=${APR_VERSION:-0} ;;
@@ -52,25 +52,37 @@ case ${APACHE_VERSION:0:3} in
 	*)		error "Don't know anything about Apache ${APACHE_VERSION}" ;;
 esac
 
-# libapr variables
 case ${APR_VERSION} in
-	'')	APR_CONFIG=: ;;
-	0)	APR_CONFIG=/usr/bin/apr-config ;;
-	1)	APR_CONFIG=/usr/bin/apr-${APR_VERSION}-config ;;
+	'')	APR_CONFIG=no
+		APU_CONFIG=no
+		;;
+	0)	APR_CONFIG=/usr/bin/apr-config
+		APU_CONFIG=/usr/bin/apu-config
+		;;
+	1)	APR_CONFIG=/usr/bin/apr-${APR_VERSION}-config
+		APU_CONFIG=/usr/bin/apu-${APR_VERSION}-config
+		;;
 	*)	error "Illegal value ${APR_VERSION} for APR_VERSION" ;;
 esac
-APR_CFLAGS="$(${APR_CONFIG} --cppflags --includes)"
-APR_LIBS="$(${APR_CONFIG} --link-ld | sed 's#-lapr#-laprutil#') $(${APR_CONFIG} --link-ld --libs)"
+
+if [ "x${APR_CONFIG}" != "xno" ]
+then
+	check_prog_req ${APR_CONFIG} apr${APR_VERSION}
+	check_prog_req ${APU_CONFIG} aprutil${APR_VERSION}
+	APR_CFLAGS="$(${APU_CONFIG} --includes) $(${APR_CONFIG} --cppflags --includes)"
+	APR_LIBS="$(${APU_CONFIG} --link-ld) $(${APR_CONFIG} --link-ld --libs)"
+fi
 
 apache_compile() {
 	cygconf \
 		--disable-static \
+		--with-apxs=${APXS} \
 		--with-apr-config=${APR_CONFIG} \
-		--with-apxs=${APXS} "${@}"
+		"${@}"
 
 	cygmake \
 		${ORIG_PN}_la_CPPFLAGS="${APXS_CFLAGS} -I${APXS_INCLUDEDIR} ${APR_CFLAGS}" \
-		${ORIG_PN}_la_LDFLAGS="-module -avoid-version -no-undefined ${LT_SHREXT}" \
+		${ORIG_PN}_la_LDFLAGS="-module -avoid-version -no-undefined ${lt_shrext}" \
 		${ORIG_PN}_la_LIBADD="${LIBHTTPD} ${APR_LIBS}"
 }
 
