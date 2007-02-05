@@ -1,3 +1,4 @@
+*** 0.2.9 ***
 
 	* bin/cygport.in (unpack): Handle .shar files with unshar.
 

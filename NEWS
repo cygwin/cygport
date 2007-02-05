@@ -1,3 +1,16 @@
+0.2.9:
+	* Handle .shar source files.
+	* Install HISTORY doc by default.
+	* Fix GnuPG .sig verification.
+	* Fix SRC_DIR sanity check.
+	* Provide nano-2.0 syntax highlighting rcfile.
+	* mirrors: Added berlios, gentoo, rubyforge.
+	* apache: New cygclass for mod_* modules.
+	* gnome.org: Add new SVN_URI.
+	* kde3: Enable aRts by default.  Build apidox when applicable.
+	* ruby: Handle packages which use only a rakefile.
+	* svn: Accept SVN_BRANCH.
+
 0.2.8:
 	* Support autoconf-2.61.
 	* Fix application of .cygwin.patch file.
