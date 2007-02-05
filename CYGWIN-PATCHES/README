@@ -26,7 +26,7 @@ Runtime requirements:
   wget
 
 Build requirements:
-  cygwin-1.5.23-2
+  cygwin-1.5.24-2
   autoconf2.5-2.61-1
   automake1.10-1.10-1
   gawk-3.1.5-4
@@ -44,15 +44,15 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack cygport-0.2.9-X-src.tar.bz2
+  unpack cygport-0.2.10-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./cygport-0.2.9-X.cygport all
+  cygport ./cygport-0.2.10-X.cygport all
 
 This will create:
-  /usr/src/cygport-0.2.9-X-src.tar.bz2
-  /usr/src/cygport-0.2.9-X.tar.bz2
+  /usr/src/cygport-0.2.10-X-src.tar.bz2
+  /usr/src/cygport-0.2.10-X.tar.bz2
 
 -------------------------------------------
 
@@ -120,22 +120,22 @@ Files included in the binary package:
   /usr/share/cygport/cygport.nanorc
   /usr/share/cygport/mirrors
   /usr/share/cygport/sample.cygport
-  /usr/share/doc/Cygwin/cygport-0.2.9.README
-  /usr/share/doc/cygport-0.2.9/AUTHORS
-  /usr/share/doc/cygport-0.2.9/COPYING
-  /usr/share/doc/cygport-0.2.9/ChangeLog
-  /usr/share/doc/cygport-0.2.9/INSTALL
-  /usr/share/doc/cygport-0.2.9/NEWS
-  /usr/share/doc/cygport-0.2.9/README
-  /usr/share/doc/cygport-0.2.9/TODO
-  /usr/share/doc/cygport-0.2.9/html/cygport.1.html
+  /usr/share/doc/Cygwin/cygport-0.2.10.README
+  /usr/share/doc/cygport-0.2.10/AUTHORS
+  /usr/share/doc/cygport-0.2.10/COPYING
+  /usr/share/doc/cygport-0.2.10/ChangeLog
+  /usr/share/doc/cygport-0.2.10/INSTALL
+  /usr/share/doc/cygport-0.2.10/NEWS
+  /usr/share/doc/cygport-0.2.10/README
+  /usr/share/doc/cygport-0.2.10/TODO
+  /usr/share/doc/cygport-0.2.10/html/cygport.1.html
   /usr/share/man/man1/cygport.1.gz
 
 ------------------
 
 Port Notes:
 
------ version 0.2.9-1 -----
+----- version 0.2.10-1 -----
 Version bump.
 See ChangeLog and NEWS for more information about this and past releases.
 
