@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.52 2007-02-04 20:21:05 yselkowitz Exp $
+# $Id: cygport.in,v 1.53 2007-02-05 03:28:43 yselkowitz Exp $
 #
 ################################################################################
 
@@ -437,6 +437,10 @@ unpack() {
 			*.rar)
 				check_prog_req unrar;
 				unpack_cmd="unrar x -inul";
+				;;
+			*.shar)
+				check_prog_req unshar;
+				unpack_cmd="unshar";
 				;;
 			*.xar)
 				check_prog_req xar;
