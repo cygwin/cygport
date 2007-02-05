@@ -2,11 +2,11 @@
 #
 # svn.cygclass - functions for building packages from SVN checkouts
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: svn.cygclass,v 1.6 2007-01-15 02:16:52 yselkowitz Exp $
+# $Id: svn.cygclass,v 1.7 2007-02-05 04:19:35 yselkowitz Exp $
 #
 ################################################################################
 

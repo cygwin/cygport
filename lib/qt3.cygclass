@@ -2,11 +2,11 @@
 #
 # qt3.cygclass - functions for building Qt3-dependent packages
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: qt3.cygclass,v 1.7 2007-02-04 04:07:30 yselkowitz Exp $
+# $Id: qt3.cygclass,v 1.8 2007-02-05 04:19:35 yselkowitz Exp $
 #
 ################################################################################
 
