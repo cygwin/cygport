@@ -1,4 +1,6 @@
 
+	* lib/kde3.cygclass: Define SRC_URI for kdevelop-3.4 and amarok.
+
 	* CYGWIN-PATCHES/README
 	* configure.ac:
 	Post-release version bump.
