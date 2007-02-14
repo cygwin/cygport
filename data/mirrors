@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mirrors,v 1.12 2007-02-05 04:19:34 yselkowitz Exp $
+# $Id: mirrors,v 1.13 2007-02-14 22:05:32 yselkowitz Exp $
 #
 ################################################################################
 
@@ -995,3 +995,13 @@ mirror_vim="
 	http://vim.mirror.fr
 	http://ftp2.kr.vim.org/pub/vim
 "	# mirror_vim
+
+# http://www.xfce.org/download/
+mirror_xfce="
+	http://www.xfce.org/archive
+	http://mocha.xfce.org/archive
+	http://www.us.xfce.org/archive
+	http://www.ca-us.xfce.org/archive
+	http://www.de.xfce.org/archive
+	http://www.p0llux.be/xfce
+"	# mirror_xfce
