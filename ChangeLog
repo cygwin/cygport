@@ -1,4 +1,6 @@
 
+	* lib/pygtk.cygclass: Add pytotem from gnome-python-desktop.
+
 	* data/mirrors (mirror_xfce): Added.
 
 	* lib/kde3.cygclass: Define SRC_URI for kdevelop-3.4 and amarok.
