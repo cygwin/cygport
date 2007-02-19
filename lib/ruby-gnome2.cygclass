@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: ruby-gnome2.cygclass,v 1.10 2006-12-13 03:05:34 yselkowitz Exp $
+# $Id: ruby-gnome2.cygclass,v 1.11 2007-02-19 23:18:51 yselkowitz Exp $
 #
 ################################################################################
 
@@ -15,6 +15,25 @@ inherit ruby
 rbg2_pn=${PN#ruby-}
 
 case ${rbg2_pn} in
+	gnome2-all)
+		# sort modules in dependency order
+		# poppler and vte were ADDED in 0.15.0
+		# gstreamer and libgda were REMOVED in 0.16.0
+		for d in glib atk pango gdkpixbuf gtk libglade libart \
+				 gnomecanvas gconf gnomevfs gnome gnomeprint \
+				 gnomeprintui gtkglext gtkhtml2 gtkmozembed gtksourceview \
+				 panel-applet poppler rsvg vte gstreamer libgda
+		do
+			for rbg2_mod in ${RUBY_GNOME2_MODULES}
+			do
+				if [ "${rbg2_mod}" == "${d}" ] || [ "${rbg2_mod}" == "${d}2" ]
+				then
+					rbg2_dir+="${d} "
+				fi
+			done
+		done
+		ORIG_PN=ruby-gnome2-all
+		;;
 	gtkhtml2)
 		rbg2_dir=${rbg2_pn}
 		ORIG_PN=ruby-gnome2-all
@@ -43,36 +62,61 @@ MAKEOPTS+=" -j1"
 
 DEPS_PATH="${RUBY_SITEARCH}"
 
-ruby_gnome2_compile() {
-	cd ${rbg2_dir}
+ruby_gnome2_check_subdir() {
+	local d
 
-	${RUBY} extconf.rb || error "extconf.rb failed"
+	for d in ${rbg2_dir}
+	do
+		if [ ! -d ${d} ]
+		then
+			error "RUBY_GNOME2_MODULES: unknown dir: ${d}"
+		fi
+	done
+}
+
+ruby_gnome2_compile() {
+	local d
+
+	ruby_gnome2_check_subdir
+
+	${RUBY} extconf.rb ${rbg2_dir} || error "extconf.rb failed"
 
 	cygmake LOCAL_LIBS="-L${RUBY_SITEARCH}"
 
-	if [ -d src ]
-	then
-		rdoc src -o rdoc
-	else
-		rdoc -o rdoc
-	fi
+	for d in ${rbg2_dir}
+	do
+		if [ -d ${d}/src ]
+		then
+			rdoc ${d}/src -o ${d}/rdoc
+		else
+			rdoc ${d} -o ${d}/rdoc
+		fi
+	done
 }
 
 ruby_gnome2_install() {
 	local implib
 
-	cd ${rbg2_dir}
+	ruby_gnome2_check_subdir
+
 	ruby_install
 
-	eval implib=$(grep -h 'PACKAGE_NAME.*=' extconf.rb | sed -e 's!.*= !!g')
+	for d in ${rbg2_dir}
+	do
+		eval implib=$(grep -h 'PACKAGE_NAME.*=' ${d}/extconf.rb | sed -e 's!.*= !!g')
 
-	insinto ${RUBY_SITEARCH}
-	if [ -d src ]
-	then
-		doins src/libruby-${implib}.a
-	else
-		doins libruby-${implib}.a
-	fi
+		insinto ${RUBY_SITEARCH}
+		if [ -d ${d}/src ]
+		then
+			doins ${d}/src/libruby-${implib}.a
+		else
+			doins ${d}/libruby-${implib}.a
+		fi
+
+		insinto /usr/share/doc/ruby-${d}-${PV}
+		doins ${S}/${d}/{ChangeLog,README}
+		cp -r ${d}/rdoc ${D}/usr/share/doc/ruby-${d}-${PV}
+	done
 }
 
 src_compile() {
