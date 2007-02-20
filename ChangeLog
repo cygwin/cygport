@@ -1,4 +1,6 @@
 
+	* data/mirrors (mirror_apache): Added.
+
 	* lib/pygtk.cygclass: Add pytotem from gnome-python-desktop.
 
 	* data/mirrors (mirror_xfce): Added.
