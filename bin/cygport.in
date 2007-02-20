@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.53 2007-02-05 03:28:43 yselkowitz Exp $
+# $Id: cygport.in,v 1.54 2007-02-20 23:19:11 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1571,10 +1571,15 @@ declare    MAKEOPTS="-j2 "
 
 source ${_privdatadir}/mirrors || warning "could not read mirrors file"
 
-if [ -e ${_sysconfdir}/${_name}.conf ]
-then
-	source ${_sysconfdir}/${_name}.conf || error "could not read ${_name}.conf"
-fi
+for conf in ${_sysconfdir}/${_name}.conf \
+			"${HOME}/.${_name}rc" \
+			"${HOME}/.${_name}/${_name}.conf"
+do
+	if [ -e "${conf}" ]
+	then
+		source "${conf}" || error "could not read ${conf}"
+	fi
+done
 
 source ${top}/${cygportfile} || error "could not read ${cygportfile}"
 

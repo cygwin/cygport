@@ -1,4 +1,6 @@
 
+	* bin/cygport.in: Allow user-specific cygport.conf files in $HOME.
+
 	* data/mirrors (mirror_apache): Added.
 
 	* lib/pygtk.cygclass: Add pytotem from gnome-python-desktop.
