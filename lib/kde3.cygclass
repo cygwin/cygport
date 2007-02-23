@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: kde3.cygclass,v 1.13 2007-02-06 06:23:46 yselkowitz Exp $
+# $Id: kde3.cygclass,v 1.14 2007-02-23 20:43:39 yselkowitz Exp $
 #
 ################################################################################
 
@@ -42,6 +42,13 @@ case "${PN}:${PV}" in
 esac
 
 kde3_autoreconf() {
+	case ${PN} in
+		kde-i18n-*|koffice-l10n-*)
+			info "No need to autoreconf KDE i18n/l10n packages."
+			return 0
+			;;
+	esac
+
 	if [ ! -e admin/Makefile.common ]
 	then
 		error "No KDE source package detected"
@@ -113,7 +120,11 @@ kde3_install() {
 
 src_compile() {
 	cd ${S}
-	kde3_autoreconf
+	case ${PN} in
+		kde-i18n-*|koffice-l10n-*) ;;
+		*)	kde3_autoreconf ;;
+	esac
+
 	cd ${B}
 	kde3_compile
 }
