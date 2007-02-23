@@ -1,4 +1,6 @@
 
+	* lib/gst-plugins0.8.cygclass: Restore opengl plugin.
+
 	* bin/cygport.in: Allow user-specific cygport.conf files in $HOME.
 
 	* data/mirrors (mirror_apache): Added.
