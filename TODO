@@ -9,6 +9,7 @@ GOALS for 0.3 development:
 * automatically remove empty dirs in D; keepdir()
 * warnings for depreecated APIs
 * decorations for unstable APIs
+* Redo gnome2_autoreconf to use gnome-autogen.sh
 * Debug and/or Verbose mode
 * Additional cygclasses:
 	- bzr
