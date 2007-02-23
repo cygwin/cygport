@@ -44,15 +44,15 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack cygport-0.2.10-X-src.tar.bz2
+  unpack cygport-0.2.11-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./cygport-0.2.10-X.cygport all
+  cygport ./cygport-0.2.11-X.cygport all
 
 This will create:
-  /usr/src/cygport-0.2.10-X-src.tar.bz2
-  /usr/src/cygport-0.2.10-X.tar.bz2
+  /usr/src/cygport-0.2.11-X-src.tar.bz2
+  /usr/src/cygport-0.2.11-X.tar.bz2
 
 -------------------------------------------
 
@@ -120,22 +120,22 @@ Files included in the binary package:
   /usr/share/cygport/cygport.nanorc
   /usr/share/cygport/mirrors
   /usr/share/cygport/sample.cygport
-  /usr/share/doc/Cygwin/cygport-0.2.10.README
-  /usr/share/doc/cygport-0.2.10/AUTHORS
-  /usr/share/doc/cygport-0.2.10/COPYING
-  /usr/share/doc/cygport-0.2.10/ChangeLog
-  /usr/share/doc/cygport-0.2.10/INSTALL
-  /usr/share/doc/cygport-0.2.10/NEWS
-  /usr/share/doc/cygport-0.2.10/README
-  /usr/share/doc/cygport-0.2.10/TODO
-  /usr/share/doc/cygport-0.2.10/html/cygport.1.html
+  /usr/share/doc/Cygwin/cygport-0.2.11.README
+  /usr/share/doc/cygport-0.2.11/AUTHORS
+  /usr/share/doc/cygport-0.2.11/COPYING
+  /usr/share/doc/cygport-0.2.11/ChangeLog
+  /usr/share/doc/cygport-0.2.11/INSTALL
+  /usr/share/doc/cygport-0.2.11/NEWS
+  /usr/share/doc/cygport-0.2.11/README
+  /usr/share/doc/cygport-0.2.11/TODO
+  /usr/share/doc/cygport-0.2.11/html/cygport.1.html
   /usr/share/man/man1/cygport.1.gz
 
 ------------------
 
 Port Notes:
 
------ version 0.2.10-1 -----
+----- version 0.2.11-1 -----
 Version bump.
 See ChangeLog and NEWS for more information about this and past releases.
 
