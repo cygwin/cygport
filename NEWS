@@ -1,3 +1,11 @@
+0.2.10:
+	* Allow user-specific cygport.conf files in HOME.
+	* mirrors: Added apache, xfce
+	* gst-plugins0.8: Restored opengl plugin.
+	* kde3: Added SRC_URI for kdevelop-3.4 and amarok.
+	* pygtk: Added pytotem.
+	* ruby: Fix setup.rb install.
+
 0.2.9:
 	* Handle .shar source files.
 	* Install HISTORY doc by default.

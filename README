@@ -176,7 +176,7 @@ passed to cygport.
 4. CREATING A CYGPORT PACKAGE
 
 See the data/sample.cygport file, included in the Cygwin package in
-${prefix}/share/doc/cygport-VERSION, for an example.
+${prefix}/share/cygport, for an example.
 
 The .cygport file name must be is PKGNAME-VERSION-RELEASE.cygport, where
 PKGNAME is the Cygwin package name (which may not be the same as the
