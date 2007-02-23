@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: ruby.cygclass,v 1.9 2007-02-05 04:19:35 yselkowitz Exp $
+# $Id: ruby.cygclass,v 1.10 2007-02-23 06:18:34 yselkowitz Exp $
 #
 ################################################################################
 
@@ -57,7 +57,7 @@ ruby_install() {
 		${RUBY} install.rb install || error "install.rb install failed"
 	elif [ -e setup.rb ]
 	then
-		${RUBY} setup.rb config --prefix=${D}/usr ${@} || error "setup.rb config failed"
+		${RUBY} setup.rb config --prefix=/usr ${@} || error "setup.rb config failed"
 		${RUBY} setup.rb install --prefix=${D} || error "setup.rb install failed"
 	elif [ -e Rakefile -o -e rakefile ]
 	then

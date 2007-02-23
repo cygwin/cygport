@@ -1,4 +1,6 @@
 
+	* lib/ruby.cygclass (ruby_install): Fix last setup.rb install patch.
+
 	* lib/gst-plugins0.8.cygclass: Restore opengl plugin.
 
 	* bin/cygport.in: Allow user-specific cygport.conf files in $HOME.
