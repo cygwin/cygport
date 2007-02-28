@@ -1,0 +1,81 @@
+################################################################################
+#
+# berkdb.cygclass - functions for building the Berkeley DB
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2007 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+# $Id: berkdb.cygclass,v 1.1 2007-02-28 07:09:19 yselkowitz Exp $
+#
+################################################################################
+
+# SLOT="${PN#db}" 
+SLOT="${PV_MAJ_MIN}"
+
+DESCRIPTION="Berkeley DB version ${SLOT}"
+HOMEPAGE="http://www.oracle.com/technology/products/berkeley-db/db/index.html"
+SRC_URI="http://download.oracle.com/berkeley-db/db-${PV}.tar.gz"
+SRC_DIR="db-${PV}"
+
+#PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc"
+#PKG_CONTENTS[0]='--exclude=html usr/bin/*.exe usr/share/'
+#PKG_CONTENTS[1]='usr/bin/*.dll'
+#PKG_CONTENTS[2]='etc/ usr/include/ usr/lib/'
+#PKG_CONTENTS[3]="usr/share/doc/${P}/html/"
+
+DIFF_EXCLUDES="configure libtool.ac"
+
+berkdb_autoreconf() {
+	if [ ! -f s_config ] || [ ! -d aclocal ]
+	then
+		error "not in dist/ directory"
+	fi
+
+	cp -f /usr/share/aclocal/libtool.m4 aclocal/libtool.ac
+
+	./s_config || error "s_config failed"
+}
+
+berkdb_compile() {
+	CYGCONF_SOURCE=${S}/dist \
+	cygconf \
+		--includedir=/usr/include/db${SLOT} \
+		--program-transform-name="s,^db_,db${SLOT}_," \
+		--enable-cxx \
+		--enable-compat185 \
+		--enable-java JAVA=jamvm JAVAC=jikes JAR=gjar \
+		--disable-tcl --disable-test
+		# Requires Ports' tcl as well as a patch to dist/aclocal/tcl.ac
+		# if [ -e ${withval}/tclConfig.sh ]  (was [ -f ])
+		# --enable-tcl --with-tclconfig=/usr/lib --enable-test
+
+	cygmake
+}
+
+berkdb_install() {
+	cyginstall
+
+	# remove unslotted static libs
+	rm -f ${D}/usr/lib/libdb{_cxx,}.a
+
+	# slot executables
+	rename db_ db${SLOT}_ ${D}/usr/bin/*.exe
+
+	dodir /usr/share/doc/${P}
+	mv ${D}/usr/docs ${D}/usr/share/doc/${P}/html
+
+	# FIXME: postinstall/preremove w/ alternatives
+}
+
+src_compile() {
+	cd ${S}/dist
+	berkdb_autoreconf
+	cd ${B}
+	berkdb_compile
+}
+
+src_install() {
+	cd ${B}
+	berkdb_install
+}
