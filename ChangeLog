@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (apply_patch): Pass --binary to patch for d2u issues.
+
 	* lib/perl.cygclass (check_perl_module): Cleaner syntax.
 
 	* lib/kde3.cygclass: Don't run kde3_autoreconf for i18n/l10n packages.

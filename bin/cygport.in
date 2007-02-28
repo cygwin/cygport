@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.54 2007-02-20 23:19:11 yselkowitz Exp $
+# $Id: cygport.in,v 1.55 2007-02-28 05:15:28 yselkowitz Exp $
 #
 ################################################################################
 
@@ -538,10 +538,10 @@ apply_patch() {
 
 		while (( patchlevel <= 3 ))
 		do
-			if patch -N -s --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
+			if patch -N -s --binary --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
 			then
 				inform "applying patch ${patchfile_name}:";
-				patch -N -p${patchlevel} -i ${patchfile_path} || error "patch ${patchfile_name} failed"
+				patch -N --binary -p${patchlevel} -i ${patchfile_path} || error "patch ${patchfile_name} failed"
 				break;
 			else
 				if (( patchlevel == 3 ))
