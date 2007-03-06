@@ -1,4 +1,11 @@
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump for post-0.2 HEAD.
+
 *** 0.2.11 ***
+
+	* Branch STABLE_0_2.
 
 	* bin/cygport.in (apply_patch): Pass --binary to patch for d2u issues.
 
@@ -6,7 +13,7 @@
 
 	* lib/kde3.cygclass: Don't run kde3_autoreconf for i18n/l10n packages.
 
-	* CYGWIN-PATCHES/README
+	* CYGWIN-PATCHES/README:
 	* configure.ac:
 	Post-release version bump.
 
