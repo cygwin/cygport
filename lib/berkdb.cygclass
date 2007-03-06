@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: berkdb.cygclass,v 1.2 2007-03-06 05:54:46 yselkowitz Exp $
+# $Id: berkdb.cygclass,v 1.3 2007-03-06 06:43:06 yselkowitz Exp $
 #
 ################################################################################
 
@@ -78,13 +78,20 @@ berkdb_compile() {
 }
 
 berkdb_install() {
-	cyginstall docdir=/usr/share/doc/${P}/html
+	if ((PVP[0] >= 4)) && ((PVP[1] < 2)) || ((PVP[0] < 4))
+	then
+		USE_DESTDIR=0 cyginstall docdir=${D}/usr/share/doc/${P}/html
+	else
+		USE_DESTDIR=1 cyginstall docdir=/usr/share/doc/${P}/html
+	fi
 
 	# remove unslotted static libs
 	rm -f ${D}/usr/lib/libdb{_cxx,}.a
 
 	# slot executables
 	rename db_ db${SLOT}_ ${D}/usr/bin/*.exe
+
+	sed -i -e 's#shouldnotlink=no#shouldnotlink=yes#' ${D}/usr/lib/libdb_java-${SLOT}.la
 
 	# relocate and slot Java jar
 	dodir /usr/share/java
