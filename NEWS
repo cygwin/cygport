@@ -1,3 +1,7 @@
+0.2.11:  STABLE_0_2 branch
+	* Apply patches with --binary flag to solve d2u issues.
+	* kde3: Fix kde3-i18n and koffice-l10n packages.
+
 0.2.10:
 	* Allow user-specific cygport.conf files in HOME.
 	* mirrors: Added apache, xfce

@@ -1,3 +1,4 @@
+*** 0.2.11 ***
 
 	* bin/cygport.in (apply_patch): Pass --binary to patch for d2u issues.
 
