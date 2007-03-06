@@ -1,4 +1,6 @@
 
+	* lib/gst-plugins0.10.cygclass: Added new plugins in bad-10.4.
+
 	* CYGWIN-PATCHES/README:
 	* configure.ac:
 	Post-release version bump for post-0.2 HEAD.

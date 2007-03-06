@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: gst-plugins0.10.cygclass,v 1.8 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: gst-plugins0.10.cygclass,v 1.9 2007-03-06 05:56:25 yselkowitz Exp $
 #
 ################################################################################
 
@@ -76,8 +76,8 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		;;
 	bad)
 		my_gst_plugins="amrwb bz2 divx dts faac faad gsm ivorbis libmms \
-			musepack musicbrainz neon opengl sdl soundtouch swfdec theoradec \
-			wavpack xvid"
+			musepack musicbrainz neon opengl sdl soundtouch spc swfdec \
+			theoradec wavpack xvid"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="directfb gst_v4l2"
 		;;
