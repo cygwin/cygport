@@ -12,6 +12,7 @@ GOALS for 0.3 development:
 * Redo gnome2_autoreconf to use gnome-autogen.sh
 * Debug and/or Verbose mode
 * Additional cygclasses:
+	- alternatives
 	- bzr
 	- relocate: http://cygwin.com/ml/cygwin/2006-10/msg00743.html
 	- xfce
