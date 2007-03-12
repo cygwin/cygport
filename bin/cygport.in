@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.55 2007-02-28 05:15:28 yselkowitz Exp $
+# $Id: cygport.in,v 1.56 2007-03-12 06:49:12 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1292,76 +1292,90 @@ pkg_pkgcheck() {
 }
 
 pkg_diff() {
-	local custom_excludes;
-	local exclude;
+	local default_excludes;
+	local diff_excludes_x;
 	local difflevel;
-	local default_excludes="-x CYGWIN-PATCHES -x aclocal.m4* \
-		-x ltmain.sh -x config.* -x depcomp -x install-sh -x missing \
-		-x mkinstalldirs -x autom4te.cache -x *compile -x Makefile.in.in \
-		-x intltool*.in -x xml-i18n-*.in -x *.pyc -x *.mo -x *.gmo \
-		-x ABOUT-NLS -x Makevars.template -x COPYING -x INSTALL -x mdate-sh \
-		-x *.orig -x *.rej -x *~ -x *.temp -x texinfo.tex -x ylwrap";
+	local exclude;
+
+	default_excludes="CYGWIN-PATCHES aclocal.m4* autom4te.cache \
+		config.cache config.log config.status config.h config.h.in
+		ABOUT-NLS Makefile.in.in Makevars.template \
+		*.class *.pyc *.mo *.gmo *.orig *.rej *.temp *~";
+
+	case ${PN} in
+		automake*|libtool*) ;;
+		*)	default_excludes+=" COPYING INSTALL compile config-ml.in \
+				config.guess config.sub depcomp elisp-comp install-sh \
+				ltmain.sh mdate-sh missing mkinstalldirs py-compile \
+				symlink-tree texinfo.tex ylwrap" ;;
+	esac
 
 	# exclude Makefile.in only if using automake
 	for mf in Makefile GNUmakefile makefile
 	do
 		if [ -f ${S}/${mf}.am ]
 		then
-			default_excludes+=" -x ${mf}.in";
+			default_excludes+=" ${mf}.in";
 		fi
 	done
 
 	# exclude configure only if using autoconf
 	if [ -f ${S}/configure.in -o -f ${S}/configure.ac ]
 	then
-		default_excludes+=" -x configure";
+		default_excludes+=" configure";
 	fi
 
 	# gtk-doc
 	if [ -f ${S}/gtk-doc.make -a "${PN}" != "gtk-doc" ]
 	then
-		default_excludes+=" -x *.stamp -x *.html -x *.bak -x *.sgml \
-			-x *.tmpl -x *.txt -x *.xml -x *.args -x *.devhelp* -x *.css \
-			-x *.hierarchy -x *.interfaces -x *.prerequisites -x *.signals \
-			-x *.top -x *.bottom -x gtk-doc.make -x gtk-doc.m4";
+		default_excludes+=" *.stamp *.html *.bak *.sgml \
+			*.tmpl *.txt *.xml *.args *.devhelp* *.css \
+			*.hierarchy *.interfaces *.prerequisites *.signals \
+			*.top *.bottom gtk-doc.make gtk-doc.m4";
 	fi
 
 	# GNOME miscellaneous
+	if [ "${PN}" != "gnome-common" ]
+	then
+		default_excludes+=" omf.make xmldocs.make";
+	fi
+
 	if [ "${PN}" != "gnome-doc-utils" ]
 	then
-		default_excludes+=" -x gnome-doc-utils.make -x gnome-doc-utils.m4";
+		default_excludes+=" gnome-doc-utils.make gnome-doc-utils.m4";
 	fi
 
 	if [ "${PN}" != "intltool" ]
 	then
-		default_excludes+=" -x intltool.m4";
-	fi
-
-	if [ "${PN}" != "gnome-common" ]
-	then
-		default_excludes+=" -x omf.make -x xmldocs.make";
+		default_excludes+=" intltool.m4 intltool-extract intltool-extract.in \
+			intltool-merge intltool-merge.in intltool-update intltool-update.in";
 	fi
 
 	# KDE
 	if [ -f ${S}/admin/libtool.m4.in ]
 	then
-		default_excludes+=" -x libtool.m4.in* -x configure.bak \
-			-x configure.files -x acinclude.m4 -x subdirs";
+		default_excludes+=" libtool.m4.in* configure.bak \
+			configure.files acinclude.m4 subdirs";
 
 		if [ -f ${S}/configure.in.in ]
 		then
-			default_excludes+=" -x configure.in";
+			default_excludes+=" configure.in";
 		fi
 	fi
 
+	for exclude in ${default_excludes}
+	do
+		diff_excludes_x+=" -x ${exclude}";
+	done
+
 	case ${DIFF_EXCLUDES} in
 		-x*)
-			custom_excludes="${DIFF_EXCLUDES}";
+			diff_excludes_x+="${DIFF_EXCLUDES}";
 			;;
 		*)
 			for exclude in ${DIFF_EXCLUDES}
 			do
-				custom_excludes+=" -x ${exclude}";
+				diff_excludes_x+=" -x ${exclude}";
 			done
 			;;
 	esac
@@ -1382,7 +1396,7 @@ pkg_diff() {
 		difflevel=2;
 	fi
 
-	diff -urN ${default_excludes} ${custom_excludes} \
+	diff -urN ${diff_excludes_x} \
 		${origsrcdir##*/} ${srcdir##*/} \
 		> ${patchdir}/${src_patchfile} || true;
 

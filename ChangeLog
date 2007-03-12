@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (pkg_diff): Restructure to be more precise.
+
 	* lib/distutils.cygclass (distutils_install):
 	Only python_optimize PYTHON_SITELIB if existant. 
 
