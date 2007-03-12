@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: gst-plugins0.10.cygclass,v 1.9 2007-03-06 05:56:25 yselkowitz Exp $
+# $Id: gst-plugins0.10.cygclass,v 1.10 2007-03-12 06:45:24 yselkowitz Exp $
 #
 ################################################################################
 
@@ -23,7 +23,7 @@ case ${gst_pn} in
 		do
 			case ${plugin} in
 				mad) GST_PLUGINS_MODULE+=" id3tag mad" ;;
-				ximage|ximagesrc) GST_PLUGINS_MODULE+=" x" ;;
+				ximage|ximagesrc) GST_PLUGINS_MODULE+=" x xshm" ;;
 				xvimage) GST_PLUGINS_MODULE+=" x xvideo" ;;
 				*) GST_PLUGINS_MODULE+=" ${plugin}" ;;
 			esac
@@ -64,9 +64,10 @@ DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
 
 case ${GST_PLUGINS_SRC:-${gst_pn}} in
 	base)
-		my_gst_plugins="gnome_vfs libvisual ogg pango theora vorbis x xshm xvideo"
+		# cdparanoia requires a patch to use libcdio_paranoia
+		my_gst_plugins="cdparanoia gnome_vfs libvisual ogg pango theora vorbis x xshm"
 		conftest_gst_plugins="freetypetest oggtest vorbistest"
-		never_gst_plugins="alsa cdparanoia gst_v4l gst_v4l2"
+		never_gst_plugins="alsa gst_v4l gst_v4l2 xvideo"
 		;;
 	good)
 		my_gst_plugins="aalib annodex cairo cdio esd flac gconf gconftool \

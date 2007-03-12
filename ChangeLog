@@ -1,5 +1,7 @@
 
 	* lib/gst-plugins0.10.cygclass: Added new plugins in bad-10.4.
+	  Force xshm support for ximage.
+	  Enable cdparanoia support (requires patch to use libcdio_paranoia).
 
 	* CYGWIN-PATCHES/README:
 	* configure.ac:
