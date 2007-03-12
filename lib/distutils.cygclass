@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: distutils.cygclass,v 1.3 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: distutils.cygclass,v 1.4 2007-03-12 06:47:23 yselkowitz Exp $
 #
 ################################################################################
 
@@ -33,7 +33,11 @@ distutils_install() {
 	fi
 
 	${PYTHON} setup.py install -O0 --root=${D} "${@}" || error "setup.py install failed"
-	python_optimize ${PYTHON_SITELIB}
+
+	if [ -d ${D}${PYTHON_SITELIB} ]
+	then
+		python_optimize ${PYTHON_SITELIB}
+	fi
 }
 
 src_compile() {

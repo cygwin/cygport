@@ -1,7 +1,10 @@
 
+	* lib/distutils.cygclass (distutils_install):
+	Only python_optimize PYTHON_SITELIB if existant. 
+
 	* lib/gst-plugins0.10.cygclass: Added new plugins in bad-10.4.
-	  Force xshm support for ximage.
-	  Enable cdparanoia support (requires patch to use libcdio_paranoia).
+	Force xshm support for ximage.
+	Enable cdparanoia support (requires patch to use libcdio_paranoia).
 
 	* CYGWIN-PATCHES/README:
 	* configure.ac:
