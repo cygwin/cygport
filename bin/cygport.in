@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.58 2007-03-13 22:17:08 yselkowitz Exp $
+# $Id: cygport.in,v 1.59 2007-03-13 22:26:27 yselkowitz Exp $
 #
 ################################################################################
 
@@ -506,7 +506,7 @@ __mkdirs() {
 		mount -u -o managed $(cygpath -w ${workdir}) ${workdir} || error "managed mount creation failed"
 	fi
 
-	mkdir -p ${srcdir} ${origsrcdir} ${B} ${D} ${T} ${logdir} ${distdir} ${patchdir} ${spkgdir};
+	mkdir -p ${srcdir} ${origsrcdir} ${B} ${D} ${T} ${configdir} ${logdir} ${distdir} ${patchdir} ${spkgdir};
 }
 
 apply_patch() {
@@ -581,6 +581,11 @@ src_prep() {
 	cd ${top};
 
 	__mkdirs;
+
+	if [ ! -f ${configdir}/cygport-version ]
+	then
+		echo ${_version} > ${configdir}/cygport-version
+	fi
 
 	# FIXME: dependent also on $SIG ??
 	if check_prog gpg
@@ -1617,6 +1622,7 @@ fi
 declare -r workdir="${top}/${PF}";
 declare -r srcdir="${workdir}/src";
 declare -r origsrcdir="${workdir}/origsrc";
+declare -r configdir="${workdir}/config";
 declare -r logdir="${workdir}/log";
 declare -r patchdir="${workdir}/patch";
 declare -r spkgdir="${workdir}/spkg";

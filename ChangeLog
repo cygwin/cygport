@@ -1,4 +1,8 @@
 
+	* bin/cygport.in (__mkdirs, src_prep):
+	New config/ directory for storing configuration information during build.
+	Create cygport-version file for future use.
+
 	* bin/cygport.in (__mkdirs, finish): Use user-only managed mounts.
 
 	* bin/cygport.in (cygtest): Smarter detection of make check and make test.
