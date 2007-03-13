@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.57 2007-03-13 14:33:43 yselkowitz Exp $
+# $Id: cygport.in,v 1.58 2007-03-13 22:17:08 yselkowitz Exp $
 #
 ################################################################################
 
@@ -503,7 +503,7 @@ __mkdirs() {
 
 	if defined USE_MANAGED_MOUNT
 	then
-		mount -o managed $(cygpath -w ${workdir}) ${workdir} || error "managed mount creation failed"
+		mount -u -o managed $(cygpath -w ${workdir}) ${workdir} || error "managed mount creation failed"
 	fi
 
 	mkdir -p ${srcdir} ${origsrcdir} ${B} ${D} ${T} ${logdir} ${distdir} ${patchdir} ${spkgdir};
@@ -1534,7 +1534,7 @@ finish() {
 
 	if defined USE_MANAGED_MOUNT
 	then
-		umount ${workdir} || warning "managed mount removal failed";
+		umount -u ${workdir} || warning "managed mount removal failed";
 	fi
 
 	rmdir ${workdir};

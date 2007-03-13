@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (__mkdirs, finish): Use user-only managed mounts.
+
 	* bin/cygport.in (cygtest): Smarter detection of make check and make test.
 
 	* lib/python.cygclass (pythoninto, dopython): New convenience functions.
