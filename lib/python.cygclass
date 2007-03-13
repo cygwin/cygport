@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: python.cygclass,v 1.3 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: python.cygclass,v 1.4 2007-03-13 00:47:55 yselkowitz Exp $
 #
 ################################################################################
 
@@ -19,15 +19,56 @@ PYTHON_SITELIB=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_pyt
 PYTHON_INCLUDEDIR=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_inc();')
 LIBPYTHON="-L${PYTHON_LIB}/config -lpython${PYTHON_VERSION}"
 
+pythoninto() {
+	if (( $# != 1 ))
+	then
+	    error "pythoninto accepts exactly one argument";
+	fi
+
+	case ${1} in
+    	/*) error "pythoninto argument should be only a subdirectory" ;;
+	esac
+
+	export _pythoninto_dir=${1};
+}
+
+dopython() {
+	local pydir
+	local i
+
+	if defined _pythoninto_dir
+	then
+		pydir=${PYTHON_SITELIB}/${_pythoninto_dir}
+	else
+		pydir=${PYTHON_SITELIB}
+	fi
+
+	dodir ${pydir}
+
+	for i in "${@}"
+	do
+		if [ -e ${i} ]
+		then
+			/bin/install -m0644 ${i} ${D}${pydir} || error "dopython ${i} failed"
+		else
+			error "dopython: ${i}: file not found"
+		fi
+	done
+}
+
 python_optimize() {
 	local pyd
-	for pyd in "${@}"
+
+	for pyd in "${@:-${PYTHON_SITELIB}}"
 	do
 		if [ ! -d ${D}${pyd} ]
 		then
 			error "directory ${pyd} does not exist"
 		fi
+
 		${PYTHON} ${PYTHON_LIB}/compileall.py ${D}${pyd}
 		${PYTHON} -OO ${PYTHON_LIB}/compileall.py ${D}${pyd}
 	done
 }
+
+alias python_compile='python_optimize'

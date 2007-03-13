@@ -1,4 +1,9 @@
 
+	* lib/python.cygclass (pythoninto, dopython): New convenience functions.
+	(python_compile): Created alias to python_optimize.
+	(python_optimize):
+	Defaults to compiling in PYTHON_SITELIB if no arguments passed.
+
 	* bin/cygport.in (pkg_diff): Restructure to be more precise.
 
 	* lib/distutils.cygclass (distutils_install):
