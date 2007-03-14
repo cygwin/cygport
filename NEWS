@@ -1,3 +1,17 @@
+0.3.0:  DEVELOPMENT
+	* Use user-only managed mounts with USE_MANAGED_MOUNT.
+	* Better detect make check vs. make test.
+	* Empty directories are removed during automatic postinstall.
+	* Improved .src.patch generation.
+	* dosym: Handle multiple targets and relative targets.
+	* fetch: Better handle partial or failed downloads.
+	* keepdir: new command for keeping empty directories.
+	* berkdb.cygclass: NEW cygclass for building Berkeley DB 3.x/4.x.
+	* distutils.cygclass: Only python_optimize PYTHON_SITELIB if exists.
+	* gst-plugins0.10.cygclass: Add cdparanoia to base, spc to bad. Force xshm.
+	* java.cygclass: NEW for building Classpath-based Java packages.
+	* python.cygclass: Added pythoninto and dopython commands.
+
 0.2.11:  STABLE_0_2 branch
 	* Apply patches with --binary flag to solve d2u issues.
 	* kde3: Fix kde3-i18n and koffice-l10n packages.

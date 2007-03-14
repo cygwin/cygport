@@ -1,4 +1,10 @@
 
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.3.0 ***
+
 	* bin/cygport.in (fetch): Remove tarball placeholder if download fails.
 
 	* test/Makefile.am (clean-local):
