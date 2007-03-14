@@ -4,9 +4,7 @@ GOALS for 0.3 development:
 * postinstall wrapper functions (CW)
 * Custom commands (CW)
 * mixed download protocols (CW)
-* dorelsym (CW)
 * src_prep and src_install hooks (CW)
-* automatically remove empty dirs in D; keepdir()
 * warnings for depreecated APIs
 * decorations for unstable APIs
 * Redo gnome2_autoreconf to use gnome-autogen.sh
