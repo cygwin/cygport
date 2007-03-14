@@ -1,4 +1,7 @@
 
+	* test/Makefile.am (clean-local):
+	Remove bootstrap workdir, in case make check was interrupted.
+
 	* bin/cygport.in (keepdir): New function to keep empty directories.
 	(__prep_empty_dirs, src_postinst): Remove empty directories under $D.
 

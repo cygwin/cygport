@@ -12,4 +12,4 @@ CLEANFILES = \
 	$(PACKAGE)-$(VERSION).tar.bz2
 
 clean-local:
-	-rm -fr $(PACKAGE)/
+	-rm -fr $(PACKAGE)/ $(PACKAGE)-$(VERSION)-1/
