@@ -1,4 +1,6 @@
 
+	* bin/dosym: Properly handle multiple targets and relative targets.
+
 	* lib/python.cygclass (dopython): Install DLLs executable.
 
 	* bin/cygport.in (__mkdirs, src_prep):

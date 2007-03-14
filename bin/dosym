@@ -7,14 +7,31 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: dosym,v 1.4 2006-11-20 05:48:58 yselkowitz Exp $
+# $Id: dosym,v 1.5 2007-03-14 15:43:44 yselkowitz Exp $
 #
 ################################################################################
 set -e
 
-if [ ! -d ${D}${2%/*} ]
+_argv=(${0} ${@})
+_argc=$#
+
+if ((_argc < 2))
 then
-	error "install directory ${2%/*} does not exist"
+	error "dosym: requires at least two arguments"
 fi
 
-ln -sf ${1} ${D}${2} || error "dosym ${1} failed"
+dest="${_argv[${_argc}]}"
+
+# cd should allow for relative symlinks
+# e.g. dosym ../../share/foo /usr/lib/
+if [ -d ${D}${dest} ]
+then
+	cd ${D}${dest}
+elif [ -d ${D}${dest%/*} ]
+then
+	cd ${D}${dest%/*}
+else
+	error "dosym: ${dest%/*} is not a directory"
+fi
+
+ln -sf ${_argv[*]:1:$((_argc - 1))} ${D}${dest} || error "dosym failed"
