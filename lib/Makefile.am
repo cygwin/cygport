@@ -17,6 +17,7 @@ dist_cygclass_DATA = 			\
 	gstreamer.cygclass			\
 	gtk2-perl.cygclass			\
 	gtkmm.cygclass				\
+	java.cygclass				\
 	kde3.cygclass				\
 	mono.cygclass				\
 	perl.cygclass				\

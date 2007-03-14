@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: java.cygclass,v 1.1 2007-03-14 15:59:11 yselkowitz Exp $
+# $Id: java.cygclass,v 1.2 2007-03-14 16:54:32 yselkowitz Exp $
 #
 ################################################################################
 
@@ -16,7 +16,7 @@ JAVAC=jikes
 JAVADOC=gjdoc
 JAVAH=
 
-GLIBJ_JAR=/usr/share/classpath/glibj.zip
+#GLIBJ_JAR=/usr/share/classpath/glibj.zip
 
 JAVA_DIR=/usr/share/java
 
