@@ -2,11 +2,11 @@
 #
 # distutils.cygclass - functions for building Distutils Python modules
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: distutils.cygclass,v 1.4 2007-03-12 06:47:23 yselkowitz Exp $
+# $Id: distutils.cygclass,v 1.5 2007-03-14 15:56:06 yselkowitz Exp $
 #
 ################################################################################
 
