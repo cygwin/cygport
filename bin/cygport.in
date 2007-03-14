@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.62 2007-03-14 17:55:15 yselkowitz Exp $
+# $Id: cygport.in,v 1.63 2007-03-14 18:05:13 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1627,6 +1627,7 @@ source ${_privdatadir}/mirrors || warning "could not read mirrors file"
 
 for conf in ${_sysconfdir}/${_name}.conf \
 			"${HOME}/.${_name}rc" \
+			"${HOME}/.${_name}.conf" \
 			"${HOME}/.${_name}/${_name}.conf"
 do
 	if [ -e "${conf}" ]
