@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: python.cygclass,v 1.4 2007-03-13 00:47:55 yselkowitz Exp $
+# $Id: python.cygclass,v 1.5 2007-03-14 13:30:04 yselkowitz Exp $
 #
 ################################################################################
 
@@ -49,7 +49,14 @@ dopython() {
 	do
 		if [ -e ${i} ]
 		then
-			/bin/install -m0644 ${i} ${D}${pydir} || error "dopython ${i} failed"
+			case ${i} in
+				*.dll)
+					/bin/install -m0755 ${i} ${D}${pydir} || error "dopython ${i} failed"
+					;;
+				*)
+					/bin/install -m0644 ${i} ${D}${pydir} || error "dopython ${i} failed"
+					;;
+			esac
 		else
 			error "dopython: ${i}: file not found"
 		fi

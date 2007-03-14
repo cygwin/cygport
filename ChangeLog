@@ -1,4 +1,6 @@
 
+	* lib/python.cygclass (dopython): Install DLLs executable.
+
 	* bin/cygport.in (__mkdirs, src_prep):
 	New config/ directory for storing configuration information during build.
 	Create cygport-version file for future use.
