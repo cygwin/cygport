@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.61 2007-03-14 17:48:52 yselkowitz Exp $
+# $Id: cygport.in,v 1.62 2007-03-14 17:55:15 yselkowitz Exp $
 #
 ################################################################################
 
@@ -340,7 +340,7 @@ fetch() {
 		then
 			mv -f ${urifile}.tmp ${urifile}
 		else
-			rm ${urifile}.tmp
+			rm -f ${urifile}.tmp
 			error "wget ${uri} failed"
 		fi
 	elif check_prog curl
@@ -349,7 +349,7 @@ fetch() {
 		then
 			mv -f ${urifile}.tmp ${urifile}
 		else
-			rm ${urifile}.tmp
+			rm -f ${urifile}.tmp
 			error "curl ${uri} failed"
 		fi			
 	else
