@@ -1,0 +1,35 @@
+################################################################################
+#
+# java.cygclass - functions for creating GNU Classpath based Java packages
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2007 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+# $Id: java.cygclass,v 1.1 2007-03-14 15:59:11 yselkowitz Exp $
+#
+################################################################################
+
+JAR=fastjar
+JAVA=jamvm
+JAVAC=jikes
+JAVADOC=gjdoc
+JAVAH=
+
+GLIBJ_JAR=/usr/share/classpath/glibj.zip
+
+JAVA_DIR=/usr/share/java
+
+dojava() {
+	dodir ${JAVA_DIR}
+
+	for i in "${@}"
+	do
+		if [ -e ${i} ]
+		then
+			/bin/install -m0644 ${i} ${D}${JAVA_DIR} || error "dojava ${i} failed"
+		else
+			error "dojava: ${i}: file not found"
+		fi
+	done
+}
