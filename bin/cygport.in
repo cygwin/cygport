@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.63 2007-03-14 18:05:13 yselkowitz Exp $
+# $Id: cygport.in,v 1.64 2007-03-14 19:48:53 yselkowitz Exp $
 #
 ################################################################################
 
@@ -106,7 +106,7 @@ __show_help() {
 __show_version() {
 	cat <<-_EOF
 		${_name} ${_version}
-		Copyright (C) 2006 Yaakov Selkowitz
+		Copyright (C) 2006, 2007 Yaakov Selkowitz
 
 		This program comes with NO WARRANTY, to the extent permitted by law.
 		You may redistribute copies of this program under the terms of
