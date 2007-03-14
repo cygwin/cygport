@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (fetch): Remove tarball placeholder if download fails.
+
 	* test/Makefile.am (clean-local):
 	Remove bootstrap workdir, in case make check was interrupted.
 

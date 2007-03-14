@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.60 2007-03-14 17:29:37 yselkowitz Exp $
+# $Id: cygport.in,v 1.61 2007-03-14 17:48:52 yselkowitz Exp $
 #
 ################################################################################
 
@@ -336,10 +336,22 @@ fetch() {
 
 	if check_prog wget
 	then
-		wget --no-check-certificate -O ${urifile} ${uri}
+		if wget --no-check-certificate -O ${urifile}.tmp ${uri}
+		then
+			mv -f ${urifile}.tmp ${urifile}
+		else
+			rm ${urifile}.tmp
+			error "wget ${uri} failed"
+		fi
 	elif check_prog curl
 	then
-		curl -k --url ${uri} -o ${urifile}
+		if curl -k --url ${uri} -o ${urifile}.tmp
+		then
+			mv -f ${urifile}.tmp ${urifile}
+		else
+			rm ${urifile}.tmp
+			error "curl ${uri} failed"
+		fi			
 	else
 		error "Either wget or curl are required to fetch sources.";
 	fi
