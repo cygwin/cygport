@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (keepdir): New function to keep empty directories.
+	(__prep_empty_dirs, src_postinst): Remove empty directories under $D.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am
 	* lib/berkdb.cygclass:

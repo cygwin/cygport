@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.59 2007-03-13 22:26:27 yselkowitz Exp $
+# $Id: cygport.in,v 1.60 2007-03-14 17:29:37 yselkowitz Exp $
 #
 ################################################################################
 
@@ -899,6 +899,15 @@ dodir() {
 	done
 }
 
+# prevents an otherwise empty directory from being automatically removed
+keepdir() {
+	for d in ${@}
+	do
+		dodir ${d}
+		touch ${D}${d}/.keep-${PN}
+	done
+}
+
 # The foointo functions set _foointo_dir variables for dofoo, and that
 # doesn't work from a separate script, hence they are here
 
@@ -984,8 +993,8 @@ src_install() {
 }
 
 # protect functions
-export -f dodir docinto exeinto insinto
-readonly -f dodir docinto exeinto insinto __prepinstalldirs cyginstall
+export -f dodir keepdir docinto exeinto insinto
+readonly -f dodir keepdir docinto exeinto insinto __prepinstalldirs cyginstall
 
 
 ################################################################################
@@ -1140,6 +1149,17 @@ __prepman() {
 	fi
 }
 
+# remove empty directories in D
+# if the must remain, call keepdir() in src_install()
+__prep_empty_dirs() {
+
+	# PTC if you find a package deeper than 20 (even perl mods are < 15)
+	for (( n=20; n >= 1; n-- ))
+	do
+		find ${D} -mindepth ${n} -type d -empty -exec rmdir '{}' +
+	done
+}
+
 __prepstrip() {
 	local exe;
 
@@ -1163,11 +1183,11 @@ __prepstrip() {
 }
 
 src_postinst() {
-	__prepdoc && __prepetc && __prepman && __prepstrip;
+	__prepdoc && __prepetc && __prepman && __prep_empty_dirs && __prepstrip;
 }
 
 # protect functions
-readonly -f __prepdoc __prepetc __prepman __prepstrip src_postinst
+readonly -f __prepdoc __prepetc __prepman __prep_empty_dirs __prepstrip src_postinst
 
 
 ################################################################################
