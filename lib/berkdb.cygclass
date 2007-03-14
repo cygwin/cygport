@@ -6,13 +6,15 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: berkdb.cygclass,v 1.4 2007-03-12 01:13:04 yselkowitz Exp $
+# $Id: berkdb.cygclass,v 1.5 2007-03-14 16:55:45 yselkowitz Exp $
 #
 ################################################################################
 
+inherit java
+
 case ${PV_MAJ_MIN} in
-	2.*)		SLOT=2 ;;
 	3.*|4.*)	SLOT="${PV_MAJ_MIN}" ;;
+	*)			error "berkdb: accepts only versions 3.x or 4.x" ;;
 esac
 
 tarpv=${PVP[0]}.${PVP[1]}.${PVP[2]}
@@ -30,15 +32,16 @@ then
 	done
 fi
 
-PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc"
-PKG_CONTENTS[0]='--exclude=html usr/bin/*.exe usr/share/doc/'
-PKG_CONTENTS[1]='usr/bin/*.dll usr/share/java/'
-PKG_CONTENTS[2]='etc/ usr/include/ usr/lib/'
+PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc java-${PN}"
+PKG_CONTENTS[0]="--exclude=html etc/p*/${PN}.sh usr/bin/*.exe usr/share/doc/"
+PKG_CONTENTS[1]="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
+PKG_CONTENTS[2]="etc/p*/${PN}-devel.sh usr/include/ usr/lib/"
 PKG_CONTENTS[3]="usr/share/doc/${P}/html/"
+PKG_CONTENTS[4]="etc/p*/java-${PN}.sh cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
 
 DIFF_EXCLUDES="configure libtool.ac"
 
-# Patches required for dist/Makefile.in:
+# At a minium, the following must be changed:
 # * chmod +w dist/Makefile.in dist/aclocal/tcl.ac dist/configure.ac
 # * Define EXEEXT=@EXEEXT@
 # * UTIL_PROGS=$(UTILPROGS:%=%@EXEEXT@)
@@ -50,12 +53,11 @@ DIFF_EXCLUDES="configure libtool.ac"
 # * sed -i -e 's/aix\*/aix*|cygwin*/g' dist/aclocal/tcl.ac
 
 berkdb_autoreconf() {
-	local errormsg="db libtoolize failed"
+	local errormsg="berkdb: libtoolize failed"
 
 	[ -f s_config ] && [ -d aclocal ] || error "not in dist/ directory"
 
 	cp -f /usr/share/aclocal/libtool.m4 aclocal/libtool.ac || error "${errormsg}"
-
 	cp -f /usr/share/libtool/config.{guess,sub} . || error "${errormsg}"
 	cp -f /usr/share/libtool/ltmain.sh . || error "${errormsg}"
 
@@ -70,7 +72,7 @@ berkdb_compile() {
 		--enable-compat185 \
 		--enable-cxx \
 		--enable-dynamic \
-		--enable-java JAVA=jamvm JAVAC=jikes JAR=fastjar \
+		--enable-java JAVA=${JAVA} JAVAC=${JAVAC} JAR=${JAR} \
 		--disable-tcl --disable-test
 		# Requires Ports' tcl as well as a patch to dist/aclocal/tcl.ac
 		# --enable-tcl --with-tclconfig=/usr/lib --enable-test
@@ -94,7 +96,6 @@ berkdb_install() {
 				docdir=${D}/usr/share/doc/${P}/html \
 				chmod=true ln=true
 			;;
-		*)	error "unknown db version" ;;
 	esac
 
 	# remove unslotted static libs
@@ -106,53 +107,72 @@ berkdb_install() {
 	sed -i -e 's#shouldnotlink=no#shouldnotlink=yes#' ${D}/usr/lib/libdb_java-${SLOT}.la
 
 	# relocate and slot Java jar
-	dodir /usr/share/java
-	mv ${D}/usr/lib/db.jar ${D}/usr/share/java/db-${SLOT}.jar
+	dodir ${JAVA_DIR}
+	mv ${D}/usr/lib/db.jar ${D}${JAVA_DIR}/db-${SLOT}.jar
 }
 
 berkdb_postinst() {
 	local h l lx prog
 
 	dodir /etc/postinstall
+
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 		prefix=/usr
-		bindir=\${prefix}/bin
-		incdir=\${prefix}/include
-		libdir=\${prefix}/lib
-		javadir=\${prefix}/share/java
+		bindir=\${prefix}
 		slot=${PVP[0]}.${PVP[1]}
 		rank=$(( PVP[0] * 100 + PVP[1] ))
 
 		/usr/sbin/update-alternatives \\
-			--install \${javadir}/db.jar  db.jar  \${javadir}/db-\${slot}.jar \${rank} \\
+		  --install  \${bindir}/db_archive     db_archive     \${bindir}/db\${slot}_archive.exe \${rank} \\
+		  --slave    \${bindir}/db_checkpoint  db_checkpoint  \${bindir}/db\${slot}_checkpoint.exe \\
+		  --slave    \${bindir}/db_deadlock    db_deadlock    \${bindir}/db\${slot}_deadlock.exe \\
+		  --slave    \${bindir}/db_dump        db_dump        \${bindir}/db\${slot}_dump.exe \\
+		  --slave    \${bindir}/db_load        db_load        \${bindir}/db\${slot}_load.exe \\
+		  --slave    \${bindir}/db_printlog    db_printlog    \${bindir}/db\${slot}_printlog.exe \\
+		  --slave    \${bindir}/db_recover     db_recover     \${bindir}/db\${slot}_recover.exe \\
+		  --slave    \${bindir}/db_stat        db_stat        \${bindir}/db\${slot}_stat.exe \\
+		  --slave    \${bindir}/db_upgrade     db_upgrade     \${bindir}/db\${slot}_upgrade.exe \\
+		  --slave    \${bindir}/db_verify      db_verify      \${bindir}/db\${slot}_verify.exe
 		_EOF
 
-	for h in db db_185 db_cxx
-	do
-		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			--slave   \${incdir}/${h}.h  ${h}.h  \${incdir}/db\${slot}/${h}.h \\
-			_EOF
-	done
+	cat >> ${D}/etc/postinstall/${PN}-devel.sh <<-_EOF
+		prefix=/usr
+		incdir=\${prefix}/include
+		libdir=\${prefix}/lib
+		slot=${PVP[0]}.${PVP[1]}
+		rank=$(( PVP[0] * 100 + PVP[1] ))
 
-	for l in db db_cxx
-	do
-		for lx in a dll.a la
-		do
-			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-				--slave   \${libdir}/lib${l}.${lx}  lib${l}.${lx}  \${libdir}/lib${l}-\${slot}.${lx} \\
-				_EOF
-		done
-	done	
+		/usr/sbin/update-alternatives \\
+		  --install \${incdir}/db.h      db.h       \${incdir}/db\${slot}/db.h \${rank} \\
+		  --slave   \${incdir}/db_185.h  db_185.h   \${incdir}/db\${slot}/db_185.h \\
+		  --slave   \${incdir}/db_cxx.h  db_cxx.h   \${incdir}/db\${slot}/db_cxx.h \\
+		  --slave   \${incdir}/db        db         \${incdir}/db\${slot} \\
+		  --slave   \${libdir}/libdb.a      libdb.a      \${libdir}/libdb-\${slot}.a \\
+		  --slave   \${libdir}/libdb.dll.a  libdb.dll.a  \${libdir}/libdb-\${slot}.dll.a \\
+		  --slave   \${libdir}/libdb.la     libdb.la     \${libdir}/libdb-\${slot}.la \\
+		  --slave   \${libdir}/libdb_cxx.a      libdb_cxx.a      \${libdir}/libdb_cxx-\${slot}.a \\
+		  --slave   \${libdir}/libdb_cxx.dll.a  libdb_cxx.dll.a  \${libdir}/libdb_cxx-\${slot}.dll.a \\
+		  --slave   \${libdir}/libdb_cxx.la     libdb_cxx.la     \${libdir}/libdb_cxx-\${slot}.la
 
-	for prog in archive checkpoint deadlock dump load printlog recover \
-	            stat upgrade verify
-	do
-		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			--slave   \${bindir}/db_${prog}  db_${prog}  \${bindir}/db\${slot}_${prog}.exe \\
-			_EOF
-	done
+		/usr/sbin/update-alternatives \\
+		  --install \${incdir}/db${PVP[0]}  db${PVP[0]}  \${incdir}/db\${slot} \${rank} \\
+		  --slave   \${libdir}/libdb${PVP[0]}.a      libdb${PVP[0]}.a      \${libdir}/libdb-\${slot}.a \\
+		  --slave   \${libdir}/libdb${PVP[0]}.dll.a  libdb${PVP[0]}.dll.a  \${libdir}/libdb-\${slot}.dll.a \\
+		  --slave   \${libdir}/libdb${PVP[0]}.la     libdb${PVP[0]}.la     \${libdir}/libdb-\${slot}.la \\
+		  --slave   \${libdir}/libdb${PVP[0]}_cxx.a      libdb${PVP[0]}_cxx.a      \${libdir}/libdb_cxx-\${slot}.a \\
+		  --slave   \${libdir}/libdb${PVP[0]}_cxx.dll.a  libdb${PVP[0]}_cxx.dll.a  \${libdir}/libdb_cxx-\${slot}.dll.a \\
+		  --slave   \${libdir}/libdb${PVP[0]}_cxx.la     libdb${PVP[0]}_cxx.la     \${libdir}/libdb_cxx-\${slot}.la
+		_EOF
 
-	echo >> ${D}/etc/postinstall/${PN}.sh
+	cat >> ${D}/etc/postinstall/java-${PN}.sh <<-_EOF
+		prefix=/usr
+		javadir=${JAVA_DIR}
+		slot=${PVP[0]}.${PVP[1]}
+		rank=$(( PVP[0] * 100 + PVP[1] ))
+
+		/usr/sbin/update-alternatives \\
+		  --install \${javadir}/db.jar  db.jar  \${javadir}/db-\${slot}.jar \${rank}
+		_EOF
 }
 
 berkdb_prerm() {
@@ -160,7 +180,24 @@ berkdb_prerm() {
 
 	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
 		prefix=/usr
-		javadir=\${prefix}/share/java
+		bindir=\${prefix}/bin
+		slot=${PVP[0]}.${PVP[1]}
+		
+		/usr/sbin/update-alternatives --remove db_archive \${bindir}/db\${slot}_archive.exe
+		_EOF
+
+	cat >> ${D}/etc/preremove/${PN}-devel.sh <<-_EOF
+		prefix=/usr
+		incdir=\${prefix}/include
+		slot=${PVP[0]}.${PVP[1]}
+
+		/usr/sbin/update-alternatives --remove db.h \${incdir}/db\${slot}/db.h
+		/usr/sbin/update-alternatives --remove db${PVP[0]} \${incdir}/db\${slot}
+		_EOF
+
+	cat >> ${D}/etc/preremove/java-${PN}.sh <<-_EOF
+		prefix=/usr
+		javadir=${JAVA_DIR}
 		slot=${PVP[0]}.${PVP[1]}
 
 		/usr/sbin/update-alternatives --remove db.jar \${javadir}/db-\${slot}.jar
