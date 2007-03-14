@@ -1,4 +1,14 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am
+	* lib/berkdb.cygclass:
+	New cygclass for building the Berkeley DB versions 3.x and 4.x.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am
+	* lib/java.cygclass:
+	New cygclass for GNU Classpath based Java packages.
+
 	* bin/dosym: Properly handle multiple targets and relative targets.
 
 	* lib/python.cygclass (dopython): Install DLLs executable.
