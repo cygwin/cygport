@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.64 2007-03-14 19:48:53 yselkowitz Exp $
+# $Id: cygport.in,v 1.65 2007-03-22 22:23:12 yselkowitz Exp $
 #
 ################################################################################
 
@@ -978,6 +978,7 @@ cyginstall() {
 		0|[Nn]|[Nn][Oo])
 			make ${MAKEOPTS} install \
 				prefix=${D}/usr \
+				exec_prefix=${D}/usr \
 				bindir=${D}/usr/bin/ \
 				includedir=${D}/usr/include \
 				libdir=${D}/usr/lib \
