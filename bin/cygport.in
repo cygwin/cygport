@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.65 2007-03-22 22:23:12 yselkowitz Exp $
+# $Id: cygport.in,v 1.66 2007-03-23 02:40:51 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1341,7 +1341,7 @@ pkg_diff() {
 	default_excludes="CYGWIN-PATCHES aclocal.m4* autom4te.cache \
 		config.cache config.log config.status config.h config.h.in
 		ABOUT-NLS Makefile.in.in Makevars.template \
-		*.class *.pyc *.mo *.gmo *.orig *.rej *.temp *~";
+		*.class *.pyc *.mo *.gmo *.orig *.rej *.temp *~ *.stackdump";
 
 	case ${PN} in
 		automake*|libtool*) ;;

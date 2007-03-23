@@ -1,5 +1,6 @@
 
 	* bin/cygport.in (cyginstall): Redefine exec_prefix for USE_DESTDIR=0.
+	(pkg_diff): Exclude .stackdump files by default.
 
 	* bin/prep_scrollkeeper_omf.sh: Improve postinstall and add preremove.
 
