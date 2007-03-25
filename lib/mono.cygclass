@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mono.cygclass,v 1.4 2006-11-23 04:14:59 yselkowitz Exp $
+# $Id: mono.cygclass,v 1.5 2007-03-25 22:28:31 yselkowitz Exp $
 #
 ################################################################################
 
@@ -23,6 +23,25 @@ SVN_URI="svn://svn.myrealbox.com/source/trunk/${SVN_MODULE:-${ORIG_PN:-${PN}}}"
 
 CYGCONF_ARGS+=" --disable-static"
 MAKEOPTS+=" -j1"
+
+dogac() {
+	local gacdll=${1}
+	local gacpkg="${2:+-package} ${2}"
+
+	if (( $# > 2 ))
+	then
+		error "dogac: Accepts one or two arguments"
+	fi
+
+	check_prog_req ${GACUTIL} mono
+
+	if [ ! -f ${gacdll} ]
+	then
+		error "dogac: ${gacdll}: File not found"
+	fi
+
+	${GACUTIL} -i ${gacdll} ${gacpkg} -gacdir ${D}/usr/lib || error "dogac ${gacdll} failed"
+}
 
 mono_wrapper() {
 	local massembly

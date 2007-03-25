@@ -1,4 +1,6 @@
 
+	* lib/mono.cygclass (dogac): New helper command for gacutil installation.
+
 	* bin/cygport.in (cyginstall): Redefine exec_prefix for USE_DESTDIR=0.
 	(pkg_diff): Exclude .stackdump files by default.
 
