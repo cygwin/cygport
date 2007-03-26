@@ -9,6 +9,7 @@ GOALS for 0.3 development:
 * decorations for unstable APIs
 * Redo gnome2_autoreconf to use gnome-autogen.sh
 * Debug and/or Verbose mode
+* Fix .cygwin.patch where already prepped.
 * Additional cygclasses:
 	- alternatives
 	- bzr
