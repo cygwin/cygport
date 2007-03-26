@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: java.cygclass,v 1.2 2007-03-14 16:54:32 yselkowitz Exp $
+# $Id: java.cygclass,v 1.3 2007-03-26 06:49:07 yselkowitz Exp $
 #
 ################################################################################
 
@@ -14,13 +14,25 @@ JAR=fastjar
 JAVA=jamvm
 JAVAC=jikes
 JAVADOC=gjdoc
-JAVAH=
+# FIXME: gjavah doesn't work
+JAVAH=gcjh
+GCJ=gcj
+
+JAR_PATH=/usr/bin/${JAR}
+JAVA_PATH=/usr/bin/${JAVA}
+JAVAC_PATH=/usr/bin/${JAVAC}
+JAVADOC_PATH=/usr/bin/${JAVADOC}
+JAVAH_PATH=/usr/bin/${JAVAH}
+GCJ_PATH=/usr/bin/${GCJ}
 
 #GLIBJ_JAR=/usr/share/classpath/glibj.zip
 
 JAVA_DIR=/usr/share/java
+JAVADOC_DIR=${JAVADOC_DIR:-/usr/share/javadoc/${PN#java-}}
 
-dojava() {
+CYGCONF_ARGS+=" JAVA=${JAVA} JAVAC=${JAVAC} JAVADOC=${JAVADOC} JAVAH=${JAVAH} JAR=${JAR}"
+
+dojar() {
 	dodir ${JAVA_DIR}
 
 	for i in "${@}"
@@ -32,4 +44,67 @@ dojava() {
 			error "dojava: ${i}: file not found"
 		fi
 	done
+}
+alias dojava='dojar'
+
+newjar() {
+	if (( $# != 2 ))
+	then
+		error "newjava: requires exactly two arguments"
+	fi
+
+	dodir ${JAVA_DIR}
+
+	for i in "${@}"
+	do
+		if [ -e ${i} ]
+		then
+			/bin/install -m0644 ${i} ${D}${JAVA_DIR}/${2} || error "newjava: install ${i} failed"
+		else
+			error "newjava: ${i}: file not found"
+		fi
+	done
+}
+alias newjava='newjar'
+
+dojavadoc() {
+	if (( $# != 1 ))
+	then
+		error "dojavadoc: requires exactly one argument"
+	fi
+
+	dodir ${JAVADOC_DIR}
+
+	for d in "${@}"
+	do
+		if [ -d ${d} ]
+		then
+			cp -r ${d}/* ${D}${JAVADOC_DIR} || error "dojavadoc ${d} failed"
+		else
+			error "dojavadoc: ${d}: file not found"
+		fi
+	done
+}
+
+java_wrapper() {
+	local jcommand
+	local jwrapper
+
+	if (( $# != 2 ))
+	then
+		error "java_wrapper requires exactly two arguments"
+	fi
+
+	jwrapper="${1}"
+	jcommand="${2}"
+
+	dodir /usr/bin
+
+	if [ -f ${D}/usr/bin/${jwrapper} ]
+	then
+		error "java_wrapper: /usr/bin/${jwrapper} in the way"
+	fi
+
+	echo -e "#!/bin/sh\nexec ${JAVA} ${jcommand} \"\$@\"" > ${D}/usr/bin/${jwrapper}
+	chmod +x ${D}/usr/bin/${jwrapper}
 }
