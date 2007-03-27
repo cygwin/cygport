@@ -1,4 +1,10 @@
 
+	* bin/cygport.in (src_fetch): Renamed __src_fetch.
+	* lib/cvs.cygclass:
+	* lib/git.cygclass:
+	* lib/svn.cygclass:
+	Reworked __src_fetch and RCS_fetch to allow RCS and FTP/HTTP in SRC_URI.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/zope.cygclass: New cygclass for Zope modular libraries.

@@ -6,11 +6,11 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: git.cygclass,v 1.5 2006-11-23 04:14:59 yselkowitz Exp $
+# $Id: git.cygclass,v 1.6 2007-03-27 19:41:24 yselkowitz Exp $
 #
 ################################################################################
 
-_USE_GIT_FETCH=1
+_USE_git_FETCH=1
 
 if ! defined GIT_URI
 then
@@ -20,9 +20,11 @@ fi
 GIT_URI=${GIT_URI%/}
 GIT_MODULE=${GIT_URI##*/}
 GIT_MODULE=${GIT_MODULE%.git}
-		
-SRC_URI="${GIT_MODULE}-${PV}.tar.bz2"
-SRC_DIR="${GIT_MODULE}"
+
+git_tarball="${GIT_MODULE}-${PV}.tar.bz2"
+
+SRC_URI+=" ${git_tarball}"
+SRC_DIR="${SRC_DIR:-${GIT_MODULE}}"
 
 git_fetch() {
 	check_prog_req git
@@ -38,5 +40,5 @@ git_fetch() {
 		cd ${T}
 	fi
 
-	tar jcf ${top}/${SRC_URI} --exclude=.git ${GIT_MODULE}
+	tar jcf ${top}/${git_tarball} --exclude=.git ${GIT_MODULE}
 }

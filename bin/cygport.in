@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.66 2007-03-23 02:40:51 yselkowitz Exp $
+# $Id: cygport.in,v 1.67 2007-03-27 19:41:23 yselkowitz Exp $
 #
 ################################################################################
 
@@ -388,35 +388,41 @@ mirror_fetch() {
 	error "Could not download ${1##*/}";
 }
 
-# downloads sources from Internet if not present
-src_fetch() {
+# downloads all sources through method-specific functions
+__src_fetch() {
+	local rcs;
 	local uri;
 
+	# FIXME: Versions < 0.3.1 would allow only one in any case.
+	# While theoretically possible to use more than one of the RCS_fetch cmds
+	# it's not assured because the tarball names could be the same.
+	# Unfortunately, changing the RCS tarball names would break existing
+	# source packages.  So for now, follow the previous behavior.
+	for rcs in cvs svn git
+	do
+		if defined _USE_${rcs}_FETCH
+		then
+			${rcs}_fetch;
+			break;
+		fi
+	done
+
+	# the RCS_fetch functions change PWD
 	cd ${top};
 
-	if defined _USE_CVS_FETCH
-	then
-		cvs_fetch;
-	elif defined _USE_SVN_FETCH
-	then
-		svn_fetch;
-	elif defined _USE_GIT_FETCH
-	then
-		git_fetch;
-	else
-		for uri in ${SRC_URI} ${PATCH_URI}
-		do
-			case ${uri%%://*} in
-				mirror)			mirror_fetch ${uri} ;;
-				http|https|ftp)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
-				${uri})			;;
-				*)				error "Invalid download URI ${uri}" ;;
-			esac
-		done
-	fi
+	for uri in ${SRC_URI} ${PATCH_URI}
+	do
+		case ${uri%%://*} in
+			mirror)			mirror_fetch ${uri} ;;
+			http|https|ftp)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
+			${uri})			;;
+			*)				error "Invalid download URI ${uri}" ;;
+		esac
+	done
 }
 
-# unpacks the original package source archive
+# unpacks archives
+# FIXME: public api?
 unpack() {
 	local unpack_cmd;
 	local unpack_file_path;
@@ -641,7 +647,7 @@ src_prep() {
 	fi
 
 	cd ${origsrcdir}/${SRC_DIR};
-	
+
 	for src_patch in ${_src_orig_patches}
 	do
 		apply_patch ${top}/${src_patch};
@@ -663,7 +669,7 @@ src_prep() {
 }
 
 # protect functions
-readonly -f fetch src_fetch unpack gpg_verify __mkdirs apply_patch __oldpatch src_prep
+readonly -f fetch __src_fetch unpack gpg_verify __mkdirs apply_patch __oldpatch src_prep
 
 
 ################################################################################
@@ -1722,7 +1728,7 @@ while (( arg_n < argc ))
 do
 	case ${argv[${arg_n}]} in
 		download|fetch|wget|get)
-			src_fetch;
+			__src_fetch;
 			_status=$?;
 			;;
 		prep|unpack)

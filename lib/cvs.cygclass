@@ -6,11 +6,11 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cvs.cygclass,v 1.4 2006-11-23 04:14:59 yselkowitz Exp $
+# $Id: cvs.cygclass,v 1.5 2007-03-27 19:41:24 yselkowitz Exp $
 #
 ################################################################################
 
-_USE_CVS_FETCH=1
+_USE_cvs_FETCH=1
 
 if ! defined CVS_URI
 then
@@ -19,8 +19,10 @@ fi
 
 CVS_MODULE=${CVS_MODULE:-${ORIG_PN:-${PN}}}
 
-SRC_URI="${CVS_MODULE}-${PV}.tar.bz2"
-SRC_DIR="${CVS_MODULE}"
+cvs_tarball="${CVS_MODULE}-${PV}.tar.bz2"
+
+SRC_URI+=" ${cvs_tarball}"
+SRC_DIR="${SRC_DIR:-${CVS_MODULE}}"
 
 cvs_fetch() {
 	local cvs_branch
@@ -43,5 +45,5 @@ cvs_fetch() {
 	cd ${T}
 	verbose cvs -d ${CVS_URI} checkout ${cvs_branch} ${cvs_date} ${CVS_MODULE}
 
-	tar jcf ${top}/${SRC_URI} --exclude=CVS --exclude=.cvsignore ${CVS_MODULE}
+	tar jcf ${top}/${cvs_tarball} --exclude=CVS --exclude=.cvsignore ${CVS_MODULE}
 }

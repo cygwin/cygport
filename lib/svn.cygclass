@@ -6,11 +6,11 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: svn.cygclass,v 1.7 2007-02-05 04:19:35 yselkowitz Exp $
+# $Id: svn.cygclass,v 1.8 2007-03-27 19:41:24 yselkowitz Exp $
 #
 ################################################################################
 
-_USE_SVN_FETCH=1
+_USE_svn_FETCH=1
 
 if ! defined SVN_URI
 then
@@ -20,8 +20,10 @@ fi
 SVN_URI=${SVN_URI%/}
 SVN_MODULE=${SVN_MODULE:-${SVN_URI##*/}}
 
-SRC_URI="${SVN_MODULE}-${PV}.tar.bz2"
-SRC_DIR="${SVN_MODULE}"
+svn_tarball="${SVN_MODULE}-${PV}.tar.bz2"
+
+SRC_URI+=" ${svn_tarball}"
+SRC_DIR="${SRC_DIR:-${SVN_MODULE}}"
 
 svn_fetch() {
 	local svn_rev
@@ -41,5 +43,5 @@ svn_fetch() {
 	cd ${T}
 	verbose svn checkout ${SVN_URI}/${SVN_BRANCH:-trunk} ${svn_rev} ${SVN_MODULE}
 
-	tar jcf ${top}/${SRC_URI} --exclude=.svn ${SVN_MODULE}
+	tar jcf ${top}/${svn_tarball} --exclude=.svn ${SVN_MODULE}
 }
