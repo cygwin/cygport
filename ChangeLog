@@ -1,9 +1,13 @@
 
-	* bin/cygport.in (src_fetch): Renamed __src_fetch.
+	* bin/cygport.in: Index mutable, public, and private symbols in 
+	each section. Added double-underscore prefix to some private functions.
+
+	* bin/cygport.in:
 	* lib/cvs.cygclass:
 	* lib/git.cygclass:
 	* lib/svn.cygclass:
-	Reworked __src_fetch and RCS_fetch to allow RCS and FTP/HTTP in SRC_URI.
+	Reworked src_fetch and RCS_fetch to allow RCS and FTP/HTTP in SRC_URI.
+	Renamed former to __src_fetch as private API.
 
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:

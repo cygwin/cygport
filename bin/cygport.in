@@ -6,13 +6,18 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.67 2007-03-27 19:41:23 yselkowitz Exp $
+# $Id: cygport.in,v 1.68 2007-03-27 21:25:31 yselkowitz Exp $
 #
 ################################################################################
 
 ################################################################################
 #
 # Language extensions
+#
+# public:
+#	defined VARIABLE_NAME
+#	ifdef VARIABLE_NAME
+#	ifndef VARIABLE_NAME
 #
 ################################################################################
 
@@ -40,6 +45,22 @@ alias ifndef="if ! defined"
 ################################################################################
 #
 # Initialization
+#
+# mutable:
+#	PATH
+#
+# private:
+#	argc
+#	argv
+#	os_name
+#	_name
+#	_prefix
+#	_privbindir
+#	_privdatadir
+#	_privdocdir
+#	_privlibdir
+#	_sysconfdir
+#	_version
 #
 ################################################################################
 set -e;
@@ -77,6 +98,10 @@ declare -ir argc=$(( $# + 1 ))
 ################################################################################
 #
 # Help and version messages
+#
+# private:
+#	__show_help
+#	__show_version
 #
 ################################################################################
 
@@ -147,6 +172,16 @@ fi
 #
 # Messaging functions
 #
+# public:
+#	error MESSAGE
+#	warning MESSAGE
+#	inform MESSAGE
+#	verbose COMMAND
+#
+# private:
+#	__stage MESSAGE
+#	__step MESSAGE
+#
 ################################################################################
 
 # displays error message and exits
@@ -174,6 +209,7 @@ inform() {
 verbose() {
 	echo "${@}"
 	"${@}"
+	return $?
 }
 
 # for internal use only
@@ -193,6 +229,21 @@ export -f error warning inform verbose
 ################################################################################
 # 
 # Locate the cygport file and set package name and version
+#
+# public:
+#	P
+#	PF
+#	PN
+#	PR
+#	PV
+#	PV_MAJ
+#	PV_MAJ_MIN
+#	PVP[]
+#	PVR
+#
+# private:
+#	cygportfile
+#	top
 #
 ################################################################################
 declare -r PF=$(echo ${argv[1]##*/} | sed -e 's!\.cygport!!')
@@ -232,6 +283,13 @@ declare -rx  PV_MAJ_MIN="${PVP[0]}.${PVP[1]}";
 #
 # Sanity check functions
 #
+# public:
+#	check_prog EXE
+#	check_prog_req EXE [EXE_PACKAGE]
+#
+# private:
+#	__version_at_least VERSION_REQUIRED VERSION_HAVE
+#
 ################################################################################
 
 # check that a program is found in PATH
@@ -263,6 +321,7 @@ check_prog_req() {
 }
 
 # determine if version is at least the given minimum
+# FIXME: public api?
 __version_at_least() {
 	local want_v=${1%-*};
 	local want_r=${1#*-};
@@ -313,7 +372,7 @@ do
 	fi
 done
 
-unset _myprog
+unset _myprog;
 
 # protect functions
 export -f check_prog check_prog_req
@@ -323,6 +382,22 @@ readonly -f check_prog check_prog_req __version_at_least
 ################################################################################
 #
 # src_prep functions
+#
+# mutable:
+#	USE_MANAGED_MOUNT
+#
+# public:
+#	cygpatch PATCHFILE [PATCHFILE2 ...]
+#
+# private:
+#	fetch WGET_URI
+#	unpack ARCHIVE
+#	__gpg_verify FILENAME FILE_DESCRIPTION [SIGFILE_EXTENSION]
+#	__mirror_fetch MIRROR_URI
+#	__mkdirs 
+#	__oldpatch OLDPATCH_VERSION
+#	__src_fetch
+#	__src_prep
 #
 ################################################################################
 
@@ -357,7 +432,7 @@ fetch() {
 	fi
 }
 
-mirror_fetch() {
+__mirror_fetch() {
 	local miruri;
 	local mirname;
 	local mirvar;
@@ -413,7 +488,7 @@ __src_fetch() {
 	for uri in ${SRC_URI} ${PATCH_URI}
 	do
 		case ${uri%%://*} in
-			mirror)			mirror_fetch ${uri} ;;
+			mirror)			__mirror_fetch ${uri} ;;
 			http|https|ftp)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
 			${uri})			;;
 			*)				error "Invalid download URI ${uri}" ;;
@@ -499,7 +574,7 @@ unpack() {
 	done
 }
 
-gpg_verify() {
+__gpg_verify() {
 	local _file=${1};
 	local _filetype=${2};
 	local _sigext=${3:-sig};
@@ -507,7 +582,7 @@ gpg_verify() {
 	if [ -f ${_file}.${_sigext} ]
 	then
 		inform "${_filetype} signature follows:";
-		# we 'check_prog gpg' in src_prep
+		# we 'check_prog gpg' in __src_prep
 		gpg --verify ${_file}.${_sigext} ${_file};
 	else
 		inform "${_filetype} signature missing.";
@@ -527,7 +602,7 @@ __mkdirs() {
 	mkdir -p ${srcdir} ${origsrcdir} ${B} ${D} ${T} ${configdir} ${logdir} ${distdir} ${patchdir} ${spkgdir};
 }
 
-apply_patch() {
+cygpatch() {
 	local patchfile_name;
 	local patchfile_path;
 	local -i patchlevel;
@@ -574,6 +649,7 @@ apply_patch() {
 	done
 }
 
+# FIXME: deprecated
 __oldpatch() {
 	local _oldver=${1};
 
@@ -581,16 +657,16 @@ __oldpatch() {
 
 	if [ -e ${top}/${PN}-${_oldver}.src.patch -o -e ${top}/${PN}-${_oldver}.cygwin.patch ]
 	then
-		apply_patch ${top}/${PN}-${_oldver}.cygwin.patch ${top}/${PN}-${_oldver}.src.patch;
+		cygpatch ${top}/${PN}-${_oldver}.cygwin.patch ${top}/${PN}-${_oldver}.src.patch;
 	elif [ -e ${top}/${PN}-${_oldver}.patch ]
 	then
-		apply_patch ${top}/${PN}-${_oldver}.patch;
+		cygpatch ${top}/${PN}-${_oldver}.patch;
 	else
 		error "Patches for version ${_oldver} not found";
 	fi
 }
 
-src_prep() {
+__src_prep() {
 	local sigext;
 	local src_patch;
 	local src_pkg;
@@ -614,21 +690,21 @@ src_prep() {
 			do
 				if [ -f ${src_pkg}.${sigext} ]
 				then
-					gpg_verify ${src_pkg} "ORIGINAL PACKAGE $((n++))" ${sigext};
+					__gpg_verify ${src_pkg} "ORIGINAL PACKAGE $((n++))" ${sigext};
 				fi
 			done
 		done
 
-		gpg_verify ${PF}.cygport "CYGPORT SCRIPT";
+		__gpg_verify ${PF}.cygport "CYGPORT SCRIPT";
 
 		if [ -f ${top}/${cygwin_patchfile} ]
 		then
-			gpg_verify ${top}/${cygwin_patchfile} "CYGWIN PATCH";
+			__gpg_verify ${top}/${cygwin_patchfile} "CYGWIN PATCH";
 		fi
 
 		if [ -f ${top}/${src_patchfile} ]
 		then
-			gpg_verify ${top}/${src_patchfile} "SOURCE PATCH";
+			__gpg_verify ${top}/${src_patchfile} "SOURCE PATCH";
 		fi
 	else
 		inform "gnupg must be installed in order to check signatures.";
@@ -650,7 +726,7 @@ src_prep() {
 
 	for src_patch in ${_src_orig_patches}
 	do
-		apply_patch ${top}/${src_patch};
+		cygpatch ${top}/${src_patch};
 	done
 
 	__step "Preparing working source directory";
@@ -664,17 +740,36 @@ src_prep() {
 
 	if [ -f ${top}/${cygwin_patchfile} -o -f ${top}/${src_patchfile} ]
 	then
-		apply_patch ${top}/${cygwin_patchfile} ${top}/${src_patchfile};
+		cygpatch ${top}/${cygwin_patchfile} ${top}/${src_patchfile};
 	fi
 }
 
 # protect functions
-readonly -f fetch __src_fetch unpack gpg_verify __mkdirs apply_patch __oldpatch src_prep
+readonly -f fetch __mirror_fetch __src_fetch unpack __gpg_verify __mkdirs cygpatch __oldpatch __src_prep
 
 
 ################################################################################
 #
 # src_compile functions
+#
+# mutable:
+#	CYGCONF_ARGS
+#	CYGCONF_SOURCE
+#	NO_ACLOCAL
+#	NO_AUTOCONF
+#	NO_AUTOHEADER
+#	NO_AUTOMAKE
+#	NO_AUTOPOINT
+#	NO_LIBTOOL
+#	WANT_AUTOCONF
+#	WANT_AUTOMAKE
+#	src_compile
+#
+# public:
+#	cygautoreconf
+#	cygconf CONF_OPTIONS
+#	cygmake MAKE_OPTIONS
+#	lndirs
 #
 ################################################################################
 
@@ -867,6 +962,12 @@ readonly -f lndirs cygautoreconf cygconf cygmake
 #
 # src_test functions
 #
+# mutable:
+#	src_test
+#
+# public:
+#	cygtest
+#
 ################################################################################
 
 # runs 'make check' or 'make test'
@@ -901,6 +1002,24 @@ readonly -f cygtest
 ################################################################################
 #
 # src_install functions
+#
+# mutable:
+#	USE_DESTDIR
+#	src_install
+#
+# public:
+#	cyginstall
+#	docinto
+#	dodir
+#	exeinto
+#	insinto
+#	keepdir
+#
+# private:
+#	_docinto_dir
+#	_exeinto_dir
+#	_insinto_dir
+#	__prepinstalldirs
 #
 ################################################################################
 
@@ -1018,7 +1137,19 @@ readonly -f dodir keepdir docinto exeinto insinto __prepinstalldirs cyginstall
 
 ################################################################################
 #
-# automatic src_postinstall functions
+# automatic src_postinst functions
+#
+# mutable:
+#	DOCS
+#	HTMLDOCS
+#
+# private:
+#	__prepdoc
+#	__prepetc
+#	__prepman
+#	__prepstrip
+#	__prep_empty_dirs
+#	__src_postinst
 #
 ################################################################################
 
@@ -1201,17 +1332,27 @@ __prepstrip() {
 	find * -name '*.la' -exec prep_libtool_modules.sh '{}' + || error "Libtool module postinstall failed"
 }
 
-src_postinst() {
+__src_postinst() {
 	__prepdoc && __prepetc && __prepman && __prep_empty_dirs && __prepstrip;
 }
 
 # protect functions
-readonly -f __prepdoc __prepetc __prepman __prep_empty_dirs __prepstrip src_postinst
+readonly -f __prepdoc __prepetc __prepman __prep_empty_dirs __prepstrip __src_postinst
 
 
 ################################################################################
 #
 # information functions
+#
+# mutable:
+#	DEPS_PATH
+#	DESCRIPTION
+#	HOMEPAGE
+#
+# private:
+#	__list_deps
+#	__list_files
+#	__show_info
 #
 ################################################################################
 
@@ -1257,9 +1398,25 @@ readonly -f __list_files __list_deps __show_info
 #
 # packaging functions
 #
+# mutable:
+#	DIFF_EXCLUDES
+#	PKG_CONTENTS[]
+#	PKG_HINTS
+#	PKG_LISTS
+#	SIG
+#
+# private:
+#	__finish
+#	__gpg_sign
+#	__pkg_binpkg
+#	__pkg_diff
+#	__pkg_dist
+#	__pkg_pkgcheck
+#	__pkg_srcpkg
+#
 ################################################################################
 
-pkg_binpkg() {
+__pkg_binpkg() {
 	local -i n=0;
 	local pkg_list;
 
@@ -1295,7 +1452,7 @@ pkg_binpkg() {
 	done
 }
 
-pkg_pkgcheck() {
+__pkg_pkgcheck() {
 	local -i n=0;
 	local tmp1="${T}/tmptar.log";
 	local tmp2="${T}/tmpfind.log";
@@ -1338,7 +1495,7 @@ pkg_pkgcheck() {
 	rm -f ${tmp1} ${tmp2};
 }
 
-pkg_diff() {
+__pkg_diff() {
 	local default_excludes;
 	local diff_excludes_x;
 	local difflevel;
@@ -1454,14 +1611,14 @@ pkg_diff() {
 	fi
 }
 
-gpg_sign() {
+__gpg_sign() {
 	echo "${2} signature needs to be updated";
 	rm -f ${1}.sig;
-	# we 'check_prog gpg' in pkg_srcpkg()
+	# we 'check_prog gpg' in __pkg_srcpkg()
 	gpg --detach-sign ${1};
 }
 
-pkg_srcpkg() {
+__pkg_srcpkg() {
 	local src;
 
 	rm -fr ${spkgdir}/*;
@@ -1469,7 +1626,7 @@ pkg_srcpkg() {
 	echo;
 	__step "Creating source patches";
 
-	pkg_diff;
+	__pkg_diff;
 
 	cp ${patchdir}/${cygwin_patchfile} ${spkgdir};
 
@@ -1493,12 +1650,12 @@ pkg_srcpkg() {
 	then
 		if check_prog gpg
 		then
-			gpg_sign ${spkgdir}/${PF}.cygport "CYGPORT SCRIPT";
-			gpg_sign ${spkgdir}/${cygwin_patchfile} "CYGWIN PATCH";
+			__gpg_sign ${spkgdir}/${PF}.cygport "CYGPORT SCRIPT";
+			__gpg_sign ${spkgdir}/${cygwin_patchfile} "CYGWIN PATCH";
 
 			if [ -f ${spkgdir}/${src_patchfile} ]
 			then
-				gpg_sign ${spkgdir}/${src_patchfile} "SOURCE PATCH";
+				__gpg_sign ${spkgdir}/${src_patchfile} "SOURCE PATCH";
 			fi
 		else
 			inform "gnupg must be installed in order to make signatures.";
@@ -1508,7 +1665,7 @@ pkg_srcpkg() {
 	tar cvjf ${top}/${PF}-src.tar.bz2 * || error "Source package creation failed"
 }
 
-pkg_dist() {
+__pkg_dist() {
 	local -i n=1;
 	local -a pkg_hint;
 
@@ -1555,7 +1712,7 @@ pkg_dist() {
 	done
 }
 
-finish() {
+__finish() {
 	local -i n=0;
 
 	cd ${top};
@@ -1587,12 +1744,28 @@ finish() {
 }
 
 # protect functions
-readonly -f pkg_binpkg pkg_diff gpg_sign pkg_srcpkg pkg_dist finish
+readonly -f __pkg_binpkg __pkg_diff __gpg_sign __pkg_srcpkg __pkg_dist __finish
 
 
 ################################################################################
 #
 # import global prefs, then the cygport
+#
+# mutable:
+#	CFLAGS
+#	CPPFLAGS
+#	CXXFLAGS
+#	CYGPORT_DEPEND
+#	F77FLAGS
+#	GCJFLAGS
+#	LDFLAGS
+#	MAKEOPTS
+#
+# public:
+#	inherit CYGCLASS [CYGCLASS2 ...]
+#
+# private:
+#	_*_CYGCLASS_
 #
 ################################################################################
 
@@ -1643,6 +1816,8 @@ do
 	fi
 done
 
+unset conf;
+
 source ${top}/${cygportfile} || error "could not read ${cygportfile}"
 
 if defined CYGPORT_DEPEND
@@ -1657,6 +1832,35 @@ fi
 ################################################################################
 #
 # define package-dependant variables
+#
+# mutable:
+#	PATCH_URI
+#	PKG_NAMES
+#	SRC_DIR
+#	SRC_URI
+#
+# public:
+#	B
+#	C
+#	D
+#	SRC_DIR
+#	T
+#
+# private:
+#	configdir
+#	cygwin_patchfile
+#	distdir
+#	logdir
+#	origsrcdir
+#	patchdir
+#	pkg_count
+#	pkg_name[]
+#	spkgdir
+#	srcdir
+#	src_patchfile
+#	workdir
+#	_src_orig_patches
+#	_src_orig_pkgs
 #
 ################################################################################
 declare -r workdir="${top}/${PF}";
@@ -1733,7 +1937,7 @@ do
 			;;
 		prep|unpack)
 			__stage Preparing;
-			src_prep;
+			__src_prep;
 			_status=$?;
 			;;
 		oldpatch)
@@ -1752,11 +1956,11 @@ do
 			;;
 		inst*)
 			__stage Installing;
-			(__prepinstalldirs && src_install && src_postinst) 2>&1 | tee ${installlog};
+			(__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee ${installlog};
 			_status=$?;
 			;;
 		postinst*)
-			src_postinst;
+			__src_postinst;
 			_status=$?;
 			;;
 		list)
@@ -1773,30 +1977,30 @@ do
 			;;
 		package|pkg)
 			__stage Packaging;
-			(pkg_binpkg && pkg_pkgcheck && pkg_srcpkg && pkg_dist) 2>&1 | tee ${pkglog};
+			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee ${pkglog};
 			_status=$?;
 			;;
 		diff|mkdiff|mkpatch)
-			pkg_diff;
+			__pkg_diff;
 			_status=$?;
 			;;
 		finish)
-			finish;
+			__finish;
 			_status=$?;
 			;;
 		almostall)
-			__stage Preparing && src_prep && \
+			__stage Preparing && __src_prep && \
 			__stage Compiling && src_compile 2>&1 | tee ${compilelog} && \
-			__stage Installing && (__prepinstalldirs && src_install && src_postinst) 2>&1 | tee ${installlog} && \
-			__stage Packaging && (pkg_binpkg && pkg_pkgcheck && pkg_srcpkg && pkg_dist) 2>&1 | tee ${pkglog}
+			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee ${installlog} && \
+			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee ${pkglog}
 			_status=$?;
 			;;
 		all)
-			__stage Preparing && src_prep && \
+			__stage Preparing && __src_prep && \
 			__stage Compiling && src_compile 2>&1 | tee ${compilelog} && \
-			__stage Installing && (__prepinstalldirs && src_install && src_postinst) 2>&1 | tee ${installlog} && \
-			__stage Packaging && (pkg_binpkg && pkg_pkgcheck && pkg_srcpkg && pkg_dist) 2>&1 | tee ${pkglog} && \
-			finish;
+			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee ${installlog} && \
+			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee ${pkglog} && \
+			__finish;
 			_status=$?;
 			;;
 		help)
