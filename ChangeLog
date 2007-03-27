@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/zope.cygclass: New cygclass for Zope modular libraries.
+
 	* lib/java.cygclass (dojar): Renamed command.
 	(dojava): Alias to dojar.
 	(dojavadoc, java_wrapper): New install helpers.
