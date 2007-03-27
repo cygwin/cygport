@@ -7,6 +7,6 @@ cygport.1: $(top_builddir)/bin/cygport
 	$(HELP2MAN) -o $@ --no-info --name="Cygwin source packaging tool" $<
 
 cygport.1.html: cygport.1
-	cat $< | groff -t -mandoc -Thtml > $@
+	groff -t -mandoc -Thtml $< > $@
 
 DISTCLEANFILES = $(dist_man_MANS) $(dist_htmldoc_DATA)
