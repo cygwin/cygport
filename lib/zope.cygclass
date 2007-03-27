@@ -1,0 +1,35 @@
+################################################################################
+#
+# zope.cygclass - functions for building Zope component packages
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2007 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+# $Id: zope.cygclass,v 1.1 2007-03-27 19:09:55 yselkowitz Exp $
+#
+################################################################################
+
+# This cygclass is meant solely for the modular Zope components
+# It is NOT meant for the Zope core or other Zope products
+
+inherit distutils
+
+ORIG_PN=${PN//-/.}
+
+DESCRIPTION="Zope ${PN#zope-} module"
+HOMEPAGE="http://wiki.zope.org/zope3/FrontPage"
+SRC_URI="http://download.zope.org/distribution/${ORIG_PN}-${PV}.tar.gz"
+SVN_URI="http://svn.zope.org/${ORIG_PN}"
+
+src_install() {
+	cd ${B}
+	distutils_install
+
+	# only zope-testing should provide zope.__init__ because 
+	# it has no zope dependencies and even zope-interface deps it for tests
+	case ${PN} in
+		zope-testing) ;;
+		*) rm -f ${D}${PYTHON_SITELIB}/zope/__init__.py*
+	esac
+}
