@@ -1,4 +1,9 @@
 
+	* lib/cvs.cygclass:
+	* lib/git.cygclass:
+	* lib/svn.cygclass: Redefine, not append, SRC_URI.
+	(svn_fetch): Ignore .cvsignore files found in cvs2svn repos.
+
 	* bin/cygport.in: Index mutable, public, and private symbols in 
 	each section. Added double-underscore prefix to some private functions.
 

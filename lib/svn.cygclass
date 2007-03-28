@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: svn.cygclass,v 1.8 2007-03-27 19:41:24 yselkowitz Exp $
+# $Id: svn.cygclass,v 1.9 2007-03-28 19:00:34 yselkowitz Exp $
 #
 ################################################################################
 
@@ -22,7 +22,7 @@ SVN_MODULE=${SVN_MODULE:-${SVN_URI##*/}}
 
 svn_tarball="${SVN_MODULE}-${PV}.tar.bz2"
 
-SRC_URI+=" ${svn_tarball}"
+SRC_URI="${svn_tarball} "
 SRC_DIR="${SRC_DIR:-${SVN_MODULE}}"
 
 svn_fetch() {
@@ -43,5 +43,6 @@ svn_fetch() {
 	cd ${T}
 	verbose svn checkout ${SVN_URI}/${SVN_BRANCH:-trunk} ${svn_rev} ${SVN_MODULE}
 
-	tar jcf ${top}/${svn_tarball} --exclude=.svn ${SVN_MODULE}
+	# many SVN repos were made by cvs2svn and .cvsignore files remain
+	tar jcf ${top}/${svn_tarball} --exclude=.svn --exclude=.cvsignore ${SVN_MODULE}
 }
