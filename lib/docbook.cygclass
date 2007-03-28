@@ -1,0 +1,149 @@
+################################################################################
+#
+# docbook.cygclass - functions for packaging DocBook DTDs
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2007 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+# $Id: docbook.cygclass,v 1.1 2007-03-28 22:28:14 yselkowitz Exp $
+#
+################################################################################
+
+# This cygclass is only for the SGML and XML DTDs
+# The DSSSL and XSL stylesheets (docbook.sf.net) are not supported here
+
+dtd_type=${PN#docbook-}
+dtd_type=${dtd_type%%[0-9]*}
+dtd_TYPE=$(echo ${dtd_type} | tr [:lower:] [:upper:])
+my_pn=docbook-${dtd_type}
+my_p=${my_pn}-${PV}
+
+SGML_CATALOG=/etc/sgml/catalog
+XML_CATALOG=/etc/xml/catalog
+DOCBOOK_ROOT=/usr/share/sgml
+DOCBOOK_SUBDIR=${my_p//-//}
+DOCBOOK_DIR=${DOCBOOK_ROOT}/${DOCBOOK_SUBDIR}
+
+DESCRIPTION="DocBook ${dtd_TYPE} DTD version ${PN}"
+HOMEPAGE="http://www.oasis-open.org/docbook/"
+
+case "${dtd_type}-${PV}" in
+	sgml-[12].*)
+		SRC_URI="http://www.oasis-open.org/${DOCBOOK_SUBDIR}/docbk${PV//.}.zip"
+		;;
+	sgml-3.[01]*|sgml-4.[01]*)
+		SRC_URI="http://www.oasis-open.org/${DOCBOOK_SUBDIR}/docbk${PV//.}.zip"
+		PATCH_URI="mirror://portage/app-text/${my_pn}-dtd/files/${my_pn}-dtd-${PV}-catalog.diff"
+		;;
+	sgml-4.[234]*)
+		SRC_URI="http://www.oasis-open.org/${DOCBOOK_SUBDIR}/docbook-${PV}.zip"
+		PATCH_URI="mirror://portage/app-text/${my_pn}-dtd/files/${my_pn}-dtd-${PV}-catalog.diff"
+		;;
+	sgml-4*)
+		SRC_URI="http://www.oasis-open.org/${DOCBOOK_SUBDIR}/docbook-${PV}.zip"
+		;;
+	xml-4.[01]*)
+		SRC_URI="http://www.oasis-open.org/${DOCBOOK_SUBDIR}/docbkx${PV//.}.zip"
+		;;
+	xml-4.*)
+		SRC_URI="http://www.oasis-open.org/${DOCBOOK_SUBDIR}/docbook-xml-${PV}.zip"
+		;;
+	xml-simple-1.*)
+		SRC_URI="http://www.oasis-open.org/${DOCBOOK_SUBDIR}/docbook-simple-${PV}.zip"
+		;;
+	*)	error "docbook: unknown DTD ${my_pn} ${PV}" ;;
+esac
+
+SRC_DIR=.
+
+docbook_install() {
+	insinto ${DOCBOOK_DIR}
+	doins *.cat *.dtd *.mod
+
+	case ${dtd_type} in
+		sgml)
+			doins *.dcl
+			;;
+		xml)
+			insinto ${DOCBOOK_DIR}/ent
+			doins ent/*.ent
+			;;
+	esac
+}
+
+docbook_sgml_postinst() {
+	dodir /etc/postinstall
+
+	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+	mkdir -p /etc/sgml
+	install-catalog --add ${SGML_CATALOG} ${DOCBOOK_DIR}/docbook.cat
+
+	_EOF
+}
+
+docbook_sgml_prerm() {
+	dodir /etc/preremove
+
+	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+	install-catalog --remove ${SGML_CATALOG} ${DOCBOOK_DIR}/docbook.cat
+
+	_EOF
+}
+
+docbook_xml_postinst() {
+	local simple
+
+	case ${dtd_type} in
+		xml-simple) simple="Simplified " ;;
+	esac
+
+	dodir /etc/postinstall
+
+	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+	mkdir -p /etc/xml
+	[ -f /etc/xml/catalog ] || xmlcatalog --noout --create /etc/xml/catalog
+
+	xmlcatalog --noout --add public \
+	    "-//OASIS//DTD ${simple}DocBook XML V${PV}//EN" \
+	    http://www.oasis-open.org/${DOCBOOK_SUBDIR}/ \
+	    ${XML_CATALOG}
+	xmlcatalog --noout --add rewriteSystem \
+	    http://www.oasis-open.org/${DOCBOOK_SUBDIR}/ \
+	    ${DOCBOOK_DIR}/ \
+	    ${XML_CATALOG}
+
+	_EOF
+}
+
+docbook_xml_prerm() {
+	dodir /etc/preremove
+
+	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+	xmlcatalog --noout --del \
+	    "-//OASIS//DTD DocBook XML V${PV}//EN" \
+	    ${XML_CATALOG}
+	xmlcatalog --noout --del \
+	    http://www.oasis-open.org/${DOCBOOK_SUBDIR}/ \
+	    ${XML_CATALOG}
+
+	_EOF
+}
+
+src_compile() {
+	:
+}
+
+src_install() {
+	cd ${S}
+	docbook_install
+	docbook_sgml_postinst
+	docbook_sgml_prerm
+
+	case ${dtd_type} in
+		xml*)
+			docbook_xml_postinst
+			docbook_xml_prerm
+			;;
+	esac
+}
