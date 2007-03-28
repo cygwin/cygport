@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: zope.cygclass,v 1.1 2007-03-27 19:09:55 yselkowitz Exp $
+# $Id: zope.cygclass,v 1.2 2007-03-28 11:57:35 yselkowitz Exp $
 #
 ################################################################################
 
@@ -22,14 +22,16 @@ HOMEPAGE="http://wiki.zope.org/zope3/FrontPage"
 SRC_URI="http://download.zope.org/distribution/${ORIG_PN}-${PV}.tar.gz"
 SVN_URI="http://svn.zope.org/${ORIG_PN}"
 
+DIFF_EXCLUDES+=" ${ORIG_PN}.egg-info "
+
 src_install() {
 	cd ${B}
 	distutils_install
 
-	# only zope-testing should provide zope.__init__ because 
-	# it has no zope dependencies and even zope-interface deps it for tests
+	# only zope-interface should provide zope.__init__ because 
+	# other zope modules depend on it
 	case ${PN} in
-		zope-testing) ;;
+		zope-interface) ;;
 		*) rm -f ${D}${PYTHON_SITELIB}/zope/__init__.py*
 	esac
 }
