@@ -2,11 +2,11 @@
 #
 # mono.cygclass - functions for building Mono assemblies
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mono.cygclass,v 1.5 2007-03-25 22:28:31 yselkowitz Exp $
+# $Id: mono.cygclass,v 1.6 2007-03-28 19:02:45 yselkowitz Exp $
 #
 ################################################################################
 
