@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mirrors,v 1.14 2007-02-20 03:49:12 yselkowitz Exp $
+# $Id: mirrors,v 1.15 2007-04-22 20:25:39 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1182,6 +1182,19 @@ mirror_kde="
 	http://www.mirrorservice.org/sites/ftp.kde.org/pub/kde
 	ftp://ftp.mirror.ac.uk/sites/ftp.kde.org/pub/kde
 "   # mirror_kde
+
+# http://www.mplayerhq.hu/dload.html
+mirror_mplayer="
+	http://www1.mplayerhq.hu/MPlayer
+	http://www2.mplayerhq.hu/MPlayer
+	http://www3.mplayerhq.hu/MPlayer
+	http://www5.mplayerhq.hu/MPlayer
+	http://www6.mplayerhq.hu/MPlayer
+	ftp://ftp1.mplayerhq.hu/MPlayer
+	ftp://ftp2.mplayerhq.hu/MPlayer
+	ftp://ftp5.mplayerhq.hu/MPlayer
+	ftp://ftp.fu-berlin.de/unix/X11/multimedia/MPlayer
+"	# mirror_mplayer
 
 # http://rubyforge.org/credits/
 mirror_rubyforge="

@@ -1,4 +1,6 @@
 
+	* data/mirrors (mirror_mplayer): Added.
+
 	* lib/cvs.cygclass:
 	* lib/git.cygclass:
 	* lib/svn.cygclass: Redefine, not append, SRC_URI.
