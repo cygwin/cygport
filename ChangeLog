@@ -1,4 +1,7 @@
 
+	* lib/python.cygclass: Provide default HOMEPAGE and SRC_URI at cheeseshop.
+	(python_optimize) Inform of action instead of showing output.
+
 	* data/mirrors (mirror_mplayer): Added.
 
 	* lib/cvs.cygclass:
