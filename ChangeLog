@@ -1,4 +1,9 @@
 
+	* bin/cygport.in (cygpatch): Accept {g,bz}ipped patches.
+	(cygconf): Remove files in S that will be recreated by configure in B.
+	(__prepstrip): Don't 'chmod +x' .NET assemblies.
+	(__pkg_diff): Ignore .spec files.
+
 	* lib/python.cygclass: Provide default HOMEPAGE and SRC_URI at cheeseshop.
 	(python_optimize) Inform of action instead of showing output.
 
