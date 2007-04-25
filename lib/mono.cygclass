@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mono.cygclass,v 1.6 2007-03-28 19:02:45 yselkowitz Exp $
+# $Id: mono.cygclass,v 1.7 2007-04-25 03:29:15 yselkowitz Exp $
 #
 ################################################################################
 
@@ -55,16 +55,23 @@ mono_wrapper() {
 	fi
 
 	mscript=${1}
+	mscriptfile=${mscript##*/}
+	case "${mscriptfile}" in
+		"${mscript}")
+			mscriptpath=/usr/bin ;;
+		*)	mscriptpath=${mscript%/*} ;;
+	esac
+
 	massembly=${2}
 	massemblyfile=${massembly##*/}
 	massemblypath=${massembly%/*}
 
-	dodir /usr/bin
+	dodir ${mscriptpath}
 
-	if [ -f ${D}/usr/bin/${massemblyfile} ]
+	if [ -x ${D}${mscriptdir}/${massemblyfile} ]
 	then
 		dodir ${massemblypath}
-		mv ${D}/usr/bin/${massemblyfile} ${D}${massemblypath}
+		mv ${D}${mscriptdir}/${massemblyfile} ${D}${massemblypath}
 	fi
 
 	if [ ! -f ${D}${massembly} ]
@@ -72,6 +79,6 @@ mono_wrapper() {
 		error "${massemblyfile} is not installed into ${massemblypath}"
 	fi
 
-	echo -e "#!/bin/sh\nexec /usr/bin/mono ${2} \"\$@\"" > ${D}/usr/bin/${mscript}
-	chmod +x ${D}/usr/bin/${mscript}
+	echo -e "#!/bin/sh\nexec /usr/bin/mono ${2} \"\$@\"" > ${D}${mscriptdir}/${mscript}
+	chmod +x ${D}${mscriptdir}/${mscript}
 }
