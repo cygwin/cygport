@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.71 2007-04-25 12:00:58 yselkowitz Exp $
+# $Id: cygport.in,v 1.72 2007-04-25 20:13:24 yselkowitz Exp $
 #
 ################################################################################
 
@@ -473,7 +473,7 @@ __src_fetch() {
 	# it's not assured because the tarball names could be the same.
 	# Unfortunately, changing the RCS tarball names would break existing
 	# source packages.  So for now, follow the previous behavior.
-	for rcs in cvs svn git
+	for rcs in cvs svn git bzr
 	do
 		if defined _USE_${rcs}_FETCH
 		then
