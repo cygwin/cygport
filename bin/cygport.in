@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.70 2007-04-25 04:23:24 yselkowitz Exp $
+# $Id: cygport.in,v 1.71 2007-04-25 12:00:58 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1796,11 +1796,13 @@ readonly -f __pkg_binpkg __pkg_diff __gpg_sign __pkg_srcpkg __pkg_dist __finish
 #	GCJFLAGS
 #	LDFLAGS
 #	MAKEOPTS
+#	RESTRICT
 #
 # public:
 #	inherit CYGCLASS [CYGCLASS2 ...]
 #
 # private:
+#	_CYGPORT_RESTRICT_*_
 #	_*_CYGCLASS_
 #
 ################################################################################
