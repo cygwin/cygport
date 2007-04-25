@@ -1,4 +1,7 @@
 
+	* bin/cygport.in: Accept RESTRICT.
+	(__prepstrip): Skip if RESTRICT=strip.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/bzr.cygclass: New cygclass for Bazaar-VCS checkout packages.

@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.69 2007-04-25 03:23:43 yselkowitz Exp $
+# $Id: cygport.in,v 1.70 2007-04-25 04:23:24 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1341,6 +1341,12 @@ __prep_empty_dirs() {
 }
 
 __prepstrip() {
+	if defined _CYGPORT_RESTRICT_strip_
+	then
+		inform "Skipping strip step per request."
+		return
+	fi
+
 	local exe;
 
 	cd ${D};
@@ -1857,6 +1863,11 @@ then
 		error "This package requires cygport ${CYGPORT_DEPEND} or newer";
 	fi
 fi
+
+for restrict in ${RESTRICT}
+do
+	export _CYGPORT_RESTRICT_${restrict//-/_}_
+done
 
 
 ################################################################################
