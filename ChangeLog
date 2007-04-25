@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/bzr.cygclass: New cygclass for Bazaar-VCS checkout packages.
+
 	* lib/apache.cygclass (doapachemod): New command.
 	* lib/gtkmm.cygclass: Ignore MSVC_Net2003 during diff.
 	* lib/java.cygclass: Define JAVA_HOME.

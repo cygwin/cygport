@@ -1,0 +1,43 @@
+################################################################################
+#
+# bzr.cygclass - functions for building packages from BZR checkouts
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+# $Id: bzr.cygclass,v 1.1 2007-04-25 03:41:43 yselkowitz Exp $
+#
+################################################################################
+
+_USE_bzr_FETCH=1
+
+if ! defined BZR_URI
+then
+	error "BZR_URI must be defined"
+fi
+
+BZR_MODULE=${BZR_MODULE:-${ORIG_PN:-${PN}}}
+
+bzr_tarball="${BZR_MODULE}-bzr-${PV}.tar.bz2"
+
+SRC_URI="${bzr_tarball} "
+SRC_DIR="${SRC_DIR:-${BZR_MODULE}}"
+
+bzr_fetch() {
+	local bzr_branch
+
+	check_prog_req bzr
+
+	if defined BZR_BRANCH
+	then
+		bzr_branch="-r ${BZR_BRANCH}"
+	fi
+
+	# T likely doesn't exist at this point, so create it first
+	mkdir -p ${T}
+	cd ${T}
+	verbose bzr branch ${BZR_URI} ${BZR_MODULE} ${bzr_branch}
+
+	tar jcf ${top}/${bzr_tarball} --exclude=.bzr --exclude=.bzrignore --exclude=.rsyncexclude ${BZR_MODULE}
+}
