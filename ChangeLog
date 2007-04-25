@@ -1,4 +1,8 @@
 
+	* lib/apache.cygclass (doapachemod): New command.
+	* lib/gtkmm.cygclass: Ignore MSVC_Net2003 during diff.
+	* lib/java.cygclass: Define JAVA_HOME.
+
 	* lib/mono.cygclass (mono_wrapper): Allow full path to wrapper.
 
 	* bin/cygport.in (cygpatch): Accept {g,bz}ipped patches.

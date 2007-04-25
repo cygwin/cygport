@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: apache.cygclass,v 1.2 2007-02-04 07:26:55 yselkowitz Exp $
+# $Id: apache.cygclass,v 1.3 2007-04-25 03:39:25 yselkowitz Exp $
 #
 ################################################################################
 
@@ -71,6 +71,7 @@ then
 	check_prog_req ${APU_CONFIG} aprutil${APR_VERSION}
 	APR_CFLAGS="$(${APU_CONFIG} --includes) $(${APR_CONFIG} --cppflags --includes)"
 	APR_LIBS="$(${APU_CONFIG} --link-ld) $(${APR_CONFIG} --link-ld --libs)"
+	APR_LIBTOOL="$(${APR_CONFIG} --apr-libtool)"
 fi
 
 apache_compile() {
@@ -89,6 +90,32 @@ apache_compile() {
 doapacheconf() {
 	insinto ${APXS_SYSCONFDIR}
 	newins ${1} ${ORIG_PN}.conf
+}
+
+doapachemod() {
+	local mod
+
+	for mod in ${@}
+	do
+		if [ ! -f ${mod} ]
+		then
+			error "doapachemod: ${mod}: File not found"
+		fi
+
+		case ${mod} in
+			*.la)
+				dodir ${APXS_LIBEXECDIR}
+				verbose ${APR_LIBTOOL} --mode=install /usr/bin/install \
+					${mod} ${D}${APXS_LIBEXECDIR} \
+					|| error "install ${mod} failed"
+				;;
+			*.dll|*.so)
+				exeinto ${APXS_LIBEXECDIR}
+				doexe ${mod}
+				;;
+			*)	error "doapachemod: ${mod##*/}: Unknown file type"
+		esac
+	done
 }
 
 apache_postinst() {

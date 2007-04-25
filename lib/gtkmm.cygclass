@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: gtkmm.cygclass,v 1.5 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: gtkmm.cygclass,v 1.6 2007-04-25 03:39:25 yselkowitz Exp $
 #
 ################################################################################
 
@@ -17,6 +17,9 @@ inherit gnome.org
 
 DESCRIPTION="GNOME C++ bindings for ${ORIG_PN/mm/}-${PV_MAJ}.x"
 HOMEPAGE="http://www.gtkmm.org/"
+
+# .rc files are removed for regeneration by configure
+DIFF_EXCLUDES+=" MSVC_Net2003"
 
 gtkmm_autoreconf() {
 	WANT_AUTOCONF=2.5
