@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mono.cygclass,v 1.7 2007-04-25 03:29:15 yselkowitz Exp $
+# $Id: mono.cygclass,v 1.8 2007-04-30 05:24:58 yselkowitz Exp $
 #
 ################################################################################
 
@@ -68,10 +68,10 @@ mono_wrapper() {
 
 	dodir ${mscriptpath}
 
-	if [ -x ${D}${mscriptdir}/${massemblyfile} ]
+	if [ -x ${D}${mscriptpath}/${massemblyfile} ]
 	then
 		dodir ${massemblypath}
-		mv ${D}${mscriptdir}/${massemblyfile} ${D}${massemblypath}
+		mv ${D}${mscriptpath}/${massemblyfile} ${D}${massemblypath}
 	fi
 
 	if [ ! -f ${D}${massembly} ]
@@ -79,6 +79,6 @@ mono_wrapper() {
 		error "${massemblyfile} is not installed into ${massemblypath}"
 	fi
 
-	echo -e "#!/bin/sh\nexec /usr/bin/mono ${2} \"\$@\"" > ${D}${mscriptdir}/${mscript}
-	chmod +x ${D}${mscriptdir}/${mscript}
+	echo -e "#!/bin/sh\nexec /usr/bin/mono ${2} \"\$@\"" > ${D}${mscriptpath}/${mscript}
+	chmod +x ${D}${mscriptpath}/${mscript}
 }
