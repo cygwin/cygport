@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: qt3.cygclass,v 1.8 2007-02-05 04:19:35 yselkowitz Exp $
+# $Id: qt3.cygclass,v 1.9 2007-04-30 05:24:30 yselkowitz Exp $
 #
 ################################################################################
 
@@ -17,6 +17,7 @@ QINCLUDEDIR=/usr/include/qt3
 QLIBDIR=/usr/lib/qt3/lib
 QDATADIR=/usr/share/qt3
 
+PATH="${QBINDIR}:${PATH}"
 LDFLAGS+=" -Wl,--enable-auto-import"
 
 qt3_qmake() {
@@ -38,7 +39,7 @@ qt3_qmake() {
 
 # FIXME: This won't work for most packages!!!
 qt3_install() {
-	make install INSTALL_ROOT=${D} PREFIX=/usr || error "make install failed"
+	make install INSTALL_ROOT=${D}/usr/ || error "make install failed"
 }
 
 src_compile() {

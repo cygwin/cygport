@@ -1,4 +1,6 @@
 
+	* lib/qt3.cygclass: Add QBINDIR to PATH.
+
 	* bin/cygport.in: Accept RESTRICT.
 	(__prepstrip): Skip if RESTRICT=strip.
 
