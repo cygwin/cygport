@@ -31,5 +31,6 @@ dist_cygclass_DATA = 			\
 	svn.cygclass				\
 	utils.cygclass				\
 	wxwidgets.cygclass			\
+	xfce4.cygclass				\
 	xorg.cygclass				\
 	zope.cygclass

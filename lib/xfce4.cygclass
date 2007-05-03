@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: xfce4.cygclass,v 1.1 2007-02-14 22:35:39 yselkowitz Exp $
+# $Id: xfce4.cygclass,v 1.2 2007-05-03 19:38:49 yselkowitz Exp $
 #
 ################################################################################
 
@@ -18,7 +18,7 @@ case ${PN} in
 		XFCE_VERSION=$((PVP[0] + 2)).${PVP[1]}.${PVP[2]}
 		;;
 	thunar-thumbnails|*-plugin)
-		SRC_URI=http://goodies.xfce.org/releases/${PN}/${P}.tar.bz2
+		SRC_URI="http://goodies.xfce.org/releases/${PN}/${P}.tar.bz2"
 		;;
 	thunar) ORIG_PN=Thunar ;;
 	xfce4-terminal) ORIG_PN=Terminal ;;
@@ -27,44 +27,42 @@ esac
 if ! defined SRC_URI
 then
 	case ${PN} in
-		libxfce4mcs|libxfce4util|orage|xfce-mcs-manager|xfce-mcs-plugins\
-		|xfce-utils|xfce4-appfinder|xfce4-dev-tools|xfce4-icon-theme\
-		|xfce4-mixer|xfce4-panel|xfce4-session|xfdesktop|xfprint|xfwm4\
-		|xfwm4-themes)	XFCE_VERSION=${PV} ;;
+		libxfce4mcs|libxfce4util|libxfcegui4|orage|xfce-mcs-manager\
+		|xfce-mcs-plugins|xfce-utils|xfce4-appfinder|xfce4-dev-tools\
+		|xfce4-icon-theme|xfce4-mixer|xfce4-panel|xfce4-session\
+		|xfdesktop|xfprint|xfwm4|xfwm4-themes)
+			XFCE_VERSION=${PV} ;;
 		*)	if ! defined XFCE_VERSION
 			then
 				error "Please define XFCE_VERSION"
 			fi ;;
 	esac
 
-	SRC_URI=mirror://xfce/xfce-${XFCE_VERSION}/src/${ORIG_PN:-${PN}}-${PV}.tar.bz2
+	SRC_URI="mirror://xfce/xfce-${XFCE_VERSION}/src/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
 fi
 
 SRC_DIR=${ORIG_PN:-${PN}}-${PV}
 
 xfce4_autoreconf() {
-	case ${PN} in
-		libxfce4util) ;;
-		*) aclocal_flags="-I /usr/share/xfce4/m4"
-	esac
+	check_prog_req xdt-autogen xfce4-dev-tools
 
-	if [ -d m4 ]
-	then
-		aclocal_flags+=" -I m4"
-	fi
-
-	ACLOCAL="aclocal ${aclocal_flags)"
-	cygautoreconf
+	NOCONFIGURE=1 xdt-autogen || error "xdt-autogen failed"	
 }
 
 xfce4_compile() {
-	cygconf --disable-static
+	cygconf \
+		--libexecdir=/usr/lib/xfce4 \
+		--sbindir=/usr/lib/xfce4 \
+		--disable-static
 	cygmake
 }
 
 src_compile() {
 	cd ${S}
-	xfce4_autoreconf
+	case ${PN} in
+		xfce4-dev-tools) ;;
+		*)	xfce4_autoreconf ;;
+	esac
 	cd ${B}
 	xfce4_compile
 }

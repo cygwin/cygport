@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/xfce4.cygclass: New cygclass for Xfce 4.4.
+
 	* lib/qt3.cygclass: Add QBINDIR to PATH.
 
 	* bin/cygport.in: Accept RESTRICT.
