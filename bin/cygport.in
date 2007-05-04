@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.74 2007-05-04 21:40:36 yselkowitz Exp $
+# $Id: cygport.in,v 1.75 2007-05-04 21:45:07 yselkowitz Exp $
 #
 ################################################################################
 
@@ -110,7 +110,7 @@ __show_help() {
 		${_name} is a utility for creating and building Cygwin software packages.
 
 		Usage: ${_name} [/path/to/]PKGNAME-VER-REL[.cygport] COMMAND [COMMAND2 ...]
-		
+
 		COMMAND may be one or more of the following:
 
 		  download     download upstream sources from Internet
@@ -121,7 +121,7 @@ __show_help() {
 		  finish       delete the working directory
 		  almostall    run all of the above, excluding finish
 		  all          run all of the above, including finish
-		
+
 		See ${_privdocdir}/README for further instructions.
 
 		Report bugs to <cygwin-ports-general@lists.sourceforge.net>.
@@ -227,7 +227,7 @@ export -f error warning inform verbose
 
 
 ################################################################################
-# 
+#
 # Locate the cygport file and set package name and version
 #
 # public:
@@ -377,7 +377,7 @@ unset _myprog;
 # protect functions
 export -f check_prog check_prog_req
 readonly -f check_prog check_prog_req __version_at_least
-	
+
 
 ################################################################################
 #
@@ -394,7 +394,7 @@ readonly -f check_prog check_prog_req __version_at_least
 #	unpack ARCHIVE
 #	__gpg_verify FILENAME FILE_DESCRIPTION [SIGFILE_EXTENSION]
 #	__mirror_fetch MIRROR_URI
-#	__mkdirs 
+#	__mkdirs
 #	__oldpatch OLDPATCH_VERSION
 #	__src_fetch
 #	__src_prep
@@ -426,7 +426,7 @@ fetch() {
 		else
 			rm -f ${urifile}.tmp
 			error "curl ${uri} failed"
-		fi			
+		fi
 	else
 		error "Either wget or curl are required to fetch sources.";
 	fi
@@ -1219,7 +1219,7 @@ __prepdoc() {
 		warning "Cygwin README is missing"
 		dodir /usr/share/doc/Cygwin;
 		touch ${D}/usr/share/doc/Cygwin/${P}.README;
-	fi		
+	fi
 
 	while defined pkg_name[${n}]
 	do
@@ -1483,7 +1483,7 @@ __pkg_binpkg() {
 				|| error "Binary package creation failed"
 		else
 			error "Either define PKG_CONTENTS[${n}], or create CYGWIN-PATCHES/${pkg_list[${n}]}.list file";
-		fi				
+		fi
 		echo;
 		n+=1;
 	done
@@ -1709,7 +1709,7 @@ __pkg_dist() {
 	rm -fr ${distdir}/*;
 
 	cd ${top};
-	
+
 	mkdir -p ${distdir}/${PN};
 
 	cp ${top}/${PF}-src.tar.bz2 ${top}/${PF}.tar.bz2 ${distdir}/${PN};
@@ -1732,7 +1732,7 @@ __pkg_dist() {
 	else
 		warning "${pkg_hint[0]%.hint}.hint is missing";
 	fi
-	
+
 	while defined pkg_name[${n}]
 	do
 		mkdir -p ${distdir}/${PN}/${pkg_name[${n}]};
