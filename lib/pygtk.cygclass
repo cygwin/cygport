@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: pygtk.cygclass,v 1.7 2007-03-14 15:56:06 yselkowitz Exp $
+# $Id: pygtk.cygclass,v 1.8 2007-05-07 00:59:25 yselkowitz Exp $
 #
 ################################################################################
 
@@ -39,7 +39,7 @@ case ${pygtk_mod} in
 		;;
 	*)
 		pygtk_subdir=.
-		ORIG_PN=${PN}
+		ORIG_PN=${ORIG_PN:-${PN}}
 		;;
 esac
 
