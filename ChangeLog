@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (lndirs): Accepts optional args for source and target.
+	(cygcmake): New command to wrap cmake with standard args.
+
 	* lib/distutils.cygclass:
 	* lib/pygtk.cygclass:
 	* lib/python.cygclass: Python 2.5 upgrade.

@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.75 2007-05-04 21:45:07 yselkowitz Exp $
+# $Id: cygport.in,v 1.76 2007-05-17 12:26:15 yselkowitz Exp $
 #
 ################################################################################
 
@@ -776,6 +776,7 @@ readonly -f fetch __mirror_fetch __src_fetch unpack __gpg_verify __mkdirs cygpat
 # public:
 #	cygautoreconf
 #	cygconf CONF_OPTIONS
+#	cygcmake CMAKE_OPTIONS
 #	cygmake MAKE_OPTIONS
 #	lndirs
 #
@@ -784,21 +785,32 @@ readonly -f fetch __mirror_fetch __src_fetch unpack __gpg_verify __mkdirs cygpat
 lndirs() {
 	local d;
 	local f;
+	local fromdir=${1};
+	local todir=${2};
+
+	if ! defined fromdir
+	then
+		fromdir="${S}";
+		todir="${B}";
+	elif ! defined todir
+	then
+		todir=.;
+	fi
 
 	if check_prog lndir
 	then
-		lndir -silent ${S} ${B} || error "lndir failed"
+		lndir -silent ${fromdir} ${todir} || error "lndir failed"
 	else
-		cd ${S};
+		cd ${fromdir};
 
 		for d in $(find . -type d)
 		do
-			mkdir -p ${B}/${d#./};
+			mkdir -p ${todir}/${d#./};
 		done
 
 		for f in $(find . ! -type d)
 		do
-			ln -sf ${S}/${f#./} ${B}/${f#./};
+			ln -sf ${fromdir}/${f#./} ${todir}/${f#./};
 		done
 	fi
 }
@@ -967,6 +979,39 @@ cygconf() {
 	verbose ${configure} \
 		--srcdir="${confdir}" ${confargs} "${@}" ${CYGCONF_ARGS} \
 		|| error "configure failed"
+}
+
+# cmake configuration
+# adding -j1 to MAKEOPTS is highly recommended
+cygcmake() {
+	local cmdir;
+
+	check_prog_req cmake;
+
+	if defined CMAKE_SOURCE && [ -e ${CMAKE_SOURCE}/CMakeLists.txt ]
+	then
+		cmdir=${CMAKE_SOURCE};
+	elif [ -e ${PWD/${B}/${S}}/CMakeLists.txt ]
+	then
+		cmdir=${PWD/${B}/${S}};
+	elif [ -e ${S}/CMakeLists.txt ]
+	then
+		confdir=${S};
+	else
+		error "cygcmake: cmake directory not found";
+	fi
+
+	cmake \
+		${cmdir} \
+		-DCMAKE_BINARY_DIR=. \
+		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_C_COMPILER=$(type -P gcc) \
+		-DCMAKE_C_FLAGS="${CFLAGS}" \
+		-DCMAKE_CXX_COMPILER=$(type -P g++) \
+		-DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		"${@}" \
+		|| error "cmake failed"
 }
 
 # standard GNU make call
