@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: python.cygclass,v 1.7 2007-04-23 11:49:21 yselkowitz Exp $
+# $Id: python.cygclass,v 1.8 2007-05-17 12:23:52 yselkowitz Exp $
 #
 ################################################################################
 
@@ -18,11 +18,6 @@ PYTHON_LIB=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_
 PYTHON_SITELIB=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_lib(0,0);')
 PYTHON_INCLUDEDIR=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_inc();')
 LIBPYTHON="-L${PYTHON_LIB}/config -lpython${PYTHON_VERSION}"
-
-ORIG_PN=${ORIG_PN:-${PN}}
-
-HOMEPAGE="http://cheeseshop.python.org/pypi/${ORIG_PN}"
-SRC_URI="http://cheeseshop.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
 
 pythoninto() {
 	if (( $# != 1 ))

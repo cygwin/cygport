@@ -6,17 +6,14 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: pygtk.cygclass,v 1.8 2007-05-07 00:59:25 yselkowitz Exp $
+# $Id: pygtk.cygclass,v 1.9 2007-05-17 12:23:52 yselkowitz Exp $
 #
 ################################################################################
 
-pygtk_mod=$(echo ${PN} | sed -e 's:^py::' -e "s:${PV_MAJ}$::")
+pygtk_mod=${PN#python-}
+pygtk_mod=${pygtk_mod%${PV_MAJ}}
 
 case ${pygtk_mod} in
-	gobject|gtk)
-		pygtk_subdir=.
-		ORIG_PN=py${pygtk_mod}
-		;;
 	bonobo|gconf|gnome|gnomecanvas|gnomevfs)
 		pygtk_subdir=${pygtk_mod}
 		ORIG_PN=gnome-python
@@ -39,7 +36,7 @@ case ${pygtk_mod} in
 		;;
 	*)
 		pygtk_subdir=.
-		ORIG_PN=${ORIG_PN:-${PN}}
+		ORIG_PN=${ORIG_PN:-py${pygtk_mod}}
 		;;
 esac
 

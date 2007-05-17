@@ -1,4 +1,8 @@
 
+	* lib/distutils.cygclass:
+	* lib/pygtk.cygclass:
+	* lib/python.cygclass: Python 2.5 upgrade.
+
 	* lib/pygtk.cygclass: Honour predefined ORIG_PN.
 
 	* bin/cygport.in (cygconf):

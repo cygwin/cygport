@@ -6,11 +6,25 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: distutils.cygclass,v 1.5 2007-03-14 15:56:06 yselkowitz Exp $
+# $Id: distutils.cygclass,v 1.6 2007-05-17 12:23:52 yselkowitz Exp $
 #
 ################################################################################
 
 inherit python
+
+if ! defined ORIG_PN
+then
+	case ${PN} in
+		python-py*|python-*py)
+			ORIG_PN="${PN#python-}" ;;
+		*)	ORIG_PN="${PN/python-/py}" ;;
+	esac
+fi
+			
+ORIG_PN=${ORIG_PN:-${PN}}
+
+HOMEPAGE="http://cheeseshop.python.org/pypi/${ORIG_PN}"
+SRC_URI="http://cheeseshop.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
 
 distutils_compile() {
 	if [ ! -e setup.py ]
