@@ -22,6 +22,7 @@ dist_cygclass_DATA = 			\
 	java.cygclass				\
 	kde3.cygclass				\
 	mono.cygclass				\
+	ocaml.cygclass				\
 	perl.cygclass				\
 	pygtk.cygclass				\
 	python.cygclass				\
