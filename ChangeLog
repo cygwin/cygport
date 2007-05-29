@@ -1,4 +1,11 @@
 
+	* lib/wxwidgets.cygclass (_wx_find_config, wx-config): Refactor.
+	(WX_CONFIG): Define and export.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/ocaml.cygclass: New cygclass for OCaml packages.
+
 	* bin/cygport.in (lndirs): Accepts optional args for source and target.
 	(cygcmake): New command to wrap cmake with standard args.
 

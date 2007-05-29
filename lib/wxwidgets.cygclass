@@ -6,20 +6,23 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: wxwidgets.cygclass,v 1.1 2007-01-11 06:31:23 yselkowitz Exp $
+# $Id: wxwidgets.cygclass,v 1.2 2007-05-29 03:42:36 yselkowitz Exp $
 #
 ################################################################################
 
-# FIXME: WX_TOOLKIT=base -> wx-config --libs base
-
-wx-config() {
+_wx_find_config() {
 	local wx_config
+	local wx_base
 
 	WX_VERSION=${WX_VERSION:-2.6}
 	WX_TOOLKIT=${WX_TOOLKIT:-gtk2}
 	WX_CODESET=${WX_CODESET:-ansi}
 
 	case ${WX_TOOLKIT} in
+		base)
+			WX_TOOLKIT=gtk2
+			wx_base="base"
+			;;
 		gtk2u|mswu)
 			WX_TOOLKIT=${WX_TOOLKIT%u}
 			WX_CODESET=unicode
@@ -57,7 +60,13 @@ wx-config() {
 		error "could not find ${wx_config##*/}"
 	fi
 
-	${wx_config} ${@}
+	echo "${wx_config} ${wx_base}"
+}
+
+export WX_CONFIG="$(_wx_find_config)"
+
+wx-config() {
+	${WX_CONFIG} ${@}
 }
 
 export -f wx-config
