@@ -6,9 +6,12 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: java.cygclass,v 1.4 2007-04-25 03:39:25 yselkowitz Exp $
+# $Id: java.cygclass,v 1.5 2007-05-30 12:14:02 yselkowitz Exp $
 #
 ################################################################################
+
+# prevent Win32 Java interference
+unset CLASSPATH
 
 JAR=fastjar
 JAVA=jamvm
