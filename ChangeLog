@@ -1,4 +1,6 @@
 
+	* lib/zope.cygclass: Update for Python-2.5 and zope-3.4.
+
 	* lib/wxwidgets.cygclass (_wx_find_config, wx-config): Refactor.
 	(WX_CONFIG): Define and export.
 

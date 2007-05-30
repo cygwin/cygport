@@ -6,23 +6,28 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: zope.cygclass,v 1.2 2007-03-28 11:57:35 yselkowitz Exp $
+# $Id: zope.cygclass,v 1.3 2007-05-30 03:48:57 yselkowitz Exp $
 #
 ################################################################################
 
 # This cygclass is meant solely for the modular Zope components
 # It is NOT meant for the Zope core or other Zope products
 
+ORIG_PN=${PN#python-}
+ORIG_PN=${ORIG_PN//-/.}
+
 inherit distutils
 
-ORIG_PN=${PN//-/.}
-
-DESCRIPTION="Zope ${PN#zope-} module"
-HOMEPAGE="http://wiki.zope.org/zope3/FrontPage"
-SRC_URI="http://download.zope.org/distribution/${ORIG_PN}-${PV}.tar.gz"
+DESCRIPTION="Zope ${PN#python-zope-} module"
 SVN_URI="http://svn.zope.org/${ORIG_PN}"
 
-DIFF_EXCLUDES+=" ${ORIG_PN}.egg-info "
+case ${PVP[2]} in
+	99)	orig_pv="${PVP[0]}.$((PVP[1] + 1))dev-r${PVP[3]}" ;;
+	*)	orig_pv="${PV}" ;;
+esac
+
+SRC_URI="http://cheeseshop.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${orig_pv}.tar.gz"
+SRC_DIR="${ORIG_PN}-${orig_pv}"
 
 src_install() {
 	cd ${B}
