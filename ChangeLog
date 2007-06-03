@@ -1,4 +1,6 @@
 
+	* lib/gtk2-perl.cygclass: Handle module names not beginning with G.
+
 	* lib/java.cygclass: Unset CLASSPATH to prevent Win32 Java interference.
 
 	* bin/cygport.in (__pkg_diff): Ignore Python .egg-info files.
