@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: xfce4.cygclass,v 1.2 2007-05-03 19:38:49 yselkowitz Exp $
+# $Id: xfce4.cygclass,v 1.3 2007-06-08 12:16:10 yselkowitz Exp $
 #
 ################################################################################
 
@@ -32,13 +32,12 @@ then
 		|xfce4-icon-theme|xfce4-mixer|xfce4-panel|xfce4-session\
 		|xfdesktop|xfprint|xfwm4|xfwm4-themes)
 			XFCE_VERSION=${PV} ;;
-		*)	if ! defined XFCE_VERSION
-			then
-				error "Please define XFCE_VERSION"
-			fi ;;
 	esac
 
-	SRC_URI="mirror://xfce/xfce-${XFCE_VERSION}/src/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
+	if defined XFCE_VERSION
+	then
+		SRC_URI="mirror://xfce/xfce-${XFCE_VERSION}/src/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
+	fi
 fi
 
 SRC_DIR=${ORIG_PN:-${PN}}-${PV}

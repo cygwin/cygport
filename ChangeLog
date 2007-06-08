@@ -1,4 +1,6 @@
 
+	* lib/xfce4.cygclass: Allow SRC_URI not on xfce.org.
+
 	* bin/doman: Accept more pre-gzipped manpages.
 
 	* lib/gtk2-perl.cygclass: Handle module names not beginning with G.
