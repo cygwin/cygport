@@ -1,4 +1,6 @@
 
+	* bin/doman: Accept more pre-gzipped manpages.
+
 	* lib/gtk2-perl.cygclass: Handle module names not beginning with G.
 
 	* lib/java.cygclass: Unset CLASSPATH to prevent Win32 Java interference.
