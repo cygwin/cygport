@@ -1,4 +1,6 @@
 
+	* bin/prep_libtool_modules.sh: Set dependency_libs to empty.
+
 	* lib/xfce4.cygclass: Allow SRC_URI not on xfce.org.
 
 	* bin/doman: Accept more pre-gzipped manpages.

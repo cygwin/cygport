@@ -7,7 +7,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: prep_libtool_modules.sh,v 1.6 2006-11-20 05:48:58 yselkowitz Exp $
+# $Id: prep_libtool_modules.sh,v 1.7 2007-06-10 07:15:37 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -69,8 +69,8 @@ do
 			# The name of the static archive.
 			old_library=''
 			
-			# Libraries that this one depends upon.
-			dependency_libs='${dependency_libs}'
+			# This is set to empty to speed up lt_dlopen and friends.
+			dependency_libs=''
 			
 			# Version information for ${ltlibname}.
 			current=${current}
