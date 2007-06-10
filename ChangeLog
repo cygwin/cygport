@@ -1,4 +1,9 @@
 
+	* lib/bzr.cygclass:
+	* lib/cvs.cygclass:
+	* lib/git.cygclass:
+	* lib/svn.cygclass: SRC_DIR hardcoded, as there can be no choice.
+
 	* bin/prep_libtool_modules.sh: Set dependency_libs to empty.
 
 	* lib/xfce4.cygclass: Allow SRC_URI not on xfce.org.
