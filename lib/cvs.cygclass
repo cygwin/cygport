@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cvs.cygclass,v 1.7 2007-03-28 19:02:45 yselkowitz Exp $
+# $Id: cvs.cygclass,v 1.8 2007-06-10 07:20:14 yselkowitz Exp $
 #
 ################################################################################
 
@@ -22,7 +22,7 @@ CVS_MODULE=${CVS_MODULE:-${ORIG_PN:-${PN}}}
 cvs_tarball="${CVS_MODULE}-${PV}.tar.bz2"
 
 SRC_URI="${cvs_tarball} "
-SRC_DIR="${SRC_DIR:-${CVS_MODULE}}"
+SRC_DIR="${CVS_MODULE}"
 
 cvs_fetch() {
 	local cvs_branch

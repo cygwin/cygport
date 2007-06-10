@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: git.cygclass,v 1.8 2007-03-28 19:02:45 yselkowitz Exp $
+# $Id: git.cygclass,v 1.9 2007-06-10 07:20:14 yselkowitz Exp $
 #
 ################################################################################
 
@@ -24,7 +24,7 @@ GIT_MODULE=${GIT_MODULE%.git}
 git_tarball="${GIT_MODULE}-${PV}.tar.bz2"
 
 SRC_URI="${git_tarball} "
-SRC_DIR="${SRC_DIR:-${GIT_MODULE}}"
+SRC_DIR="${GIT_MODULE}"
 
 git_fetch() {
 	check_prog_req git

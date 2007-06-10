@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: bzr.cygclass,v 1.1 2007-04-25 03:41:43 yselkowitz Exp $
+# $Id: bzr.cygclass,v 1.2 2007-06-10 07:20:14 yselkowitz Exp $
 #
 ################################################################################
 
@@ -22,7 +22,7 @@ BZR_MODULE=${BZR_MODULE:-${ORIG_PN:-${PN}}}
 bzr_tarball="${BZR_MODULE}-bzr-${PV}.tar.bz2"
 
 SRC_URI="${bzr_tarball} "
-SRC_DIR="${SRC_DIR:-${BZR_MODULE}}"
+SRC_DIR="${BZR_MODULE}"
 
 bzr_fetch() {
 	local bzr_branch
