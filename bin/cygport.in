@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.80 2007-06-18 15:56:42 yselkowitz Exp $
+# $Id: cygport.in,v 1.81 2007-06-18 16:51:25 yselkowitz Exp $
 #
 ################################################################################
 
@@ -845,7 +845,7 @@ cygautoreconf() {
 		if [ -d ${d} ]
 		then
 			# e.g. CVS checkouts
-			if [ ! -f ${d}/configure ]
+			if [ -f ${d}/configure ]
 			then
 				# Assure that autotool files are writable (e.g. less)
 				eval $(grep -h '^ac_config_files=' ${d}/configure)
