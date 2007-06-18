@@ -1,4 +1,6 @@
 
+	* lib/svn.cygclass: Handle SVN_URI containing trunk or branch.
+
 	* bin/cygport.in (cygautoreconf): Assure autotool files are writable.
 
 	* lib/kde3.cygclass: Fix SRC_URI for kdevelop-3.4.1+.
