@@ -6,11 +6,11 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: berkdb.cygclass,v 1.5 2007-03-14 16:55:45 yselkowitz Exp $
+# $Id: berkdb.cygclass,v 1.6 2007-06-18 02:18:54 yselkowitz Exp $
 #
 ################################################################################
 
-inherit java
+inherit java tcl
 
 case ${PV_MAJ_MIN} in
 	3.*|4.*)	SLOT="${PV_MAJ_MIN}" ;;
@@ -32,16 +32,17 @@ then
 	done
 fi
 
-PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc java-${PN}"
+PKG_NAMES="${PN} lib${PN} lib${PN}-devel java-${PN} tcl-${PN}"
+PKG_HINTS="setup lib devel java tcl"
 PKG_CONTENTS[0]="--exclude=html etc/p*/${PN}.sh usr/bin/*.exe usr/share/doc/"
 PKG_CONTENTS[1]="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
-PKG_CONTENTS[2]="etc/p*/${PN}-devel.sh usr/include/ usr/lib/"
-PKG_CONTENTS[3]="usr/share/doc/${P}/html/"
-PKG_CONTENTS[4]="etc/p*/java-${PN}.sh cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
+PKG_CONTENTS[2]="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib* usr/share/doc/${P}/html"
+PKG_CONTENTS[3]="etc/p*/java-${PN}.sh usr/bin/cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
+PKG_CONTENTS[4]="${TCL_LIBDIR#/}"
 
-DIFF_EXCLUDES="configure libtool.ac"
+DIFF_EXCLUDES="configure config.hin libtool.ac"
 
-# At a minium, the following must be changed:
+# At a minimum, the following must be changed:
 # * chmod +w dist/Makefile.in dist/aclocal/tcl.ac dist/configure.ac
 # * Define EXEEXT=@EXEEXT@
 # * UTIL_PROGS=$(UTILPROGS:%=%@EXEEXT@)
@@ -73,9 +74,7 @@ berkdb_compile() {
 		--enable-cxx \
 		--enable-dynamic \
 		--enable-java JAVA=${JAVA} JAVAC=${JAVAC} JAR=${JAR} \
-		--disable-tcl --disable-test
-		# Requires Ports' tcl as well as a patch to dist/aclocal/tcl.ac
-		# --enable-tcl --with-tclconfig=/usr/lib --enable-test
+		--enable-tcl --with-tclconfig=/usr/lib --enable-test
 
 	cygmake
 }
@@ -109,6 +108,13 @@ berkdb_install() {
 	# relocate and slot Java jar
 	dodir ${JAVA_DIR}
 	mv ${D}/usr/lib/db.jar ${D}${JAVA_DIR}/db-${SLOT}.jar
+
+	# relocate and install Tcl module
+	rm -f ${D}/usr/lib/libdb_tcl-${SLOT}.*
+	dodir ${TCL_LIBDIR}/db${SLOT}
+	mv ${D}/usr/lib/cygdb_tcl-${SLOT}.dll ${D}${TCL_LIBDIR}/db${SLOT}/
+	echo pkg_mkIndex ${D}${TCL_LIBDIR}/db${SLOT} cygdb_tcl-${SLOT}.dll | ${TCLSH}
+	sed -i -e "s#${D}##g" ${D}${TCL_LIBDIR}/db${SLOT}/pkgIndex.tcl
 }
 
 berkdb_postinst() {
@@ -135,7 +141,7 @@ berkdb_postinst() {
 		  --slave    \${bindir}/db_verify      db_verify      \${bindir}/db\${slot}_verify.exe
 		_EOF
 
-	cat >> ${D}/etc/postinstall/${PN}-devel.sh <<-_EOF
+	cat >> ${D}/etc/postinstall/lib${PN}-devel.sh <<-_EOF
 		prefix=/usr
 		incdir=\${prefix}/include
 		libdir=\${prefix}/lib
@@ -186,7 +192,7 @@ berkdb_prerm() {
 		/usr/sbin/update-alternatives --remove db_archive \${bindir}/db\${slot}_archive.exe
 		_EOF
 
-	cat >> ${D}/etc/preremove/${PN}-devel.sh <<-_EOF
+	cat >> ${D}/etc/preremove/lib${PN}-devel.sh <<-_EOF
 		prefix=/usr
 		incdir=\${prefix}/include
 		slot=${PVP[0]}.${PVP[1]}

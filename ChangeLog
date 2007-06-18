@@ -1,4 +1,7 @@
 
+	* lib/berkdb.cygclass: Enable Tcl bindings.
+	Rename devel package to libdbX.Y-devel.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/tcl.cygclass: New cygclass for Tcl modules.
