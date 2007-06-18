@@ -1,4 +1,6 @@
 
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_install): Fix docdir.
+
 	* lib/bzr.cygclass:
 	* lib/cvs.cygclass:
 	* lib/git.cygclass:

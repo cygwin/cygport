@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: ruby-gnome2.cygclass,v 1.12 2007-03-14 15:56:06 yselkowitz Exp $
+# $Id: ruby-gnome2.cygclass,v 1.13 2007-06-18 01:19:51 yselkowitz Exp $
 #
 ################################################################################
 
@@ -113,9 +113,9 @@ ruby_gnome2_install() {
 			doins ${d}/libruby-${implib}.a
 		fi
 
-		insinto /usr/share/doc/ruby-${d}-${PV}
+		insinto /usr/share/doc/${P}/${d}
 		doins ${S}/${d}/{ChangeLog,README}
-		cp -r ${d}/rdoc ${D}/usr/share/doc/ruby-${d}-${PV}
+		cp -r ${d}/rdoc ${D}/usr/share/doc/${P}/${d}/
 	done
 }
 
