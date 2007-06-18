@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mono.cygclass,v 1.9 2007-05-07 03:38:52 yselkowitz Exp $
+# $Id: mono.cygclass,v 1.10 2007-06-18 12:24:16 yselkowitz Exp $
 #
 ################################################################################
 
@@ -16,10 +16,13 @@ GMCS=/usr/bin/gmcs
 GACUTIL=/usr/bin/gacutil
 
 HOMEPAGE="http://www.mono-project.com/"
-SRC_URI="http://go-mono.com/sources/${ORIG_PN:-${PN}}/${ORIG_PN:-${PN}}-${PV}.${MONO_SOURCE_TYPE:-tar.gz}"
-SRC_DIR="${ORIG_PN:-${PN}}-${PV}"
 
-SVN_URI="svn://svn.myrealbox.com/source/trunk/${SVN_MODULE:-${ORIG_PN:-${PN}}}"
+if ! defined SVN_URI
+then
+	SRC_URI="http://go-mono.com/sources/${ORIG_PN:-${PN}}/${ORIG_PN:-${PN}}-${PV}.${MONO_SOURCE_TYPE:-tar.gz}"
+	SVN_URI="svn://anonsvn.mono-project.com/source/trunk/${SVN_MODULE:-${ORIG_PN:-${PN}}}"
+	SRC_DIR="${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}}"
+fi
 
 CYGCONF_ARGS+=" --disable-static"
 MAKEOPTS+=" -j1"
@@ -80,6 +83,6 @@ mono_wrapper() {
 		error "${massemblyfile} is not installed into ${massemblypath}"
 	fi
 
-	echo -e "#!/bin/sh\nexec /usr/bin/mono ${mscript} \"\$@\"" > ${D}${mscript}
+	echo -e "#!/bin/sh\nexec /usr/bin/mono ${massembly} \"\$@\"" > ${D}${mscript}
 	chmod +x ${D}${mscript}
 }

@@ -1,4 +1,7 @@
 
+	* lib/mono.cygclass: Don't override preset SVN_URI.
+	(mono_wrapper) Fix.
+
 	* lib/svn.cygclass: Handle SVN_URI containing trunk or branch.
 
 	* bin/cygport.in (cygautoreconf): Assure autotool files are writable.
