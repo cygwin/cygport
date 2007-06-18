@@ -1,4 +1,6 @@
 
+	* lib/kde3.cygclass: Fix SRC_URI for kdevelop-3.4.1+.
+
 	* lib/berkdb.cygclass: Enable Tcl bindings.
 	Rename devel package to libdbX.Y-devel.
 

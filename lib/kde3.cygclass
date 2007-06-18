@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: kde3.cygclass,v 1.14 2007-02-23 20:43:39 yselkowitz Exp $
+# $Id: kde3.cygclass,v 1.15 2007-06-18 02:20:30 yselkowitz Exp $
 #
 ################################################################################
 
@@ -14,10 +14,11 @@ inherit qt3
 
 HOMEPAGE="http://www.kde.org/"
 
-case ${PN} in
-	arts)		ftp_pv=3.${PVP[1]}.${PVP[2]} ;;
-	kdevelop)	ftp_pv=3.$((PVP[1] + 2)).${PVP[2]} ;; # for kdevelop < 3.4.0
-	*)			ftp_pv=${PV} ;;
+case "${PN}:${PV}" in
+	arts:*)			ftp_pv=3.${PVP[1]}.${PVP[2]} ;;
+	kdevelop:3.3.*)	ftp_pv=3.$((PVP[1] + 2)).${PVP[2]} ;;
+	kdevelop:3.4.*)	ftp_pv=3.$((PVP[1] + 1)).$((PVP[2] + 6)) ;;
+	*)				ftp_pv=${PV} ;;
 esac
 
 case "${PN}:${PV}" in
@@ -27,7 +28,7 @@ case "${PN}:${PV}" in
 	kde-i18n-*:*)
 		SRC_URI="mirror://kde/stable/${ftp_pv}/src/kde-i18n/${P}.tar.bz2"
 		;;
-	kdevelop:3.4.*)
+	kdevelop:3.4.0)
 		SRC_URI="mirror://kde/stable/kdevelop-${PV}/src/${P}.tar.bz2"
 		;;
 	koffice:*)
