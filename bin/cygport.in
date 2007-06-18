@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.79 2007-06-18 11:56:52 yselkowitz Exp $
+# $Id: cygport.in,v 1.80 2007-06-18 15:56:42 yselkowitz Exp $
 #
 ################################################################################
 
@@ -844,18 +844,22 @@ cygautoreconf() {
 	do
 		if [ -d ${d} ]
 		then
-			# Assure that autotool files are writable (e.g. less)
-			eval $(grep -h '^ac_config_files=' ${d}/configure)
-			# eval $(grep -h '^ac_config_headers=' ${d}/configure)
+			# e.g. CVS checkouts
+			if [ ! -f ${d}/configure ]
+			then
+				# Assure that autotool files are writable (e.g. less)
+				eval $(grep -h '^ac_config_files=' ${d}/configure)
+				# eval $(grep -h '^ac_config_headers=' ${d}/configure)
 
-			chmod +w ${d}/configure;
+				chmod +w ${d}/configure;
 
-			for f in ${ac_config_files} ${ac_config_headers}
-			do
-				chmod +w ${d}/${f}.in;
-			done
+				for f in ${ac_config_files} ${ac_config_headers}
+				do
+					chmod +w ${d}/${f}.in;
+				done
 
-			unset ac_config_files;
+				unset ac_config_files;
+			fi
 
 			# Automake will exit if these are not present
 			# dodoc won't install these, however, since they will be empty
