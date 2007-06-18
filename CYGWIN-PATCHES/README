@@ -118,6 +118,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/ruby.cygclass
   /usr/lib/cygport/lib/ruby-gnome2.cygclass
   /usr/lib/cygport/lib/svn.cygclass
+  /usr/lib/cygport/lib/tcl.cygclass
   /usr/lib/cygport/lib/utils.cygclass
   /usr/lib/cygport/lib/wxwidgets.cygclass
   /usr/lib/cygport/lib/xfce4.cygclass

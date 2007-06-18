@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/tcl.cygclass: New cygclass for Tcl modules.
+
 	* lib/ruby-gnome2.cygclass (ruby_gnome2_install): Fix docdir.
 
 	* lib/bzr.cygclass:

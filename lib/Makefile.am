@@ -30,6 +30,7 @@ dist_cygclass_DATA = 			\
 	ruby.cygclass				\
 	ruby-gnome2.cygclass		\
 	svn.cygclass				\
+	tcl.cygclass				\
 	utils.cygclass				\
 	wxwidgets.cygclass			\
 	xfce4.cygclass				\
