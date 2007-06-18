@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.77 2007-05-30 12:11:56 yselkowitz Exp $
+# $Id: cygport.in,v 1.78 2007-06-18 03:30:29 yselkowitz Exp $
 #
 ################################################################################
 
@@ -820,6 +820,8 @@ cygautoreconf() {
 	local d;
 	local f;
 	local tool;
+	local ac_config_files;
+	local ac_config_headers;
 	local ac_subdirs;
 	local ac_ver;
 	local configure_ac;
@@ -842,6 +844,17 @@ cygautoreconf() {
 	do
 		if [ -d ${d} ]
 		then
+			# Assure that autotool files are writable (e.g. less)
+			eval $(grep -h '^ac_config_files=' ${d}/configure)
+			# eval $(grep -h '^ac_config_headers=' ${d}/configure)
+
+			chmod +w ${d}/configure;
+
+			for f in ${ac_config_files} ${ac_config_headers}
+			do
+				chmod +w ${d}/${f}.in;
+			done
+
 			# Automake will exit if these are not present
 			# dodoc won't install these, however, since they will be empty
 			touch ${d}/{AUTHORS,COPYING,ChangeLog,INSTALL,NEWS,README};
@@ -853,6 +866,7 @@ cygautoreconf() {
 	for f in COPYING INSTALL
 	do
 		cp ${f} ${f}.temp;
+		chmod +w ${f}.temp;
 	done
 
 	check_prog_req autoreconf autoconf
