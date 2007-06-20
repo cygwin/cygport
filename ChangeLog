@@ -1,4 +1,6 @@
 
+	* lib/gst-plugins0.10.cygclass: Better accomodate external plugins.
+
 	* lib/mono.cygclass: Don't override preset SVN_URI.
 	(mono_wrapper) Fix.
 

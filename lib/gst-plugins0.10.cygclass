@@ -6,19 +6,21 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: gst-plugins0.10.cygclass,v 1.11 2007-03-14 15:56:06 yselkowitz Exp $
+# $Id: gst-plugins0.10.cygclass,v 1.12 2007-06-20 23:26:48 yselkowitz Exp $
 #
 ################################################################################
 
 # Borrowed heavily from Gentoo's gst-plugins* eclasses
 
-gst_pn=${PN/gstreamer${PVP[0]}${PVP[1]}-plugins-/}
+gst_pn=${PN#gstreamer[0-9]*-plugins-}
+
+# defaults
+GST_PLUGINS_DIR=.
+GST_PLUGINS_MODULE=
+ORIG_PN=gst-plugins-${gst_pn}
 
 case ${gst_pn} in
 	base|good|bad|ugly)
-		GST_PLUGINS_DIR=.
-		ORIG_PN=gst-plugins-${gst_pn}
-
 		for plugin in ${GST_PLUGINS_EXT}
 		do
 			case ${plugin} in
@@ -30,28 +32,26 @@ case ${gst_pn} in
 		done
 		unset plugin
 		;;
-	ffmpeg)
-		GST_PLUGINS_DIR=.
-		GST_PLUGINS_MODULE=
-		ORIG_PN=gst-ffmpeg
-		;;
-	nonlin)
-		GST_PLUGINS_DIR=.
-		GST_PLUGINS_MODULE=
-		ORIG_PN=gnonlin
-		;;
-	fluendo-*)
-		GST_PLUGINS_DIR=.
-		GST_PLUGINS_MODULE=
-		ORIG_PN=gst-${gst_pn}
-		SRC_URI="http://core.fluendo.com/gstreamer/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
-		;;
 	opengl|oss|ximage|ximagesrc|xvimage)
 		GST_PLUGINS_DIR=${GST_PLUGINS_DIR:-sys/${gst_pn}}
 		GST_PLUGINS_MODULE=${GST_PLUGINS_MODULE:-${gst_pn}}
 		ORIG_PN=gst-plugins-${GST_PLUGINS_SRC}
 		;;
+	ffmpeg)
+		ORIG_PN=gst-ffmpeg
+		;;
+	nonlin)
+		ORIG_PN=gnonlin
+		;;
+	farsight)
+		# other 3rd-party plugins with normal naming go here
+		;;
+	fluendo-*)
+		ORIG_PN=gst-${gst_pn}
+		SRC_URI="http://core.fluendo.com/gstreamer/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
+		;;
 	*)
+		# single plugin from base/core/good/bad/ugly
 		GST_PLUGINS_DIR=${GST_PLUGINS_DIR:-ext/${gst_pn}}
 		GST_PLUGINS_MODULE=${GST_PLUGINS_MODULE:-${gst_pn}}
 		ORIG_PN=gst-plugins-${GST_PLUGINS_SRC}
