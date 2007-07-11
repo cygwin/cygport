@@ -1,4 +1,7 @@
 
+	* lib/svn.cygclass: SVN_TAG now accepted.
+	SVN_BRANCH requires 'full' path (including branches/).
+
 	* lib/mono.cygclass: MONO_SOURCE_TYPE defaults to tar.bz2.
 
 	* lib/gnome.org.cygclass: Don't override preset {CVS,SVN}_URI.
