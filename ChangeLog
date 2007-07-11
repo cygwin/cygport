@@ -1,4 +1,6 @@
 
+	* lib/gnome.org.cygclass: Don't override preset {CVS,SVN}_URI.
+
 	* bin/cygport.in (unpack): Handle .gem with 'gem unpack'.
 	(cygautoreconf): Handle foo.out:foo.in syntax during writability check.
 
