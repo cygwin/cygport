@@ -1,4 +1,6 @@
 
+	* lib/gst-plugins0.10.cygclass: Accomodate farsight optional features.
+
 	* lib/gtkmm.cygclass (gtkmm_autoreconf):
 	Check for scripts dir before including.
 

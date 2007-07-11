@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: gst-plugins0.10.cygclass,v 1.12 2007-06-20 23:26:48 yselkowitz Exp $
+# $Id: gst-plugins0.10.cygclass,v 1.13 2007-07-11 12:33:51 yselkowitz Exp $
 #
 ################################################################################
 
@@ -20,7 +20,7 @@ GST_PLUGINS_MODULE=
 ORIG_PN=gst-plugins-${gst_pn}
 
 case ${gst_pn} in
-	base|good|bad|ugly)
+	base|good|bad|ugly|farsight)
 		for plugin in ${GST_PLUGINS_EXT}
 		do
 			case ${plugin} in
@@ -42,9 +42,6 @@ case ${gst_pn} in
 		;;
 	nonlin)
 		ORIG_PN=gnonlin
-		;;
-	farsight)
-		# other 3rd-party plugins with normal naming go here
 		;;
 	fluendo-*)
 		ORIG_PN=gst-${gst_pn}
@@ -87,13 +84,18 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		conftest_gst_plugins=
 		never_gst_plugins=
 		;;
+	farsight)
+		my_gst_plugins="g729 gconf gsm jasper jingle-p2p jrtplib mimic"
+		conftest_gst_plugins=
+		never_gst_plugins=
+		;;
 esac
 
 gst_plugins_autoreconf() {
 	gstreamer_autoreconf
 
 	case ${gst_pn} in
-		base|good|bad|ugly|ffmpeg|fluendo-*|nonlin)
+		base|good|bad|ugly|farsight|ffmpeg|fluendo-*|nonlin)
 			;;
 		*)
 			# Remove generation of any other Makefiles except the plugin's Makefile
