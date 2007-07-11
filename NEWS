@@ -1,15 +1,28 @@
-0.3.1:  DEVELOPMENT
+0.3.5:  DEVELOPMENT
 	* Defining RESTRICT allows skipping certain otherwise automatic steps.
 	  Currently "strip" is recognized.
+	* Libtool modules have empty dependency_libs for faster lt_dlopen.
+	* unpack: Handels Ruby .gem source packages.
 	* cygconf: configure-generated files mistakenly in S will be removed.
 	* cygpatch: Accepts gzip/bzip2 compressed patches.
 	* mirrors: Added mirror://mplayer/.
 	* apache.cygclass: New doapachemod command.
+	* berkdb.cygclass: Complete; includes Tcl bindings.
 	* bzr.cygclass: New for Bazaar-VCS checkout packages.
+	* distutils.cygclass: Default HOMEPAGE and SRC_URI at cheeseshop.
+	* gst-plugins0.10.cygclass: Handles gst-plugins-farsight.
 	* mono.cygclass: Enhanced mono_wrapper for locations outside /usr/bin.
-	* python.cygclass: Default HOMEPAGE and SRC_URI at cheeseshop.
+	* ocaml.cygclass: NEW for ocaml modules.
+	* python.cygclass: Upgrade to Python 2.5; new package naming scheme.
+	* svn.cygclass: Handles paths other than trunk.
 	* qt3.cygclass: Add QBINDIR to PATH.
-	* xfce4.cygclass: New for Xfce 4.4.
+	* tcl.cygclass: NEW for tcl modules.
+	* wxwidgets.cygclass: Refactored. Default to 2.8.
+	* xfce4.cygclass: NEW for Xfce 4.4.
+	* zope.cygclass: Updated for python-2.5 and zope-3.4 (on cheeseshop).
+
+0.3.1:  DEVELOPMENT
+	* codename for CVS HEAD leading to 0.3.5.
 
 0.3.0:  DEVELOPMENT
 	* Use user-only managed mounts with USE_MANAGED_MOUNT.

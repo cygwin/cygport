@@ -1,3 +1,9 @@
+*** 0.3.5 ***
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	* NEWS:
+	Pre-release version bump to reflect numerous changes.
 
 	* lib/svn.cygclass: SVN_TAG now accepted.
 	SVN_BRANCH requires 'full' path (including branches/).
