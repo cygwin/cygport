@@ -1,4 +1,6 @@
 
+	* lib/wxwidgets.cygclass: Default to wx-2.8.
+
 	* lib/gst-plugins0.10.cygclass: Better accomodate external plugins.
 
 	* lib/mono.cygclass: Don't override preset SVN_URI.
