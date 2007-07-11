@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (unpack): Handle .gem with 'gem unpack'.
+	(cygautoreconf): Handle foo.out:foo.in syntax during writability check.
+
 	* lib/gst-plugins0.10.cygclass: Accomodate farsight optional features.
 
 	* lib/gtkmm.cygclass (gtkmm_autoreconf):

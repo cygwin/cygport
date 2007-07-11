@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.81 2007-06-18 16:51:25 yselkowitz Exp $
+# $Id: cygport.in,v 1.82 2007-07-11 12:37:00 yselkowitz Exp $
 #
 ################################################################################
 
@@ -527,6 +527,10 @@ unpack() {
 				unpack_cmd="gunzip -c";
 				unpack_out="${unpack_file_name%.gz}";
 				;;
+			*.gem)
+				check_prog_req gem rubygems;
+				unpack_cmd="gem unpack";
+				;;
 			*.rar)
 				check_prog_req unrar;
 				unpack_cmd="unrar x -inul";
@@ -855,7 +859,10 @@ cygautoreconf() {
 
 				for f in ${ac_config_files} ${ac_config_headers}
 				do
-					chmod +w ${d}/${f}.in;
+					case ${f} in
+						*:*)	chmod +w ${d}/${f#*:} ;;
+						*)		chmod +w ${d}/${f}.in ;;
+					esac
 				done
 
 				unset ac_config_files;
