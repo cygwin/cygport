@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mono.cygclass,v 1.10 2007-06-18 12:24:16 yselkowitz Exp $
+# $Id: mono.cygclass,v 1.11 2007-07-11 12:39:23 yselkowitz Exp $
 #
 ################################################################################
 
@@ -19,7 +19,7 @@ HOMEPAGE="http://www.mono-project.com/"
 
 if ! defined SVN_URI
 then
-	SRC_URI="http://go-mono.com/sources/${ORIG_PN:-${PN}}/${ORIG_PN:-${PN}}-${PV}.${MONO_SOURCE_TYPE:-tar.gz}"
+	SRC_URI="http://go-mono.com/sources/${ORIG_PN:-${PN}}/${ORIG_PN:-${PN}}-${PV}.${MONO_SOURCE_TYPE:-tar.bz2}"
 	SVN_URI="svn://anonsvn.mono-project.com/source/trunk/${SVN_MODULE:-${ORIG_PN:-${PN}}}"
 	SRC_DIR="${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}}"
 fi
