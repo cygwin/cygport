@@ -1,4 +1,7 @@
 
+	* lib/gtkmm.cygclass (gtkmm_autoreconf):
+	Check for scripts dir before including.
+
 	* lib/wxwidgets.cygclass: Default to wx-2.8.
 
 	* lib/gst-plugins0.10.cygclass: Better accomodate external plugins.
