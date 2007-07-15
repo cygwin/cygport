@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (__pkg_diff):
+	Accept RESTRICT=diff to skip .src.patch creation.
+
 	* lib/gst-plugins0.10.cygclass: Update for good .6 and bad .5.
 
 	* CYGWIN-PATCHES/README:

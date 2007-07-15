@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.82 2007-07-11 12:37:00 yselkowitz Exp $
+# $Id: cygport.in,v 1.83 2007-07-15 18:40:29 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1709,9 +1709,15 @@ __pkg_diff() {
 		difflevel=2;
 	fi
 
-	diff -urN ${diff_excludes_x} \
-		${origsrcdir##*/} ${srcdir##*/} \
-		> ${patchdir}/${src_patchfile} || true;
+	if defined _CYGPORT_RESTRICT_diff_
+	then
+		rm -f ${patchdir}/${src_patchfile};
+		touch ${patchdir}/${src_patchfile};
+	else
+		diff -urN ${diff_excludes_x} \
+			${origsrcdir##*/} ${srcdir##*/} \
+			> ${patchdir}/${src_patchfile} || true;
+	fi
 
 	if check_prog diffstat
 	then
