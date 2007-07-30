@@ -30,6 +30,7 @@ dist_privbin_SCRIPTS = \
 	newins \
 	newman \
 	newmenu \
+	newsbin \
 	\
 	make_desktop_entry \
 	make_etc_defaults \

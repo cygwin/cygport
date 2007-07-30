@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* bin/Makefile.am:
+	* bin/newsbin:  Added newsbin().
+
 	* bin/cygport.in (__pkg_diff):
 	Accept RESTRICT=diff to skip .src.patch creation.
 
