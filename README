@@ -166,11 +166,11 @@ Other COMMANDs are meant primarily for maintainers:
 
     fetch    - download the original source from the Internet
     check    - run the testsuite
+    postinst - re-run post-installation steps
     list     - create a file listing suitable for the Cygwin README
     deps     - list direct dependencies of all executables
 
-For compatibility, the sole arguments --help or --version may also be
-passed to cygport.
+The standard arguments --help or --version may also be passed to cygport.
 
 
 4. CREATING A CYGPORT PACKAGE
@@ -178,9 +178,9 @@ passed to cygport.
 See the data/sample.cygport file, included in the Cygwin package in
 ${prefix}/share/cygport, for an example.
 
-The .cygport file name must be is PKGNAME-VERSION-RELEASE.cygport, where
-PKGNAME is the Cygwin package name (which may not be the same as the
-original source package name).
+The .cygport file name must be in the form PKGNAME-VERSION-RELEASE.cygport, 
+where PKGNAME is the Cygwin package name (which need not be the same as 
+the original source package name).
 
 Pure bash syntax is used.  Since a .cygport file is itself not a
 functioning script, the she-bang header (#!/bin/bash) should be omitted.
@@ -195,10 +195,18 @@ determine the original source package and assume its top directory name;
 if the latter does not conform to PKGNAME-VERSION (in cygport syntax,
 ${PN}-${PV}, or ${P}), then define SRC_DIR.
 
-If the source package contains illegal Windows filenames, or filenames
-in the same directory with the same name but different capitalizations
-(one of which will be overwritten if unpacked normally), then a managed
-mount may be used automatically by defining USE_MANAGED_MOUNT.
+There are certain cases where building within a managed mount is required, 
+namely where the source package:
+
+    * contains illegal Windows filenames;
+    * contains filenames in the same directory with the same name but 
+      different capitalizations (one of which will be overwritten if 
+      unpacked normally),
+    * contains headers with same name but different capitalization with
+      system headers which are also used.
+
+In these cases, a managed mount may be used automatically by defining 
+USE_MANAGED_MOUNT.
 
 During the src_* functions, be sure to cd into the correct directory. 
 The directories are defined by cygport as follows:
@@ -270,7 +278,8 @@ A default src_compile() is provided, which does the following:
     cygmake
 
 Another command that may come in useful is 'lndirs', which mirrors ${S}
-into ${B} with symlinks.
+into ${B} with symlinks.  This is primarily for use with non-autotooled 
+packages, so that they may be built in ${B} rather than ${S}.
 
 The src_test() function defines how to run the package testsuite, if
 any, during the check command The default is to run 'make check' if the
@@ -398,7 +407,7 @@ optional here (but mandatory for the files themselves).  These will be
 installed as setup.hint in the corresponding directory of dist/${PN}/.
 PKG_HINTS will default to PKG_NAMES if left undefined.
 
-PKG_CONTENTS[?] is an array; each element (starting with 0) should be
+PKG_CONTENTS[] is an array; each element (starting with 0) should be
 defined as the files to include in the corresponding binary package as
 arguments to tar(1).  Alternatively, a PKG_NAME.list file can be created 
 in CYGWIN-PATCHES with the argument list, in which case the PKG_CONTENTS 
