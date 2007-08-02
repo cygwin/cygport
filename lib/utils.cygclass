@@ -2,42 +2,70 @@
 #
 # utils.cygclass - assortment of miscellaneous functions
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: utils.cygclass,v 1.4 2006-11-23 04:14:59 yselkowitz Exp $
+# $Id: utils.cygclass,v 1.5 2007-08-02 19:51:57 yselkowitz Exp $
 #
 ################################################################################
 
 # checks for presence of headers in standard include path
+# directories can be added to include path by preceding -I<dir>
 check_header() {
-	local h;
+	local d
+	local h
+	local gcc_inc=$(gcc -print-search-dirs | grep '^install:' | cut -d ' ' -f 2)/include
+
+	local inc_path="/usr/include /usr/include/w32api ${gcc_inc} ${gcc_inc}/c++"
 
 	for h in "${@}"
 	do
-		if [ ! -e /usr/include/${h} -a ! -e /usr/include/w32api/${h} ]
-		then
-			return 1;
-		fi
-	done
+		case ${h} in
+			-I*)
+				inc_path+=" ${h#-I}"
+				continue
+		esac
 
-	return 0;
+		for d in ${inc_path}
+		do
+			if [ -e ${d}/${h} ]
+			then
+				return 0
+			fi
+		done
+	done		
+
+	return 1
 }
 
 # checks for presence of link libraries in standard library path
+# directories can be added to library path by preceding -L<dir>
 check_lib() {
-	local l;
+	local d
+	local l
+	local gcc_lib=$(gcc -print-search-dirs | grep '^install:' | cut -d ' ' -f 2)
+
+	local lib_path="/usr/lib /usr/lib/w32api ${gcc_lib}"
 
 	for l in "${@}"
 	do
-		if [ ! -e /usr/lib/lib${l}.a -a ! -e /usr/lib/lib${l}.dll.a -a ! -e /usr/lib/w32api/lib${l}.a ]
-		then
-			return 1;
-		fi
-	done
+		case ${l} in
+			-L*)
+				lib_path+=" ${l#-L}"
+				continue
+		esac
 
-	return 0;
+		for d in ${lib_path}
+		do
+			if [ -e ${d}/lib${l}.dll.a -o -e ${d}/lib${l}.a ]
+			then
+				return 0
+			fi
+		done
+	done		
+
+	return 1
 }
 
 # equivalent of PKG_CHECK_MODULES aclocal macro

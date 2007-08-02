@@ -1,4 +1,7 @@
 
+	* lib/utils.cygport (check_header, check_lib):
+	More robust; searches gcc dirs; additional dirs added with -I and -L.
+
 	* bin/cygport.in (cygcmake): Fixed typo.
 
 	* CYGWIN-PATCHES/README:
