@@ -6,12 +6,12 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: utils.cygclass,v 1.6 2007-08-02 21:49:46 yselkowitz Exp $
+# $Id: utils.cygclass,v 1.7 2007-08-02 22:02:05 yselkowitz Exp $
 #
 ################################################################################
 
-# checks for presence of headers in standard include path
-# directories can be added to include path by preceding -I<dir>
+# Checks for presence of headers in standard include path
+# Directories can be added to include path by prefacing -I<dir>
 check_header() {
 	local d
 	local h
@@ -31,16 +31,18 @@ check_header() {
 		do
 			if [ -e ${d}/${h} ]
 			then
-				return 0
+				continue 2
 			fi
 		done
+
+		return 1
 	done
 
-	return 1
+	return 0
 }
 
-# checks for presence of link libraries in standard library path
-# directories can be added to library path by preceding -L<dir>
+# Checks for presence of link libraries in standard library path
+# Directories can be added to library path by prefacing -L<dir>
 check_lib() {
 	local d
 	local l
@@ -58,20 +60,22 @@ check_lib() {
 
 		for d in ${lib_path}
 		do
-			if [ -e ${d}/lib${l}.dll.a -o -e ${d}/lib${l}.a ]
+			if [ -e ${d}/lib${l}.dll.a -o -e ${d}/lib${l}.a -o -e ${d}/cyg${l}.dll ]
 			then
-				return 0
+				continue 2
 			fi
 		done
+
+		return 1
 	done
 
-	return 1
+	return 0
 }
 
-# equivalent of PKG_CHECK_MODULES aclocal macro
+# Equivalent of PKG_CHECK_MODULES aclocal macro
 # e.g.: check_pkg_config GLADE "gtk+-2.0 >= 2.6.0 libglade-2.0"
-# will use pkg-config to verify that those devel packages are present,
-# and define GLADE_CFLAGS and GLADE_LIBS accordingly
+#       will use pkg-config to verify that those devel packages are
+#       present, and define GLADE_CFLAGS and GLADE_LIBS accordingly
 check_pkg_config() {
 	local modname=${1};
 	shift;
