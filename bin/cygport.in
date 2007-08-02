@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.83 2007-07-15 18:40:29 yselkowitz Exp $
+# $Id: cygport.in,v 1.84 2007-08-02 17:30:47 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1023,7 +1023,7 @@ cygcmake() {
 		cmdir=${PWD/${B}/${S}};
 	elif [ -e ${S}/CMakeLists.txt ]
 	then
-		confdir=${S};
+		cmdir=${S};
 	else
 		error "cygcmake: cmake directory not found";
 	fi

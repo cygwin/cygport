@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (cygcmake): Fixed typo.
+
 	* CYGWIN-PATCHES/README:
 	* bin/Makefile.am:
 	* bin/newsbin:  Added newsbin().
