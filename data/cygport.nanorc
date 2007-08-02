@@ -6,13 +6,13 @@
 ## Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 ## Distributed under the terms of the GNU General Public License v2
 ##
-## $Id: cygport.nanorc,v 1.4 2007-08-02 20:50:10 yselkowitz Exp $
+## $Id: cygport.nanorc,v 1.5 2007-08-02 21:30:38 yselkowitz Exp $
 ##
 ################################################################################
 
 ## Based on sh.nanorc
 ##
-syntax "cygport" "\.cyg(class|port)$"
+syntax "cygport" "(\.cyg(class|port)$|cygport.in)"
 icolor brightgreen "^[0-9A-Z_]+\(\)"
 color brightmagenta "\<(defined|inherit)\>"
 color green "\<(case|do|done|elif|else|esac|exit|fi|for|function|if|in|local|read|return|select|shift|then|time|until|while)\>"
