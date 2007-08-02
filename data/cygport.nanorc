@@ -6,7 +6,7 @@
 ## Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 ## Distributed under the terms of the GNU General Public License v2
 ##
-## $Id: cygport.nanorc,v 1.3 2007-02-05 04:19:34 yselkowitz Exp $
+## $Id: cygport.nanorc,v 1.4 2007-08-02 20:50:10 yselkowitz Exp $
 ##
 ################################################################################
 
@@ -23,3 +23,6 @@ color brightblue "\<(cat|cd|chmod|chown|cp|echo|env|export|grep|install|let|ln|m
 icolor brightred "\$\{?[0-9A-Z_!@#$*?-]+\}?"
 color cyan "(^|[[:space:]])#.*$"
 color brightyellow ""(\\.|[^"])*"" "'(\\.|[^'])*'"
+
+## Trailing whitespace
+color ,green "[[:space:]]+$"

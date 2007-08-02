@@ -1,4 +1,6 @@
 
+	* data/cygport.nanorc: Highlight trailing whitespace (from c.nanorc).
+
 	* lib/utils.cygport (check_header, check_lib):
 	More robust; searches gcc dirs; additional dirs added with -I and -L.
 
