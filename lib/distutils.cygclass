@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: distutils.cygclass,v 1.6 2007-05-17 12:23:52 yselkowitz Exp $
+# $Id: distutils.cygclass,v 1.7 2007-08-02 21:49:46 yselkowitz Exp $
 #
 ################################################################################
 
@@ -20,7 +20,7 @@ then
 		*)	ORIG_PN="${PN/python-/py}" ;;
 	esac
 fi
-			
+
 ORIG_PN=${ORIG_PN:-${PN}}
 
 HOMEPAGE="http://cheeseshop.python.org/pypi/${ORIG_PN}"
@@ -31,7 +31,7 @@ distutils_compile() {
 	then
 		error "No Python Distutils module detected"
 	fi
-	
+
 	${PYTHON} setup.py config || error "setup.py config failed"
 	${PYTHON} setup.py build "${@}" || error "setup.py build failed"
 }

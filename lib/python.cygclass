@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: python.cygclass,v 1.8 2007-05-17 12:23:52 yselkowitz Exp $
+# $Id: python.cygclass,v 1.9 2007-08-02 21:49:46 yselkowitz Exp $
 #
 ################################################################################
 
@@ -45,7 +45,7 @@ dopython() {
 
 	dodir ${pydir}
 
-	for i in "${@}"
+	for i
 	do
 		if [ -e ${i} ]
 		then

@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: java.cygclass,v 1.5 2007-05-30 12:14:02 yselkowitz Exp $
+# $Id: java.cygclass,v 1.6 2007-08-02 21:49:46 yselkowitz Exp $
 #
 ################################################################################
 
@@ -39,7 +39,7 @@ CYGCONF_ARGS+=" JAVA=${JAVA} JAVAC=${JAVAC} JAVADOC=${JAVADOC} JAVAH=${JAVAH} JA
 dojar() {
 	dodir ${JAVA_DIR}
 
-	for i in "${@}"
+	for i
 	do
 		if [ -e ${i} ]
 		then
@@ -59,7 +59,7 @@ newjar() {
 
 	dodir ${JAVA_DIR}
 
-	for i in "${@}"
+	for i
 	do
 		if [ -e ${i} ]
 		then
@@ -79,7 +79,7 @@ dojavadoc() {
 
 	dodir ${JAVADOC_DIR}
 
-	for d in "${@}"
+	for d
 	do
 		if [ -d ${d} ]
 		then

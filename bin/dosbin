@@ -3,11 +3,11 @@
 #
 # dosbin - installs executable to install path sbindir
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: dosbin,v 1.4 2006-11-20 05:48:58 yselkowitz Exp $
+# $Id: dosbin,v 1.5 2007-08-02 21:49:45 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -16,7 +16,7 @@ sbindir=/usr/sbin
 
 dodir ${sbindir}
 
-for i in "${@}"
+for i
 do
 	if [ ! -e ${i} ]
 	then

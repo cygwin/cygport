@@ -7,7 +7,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: prep_freedesktop_mime.sh,v 1.5 2006-11-23 04:14:58 yselkowitz Exp $
+# $Id: prep_freedesktop_mime.sh,v 1.6 2007-08-02 21:49:45 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -15,7 +15,7 @@ set -e
 unset _already_updated_mime_db
 
 # Freedesktop.org Desktop Menu files with MimeType declarations
-if [ -d ${D}/usr/share/applications ] 
+if [ -d ${D}/usr/share/applications ]
 then
 	if [ -n "$(grep -lr MimeType ${D}/usr/share/applications)" ]
 	then
@@ -24,7 +24,7 @@ then
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 			/usr/bin/update-desktop-database
 			/usr/bin/update-mime-database /usr/share/mime
-			
+
 			_EOF
 	fi
 fi
@@ -40,7 +40,7 @@ then
 		dodir /etc/postinstall
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 			/usr/bin/update-mime-database /usr/share/mime
-			
+
 			_EOF
 	fi
 fi

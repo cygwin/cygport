@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cross.cygclass,v 1.5 2006-11-23 04:14:59 yselkowitz Exp $
+# $Id: cross.cygclass,v 1.6 2007-08-02 21:49:46 yselkowitz Exp $
 #
 ################################################################################
 
@@ -82,7 +82,7 @@ docrossbin() {
 
 	dodir ${crossbindir}
 
-	for i in "${@}"
+	for i
 	do
 		if [ ! -e ${i} ]
 		then
@@ -98,7 +98,7 @@ docrosslib() {
 
 	dodir ${crosslibdir}
 
-	for i in "${@}"
+	for i
 	do
 		if [ ! -e ${i} ]
 		then

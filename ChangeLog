@@ -1,4 +1,6 @@
 
+	* bin/*, lib/*: Fix whitepsace.  for a in $@ -> for a.
+
 	* data/cygport.nanorc: Highlight trailing whitespace (from c.nanorc).
 
 	* lib/utils.cygport (check_header, check_lib):

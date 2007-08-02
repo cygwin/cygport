@@ -2,11 +2,11 @@
 #
 # font.cygclass - functions for installing X11 fonts
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: font.cygclass,v 1.4 2006-11-23 04:14:59 yselkowitz Exp $
+# $Id: font.cygclass,v 1.5 2007-08-02 21:49:46 yselkowitz Exp $
 #
 ################################################################################
 
@@ -34,7 +34,7 @@ dofont() {
 		error "fontinto must be called before dofont"
 	fi
 
-	for i in "${@}"
+	for i
 	do
 		if [ ! -e ${i} ]
 		then

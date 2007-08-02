@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.84 2007-08-02 17:30:47 yselkowitz Exp $
+# $Id: cygport.in,v 1.85 2007-08-02 21:49:44 yselkowitz Exp $
 #
 ################################################################################
 
@@ -296,7 +296,7 @@ declare -rx  PV_MAJ_MIN="${PVP[0]}.${PVP[1]}";
 check_prog() {
 	local _prog;
 
-	for _prog in ${@}
+	for _prog
 	do
 		if ! hash ${_prog} &> /dev/null
 		then
@@ -504,7 +504,7 @@ unpack() {
 	local unpack_file_name;
 	local unpack_out;
 
-	for unpack_file_path in ${@}
+	for unpack_file_path
 	do
 		unpack_file_name=${unpack_file_path##*/};
 
@@ -611,7 +611,7 @@ cygpatch() {
 	local patchfile_path;
 	local -i patchlevel;
 
-	for patchfile_path in ${@}
+	for patchfile_path
 	do
 		patchfile_name="${patchfile_path##*/}"
 
@@ -1130,7 +1130,7 @@ readonly -f cygtest
 dodir() {
 	local d;
 
-	for d in ${@}
+	for d
 	do
 		if [ ! -d ${D}${d} ]
 		then
@@ -1141,7 +1141,7 @@ dodir() {
 
 # prevents an otherwise empty directory from being automatically removed
 keepdir() {
-	for d in ${@}
+	for d
 	do
 		dodir ${d}
 		touch ${D}${d}/.keep-${PN}
@@ -1891,7 +1891,7 @@ inherit() {
 	local class;
 	local classname;
 
-	for class in ${@}
+	for class
 	do
 		classname=${class%.cygclass}
 
@@ -1918,7 +1918,8 @@ declare -x CXXFLAGS="-O2 -pipe ";
 declare -x F77FLAGS="-O2 -pipe ";
 declare -x GCJFLAGS="-O2 -pipe ";
 declare -x LDFLAGS="";
-declare    MAKEOPTS="-j2 "
+declare    MAKEOPTS="-j2 ";
+declare    CHOST="i686-pc-cygwin";
 
 source ${_privdatadir}/mirrors || warning "could not read mirrors file"
 

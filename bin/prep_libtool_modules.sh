@@ -3,11 +3,11 @@
 #
 # prep_libtool_modules.sh - removes static and import libraries for libtool modules
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: prep_libtool_modules.sh,v 1.8 2007-06-18 03:29:04 yselkowitz Exp $
+# $Id: prep_libtool_modules.sh,v 1.9 2007-08-02 21:49:45 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -16,7 +16,7 @@ declare -r ltversion="$(/usr/bin/libtool --version | /bin/grep ltmain.sh)"
 
 echo "Fixing libtool modules:"
 
-for lib_la in "${@}"
+for lib_la
 do
 	if [ ! -f ${lib_la} ]
 	then

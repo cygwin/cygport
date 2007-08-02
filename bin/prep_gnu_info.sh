@@ -7,7 +7,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: prep_gnu_info.sh,v 1.4 2006-11-20 05:48:58 yselkowitz Exp $
+# $Id: prep_gnu_info.sh,v 1.5 2007-08-02 21:49:45 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -27,7 +27,7 @@ for infopage in $(find ${D}/usr/share/info -type f)
 do
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 		/usr/bin/install-info --dir-file=/usr/share/info/dir --info-file=/usr/share/info/${infopage##*/}
-		
+
 		_EOF
 done
 echo >> ${D}/etc/postinstall/${PN}.sh

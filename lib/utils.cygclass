@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: utils.cygclass,v 1.5 2007-08-02 19:51:57 yselkowitz Exp $
+# $Id: utils.cygclass,v 1.6 2007-08-02 21:49:46 yselkowitz Exp $
 #
 ################################################################################
 
@@ -19,7 +19,7 @@ check_header() {
 
 	local inc_path="/usr/include /usr/include/w32api ${gcc_inc} ${gcc_inc}/c++"
 
-	for h in "${@}"
+	for h
 	do
 		case ${h} in
 			-I*)
@@ -34,7 +34,7 @@ check_header() {
 				return 0
 			fi
 		done
-	done		
+	done
 
 	return 1
 }
@@ -48,7 +48,7 @@ check_lib() {
 
 	local lib_path="/usr/lib /usr/lib/w32api ${gcc_lib}"
 
-	for l in "${@}"
+	for l
 	do
 		case ${l} in
 			-L*)
@@ -63,7 +63,7 @@ check_lib() {
 				return 0
 			fi
 		done
-	done		
+	done
 
 	return 1
 }
