@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: xorg.cygclass,v 1.8 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id: xorg.cygclass,v 1.9 2007-08-14 15:52:25 yselkowitz Exp $
 #
 ################################################################################
 
@@ -33,7 +33,7 @@ case ${PN} in
 	xorg-encodings|xorg-font*)
 		xorg_cat=font
 		;;
-	lib*|xtrans)
+	lib*|pixman|xtrans)
 		xorg_cat=lib
 		;;
 	*proto|*protocol|evieext)
