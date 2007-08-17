@@ -1,4 +1,6 @@
 
+	* bin/prep_gconf_schemas.sh: Get GCONF_CONFIG_SOURCE from gconftool-2.
+
 	* lib/xorg.cygclass: pixman is in lib/.
 
 	* bin/*, lib/*: Fix whitepsace.  for a in $@ -> for a.

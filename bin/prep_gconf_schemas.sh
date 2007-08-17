@@ -7,7 +7,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: prep_gconf_schemas.sh,v 1.5 2006-11-20 05:48:58 yselkowitz Exp $
+# $Id: prep_gconf_schemas.sh,v 1.6 2007-08-17 19:35:36 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -15,11 +15,11 @@ set -e
 dodir /etc/postinstall /etc/preremove
 
 cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-	export GCONF_CONFIG_SOURCE="xml::/etc/gconf/gconf.xml.defaults"
+	export GCONF_CONFIG_SOURCE="$(gconftool-2 --get-default-source)"
 	_EOF
 
 cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-	export GCONF_CONFIG_SOURCE="xml::/etc/gconf/gconf.xml.defaults"
+	export GCONF_CONFIG_SOURCE="$(gconftool-2 --get-default-source)"
 	_EOF
 
 for schema in ${D}/etc/gconf/schemas/*.schemas
