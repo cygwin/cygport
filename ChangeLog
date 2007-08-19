@@ -1,4 +1,6 @@
 
+	* data/mirrors (mirror_cran): Added.
+
 	* bin/prep_gconf_schemas.sh: Get GCONF_CONFIG_SOURCE from gconftool-2.
 
 	* lib/xorg.cygclass: pixman is in lib/.

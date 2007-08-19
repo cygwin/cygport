@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: mirrors,v 1.15 2007-04-22 20:25:39 yselkowitz Exp $
+# $Id: mirrors,v 1.16 2007-08-19 18:03:37 yselkowitz Exp $
 #
 ################################################################################
 
@@ -707,6 +707,65 @@ mirror_cpan="
 	http://cpan.dcc.uchile.cl
 	ftp://cpan.dcc.uchile.cl/pub/lang/cpan
 "   # mirror_cpan
+
+# http://cran.r-project.org/mirrors.html
+# grep -P '^http.*\n</a>' mirrors.html \
+#     | sed -e '/<\/a>/d' -e 's#^#\t#g' -e 's#/$##g'
+mirror_cran="
+	http://cran.r-project.org
+
+	http://cran.cnr.Berkeley.edu
+	http://cran.stat.ucla.edu
+	http://cran.ssds.ucdavis.edu
+	http://rh-mirror.linux.iastate.edu/CRAN
+	http://www.stathy.com/cran
+	http://www.biometrics.mtu.edu/CRAN
+	http://cran.wustl.edu
+	http://www.ibiblio.org/pub/languages/R/CRAN
+	http://cran.mirrors.hoobly.com
+	http://lib.stat.cmu.edu/R/CRAN
+	http://cran.hostingzero.com
+	http://cran.fhcrc.org
+	http://cran.stat.sfu.ca
+	http://probability.ca/cran
+	http://mirror.cricyt.edu.ar/r
+	http://cran.au.r-project.org
+	http://cran.ms.unimelb.edu.au
+	http://cran.at.r-project.org
+	http://cran.br.r-project.org
+	http://www.insecta.ufv.br/CRAN
+	http://cran.fiocruz.br
+	http://www.vps.fmvz.usp.br/CRAN
+	http://dirichlet.mat.puc.cl
+	http://trapananda.homelinux.org/r-project
+	http://june.irb.hr/r
+	http://cran.biokontakt.cz
+	http://cran.dk.r-project.org
+	http://cran.fr.r-project.org
+	http://cran.univ-lyon1.fr
+	http://umfragen.sowi.uni-mainz.de/CRAN
+	http://cran.basemirror.de
+	http://ftp.heanet.ie/mirrors/cran.r-project.org
+	http://microarrays.unife.it/CRAN
+	http://rm.mirror.garr.it/mirrors/CRAN
+	http://cran.stat.unipd.it
+	http://dssm.unipa.it/CRAN
+	http://cran.md.tsukuba.ac.jp
+	http://bibs.snu.ac.kr/R
+	http://cran.dsmirror.nl
+	http://cran-mirror.cs.uu.nl
+	http://cran.ii.uib.no
+	http://novum.am.lublin.pl/CRAN
+	http://r.meteo.uni.wroc.pl
+	http://www.wsection.com/cran
+	http://cran.za.r-project.org
+	http://ftp.sunet.se/pub/lang/CRAN
+	http://cran.ch.r-project.org
+	http://cran.cs.pu.edu.tw
+	http://cran.csie.ntu.edu.tw
+	http://cran.uk.r-project.org
+	http://www.sourcekeg.co.uk/cran
+"	# mirror_cran
 
 # Gentoo distfiles
 # http://www.gentoo.org/main/en/mirrors.xml
