@@ -1,0 +1,91 @@
+################################################################################
+#
+# R.cygclass - functions for building CRAN R packages
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2007 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+# $Id: R.cygclass,v 1.1 2007-08-20 05:03:59 yselkowitz Exp $
+#
+################################################################################
+
+check_prog_req R
+check_prog_req pkg-config
+
+R=/usr/bin/R
+R_CFLAGS="$(${R} CMD config CFLAGS) $(pkg-config --cflags libR)"
+R_LIBS="$(pkg-config --libs libR)"
+R_HOME=$(${R} RHOME)
+R_SITELIB=${R_HOME}/site-library
+
+ORIG_PN=${ORIG_PN:-${PN#R-}}
+
+DESCRIPTION="R ${ORIG_PN} package"
+HOMEPAGE="mirror://cran/src/contrib/Descriptions/${ORIG_PN}.html"
+SRC_URI="mirror://cran/src/contrib/${ORIG_PN}_${PV/_/-}.tar.gz"
+SRC_DIR="${ORIG_PN}"
+
+check_R_package() {
+	local p t
+
+	if (( $# == 0 ))
+	then
+		error "check_R_package requires at least one argument"
+	fi
+
+	check_prog_req mktemp
+
+	[ -d ${T} ] || mkdir -p ${T}
+
+	t=$(mktemp -p ${T})
+
+	for p
+	do
+		echo -e "library(${p})\nq()" > ${t}
+		if ! -e Rscript ${t} &> /dev/null
+		then
+			return 1
+		fi
+	done
+
+	return 0
+}
+
+R_autoreconf() {
+	if [ -d m4 ]
+	then
+		ACLOCAL='aclocal -I m4'
+	fi
+	NO_AUTOHEADER=1
+	cygautoreconf
+}
+
+R_compile() {
+	mkdir -p ${T}/inst
+	${R} CMD INSTALL --library ${T}/inst ${B}/${ORIG_PN}
+}
+
+#R_test() {
+#}
+
+R_install() {
+	[ -d ${T}/inst/${ORIG_PN} ] || error "cannot find built package"
+
+	dodir ${R_SITELIB}
+	cp -r ${T}/inst/${ORIG_PN} ${D}${R_SITELIB}
+}
+
+src_compile() {
+	mkdir -p ${B}/${ORIG_PN}
+	lndirs ${S} ${B}/${ORIG_PN}
+	R_compile
+}
+
+#src_test() {
+#	R_test
+#}
+
+src_install() {
+	R_install
+}
