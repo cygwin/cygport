@@ -7,21 +7,38 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: doman,v 1.6 2007-08-02 21:49:45 yselkowitz Exp $
+# $Id: doman,v 1.7 2007-08-29 22:25:36 yselkowitz Exp $
 #
 ################################################################################
 set -e
 
-mandir=/usr/share/man
+manroot=/usr/share/man
+mandir=${manroot}
 
 for i
 do
-	if [ ! -e ${i} ]
+	if defined _doman_next_arg_is_lang
 	then
-		error "file ${i} does not exist"
+		case ${i} in
+			C)	mandir=${manroot} ;;
+			*)	mandir="${mandir}/${i}" ;;
+		esac
+		unset _doman_next_arg_is_lang
+		continue
 	fi
 
 	case ${i} in
+		--lang=*)
+			case ${i#*=} in
+				C)	mandir=${manroot} ;;
+				*)	mandir="${mandir}/${i#*=}" ;;
+			esac
+			continue
+			;;
+		-l)
+			_doman_next_arg_is_lang=1
+			continue
+			;;			
 		*.1|*.1m|*.1x|*.1.bz2|*.1.gz)
 			mansection=1
 			;;
@@ -47,6 +64,11 @@ do
 			error "unknown man section"
 			;;
 	esac
+
+	if [ ! -e ${i} ]
+	then
+		error "file ${i} does not exist"
+	fi
 	
 	dodir ${mandir}/man${mansection}
 	/bin/install -m0644 ${i} ${D}${mandir}/man${mansection} || error "doman ${i} failed"

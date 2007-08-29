@@ -1,4 +1,6 @@
 
+	* bin/doman: Accept --lang=xx (-l xx) to install NLS manpages.
+
 	* data/mirrors (mirror_cran): Added.
 
 	* bin/prep_gconf_schemas.sh: Get GCONF_CONFIG_SOURCE from gconftool-2.
