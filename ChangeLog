@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/R.cygclass: New cygclass for CRAN packages.
+
 	* bin/doman: Accept --lang=xx (-l xx) to install NLS manpages.
 
 	* data/mirrors (mirror_cran): Added.

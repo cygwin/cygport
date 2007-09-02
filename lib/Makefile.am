@@ -27,6 +27,7 @@ dist_cygclass_DATA = 			\
 	pygtk.cygclass				\
 	python.cygclass				\
 	qt3.cygclass				\
+	R.cygclass					\
 	ruby.cygclass				\
 	ruby-gnome2.cygclass		\
 	svn.cygclass				\

@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: R.cygclass,v 1.1 2007-08-20 05:03:59 yselkowitz Exp $
+# $Id: R.cygclass,v 1.2 2007-09-02 21:07:38 yselkowitz Exp $
 #
 ################################################################################
 
@@ -52,22 +52,10 @@ check_R_package() {
 	return 0
 }
 
-R_autoreconf() {
-	if [ -d m4 ]
-	then
-		ACLOCAL='aclocal -I m4'
-	fi
-	NO_AUTOHEADER=1
-	cygautoreconf
-}
-
 R_compile() {
 	mkdir -p ${T}/inst
 	${R} CMD INSTALL --library ${T}/inst ${B}/${ORIG_PN}
 }
-
-#R_test() {
-#}
 
 R_install() {
 	[ -d ${T}/inst/${ORIG_PN} ] || error "cannot find built package"
@@ -81,10 +69,6 @@ src_compile() {
 	lndirs ${S} ${B}/${ORIG_PN}
 	R_compile
 }
-
-#src_test() {
-#	R_test
-#}
 
 src_install() {
 	R_install
