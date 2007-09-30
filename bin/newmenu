@@ -3,16 +3,16 @@
 #
 # newmenu - installs desktop menu to install path with new name
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: newmenu,v 1.4 2006-11-20 05:48:58 yselkowitz Exp $
+# $Id: newmenu,v 1.5 2007-09-30 08:11:49 yselkowitz Exp $
 #
 ################################################################################
 set -e
 
-menudir=/usr/share/pixmaps
+menudir=/usr/share/applications
 
 dodir ${menudir}
 

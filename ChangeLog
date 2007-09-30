@@ -1,4 +1,6 @@
 
+	* bin/newmenu: Fix installation directory.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/R.cygclass: New cygclass for CRAN packages.
