@@ -6,14 +6,17 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: gtk2-perl.cygclass,v 1.9 2007-06-03 21:38:55 yselkowitz Exp $
+# $Id: gtk2-perl.cygclass,v 1.10 2007-10-08 03:47:34 yselkowitz Exp $
 #
 ################################################################################
 
 inherit perl
 
-HOMEPAGE="http://gtk2-perl.sourceforge.net/"
-SRC_URI="mirror://sourceforge/gtk2-perl/${ORIG_PN}-${PV}.tar.gz"
+if ! defined CPAN_AUTHOR
+then
+	HOMEPAGE="http://gtk2-perl.sourceforge.net/"
+	SRC_URI="mirror://sourceforge/gtk2-perl/${ORIG_PN}-${PV}.tar.gz"
+fi
 
 DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS"
 
@@ -39,6 +42,11 @@ gtk2_perl_compile() {
 			ldflags="${PERL_VENDORARCH}/auto/Gnome2/VFS/libVFS.dll.a \
 			${PERL_VENDORARCH}/auto/Gtk2/libGtk2.dll.a \
 			${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a"
+			;;
+		Goo-Canvas)
+			ldflags="${PERL_VENDORARCH}/auto/Gtk2/libGtk2.dll.a \
+			${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a \
+			${PERL_VENDORARCH}/auto/Cairo/libCairo.dll.a"
 			;;
 		*)
 			ldflags="${PERL_VENDORARCH}/auto/Gtk2/libGtk2.dll.a \
