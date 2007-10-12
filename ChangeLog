@@ -1,4 +1,8 @@
 
+	* bin/prep_libtool_modules.sh:
+	Check that library was properly installed.
+	Simplify code and add comments.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/php.cygclass: New cygclass for PHP PECL extensions.
