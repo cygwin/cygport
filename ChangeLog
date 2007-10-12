@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/php.cygclass: New cygclass for PHP PECL extensions.
+
 	* lib/gtk2-perl.cygclass:
 	Recognize CPAN_AUTHOR for modules not on sf.net (Gtk2-Notify, Goo-Canvas).
 	Set correct ldflags for Goo-Canvas.

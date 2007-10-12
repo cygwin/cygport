@@ -24,6 +24,7 @@ dist_cygclass_DATA = 			\
 	mono.cygclass				\
 	ocaml.cygclass				\
 	perl.cygclass				\
+	php.cygclass				\
 	pygtk.cygclass				\
 	python.cygclass				\
 	qt3.cygclass				\

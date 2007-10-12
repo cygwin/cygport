@@ -1,0 +1,74 @@
+################################################################################
+#
+# php.cygclass - functions for building PHP (PECL) extensions
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2007 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Distributed under the terms of the GNU General Public License v2
+#
+# $Id: php.cygclass,v 1.1 2007-10-12 05:25:41 yselkowitz Exp $
+#
+################################################################################
+
+check_prog_req php
+
+ORIG_PN="${ORIG_PN:-${PN#php-}}"
+
+# redefine these after inheriting if sources are not on PECL
+DESCRIPTION="PHP ${ORIG_PN} extension"
+HOMEPAGE="http://pecl.php.net/package/${ORIG_PN}/"
+SRC_URI="http://pecl.php.net/get/${ORIG_PN}-${PV}.tgz"
+
+PHP=/usr/bin/php
+PHP_CONFIG=/usr/bin/php-config
+PHPIZE=/usr/bin/phpize
+PHP_VERSION=$(${PHP_CONFIG} --version)
+PHP_EXTENSION_DIR=$(${PHP_CONFIG} --extension-dir)
+PHP_INI_DIR=/etc/php5
+LIBPHP="-lphp5"
+
+php_autoreconf() {
+	if [ ! -e config.m4 ]
+	then
+		error "config.m4 not found"
+	fi
+
+	${PHPIZE} || error "phpize failed"
+}
+
+php_compile() {
+	cygconf \
+		--disable-static \
+		--enable-${ORIG_PN}=shared --with-${ORIG_PN}=shared \
+		"${@}"
+
+	cygmake EXTRA_LDFLAGS="-no-undefined ${LIBPHP}"
+}
+
+php_install() {
+	local x
+
+	cygmake -j1 install INSTALL_ROOT=${D}
+
+	rm -f ${D}${PHP_EXTENSION_DIR}/*.a
+
+	dodir ${PHP_INI_DIR}/conf.d
+
+	for x in ${D}${PHP_EXTENSION_DIR}/*.dll
+	do
+		echo "extension = ${x##*/}" >> ${D}${PHP_INI_DIR}/conf.d/${ORIG_PN}.ini
+	done
+}
+
+src_compile() {
+	lndirs
+	cd ${B}
+	php_autoreconf
+	CYGCONF_SOURCE=${B}
+	php_compile
+}
+
+src_install() {
+	cd ${B}
+	php_install
+}

@@ -114,6 +114,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/mono.cygclass
   /usr/lib/cygport/lib/ocaml.cygclass
   /usr/lib/cygport/lib/perl.cygclass
+  /usr/lib/cygport/lib/php.cygclass
   /usr/lib/cygport/lib/pygtk.cygclass
   /usr/lib/cygport/lib/python.cygclass
   /usr/lib/cygport/lib/qt3.cygclass
