@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: php.cygclass,v 1.1 2007-10-12 05:25:41 yselkowitz Exp $
+# $Id: php.cygclass,v 1.2 2007-10-14 19:23:19 yselkowitz Exp $
 #
 ################################################################################
 
@@ -25,7 +25,7 @@ PHPIZE=/usr/bin/phpize
 PHP_VERSION=$(${PHP_CONFIG} --version)
 PHP_EXTENSION_DIR=$(${PHP_CONFIG} --extension-dir)
 PHP_INI_DIR=/etc/php5
-LIBPHP="-lphp5"
+LIBPHP="-lphp5lib"
 
 php_autoreconf() {
 	if [ ! -e config.m4 ]
@@ -42,15 +42,13 @@ php_compile() {
 		--enable-${ORIG_PN}=shared --with-${ORIG_PN}=shared \
 		"${@}"
 
-	cygmake EXTRA_LDFLAGS="-no-undefined ${LIBPHP}"
+	cygmake
 }
 
 php_install() {
 	local x
 
 	cygmake -j1 install INSTALL_ROOT=${D}
-
-	rm -f ${D}${PHP_EXTENSION_DIR}/*.a
 
 	dodir ${PHP_INI_DIR}/conf.d
 
