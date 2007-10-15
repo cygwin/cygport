@@ -2,12 +2,25 @@
 ################################################################################
 #
 # prep_libtool_modules.sh - removes static and import libraries for libtool modules
+#
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
-# Distributed under the terms of the GNU General Public License v2
 #
-# $Id: prep_libtool_modules.sh,v 1.10 2007-10-12 05:31:40 yselkowitz Exp $
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: prep_libtool_modules.sh,v 1.11 2007-10-15 03:40:15 yselkowitz Exp $
 #
 ################################################################################
 set -e

@@ -1,4 +1,6 @@
 
+	* Relicensed under GPL-3.
+
 	* lib/pygtk.cygclass: Add gtop2 from gnome-python-desktop.
 
 	* CYGWIN-PATCHES/README:

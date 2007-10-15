@@ -1,3 +1,6 @@
+0.3.7:  DEVELOPMENT
+	* Relicensed under GPL-3.
+
 0.3.6:  DEVELOPMENT
 	* RESTRICT=diff is accepted to not produce a .src.patch file.
 	* mirrors:  Added mirror://cran/.

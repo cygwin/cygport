@@ -2,12 +2,25 @@
 ################################################################################
 #
 # prep_gtk2_modules.sh - Postinstall commands for GTK+ 2.x modules
+#
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
-# Distributed under the terms of the GNU General Public License v2
 #
-# $Id: prep_gtk2_modules.sh,v 1.5 2006-11-20 05:48:58 yselkowitz Exp $
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: prep_gtk2_modules.sh,v 1.6 2007-10-15 03:40:15 yselkowitz Exp $
 #
 ################################################################################
 set -e
