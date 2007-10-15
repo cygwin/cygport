@@ -1,3 +1,8 @@
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
 *** 0.3.6 ***
 
 	* bin/cygport.in (cygautoreconf): Sanity check.

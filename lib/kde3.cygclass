@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: kde3.cygclass,v 1.15 2007-06-18 02:20:30 yselkowitz Exp $
+# $Id: kde3.cygclass,v 1.16 2007-10-15 02:02:01 yselkowitz Exp $
 #
 ################################################################################
 
@@ -77,15 +77,15 @@ kde3_compile() {
 		--with-qt-includes=${QINCLUDEDIR} \
 		--with-qt-libraries=${QLIBDIR} --enable-mt \
 		--with-distribution=Cygwin \
-		--disable-libfam --disable-dnotify \
+		--enable-libfam --disable-dnotify \
 		--with-arts --enable-arts \
-		--with-ipv6-lookup=no \
+		--without-ipv6-lookup \
 		--with-ssl-dir=/usr \
-		--with-gssapi=no \
-		--enable-fast-malloc=no \
+		--with-gssapi \
+		--disable-fast-malloc \
 		--with-berkeley-db \
-		--with-db-name=db-4.3 \
-		--with-db-include-dir=/usr/include/db4.3 \
+		--with-db-name=db-4.5 \
+		--with-db-include-dir=/usr/include/db4.5 \
 		--without-java \
 		"${@}"
 
