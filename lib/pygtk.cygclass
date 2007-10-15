@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: pygtk.cygclass,v 1.9 2007-05-17 12:23:52 yselkowitz Exp $
+# $Id: pygtk.cygclass,v 1.10 2007-10-15 03:11:48 yselkowitz Exp $
 #
 ################################################################################
 
@@ -18,7 +18,7 @@ case ${pygtk_mod} in
 		pygtk_subdir=${pygtk_mod}
 		ORIG_PN=gnome-python
 		;;
-	gnomeapplet|gnomedesktop|gnomekeyring|gnomeprint|gtksourceview|mediaprofiles|metacity|rsvg|totem|wnck)
+	gnomeapplet|gnomedesktop|gnomekeyring|gnomeprint|gtksourceview|gtop|mediaprofiles|metacity|rsvg|totem|wnck)
 		pygtk_subdir=${pygtk_mod}
 		ORIG_PN=gnome-python-desktop
 		;;
