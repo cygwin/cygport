@@ -6,7 +6,7 @@
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 # Distributed under the terms of the GNU General Public License v2
 #
-# $Id: cygport.in,v 1.85 2007-08-02 21:49:44 yselkowitz Exp $
+# $Id: cygport.in,v 1.86 2007-10-15 01:32:18 yselkowitz Exp $
 #
 ################################################################################
 
@@ -823,6 +823,7 @@ lndirs() {
 cygautoreconf() {
 	local d;
 	local f;
+	local f_in;
 	local tool;
 	local ac_config_files;
 	local ac_config_headers;
@@ -855,14 +856,19 @@ cygautoreconf() {
 				eval $(grep -h '^ac_config_files=' ${d}/configure)
 				# eval $(grep -h '^ac_config_headers=' ${d}/configure)
 
-				chmod +w ${d}/configure;
+				chmod +wx ${d}/configure;
 
 				for f in ${ac_config_files} ${ac_config_headers}
 				do
 					case ${f} in
-						*:*)	chmod +w ${d}/${f#*:} ;;
-						*)		chmod +w ${d}/${f}.in ;;
+						*:*)	f_in=${d}/${f#*:} ;;
+						*)		f_in=${d}/${f}.in ;;
 					esac
+
+					if [ -e ${f_in} ]
+					then
+						chmod +w ${f_in};
+					fi
 				done
 
 				unset ac_config_files;
@@ -1252,6 +1258,7 @@ readonly -f dodir keepdir docinto exeinto insinto __prepinstalldirs cyginstall
 #	__prepman
 #	__prepstrip
 #	__prep_empty_dirs
+#	__prep_libtool_modules
 #	__src_postinst
 #
 ################################################################################
@@ -1416,8 +1423,8 @@ __prep_empty_dirs() {
 __prepstrip() {
 	if defined _CYGPORT_RESTRICT_strip_
 	then
-		inform "Skipping strip step per request."
-		return
+		inform "Skipping strip step per request.";
+		return 0;
 	fi
 
 	local exe;
@@ -1437,16 +1444,18 @@ __prepstrip() {
 			strip ${exe};
 		fi
 	done
+}
 
+__prep_libtool_modules() {
 	find * -name '*.la' -exec prep_libtool_modules.sh '{}' + || error "Libtool module postinstall failed"
 }
 
 __src_postinst() {
-	__prepdoc && __prepetc && __prepman && __prep_empty_dirs && __prepstrip;
+	__prepdoc && __prepetc && __prepman && __prep_empty_dirs && __prepstrip && __prep_libtool_modules;
 }
 
 # protect functions
-readonly -f __prepdoc __prepetc __prepman __prep_empty_dirs __prepstrip __src_postinst
+readonly -f __prepdoc __prepetc __prepman __prep_empty_dirs __prepstrip __prep_libtool_modules __src_postinst
 
 
 ################################################################################
@@ -1621,6 +1630,11 @@ __pkg_diff() {
 				config.guess config.sub depcomp elisp-comp install-sh \
 				ltmain.sh mdate-sh missing mkinstalldirs py-compile \
 				symlink-tree texinfo.tex ylwrap" ;;
+	esac
+
+	case ${PN} in
+		gettext) ;;
+		*)	default_excludes+=" config.rpath" ;;
 	esac
 
 	# exclude Makefile.in only if using automake

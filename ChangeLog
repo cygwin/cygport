@@ -1,4 +1,8 @@
 
+	* bin/cygport.in (cygautoreconf): Sanity check.
+	(__prep_libtool_modules): Break off from __prepstrip.
+	(__pkg_diff): Ignore config.rpath if not building gettext.
+
 	* lib/php.cygclass: Adapt for fixed PHP build system.
 
 	* bin/prep_libtool_modules.sh:
