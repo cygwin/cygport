@@ -4,7 +4,7 @@
 # make_desktop_entry - creates custom desktop menu into install path
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: make_desktop_entry,v 1.6 2007-10-15 03:40:14 yselkowitz Exp $
+# $Id: make_desktop_entry,v 1.7 2007-10-15 03:41:34 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -42,5 +42,5 @@ cat > ${D}/usr/share/applications/${1%% *}.desktop <<-_EOF
 	TryExec=${1}
 	Path=
 	Icon=${3}
-	Categories=Application;${4};
+	Categories=${4};
 	_EOF

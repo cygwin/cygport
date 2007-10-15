@@ -1,4 +1,6 @@
 
+	* bin/make_desktop_entry: Application is not a valid Category.
+
 	* Relicensed under GPL-3.
 
 	* lib/pygtk.cygclass: Add gtop2 from gnome-python-desktop.
