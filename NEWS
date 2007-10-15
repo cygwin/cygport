@@ -1,8 +1,11 @@
 0.3.6:  DEVELOPMENT
 	* RESTRICT=diff is accepted to not produce a .src.patch file.
+	* mirrors:  Added mirror://cran/.
 	* doman:  Accepts --lang=XX to install NLS manpages.
-	* newsbin: NEW command.
-	* R.cygclass: NEW for CRAN packages.
+	* newsbin:  NEW command.
+	* gtk2-perl.cygclass:  Support related modules on CPAN, e.g. Gtk2-Notify.
+	* php.cygclass:  NEW for PHP PECL extensions.
+	* R.cygclass:  NEW for CRAN packages.
 
 0.3.5:  DEVELOPMENT
 	* Defining RESTRICT allows skipping certain otherwise automatic steps.
