@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: apache.cygclass,v 1.4 2007-10-15 03:40:20 yselkowitz Exp $
+# $Id: apache.cygclass,v 1.5 2007-10-16 18:43:47 yselkowitz Exp $
 #
 ################################################################################
 
@@ -27,25 +27,41 @@ case ${PN} in
 	apache-*)
 		ORIG_PN=${PN#apache-}
 		APACHE_MAJOR=1
-		APXS=/usr/sbin/apxs
-		LIBHTTPD='-lhttpd'
-		lt_shrext=''
 		;;
 	apache2-*)
 		ORIG_PN=${PN#apache2-}
 		APACHE_MAJOR=2
+		;;
+	*)
+		ORIG_PN=${PN}
+		if ! defined APACHE_MAJOR
+		then
+			error "APACHE_MAJOR must be defined to 1 or 2"
+		fi
+		;;
+esac
+
+case ${APACHE_MAJOR} in
+	1)
+		APACHE_PN="apache"
+		APXS=/usr/sbin/apxs
+		LIBHTTPD='-lhttpd'
+		lt_shrext=''
+		;;
+	2)
+		APACHE_PN="apache2-devel"
 		APXS=/usr/sbin/apxs2
 		LIBHTTPD='-lhttpd2core'
 		lt_shrext='-shrext .so'
 		;;
-	*)	error "PN should begin with apache- or apache2-" ;;
+	*) 	error "APACHE_MAJOR must be defined to 1 or 2" ;;
 esac
 
 ORIG_P="${ORIG_PN}-${PV}"
 SRC_DIR="${ORIG_P}"
-DESCRIPTION="Apache${APACHE_MAJOR} ${ORIG_PN} module"
+DESCRIPTION="Apache ${APACHE_MAJOR}.x ${ORIG_PN} module"
 
-check_prog_req ${APXS} ${PN%-${ORIG_PN}}
+check_prog_req ${APXS} ${APACHE_PN}
 
 # libhttpd variables
 for var in CFLAGS INCLUDEDIR LIBEXECDIR SYSCONFDIR

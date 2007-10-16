@@ -1,4 +1,6 @@
 
+	* lib/apache.cygclass: Accomodate usage for libapreq2.
+
 	* bin/make_desktop_entry: Application is not a valid Category.
 
 	* Relicensed under GPL-3.
