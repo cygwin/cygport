@@ -1,5 +1,8 @@
 
 	* lib/apache.cygclass: Accomodate usage for libapreq2.
+	(apache_apxs_compile, apxs_compile): New wrapper for 'apxs -c'.
+	(doapachemod): Smarter detection of module extension.
+	Do not override src_compile and src_install.
 
 	* bin/make_desktop_entry: Application is not a valid Category.
 

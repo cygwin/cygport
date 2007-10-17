@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: apache.cygclass,v 1.5 2007-10-16 18:43:47 yselkowitz Exp $
+# $Id: apache.cygclass,v 1.6 2007-10-17 14:36:06 yselkowitz Exp $
 #
 ################################################################################
 
@@ -45,16 +45,22 @@ case ${APACHE_MAJOR} in
 	1)
 		APACHE_PN="apache"
 		APXS=/usr/sbin/apxs
-		LIBHTTPD='-lhttpd'
-		lt_shrext=''
+		LIBHTTPD="-lhttpd"
+		APACHE_MOD_SHREXT=".dll"
+		APACHE_MOD_EXT=${APACHE_MOD_SHREXT}
 		;;
 	2)
 		APACHE_PN="apache2-devel"
 		APXS=/usr/sbin/apxs2
-		LIBHTTPD='-lhttpd2core'
-		lt_shrext='-shrext .so'
+		LIBHTTPD="-lhttpd2core"
+		APACHE_MOD_SHREXT=".so"
+		APACHE_MOD_EXT=".la"
 		;;
 	*) 	error "APACHE_MAJOR must be defined to 1 or 2" ;;
+esac
+
+case ${ORIG_PN} in
+	mod_*)	APACHE_MOD_NAME="${ORIG_PN}" ;;
 esac
 
 ORIG_P="${ORIG_PN}-${PV}"
@@ -112,9 +118,31 @@ apache_compile() {
 
 	cygmake \
 		${ORIG_PN}_la_CPPFLAGS="${APXS_CFLAGS} -I${APXS_INCLUDEDIR} ${APR_CFLAGS}" \
-		${ORIG_PN}_la_LDFLAGS="-module -avoid-version -no-undefined ${lt_shrext}" \
+		${ORIG_PN}_la_LDFLAGS="-module -avoid-version -no-undefined -shrext ${APACHE_MOD_SHREXT}" \
 		${ORIG_PN}_la_LIBADD="${LIBHTTPD} ${APR_LIBS}"
 }
+
+# NOTE: CFLAGS need to proceed source files, with LIBS following
+# e.g. apache_apxs_compile CFLAGS *.c LIBS
+apache_apxs_compile() {
+	local ldflags
+
+	if ! defined APACHE_MOD_NAME
+	then
+		error "define APACHE_MOD_NAME before calling apache_apxs_compile"
+	fi
+
+	# apache 1.x apxs does not automatically add -lhttpd
+	case ${APACHE_MAJOR} in
+		1)	ldflags="-Wl,--enable-auto-image-base ${LIBHTTPD}" ;;
+	esac
+
+	${APXS} -c -o ${APACHE_MOD_NAME}${APACHE_MOD_EXT} "${@:-*.c}" ${ldflags} \
+		|| error "apxs compile failed"
+}
+
+# alias for apache_apxs_compile
+apxs_compile() { apache_apxs_compile "$@" ; }
 
 doapacheconf() {
 	insinto ${APXS_SYSCONFDIR}
@@ -124,8 +152,12 @@ doapacheconf() {
 doapachemod() {
 	local mod
 
-	for mod in ${@}
+	for mod
 	do
+		case ${mod##*.} in
+			${mod})	mod=${mod}${APACHE_MOD_EXT} ;;
+		esac
+
 		if [ ! -f ${mod} ]
 		then
 			error "doapachemod: ${mod}: File not found"
@@ -138,7 +170,7 @@ doapachemod() {
 					${mod} ${D}${APXS_LIBEXECDIR} \
 					|| error "install ${mod} failed"
 				;;
-			*.dll|*.so)
+			*${APACHE_MOD_SHREXT})
 				exeinto ${APXS_LIBEXECDIR}
 				doexe ${mod}
 				;;
@@ -152,17 +184,4 @@ apache_postinst() {
 	then
 		make_etc_defaults $(find ${D}${APXS_SYSCONFDIR} -type f | sed "s#^${D}##g")
 	fi
-}
-
-src_compile() {
-	cd ${S}
-	cygautoreconf
-	cd ${B}
-	apache_compile
-}
-
-src_install() {
-	cd ${B}
-	cyginstall
-	apache_postinst
 }
