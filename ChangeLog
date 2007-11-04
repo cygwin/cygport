@@ -1,4 +1,7 @@
 
+	* lib/kde3.cygclass (kde3_compile): Standardize configure arguments.
+	(kde3_install): Modulize libkdeinit libs, as their implibs aren't used.
+
 	* lib/php.cygclass (php_postinst):
 	Move php.ini generation into separate function.
 

@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: kde3.cygclass,v 1.17 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: kde3.cygclass,v 1.18 2007-11-04 18:17:30 yselkowitz Exp $
 #
 ################################################################################
 
@@ -79,27 +79,33 @@ kde3_compile() {
 
 	cygconf \
 		--includedir=/usr/include/kde \
-		--disable-pie \
-		--disable-rpath \
 		--disable-static \
 		--disable-debug --without-debug \
 		--disable-dependency-tracking \
-		--with-x --without-xinerama \
-		--disable-mitshm \
+		--disable-closure \
+		--disable-final \
+		--disable-new-ldflags \
+		--disable-nmcheck \
+		--disable-pch \
+		--disable-pie \
+		--disable-profile \
+		--disable-rpath \
+		--disable-strict \
+		--disable-warnings \
 		--with-qt-dir=${QTDIR} \
 		--with-qt-includes=${QINCLUDEDIR} \
 		--with-qt-libraries=${QLIBDIR} --enable-mt \
-		--with-distribution=Cygwin \
-		--enable-libfam --disable-dnotify \
 		--with-arts --enable-arts \
-		--without-ipv6-lookup \
-		--with-ssl-dir=/usr \
-		--with-gssapi \
-		--disable-fast-malloc \
+		--with-distribution=Cygwin \
 		--with-berkeley-db \
 		--with-db-name=db-4.5 \
 		--with-db-include-dir=/usr/include/db4.5 \
+		--with-ssl-dir=/usr \
+		--without-dpms \
+		--without-ipv6-lookup \
 		--without-java \
+		--without-pam \
+		--without-xinerama \
 		"${@}"
 
 	cygmake
@@ -130,6 +136,9 @@ kde3_install() {
 			fi
 		done
 	done
+
+	# except for libkdeinit_kded in kdelibs, implibs are unnecessary
+	find ${D}/usr/lib -name 'libkdeinit_*.la' -exec sed -i -e 's/link=no/link=yes/' '{}' +
 }
 
 src_compile() {
