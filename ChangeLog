@@ -1,4 +1,6 @@
 
+	* lib/gst-plugins0.8.cygclass: Fixed spc, arts, and cdparanoia plugins.
+
 	* lib/kde3.cygclass (kde3_compile): Standardize configure arguments.
 	(kde3_install): Modulize libkdeinit libs, as their implibs aren't used.
 
