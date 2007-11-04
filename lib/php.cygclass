@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: php.cygclass,v 1.3 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: php.cygclass,v 1.4 2007-11-04 18:15:06 yselkowitz Exp $
 #
 ################################################################################
 
@@ -59,9 +59,11 @@ php_compile() {
 }
 
 php_install() {
-	local x
-
 	cygmake -j1 install INSTALL_ROOT=${D}
+}
+
+php_postinst() {
+	local x
 
 	dodir ${PHP_INI_DIR}/conf.d
 
@@ -82,4 +84,5 @@ src_compile() {
 src_install() {
 	cd ${B}
 	php_install
+	php_postinst
 }

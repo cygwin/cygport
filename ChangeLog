@@ -1,4 +1,7 @@
 
+	* lib/php.cygclass (php_postinst):
+	Move php.ini generation into separate function.
+
 	* bin/cygport.in (__list_deps): Ignore most Windows libraries.
 	Include ${D}-prefixed equivalents in DEPS_PATH as well.
 
