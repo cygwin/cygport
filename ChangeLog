@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (__list_deps): Ignore most Windows libraries.
+	Include ${D}-prefixed equivalents in DEPS_PATH as well.
+
 	* lib/apache.cygclass: Accomodate usage for libapreq2.
 	(apache_apxs_compile, apxs_compile): New wrapper for 'apxs -c'.
 	(doapachemod): Smarter detection of module extension.
