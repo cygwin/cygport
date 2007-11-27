@@ -1,4 +1,8 @@
 
+	* lib/wxwidgets.cygclass (_find_wx_config):
+	Fix 2.8 detection.
+	Cygwin does not have support for Unicode builds, so error out.
+
 	* lib/gst-plugins0.8.cygclass: Fixed spc, arts, and cdparanoia plugins.
 
 	* lib/kde3.cygclass (kde3_compile): Standardize configure arguments.

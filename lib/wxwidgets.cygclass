@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: wxwidgets.cygclass,v 1.5 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: wxwidgets.cygclass,v 1.6 2007-11-27 05:09:26 yselkowitz Exp $
 #
 ################################################################################
 
@@ -29,7 +29,7 @@ _wx_find_config() {
 
 	WX_VERSION=${WX_VERSION:-2.8}
 	WX_TOOLKIT=${WX_TOOLKIT:-gtk2}
-	WX_CODESET=${WX_CODESET:-ansi}
+	WX_CODESET="ansi"
 
 	case ${WX_TOOLKIT} in
 		base)
@@ -46,9 +46,8 @@ _wx_find_config() {
 	case ${WX_CODESET} in
 		unicode)
 			case ${WX_TOOLKIT} in
-				gtk2|msw) ;;
-				*)	warning "wxWidgets ${WX_TOOLKIT} is only available in ANSI"
-					WX_CODESET=ansi
+				# Cygwin does not have support for Unicode builds
+				*)	error "wxWidgets ${WX_TOOLKIT} is only available in ANSI"
 					;;
 			esac
 			;;
@@ -64,7 +63,7 @@ _wx_find_config() {
 		esac
 
 	case ${WX_VERSION} in
-		2.6) wx_config=/usr/lib/wx/config/${WX_TOOLKIT}-${WX_CODESET}-release-${WX_VERSION} ;;
+		2.6|2.8) wx_config=/usr/lib/wx/config/${WX_TOOLKIT}-${WX_CODESET}-release-${WX_VERSION} ;;
 		*) error "wxWidgets ${WX_VERSION} is not yet supported" ;;
 	esac
 
@@ -73,7 +72,7 @@ _wx_find_config() {
 		error "could not find ${wx_config##*/}"
 	fi
 
-	echo "${wx_config} ${wx_base}"
+	echo ${wx_config} ${wx_base}
 }
 
 export WX_CONFIG="$(_wx_find_config)"
