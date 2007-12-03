@@ -1,4 +1,6 @@
 
+	* lib/pygtk.cygclass: Add support for gtksourceview2.
+
 	* lib/wxwidgets.cygclass (_find_wx_config):
 	Fix 2.8 detection.
 	Cygwin does not have support for Unicode builds, so error out.

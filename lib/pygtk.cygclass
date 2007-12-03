@@ -19,12 +19,19 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: pygtk.cygclass,v 1.11 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: pygtk.cygclass,v 1.12 2007-12-03 19:30:29 yselkowitz Exp $
 #
 ################################################################################
 
 pygtk_mod=${PN#python-}
-pygtk_mod=${pygtk_mod%${PV_MAJ}}
+
+# There are TWO versions of PyGtkSourceView:
+# First for GtkSourceView 1.8, provided by gnome-python-desktop
+# Second for GtkSourceView 2.x, with its own package
+case ${pygtk_mod} in
+	gtksourceview*) ;;
+	*)	pygtk_mod=${pygtk_mod%${PV_MAJ}} ;;
+esac
 
 case ${pygtk_mod} in
 	bonobo|gconf|gnome|gnomecanvas|gnomevfs)
@@ -46,6 +53,10 @@ case ${pygtk_mod} in
 	nautilus)
 		pygtk_subdir=.
 		ORIG_PN=nautilus-python
+		;;
+	gtksourceview2)
+		pygtk_subdir=.
+		ORIG_PN=pygtksourceview
 		;;
 	*)
 		pygtk_subdir=.
