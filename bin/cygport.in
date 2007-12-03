@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.88 2007-11-04 18:12:39 yselkowitz Exp $
+# $Id: cygport.in,v 1.89 2007-12-03 23:00:54 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1525,7 +1525,7 @@ __list_deps() {
 	# Ruby and Apache2 modules should be *.so, nothing else!!!
 	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' \) \
 		-exec objdump -p '{}' + | grep "DLL Name:" | sort -u | \
-		cut -d ' ' -f 3 | sed -e '/ [A-Z]*32.[Dd][Ll][Ll]/d' -e 's!mscoree.dll!mono.exe!' | \
+		cut -d ' ' -f 3 | sed -e '/^[A-Z32]*\.[Dd][Ll][Ll]$/d' -e 's!mscoree.dll!mono.exe!' | \
 		xargs -r which | xargs -r cygcheck -f | sort -u | sed 's!^!  !';
 	)
 }

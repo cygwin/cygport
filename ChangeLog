@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (__list_deps): Really ignore Windows libraries.
+
 	* lib/pygtk.cygclass: Add support for gtksourceview2.
 
 	* lib/wxwidgets.cygclass (_find_wx_config):
