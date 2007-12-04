@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: ruby-gnome2.cygclass,v 1.14 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: ruby-gnome2.cygclass,v 1.15 2007-12-04 15:06:28 yselkowitz Exp $
 #
 ################################################################################
 
@@ -64,11 +64,29 @@ esac
 
 DESCRIPTION="Ruby ${rbg2_pn} bindings"
 HOMEPAGE="http://ruby-gnome2.sourceforge.jp/"
-SRC_URI="mirror://sourceforge/ruby-gnome2/${ORIG_PN}-${PV}.tar.gz"
-SRC_DIR="${ORIG_PN}-${PV}"
 
-# FIXME: CAIRO_PATH is supposed to be the ruby-cairo builddir, so this
-# actually produces a bogus -L flag.
+if defined PVP[3]
+then
+	SVN_URI="http://ruby-gnome2.svn.sourceforge.net/svnroot/ruby-gnome2/ruby-gnome2/trunk/${rbg2_dir}"
+	SVN_REV=${PVP[3]}
+	inherit svn
+	SRC_URI+="
+		http://ruby-gnome2.svn.sourceforge.net/viewvc/*checkout*/ruby-gnome2/ruby-gnome2/trunk/extconf.rb
+		http://ruby-gnome2.svn.sourceforge.net/viewvc/*checkout*/ruby-gnome2/ruby-gnome2/trunk/exec_make.rb
+		"
+	SRC_DIR=.
+else
+	SRC_URI="mirror://sourceforge/ruby-gnome2/${ORIG_PN}-${PV}.tar.gz"
+	SRC_DIR="${ORIG_PN}-${PV}"
+fi
+
+# WARNING: CAIRO_PATH is supposed to be the ruby-cairo builddir, not
+# the installed RUBY_SITEARCH, so this will create a bogus -L flag no
+# matter what.  We compensate by correctly defining LOCAL_LIBS below.
+#
+# However, be sure that all extconf.rb have_func() calls come BEFORE any
+# add_depend_package() calls, otherwise the tests will give false negatives
+# due to linker errors (e.g. unable to find -lruby-cairo).
 export CAIRO_PATH="${RUBY_SITEARCH}"
 
 MAKEOPTS+=" -j1"

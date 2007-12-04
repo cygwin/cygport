@@ -1,4 +1,6 @@
 
+	* lib/ruby-gnome2.cygclass: Add support for SVN checkouts.
+
 	* bin/cygport.in (__list_deps): Really ignore Windows libraries.
 
 	* lib/pygtk.cygclass: Add support for gtksourceview2.
