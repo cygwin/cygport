@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: pygtk.cygclass,v 1.12 2007-12-03 19:30:29 yselkowitz Exp $
+# $Id: pygtk.cygclass,v 1.13 2007-12-10 07:21:53 yselkowitz Exp $
 #
 ################################################################################
 
@@ -34,6 +34,10 @@ case ${pygtk_mod} in
 esac
 
 case ${pygtk_mod} in
+	gnome-python|gnome-python-desktop|gnome-python-extras)
+		pygtk_subdir=.
+		ORIG_PN=${PN}
+		;;
 	bonobo|gconf|gnome|gnomecanvas|gnomevfs)
 		pygtk_subdir=${pygtk_mod}
 		ORIG_PN=gnome-python
@@ -68,6 +72,10 @@ inherit gnome.org python
 
 DESCRIPTION="Python ${pygtk_mod} bindings"
 HOMEPAGE="http://www.pygtk.org/"
+
+PYGTK_INCLUDEDIR="/usr/include/pygtk-2.0"
+PYGTK_LIBDIR="${PYTHON_SITELIB}/gtk-2.0"
+PYGTK_DATADIR="/usr/share/pygtk/2.0"
 
 pygtk_compile() {
 	cygconf --disable-static "${@}"

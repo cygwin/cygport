@@ -1,4 +1,7 @@
 
+	* lib/pygtk.cygclass: Allow monolithic builds of gnome-python et al.
+	(PYGTK_INCLUDEDIR, PYGTK_LIBDIR, PYGTK_DATADIR): Define.
+
 	* lib/ruby-gnome2.cygclass: Add support for SVN checkouts.
 	(src_compile): Speed up compile by lndir'ing only the relevant subdir.
 
