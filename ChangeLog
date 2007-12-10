@@ -1,4 +1,6 @@
 
+	* lib/gtkmm.cygclass (gtkmm_compile): Pass -no-undefined to LDFLAGS.
+
 	* lib/perl.cygclass (perl_compile): Change Makefile.PL argument order.
 
 	* lib/kde3.cygclass: Support kdevelop-3.5.0.
