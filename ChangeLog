@@ -1,4 +1,6 @@
 
+	* lib/perl.cygclass (perl_compile): Change Makefile.PL argument order.
+
 	* lib/kde3.cygclass: Support kdevelop-3.5.0.
 	(kde3_compile): Remove berkeley-db from default configure arguments.
 	(kde3_install): Sanity check.

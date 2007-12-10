@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: perl.cygclass,v 1.13 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: perl.cygclass,v 1.14 2007-12-10 13:07:55 yselkowitz Exp $
 #
 ################################################################################
 
@@ -74,7 +74,7 @@ perl_compile() {
 		${PERL} Build || error "Module::Build build failed"
 	elif [ -e Makefile.PL ]
 	then
-		${PERL} Makefile.PL PREFIX=/usr INSTALLDIRS=vendor ${@} || error "Perl Makefile creation failed"
+		${PERL} Makefile.PL ${@} PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
 		cygmake all manifypods
 	else
 		error "No Perl module detected"
