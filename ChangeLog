@@ -1,5 +1,6 @@
 
 	* lib/ruby-gnome2.cygclass: Add support for SVN checkouts.
+	(src_compile): Speed up compile by lndir'ing only the relevant subdir.
 
 	* bin/cygport.in (__list_deps): Really ignore Windows libraries.
 

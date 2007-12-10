@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: ruby-gnome2.cygclass,v 1.15 2007-12-04 15:06:28 yselkowitz Exp $
+# $Id: ruby-gnome2.cygclass,v 1.16 2007-12-10 07:18:40 yselkowitz Exp $
 #
 ################################################################################
 
@@ -151,8 +151,19 @@ ruby_gnome2_install() {
 }
 
 src_compile() {
-	lndirs
 	cd ${B}
+
+	case ${rbg2_pn} in
+		gnome2-all|gstreamer0.10)
+			lndirs
+			;;
+		*)
+			ln -sf ${S}/*.rb ${B}
+			mkdir -p ${rbg2_dir}
+			lndirs ${S}/${rbg2_dir} ${B}/${rbg2_dir}
+			;;
+	esac
+
 	ruby_gnome2_compile
 }
 
