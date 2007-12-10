@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: kde3.cygclass,v 1.18 2007-11-04 18:17:30 yselkowitz Exp $
+# $Id: kde3.cygclass,v 1.19 2007-12-10 07:40:48 yselkowitz Exp $
 #
 ################################################################################
 
@@ -31,6 +31,7 @@ case "${PN}:${PV}" in
 	arts:*)			ftp_pv=3.${PVP[1]}.${PVP[2]} ;;
 	kdevelop:3.3.*)	ftp_pv=3.$((PVP[1] + 2)).${PVP[2]} ;;
 	kdevelop:3.4.*)	ftp_pv=3.$((PVP[1] + 1)).$((PVP[2] + 6)) ;;
+	kdevelop:3.5.*)	ftp_pv=3.${PVP[1]}.$((PVP[2] + 8)) ;;
 	*)				ftp_pv=${PV} ;;
 esac
 
@@ -97,9 +98,6 @@ kde3_compile() {
 		--with-qt-libraries=${QLIBDIR} --enable-mt \
 		--with-arts --enable-arts \
 		--with-distribution=Cygwin \
-		--with-berkeley-db \
-		--with-db-name=db-4.5 \
-		--with-db-include-dir=/usr/include/db4.5 \
 		--with-ssl-dir=/usr \
 		--without-dpms \
 		--without-ipv6-lookup \
@@ -137,8 +135,11 @@ kde3_install() {
 		done
 	done
 
-	# except for libkdeinit_kded in kdelibs, implibs are unnecessary
-	find ${D}/usr/lib -name 'libkdeinit_*.la' -exec sed -i -e 's/link=no/link=yes/' '{}' +
+	# except for kded in kdelibs, libkdeinit_* implibs are unnecessary
+	if [ -d ${D}/usr/lib ]
+	then
+		find ${D}/usr/lib -name 'libkdeinit_*.la' -exec sed -i -e 's/link=no/link=yes/' '{}' +
+	fi
 }
 
 src_compile() {

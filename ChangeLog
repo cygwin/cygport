@@ -1,4 +1,8 @@
 
+	* lib/kde3.cygclass: Support kdevelop-3.5.0.
+	(kde3_compile): Remove berkeley-db from default configure arguments.
+	(kde3_install): Sanity check.
+
 	* lib/gstreamer.cygclass: Fix aliases.
 
 	* lib/pygtk.cygclass: Allow monolithic builds of gnome-python et al.
