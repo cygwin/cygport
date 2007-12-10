@@ -1,4 +1,6 @@
 
+	* lib/gstreamer.cygclass: Fix aliases.
+
 	* lib/pygtk.cygclass: Allow monolithic builds of gnome-python et al.
 	(PYGTK_INCLUDEDIR, PYGTK_LIBDIR, PYGTK_DATADIR): Define.
 

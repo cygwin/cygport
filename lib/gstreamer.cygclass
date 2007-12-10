@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gstreamer.cygclass,v 1.6 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: gstreamer.cygclass,v 1.7 2007-12-10 07:23:38 yselkowitz Exp $
 #
 ################################################################################
 
@@ -41,11 +41,14 @@ gstreamer_cvs_checkout() {
 
 	if [ -z "${1}" ]
 	then
-		error "gst_cvs_checkout requires the CVS module as an argument"
+		error "gstreamer_cvs_checkout requires the CVS module as an argument"
 	fi
 
 	cvs -d ${CVS_URI} co ${@}
 }
+
+gst_cvs_checkout() { gstreamer_cvs_checkout ${@} ; }
+gst_cvs_co() { gstreamer_cvs_checkout ${@} ; }
 
 gstreamer_autoreconf() {
 	# gstreamer packages require a custom autogen.sh
@@ -57,6 +60,4 @@ gstreamer_autoreconf() {
 	NOCONFIGURE=1 ./autogen.sh || error "autogen.sh failed"
 }
 
-alias gst_autoreconf=gstreamer_autoreconf
-alias gst_cvs_checkout=gstreamer_cvs_checkout
-alias gst_cvs_co=gstreamer_cvs_checkout
+gst_autoreconf() { gstreamer_autoreconf ; }
