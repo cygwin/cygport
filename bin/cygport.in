@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.90 2007-12-11 07:45:50 yselkowitz Exp $
+# $Id: cygport.in,v 1.91 2007-12-11 08:02:15 yselkowitz Exp $
 #
 ################################################################################
 
@@ -503,7 +503,8 @@ __src_fetch() {
 		case ${uri%%://*} in
 			mirror)			__mirror_fetch ${uri} ;;
 			http|https|ftp)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
-			${uri})			;;
+			file|/*)		cp -f ${uri#file://} . || error "Copying ${uri##*/} failed" ;;
+			${uri})			;; # file in working directory
 			*)				error "Invalid download URI ${uri}" ;;
 		esac
 	done

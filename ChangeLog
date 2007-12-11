@@ -1,5 +1,6 @@
 
 	* bin/cygport.in (cygconf): Properly detect autoconf-2.6x configure.
+	(__src_fetch): Support local files not in working directory.
 
 	* lib/gtkmm.cygclass (gtkmm_compile): Pass -no-undefined to LDFLAGS.
 
