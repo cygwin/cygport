@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/aspell-dict.cygclass: New cygclass for Aspell dictionaries.
+
 	* bin/cygport.in (cygconf): Properly detect autoconf-2.6x configure.
 	(__src_fetch): Support local files not in working directory.
 	(__prepdoc): Search for Cygwin READMEs by PKG_HINTS names also.

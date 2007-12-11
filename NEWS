@@ -1,5 +1,6 @@
 0.3.7:  DEVELOPMENT
 	* Relicensed under GPL-3.
+	* aspell-dict.cygclass: NEW for Aspell dictionaries.
 
 0.3.6:  DEVELOPMENT
 	* RESTRICT=diff is accepted to not produce a .src.patch file.
