@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.89 2007-12-03 23:00:54 yselkowitz Exp $
+# $Id: cygport.in,v 1.90 2007-12-11 07:45:50 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1008,7 +1008,7 @@ cygconf() {
 			  --localstatedir=/var --sysconfdir=/etc"
 
 	case "x$(grep -m 1 'GNU Autoconf' ${configure} | cut -d ' ' -f 6)" in
-		x2.6[0-9])
+		x2.6[0-9]*)
 			confargs+=" --datarootdir=/usr/share --docdir=/usr/share/doc/${P}"
 			;;
 		*)

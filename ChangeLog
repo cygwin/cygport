@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (cygconf): Properly detect autoconf-2.6x configure.
+
 	* lib/gtkmm.cygclass (gtkmm_compile): Pass -no-undefined to LDFLAGS.
 
 	* lib/perl.cygclass (perl_compile): Change Makefile.PL argument order.
