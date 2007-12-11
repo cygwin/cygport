@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.91 2007-12-11 08:02:15 yselkowitz Exp $
+# $Id: cygport.in,v 1.92 2007-12-11 08:15:16 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1281,6 +1281,7 @@ readonly -f dodir keepdir docinto exeinto insinto __prepinstalldirs cyginstall
 __prepdoc() {
 	local html;
 	local -i n=1;
+	local pkg_hint;
 	local default_docs="\
 		ABOUT-NLS ANNOUNCE ANNOUNCEMENTS AUTHOR AUTHORS \
 		BUG-REPORTS BUGS \
@@ -1310,9 +1311,9 @@ __prepdoc() {
 		newins ${C}/${PN}.README ${P}.README;
 	else
 		warning "Cygwin README is missing"
-		dodir /usr/share/doc/Cygwin;
-		touch ${D}/usr/share/doc/Cygwin/${P}.README;
 	fi
+
+	pkg_hint=(${PKG_HINTS})
 
 	while defined pkg_name[${n}]
 	do
@@ -1320,12 +1321,14 @@ __prepdoc() {
 		then
 			insinto /usr/share/doc/Cygwin;
 			newins ${C}/${pkg_name[${n}]}.README ${pkg_name[${n}]}-${PV}.README;
+		elif defined pkg_hint[${n}]
+		then
+			if [ -f ${C}/${pkg_hint[${n}]}.README ]
+			then
+				insinto /usr/share/doc/Cygwin;
+				newins ${C}/${pkg_hint[${n}]}.README ${pkg_name[${n}]}-${PV}.README;
+			fi
 		fi
-
-		### setup.exe can't install "broken" symlinks
-		#else
-		#	dodir /usr/share/doc/Cygwin;
-		#	dosym ${P}.README /usr/share/doc/Cygwin/${pkg_name[${n}]}-${PV}.README;
 
 		n+=1;
 	done
