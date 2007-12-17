@@ -1,4 +1,8 @@
 
+	* bin/cygport.in (__check_unstable): Added unstable API guard function.
+	(src_unpack_hook): Stub.
+	(__src_prep) [UNSTABLE]: Run src_unpack_hook in original source tree.
+
 	* bin/prep_gnu_info.sh:
 	Accept RESTRICT=postinst-info to not add install-info postinst command.
 

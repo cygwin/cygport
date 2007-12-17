@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.93 2007-12-17 15:29:12 yselkowitz Exp $
+# $Id: cygport.in,v 1.94 2007-12-17 16:07:57 yselkowitz Exp $
 #
 ################################################################################
 
@@ -296,11 +296,15 @@ declare -rx  PV_MAJ_MIN="${PVP[0]}.${PVP[1]}";
 #
 # Sanity check functions
 #
+# mutable:
+#   CYGPORT_USE_UNSTABLE_API
+#
 # public:
 #	check_prog EXE
 #	check_prog_req EXE [EXE_PACKAGE]
 #
 # private:
+#	__check_unstable COMMAND [ARGS...]
 #	__version_at_least VERSION_REQUIRED VERSION_HAVE
 #
 ################################################################################
@@ -331,6 +335,20 @@ check_prog_req() {
 	fi
 
 	return 0;
+}
+
+# Unstable API guard
+__check_unstable() {
+	local unstable_var=CYGPORT_USE_UNSTABLE_API
+
+	if defined ${unstable_var}
+	then
+		"${@}"
+		return $?
+	else
+		warn "The ${1} API is not yet stable and is subject to change"
+		warn "You must define ${unstable_var} in order to use it"
+	fi
 }
 
 # determine if version is at least the given minimum
@@ -389,7 +407,7 @@ unset _myprog;
 
 # protect functions
 export -f check_prog check_prog_req
-readonly -f check_prog check_prog_req __version_at_least
+readonly -f check_prog check_prog_req __check_unstable __version_at_least
 
 
 ################################################################################
@@ -398,6 +416,7 @@ readonly -f check_prog check_prog_req __version_at_least
 #
 # mutable:
 #	USE_MANAGED_MOUNT
+#	src_unpack_hook()
 #
 # public:
 #	cygpatch PATCHFILE [PATCHFILE2 ...]
@@ -692,6 +711,10 @@ __oldpatch() {
 	fi
 }
 
+# This stub can be replaced by a function which alters the original
+# source tree and avoid large patches or unnecessary DIFF_EXCLUDES
+src_unpack_hook() { :; }
+
 __src_prep() {
 	local sigext;
 	local src_patch;
@@ -749,6 +772,8 @@ __src_prep() {
 	fi
 
 	cd ${origsrcdir}/${SRC_DIR};
+
+	__check_unstable src_unpack_hook;
 
 	for src_patch in ${_src_orig_patches}
 	do
