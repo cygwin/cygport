@@ -1,4 +1,7 @@
 
+	* lib/berkdb.cygclass (berkdb_install): Support db-4.6.
+	(berkdb_postinst): Fix postinstall scripts.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/aspell-dict.cygclass: New cygclass for Aspell dictionaries.

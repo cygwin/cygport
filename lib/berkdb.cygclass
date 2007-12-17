@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: berkdb.cygclass,v 1.7 2007-10-15 03:40:20 yselkowitz Exp $
+# $Id: berkdb.cygclass,v 1.8 2007-12-17 00:33:11 yselkowitz Exp $
 #
 ################################################################################
 
@@ -94,7 +94,7 @@ berkdb_compile() {
 
 berkdb_install() {
 	case ${PV} in
-		4.[345].*) 
+		4.[3-9].*)
 			USE_DESTDIR=1 cyginstall docdir=/usr/share/doc/${P}/html
 			;;
 		4.[012].*)
@@ -136,8 +136,7 @@ berkdb_postinst() {
 	dodir /etc/postinstall
 
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		prefix=/usr
-		bindir=\${prefix}
+		bindir=/usr/bin
 		slot=${PVP[0]}.${PVP[1]}
 		rank=$(( PVP[0] * 100 + PVP[1] ))
 
@@ -155,9 +154,8 @@ berkdb_postinst() {
 		_EOF
 
 	cat >> ${D}/etc/postinstall/lib${PN}-devel.sh <<-_EOF
-		prefix=/usr
-		incdir=\${prefix}/include
-		libdir=\${prefix}/lib
+		incdir=/usr/include
+		libdir=/usr/lib
 		slot=${PVP[0]}.${PVP[1]}
 		rank=$(( PVP[0] * 100 + PVP[1] ))
 
@@ -184,7 +182,6 @@ berkdb_postinst() {
 		_EOF
 
 	cat >> ${D}/etc/postinstall/java-${PN}.sh <<-_EOF
-		prefix=/usr
 		javadir=${JAVA_DIR}
 		slot=${PVP[0]}.${PVP[1]}
 		rank=$(( PVP[0] * 100 + PVP[1] ))
@@ -198,16 +195,14 @@ berkdb_prerm() {
 	dodir /etc/preremove
 
 	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-		prefix=/usr
-		bindir=\${prefix}/bin
+		bindir=/usr/bin
 		slot=${PVP[0]}.${PVP[1]}
-		
+
 		/usr/sbin/update-alternatives --remove db_archive \${bindir}/db\${slot}_archive.exe
 		_EOF
 
 	cat >> ${D}/etc/preremove/lib${PN}-devel.sh <<-_EOF
-		prefix=/usr
-		incdir=\${prefix}/include
+		incdir=/usr/include
 		slot=${PVP[0]}.${PVP[1]}
 
 		/usr/sbin/update-alternatives --remove db.h \${incdir}/db\${slot}/db.h
