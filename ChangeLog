@@ -1,4 +1,7 @@
 
+	* bin/prep_gnu_info.sh:
+	Accept RESTRICT=postinst-info to not add install-info postinst command.
+
 	* CYGWIN-PATCHES/README:
 	* bin/Makefile.am:
 	* bin/cygport.in (__prepetc):

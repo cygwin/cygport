@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: prep_gnu_info.sh,v 1.6 2007-10-15 03:40:15 yselkowitz Exp $
+# $Id: prep_gnu_info.sh,v 1.7 2007-12-17 15:35:42 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -35,6 +35,9 @@ do
 	gzip -q ${infopage}
 done
 
+if ! defined _CYGPORT_RESTRICT_postinst_info_
+then
+
 dodir /etc/postinstall
 for infopage in $(find ${D}/usr/share/info -type f)
 do
@@ -44,3 +47,5 @@ do
 		_EOF
 done
 echo >> ${D}/etc/postinstall/${PN}.sh
+
+fi ## !_CYGPORT_RESTRICT_postinst_info_ ##
