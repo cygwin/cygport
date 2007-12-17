@@ -1,6 +1,14 @@
-0.3.7:  DEVELOPMENT
+0.3.7:
 	* Relicensed under GPL-3.
+	* Dependency command ignores most Windows libraries.
 	* aspell-dict.cygclass: NEW for Aspell dictionaries.
+	* berkdb.cygclass: Support db-4.6.  Fixed postinstall scripts.
+	* gtk2-perl.cygclass: Added support for Gnome2-PanelApplet.
+	* kde3.cygclass: Standardized configure arguments.
+	* php.cygclass: Overhauled to support both PEAR and PECL extensions.
+	* pygtk.cygclass: Added support for gtop, gtksourceview2 bindings.
+	  Added support for monolithic builds of gnome-python and friends.
+	* ruby-gnome2.cygclass: Added support for SVN snapshots.
 
 0.3.6:  DEVELOPMENT
 	* RESTRICT=diff is accepted to not produce a .src.patch file.
