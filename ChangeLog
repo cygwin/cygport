@@ -1,4 +1,6 @@
 
+	* lib/gtk2-perl.cygclass (gtk2_perl_compile): Support Gnome2-PanelApplet.
+
 	* lib/php.cygclass: Overhaul to support both PECL and PEAR extensions.
 
 	* lib/berkdb.cygclass (berkdb_install): Support db-4.6.

@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gtk2-perl.cygclass,v 1.11 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: gtk2-perl.cygclass,v 1.12 2007-12-17 01:12:20 yselkowitz Exp $
 #
 ################################################################################
 
@@ -31,12 +31,18 @@ then
 	SRC_URI="mirror://sourceforge/gtk2-perl/${ORIG_PN}-${PV}.tar.gz"
 fi
 
-DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS"
+DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS:${PERL_VENDORARCH}/auto/Gnome2/GConf"
 
 gtk2_perl_compile() {
 	local ldflags
 	local man3pm
 	local pod
+
+	local libperlcairo="${PERL_VENDORARCH}/auto/Cairo/libCairo.dll.a"
+	local libperlglib="${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a"
+	local libperlgtk2="${PERL_VENDORARCH}/auto/Gtk2/libGtk2.dll.a"
+	local libperlgconf="${PERL_VENDORARCH}/auto/Gnome2/GConf/libGConf.dll.a"
+	local libperlvfs="${PERL_VENDORARCH}/auto/Gnome2/VFS/libVFS.dll.a"
 
 	${PERL} Makefile.PL PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
 
@@ -45,25 +51,19 @@ gtk2_perl_compile() {
 			ldflags=""
 			;;
 		Gtk2|Gnome2-Rsvg)
-			ldflags="${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a \
-			${PERL_VENDORARCH}/auto/Cairo/libCairo.dll.a"
+			ldflags="${libperlglib} ${libperlcairo}"
 			;;
 		Gnome2-GConf|Gnome2-VFS|GStreamer)
-			ldflags="${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a"
+			ldflags="${libperlglib}"
 			;;
 		Gnome2)
-			ldflags="${PERL_VENDORARCH}/auto/Gnome2/VFS/libVFS.dll.a \
-			${PERL_VENDORARCH}/auto/Gtk2/libGtk2.dll.a \
-			${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a"
+			ldflags="${libperlvfs} ${libperlgtk2} ${libperlglib}"
 			;;
-		Goo-Canvas)
-			ldflags="${PERL_VENDORARCH}/auto/Gtk2/libGtk2.dll.a \
-			${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a \
-			${PERL_VENDORARCH}/auto/Cairo/libCairo.dll.a"
+		Gnome2-PanelApplet)
+			ldflags="${libperlgconf} ${libperlgtk2} ${libperlglib}"
 			;;
 		*)
-			ldflags="${PERL_VENDORARCH}/auto/Gtk2/libGtk2.dll.a \
-			${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a"
+			ldflags="${libperlgtk2} ${libperlglib} ${libperlcairo}"
 			;;
 	esac
 
