@@ -1,4 +1,10 @@
 
+	* CYGWIN-PATCHES/README:
+	* bin/Makefile.am:
+	* bin/cygport.in (__prepetc):
+	scrollkeeper has been replaced by rarian, and scrollkeeper-update
+	is just a placeholder which does nothing.
+
 	* lib/gtk2-perl.cygclass (gtk2_perl_compile): Support Gnome2-PanelApplet.
 
 	* lib/php.cygclass: Overhaul to support both PECL and PEAR extensions.

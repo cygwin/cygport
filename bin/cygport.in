@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.92 2007-12-11 08:15:16 yselkowitz Exp $
+# $Id: cygport.in,v 1.93 2007-12-17 15:29:12 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1388,12 +1388,6 @@ __prepetc() {
 	if [ -d ${D}/etc/gconf/schemas ]
 	then
 		prep_gconf_schemas.sh || error "GConf schemas postinstall failed"
-	fi
-
-	# GNOME Yelp documentation
-	if [ -d ${D}/usr/share/omf ]
-	then
-		prep_scrollkeeper_omf.sh || error "Scrollkeeper postinstall failed"
 	fi
 
 	# Freedesktop.org Shared Mime Info

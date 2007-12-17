@@ -22,7 +22,6 @@ dist_privbin_SCRIPTS = \
 	domenu \
 	dosbin \
 	dosym \
-	\
 	newbin \
 	newdoc \
 	newexe \
@@ -31,19 +30,16 @@ dist_privbin_SCRIPTS = \
 	newman \
 	newmenu \
 	newsbin \
-	\
 	make_desktop_entry \
 	make_etc_defaults \
 	make_managed_mount \
-	\
 	prep_fonts_dir.sh \
 	prep_freedesktop_mime.sh \
 	prep_gconf_schemas.sh \
 	prep_gnu_info.sh \
 	prep_gtk_icon_theme.sh \
 	prep_gtk2_modules.sh \
-	prep_libtool_modules.sh \
-	prep_scrollkeeper_omf.sh
+	prep_libtool_modules.sh
 
 EXTRA_DIST = cygport.in
 CLEANFILES = cygport

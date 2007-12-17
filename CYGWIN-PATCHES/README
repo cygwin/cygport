@@ -89,7 +89,6 @@ Files included in the binary package:
   /usr/lib/cygport/bin/prep_gtk_icon_theme.sh
   /usr/lib/cygport/bin/prep_gtk2_modules.sh
   /usr/lib/cygport/bin/prep_libtool_modules.sh
-  /usr/lib/cygport/bin/prep_scrollkeeper_omf.sh
   /usr/lib/cygport/lib/R.cygclass
   /usr/lib/cygport/lib/apache.cygclass
   /usr/lib/cygport/lib/aspell-dict.cygclass
