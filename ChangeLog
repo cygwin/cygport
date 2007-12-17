@@ -2,6 +2,7 @@
 	* bin/cygport.in (__check_unstable): Added unstable API guard function.
 	(__check_function): New function to check if function is defined.
 	(__src_prep) [UNSTABLE]: Run src_unpack_hook in original source tree.
+	(__show_version): Update license notice.
 
 	* bin/prep_gnu_info.sh:
 	Accept RESTRICT=postinst-info to not add install-info postinst command.
