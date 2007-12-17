@@ -1,4 +1,6 @@
 
+	* lib/php.cygclass: Overhaul to support both PECL and PEAR extensions.
+
 	* lib/berkdb.cygclass (berkdb_install): Support db-4.6.
 	(berkdb_postinst): Fix postinstall scripts.
 

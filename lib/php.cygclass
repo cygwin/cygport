@@ -1,6 +1,6 @@
 ################################################################################
 #
-# php.cygclass - functions for building PHP (PECL) extensions
+# php.cygclass - functions for building PHP (PECL and PEAR) extensions
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2007 Yaakov Selkowitz
@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: php.cygclass,v 1.4 2007-11-04 18:15:06 yselkowitz Exp $
+# $Id: php.cygclass,v 1.5 2007-12-17 00:45:42 yselkowitz Exp $
 #
 ################################################################################
 
@@ -27,18 +27,40 @@ check_prog_req php
 
 ORIG_PN="${ORIG_PN:-${PN#php-}}"
 
-# redefine these after inheriting if sources are not on PECL
 DESCRIPTION="PHP ${ORIG_PN} extension"
-HOMEPAGE="http://pecl.php.net/package/${ORIG_PN}/"
-SRC_URI="http://pecl.php.net/get/${ORIG_PN}-${PV}.tgz"
+
+case "${PHP_CHANNEL}" in
+	[Pp][Ee][Aa][Rr])
+		HOMEPAGE="http://pear.php.net/package/${ORIG_PN}/"
+		SRC_URI="http://download.pear.php.net/package/${ORIG_PN}-${PV}.tgz"
+		;;
+	[Pp][Ee][Cc][Ll])
+		HOMEPAGE="http://pecl.php.net/package/${ORIG_PN}/"
+		SRC_URI="http://pecl.php.net/get/${ORIG_PN}-${PV}.tgz"
+		;;
+	'') ;;
+	*)	error "php: unknown channel: ${PHP_CHANNEL}"
+esac
 
 PHP=/usr/bin/php
 PHP_CONFIG=/usr/bin/php-config
 PHPIZE=/usr/bin/phpize
+PECL=/usr/bin/pecl
+PEAR=/usr/bin/pear
+
 PHP_VERSION=$(${PHP_CONFIG} --version)
 PHP_EXTENSION_DIR=$(${PHP_CONFIG} --extension-dir)
 PHP_INI_DIR=/etc/php5
 LIBPHP="-lphp5lib"
+
+php_is_binary() {
+	if [ -f ${S}/config.m4 ]
+	then
+		return 0
+	else
+		return 1
+	fi
+}
 
 php_autoreconf() {
 	if [ ! -e config.m4 ]
@@ -50,35 +72,69 @@ php_autoreconf() {
 }
 
 php_compile() {
-	cygconf \
-		--disable-static \
-		--enable-${ORIG_PN}=shared --with-${ORIG_PN}=shared \
-		"${@}"
+	if php_is_binary
+	then
+		cygconf \
+			--disable-static \
+			--enable-${ORIG_PN}=shared --with-${ORIG_PN}=shared \
+			"${@}"
 
-	cygmake
+		cygmake
+	fi
 }
 
 php_install() {
-	cygmake -j1 install INSTALL_ROOT=${D}
+	local PEXX pexx
+
+	if php_is_binary
+	then
+		cygmake -j1 install INSTALL_ROOT=${D}
+		PEXX=PECL
+		pexx=pecl
+	else
+		PEXX=PEAR
+		pexx=pear
+	fi
+
+	# unfortunately this won't register the binary extension
+	${!PEXX} install \
+		--force --loose --nobuild --nodeps --offline --packagingroot=${D} \
+		./package.xml \
+		|| error "${!pexx} install failed"
 }
+
 
 php_postinst() {
 	local x
 
-	dodir ${PHP_INI_DIR}/conf.d
+	if [ -d ${D}${PHP_EXTENSION_DIR} ]
+	then
+		dodir ${PHP_INI_DIR}/conf.d
 
-	for x in ${D}${PHP_EXTENSION_DIR}/*.dll
-	do
-		echo "extension = ${x##*/}" >> ${D}${PHP_INI_DIR}/conf.d/${ORIG_PN}.ini
-	done
+		for x in ${D}${PHP_EXTENSION_DIR}/*.dll
+		do
+			echo "extension = ${x##*/}" >> ${D}${PHP_INI_DIR}/conf.d/${ORIG_PN}.ini
+		done
+	fi
+
+	if [ -d ${D}/usr/share/pear ]
+	then
+		cd ${D}/usr/share/pear
+		rm -fr .channels/ .depdb .depdblock .filemap .lock
+	fi
 }
 
 src_compile() {
 	lndirs
-	cd ${B}
-	php_autoreconf
-	CYGCONF_SOURCE=${B}
-	php_compile
+	ln -sf ${S}/../package.xml ${B}
+
+	if php_is_binary
+	then
+		cd ${B}
+		php_autoreconf
+		CYGCONF_SOURCE=${B}
+		php_compile
+	fi
 }
 
 src_install() {
