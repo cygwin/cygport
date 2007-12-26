@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: apache.cygclass,v 1.6 2007-10-17 14:36:06 yselkowitz Exp $
+# $Id: apache.cygclass,v 1.7 2007-12-26 02:57:19 yselkowitz Exp $
 #
 ################################################################################
 
@@ -76,6 +76,11 @@ do
 done
 APXS_LIBS_SHLIB="${LIBHTTPD}"
 
+# Apache 2.x will automatically load conf.d/*.conf
+case ${APACHE_MAJOR} in
+	2) APXS_SYSCONFDIR="${APXS_SYSCONFDIR}/conf.d" ;;
+esac
+
 HTTPD=$(${APXS} -q SBINDIR)/$(${APXS} -q TARGET)
 APACHE_VERSION=$(${HTTPD} -v | cut -d ' ' -f 3 | cut -d / -f 2)
 
@@ -110,6 +115,11 @@ then
 fi
 
 apache_compile() {
+	if ! defined APACHE_MOD_NAME
+	then
+		error "define APACHE_MOD_NAME before calling apache_compile"
+	fi
+
 	cygconf \
 		--disable-static \
 		--with-apxs=${APXS} \
@@ -117,9 +127,9 @@ apache_compile() {
 		"${@}"
 
 	cygmake \
-		${ORIG_PN}_la_CPPFLAGS="${APXS_CFLAGS} -I${APXS_INCLUDEDIR} ${APR_CFLAGS}" \
-		${ORIG_PN}_la_LDFLAGS="-module -avoid-version -no-undefined -shrext ${APACHE_MOD_SHREXT}" \
-		${ORIG_PN}_la_LIBADD="${LIBHTTPD} ${APR_LIBS}"
+		${APACHE_MOD_NAME}_la_CPPFLAGS="${APXS_CFLAGS} -I${APXS_INCLUDEDIR} ${APR_CFLAGS}" \
+		${APACHE_MOD_NAME}_la_LDFLAGS="-module -avoid-version -no-undefined -shrext ${APACHE_MOD_SHREXT}" \
+		${APACHE_MOD_NAME}_la_LIBADD="${LIBHTTPD} ${APR_LIBS}"
 }
 
 # NOTE: CFLAGS need to proceed source files, with LIBS following
@@ -134,7 +144,7 @@ apache_apxs_compile() {
 
 	# apache 1.x apxs does not automatically add -lhttpd
 	case ${APACHE_MAJOR} in
-		1)	ldflags="-Wl,--enable-auto-image-base ${LIBHTTPD}" ;;
+		1)	ldflags="${LIBHTTPD} -Wl,--enable-auto-image-base" ;;
 	esac
 
 	${APXS} -c -o ${APACHE_MOD_NAME}${APACHE_MOD_EXT} "${@:-*.c}" ${ldflags} \
@@ -145,8 +155,17 @@ apache_apxs_compile() {
 apxs_compile() { apache_apxs_compile "$@" ; }
 
 doapacheconf() {
-	insinto ${APXS_SYSCONFDIR}
-	newins ${1} ${ORIG_PN}.conf
+	local f
+
+	dodir ${APXS_SYSCONFDIR}
+
+	for f
+	do
+		if [ -e ${f} ]
+		then
+			cat ${f} >> ${D}${APXS_SYSCONFDIR}/${ORIG_PN}.conf
+		fi
+	done
 }
 
 doapachemod() {
@@ -180,8 +199,48 @@ doapachemod() {
 }
 
 apache_postinst() {
-	if [ -f ${D}${APXS_SYSCONFDIR}/${ORIG_PN}.conf ]
-	then
-		make_etc_defaults $(find ${D}${APXS_SYSCONFDIR} -type f | sed "s#^${D}##g")
-	fi
+	local imp mod sym
+
+	dodir /etc/postinstall /etc/preremove
+
+	for mod in ${D}${APXS_LIBEXECDIR}/*${APACHE_MOD_SHREXT}
+	do
+		imp=${mod%${APACHE_MOD_SHREXT}}.dll.a
+
+		if [ -f ${imp} ]
+		then
+			sym=$(nm -C ${imp} 2>/dev/null | grep ' I _nm__.*_module$' | sed -e 's#.*__\(.*\)_module#\1#')
+		fi
+
+		if ! defined sym
+		then
+			sym=$(nm -C ${mod} 2>/dev/null | grep ' D .*_module$' | sed -e 's#.*D \(.*\)_module#\1#')
+		fi
+
+		if ! defined sym
+		then
+			dso=${mod##*/}
+			dso=${dso%.*}
+
+			case ${dso} in
+				mod_*)	sym=${dso:4} ;;
+				cyg*|lib*)	sym=${dso:3} ;;
+			esac
+		fi
+
+		if ! objdump -p ${mod} 2> /dev/null | grep -q "\] ${sym}_module$"
+		then
+			error "Cannot determine module symbol name for ${mod##*/}"
+		fi
+
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			${APXS} -e -a -n ${sym%_module} ${mod#${D}}
+			_EOF
+
+		# No option exists to remove a module from httpd.conf;
+		# this will comment out the relevant line(s) instead
+		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+			${APXS} -e -A -n ${sym%_module} ${mod#${D}}
+			_EOF
+	done
 }

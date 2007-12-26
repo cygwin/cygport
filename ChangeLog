@@ -1,4 +1,8 @@
 
+	* lib/apache2.cygclass (apache_compile): Accept APACHE_MOD_NAME.
+	(doapacheconf): Append rather than overwrite.
+	(apache_postinst): Automatically enter LoadModule commands to httpd.conf.
+
 	* bin/cygport.in (__check_unstable): Added unstable API guard function.
 	(__check_function): New function to check if function is defined.
 	(__src_prep) [UNSTABLE]: Run src_unpack_hook in original source tree.
