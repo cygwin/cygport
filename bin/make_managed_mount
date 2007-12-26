@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: make_managed_mount,v 1.6 2007-10-15 03:40:15 yselkowitz Exp $
+# $Id: make_managed_mount,v 1.7 2007-12-26 19:02:19 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -34,8 +34,10 @@ do
 
 	dodir /etc/postinstall /etc/preremove
 
+	d_="${d//\//_}"
+
 	cd ${D}${d}
-	tar jcf ${D}/etc/postinstall/${d//\//_}.tar.bz2 *
+	tar jcf ${D}/etc/postinstall/${PN}-${d_}.tar.bz2 *
 
 	cd ${D}
 	rm -fr ${D}${d}
@@ -45,16 +47,16 @@ do
 		then
 		    mkdir -p ${d}
 		    mount -o managed \$(cygpath -w ${d}) ${d}
-		    tar jxf /etc/postinstall/${d//\//_}.tar.bz2 -C ${d}
+		    tar jxf /etc/postinstall/${PN}-${d_}.tar.bz2 -C ${d}
 		fi
-		
+
 		_EOF
 
 	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-	    rm -fr ${d}/*
-	    sleep 1
-	    umount ${d}
-	    rmdir ${d}
+		rm -fr ${d}/*
+		sleep 1
+		umount ${d}
+		rmdir ${d}
 		
 		_EOF
 done

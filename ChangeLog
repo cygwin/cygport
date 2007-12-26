@@ -1,4 +1,6 @@
 
+	* bin/make_managed_mount: Prefix PN to tarball name.
+
 	* bin/doman:
 	* bin/newman: Support Tcl .n manpages.
 
