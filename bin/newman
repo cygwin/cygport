@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: newman,v 1.5 2007-10-15 03:40:15 yselkowitz Exp $
+# $Id: newman,v 1.6 2007-12-26 19:01:09 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -53,6 +53,9 @@ case ${2} in
 		;;
 	*.8)
 		mansection=8
+		;;
+	*.n)
+		mansection=n
 		;;
 	*)
 		error "unknown man section"

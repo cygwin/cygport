@@ -1,4 +1,7 @@
 
+	* bin/doman:
+	* bin/newman: Support Tcl .n manpages.
+
 	* lib/apache2.cygclass (apache_compile): Accept APACHE_MOD_NAME.
 	(doapacheconf): Append rather than overwrite.
 	(apache_postinst): Automatically enter LoadModule commands to httpd.conf.
