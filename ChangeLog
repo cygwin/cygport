@@ -1,3 +1,8 @@
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
 *** 0.3.7 ***
 
 	* bin/make_managed_mount: Prefix PN to tarball name.
