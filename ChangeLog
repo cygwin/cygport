@@ -1,3 +1,4 @@
+*** 0.3.7 ***
 
 	* bin/make_managed_mount: Prefix PN to tarball name.
 

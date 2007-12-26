@@ -1,6 +1,9 @@
-0.3.7:
+0.3.7:  TESTING
 	* Relicensed under GPL-3.
 	* Dependency command ignores most Windows libraries.
+	* Unstable APIs are protected with CYGPORT_USE_UNSTABLE_API def.
+	* RESTRICT=postinst-info stops automatic GNU info postinstall.
+	* apache.cygclass: Automatically add/remove modules to httpd.conf.
 	* aspell-dict.cygclass: NEW for Aspell dictionaries.
 	* berkdb.cygclass: Support db-4.6.  Fixed postinstall scripts.
 	* gtk2-perl.cygclass: Added support for Gnome2-PanelApplet.
