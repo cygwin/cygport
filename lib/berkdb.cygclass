@@ -3,7 +3,7 @@
 # berkdb.cygclass - functions for building the Berkeley DB
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007 Yaakov Selkowitz
+# Copyright (C) 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: berkdb.cygclass,v 1.8 2007-12-17 00:33:11 yselkowitz Exp $
+# $Id: berkdb.cygclass,v 1.9 2008-01-02 04:25:37 yselkowitz Exp $
 #
 ################################################################################
 
@@ -53,18 +53,14 @@ PKG_CONTENTS[2]="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib* usr/share/do
 PKG_CONTENTS[3]="etc/p*/java-${PN}.sh usr/bin/cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
 PKG_CONTENTS[4]="${TCL_LIBDIR#/}"
 
-DIFF_EXCLUDES="configure config.hin libtool.ac"
+DIFF_EXCLUDES="configure config.hin libtool.ac db.jar"
 
 # At a minimum, the following must be changed:
 # * chmod +w dist/Makefile.in dist/aclocal/tcl.ac dist/configure.ac
-# * Define EXEEXT=@EXEEXT@
-# * UTIL_PROGS=$(UTILPROGS:%=%@EXEEXT@)
-# * Add *.exe to CLEAN_LIST
-# * sed -i -e '/^db_[a-z0-9]*:/ s/:/$(EXEEXT):/g' dist/Makefile.in
-# * sed -i -e '/^ex_[a-z]*:/ s/:/$(EXEEXT):/g' dist/Makefile.in
-# * sed -i -e '/^excxx_[a-z]*:/ s/:/$(EXEEXT):/g' dist/Makefile.in
 # * sed -i -e 's/test -f/test -e/g' dist/aclocal/tcl.ac
 # * sed -i -e 's/aix\*/aix*|cygwin*/g' dist/aclocal/tcl.ac
+# * Modify/define MAKEFILE_TSOLINK (before 4.5)
+# * Undef __lock_* macros in lock/lock_region.c (before 4.3)
 
 berkdb_autoreconf() {
 	local errormsg="berkdb: libtoolize failed"
@@ -86,7 +82,7 @@ berkdb_compile() {
 		--enable-compat185 \
 		--enable-cxx \
 		--enable-dynamic \
-		--enable-java JAVA=${JAVA} JAVAC=${JAVAC} JAR=${JAR} \
+		--enable-java \
 		--enable-tcl --with-tclconfig=/usr/lib --enable-test
 
 	cygmake
@@ -95,18 +91,22 @@ berkdb_compile() {
 berkdb_install() {
 	case ${PV} in
 		4.[3-9].*)
-			USE_DESTDIR=1 cyginstall docdir=/usr/share/doc/${P}/html
+			USE_DESTDIR=1 cyginstall \
+				docdir=/usr/share/doc/${P}/html \
+				emode=755 fmode=644
 			;;
 		4.[012].*)
 			USE_DESTDIR=0 cyginstall \
 				includedir=${D}/usr/include/db${SLOT} \
-				docdir=${D}/usr/share/doc/${P}/html
+				docdir=${D}/usr/share/doc/${P}/html \
+				emode=755 fmode=644
 			;;
 		3.*)
 			USE_DESTDIR=0 cyginstall \
 				includedir=${D}/usr/include/db${SLOT} \
 				docdir=${D}/usr/share/doc/${P}/html \
-				chmod=true ln=true
+				emode=755 fmode=644 \
+				chmod=true ln=true strip=true
 			;;
 	esac
 
@@ -114,7 +114,10 @@ berkdb_install() {
 	rm -f ${D}/usr/lib/libdb{_cxx,}.a
 
 	# slot executables
-	rename db_ db${SLOT}_ ${D}/usr/bin/*.exe
+	(
+	 cd ${D}/usr/bin
+	 rename db_ db${SLOT}_ *.exe
+	)
 
 	sed -i -e 's#shouldnotlink=no#shouldnotlink=yes#' ${D}/usr/lib/libdb_java-${SLOT}.la
 
@@ -135,28 +138,36 @@ berkdb_postinst() {
 
 	dodir /etc/postinstall
 
+	# utilities
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 		bindir=/usr/bin
-		slot=${PVP[0]}.${PVP[1]}
+		slot=${SLOT}
 		rank=$(( PVP[0] * 100 + PVP[1] ))
 
 		/usr/sbin/update-alternatives \\
-		  --install  \${bindir}/db_archive     db_archive     \${bindir}/db\${slot}_archive.exe \${rank} \\
-		  --slave    \${bindir}/db_checkpoint  db_checkpoint  \${bindir}/db\${slot}_checkpoint.exe \\
-		  --slave    \${bindir}/db_deadlock    db_deadlock    \${bindir}/db\${slot}_deadlock.exe \\
-		  --slave    \${bindir}/db_dump        db_dump        \${bindir}/db\${slot}_dump.exe \\
-		  --slave    \${bindir}/db_load        db_load        \${bindir}/db\${slot}_load.exe \\
-		  --slave    \${bindir}/db_printlog    db_printlog    \${bindir}/db\${slot}_printlog.exe \\
-		  --slave    \${bindir}/db_recover     db_recover     \${bindir}/db\${slot}_recover.exe \\
-		  --slave    \${bindir}/db_stat        db_stat        \${bindir}/db\${slot}_stat.exe \\
-		  --slave    \${bindir}/db_upgrade     db_upgrade     \${bindir}/db\${slot}_upgrade.exe \\
-		  --slave    \${bindir}/db_verify      db_verify      \${bindir}/db\${slot}_verify.exe
+		  --install  \${bindir}/db_archive  db_archive  \${bindir}/db\${slot}_archive.exe \${rank} \\
 		_EOF
 
+	for x in ${D}/usr/bin/*.exe
+	do
+		a=${x##*/}
+		a=${a#db${SLOT}_}
+		a=${a%.exe}
+
+		case ${a} in
+			archive) continue ;;
+		esac
+
+		echo "  --slave    \${bindir}/db_${a}  db_${a}  \${bindir}/db\${slot}_${a}.exe \\" >> ${D}/etc/postinstall/${PN}.sh
+	done
+
+	echo >> ${D}/etc/postinstall/${PN}.sh
+
+	# headers and link libraries
 	cat >> ${D}/etc/postinstall/lib${PN}-devel.sh <<-_EOF
 		incdir=/usr/include
 		libdir=/usr/lib
-		slot=${PVP[0]}.${PVP[1]}
+		slot=${SLOT}
 		rank=$(( PVP[0] * 100 + PVP[1] ))
 
 		/usr/sbin/update-alternatives \\
@@ -181,9 +192,10 @@ berkdb_postinst() {
 		  --slave   \${libdir}/libdb${PVP[0]}_cxx.la     libdb${PVP[0]}_cxx.la     \${libdir}/libdb_cxx-\${slot}.la
 		_EOF
 
+	# Java jar
 	cat >> ${D}/etc/postinstall/java-${PN}.sh <<-_EOF
 		javadir=${JAVA_DIR}
-		slot=${PVP[0]}.${PVP[1]}
+		slot=${SLOT}
 		rank=$(( PVP[0] * 100 + PVP[1] ))
 
 		/usr/sbin/update-alternatives \\
@@ -196,14 +208,14 @@ berkdb_prerm() {
 
 	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
 		bindir=/usr/bin
-		slot=${PVP[0]}.${PVP[1]}
+		slot=${SLOT}
 
 		/usr/sbin/update-alternatives --remove db_archive \${bindir}/db\${slot}_archive.exe
 		_EOF
 
 	cat >> ${D}/etc/preremove/lib${PN}-devel.sh <<-_EOF
 		incdir=/usr/include
-		slot=${PVP[0]}.${PVP[1]}
+		slot=${SLOT}
 
 		/usr/sbin/update-alternatives --remove db.h \${incdir}/db\${slot}/db.h
 		/usr/sbin/update-alternatives --remove db${PVP[0]} \${incdir}/db\${slot}
@@ -212,7 +224,7 @@ berkdb_prerm() {
 	cat >> ${D}/etc/preremove/java-${PN}.sh <<-_EOF
 		prefix=/usr
 		javadir=${JAVA_DIR}
-		slot=${PVP[0]}.${PVP[1]}
+		slot=${SLOT}
 
 		/usr/sbin/update-alternatives --remove db.jar \${javadir}/db-\${slot}.jar
 		_EOF

@@ -1,4 +1,9 @@
 
+	* lib/berkdb.cygclass: Code cleanup.
+	(berkdb_compile): JAVA and friends defined by java.cygclass.
+	(berkdb_install): Override emode, fmode, strip to minimize patches.
+	(berkdb_postinst): Utilities vary per version, so auto-generate list.
+
 	* bin/doexe: Install .la files with libtool.
 
 	* data/mirrors (mirror_debian): Added.
