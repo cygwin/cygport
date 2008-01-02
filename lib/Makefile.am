@@ -8,6 +8,7 @@ dist_cygclass_DATA = 			\
 	cross.cygclass				\
 	cvs.cygclass				\
 	distutils.cygclass			\
+	docbook.cygclass			\
 	emacs.cygclass				\
 	font.cygclass				\
 	fox.cygclass				\

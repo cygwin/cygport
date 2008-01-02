@@ -97,6 +97,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/cross.cygclass
   /usr/lib/cygport/lib/cvs.cygclass
   /usr/lib/cygport/lib/distutils.cygclass
+  /usr/lib/cygport/lib/docbook.cygclass
   /usr/lib/cygport/lib/emacs.cygclass
   /usr/lib/cygport/lib/font.cygclass
   /usr/lib/cygport/lib/fox.cygclass

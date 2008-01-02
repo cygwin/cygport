@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/docbook.cygclass: New cygclass for DocBook SGML/DSSSL/XML/XSL.
+
 	* lib/berkdb.cygclass: Code cleanup.
 	(berkdb_compile): JAVA and friends defined by java.cygclass.
 	(berkdb_install): Override emode, fmode, strip to minimize patches.
