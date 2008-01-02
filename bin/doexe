@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: doexe,v 1.7 2007-10-15 03:40:14 yselkowitz Exp $
+# $Id: doexe,v 1.8 2008-01-02 04:17:52 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -37,5 +37,10 @@ do
 		error "file ${i} does not exist"
 	fi
 
-	/bin/install -m0755 ${i} ${D}${_exeinto_dir} || error "doexe ${i} failed"
+	case ${i} in
+		*.la) inst_prog="libtool --mode=install /bin/install" ;;
+		*) inst_prog="/bin/install -m0755" ;;
+	esac
+
+	${inst_prog} ${i} ${D}${_exeinto_dir} || error "doexe ${i} failed"
 done

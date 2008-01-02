@@ -1,4 +1,6 @@
 
+	* bin/doexe: Install .la files with libtool.
+
 	* data/mirrors (mirror_debian): Added.
 
 	* CYGWIN-PATCHES/README:
