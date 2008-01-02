@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: mirrors,v 1.17 2007-10-15 03:40:17 yselkowitz Exp $
+# $Id: mirrors,v 1.18 2008-01-02 04:10:59 yselkowitz Exp $
 #
 ################################################################################
 
@@ -779,6 +779,58 @@ mirror_cran="
 	http://cran.uk.r-project.org
 	http://www.sourcekeg.co.uk/cran
 "	# mirror_cran
+
+# Debian package pool (primary mirrors only)
+# http://www.debian.org/mirror/list
+# grep '^  <td><a href' list  | sed -e 's#.*"\(.*\)/".*#\t\1#g'
+mirror_debian="
+	http://ftp.debian.org/debian
+
+	http://ftp.au.debian.org/debian
+	http://ftp.wa.au.debian.org/debian
+	http://ftp.at.debian.org/debian
+	http://ftp.be.debian.org/debian
+	http://ftp.br.debian.org/debian
+	http://ftp.bg.debian.org/debian
+	http://ftp.ca.debian.org/debian
+	http://ftp.cl.debian.org/debian
+	http://ftp.hr.debian.org/debian
+	http://ftp.cz.debian.org/debian
+	http://ftp.dk.debian.org/debian
+	http://ftp.ee.debian.org/debian
+	http://ftp.fi.debian.org/debian
+	http://ftp.fr.debian.org/debian
+	http://ftp2.fr.debian.org/debian
+	http://ftp.de.debian.org/debian
+	http://ftp2.de.debian.org/debian
+	http://ftp.uk.debian.org/debian
+	http://ftp.gr.debian.org/debian
+	http://ftp.hk.debian.org/debian
+	http://ftp.hu.debian.org/debian
+	http://ftp.is.debian.org/debian
+	http://ftp.ie.debian.org/debian
+	http://ftp.it.debian.org/debian
+	http://ftp.jp.debian.org/debian
+	http://ftp2.jp.debian.org/debian
+	http://ftp.kr.debian.org/debian
+	http://ftp.mx.debian.org/debian
+	http://ftp.nl.debian.org/debian
+	http://ftp.nz.debian.org/debian
+	http://ftp.no.debian.org/debian
+	http://ftp.pl.debian.org/debian
+	http://ftp.pt.debian.org/debian
+	http://ftp.ro.debian.org/debian
+	http://ftp.ru.debian.org/debian
+	http://ftp.sk.debian.org/debian
+	http://ftp.si.debian.org/debian
+	http://ftp.es.debian.org/debian
+	http://ftp.se.debian.org/debian
+	http://ftp.ch.debian.org/debian
+	http://ftp.tw.debian.org/debian
+	http://ftp.tr.debian.org/debian
+	http://ftp.us.debian.org/debian
+"	# mirror_debian
+
 
 # Gentoo distfiles
 # http://www.gentoo.org/main/en/mirrors.xml
