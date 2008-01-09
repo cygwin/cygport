@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (__prepstrip):
+	Don't strip OCaml bytecode executables, based on file magic test.
+
 	* lib/ocaml.cygclass (OCAML_SITEDIR): Fix for 3.10 and new findlib.
 	(ocaml_install): Provide default ocamlfind-based install function.
 

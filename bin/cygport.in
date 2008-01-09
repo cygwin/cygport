@@ -3,7 +3,7 @@
 #
 # cygport - Cygwin packaging application
 #
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.96 2007-12-17 22:40:10 yselkowitz Exp $
+# $Id: cygport.in,v 1.97 2008-01-09 22:43:11 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1485,13 +1485,28 @@ __prepstrip() {
 	# Ruby and Apache2 modules should be *.so, nothing else!!!
 	for exe in $(find * -type f -name '*.dll' -o -name '*.exe' -o -name '*.so')
 	do
-		# Mono assemblies must not be stripped!
-		if [ -w ${exe} ] && ! objdump -p ${exe} | grep -q "DLL Name: mscoree.dll"
+		if [ ! -w ${exe} ]
 		then
-			echo "        ${exe}";
-			chmod +x ${exe};
-			strip ${exe};
+			continue
 		fi
+
+		# OCaml bytecode must not be stripped
+		# this test generates false positives with the ocaml core and
+		# compilers, but should otherwise be accurate
+		if grep -q 'Caml1999X008' ${exe}
+		then
+			continue
+		fi
+
+		# Mono assemblies must not be stripped!
+		if objdump -p ${exe} | grep -q "DLL Name: mscoree.dll"
+		then
+			continue
+		fi
+
+		echo "        ${exe}";
+		chmod +x ${exe};
+		strip ${exe};
 	done
 }
 
