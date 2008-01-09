@@ -1,4 +1,6 @@
 
+	* lib/apache.cygclass: Define APREQ_CONFIG, APREQ_CFLAGS, APREQ_LIBS.
+
 	* bin/cygport.in (__prepstrip):
 	Don't strip OCaml bytecode executables, based on file magic test.
 

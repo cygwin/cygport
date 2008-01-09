@@ -3,7 +3,7 @@
 # apache.cygclass - functions for building Apache mod_* modules
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007 Yaakov Selkowitz
+# Copyright (C) 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: apache.cygclass,v 1.7 2007-12-26 02:57:19 yselkowitz Exp $
+# $Id: apache.cygclass,v 1.8 2008-01-09 22:45:53 yselkowitz Exp $
 #
 ################################################################################
 
@@ -33,7 +33,7 @@ case ${PN} in
 		APACHE_MAJOR=2
 		;;
 	*)
-		ORIG_PN=${PN}
+		ORIG_PN=${ORIG_PN:-${PN}}
 		if ! defined APACHE_MAJOR
 		then
 			error "APACHE_MAJOR must be defined to 1 or 2"
@@ -107,11 +107,23 @@ esac
 
 if [ "x${APR_CONFIG}" != "xno" ]
 then
-	check_prog_req ${APR_CONFIG} apr${APR_VERSION}
-	check_prog_req ${APU_CONFIG} aprutil${APR_VERSION}
+	check_prog_req ${APR_CONFIG##*/} apr${APR_VERSION}
+	check_prog_req ${APU_CONFIG##*/} aprutil${APR_VERSION}
 	APR_CFLAGS="$(${APU_CONFIG} --includes) $(${APR_CONFIG} --cppflags --includes)"
 	APR_LIBS="$(${APU_CONFIG} --link-ld) $(${APR_CONFIG} --link-ld --libs)"
 	APR_LIBTOOL="$(${APR_CONFIG} --apr-libtool)"
+fi
+
+# libapreq
+case ${APACHE_MAJOR} in
+	1)	APREQ_CONFIG=no_such_thing ;;
+	2)	APREQ_CONFIG=/usr/bin/apreq2-config ;;
+esac
+
+if check_prog ${APREQ_CONFIG##*/}
+then
+	APREQ_CFLAGS="$(${APREQ_CONFIG} --includes)"
+	APREQ_LIBS="$(${APREQ_CONFIG} --link-ld)"
 fi
 
 apache_compile() {
