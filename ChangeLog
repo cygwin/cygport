@@ -1,4 +1,9 @@
 
+	* lib/R.cygclass:
+	* lib/distutils.cygclass:
+	* lib/perl.cygclass:
+	Auto-define ORIG_PN only if PN indicates we are building a module.
+
 	* lib/apache.cygclass: Define APREQ_CONFIG, APREQ_CFLAGS, APREQ_LIBS.
 
 	* bin/cygport.in (__prepstrip):

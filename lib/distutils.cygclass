@@ -3,7 +3,7 @@
 # distutils.cygclass - functions for building Distutils Python modules
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: distutils.cygclass,v 1.8 2007-10-15 03:40:20 yselkowitz Exp $
+# $Id: distutils.cygclass,v 1.9 2008-01-09 22:50:21 yselkowitz Exp $
 #
 ################################################################################
 
@@ -30,11 +30,10 @@ then
 	case ${PN} in
 		python-py*|python-*py)
 			ORIG_PN="${PN#python-}" ;;
-		*)	ORIG_PN="${PN/python-/py}" ;;
+		python-*)
+			ORIG_PN="${PN/python-/py}" ;;
 	esac
 fi
-
-ORIG_PN=${ORIG_PN:-${PN}}
 
 HOMEPAGE="http://cheeseshop.python.org/pypi/${ORIG_PN}"
 SRC_URI="http://cheeseshop.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"

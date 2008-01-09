@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: perl.cygclass,v 1.14 2007-12-10 13:07:55 yselkowitz Exp $
+# $Id: perl.cygclass,v 1.15 2008-01-09 22:50:21 yselkowitz Exp $
 #
 ################################################################################
 
@@ -34,8 +34,9 @@ PERL_VENDORLIB=$(${PERL} -MConfig -e 'print $Config{vendorlib};')
 PERL_SITELIB=$(${PERL} -MConfig -e 'print $Config{sitelib};')
 LIBPERL="-L${PERL_ARCHLIB}/CORE -lperl"
 
-ORIG_PN=${ORIG_PN:-${PN#perl-}}
-SRC_DIR="${ORIG_PN}-${PV}"
+case ${PN} in
+	perl-*) ORIG_PN=${ORIG_PN:-${PN#perl-}} ;;
+esac
 
 DESCRIPTION="Perl ${ORIG_PN//-/::} module"
 

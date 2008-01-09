@@ -3,7 +3,7 @@
 # R.cygclass - functions for building CRAN R packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007 Yaakov Selkowitz
+# Copyright (C) 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: R.cygclass,v 1.3 2007-10-15 03:40:20 yselkowitz Exp $
+# $Id: R.cygclass,v 1.4 2008-01-09 22:50:21 yselkowitz Exp $
 #
 ################################################################################
 
@@ -32,7 +32,9 @@ R_LIBS="$(pkg-config --libs libR)"
 R_HOME=$(${R} RHOME)
 R_SITELIB=${R_HOME}/site-library
 
-ORIG_PN=${ORIG_PN:-${PN#R-}}
+case ${PN} in
+	R-*) ORIG_PN=${ORIG_PN:-${PN#R-}} ;;
+esac
 
 DESCRIPTION="R ${ORIG_PN} package"
 HOMEPAGE="mirror://cran/src/contrib/Descriptions/${ORIG_PN}.html"
