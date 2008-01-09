@@ -1,4 +1,6 @@
 
+	* lib/docbook.cygclass: Some fixes for docbook-xml-simple.
+
 	* lib/R.cygclass:
 	* lib/distutils.cygclass:
 	* lib/perl.cygclass:
