@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: R.cygclass,v 1.4 2008-01-09 22:50:21 yselkowitz Exp $
+# $Id: R.cygclass,v 1.5 2008-01-15 05:58:19 yselkowitz Exp $
 #
 ################################################################################
 
@@ -30,6 +30,7 @@ R=/usr/bin/R
 R_CFLAGS="$(${R} CMD config CFLAGS) $(pkg-config --cflags libR)"
 R_LIBS="$(pkg-config --libs libR)"
 R_HOME=$(${R} RHOME)
+R_INCLUDEDIR=${R_HOME}/include
 R_SITELIB=${R_HOME}/site-library
 
 case ${PN} in

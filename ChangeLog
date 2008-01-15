@@ -1,4 +1,6 @@
 
+	* lib/R.cygclass: Define R_INCLUDEDIR.
+
 	* lib/docbook.cygclass: Some fixes for docbook-xml-simple.
 
 	* lib/R.cygclass:
