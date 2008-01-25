@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cvs.cygclass,v 1.9 2007-10-15 03:40:20 yselkowitz Exp $
+# $Id: cvs.cygclass,v 1.10 2008-01-25 05:51:41 yselkowitz Exp $
 #
 ################################################################################
 
@@ -32,7 +32,7 @@ fi
 
 CVS_MODULE=${CVS_MODULE:-${ORIG_PN:-${PN}}}
 
-cvs_tarball="${CVS_MODULE}-${PV}.tar.bz2"
+cvs_tarball="${CVS_MODULE//\//-}-${PV}.tar.bz2"
 
 SRC_URI="${cvs_tarball} "
 SRC_DIR="${CVS_MODULE}"
