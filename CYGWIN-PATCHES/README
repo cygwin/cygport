@@ -112,6 +112,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/gtkmm.cygclass
   /usr/lib/cygport/lib/java.cygclass
   /usr/lib/cygport/lib/kde3.cygclass
+  /usr/lib/cygport/lib/lua.cygclass
   /usr/lib/cygport/lib/mono.cygclass
   /usr/lib/cygport/lib/ocaml.cygclass
   /usr/lib/cygport/lib/perl.cygclass

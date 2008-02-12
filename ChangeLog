@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/lua.cygclass: New cygclass for Lua modules.
+
 	* lib/cvs.cygclass: Handle '/' in CVS_MODULE.
 
 	* lib/R.cygclass: Define R_INCLUDEDIR.

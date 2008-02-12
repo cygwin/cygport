@@ -1,0 +1,39 @@
+################################################################################
+#
+# lua.cygclass - functions for installing Lua modules
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2007 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: lua.cygclass,v 1.1 2008-02-12 14:04:18 yselkowitz Exp $
+#
+################################################################################
+
+check_prog_req lua
+
+_lua=/usr/bin/lua
+LUA_VERSION=$(${_lua} -v 2>&1 | cut -c 5-7)
+LUA=${_lua}${LUA_VERSION}
+LUAC=${_lua}c${LUA_VERSION}
+LUA_LIBDIR="/usr/lib/lua/${LUA_VERSION}"
+LUA_SCRIPTDIR="/usr/share/lua/${LUA_VERSION}"
+LUA_INCLUDEDIR="/usr/include/lua${LUA_VERSION}"
+LUA_CFLAGS="-I${LUA_INCLUDEDIR}"
+case ${LUA_VERSION} in
+	4*|5.0)	LUA_LIBS="-llualib${LUA_VERSION} -llua${LUA_VERSION}" ;;
+	5.*)	LUA_LIBS="-llua${LUA_VERSION}" ;;
+esac

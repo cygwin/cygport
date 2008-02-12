@@ -23,6 +23,7 @@ dist_cygclass_DATA = 			\
 	gtkmm.cygclass				\
 	java.cygclass				\
 	kde3.cygclass				\
+	lua.cygclass				\
 	mono.cygclass				\
 	ocaml.cygclass				\
 	perl.cygclass				\
