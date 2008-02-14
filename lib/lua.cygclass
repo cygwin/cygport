@@ -19,21 +19,35 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: lua.cygclass,v 1.1 2008-02-12 14:04:18 yselkowitz Exp $
+# $Id: lua.cygclass,v 1.2 2008-02-14 04:52:01 yselkowitz Exp $
 #
 ################################################################################
 
 check_prog_req lua
 
 _lua=/usr/bin/lua
-LUA_VERSION=$(${_lua} -v 2>&1 | cut -c 5-7)
+
+# Lua versioning
+if ! defined LUA_VERSION
+then
+	LUA_VERSION=$(${_lua} -v 2>&1 | cut -c 5-7)
+fi
+LUA_VERSION_NUM=${LUA_VERSION//./0}
+case ${LUA_VERSION} in
+	4.*)  error "Lua 4.x not supported" ;;
+	5.0)  LUA_VERSION=${LUA_VERSION//.} ;;
+esac
+
+# Compile flags
+LUA_INCLUDEDIR="/usr/include/lua${LUA_VERSION}"
+LUA_CFLAGS="-I${LUA_INCLUDEDIR}"
+case ${LUA_VERSION} in
+	50)		LUA_LIBS="-llualib${LUA_VERSION} -llua${LUA_VERSION}" ;;
+	5.*)	LUA_LIBS="-llua${LUA_VERSION}" ;;
+esac
+
+# locations
 LUA=${_lua}${LUA_VERSION}
 LUAC=${_lua}c${LUA_VERSION}
 LUA_LIBDIR="/usr/lib/lua/${LUA_VERSION}"
 LUA_SCRIPTDIR="/usr/share/lua/${LUA_VERSION}"
-LUA_INCLUDEDIR="/usr/include/lua${LUA_VERSION}"
-LUA_CFLAGS="-I${LUA_INCLUDEDIR}"
-case ${LUA_VERSION} in
-	4*|5.0)	LUA_LIBS="-llualib${LUA_VERSION} -llua${LUA_VERSION}" ;;
-	5.*)	LUA_LIBS="-llua${LUA_VERSION}" ;;
-esac
