@@ -1,4 +1,6 @@
 
+	* lib/ocaml.cygclass (ocaml_install): Don't define DOCDIR.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/lua.cygclass: New cygclass for Lua modules.
