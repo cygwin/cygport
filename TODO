@@ -5,7 +5,6 @@ GOALS for 0.3 development:
 * Custom commands (CW)
 * src_prep and src_install hooks (CW)
 * warnings for deprecated APIs
-* decorations for unstable APIs
 * Redo gnome2_autoreconf to use gnome-autogen.sh
 * Debug and/or Verbose mode
 * Fix .cygwin.patch where already prepped.
@@ -22,10 +21,8 @@ particular order:
 * Complete test suite
 * NLS
 * Additional cygclasses:
-	- docbook
 	- doxygen
 * Additional mirrors:
-	- debian
 	- kernel
 	- mysql
 * dolocale

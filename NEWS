@@ -1,3 +1,13 @@
+0.3.8:  TESTING
+	* Manpage symlinks are automatically fixed.
+	* doexe: Installs .la files with libtool.
+	* mirrors: Added mirror://debian/.
+	* apache.cygclass: Define APREQ_{CONFIG,CFLAGS,LIBS}.
+	* berkdb.cygclass: Code cleanup and patch minimalization.
+	* docbook.cygclass: NEW for DocBook SGML/XML and DSSSL/XSL.
+	* lua.cygclass: NEW for Lua modules.
+	* ocaml.cygclass: Improved and fixed for OCaml 3.10.
+
 0.3.7:  TESTING
 	* Relicensed under GPL-3.
 	* Dependency command ignores most Windows libraries.
