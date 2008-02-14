@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.97 2008-01-09 22:43:11 yselkowitz Exp $
+# $Id: cygport.in,v 1.98 2008-02-14 06:47:58 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1449,6 +1449,13 @@ __prepman() {
 	if [ -d ${D}/usr/share/man ]
 	then
 		echo "Compressing man pages:";
+
+		for manlink in $(find ${D}/usr/share/man -type l)
+		do
+			manref=$(readlink ${manlink})
+			rm -f ${manlink};
+			echo ".so ${manref##*/}" > ${manlink};
+		done
 
 		for manpage in $(find ${D}/usr/share/man -type f ! -name '*.gz' ! -name '*.bz2')
 		do

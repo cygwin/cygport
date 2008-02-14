@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (__prepman): Fix manpage symlinks.
+
 	* lib/ocaml.cygclass (ocaml_install): Don't define DOCDIR.
 
 	* CYGWIN-PATCHES/README:
