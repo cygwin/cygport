@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.98 2008-02-14 06:47:58 yselkowitz Exp $
+# $Id: cygport.in,v 1.99 2008-02-15 16:08:36 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1375,15 +1375,36 @@ __prepdoc() {
 # creates and installs postinstall, preremove, and profile.d scripts
 __prepetc() {
 	local d;
+	local f;
+	local n;
 	local s;
 
 	for s in postinstall preremove
 	do
-		if [ -f ${C}/${s}.sh ]
+		if [ -f ${C}/${s}.sh -a -f ${C}/${PN}.${s} ]
 		then
-			dodir /etc/${s};
-			cat >> ${D}/etc/${s}/${PN}.sh < ${C}/${s}.sh;
+			error "Only one of ${s}.sh and ${PN}.${s} can exist";
 		fi
+
+		for f in ${s}.sh ${PN}.${s}
+		do
+			if [ -f ${C}/${f} ]
+			then
+				dodir /etc/${s};
+				cat >> ${D}/etc/${s}/${PN}.sh < ${C}/${f};
+			fi
+		done
+
+		n=1;
+		while [ -n "${pkg_name[${n}]}" ]
+		do
+			if [ -f ${C}/${pkg_name[${n}]}.${s} ]
+			then
+				dodir /etc/${s};
+				cat >> ${D}/etc/${s}/${pkg_name[${n}]}.sh < ${C}/${pkg_name[${n}]}.${s};
+			fi
+			n+=1
+		done
 	done
 
 	if [ -f ${C}/profile.d.sh ]

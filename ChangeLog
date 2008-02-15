@@ -1,4 +1,8 @@
 
+	* bin/cygport.in (__prepetc):
+	Allow either postinstall.sh or PN.postinstall (ditto with preremove).
+	Allow individual NAME.{postinstall,preremove} for multiple-binary pkgs.
+
 	* CYGWIN-PATCHES/README:
 	* configure.ac:
 	Post-release version bump.
