@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (__src_prep) [UNSTABLE_API]:
+	Run src_patch_hook, if defined, after SRC_PATCH patching.
+
 	* bin/cygport.in (__prepetc):
 	Allow either postinstall.sh or PN.postinstall (ditto with preremove).
 	Allow individual NAME.{postinstall,preremove} for multiple-binary pkgs.
