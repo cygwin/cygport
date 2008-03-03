@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gst-plugins0.10.cygclass,v 1.15 2007-10-15 03:40:21 yselkowitz Exp $
+# $Id: gst-plugins0.10.cygclass,v 1.16 2008-03-03 05:01:03 yselkowitz Exp $
 #
 ################################################################################
 
@@ -87,14 +87,16 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		never_gst_plugins="dv1394 gst_v4l2 hal ladspa osx_audio osx_video sunaudio xvideo"
 		;;
 	bad)
+		# opengl moved out in 0.10.6
 		# wavpack moved to good in 0.10.5
 		# amrwb codec is patent encumbered
 		my_gst_plugins="amrwb bz2 dts faac faad gsm ivorbis jack libmms
-		                mpeg2enc musepack musicbrainz nas neon opengl sdl 
-		                sndfile soundtouch spc swfdec theoradec timidity 
-		                wavpack wildmidi x264 xvid"
+		                metadata mpeg2enc musepack musicbrainz nas neon opengl
+		                sdl sndfile soundtouch soup spc swfdec
+                        theoradec timidity wavpack wildmidi x264 xvid"
 		conftest_gst_plugins="sdltest"
-		never_gst_plugins="alsa cdaudio directfb divx dvb gst_v4l2 ladspa mythtv vcd"
+		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
+                           ladspa mythtv quicktime vcd"
 		;;
 	ugly)
 		# WARNING: the dependent codecs may be patent encumbered

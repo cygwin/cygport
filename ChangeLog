@@ -1,4 +1,6 @@
 
+	* lib/gst-plugins0.10.cygclass: Updated for gst-plugins-bad 0.10.6.
+
 	* bin/cygport.in (__src_prep) [UNSTABLE_API]:
 	Run src_patch_hook, if defined, after SRC_PATCH patching.
 
