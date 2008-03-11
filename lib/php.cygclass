@@ -3,7 +3,7 @@
 # php.cygclass - functions for building PHP (PECL and PEAR) extensions
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007 Yaakov Selkowitz
+# Copyright (C) 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: php.cygclass,v 1.6 2008-03-11 03:36:37 yselkowitz Exp $
+# $Id: php.cygclass,v 1.7 2008-03-11 03:47:36 yselkowitz Exp $
 #
 ################################################################################
 

@@ -4,7 +4,7 @@
 # doexe - installs executable into exeinto directory
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: doexe,v 1.8 2008-01-02 04:17:52 yselkowitz Exp $
+# $Id: doexe,v 1.9 2008-03-11 03:47:36 yselkowitz Exp $
 #
 ################################################################################
 set -e
