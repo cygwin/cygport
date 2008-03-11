@@ -1,4 +1,6 @@
 
+	* lib/R.cygclass: Updated HOMEPAGE.
+
 	* lib/gtk2-perl.cygclass (gtk2_perl_compile): Fix Cairo linkage.
 
 	* lib/gst-plugins0.10.cygclass: Updated for gst-plugins-bad 0.10.6.

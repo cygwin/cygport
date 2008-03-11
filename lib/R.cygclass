@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: R.cygclass,v 1.5 2008-01-15 05:58:19 yselkowitz Exp $
+# $Id: R.cygclass,v 1.6 2008-03-11 03:35:01 yselkowitz Exp $
 #
 ################################################################################
 
@@ -38,7 +38,7 @@ case ${PN} in
 esac
 
 DESCRIPTION="R ${ORIG_PN} package"
-HOMEPAGE="mirror://cran/src/contrib/Descriptions/${ORIG_PN}.html"
+HOMEPAGE="mirror://cran/web/packages/${ORIG_PN}/"
 SRC_URI="mirror://cran/src/contrib/${ORIG_PN}_${PV/_/-}.tar.gz"
 SRC_DIR="${ORIG_PN}"
 
