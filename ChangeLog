@@ -1,4 +1,6 @@
 
+	* lib/php.cygclass (php_postinst): Cleanup /tmp/pear.
+
 	* lib/R.cygclass: Updated HOMEPAGE.
 
 	* lib/gtk2-perl.cygclass (gtk2_perl_compile): Fix Cairo linkage.
