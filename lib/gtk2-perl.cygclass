@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gtk2-perl.cygclass,v 1.12 2007-12-17 01:12:20 yselkowitz Exp $
+# $Id: gtk2-perl.cygclass,v 1.13 2008-03-11 03:33:30 yselkowitz Exp $
 #
 ################################################################################
 
@@ -47,7 +47,7 @@ gtk2_perl_compile() {
 	${PERL} Makefile.PL PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
 
 	case ${ORIG_PN} in
-		Glib)
+		Cairo|Glib)
 			ldflags=""
 			;;
 		Gtk2|Gnome2-Rsvg)
