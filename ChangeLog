@@ -1,4 +1,9 @@
 
+	* CYGWIN-PATCHES/README:
+	* bin/cygport.in (__src_fetch):
+	* lib/Makefile.am:
+	* lib/hg.cygclass: New cygclass for Mercurial checkouts.
+
 	* lib/perl.cygclass (perl_postinst): Just delete perllocal.pod stub.
 
 	* lib/php.cygclass (php_postinst): Cleanup /tmp/pear.

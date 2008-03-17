@@ -1,0 +1,56 @@
+################################################################################
+#
+# hg.cygclass - functions for building packages from Mercurial checkouts
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: hg.cygclass,v 1.1 2008-03-17 03:37:35 yselkowitz Exp $
+#
+################################################################################
+
+_USE_hg_FETCH=1
+
+if ! defined HG_URI
+then
+	error "HG_URI must be defined"
+fi
+
+HG_URI=${HG_URI%/}
+HG_MODULE=${HG_URI##*/}
+
+hg_tarball="${HG_MODULE}-hg-${PV}.tar.bz2"
+
+SRC_URI="${hg_tarball} "
+SRC_DIR="${HG_MODULE}"
+
+hg_fetch() {
+	check_prog_req hg mercurial
+
+	if defined HG_REV
+	then
+		hg_rev="-r ${HG_REV}"
+	fi
+
+	# T likely doesn't exist at this point, so create it first
+	mkdir -p ${T}
+	cd ${T}
+
+	verbose hg clone ${hg_rev} ${HG_URI} ${HG_MODULE}
+
+	tar jcf ${top}/${hg_tarball} --exclude=.hg ${HG_MODULE}
+}
