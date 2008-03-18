@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (cygautoreconf): Fixed typo in NO_LIBTOOLIZE.
+
 	* CYGWIN-PATCHES/README:
 	* bin/cygport.in (__src_fetch):
 	* lib/Makefile.am:

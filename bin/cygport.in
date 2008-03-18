@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.101 2008-03-17 03:37:35 yselkowitz Exp $
+# $Id: cygport.in,v 1.102 2008-03-18 01:56:11 yselkowitz Exp $
 #
 ################################################################################
 
@@ -972,7 +972,7 @@ cygautoreconf() {
 			error "autoconf2.5 is required to build this package"
 		done
 
-		for tool in ACLOCAL LIBTOOL AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
+		for tool in ACLOCAL LIBTOOLIZE AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
 		do
 			if defined NO_${tool}
 			then
