@@ -1,4 +1,7 @@
 
+	* lib/gtk2-perl.cygclass (gtk2_perl_compile):
+	Fix linking to other modules for perl-5.10.
+
 	* bin/cygport.in (cygautoreconf): Fixed typo in NO_LIBTOOLIZE.
 
 	* CYGWIN-PATCHES/README:

@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gtk2-perl.cygclass,v 1.14 2008-03-11 03:47:36 yselkowitz Exp $
+# $Id: gtk2-perl.cygclass,v 1.15 2008-03-18 04:48:05 yselkowitz Exp $
 #
 ################################################################################
 
@@ -38,11 +38,11 @@ gtk2_perl_compile() {
 	local man3pm
 	local pod
 
-	local libperlcairo="${PERL_VENDORARCH}/auto/Cairo/libCairo.dll.a"
-	local libperlglib="${PERL_VENDORARCH}/auto/Glib/libGlib.dll.a"
-	local libperlgtk2="${PERL_VENDORARCH}/auto/Gtk2/libGtk2.dll.a"
-	local libperlgconf="${PERL_VENDORARCH}/auto/Gnome2/GConf/libGConf.dll.a"
-	local libperlvfs="${PERL_VENDORARCH}/auto/Gnome2/VFS/libVFS.dll.a"
+	local libperlcairo="${PERL_VENDORARCH}/auto/Cairo/Cairo.dll"
+	local libperlglib="${PERL_VENDORARCH}/auto/Glib/Glib.dll"
+	local libperlgtk2="${PERL_VENDORARCH}/auto/Gtk2/Gtk2.dll"
+	local libperlgconf="${PERL_VENDORARCH}/auto/Gnome2/GConf/GConf.dll"
+	local libperlvfs="${PERL_VENDORARCH}/auto/Gnome2/VFS/VFS.dll"
 
 	${PERL} Makefile.PL PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
 
