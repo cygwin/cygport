@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: R.cygclass,v 1.6 2008-03-11 03:35:01 yselkowitz Exp $
+# $Id: R.cygclass,v 1.7 2008-04-14 03:53:55 yselkowitz Exp $
 #
 ################################################################################
 
@@ -34,13 +34,14 @@ R_INCLUDEDIR=${R_HOME}/include
 R_SITELIB=${R_HOME}/site-library
 
 case ${PN} in
-	R-*) ORIG_PN=${ORIG_PN:-${PN#R-}} ;;
+R-*)
+	ORIG_PN=${ORIG_PN:-${PN#R-}}
+	DESCRIPTION="R ${ORIG_PN} package"
+	HOMEPAGE="mirror://cran/web/packages/${ORIG_PN}/"
+	SRC_URI="mirror://cran/src/contrib/${ORIG_PN}_${PV/_/-}.tar.gz"
+	SRC_DIR="${ORIG_PN}"
+	;;
 esac
-
-DESCRIPTION="R ${ORIG_PN} package"
-HOMEPAGE="mirror://cran/web/packages/${ORIG_PN}/"
-SRC_URI="mirror://cran/src/contrib/${ORIG_PN}_${PV/_/-}.tar.gz"
-SRC_DIR="${ORIG_PN}"
 
 check_R_package() {
 	local p t

@@ -1,4 +1,6 @@
 
+	* lib/R.cygclass: Define HOMEPAGE,SRC_URI,etc. only for CRAN packages.
+
 	* lib/gtk2-perl.cygclass (gtk2_perl_compile):
 	Fix linking to other modules for perl-5.10.
 
