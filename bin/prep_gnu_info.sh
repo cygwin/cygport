@@ -4,7 +4,7 @@
 # prep_gnu_info.sh - Postinstall commands for GNU info pages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: prep_gnu_info.sh,v 1.7 2007-12-17 15:35:42 yselkowitz Exp $
+# $Id: prep_gnu_info.sh,v 1.8 2008-04-16 05:34:17 yselkowitz Exp $
 #
 ################################################################################
 set -e

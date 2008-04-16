@@ -1,10 +1,10 @@
 #!/bin/bash
 ################################################################################
 #
-# prep_managed_mount - postinstall/preremove steps for installed managed mounts
+# make_managed_mount - postinstall/preremove steps for installed managed mounts
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: make_managed_mount,v 1.7 2007-12-26 19:02:19 yselkowitz Exp $
+# $Id: make_managed_mount,v 1.8 2008-04-16 05:34:17 yselkowitz Exp $
 #
 ################################################################################
 set -e

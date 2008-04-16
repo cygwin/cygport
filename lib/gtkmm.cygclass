@@ -3,7 +3,7 @@
 # gtkmm.cygclass - functions for building GTKmm C++ bindings
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gtkmm.cygclass,v 1.9 2007-12-10 13:11:25 yselkowitz Exp $
+# $Id: gtkmm.cygclass,v 1.10 2008-04-16 05:34:18 yselkowitz Exp $
 #
 ################################################################################
 
