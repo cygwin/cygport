@@ -1,3 +1,12 @@
+0.3.9:  TESTING
+	* Allow multiple postinstall/preremove scripts for split packages.
+	* Now compatible with libtool-2.2.
+	* Support .tar.lzma source archives.
+	* gst-plugins0.10.cygclass: Update for gst-plugins-bad-0.10.6.
+	* gtk2-perl.cygclass: Fix for perl-5.10.
+	* hg.cygclass: NEW for Mercurial repository checkouts.
+	* perl.cygclass: Fix for perl-5.10.
+
 0.3.8:  TESTING
 	* Manpage symlinks are automatically fixed.
 	* doexe: Installs .la files with libtool.
