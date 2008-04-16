@@ -16,22 +16,23 @@ Runtime requirements:
   file
   grep
   gzip
-  libtool1.5
+  libtool
   lndir
   make
   patch
   sed
   tar
   unzip
+  util-linux
   wget
 
 Build requirements:
-  cygwin-1.5.24-2
+  cygwin-1.5.25-7
   autoconf2.5-2.61-1
-  automake1.10-1.10-1
-  gawk-3.1.5-4
+  automake1.10-1.10.1-1
+  gawk-3.1.6-1
   groff-1.18.1-2
-  help2man-1.36.4-1
+  help2man-1.36.4-2
   make-3.81-1
   sed-4.1.5-2
 
