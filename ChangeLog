@@ -1,3 +1,8 @@
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
 *** 0.3.9 ***
 
 	* bin/cygport.in (unpack): Add support for .tar.lzma archives.
