@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (unpack): Add support for .tar.lzma archives.
+
 	* bin/cygport.in (cygautoreconf, __pkg_diff):
 	* bin/doexe:
 	* bin/prep_libtool_modules.sh:
