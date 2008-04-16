@@ -1,4 +1,12 @@
 
+	* bin/cygport.in (cygautoreconf, __pkg_diff):
+	* bin/doexe:
+	* bin/prep_libtool_modules.sh:
+	* lib/berkdb.cygclass (berkdb_autoreconf):
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	* lib/kde3.cygclass (kde3_autoreconf):
+	Make compatible with libtool-2.2.
+
 	* lib/R.cygclass: Define HOMEPAGE,SRC_URI,etc. only for CRAN packages.
 
 	* lib/gtk2-perl.cygclass (gtk2_perl_compile):

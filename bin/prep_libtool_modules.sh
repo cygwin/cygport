@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: prep_libtool_modules.sh,v 1.11 2007-10-15 03:40:15 yselkowitz Exp $
+# $Id: prep_libtool_modules.sh,v 1.12 2008-04-16 00:16:56 yselkowitz Exp $
 #
 ################################################################################
 set -e
@@ -99,9 +99,15 @@ do
 			# The name of the static archive.
 			old_library=''
 
+			# Linker flags that can not go in dependency_libs.
+			inherited_linker_flags='${inherited_linker_flags}'
+
 			# Libraries that this one depends upon.
 			# This is set to empty to speed up lt_dlopen and friends.
 			dependency_libs=''
+
+			# Names of additional weak libraries provided by this library
+			weak_library_names='${weak_library_names}'
 
 			# Version information for ${ltlibname}.
 			current=${current}

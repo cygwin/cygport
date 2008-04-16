@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: kde3.cygclass,v 1.19 2007-12-10 07:40:48 yselkowitz Exp $
+# $Id: kde3.cygclass,v 1.20 2008-04-16 00:16:56 yselkowitz Exp $
 #
 ################################################################################
 
@@ -70,8 +70,24 @@ kde3_autoreconf() {
 	fi
 
 	find . -name '*.ui' -exec touch '{}' +
-	cp -f /usr/share/libtool/ltmain.sh admin/ltmain.sh
-	cp -f /usr/share/aclocal/libtool.m4 admin/libtool.m4.in
+
+	# libtoolize
+	check_prog_req libtoolize libtool
+	local lt_args
+	local lt_v=$(libtoolize --version | head -n 1 | cut -d ' ' -f 4)
+
+	# rely on libtool macro(s) in system aclocal path
+	echo -n > admin/libtool.m4.in
+
+	case ${lt_v} in
+	1.5.*)  ;;
+	1.*|2.[01].*)  error "kde3: unsupported libtool version: ${lt_v}" ;;
+	2.*)  lt_args="--install" ;;
+	esac
+
+	libtoolize --copy --force ${lt_args} || error "kde3: libtoolize failed"
+
+	# autoreconf
 	make -f admin/Makefile.common || error "KDE autoreconf failed"
 }
 

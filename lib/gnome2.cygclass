@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gnome2.cygclass,v 1.17 2007-10-15 03:40:20 yselkowitz Exp $
+# $Id: gnome2.cygclass,v 1.18 2008-04-16 00:16:56 yselkowitz Exp $
 #
 ################################################################################
 
@@ -45,9 +45,9 @@ gnome2_autoreconf() {
 
 	export WANT_AUTOCONF WANT_AUTOMAKE
 
-	if grep -q "^A[CM]_PROG_LIBTOOL" ${configure_ac}
+	if grep -E -q "^(LT_INIT|A[CM]_PROG_LIBTOOL)" ${configure_ac}
 	then
-		check_prog_req libtoolize libtool1.5
+		check_prog_req libtoolize libtool
 		verbose libtoolize --copy --force || error "libtoolize failed"
 	fi
 

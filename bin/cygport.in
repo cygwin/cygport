@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.102 2008-03-18 01:56:11 yselkowitz Exp $
+# $Id: cygport.in,v 1.103 2008-04-16 00:16:56 yselkowitz Exp $
 #
 ################################################################################
 
@@ -832,7 +832,7 @@ readonly -f fetch __mirror_fetch __src_fetch unpack __gpg_verify __mkdirs cygpat
 #	NO_AUTOHEADER
 #	NO_AUTOMAKE
 #	NO_AUTOPOINT
-#	NO_LIBTOOL
+#	NO_LIBTOOLIZE
 #	WANT_AUTOCONF
 #	WANT_AUTOMAKE
 #	src_compile
@@ -954,9 +954,9 @@ cygautoreconf() {
 	then
 		check_prog_req autoconf-2.13 autoconf2.1
 
-		if grep -q "^A[CM]_PROG_LIBTOOL" ${S}/${configure_ac}
+		if grep -Eq "^(LT_INIT|A[CM]_PROG_LIBTOOL)" ${S}/${configure_ac}
 		then
-			warning "libtool1.5 is incompatible with autoconf-2.13";
+			warning "Current libtool is incompatible with autoconf-2.13";
 		fi
 	else
 		while true
@@ -1737,6 +1737,7 @@ __pkg_diff() {
 		automake*|libtool*) ;;
 		*)	default_excludes+=" COPYING INSTALL compile config-ml.in \
 				config.guess config.sub depcomp elisp-comp install-sh \
+				libtool.m4 ltoptions.m4 ltsugar.m4 ltversion.m4 lt~obsolete.m4 \
 				ltmain.sh mdate-sh missing mkinstalldirs py-compile \
 				symlink-tree texinfo.tex ylwrap" ;;
 	esac
