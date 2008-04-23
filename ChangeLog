@@ -1,4 +1,6 @@
 
+	* lib/gnome2.cygclass (gnome2_autoreconf): Use gnome-autogen.sh.
+
 	* bin/cygport.in (__prepstrip): Remove Mono .mdb debug symbols.
 
 	* CYGWIN-PATCHES/README:

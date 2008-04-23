@@ -19,135 +19,35 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gnome2.cygclass,v 1.19 2008-04-16 05:34:17 yselkowitz Exp $
+# $Id: gnome2.cygclass,v 1.20 2008-04-23 21:48:17 yselkowitz Exp $
 #
 ################################################################################
 
 inherit gnome.org
 
 gnome2_autoreconf() {
-	local aclocal_flags
-	local configure_ac
-	local config_h
-	local config_h_in
-	local d
-	local f
-
-	if [ -f configure.ac ]
+	if ! [ -f configure.ac -o -f configure.in ]
 	then
-		configure_ac="configure.ac"
-	elif [ -f configure.in ]
-	then
-		configure_ac="configure.in"
-	else
-		error "cannot find configure.ac or configure.in"
+		error "gnome2: configure.ac or configure.in not found"
 	fi
 
-	export WANT_AUTOCONF WANT_AUTOMAKE
-
-	if grep -E -q "^(LT_INIT|A[CM]_PROG_LIBTOOL)" ${configure_ac}
-	then
-		check_prog_req libtoolize libtool
-		verbose libtoolize --copy --force || error "libtoolize failed"
-	fi
-
-	if grep -q "^AM_GLIB_GNU_GETTEXT" ${configure_ac} && [ "x${PN}" != "xglib2" ]
-	then
-		check_prog_req glib-gettextize glib2-devel
-		verbose glib-gettextize --copy --force || error "glib-gettextize failed"
-	elif grep -q "^AM_GNU_GETTEXT" ${configure_ac}
-	then
-		if grep -q "^AM_GNU_GETTEXT_VERSION" ${configure_ac}
-		then
-			check_prog_req autopoint gettext-devel
-			verbose autopoint --force || error "autopoint failed"
-		else
-			check_prog_req gettextize gettext-devel
-			verbose gettextize --copy --force || error "gettextize failed"
-		fi
-	fi
-
-	if grep -q "^[AI][CT]_PROG_INTLTOOL" ${configure_ac} && [ "x${PN}" != "xintltool" ]
-	then
-		check_prog_req intltoolize intltool
-		verbose intltoolize --copy --force || error "intltoolize failed"
-	fi
-
-	if grep -q "^GTK_DOC_CHECK" ${configure_ac} && [ "x${PN}" != "xgtk-doc" ]
-	then
-		check_prog_req gtkdocize gtk-doc
-		verbose gtkdocize --copy || error "gtkdocize failed"
-	fi
+	check_prog_req gnome-autogen.sh gnome-common
 
 	if [ -f omf-install/Makefile.am -o -f omf.make -o -f xmldocs.make ]
 	then
-		check_prog_req gnome-doc-common gnome-common
-		verbose gnome-doc-common --copy || error "gnome-doc-common failed"
+		USE_COMMON_DOC_BUILD=yes
 	fi
 
-	if grep -q "^GNOME_DOC_INIT" ${configure_ac} && [ "x${PN}" != "xgnome-doc-utils" ]
-	then
-		check_prog_req gnome-doc-prepare gnome-doc-utils
-		verbose gnome-doc-prepare --copy --force || error "gnome-doc-prepare failed"
-	fi
+	export WANT_AUTOMAKE
+	export AUTOMAKE="automake"
+	export AUTOMAKE_VERSION=$(automake --version | head -n 1 | sed 's/^.*[  ]\([0-9.]*[a-z]*\).*$/\1/')
 
-	if grep -q "^ACLOCAL_AMFLAGS" Makefile.am
-	then
-		aclocal_flags="$(grep '^ACLOCAL_AMFLAGS' Makefile.am | sed -e 's!^ACLOCAL_AMFLAGS.*=!!')"
-	fi
+	export NOCONFIGURE=1
+	export PKG_NAME=${ORIG_PN:-${PN}}
+	export REQUIRED_LIBTOOL_VERSION=1.5.18	# new autotools layout
+	export USE_COMMON_DOC_BUILD
 
-	case "$(aclocal --version | head -n 1 | cut -d ' ' -f 4)" in
-		1.8*|1.9*|1.10*)  aclocal_flags="--force ${aclocal_flags}" ;;
-	esac
-
-	verbose aclocal ${aclocal_flags} || error "aclocal failed"
-
-	for d in $(grep AC_CONFIG_SUBDIRS ${configure_ac} | sed -e 's!.*AC_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')
-	do
-		if [ -d ${d} ]
-		then
-			(cd ${d}
-			gnome2_autoreconf)
-		fi
-	done
-
-	verbose autoconf --force || error "autoconf failed"
-
-	if grep -q "^A[CM]_CONFIG_HEADER" ${configure_ac} && ! defined NO_AUTOHEADER
-	then
-		verbose autoheader --force || error "autoheader failed"
-
-		for config_h in $(grep '^A[CM]_CONFIG_HEADERS*' ${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')
-		do
-			case "${config_h}" in
-				*:*) config_h_in="$(echo ${config_h//:/ } | cut -d ' ' -f 2-)" ;;
-				*) config_h_in="${config_h}.in" ;;
-			esac
-
-			for f in ${config_h_in}
-			do
-				touch ${f}
-				rm -f ${config_h%%:*}
-			done
-		done
-	fi
-
-	if ! defined NO_AUTOMAKE
-	then
-		touch AUTHORS COPYING ChangeLog INSTALL NEWS README
-
-		for f in COPYING INSTALL
-		do
-			cp -f ${f} ${f}.temp
-		done
-
-		verbose automake --add-missing --copy --force-missing || error "automake failed"
-
-		for f in COPYING INSTALL
-		do
-			mv -f ${f}.temp ${f}
-		done
-	fi
+	gnome-autogen.sh || error "gnome2: autoreconf failed"
 }
 
 gnome2_compile() {
