@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (__prepstrip): Remove Mono .mdb debug symbols.
+
 	* CYGWIN-PATCHES/README:
 	* configure.ac:
 	Post-release version bump.

@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.105 2008-04-16 05:34:17 yselkowitz Exp $
+# $Id: cygport.in,v 1.106 2008-04-23 14:43:48 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1538,9 +1538,11 @@ __prepstrip() {
 			continue
 		fi
 
-		# Mono assemblies must not be stripped!
+		# Mono assemblies must not be stripped,
+		# but .(dll|exe).mdb debug symbols should be removed
 		if objdump -p ${exe} | grep -q "DLL Name: mscoree.dll"
 		then
+			rm -f ${exe}.mdb
 			continue
 		fi
 
