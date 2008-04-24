@@ -1,4 +1,7 @@
 
+	* lib/php.cygclass: Add capability for external PHP_CHANNELs.
+	(php_postinst): Fix .ini script for Zend extensions.
+
 	* lib/gnome2.cygclass (gnome2_autoreconf): Use gnome-autogen.sh.
 
 	* bin/cygport.in (__prepstrip): Remove Mono .mdb debug symbols.
