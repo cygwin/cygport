@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gst-plugins0.10.cygclass,v 1.17 2008-03-11 03:47:36 yselkowitz Exp $
+# $Id: gst-plugins0.10.cygclass,v 1.18 2008-04-26 00:40:55 yselkowitz Exp $
 #
 ################################################################################
 
@@ -74,26 +74,29 @@ DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
 case ${GST_PLUGINS_SRC:-${gst_pn}} in
 	base)
 		# cdparanoia requires a patch to use libcdio_paranoia
-		my_gst_plugins="cdparanoia gnome_vfs libvisual ogg pango theora vorbis x xshm"
+		my_gst_plugins="cdparanoia gnome_vfs gio libvisual ogg pango
+                        theora vorbis x xshm"
 		conftest_gst_plugins="freetypetest oggtest vorbistest"
 		never_gst_plugins="alsa gst_v4l gst_v4l2 xvideo"
 		;;
 	good)
 		# wavpack moved from bad in 0.10.6
+		# soup moved from bad in 0.10.8
 		my_gst_plugins="aalib annodex cairo cdio directdraw directsound
-		                esd flac gconf gconftool gdk_pixbuf jpeg libcaca
-		                libdv libpng oss shout2 speex taglib wavpack x xshm"
+		                esd flac gconf gconftool gdk_pixbuf jpeg libcaca libdv
+		                libpng oss shout2 soup speex taglib wavpack x xshm"
 		conftest_gst_plugins="aalibtest esdtest shout2test"
 		never_gst_plugins="dv1394 gst_v4l2 hal ladspa osx_audio osx_video sunaudio xvideo"
 		;;
 	bad)
-		# opengl moved out in 0.10.6
 		# wavpack moved to good in 0.10.5
+		# opengl moved out in 0.10.6
+		# soup moved to good in 0.10.7
 		# amrwb codec is patent encumbered
-		my_gst_plugins="amrwb bz2 dts faac faad gsm ivorbis jack libmms
-		                metadata mpeg2enc musepack musicbrainz nas neon opengl
-		                sdl sndfile soundtouch soup spc swfdec
-                        theoradec timidity wavpack wildmidi x264 xvid"
+		my_gst_plugins="amrwb bz2 dirac dts faac faad gsm ivorbis jack libmms
+		                metadata mpeg2enc mplex musepack musicbrainz nas neon
+		                ofa opengl sdl sndfile soundtouch soup spc swfdec
+                        theoradec timidity wavpack wildmidi wininet x264 xvid"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
                            ladspa mythtv quicktime vcd"

@@ -1,4 +1,7 @@
 
+	* lib/gst-plugins0.10.cygclass: Update plugin list for base 0.10.19,
+	good 0.10.8, and bad 0.10.7.
+
 	* lib/php.cygclass: Add capability for external PHP_CHANNELs.
 	(php_postinst): Fix .ini script for Zend extensions.
 
