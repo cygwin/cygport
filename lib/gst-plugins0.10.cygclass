@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gst-plugins0.10.cygclass,v 1.18 2008-04-26 00:40:55 yselkowitz Exp $
+# $Id: gst-plugins0.10.cygclass,v 1.19 2008-04-28 22:32:37 yselkowitz Exp $
 #
 ################################################################################
 
@@ -28,12 +28,11 @@
 gst_pn=${PN#gstreamer[0-9]*-plugins-}
 
 # defaults
-GST_PLUGINS_DIR=.
-GST_PLUGINS_MODULE=
 ORIG_PN=gst-plugins-${gst_pn}
 
 case ${gst_pn} in
 	base|good|bad|ugly|farsight)
+		GST_PLUGINS_DIR=.
 		for plugin in ${GST_PLUGINS_EXT}
 		do
 			case ${plugin} in
@@ -50,12 +49,15 @@ case ${gst_pn} in
 		ORIG_PN=gst-plugins-${GST_PLUGINS_SRC}
 		;;
 	ffmpeg)
+		GST_PLUGINS_DIR=.
 		ORIG_PN=gst-ffmpeg
 		;;
 	nonlin)
+		GST_PLUGINS_DIR=.
 		ORIG_PN=gnonlin
 		;;
 	fluendo-*)
+		GST_PLUGINS_DIR=.
 		ORIG_PN=gst-${gst_pn}
 		SRC_URI="http://core.fluendo.com/gstreamer/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
 		;;
@@ -95,7 +97,7 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		# amrwb codec is patent encumbered
 		my_gst_plugins="amrwb bz2 dirac dts faac faad gsm ivorbis jack libmms
 		                metadata mpeg2enc mplex musepack musicbrainz nas neon
-		                ofa opengl sdl sndfile soundtouch soup spc swfdec
+		                ofa opengl oss4 sdl sndfile soundtouch soup spc swfdec
                         theoradec timidity wavpack wildmidi wininet x264 xvid"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
