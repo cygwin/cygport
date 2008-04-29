@@ -1,4 +1,6 @@
 
+	* lib/php.cygclass: Fix DESCRIPTION.
+
 	* lib/gst-plugins0.10.cygclass: Update plugin list for base 0.10.19,
 	good 0.10.8, and bad 0.10.7.
 	Fix build where GST_PLUGINS_SRC is defined.

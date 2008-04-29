@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: php.cygclass,v 1.8 2008-04-24 04:01:38 yselkowitz Exp $
+# $Id: php.cygclass,v 1.9 2008-04-29 00:59:24 yselkowitz Exp $
 #
 ################################################################################
 
@@ -38,8 +38,8 @@ LIBPHP="-lphp5lib"
 
 case ${PN} in
 php-*)
-	DESCRIPTION="PHP ${ORIG_PN} extension"
 	ORIG_PN=${PN#php-}
+	DESCRIPTION="PHP ${ORIG_PN} extension"
 	;;
 esac
 
