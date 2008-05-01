@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.106 2008-04-23 14:43:48 yselkowitz Exp $
+# $Id: cygport.in,v 1.107 2008-05-01 12:55:44 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1478,6 +1478,15 @@ __prepetc() {
 
 __prepman() {
 	local manpage;
+
+	if [ -d ${D}/usr/man ]
+	then
+		inform "Moving /usr/man to /usr/share/man...";
+		dodir /usr/share/man
+		# just in case there is already /usr/share/man, e.g. after doman()
+		cp -r ${D}/usr/man/* ${D}/usr/share/man/
+		rm -fr ${D}/usr/man/
+	fi
 
 	if [ -d ${D}/usr/share/man ]
 	then
