@@ -1,4 +1,6 @@
 
+	* lib/fox.cygclass: Allow building separate apps and libs from one -src.
+
 	* bin/cygport.in (__prepman): Relocate /usr/man directory if present.
 
 	* lib/php.cygclass: Fix DESCRIPTION.
