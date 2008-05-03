@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.107 2008-05-01 12:55:44 yselkowitz Exp $
+# $Id: cygport.in,v 1.108 2008-05-03 01:06:20 yselkowitz Exp $
 #
 ################################################################################
 
@@ -565,7 +565,7 @@ unpack() {
 			*.tar.gz|*.tgz|*.tar.Z) unpack_cmd="tar zxf" ;;
 			*.tar.lzma)
 				check_prog_req lzma
-				unpack_cmd="tar --lzma xf"
+				unpack_cmd="tar --lzma -xf"
 				;;
 			*.tar)  unpack_cmd="tar xf"  ;;
 			*.bz2)
@@ -1508,13 +1508,18 @@ __prepman() {
 }
 
 # remove empty directories in D
-# if the must remain, call keepdir() in src_install()
+# if empty directory must remain, call keepdir() in src_install()
 __prep_empty_dirs() {
+	local d n;
 
 	# PTC if you find a package deeper than 20 (even perl mods are < 15)
 	for (( n=20; n >= 1; n-- ))
 	do
-		find ${D} -mindepth ${n} -type d -empty -exec rmdir '{}' +
+		for d in $(find ${D} -mindepth ${n} -type d -empty)
+		do
+			inform "Removing empty directory: ${d#${D}}";
+			rmdir ${d};
+		done
 	done
 }
 
