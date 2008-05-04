@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (__pkg_pkgcheck): Accept PKG_IGNORE.
+
 	* bin/cygport.in (__prep_empty_dirs): Notify when removing empty dirs.
 
 	* lib/fox.cygclass: Allow building separate apps and libs from one -src.

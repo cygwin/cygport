@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.108 2008-05-03 01:06:20 yselkowitz Exp $
+# $Id: cygport.in,v 1.109 2008-05-04 06:51:03 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1649,6 +1649,7 @@ readonly -f __list_files __list_deps __show_info
 #	DIFF_EXCLUDES
 #	PKG_CONTENTS[]
 #	PKG_HINTS
+#	PKG_IGNORE
 #	PKG_LISTS
 #	SIG
 #
@@ -1714,6 +1715,11 @@ __pkg_pkgcheck() {
 		tar tjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 | grep -Ev "/$" >> ${tmp1}
 		n+=1
 	done
+
+	if defined PKG_IGNORE
+	then
+		find ${PKG_IGNORE} ! -type d >> ${tmp1}
+	fi
 
 	sort < ${tmp1} > "${tmp1}.sorted";
 	mv -f "${tmp1}.sorted" ${tmp1};
