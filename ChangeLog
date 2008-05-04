@@ -1,3 +1,8 @@
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
 *** 0.3.10 ***
 
 	* bin/cygport.in (__pkg_pkgcheck): Accept PKG_IGNORE.
