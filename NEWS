@@ -1,3 +1,13 @@
+0.3.10:  TESTING
+	* Accept PKG_IGNORE to avoid missing files warning.
+	* Notify when removing empty directories during postinstall.
+	* Move /usr/man to /usr/share/man.
+	* Remove Mono .mdb debug symbols during strip.
+	* fox.cygclass: Libs and separate apps can be built from one -src.
+	* gnome2.cygclass: Use gnome-autogen.sh for autoreconf.
+	* gst-plugins0.10.cygclass: Update for GStreamer 0.10.19 et al.
+	* php.cygclass: Fixes for external PHP_CHANNEL, Zend extensions.
+
 0.3.9:  TESTING
 	* Allow multiple postinstall/preremove scripts for split packages.
 	* Now compatible with libtool-2.2.
