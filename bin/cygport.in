@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.110 2008-05-09 18:36:36 yselkowitz Exp $
+# $Id: cygport.in,v 1.111 2008-05-09 18:38:40 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1342,14 +1342,19 @@ __prepdoc() {
 
 	cd ${S};
 
-	unset _docinto_dir;
-	dodoc ${default_docs} ${DOCS};
+	if defined _CYGPORT_RESTRICT_postinst_doc_
+	then
+		inform "Skipping package doc installation per request";
+	else
+		unset _docinto_dir;
+		dodoc ${default_docs} ${DOCS};
 
-	for html in ${HTMLDOCS}
-	do
-		docinto html;
-		dodoc ${html};
-	done
+		for html in ${HTMLDOCS}
+		do
+			docinto html;
+			dodoc ${html};
+		done
+	fi
 
 	if [ -e ${C}/README ]
 	then
