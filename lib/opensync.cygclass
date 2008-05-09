@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: opensync.cygclass,v 1.1 2008-05-09 17:12:23 yselkowitz Exp $
+# $Id: opensync.cygclass,v 1.2 2008-05-09 18:25:40 yselkowitz Exp $
 #
 ################################################################################
 
@@ -51,7 +51,7 @@ opensync_plugin_compile() {
 	fi
 
 	case ${OPENSYNC_ABI} in
-		0)	CPPFLAGS+=" -Wno-error"
+		0)	CFLAGS+=" -Wno-error"
 			cygconf --libexecdir=/usr/lib/opensync "${@}"
 			cygmake LDFLAGS="-no-undefined"
 			;;
