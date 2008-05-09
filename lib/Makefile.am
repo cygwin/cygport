@@ -27,6 +27,7 @@ dist_cygclass_DATA = 			\
 	lua.cygclass				\
 	mono.cygclass				\
 	ocaml.cygclass				\
+	opensync.cygclass			\
 	perl.cygclass				\
 	php.cygclass				\
 	pygtk.cygclass				\

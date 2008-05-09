@@ -1,0 +1,96 @@
+################################################################################
+#
+# opensync.cygclass - functions for building OpenSync plugin packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: opensync.cygclass,v 1.1 2008-05-09 17:12:23 yselkowitz Exp $
+#
+################################################################################
+
+OPENSYNC_PLUGIN=${PN/libopensync*-plugin-}
+
+DESCRIPTION="OpenSync ${OPENSYNC_PLUGIN} plugin"
+HOMEPAGE="http://www.opensync.org/wiki/"
+SRC_URI="http://www.opensync.org/download/releases/${PV}/libopensync-plugin-${OPENSYNC_PLUGIN}-${PV}.tar.bz2"
+SRC_DIR="libopensync-plugin-${OPENSYNC_PLUGIN}-${PV}"
+
+case ${PV} in
+	0.2[0-1])	error "opensync-plugin: minimum 0.2x version is 0.22" ;;
+	0.2*)		OPENSYNC_ABI=0 ;;
+	0.3[0-5])	error "opensync-plugin: minimum 0.3x version is 0.36" ;;
+	0.3*)		OPENSYNC_ABI=1 ;;
+	*)			error "opensync-plugin: unknown version: ${PV}" ;;
+esac
+
+check_prog_req pkg-config
+OPENSYNC_VERSION=$(pkg-config --modversion opensync-1.0)
+OPENSYNC_PLUGINDIR=$(pkg-config --variable=plugindir opensync-1.0)
+OPENSYNC_PYTHON_PLUGINDIR=${OPENSYNC_PLUGINDIR%/*}/python-plugins
+OPENSYNC_CONFIGDIR=$(pkg-config --variable=configdir opensync-1.0)
+
+opensync_plugin_compile() {
+	if [ ${PV} != ${OPENSYNC_VERSION} ]
+	then
+		error "${P} requires libopensync-devel-${PV}"
+	fi
+
+	case ${OPENSYNC_ABI} in
+		0)	CPPFLAGS+=" -Wno-error"
+			cygconf --libexecdir=/usr/lib/opensync "${@}"
+			cygmake LDFLAGS="-no-undefined"
+			;;
+		1)	cygcmake "${@}"
+			cygmake
+			;;
+	esac
+}
+
+opensync_doconfig() {
+	insinto ${OPENSYNC_CONFIGDIR}
+	doins ${@}
+}
+
+opensync_doplugin() {
+	local plugin
+
+	for plugin
+	do
+		case ${plugin} in
+			*.py)
+				exeinto ${OPENSYNC_PYTHON_PLUGINDIR} ;;
+			*.dll|*.la)
+				exeinto ${OPENSYNC_PLUGINDIR} ;;
+			*)
+				error "opensync_doplugin: unknown plugin extension ${plugin##*.}"
+		esac
+
+		doexe ${@}
+	done
+}
+
+src_compile() {
+	case ${OPENSYNC_ABI} in
+		0)	cd ${S}
+			cygautoreconf
+			;;
+	esac
+
+	cd ${B}
+	opensync_plugin_compile
+}

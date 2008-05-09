@@ -1,5 +1,9 @@
 
 	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/opensync.cygclass: New cygclass for OpenSync plugins.
+
+	* CYGWIN-PATCHES/README:
 	* configure.ac:
 	Post-release version bump.
 
