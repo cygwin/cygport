@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.109 2008-05-04 06:51:03 yselkowitz Exp $
+# $Id: cygport.in,v 1.110 2008-05-09 18:36:36 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1754,7 +1754,7 @@ __pkg_diff() {
 	local difflevel;
 	local exclude;
 
-	default_excludes="CYGWIN-PATCHES aclocal.m4* autom4te.cache \
+	default_excludes="CYGWIN-PATCHES aclocal.m4~ aclocal.m4t autom4te.cache \
 		config.cache config.log config.status config.h config.h.in
 		ABOUT-NLS Makefile.in.in Makevars.template *SlackBuild* *.egg-info \
 		*.class *.pyc *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
@@ -1772,6 +1772,15 @@ __pkg_diff() {
 		gettext) ;;
 		*)	default_excludes+=" config.rpath" ;;
 	esac
+
+	# exclude aclocal.m4 if generated from aclocal
+	if [ -f ${S}/aclocal.m4 ]
+	then
+		if $(head -n 1 ${S}/aclocal.m4 | grep -q 'generated.* by aclocal')
+		then
+			default_excludes+=" aclocal.m4";
+		fi
+	fi
 
 	# exclude Makefile.in only if using automake
 	for mf in Makefile GNUmakefile makefile
