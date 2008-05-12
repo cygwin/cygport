@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gtk2-perl.cygclass,v 1.15 2008-03-18 04:48:05 yselkowitz Exp $
+# $Id: gtk2-perl.cygclass,v 1.16 2008-05-12 15:20:14 yselkowitz Exp $
 #
 ################################################################################
 
@@ -43,11 +43,12 @@ gtk2_perl_compile() {
 	local libperlgtk2="${PERL_VENDORARCH}/auto/Gtk2/Gtk2.dll"
 	local libperlgconf="${PERL_VENDORARCH}/auto/Gnome2/GConf/GConf.dll"
 	local libperlvfs="${PERL_VENDORARCH}/auto/Gnome2/VFS/VFS.dll"
+	local libperlmozdom="${PERL_VENDORARCH}/auto/Mozilla/DOM/DOM.dll"
 
 	${PERL} Makefile.PL PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
 
 	case ${ORIG_PN} in
-		Cairo|Glib)
+		Cairo|Glib|Mozilla-DOM)
 			ldflags=""
 			;;
 		Gtk2|Gnome2-Rsvg)
@@ -61,6 +62,9 @@ gtk2_perl_compile() {
 			;;
 		Gnome2-PanelApplet)
 			ldflags="${libperlgconf} ${libperlgtk2} ${libperlglib}"
+			;;
+		Gtk2-MozEmbed)
+			ldflags="${libperlgtk2} ${libperlglib} ${libperlmozdom}"
 			;;
 		*)
 			ldflags="${libperlgtk2} ${libperlglib} ${libperlcairo}"

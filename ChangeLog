@@ -1,4 +1,6 @@
 
+	* lib/gtk2-perl.cygclass: Add Mozilla-DOM and Gtk2-MozEmbed.
+
 	* bin/cygport.in (__prepdoc): Accept RESTRICT=postinst-doc.
 
 	* bin/cygport.in (__pkg_diff):
