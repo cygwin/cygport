@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.112 2008-05-16 17:49:10 yselkowitz Exp $
+# $Id: cygport.in,v 1.113 2008-05-16 17:50:53 yselkowitz Exp $
 #
 ################################################################################
 
@@ -2082,6 +2082,7 @@ declare -x CXXFLAGS="-O2 -pipe ";
 declare -x F77FLAGS="-O2 -pipe ";
 declare -x GCJFLAGS="-O2 -pipe ";
 declare -x LDFLAGS="";
+declare -x LIBS="";
 declare    MAKEOPTS="-j2 ";
 declare    CHOST="i686-pc-cygwin";
 
