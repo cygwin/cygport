@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.114 2008-05-16 18:43:56 yselkowitz Exp $
+# $Id: cygport.in,v 1.115 2008-05-16 20:48:24 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1056,15 +1056,14 @@ cygconf() {
 	# Set default configure arguments
 	confargs="--prefix=/usr --exec-prefix=/usr --bindir=/usr/bin \
 			  --sbindir=/usr/sbin --libexecdir=/usr/sbin \
-			  --localstatedir=/var --sysconfdir=/etc"
+			  --datadir=/usr/share --localstatedir=/var --sysconfdir=/etc"
 
 	case "x$(grep -m 1 'GNU Autoconf' ${configure} | cut -d ' ' -f 6)" in
 		x2.6[0-9]*)
 			confargs+=" --datarootdir=/usr/share --docdir=/usr/share/doc/${P}"
 			;;
 		*)
-			confargs+=" --datadir=/usr/share --infodir=/usr/share/info \
-				--mandir=/usr/share/man"
+			confargs+=" --infodir=/usr/share/info --mandir=/usr/share/man"
 			;;
 	esac
 

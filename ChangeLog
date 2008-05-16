@@ -2,6 +2,7 @@
 	* bin/cygport.in (__pkg_diff): Exclude *config.h.in.
 	(__pkg_diff): Fix deprecated use of DIFF_EXCLUDES="-x foo".
 	(LIBS): default to empty and export.
+	(cygconf): Pass --datadir=/usr/share regardless of autoconf version.
 
 	* lib/gtk2-perl.cygclass: Add Mozilla-DOM and Gtk2-MozEmbed.
 
