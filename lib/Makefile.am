@@ -26,6 +26,7 @@ dist_cygclass_DATA = 			\
 	kde3.cygclass				\
 	lua.cygclass				\
 	mono.cygclass				\
+	mtn.cygclass				\
 	ocaml.cygclass				\
 	opensync.cygclass			\
 	perl.cygclass				\

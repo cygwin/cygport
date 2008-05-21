@@ -1,4 +1,9 @@
 
+	* CYGWIN-PATCHES/README:
+	* bin/cygport.in (__src_fetch):
+	* lib/Makefile.am:
+	* lib/mtn.cygclass: New cygclass for Monotone checkouts.
+
 	* bin/cygport.in (__pkg_diff): Exclude *config.h.in.
 	(__pkg_diff): Fix deprecated use of DIFF_EXCLUDES="-x foo".
 	(LIBS): default to empty and export.

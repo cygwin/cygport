@@ -1,0 +1,77 @@
+################################################################################
+#
+# mtn.cygclass - functions for building packages from Monotone checkouts
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: mtn.cygclass,v 1.1 2008-05-21 04:40:11 yselkowitz Exp $
+#
+################################################################################
+
+_USE_mtn_FETCH=1
+
+if ! defined MTN_URI
+then
+	error "MTN_URI must be defined"
+fi
+
+MTN_MODULE=${MTN_MODULE:-${ORIG_PN:-${PN}}}
+
+if ! defined MTN_BRANCH
+then
+	mtn_uri_p=(${MTN_URI//./ })
+
+	for ((i = ${#mtn_uri_p[*]} - 1; i >= 0; i--))
+	do
+		MTN_BRANCH+="${mtn_uri_p[$i]}."
+	done
+
+	unset mtn_uri_p
+
+	MTN_BRANCH+="${MTN_MODULE}"
+fi
+
+mtn_tarball="${MTN_MODULE}-mtn-${PV}.tar.bz2"
+
+SRC_URI="${mtn_tarball} "
+SRC_DIR="${MTN_MODULE}"
+
+mtn_fetch() {
+	check_prog_req mtn monotone
+
+	if defined MTN_REV
+	then
+		mtn_rev="-r ${MTN_REV}"
+	fi
+
+	# T likely doesn't exist at this point, so create it first
+	mkdir -p ${T}
+	cd ${T}
+
+	if [ ! -e ${MTN_MODULE}.mtn ]
+	then
+		verbose mtn -d ${MTN_MODULE}.mtn db init
+	fi
+
+	verbose mtn -d ${MTN_MODULE}.mtn pull ${MTN_URI} ${MTN_BRANCH}
+
+	[ -d ${MTN_MODULE} ] && rm -fr ${MTN_MODULE}/
+	verbose mtn -d ${MTN_MODULE}.mtn checkout -b ${MTN_BRANCH} ${mtn_rev} ${MTN_MODULE}
+
+	tar jcf ${top}/${mtn_tarball} --exclude=_MTN --exclude=.mtn-ignore ${MTN_MODULE}
+}

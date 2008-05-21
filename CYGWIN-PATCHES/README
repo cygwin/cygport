@@ -116,6 +116,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/kde3.cygclass
   /usr/lib/cygport/lib/lua.cygclass
   /usr/lib/cygport/lib/mono.cygclass
+  /usr/lib/cygport/lib/mtn.cygclass
   /usr/lib/cygport/lib/ocaml.cygclass
   /usr/lib/cygport/lib/opensync.cygclass
   /usr/lib/cygport/lib/perl.cygclass
