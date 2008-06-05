@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gst-plugins0.10.cygclass,v 1.19 2008-04-28 22:32:37 yselkowitz Exp $
+# $Id: gst-plugins0.10.cygclass,v 1.20 2008-06-05 03:41:15 yselkowitz Exp $
 #
 ################################################################################
 
@@ -43,7 +43,7 @@ case ${gst_pn} in
 		done
 		unset plugin
 		;;
-	opengl|oss|ximage|ximagesrc|xvimage)
+	opengl|oss|oss4|ximage|ximagesrc|xvimage)
 		GST_PLUGINS_DIR=${GST_PLUGINS_DIR:-sys/${gst_pn}}
 		GST_PLUGINS_MODULE=${GST_PLUGINS_MODULE:-${gst_pn}}
 		ORIG_PN=gst-plugins-${GST_PLUGINS_SRC}
