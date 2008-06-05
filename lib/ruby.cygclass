@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: ruby.cygclass,v 1.11 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: ruby.cygclass,v 1.12 2008-06-05 03:56:11 yselkowitz Exp $
 #
 ################################################################################
 
@@ -75,7 +75,7 @@ ruby_install() {
 	elif [ -e Rakefile -o -e rakefile ]
 	then
 		check_prog_req rake
-		rake install || error "rake install failed"
+		rake install DESTDIR=${D} ${@} || error "rake install failed"
 	else
 		error "No Ruby module detected"
 	fi

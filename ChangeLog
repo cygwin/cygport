@@ -1,4 +1,6 @@
 
+	* lib/ruby.cygclass (ruby_install): Pass arguments to 'rake install'.
+
 	* CYGWIN-PATCHES/README:
 	* bin/cygport.in (__src_fetch):
 	* lib/Makefile.am:
