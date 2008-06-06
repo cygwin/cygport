@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (__pkg_binpkg): Allow empty subpackages.
+
 	* lib/ruby.cygclass (ruby_install): Pass arguments to 'rake install'.
 
 	* CYGWIN-PATCHES/README:

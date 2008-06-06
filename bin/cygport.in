@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.116 2008-05-21 04:40:11 yselkowitz Exp $
+# $Id: cygport.in,v 1.117 2008-06-06 03:07:50 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1680,6 +1680,11 @@ __pkg_binpkg() {
 
 	while (( n < pkg_count ))
 	do
+		if defined PKG_CONTENTS[*] && (( ${#PKG_CONTENTS[*]} != ${pkg_count} ))
+		then
+			error "PKG_CONTENTS[n] must be defined from 0 through $((pkg_count - 1))"
+		fi
+
 		__step "${pkg_name[${n}]}-${PVR}.tar.bz2";
 
 		if defined PKG_CONTENTS[${n}]
@@ -1697,7 +1702,9 @@ __pkg_binpkg() {
 			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 * \
 				|| error "Binary package creation failed"
 		else
-			error "Either define PKG_CONTENTS[${n}], or create CYGWIN-PATCHES/${pkg_list[${n}]}.list file";
+			inform "Creating empty package"
+			bzip2 < /dev/null > ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
+				|| error "Empty package creation failed"
 		fi
 		echo;
 		n+=1;
