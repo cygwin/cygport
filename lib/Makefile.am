@@ -12,6 +12,7 @@ dist_cygclass_DATA = 			\
 	emacs.cygclass				\
 	font.cygclass				\
 	fox.cygclass				\
+	ggz.cygclass				\
 	git.cygclass				\
 	gnome.org.cygclass			\
 	gnome2.cygclass				\

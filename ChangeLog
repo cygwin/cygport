@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/ggz.cygclass: New cygclass for GGZ packages.
+
 	* bin/cygport.in (__pkg_binpkg): Allow empty subpackages.
 
 	* lib/ruby.cygclass (ruby_install): Pass arguments to 'rake install'.
