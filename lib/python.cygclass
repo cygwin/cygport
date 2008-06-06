@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: python.cygclass,v 1.10 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: python.cygclass,v 1.11 2008-06-06 20:31:32 yselkowitz Exp $
 #
 ################################################################################
 
@@ -92,4 +92,4 @@ python_optimize() {
 	done
 }
 
-alias python_compile='python_optimize'
+python_compile() { python_optimize ${@} ; }
