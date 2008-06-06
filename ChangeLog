@@ -1,4 +1,6 @@
 
+	* lib/java.cygclass: Use fully-qualified paths for all tools.
+
 	* lib/gnome2.cygclass (gnome2_autoreconf):
 	Add support for skipping directories with GNOME2_NO_AUTOGEN.
 	Install config.rpath if required.

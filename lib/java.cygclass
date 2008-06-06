@@ -19,27 +19,27 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: java.cygclass,v 1.7 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: java.cygclass,v 1.8 2008-06-06 20:32:46 yselkowitz Exp $
 #
 ################################################################################
 
 # prevent Win32 Java interference
 unset CLASSPATH
 
-JAR=fastjar
-JAVA=jamvm
-JAVAC=jikes
-JAVADOC=gjdoc
+JAR=/usr/bin/fastjar
+JAVA=/usr/bin/jamvm
+JAVAC=/usr/bin/jikes
+JAVADOC=/usr/bin/gjdoc
 # FIXME: gjavah doesn't work
-JAVAH=gcjh
-GCJ=gcj
+JAVAH=/usr/bin/gcjh
+GCJ=/usr/bin/gcj
 
-JAR_PATH=/usr/bin/${JAR}
-JAVA_PATH=/usr/bin/${JAVA}
-JAVAC_PATH=/usr/bin/${JAVAC}
-JAVADOC_PATH=/usr/bin/${JAVADOC}
-JAVAH_PATH=/usr/bin/${JAVAH}
-GCJ_PATH=/usr/bin/${GCJ}
+JAR_PATH=${JAR}
+JAVA_PATH=${JAVA}
+JAVAC_PATH=${JAVAC}
+JAVADOC_PATH=${JAVADOC}
+JAVAH_PATH=${JAVAH}
+GCJ_PATH=${GCJ}
 
 #GLIBJ_JAR=/usr/share/classpath/glibj.zip
 
