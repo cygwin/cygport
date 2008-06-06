@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: php.cygclass,v 1.9 2008-04-29 00:59:24 yselkowitz Exp $
+# $Id: php.cygclass,v 1.10 2008-06-06 20:23:52 yselkowitz Exp $
 #
 ################################################################################
 
@@ -34,6 +34,7 @@ PEAR=/usr/bin/pear
 PHP_VERSION=$(${PHP_CONFIG} --version)
 PHP_EXTENSION_DIR=$(${PHP_CONFIG} --extension-dir)
 PHP_INI_DIR=/etc/php5
+PHP_PEAR_DIR=/usr/share/pear
 LIBPHP="-lphp5lib"
 
 case ${PN} in
@@ -123,11 +124,12 @@ php_postinst() {
 
 		for x in ${D}${PHP_EXTENSION_DIR}/*.dll
 		do
+			xf=${x##*/}
 			if $(objdump -p ${x} | grep -q zend_startup_module)
 			then
-				echo "zend_extension = ${PHP_EXTENSION_DIR}/${x##*/}" >> ${D}${PHP_INI_DIR}/conf.d/${ORIG_PN}.ini
+				echo "zend_extension = ${PHP_EXTENSION_DIR}/${xf}" >> ${D}${PHP_INI_DIR}/conf.d/${xf%.dll}.ini
 			else
-				echo "extension = ${x##*/}" >> ${D}${PHP_INI_DIR}/conf.d/${ORIG_PN}.ini
+				echo "extension = ${xf}" >> ${D}${PHP_INI_DIR}/conf.d/${xf%.dll}.ini
 			fi
 		done
 	fi
@@ -144,9 +146,9 @@ php_postinst() {
 		;;
 	esac
 
-	if [ -d ${D}/usr/share/pear ]
+	if [ -d ${D}${PHP_PEAR_DIR} ]
 	then
-		(cd ${D}/usr/share/pear
+		(cd ${D}${PHP_PEAR_DIR}
 		rm -fr .channels/ .depdb .depdblock .filemap .lock)
 	fi
 
