@@ -1,4 +1,6 @@
 
+	* lib/pygtk.cygclass: Correct naming of nautilus-python.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/ggz.cygclass: New cygclass for GGZ packages.

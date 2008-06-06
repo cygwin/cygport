@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: pygtk.cygclass,v 1.13 2007-12-10 07:21:53 yselkowitz Exp $
+# $Id: pygtk.cygclass,v 1.14 2008-06-06 20:20:51 yselkowitz Exp $
 #
 ################################################################################
 
@@ -54,7 +54,7 @@ case ${pygtk_mod} in
 		pygtk_subdir=${pygtk_mod}
 		ORIG_PN=gnome-python-extras
 		;;
-	nautilus)
+	nautilus|nautilus-python)
 		pygtk_subdir=.
 		ORIG_PN=nautilus-python
 		;;
