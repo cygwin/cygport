@@ -1,4 +1,6 @@
 
+	* lib/kde3.cygclass: Correct SRC_URI of kdevelop-3.5.2.
+
 	* lib/php.cygclass: Define PHP_PEAR_DIR.
 	(php_postinst): Fix .ini naming based on extension, not package name.
 

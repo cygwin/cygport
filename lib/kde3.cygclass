@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: kde3.cygclass,v 1.21 2008-04-16 05:34:18 yselkowitz Exp $
+# $Id: kde3.cygclass,v 1.22 2008-06-06 20:25:12 yselkowitz Exp $
 #
 ################################################################################
 
@@ -31,7 +31,7 @@ case "${PN}:${PV}" in
 	arts:*)			ftp_pv=3.${PVP[1]}.${PVP[2]} ;;
 	kdevelop:3.3.*)	ftp_pv=3.$((PVP[1] + 2)).${PVP[2]} ;;
 	kdevelop:3.4.*)	ftp_pv=3.$((PVP[1] + 1)).$((PVP[2] + 6)) ;;
-	kdevelop:3.5.*)	ftp_pv=3.${PVP[1]}.$((PVP[2] + 8)) ;;
+	kdevelop:3.5.[01])	ftp_pv=3.${PVP[1]}.$((PVP[2] + 8)) ;;
 	*)				ftp_pv=${PV} ;;
 esac
 
@@ -44,6 +44,9 @@ case "${PN}:${PV}" in
 		;;
 	kdevelop:3.4.0)
 		SRC_URI="mirror://kde/stable/kdevelop-${PV}/src/${P}.tar.bz2"
+		;;
+	kdevelop:3.5.2)
+		SRC_URI="mirror://kde/stable/apps/KDE3.x/ide/${P}.tar.bz2"
 		;;
 	koffice:*)
 		SRC_URI="mirror://kde/stable/koffice-${PV}/src/${P}.tar.bz2"
