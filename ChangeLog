@@ -1,4 +1,9 @@
 
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Add support for skipping directories with GNOME2_NO_AUTOGEN.
+	Install config.rpath if required.
+	Improve automake version detection (requires gnome-common-2.20.0-2).	
+
 	* lib/git.cygclass (git_fetch): Ignore .gitignore.
 
 	* lib/kde3.cygclass: Correct SRC_URI of kdevelop-3.5.2.

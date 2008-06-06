@@ -19,15 +19,23 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gnome2.cygclass,v 1.20 2008-04-23 21:48:17 yselkowitz Exp $
+# $Id: gnome2.cygclass,v 1.21 2008-06-06 20:30:36 yselkowitz Exp $
 #
 ################################################################################
 
 inherit gnome.org
 
 gnome2_autoreconf() {
-	if ! [ -f configure.ac -o -f configure.in ]
+	local configure_ac
+	local skip_d
+
+	if [ -e configure.ac ]
 	then
+		configure_ac="configure.ac"
+	elif [ -e configure.in ]
+	then
+		configure_ac="configure.in"
+	else
 		error "gnome2: configure.ac or configure.in not found"
 	fi
 
@@ -39,13 +47,33 @@ gnome2_autoreconf() {
 	fi
 
 	export WANT_AUTOMAKE
-	export AUTOMAKE="automake"
-	export AUTOMAKE_VERSION=$(automake --version | head -n 1 | sed 's/^.*[  ]\([0-9.]*[a-z]*\).*$/\1/')
 
+	export ACLOCAL_FLAGS
 	export NOCONFIGURE=1
 	export PKG_NAME=${ORIG_PN:-${PN}}
+	export REQUIRED_AUTOMAKE_VERSION=$(automake --version | head -n 1 | sed 's/^.*[  ]\([0-9.]*[a-z]*\).*$/\1/')
 	export REQUIRED_LIBTOOL_VERSION=1.5.18	# new autotools layout
 	export USE_COMMON_DOC_BUILD
+
+	for skip_d in ${GNOME2_NO_AUTOGEN}
+	do
+		if [ -d ${skip_d} ]
+		then
+			touch ${skip_d}/NO-AUTO-GEN
+		else
+			warning "GNOME2_NO_AUTOGEN: directory not found: ${skip_d}"
+		fi
+	done
+
+	# FIXME: does not detect sublevel configures
+	if $(grep -Eq 'AM_(GNU_GETTEXT|ICONV)' ${configure_ac})
+	then
+		cp -f /usr/share/gettext/config.rpath .
+	fi
+
+	# Automake will exit if these are not present
+	# dodoc won't install these, however, if they are empty
+	touch AUTHORS COPYING ChangeLog INSTALL NEWS README
 
 	gnome-autogen.sh || error "gnome2: autoreconf failed"
 }
