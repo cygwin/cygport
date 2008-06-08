@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/ebook.cygclass: New cygclass for EBook documentation.
+
 	* lib/java.cygclass: Use fully-qualified paths for all tools.
 
 	* lib/gnome2.cygclass (gnome2_autoreconf):

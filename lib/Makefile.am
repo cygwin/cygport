@@ -9,6 +9,7 @@ dist_cygclass_DATA = 			\
 	cvs.cygclass				\
 	distutils.cygclass			\
 	docbook.cygclass			\
+	ebook.cygclass				\
 	emacs.cygclass				\
 	font.cygclass				\
 	fox.cygclass				\

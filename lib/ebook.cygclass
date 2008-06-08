@@ -1,0 +1,50 @@
+################################################################################
+#
+# ebook.cygclass - functions for building Ebook documentation packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: ebook.cygclass,v 1.1 2008-06-08 19:48:38 yselkowitz Exp $
+#
+################################################################################
+
+# FIXME: multiple versions of same package (not currently available)
+ORIG_PN="${PN#ebook-}"
+
+DESCRIPTION="EBook ${ORIG_PN} documentation"
+HOMEPAGE="http://code.google.com/p/htmlhelp/"
+SRC_URI="http://htmlhelp.googlecode.com/files/${ORIG_PN}-${PV}.tgz"
+SRC_DIR="."
+
+ebook_install() {
+	if [ ! -e book.devhelp ]
+	then
+		error "book.devhelp: file not found"
+	fi
+
+	insinto /usr/share/devhelp/books/${ORIG_PN}
+	newins book.devhelp ${ORIG_PN}.devhelp
+	doins book/*
+}
+
+src_compile() { :; }
+
+src_install() {
+	cd ${S}
+	ebook_install
+}
