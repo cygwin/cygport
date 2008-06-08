@@ -3,7 +3,7 @@
 # ggz.cygclass - functions for building GGZ packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -19,13 +19,15 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: ggz.cygclass,v 1.1 2008-06-06 19:42:31 yselkowitz Exp $
+# $Id: ggz.cygclass,v 1.2 2008-06-08 19:50:35 yselkowitz Exp $
 #
 ################################################################################
 
 DESCRIPTION="GGZ Gaming Zone ${PN#ggz-} component"
 HOMEPAGE="http://dev.ggzgamingzone.org/"
 SRC_URI="http://ftp.ggzgamingzone.org/pub/ggz/${PV}/${P}.tar.gz "
+
+GGZ_MODULES_DIR=/etc/ggz/modules
 
 _ggz_bad_macros="gettext.m4 gtk-2.0.m4 iconv.m4 sdl.m4"
 
@@ -68,16 +70,16 @@ ggz_postinst() {
 		doggzmod ${GGZMODS}
 	fi
 
-	for g in $(ls ${D}/etc/ggz/games/* 2> /dev/null)
+	for g in $(ls ${D}${GGZ_MODULES_DIR}/* 2> /dev/null)
 	do
 		dodir /etc/postinstall /etc/preremove
 
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			ggz-config --force --install --modfile=/etc/ggz/games/${g##*/}
+			ggz-config --force --install --modfile=${GGZ_MODULES_DIR}/${g##*/}
 			_EOF
 
 		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-			ggz-config --remove --modfile=/etc/ggz/games/${g##*/}
+			ggz-config --remove --modfile=${GGZ_MODULES_DIR}/${g##*/}
 			_EOF
 	done
 }
@@ -95,7 +97,7 @@ doggzmod() {
 
 		g=$(grep ^CommandLine ${m} | sed -e 's|CommandLine *= */.*/\([^ ]*\).*|\1|g')
 
-		insinto /etc/ggz/games
+		insinto ${GGZ_MODULES_DIR}
 		newins ${m} ${g}.dsc
 	done
 }
