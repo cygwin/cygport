@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.117 2008-06-06 03:07:50 yselkowitz Exp $
+# $Id: cygport.in,v 1.118 2008-06-15 22:50:35 yselkowitz Exp $
 #
 ################################################################################
 
@@ -451,7 +451,8 @@ fetch() {
 	local urifile;
 
 	uri=${1};
-	urifile=${uri##*/};
+	urifile=${uri%\?*};
+	urifile=${urifile##*/};
 
 	if check_prog wget
 	then
@@ -2191,14 +2192,16 @@ fi
 
 for _src_uri in ${SRC_URI}
 do
-	_src_orig_pkgs="${_src_orig_pkgs} ${_src_uri##*/}";
+	_src_uri="${_src_uri%\?*}"
+	_src_orig_pkgs+=" ${_src_uri##*/}";
 done
 readonly _src_orig_pkgs;
 unset _src_uri;
 
 for _patch_uri in ${PATCH_URI}
 do
-	_src_orig_patches="${_src_orig_patches} ${_patch_uri##*/}";
+	_patch_uri="${_patch_uri%\?*}"
+	_src_orig_patches+=" ${_patch_uri##*/}";
 done
 readonly _src_orig_patches;
 unset _patch_uri;

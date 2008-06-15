@@ -1,4 +1,6 @@
 
+	* bin/cygport.in: Allow SRC_URI/PATCH_URI to contain CGI arguments.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/ebook.cygclass: New cygclass for EBook documentation.
