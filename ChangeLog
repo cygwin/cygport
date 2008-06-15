@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (__prepetc): Accept RESTRICT=postinst-gconf.
+
 	* bin/cygport.in: Allow SRC_URI/PATCH_URI to contain CGI arguments.
 
 	* CYGWIN-PATCHES/README:
