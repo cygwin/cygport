@@ -1,3 +1,8 @@
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
 *** 0.3.11 ***
 
 	* bin/cygport.in (__prepetc): Accept RESTRICT=postinst-gconf.
