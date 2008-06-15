@@ -1,3 +1,13 @@
+0.3.11:  TESTING
+	* {SRC,PATCH}_URI may contain CGI query arguments.
+	* Empty subpackages may be created by defining empty PKG_CONTENTS[n].
+	* RESTRICT=postinst-gconf stops automatic GConf schemas postinst/prerm.
+	* ebook.cygclass: NEW for EBook documentation packages.
+	* ggz.cygclass: NEW for GGZ Gaming Zone packages.
+	* gnome2.cygclass: Several improvements for GNOME 2.22.
+	* mtn.cygclass: NEW for Monotone repository checkouts.
+	* opensync.cygclass: NEW for libopensync-plugin-* packages.
+
 0.3.10:  TESTING
 	* Accept PKG_IGNORE to avoid missing files warning.
 	* Notify when removing empty directories during postinstall.

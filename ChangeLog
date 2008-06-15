@@ -1,3 +1,4 @@
+*** 0.3.11 ***
 
 	* bin/cygport.in (__prepetc): Accept RESTRICT=postinst-gconf.
 	(cygautoreconf): Install config.rpath if required.
