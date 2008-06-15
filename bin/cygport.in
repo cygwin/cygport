@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.119 2008-06-15 22:51:51 yselkowitz Exp $
+# $Id: cygport.in,v 1.120 2008-06-15 22:53:53 yselkowitz Exp $
 #
 ################################################################################
 
@@ -937,6 +937,11 @@ cygautoreconf() {
 				done
 
 				unset ac_config_files;
+			fi
+
+			if $(grep -q /config.rpath configure)
+			then
+				cp -f /usr/share/gettext/config.rpath .
 			fi
 
 			# Automake will exit if these are not present
