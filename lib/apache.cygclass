@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: apache.cygclass,v 1.8 2008-01-09 22:45:53 yselkowitz Exp $
+# $Id: apache.cygclass,v 1.9 2008-06-16 17:35:18 yselkowitz Exp $
 #
 ################################################################################
 
@@ -221,12 +221,12 @@ apache_postinst() {
 
 		if [ -f ${imp} ]
 		then
-			sym=$(nm -C ${imp} 2>/dev/null | grep ' I _nm__.*_module$' | sed -e 's#.*__\(.*\)_module#\1#')
+			sym=$(nm ${imp} 2>/dev/null | grep ' I __nm__.*_module$' | sed -e 's#.*__\(.*\)_module#\1#')
 		fi
 
 		if ! defined sym
 		then
-			sym=$(nm -C ${mod} 2>/dev/null | grep ' D .*_module$' | sed -e 's#.*D \(.*\)_module#\1#')
+			sym=$(nm ${mod} 2>/dev/null | grep ' D .*_module$' | sed -e 's#.*D _\(.*\)_module#\1#')
 		fi
 
 		if ! defined sym
