@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.120 2008-06-15 22:53:53 yselkowitz Exp $
+# $Id: cygport.in,v 1.121 2008-06-17 19:26:51 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1546,8 +1546,9 @@ __prepstrip() {
 
 	echo "Stripping executables:";
 
-	# Ruby and Apache2 modules should be *.so, nothing else!!!
-	for exe in $(find * -type f -name '*.dll' -o -name '*.exe' -o -name '*.so')
+	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
+	# *.oct: Octave modules
+	for exe in $(find * -type f -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.oct')
 	do
 		if [ ! -w ${exe} ]
 		then
@@ -1640,7 +1641,7 @@ __list_deps() {
 	export PATH+="${D}/usr/bin:${os_path}";
 
 	# Ruby and Apache2 modules should be *.so, nothing else!!!
-	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' \) \
+	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' \) \
 		-exec objdump -p '{}' + | grep "DLL Name:" | sort -u | \
 		cut -d ' ' -f 3 | sed -e '/^[A-Z32]*\.[Dd][Ll][Ll]$/d' -e 's!mscoree.dll!mono.exe!' | \
 		xargs -r which | xargs -r cygcheck -f | sort -u | sed 's!^!  !';

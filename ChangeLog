@@ -1,4 +1,9 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/octave.cygclass: New cygclass for Octave extensions.
+	* bin/cygport.in (__list_deps, __prepstrip): Treat .oct as DLLs.
+
 	* lib/apache.cygclass (apache_postinst): Adapt to binutils changes.
 
 	* CYGWIN-PATCHES/README:

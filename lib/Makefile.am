@@ -30,6 +30,7 @@ dist_cygclass_DATA = 			\
 	mono.cygclass				\
 	mtn.cygclass				\
 	ocaml.cygclass				\
+	octave.cygclass				\
 	opensync.cygclass			\
 	perl.cygclass				\
 	php.cygclass				\

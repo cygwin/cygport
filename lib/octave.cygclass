@@ -1,0 +1,43 @@
+################################################################################
+#
+# octave.cygclass - functions for installing Octave modules
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: octave.cygclass,v 1.1 2008-06-17 19:26:51 yselkowitz Exp $
+#
+################################################################################
+
+check_prog_req mkoctfile octave-devel
+
+OCTAVE=/usr/bin/octave
+MKOCTFILE=/usr/bin/mkoctfile
+OCTAVE_CONFIG=/usr/bin/octave-config
+OCTAVE_VERSION=$(${OCTAVE_CONFIG} --version)
+
+# Compile flags
+OCTAVE_INCLUDEDIR=$(${OCTAVE_CONFIG} -p OCTINCLUDEDIR)
+OCTAVE_LIBDIR=$(${OCTAVE_CONFIG} -p OCTLIBDIR)
+OCTAVE_CFLAGS="-I${OCTAVE_INCLUDEDIR} -I${OCTAVE_INCLUDEDIR}/octave"
+OCTAVE_LIBS="-L${OCTAVE_LIBDIR} -loctave"
+
+# install locations
+OCTAVE_M_DIR=$(${OCTAVE_CONFIG} -p FCNFILEDIR)
+OCTAVE_OCT_DIR=$(${OCTAVE_CONFIG} -p OCTFILEDIR)
+OCTAVE_M_SITEDIR=$(${OCTAVE_CONFIG} --m-site-dir)
+OCTAVE_OCT_SITEDIR=$(${OCTAVE_CONFIG} --oct-site-dir)
