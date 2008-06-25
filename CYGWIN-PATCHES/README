@@ -27,7 +27,6 @@ Runtime requirements:
   wget
 
 Build requirements:
-  cygwin-1.5.25-7
   autoconf2.5-2.61-1
   automake1.10-1.10.1-1
   gawk-3.1.6-1
@@ -95,6 +94,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/aspell-dict.cygclass
   /usr/lib/cygport/lib/berkdb.cygclass
   /usr/lib/cygport/lib/bzr.cygclass
+  /usr/lib/cygport/lib/claws-mail.cygclass
   /usr/lib/cygport/lib/cross.cygclass
   /usr/lib/cygport/lib/cvs.cygclass
   /usr/lib/cygport/lib/distutils.cygclass

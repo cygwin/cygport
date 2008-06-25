@@ -1,6 +1,10 @@
 
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
+	* lib/claws-mail.cygclass: New cygclass for Claws Mail plugins.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
 	* lib/octave.cygclass: New cygclass for Octave extensions.
 	* bin/cygport.in (__list_deps, __prepstrip): Treat .oct as DLLs.
 

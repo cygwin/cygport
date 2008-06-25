@@ -5,6 +5,7 @@ dist_cygclass_DATA = 			\
 	aspell-dict.cygclass		\
 	berkdb.cygclass				\
 	bzr.cygclass				\
+	claws-mail.cygclass			\
 	cross.cygclass				\
 	cvs.cygclass				\
 	distutils.cygclass			\

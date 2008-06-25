@@ -1,0 +1,39 @@
+################################################################################
+#
+# claws-mail.cygclass - functions for building Claws Mail plugins
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: claws-mail.cygclass,v 1.1 2008-06-25 05:02:49 yselkowitz Exp $
+#
+################################################################################
+
+inherit gnome2
+
+CLAWS_MAIL_PLUGIN=${PN#claws-mail-}
+ORIG_PN=${ORIG_PN:-${CLAWS_MAIL_PLUGIN//-/_}}
+
+DESCRIPTION="Claws Mail ${CLAWS_MAIL_PLUGIN//-/ } plugin"
+HOMEPAGE="http://www.claws-mail.org/plugins.php"
+SRC_URI="http://www.claws-mail.org/downloads/plugins/${ORIG_PN}-${PV}.tar.gz"
+SRC_DIR="${ORIG_PN}-${PV}"
+
+DIFF_EXCLUDES+=" m4 po"
+
+LIBS+=" -lclaws-mail"
+MAKEOPTS+=" LDFLAGS=-no-undefined"
