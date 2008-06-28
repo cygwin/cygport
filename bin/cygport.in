@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.123 2008-06-28 00:38:37 yselkowitz Exp $
+# $Id: cygport.in,v 1.124 2008-06-28 00:41:40 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1649,7 +1649,7 @@ __list_deps() {
 	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' \) \
 		-exec objdump -p '{}' + | grep "DLL Name:" | sort -u | \
 		cut -d ' ' -f 3 | sed -e '/^[A-Z32]*\.[Dd][Ll][Ll]$/d' -e 's!mscoree.dll!mono.exe!' | \
-		xargs -r which | xargs -r cygcheck -f | sort -u | sed 's!^!  !';
+		xargs -r which | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
 	)
 }
 
