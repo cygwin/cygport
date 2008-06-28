@@ -19,54 +19,85 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: ruby-gnome2.cygclass,v 1.16 2007-12-10 07:18:40 yselkowitz Exp $
+# $Id: ruby-gnome2.cygclass,v 1.17 2008-06-28 00:49:03 yselkowitz Exp $
 #
 ################################################################################
 
 inherit ruby
 
+
+__ruby_gnome2_get_module_dir() {
+	local ret
+
+	if (( $# > 1 ))
+	then
+		error "$FUNCNAME: too many arguments"
+	fi
+
+	# poppler and vte were ADDED in 0.15.0
+	# gstreamer and libgda were REMOVED in 0.16.0
+	# bonobo and bonoboui were ADDED in 0.17.0
+	case ${@} in
+		glib2|gtk2|libglade2|bonobo2|bonoboui2|libart2|gnomecanvas2|gconf2|gnome2|gnomeprint2|gnomeprintui2|rsvg2)
+			ret=${@%2} ;;
+		gdk_pixbuf2)
+			ret=gdkpixbuf ;;
+		gst)
+			ret=gstreamer ;;
+		panelapplet2)
+			ret=panel-applet ;;
+		atk|pango|gnomevfs|gtkglext|gtkhtml2|gtkmozembed|gtksourceview|poppler|vte|libgda)
+			ret=${@} ;;
+		gstreamer0.10|gtksourceview2|webkit)
+			ret=. ;;
+		*)
+			error "ruby-gnome2: unknown module: $@" ;;
+	esac
+
+	echo -n ${ret}
+}
+
+
 rbg2_pn=${PN#ruby-}
+
+case ${PV} in
+	0.17.0*rc*)	rbg2_orig_src="ruby-gnome2" ;;
+	*)	rbg2_orig_src="ruby-gnome2-all" ;;
+esac
+
 
 case ${rbg2_pn} in
 	gnome2-all)
-		# sort modules in dependency order
-		# poppler and vte were ADDED in 0.15.0
-		# gstreamer and libgda were REMOVED in 0.16.0
-		for d in glib atk pango gdkpixbuf gtk libglade libart \
-				 gnomecanvas gconf gnomevfs gnome gnomeprint \
-				 gnomeprintui gtkglext gtkhtml2 gtkmozembed gtksourceview \
-				 panel-applet poppler rsvg vte gstreamer libgda
+		if ! defined RUBY_GNOME2_MODULES
+		then
+			error "ruby-gnome2: RUBY_GNOME2_MODULES undefined"
+		fi
+
+		for _mod in ${RUBY_GNOME2_MODULES}
 		do
-			for rbg2_mod in ${RUBY_GNOME2_MODULES}
-			do
-				if [ "${rbg2_mod}" == "${d}" ] || [ "${rbg2_mod}" == "${d}2" ]
-				then
-					rbg2_dir+="${d} "
-				fi
-			done
+			rbg2_dir+="$(__ruby_gnome2_get_module_dir ${_mod}) "
 		done
-		ORIG_PN=ruby-gnome2-all
+		unset _mod
+		ORIG_PN=${rbg2_orig_src}
 		;;
-	gtkhtml2)
-		rbg2_dir=${rbg2_pn}
-		ORIG_PN=ruby-gnome2-all
-		;;
-	gstreamer0.10)
+	gstreamer0.10|gtksourceview2|webkit)
 		# external package, be sure to override SRC_URI
 		rbg2_dir=.
 		ORIG_PN=${ORIG_PN:-${PN}}
+		RUBY_GNOME2_MODULES=${rbg2_pn}
 		;;
 	*)
-		rbg2_dir=${rbg2_pn%2}
-		ORIG_PN=ruby-gnome2-all
+		rbg2_dir=$(__ruby_gnome2_get_module_dir ${rbg2_pn})
+		ORIG_PN=${rbg2_orig_src}
+		RUBY_GNOME2_MODULES=${rbg2_pn}
 		;;
 esac
 
 DESCRIPTION="Ruby ${rbg2_pn} bindings"
 HOMEPAGE="http://ruby-gnome2.sourceforge.jp/"
 
-if defined PVP[3]
-then
+case ${PVP[3]} in
+[1-9]*)
 	SVN_URI="http://ruby-gnome2.svn.sourceforge.net/svnroot/ruby-gnome2/ruby-gnome2/trunk/${rbg2_dir}"
 	SVN_REV=${PVP[3]}
 	inherit svn
@@ -75,10 +106,13 @@ then
 		http://ruby-gnome2.svn.sourceforge.net/viewvc/*checkout*/ruby-gnome2/ruby-gnome2/trunk/exec_make.rb
 		"
 	SRC_DIR=.
-else
-	SRC_URI="mirror://sourceforge/ruby-gnome2/${ORIG_PN}-${PV}.tar.gz"
-	SRC_DIR="${ORIG_PN}-${PV}"
-fi
+	;;
+rc*|'')
+	SRC_URI="mirror://sourceforge/ruby-gnome2/${ORIG_PN}-${PV/_/-}.tar.gz"
+	SRC_DIR="${ORIG_PN}-${PV/_/-}"
+	;;
+*)	error "Unknown package version: ${PV}" ;;
+esac
 
 # WARNING: CAIRO_PATH is supposed to be the ruby-cairo builddir, not
 # the installed RUBY_SITEARCH, so this will create a bogus -L flag no
@@ -93,26 +127,14 @@ MAKEOPTS+=" -j1"
 
 DEPS_PATH="${RUBY_SITEARCH}"
 
-ruby_gnome2_check_subdir() {
-	local d
-
-	for d in ${rbg2_dir}
-	do
-		if [ ! -d ${d} ]
-		then
-			error "RUBY_GNOME2_MODULES: unknown dir: ${d}"
-		fi
-	done
-}
-
 ruby_gnome2_compile() {
 	local d
-
-	ruby_gnome2_check_subdir
 
 	${RUBY} extconf.rb ${rbg2_dir} || error "extconf.rb failed"
 
 	cygmake LOCAL_LIBS="-L${RUBY_SITEARCH}"
+
+	if false; then ######### disable rdoc
 
 	for d in ${rbg2_dir}
 	do
@@ -123,17 +145,19 @@ ruby_gnome2_compile() {
 			rdoc ${d} -o ${d}/rdoc
 		fi
 	done
+
+	fi ######### disable rdoc
 }
 
 ruby_gnome2_install() {
-	local implib
-
-	ruby_gnome2_check_subdir
+	local d mod implib
 
 	ruby_install
 
-	for d in ${rbg2_dir}
+	for mod in ${RUBY_GNOME2_MODULES}
 	do
+		d=$(__ruby_gnome2_get_module_dir ${mod})
+
 		eval implib=$(grep -h 'PACKAGE_NAME.*=' ${d}/extconf.rb | sed -e 's!.*= !!g')
 
 		insinto ${RUBY_SITEARCH}
@@ -144,9 +168,19 @@ ruby_gnome2_install() {
 			doins ${d}/libruby-${implib}.a
 		fi
 
-		insinto /usr/share/doc/${P}/${d}
-		doins ${S}/${d}/{ChangeLog,README}
-		cp -r ${d}/rdoc ${D}/usr/share/doc/${P}/${d}/
+		insinto /usr/share/doc/ruby-${mod}-${PV}
+		for doc in COPYING.LIB ChangeLog README
+		do
+			if [ -f ${S}/${d}/${doc} ]
+			then
+				doins ${S}/${d}/${doc}
+			fi
+		done
+
+		if [ -d ${d}/rdoc ]
+		then
+			cp -r ${d}/rdoc ${D}/usr/share/doc/ruby-${mod}-${PV}/
+		fi
 	done
 }
 
@@ -154,7 +188,7 @@ src_compile() {
 	cd ${B}
 
 	case ${rbg2_pn} in
-		gnome2-all|gstreamer0.10)
+		gnome2-all|gstreamer0.10|gtksourceview2|webkit)
 			lndirs
 			;;
 		*)

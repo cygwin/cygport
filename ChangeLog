@@ -1,4 +1,7 @@
 
+	* lib/ruby-gnome2.cygclass:
+	Overhaul to fix building all modules from monolithic ruby-gnome2-all source.
+
 	* bin/cygport.in (unpack): Accept .tar.bz files.
 	(__prep_empty_dirs): Call keepdir() where KEEPDIRS is defined.
 	(__list_deps): Sort dependent packages as case-insensitive.
