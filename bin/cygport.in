@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.122 2008-06-28 00:36:15 yselkowitz Exp $
+# $Id: cygport.in,v 1.123 2008-06-28 00:38:37 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1521,6 +1521,11 @@ __prepman() {
 # if empty directory must remain, call keepdir() in src_install()
 __prep_empty_dirs() {
 	local d n;
+
+	if defined KEEPDIRS
+	then
+		keepdir ${KEEPDIRS}
+	fi
 
 	# PTC if you find a package deeper than 20 (even perl mods are < 15)
 	for (( n=20; n >= 1; n-- ))

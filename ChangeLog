@@ -1,5 +1,6 @@
 
 	* bin/cygport.in (unpack): Accept .tar.bz files.
+	(__prep_empty_dirs): Call keepdir() where KEEPDIRS is defined.
 
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
