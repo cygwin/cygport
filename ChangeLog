@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (unpack): Accept .tar.bz files.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/claws-mail.cygclass: New cygclass for Claws Mail plugins.

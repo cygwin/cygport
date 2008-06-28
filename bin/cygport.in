@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.121 2008-06-17 19:26:51 yselkowitz Exp $
+# $Id: cygport.in,v 1.122 2008-06-28 00:36:15 yselkowitz Exp $
 #
 ################################################################################
 
@@ -562,7 +562,7 @@ unpack() {
 		# determine correct source decompression command
 		case ${unpack_file_path} in
 			*.asc|*.md5|*.sig|*.sign)  continue ;;
-			*.tar.bz2|*.tbz2|*.tbz) unpack_cmd="tar jxf" ;;
+			*.tar.bz2|*.tbz2|*.tar.bz|*.tbz) unpack_cmd="tar jxf" ;;
 			*.tar.gz|*.tgz|*.tar.Z) unpack_cmd="tar zxf" ;;
 			*.tar.lzma)
 				check_prog_req lzma
