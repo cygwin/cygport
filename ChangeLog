@@ -2,6 +2,7 @@
 	* bin/cygport.in (unpack): Accept .tar.bz files.
 	(__prep_empty_dirs): Call keepdir() where KEEPDIRS is defined.
 	(__list_deps): Sort dependent packages as case-insensitive.
+	(__pkg_binpkg): Fix sanity check where PKG_CONTENTS and .list's are used.
 
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:

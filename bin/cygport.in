@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.124 2008-06-28 00:41:40 yselkowitz Exp $
+# $Id: cygport.in,v 1.125 2008-06-28 00:44:00 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1692,11 +1692,21 @@ __pkg_binpkg() {
 
 	while (( n < pkg_count ))
 	do
-		if defined PKG_CONTENTS[*] && (( ${#PKG_CONTENTS[*]} != ${pkg_count} ))
+		if [ -f ${C}/${pkg_list[${n}]}.list ]
 		then
-			error "PKG_CONTENTS[n] must be defined from 0 through $((pkg_count - 1))"
+			PKG_CONTENTS[${n}]=
 		fi
+		n+=1
+	done
 
+	if defined PKG_CONTENTS[*] && (( ${#PKG_CONTENTS[*]} != ${pkg_count} ))
+	then
+		error "PKG_CONTENTS[n] must be defined from 0 through $((pkg_count - 1))"
+	fi
+
+	n=0
+	while (( n < pkg_count ))
+	do
 		__step "${pkg_name[${n}]}-${PVR}.tar.bz2";
 
 		if defined PKG_CONTENTS[${n}]
