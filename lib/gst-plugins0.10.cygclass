@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gst-plugins0.10.cygclass,v 1.21 2008-07-02 21:04:40 yselkowitz Exp $
+# $Id: gst-plugins0.10.cygclass,v 1.22 2008-07-02 21:05:51 yselkowitz Exp $
 #
 ################################################################################
 
@@ -175,7 +175,7 @@ gst_plugins_compile() {
 		--with-default-audiosink=autoaudiosink \
 		--with-default-audiosrc=osssrc \
 		--with-default-videosink=autovideosink \
-		--with-default-video=videotestsrc \
+		--with-default-videosrc=videotestsrc \
 		--with-default-visualizer=goom \
 		${gst_conf} "${@}"
 
