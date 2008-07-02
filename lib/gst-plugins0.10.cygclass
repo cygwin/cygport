@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gst-plugins0.10.cygclass,v 1.20 2008-06-05 03:41:15 yselkowitz Exp $
+# $Id: gst-plugins0.10.cygclass,v 1.21 2008-07-02 21:04:40 yselkowitz Exp $
 #
 ################################################################################
 
@@ -51,6 +51,10 @@ case ${gst_pn} in
 	ffmpeg)
 		GST_PLUGINS_DIR=.
 		ORIG_PN=gst-ffmpeg
+		;;
+	gl)
+		GST_PLUGINS_DIR=.
+		ORIG_PN=gst-plugins-gl
 		;;
 	nonlin)
 		GST_PLUGINS_DIR=.
@@ -85,7 +89,7 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		# wavpack moved from bad in 0.10.6
 		# soup moved from bad in 0.10.8
 		my_gst_plugins="aalib annodex cairo cdio directdraw directsound
-		                esd flac gconf gconftool gdk_pixbuf jpeg libcaca libdv
+		                esd flac gconf gdk_pixbuf jpeg libcaca libdv
 		                libpng oss shout2 soup speex taglib wavpack x xshm"
 		conftest_gst_plugins="aalibtest esdtest shout2test"
 		never_gst_plugins="dv1394 gst_v4l2 hal ladspa osx_audio osx_video sunaudio xvideo"
@@ -110,7 +114,7 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		never_gst_plugins=
 		;;
 	farsight)
-		my_gst_plugins="g729 gconf gsm jasper jingle-p2p jrtplib mimic"
+		my_gst_plugins="gconf gsm jasper jingle-p2p jrtplib mimic"
 		conftest_gst_plugins=
 		never_gst_plugins=
 		;;
@@ -120,7 +124,7 @@ gst_plugins_autoreconf() {
 	gstreamer_autoreconf
 
 	case ${gst_pn} in
-		base|good|bad|ugly|farsight|ffmpeg|fluendo-*|nonlin)
+		base|good|bad|ugly|farsight|ffmpeg|fluendo-*|gl|nonlin)
 			;;
 		*)
 			# Remove generation of any other Makefiles except the plugin's Makefile
@@ -168,6 +172,11 @@ gst_plugins_compile() {
 		--disable-static \
 		--disable-tests \
 		--disable-valgrind \
+		--with-default-audiosink=autoaudiosink \
+		--with-default-audiosrc=osssrc \
+		--with-default-videosink=autovideosink \
+		--with-default-video=videotestsrc \
+		--with-default-visualizer=goom \
 		${gst_conf} "${@}"
 
 	if [ "x${GST_PLUGINS_DIR}" != "x." ]

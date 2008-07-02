@@ -1,4 +1,8 @@
 
+	* lib/gst-plugins0.10.cygclass: Add support for gst-plugins-gl.
+	Update external Farsight plugin list.
+	(gst_plugins_compile): Pass Cygwin default sinks/srcs to configure.
+
 	* lib/ruby-gnome2.cygclass:
 	Overhaul to fix building all modules from monolithic ruby-gnome2-all source.
 
