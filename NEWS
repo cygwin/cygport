@@ -1,3 +1,11 @@
+0.3.12:  TESTING
+	* unpack(): now handles .tar.bz tarballs.
+	* KEEPDIRS can be defined in place to call keepdir() automatically.
+	* claws-mail.cygclass: NEW for claws-mail plugins.
+	* gst-plugins0.10.cygclass: Added gst-plugins-gl; default sinks/srcs.
+	* octave.cygclass: NEW for Octave extensions.
+	* ruby-gnome2.cygclass: Now builds split packages from monolithic source.
+
 0.3.11:  TESTING
 	* {SRC,PATCH}_URI may contain CGI query arguments.
 	* Empty subpackages may be created by defining empty PKG_CONTENTS[n].
