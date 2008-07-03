@@ -1,7 +1,5 @@
 GOALS for 0.3 development:
 
-* RESTRICT variable together with:
-* postinstall wrapper functions (CW)
 * Custom commands (CW)
 * warnings for deprecated APIs
 * Debug and/or Verbose mode
