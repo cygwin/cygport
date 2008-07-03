@@ -1,4 +1,8 @@
 
+	* bin/cygport.in (cygautoreconf):
+	Handle COPYING and INSTALL only if files, not directories (e.g. gcc).
+	Handle COPYING and INSTALL for AC_CONFIG_SUBDIRS.
+
 	* lib/gst-plugins0.10.cygclass: Add support for gst-plugins-gl.
 	Update external Farsight plugin list.
 	(gst_plugins_compile): Pass Cygwin default sinks/srcs to configure.

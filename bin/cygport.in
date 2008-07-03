@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.125 2008-06-28 00:44:00 yselkowitz Exp $
+# $Id: cygport.in,v 1.126 2008-07-03 04:35:15 yselkowitz Exp $
 #
 ################################################################################
 
@@ -946,16 +946,24 @@ cygautoreconf() {
 
 			# Automake will exit if these are not present
 			# dodoc won't install these, however, since they will be empty
-			touch ${d}/{AUTHORS,COPYING,ChangeLog,INSTALL,NEWS,README};
-		fi
-	done
+			touch ${d}/{AUTHORS,ChangeLog,NEWS,README};
 
-	# These can be overwritten by automake, so we back them up now and
-	# restore them afterwards
-	for f in COPYING INSTALL
-	do
-		cp ${f} ${f}.temp;
-		chmod +w ${f}.temp;
+			# These required files can be overwritten by automake, so we
+			# back them up now and restore them afterwards
+			for f in COPYING INSTALL
+			do
+				if [ -f ${d}/${f} ]
+				then
+					cp ${d}/${f} ${d}/${f}.temp;
+					chmod +w ${f}.temp;
+				elif [ -d ${d}/${f} ]
+				then
+					:
+				else
+					touch ${d}/${f}
+				fi
+			done
+		fi
 	done
 
 	check_prog_req autoreconf autoconf
@@ -1012,12 +1020,15 @@ cygautoreconf() {
 			do
 				touch ${d}/${f}
 			done
-		fi
-	done
 
-	for f in COPYING INSTALL
-	do
-		mv -f ${f}.temp ${f};
+			for f in COPYING INSTALL
+			do
+				if [ -f ${d}/${f}.temp ]
+				then
+					mv -f ${d}/${f}.temp ${d}/${f};
+				fi
+			done
+		fi
 	done
 }
 
