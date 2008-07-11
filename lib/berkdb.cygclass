@@ -19,11 +19,28 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: berkdb.cygclass,v 1.11 2008-05-09 18:36:36 yselkowitz Exp $
+# $Id: berkdb.cygclass,v 1.12 2008-07-11 19:15:10 yselkowitz Exp $
 #
 ################################################################################
 
-inherit java tcl
+# DB-4.7's Direct Persistence Layer API requires Java 1.5 (generics)
+__berkdb_build_java() {
+	local ret;
+
+	case ${SLOT} in
+		3.*|4.[0-6])	ret=0 ;;
+		4.*)	ret=1 ;;
+	esac
+
+	return ${ret}
+}
+
+inherit tcl
+
+if __berkdb_build_java
+then
+	inherit java
+fi
 
 case ${PV_MAJ_MIN} in
 	3.*|4.*)	SLOT="${PV_MAJ_MIN}" ;;
@@ -45,13 +62,20 @@ then
 	done
 fi
 
-PKG_NAMES="${PN} lib${PN} lib${PN}-devel java-${PN} tcl-${PN}"
-PKG_HINTS="setup lib devel java tcl"
-PKG_CONTENTS[0]="--exclude=html etc/p*/${PN}.sh usr/bin/*.exe usr/share/doc/"
+PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc tcl-${PN}"
+PKG_HINTS="setup lib devel doc tcl"
+PKG_CONTENTS[0]="--exclude=html usr/bin/db${SLOT}_*.exe usr/share/doc/"
 PKG_CONTENTS[1]="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
-PKG_CONTENTS[2]="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib* usr/share/doc/${P}/html"
-PKG_CONTENTS[3]="etc/p*/java-${PN}.sh usr/bin/cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
+PKG_CONTENTS[2]="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib*"
+PKG_CONTENTS[3]="usr/share/doc/${P}/html/"
 PKG_CONTENTS[4]="${TCL_LIBDIR#/}"
+
+if __berkdb_build_java
+then
+	PKG_NAMES+=" java-${PN}"
+	PKG_HINTS+=" java"
+	PKG_CONTENTS[5]="usr/bin/cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
+fi
 
 DIFF_EXCLUDES="aclocal.m4 configure config.hin db.jar libtool.ac lt*.ac"
 
@@ -96,6 +120,13 @@ berkdb_autoreconf() {
 }
 
 berkdb_compile() {
+	if __berkdb_build_java
+	then
+		use_java="--enable-java"
+	else
+		use_java="--disable-java"
+	fi
+
 	CYGCONF_SOURCE=${S}/dist \
 	cygconf \
 		--includedir=/usr/include/db${SLOT} \
@@ -103,20 +134,28 @@ berkdb_compile() {
 		--enable-compat185 \
 		--enable-cxx \
 		--enable-dynamic \
-		--enable-java \
-		--enable-tcl --with-tclconfig=/usr/lib --enable-test
+		--enable-test \
+		--enable-tcl --with-tcl=/usr/lib \
+		${use_java}
 
-	cygmake
+	cygmake libdb-${SLOT}.la
+
+	case ${SLOT} in
+		3.[0-2]) objvar=OBJS ;;
+		3.*|4.*) objvar=C_OBJS ;;
+	esac
+
+	cygmake ${objvar}="libdb-${SLOT}.la"
 }
 
 berkdb_install() {
-	case ${PV} in
-		4.[3-9].*)
+	case ${SLOT} in
+		4.[3-9])
 			USE_DESTDIR=1 cyginstall \
 				docdir=/usr/share/doc/${P}/html \
 				emode=755 fmode=644
 			;;
-		4.[012].*)
+		4.[012])
 			USE_DESTDIR=0 cyginstall \
 				includedir=${D}/usr/include/db${SLOT} \
 				docdir=${D}/usr/share/doc/${P}/html \
@@ -140,49 +179,26 @@ berkdb_install() {
 	 rename db_ db${SLOT}_ *.exe
 	)
 
-	sed -i -e 's#shouldnotlink=no#shouldnotlink=yes#' ${D}/usr/lib/libdb_java-${SLOT}.la
-
-	# relocate and slot Java jar
-	dodir ${JAVA_DIR}
-	mv ${D}/usr/lib/db.jar ${D}${JAVA_DIR}/db-${SLOT}.jar
-
 	# relocate and install Tcl module
 	rm -f ${D}/usr/lib/libdb_tcl-${SLOT}.*
 	dodir ${TCL_LIBDIR}/db${SLOT}
 	mv ${D}/usr/lib/cygdb_tcl-${SLOT}.dll ${D}${TCL_LIBDIR}/db${SLOT}/
 	echo pkg_mkIndex ${D}${TCL_LIBDIR}/db${SLOT} cygdb_tcl-${SLOT}.dll | ${TCLSH}
 	sed -i -e "s#${D}##g" ${D}${TCL_LIBDIR}/db${SLOT}/pkgIndex.tcl
+
+	if __berkdb_build_java
+	then
+		sed -i -e 's#shouldnotlink=no#shouldnotlink=yes#' ${D}/usr/lib/libdb_java-${SLOT}.la
+		# relocate and slot Java jar
+		dodir ${JAVA_DIR}
+		mv ${D}/usr/lib/db.jar ${D}${JAVA_DIR}/db-${SLOT}.jar
+	fi
 }
 
 berkdb_postinst() {
 	local h l lx prog
 
 	dodir /etc/postinstall
-
-	# utilities
-	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		bindir=/usr/bin
-		slot=${SLOT}
-		rank=$(( PVP[0] * 100 + PVP[1] ))
-
-		/usr/sbin/update-alternatives \\
-		  --install  \${bindir}/db_archive  db_archive  \${bindir}/db\${slot}_archive.exe \${rank} \\
-		_EOF
-
-	for x in ${D}/usr/bin/*.exe
-	do
-		a=${x##*/}
-		a=${a#db${SLOT}_}
-		a=${a%.exe}
-
-		case ${a} in
-			archive) continue ;;
-		esac
-
-		echo "  --slave    \${bindir}/db_${a}  db_${a}  \${bindir}/db\${slot}_${a}.exe \\" >> ${D}/etc/postinstall/${PN}.sh
-	done
-
-	echo >> ${D}/etc/postinstall/${PN}.sh
 
 	# headers and link libraries
 	cat >> ${D}/etc/postinstall/lib${PN}-devel.sh <<-_EOF
@@ -213,26 +229,7 @@ berkdb_postinst() {
 		  --slave   \${libdir}/libdb${PVP[0]}_cxx.la     libdb${PVP[0]}_cxx.la     \${libdir}/libdb_cxx-\${slot}.la
 		_EOF
 
-	# Java jar
-	cat >> ${D}/etc/postinstall/java-${PN}.sh <<-_EOF
-		javadir=${JAVA_DIR}
-		slot=${SLOT}
-		rank=$(( PVP[0] * 100 + PVP[1] ))
-
-		/usr/sbin/update-alternatives \\
-		  --install \${javadir}/db.jar  db.jar  \${javadir}/db-\${slot}.jar \${rank}
-		_EOF
-}
-
-berkdb_prerm() {
 	dodir /etc/preremove
-
-	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-		bindir=/usr/bin
-		slot=${SLOT}
-
-		/usr/sbin/update-alternatives --remove db_archive \${bindir}/db\${slot}_archive.exe
-		_EOF
 
 	cat >> ${D}/etc/preremove/lib${PN}-devel.sh <<-_EOF
 		incdir=/usr/include
@@ -240,14 +237,6 @@ berkdb_prerm() {
 
 		/usr/sbin/update-alternatives --remove db.h \${incdir}/db\${slot}/db.h
 		/usr/sbin/update-alternatives --remove db${PVP[0]} \${incdir}/db\${slot}
-		_EOF
-
-	cat >> ${D}/etc/preremove/java-${PN}.sh <<-_EOF
-		prefix=/usr
-		javadir=${JAVA_DIR}
-		slot=${SLOT}
-
-		/usr/sbin/update-alternatives --remove db.jar \${javadir}/db-\${slot}.jar
 		_EOF
 }
 
@@ -262,5 +251,4 @@ src_install() {
 	cd ${B}
 	berkdb_install
 	berkdb_postinst
-	berkdb_prerm
 }

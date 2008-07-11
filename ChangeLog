@@ -1,3 +1,12 @@
+
+	* lib/berkdb.cygclass:
+	(__berkdb_build_java): Added; db4.7 Java bindings require Java 1.5.
+	(berkdb_compile): Fix --with-tcl configure flag.
+	Link C++/JNI/Tcl bindings against libdb.
+	(berkdb_install): Java bindings only if __berkdb_build_java.
+	(berkdb_postinst): Only -devel package should use alternatives.
+	(berkdb_prerm): Merged into berkdb_postinst.
+
 *** 0.3.12 ***
 
 	* bin/cygport.in (cygautoreconf):
