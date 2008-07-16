@@ -7,6 +7,10 @@
 	(berkdb_postinst): Only -devel package should use alternatives.
 	(berkdb_prerm): Merged into berkdb_postinst.
 
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
 *** 0.3.12 ***
 
 	* bin/cygport.in (cygautoreconf):
