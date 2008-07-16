@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: ruby-gnome2.cygclass,v 1.17 2008-06-28 00:49:03 yselkowitz Exp $
+# $Id: ruby-gnome2.cygclass,v 1.18 2008-07-16 22:43:12 yselkowitz Exp $
 #
 ################################################################################
 
@@ -37,8 +37,13 @@ __ruby_gnome2_get_module_dir() {
 	# poppler and vte were ADDED in 0.15.0
 	# gstreamer and libgda were REMOVED in 0.16.0
 	# bonobo and bonoboui were ADDED in 0.17.0
+	# gtksourceview2 will be added after 0.17.0
 	case ${@} in
-		glib2|gtk2|libglade2|bonobo2|bonoboui2|libart2|gnomecanvas2|gconf2|gnome2|gnomeprint2|gnomeprintui2|rsvg2)
+		atk|pango|gnomevfs|gtkglext|gtkhtml2|gtkmozembed|gtksourceview|\
+		gtksourceview2|poppler|vte|libgda)
+			ret=${@} ;;
+		glib2|gtk2|libglade2|bonobo2|bonoboui2|libart2|gnomecanvas2|gconf2|\
+		gnome2|gnomeprint2|gnomeprintui2|rsvg2)
 			ret=${@%2} ;;
 		gdk_pixbuf2)
 			ret=gdkpixbuf ;;
@@ -46,12 +51,9 @@ __ruby_gnome2_get_module_dir() {
 			ret=gstreamer ;;
 		panelapplet2)
 			ret=panel-applet ;;
-		atk|pango|gnomevfs|gtkglext|gtkhtml2|gtkmozembed|gtksourceview|poppler|vte|libgda)
-			ret=${@} ;;
-		gstreamer0.10|gtksourceview2|webkit)
-			ret=. ;;
 		*)
-			error "ruby-gnome2: unknown module: $@" ;;
+			# external packages
+			ret=. ;;
 	esac
 
 	echo -n ${ret}
@@ -80,15 +82,18 @@ case ${rbg2_pn} in
 		unset _mod
 		ORIG_PN=${rbg2_orig_src}
 		;;
-	gstreamer0.10|gtksourceview2|webkit)
-		# external package, be sure to override SRC_URI
-		rbg2_dir=.
-		ORIG_PN=${ORIG_PN:-${PN}}
+	glib2|gtk2|libglade2|bonobo2|bonoboui2|libart2|gnomecanvas2|gconf2|\
+	gnome2|gnomeprint2|gnomeprintui2|rsvg2|gdk_pixbuf2|gst|panelapplet2|\
+	atk|pango|gnomevfs|gtkglext|gtkhtml2|gtkmozembed|gtksourceview|\
+	gtksourceview2|poppler|vte|libgda)
+		rbg2_dir=$(__ruby_gnome2_get_module_dir ${rbg2_pn})
+		ORIG_PN=${rbg2_orig_src}
 		RUBY_GNOME2_MODULES=${rbg2_pn}
 		;;
 	*)
-		rbg2_dir=$(__ruby_gnome2_get_module_dir ${rbg2_pn})
-		ORIG_PN=${rbg2_orig_src}
+		# external package, be sure to override SRC_URI
+		rbg2_dir=.
+		ORIG_PN=${ORIG_PN:-${PN}}
 		RUBY_GNOME2_MODULES=${rbg2_pn}
 		;;
 esac
@@ -188,13 +193,16 @@ src_compile() {
 	cd ${B}
 
 	case ${rbg2_pn} in
-		gnome2-all|gstreamer0.10|gtksourceview2|webkit)
-			lndirs
-			;;
-		*)
+		glib2|gtk2|libglade2|bonobo2|bonoboui2|libart2|gnomecanvas2|gconf2|\
+		gnome2|gnomeprint2|gnomeprintui2|rsvg2|gdk_pixbuf2|gst|panelapplet2|\
+		atk|pango|gnomevfs|gtkglext|gtkhtml2|gtkmozembed|gtksourceview|\
+		gtksourceview2|poppler|vte|libgda)
 			ln -sf ${S}/*.rb ${B}
 			mkdir -p ${rbg2_dir}
 			lndirs ${S}/${rbg2_dir} ${B}/${rbg2_dir}
+			;;
+		gnome2-all|*)
+			lndirs
 			;;
 	esac
 
