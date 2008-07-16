@@ -1,4 +1,10 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/qt4.cygclass:
+	* lib/qt4-cmake.cygclass:
+	* lib/qt4-qmake.cygclass: New cygclasses for Qt4 support.
+
 	* lib/berkdb.cygclass:
 	(__berkdb_build_java): Added; db4.7 Java bindings require Java 1.5.
 	(berkdb_compile): Fix --with-tcl configure flag.

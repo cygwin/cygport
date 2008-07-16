@@ -127,6 +127,9 @@ Files included in the binary package:
   /usr/lib/cygport/lib/pygtk.cygclass
   /usr/lib/cygport/lib/python.cygclass
   /usr/lib/cygport/lib/qt3.cygclass
+  /usr/lib/cygport/lib/qt4.cygclass
+  /usr/lib/cygport/lib/qt4-cmake.cygclass
+  /usr/lib/cygport/lib/qt4-qmake.cygclass
   /usr/lib/cygport/lib/ruby.cygclass
   /usr/lib/cygport/lib/ruby-gnome2.cygclass
   /usr/lib/cygport/lib/svn.cygclass

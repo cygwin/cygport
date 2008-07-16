@@ -1,0 +1,36 @@
+################################################################################
+#
+# qt4-cmake.cygclass - functions for building CMake-based Qt4 packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: qt4-cmake.cygclass,v 1.1 2008-07-16 07:18:15 yselkowitz Exp $
+#
+################################################################################
+
+inherit qt4
+
+qt4_cmake_compile() {
+	cygcmake
+	cygmake
+}
+
+src_compile() {
+	cd ${B}
+	qt4_cmake_compile
+}

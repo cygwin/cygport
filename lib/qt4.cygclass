@@ -1,0 +1,70 @@
+################################################################################
+#
+# qt4.cygclass - functions for building Qt4-dependent packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: qt4.cygclass,v 1.1 2008-07-16 07:18:15 yselkowitz Exp $
+#
+################################################################################
+
+QT4_QTDIR=/usr/lib/qt4
+QT4_BINDIR=${QT4_QTDIR}/bin
+QT4_INCLUDEDIR=/usr/include/qt4
+QT4_LIBDIR=${QT4_QTDIR}/lib
+QT4_PLUGINSDIR=${QT4_QTDIR}/plugins
+QT4_DATADIR=/usr/share/qt4
+
+QT4_QMAKE=${QT4_BINDIR}/qmake
+QT4_MOC=${QT4_BINDIR}/moc
+QT4_UIC=${QT4_BINDIR}/uic
+
+PATH="${QT4_BINDIR}:${PATH}"
+
+#
+# Convenience functions for custom src_install()
+#
+
+doqt4inc() {
+	insinto ${QT4_INCLUDEDIR}
+	doins ${@}
+}
+
+doqt4lib() {
+	insinto ${QT4_LIBDIR}
+	doins ${@}
+}
+
+qt4pluginto() {
+	if [ -z "${1}" -o -n "${2}" ]
+	then
+		error "qt4pluginto requires exactly one argument"
+	fi
+
+	export __QT4_PLUGIN_SUBDIR=${1}
+}
+
+doqt4plugin() {
+	if ! defined __QT4_PLUGIN_SUBDIR
+	then
+		error "qt4pluginto must be called before doqt4plugin"
+	fi
+
+	exeinto ${QT4_PLUGINSDIR}/${__QT4_PLUGIN_SUBDIR}
+	doexe ${@}
+}
