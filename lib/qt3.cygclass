@@ -19,24 +19,35 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: qt3.cygclass,v 1.10 2007-10-15 03:40:22 yselkowitz Exp $
+# $Id: qt3.cygclass,v 1.11 2008-07-16 22:21:58 yselkowitz Exp $
 #
 ################################################################################
 
 export QTDIR=/usr/lib/qt3
 
+# deprecated
 QBINDIR=/usr/lib/qt3/bin
 QINCLUDEDIR=/usr/include/qt3
 QLIBDIR=/usr/lib/qt3/lib
 QDATADIR=/usr/share/qt3
 
+QT3_BINDIR=/usr/lib/qt3/bin
+QT3_INCLUDEDIR=/usr/include/qt3
+QT3_LIBDIR=/usr/lib/qt3/lib
+QT3_PLUGINSDIR=/usr/lib/qt3/plugins
+QT3_DATADIR=/usr/share/qt3
+
+QT3_QMAKE=${QT3_BINDIR}/qmake
+QT3_MOC=${QT3_BINDIR}/moc
+QT3_UIC=${QT3_BINDIR}/uic
+
 PATH="${QBINDIR}:${PATH}"
 LDFLAGS+=" -Wl,--enable-auto-import"
 
-qt3_qmake() {
+cygqmake3() {
 	local pro
 
-	if [ ! -x ${QBINDIR}/qmake ]
+	if [ ! -x ${QT3_QMAKE} ]
 	then
 		error "qt3-devel is required to build this package"
 	fi
@@ -45,10 +56,13 @@ qt3_qmake() {
 	do
 		rm -f ${pro%/*}/Makefile
 
-		${QBINDIR}/qmake -spec cygwin-g++ -o ${pro%/*}/Makefile ${pro} \
+		${QT3_QMAKE} -spec cygwin-g++ -o ${pro%/*}/Makefile ${pro} \
 			|| error "qmake ${pro} failed"
 	done
 }
+
+# deprecated
+qt3_qmake() { cygqmake3 ; }
 
 # FIXME: This won't work for most packages!!!
 qt3_install() {
@@ -58,7 +72,7 @@ qt3_install() {
 src_compile() {
 	lndirs
 	cd ${B}
-	qt3_qmake
+	cygqmake3
 	cygmake
 }
 
@@ -71,12 +85,12 @@ src_test() {
 #
 
 doqt3inc() {
-	insinto ${QINCLUDEDIR}
+	insinto ${QT3_INCLUDEDIR}
 	doins ${@}
 }
 
 doqt3lib() {
-	insinto ${QLIBDIR}
+	insinto ${QT3_LIBDIR}
 	doins ${@}
 }
 
@@ -95,6 +109,6 @@ doqt3plugin() {
 		error "qt3pluginto must be called before doqt3plugin"
 	fi
 
-	exeinto ${QTDIR}/plugins/${__QT3_PLUGIN_SUBDIR}
+	exeinto ${QT3_PLUGINSDIR}/${__QT3_PLUGIN_SUBDIR}
 	doexe ${@}
 }

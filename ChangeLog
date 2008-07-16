@@ -1,4 +1,7 @@
 
+	* lib/qt3.cygclass: Prefer QT3_* constant naming to not clash with Qt4.
+	(cygqmake3): New name for qt3_qmake, latter is deprecated.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/qt4.cygclass:
