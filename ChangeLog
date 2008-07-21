@@ -1,4 +1,8 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/kde4.cygclass: New cygclass for KDE4 packages (in progress).
+
 	* lib/ruby-gnome2.cygclass: Refactored for 0.17.0-rc1.
 
 	* lib/qt3.cygclass: Prefer QT3_* constant naming to not clash with Qt4.

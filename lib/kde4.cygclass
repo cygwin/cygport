@@ -1,0 +1,99 @@
+################################################################################
+#
+# kde4.cygclass - functions for building KDE 4.x packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id: kde4.cygclass,v 1.1 2008-07-21 08:41:48 yselkowitz Exp $
+#
+################################################################################
+
+inherit qt4
+
+HOMEPAGE="http://www.kde.org/"
+
+case "${PN}:${PV}" in
+	amarok:1.*|kdevelop:3.*)
+		SRC_URI="mirror://kde/unstable/${PN}/${PV}/src/${P}.tar.bz2"
+		;;
+	koffice:1.9.*)
+		SRC_URI="mirror://kde/unstable/koffice-${PV}/src/${P}.tar.bz2"
+		;;
+	kde-l10n-*:*.[89]?)
+		SRC_URI="mirror://kde/unstable/${PV}/src/kde-l10n/${P}.tar.bz2"
+		;;
+	kde-l10n-*:*)
+		SRC_URI="mirror://kde/stable/${PV}/src/kde-l10n/${P}.tar.bz2"
+		;;
+	*:*.[89]?)
+		SRC_URI="mirror://kde/unstable/${PV}/src/${P}.tar.bz2"
+		;;
+	*)
+		SRC_URI="mirror://kde/stable/${PV}/src/${P}.tar.bz2"
+		;;
+esac
+
+#SVN_URI="svn://anonsvn.kde.org/home/kde"
+
+export QTDIR=${QT4_QTDIR}
+export QT_PLUGIN_PATH=${QT4_PLUGINSDIR}
+
+kde4_compile() {
+	export DO_NOT_COMPILE
+
+	cygcmake \
+		-DKDE4_BUILD_TESTS=OFF \
+		-DKDE4_ENABLE_FINAL=OFF \
+		-DKDE4_USE_ALWAYS_FULL_RPATH=OFF \
+		-DKDE_DISTRIBUTION_TEXT=Cygwin \
+		"${@}"
+
+	cygmake
+}
+
+kde4_install() {
+	local doc kdepkg
+
+	cyginstall
+
+	for kdepkg in ${PKG_NAMES:-${PN}}
+	do
+		for doc in AUTHORS BUGS ChangeLog NEWS README TODO
+		do
+			if [ -f ${S}/${kdepkg}/${doc} ]
+			then
+				insinto /usr/share/doc/${kdepkg}-${PV}
+				doins ${S}/${kdepkg}/${doc}
+			elif [ -f ${S}/${kdepkg#${PN}-}/${doc} ]
+			then
+				insinto /usr/share/doc/${kdepkg}-${PV}
+				doins ${S}/${kdepkg#${PN}-}/${doc}
+			fi
+		done
+	done
+}
+
+src_compile() {
+	cd ${B}
+	kde4_compile
+}
+
+src_install() {
+	cd ${B}
+	kde4_install
+}

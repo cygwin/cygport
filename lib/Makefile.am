@@ -27,6 +27,7 @@ dist_cygclass_DATA = 			\
 	hg.cygclass					\
 	java.cygclass				\
 	kde3.cygclass				\
+	kde4.cygclass				\
 	lua.cygclass				\
 	mono.cygclass				\
 	mtn.cygclass				\
