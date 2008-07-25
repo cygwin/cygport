@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: R.cygclass,v 1.7 2008-04-14 03:53:55 yselkowitz Exp $
+# $Id: R.cygclass,v 1.8 2008-07-25 19:18:52 yselkowitz Exp $
 #
 ################################################################################
 
@@ -78,7 +78,7 @@ R_install() {
 	[ -d ${T}/inst/${ORIG_PN} ] || error "cannot find built package"
 
 	dodir ${R_SITELIB}
-	cp -r ${T}/inst/${ORIG_PN} ${D}${R_SITELIB}
+	cp -LR ${T}/inst/${ORIG_PN} ${D}${R_SITELIB}
 }
 
 src_compile() {

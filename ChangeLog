@@ -1,4 +1,6 @@
 
+	* lib/R.cygclass (R_install): Use cp -LR to avoid dangling symlinks.
+
 	* lib/ruby-gnome2.cygclass (ruby_gnome2_install):
 	Do not rely on extconf.rb to determine implib name.
 
