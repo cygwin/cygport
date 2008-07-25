@@ -1,6 +1,6 @@
 ################################################################################
 #
-# qt4.cygclass - functions for building Qt4-dependent packages
+# qt4-cmake.cygclass - functions for building CMake-based Qt4 packages
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2008 Yaakov Selkowitz
@@ -19,54 +19,33 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: qt4.cygclass,v 1.2 2008-07-25 22:40:57 yselkowitz Exp $
+# $Id: qt4-cmake.cygclass,v 1.3 2008-07-25 22:40:57 yselkowitz Exp $
 #
 ################################################################################
 
-QT4_QTDIR=/usr/lib/qt4
-QT4_BINDIR=${QT4_QTDIR}/bin
-QT4_INCLUDEDIR=/usr/include/qt4
-QT4_LIBDIR=${QT4_QTDIR}/lib
-QT4_PLUGINSDIR=${QT4_QTDIR}/plugins
-QT4_DATADIR=/usr/share/qt4
+inherit qt4
 
-QT4_QMAKE=${QT4_BINDIR}/qmake
-QT4_MOC=${QT4_BINDIR}/moc
-QT4_RCC=${QT4_BINDIR}/rcc
-QT4_UIC=${QT4_BINDIR}/uic
-QT4_UIC3=${QT4_BINDIR}/uic3
+qt4_cmake_compile() {
+	cygcmake \
+		-DAUTOMOC4_EXECUTABLE=/usr/bin/automoc4 \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_EXE_LINKER_FLAGS=-Wl,--enable-auto-import \
+		-DCMAKE_MODULE_LINKER_FLAGS=-Wl,--enable-auto-import \
+		-DCMAKE_SHARED_LINKER_FLAGS=-Wl,--enable-auto-import \
+		-DQT_MOC_EXECUTABLE=${QT4_MOC} \
+		-DQT_INCLUDE_DIR=${QT4_INCLUDEDIR} \
+		-DQT_LIBRARY_DIR=${QT4_LIBDIR} \
+		-DQT_PLUGINS_DIR=${QT4_PLUGINSDIR} \
+		-DQT_QMAKE_EXECUTABLE=${QT4_QMAKE} \
+		-DQT_RCC_EXECUTABLE=${QT4_RCC} \
+		-DQT_UIC_EXECUTABLE=${QT4_UIC} \
+		-DQT_UIC3_EXECUTABLE=${QT4_UIC3} \
+		"${@}"
 
-PATH="${QT4_BINDIR}:${PATH}"
-
-#
-# Convenience functions for custom src_install()
-#
-
-doqt4inc() {
-	insinto ${QT4_INCLUDEDIR}
-	doins ${@}
+	cygmake
 }
 
-doqt4lib() {
-	insinto ${QT4_LIBDIR}
-	doins ${@}
-}
-
-qt4pluginto() {
-	if [ -z "${1}" -o -n "${2}" ]
-	then
-		error "qt4pluginto requires exactly one argument"
-	fi
-
-	export __QT4_PLUGIN_SUBDIR=${1}
-}
-
-doqt4plugin() {
-	if ! defined __QT4_PLUGIN_SUBDIR
-	then
-		error "qt4pluginto must be called before doqt4plugin"
-	fi
-
-	exeinto ${QT4_PLUGINSDIR}/${__QT4_PLUGIN_SUBDIR}
-	doexe ${@}
+src_compile() {
+	cd ${B}
+	qt4_cmake_compile
 }

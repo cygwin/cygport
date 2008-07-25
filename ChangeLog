@@ -1,4 +1,7 @@
 
+	* lib/qt4.cygclass: Define QT4_RCC and QT4_UIC3.
+	* lib/qt4-cmake.cygclass: Pass Qt4-specific options to cmake.
+
 	* lib/R.cygclass (R_install): Use cp -LR to avoid dangling symlinks.
 
 	* lib/ruby-gnome2.cygclass (ruby_gnome2_install):
