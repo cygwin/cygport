@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: kde4.cygclass,v 1.1 2008-07-21 08:41:48 yselkowitz Exp $
+# $Id: kde4.cygclass,v 1.2 2008-07-25 22:43:33 yselkowitz Exp $
 #
 ################################################################################
 
@@ -48,19 +48,37 @@ case "${PN}:${PV}" in
 		;;
 esac
 
-#SVN_URI="svn://anonsvn.kde.org/home/kde"
+SVN_URI="svn://anonsvn.kde.org/home/kde"
+SVN_MODULE=${SVN_MODULE:-${ORIG_PN:-${PN}}}
 
 export QTDIR=${QT4_QTDIR}
 export QT_PLUGIN_PATH=${QT4_PLUGINSDIR}
 
 kde4_compile() {
-	export DO_NOT_COMPILE
+	local skip skipargs
+
+	for skip in ${DO_NOT_COMPILE}
+	do
+		skipargs+=" -DBUILD_${skip}=OFF"
+	done
 
 	cygcmake \
+		-DAUTOMOC4_EXECUTABLE=/usr/bin/automoc4 \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_EXE_LINKER_FLAGS=-Wl,--enable-auto-import \
+		-DCMAKE_MODULE_LINKER_FLAGS=-Wl,--enable-auto-import \
+		-DCMAKE_SHARED_LINKER_FLAGS=-Wl,--enable-auto-import \
 		-DKDE4_BUILD_TESTS=OFF \
 		-DKDE4_ENABLE_FINAL=OFF \
+		-DKDE4_ENABLE_FPIE=OFF \
+		-DKDE4_INCLUDE_DIR=/usr/include/kde4 \
 		-DKDE4_USE_ALWAYS_FULL_RPATH=OFF \
 		-DKDE_DISTRIBUTION_TEXT=Cygwin \
+		-DQT_MOC_EXECUTABLE=${QT4_MOC} \
+		-DQT_INCLUDE_DIR=${QT4_INCLUDEDIR} \
+		-DQT_LIBRARY_DIR=${QT4_LIBDIR} \
+		-DQT_UIC_EXECUTABLE=${QT4_UIC} \
+		${skipargs} \
 		"${@}"
 
 	cygmake
@@ -70,6 +88,8 @@ kde4_install() {
 	local doc kdepkg
 
 	cyginstall
+
+	rm -f ${D}/usr/lib/kde4/lib/libkdeinit4_*
 
 	for kdepkg in ${PKG_NAMES:-${PN}}
 	do

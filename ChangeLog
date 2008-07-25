@@ -1,4 +1,9 @@
 
+	* lib/kde4.cygclass (kde4_compile): Define SVN_URI.
+	Handle DO_NOT_COMPILE by passing appropriate options to cmake.
+	Pass additional Qt4- and KDE4-specific options to cmake.
+	(kde4_install): Delete kdeinit4 implibs.
+
 	* lib/qt4.cygclass: Define QT4_RCC and QT4_UIC3.
 	* lib/qt4-cmake.cygclass: Pass Qt4-specific options to cmake.
 
