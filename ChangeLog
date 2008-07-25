@@ -1,4 +1,7 @@
 
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_install):
+	Do not rely on extconf.rb to determine implib name.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am:
 	* lib/kde4.cygclass: New cygclass for KDE4 packages (in progress).

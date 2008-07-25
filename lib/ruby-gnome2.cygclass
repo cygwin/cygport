@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: ruby-gnome2.cygclass,v 1.18 2008-07-16 22:43:12 yselkowitz Exp $
+# $Id: ruby-gnome2.cygclass,v 1.19 2008-07-25 19:10:59 yselkowitz Exp $
 #
 ################################################################################
 
@@ -163,15 +163,10 @@ ruby_gnome2_install() {
 	do
 		d=$(__ruby_gnome2_get_module_dir ${mod})
 
-		eval implib=$(grep -h 'PACKAGE_NAME.*=' ${d}/extconf.rb | sed -e 's!.*= !!g')
+		implib=$(find ${d}/ -name '*.so' | sed -e 's|\(.*\)/\(.*\)\.so|\1/libruby-\2.a|')
 
 		insinto ${RUBY_SITEARCH}
-		if [ -d ${d}/src ]
-		then
-			doins ${d}/src/libruby-${implib}.a
-		else
-			doins ${d}/libruby-${implib}.a
-		fi
+		doins ${implib}
 
 		insinto /usr/share/doc/ruby-${mod}-${PV}
 		for doc in COPYING.LIB ChangeLog README
