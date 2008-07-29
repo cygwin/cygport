@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.127 2008-07-27 16:49:32 yselkowitz Exp $
+# $Id: cygport.in,v 1.128 2008-07-29 05:05:32 yselkowitz Exp $
 #
 ################################################################################
 
@@ -841,6 +841,8 @@ readonly -f fetch __mirror_fetch __src_fetch unpack __gpg_verify __mkdirs cygpat
 # mutable:
 #	CYGCONF_ARGS
 #	CYGCONF_SOURCE
+#	CYGCMAKE_ARGS
+#	CYGCMAKE_SOURCE
 #	NO_ACLOCAL
 #	NO_AUTOCONF
 #	NO_AUTOHEADER
@@ -1110,9 +1112,9 @@ cygcmake() {
 
 	check_prog_req cmake;
 
-	if defined CMAKE_SOURCE && [ -e ${CMAKE_SOURCE}/CMakeLists.txt ]
+	if defined CYGCMAKE_SOURCE && [ -e ${CYGCMAKE_SOURCE}/CMakeLists.txt ]
 	then
-		cmdir=${CMAKE_SOURCE};
+		cmdir=${CYGCMAKE_SOURCE};
 	elif [ -e ${PWD/${B}/${S}}/CMakeLists.txt ]
 	then
 		cmdir=${PWD/${B}/${S}};
@@ -1126,13 +1128,14 @@ cygcmake() {
 	cmake \
 		${cmdir} \
 		-DCMAKE_BINARY_DIR=. \
-		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_C_COMPILER=$(type -P gcc) \
 		-DCMAKE_C_FLAGS="${CFLAGS}" \
 		-DCMAKE_CXX_COMPILER=$(type -P g++) \
 		-DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		"${@}" \
+		${CYGCMAKE_ARGS} \
 		|| error "cmake failed"
 }
 
@@ -1289,14 +1292,21 @@ __prepinstalldirs() {
 
 	# circumvent pointless libtool relinking during install
 	find ${B} -name '*.la' -exec sed -i -e '/^relink_command/d' '{}' +;
-	find ${B} -type f -exec touch -t $(date +%Y%m%d%H%M.%S) '{}' +;
+	find ${B} -type f -exec touch -t $(date +%Y%m%d%H%M.%S) '{}' + 2> /dev/null || true
 }
 
 # run 'make install'
 cyginstall() {
+	if $(make -n -s install/fast &> /dev/null)
+	then
+		inst_target="install/fast"
+	else
+		inst_target="install"
+	fi
+
 	case ${USE_DESTDIR:-1} in
 		1|[Yy]|[Yy][Ee][Ss])
-			make ${MAKEOPTS} install DESTDIR=${D} "${@}" || error "make install DESTDIR failed"
+			make ${MAKEOPTS} ${inst_target} DESTDIR=${D} "${@}" || error "make install DESTDIR failed"
 			;;
 		0|[Nn]|[Nn][Oo])
 			make ${MAKEOPTS} install \

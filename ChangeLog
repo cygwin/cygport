@@ -1,5 +1,6 @@
 
 	* bin/cygport.in (__src_prep): Remove DISTCLEANFILES after unpack.
+	(cygcmake) 
 
 	* lib/kde4.cygclass (kde4_compile): Define SVN_URI.
 	Handle DO_NOT_COMPILE by passing appropriate options to cmake.
