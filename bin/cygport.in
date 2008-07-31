@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: cygport.in,v 1.128 2008-07-29 05:05:32 yselkowitz Exp $
+# $Id: cygport.in,v 1.129 2008-07-31 07:05:04 yselkowitz Exp $
 #
 ################################################################################
 
@@ -1940,6 +1940,8 @@ __pkg_diff() {
 			${origsrcdir##*/} ${srcdir##*/} \
 			> ${patchdir}/${src_patchfile} || true;
 	fi
+
+	sed -e '/^diff -urN/d' -i ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
 
 	if check_prog diffstat
 	then

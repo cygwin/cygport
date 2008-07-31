@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (__pkg_diff): Trim diff command lines from patches.
+
 	* lib/qt4-qmake.cygclass (qt4_qmake_install):
 	Fix location of pkg-config files after install.
 
