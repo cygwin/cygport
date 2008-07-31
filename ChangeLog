@@ -1,4 +1,7 @@
 
+	* lib/qt4-qmake.cygclass (qt4_qmake_install):
+	Fix location of pkg-config files after install.
+
 	* bin/cygport.in (__src_prep): Remove DISTCLEANFILES after unpack.
 	(cygcmake) 
 
