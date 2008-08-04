@@ -1,4 +1,8 @@
 
+	* Makefile.am (SUBDIRS): Change test to tests.
+	* configure.ac (AC_CONFIG_FILES): Ditto.
+	* test/*: Moved to tests/*.
+
 	* bin/cygport.in (__pkg_diff): Trim diff command lines from patches.
 
 	* lib/qt4-qmake.cygclass (qt4_qmake_install):

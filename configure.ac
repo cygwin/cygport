@@ -17,7 +17,7 @@ bin/Makefile
 lib/Makefile
 data/Makefile
 doc/Makefile
-test/Makefile
+tests/Makefile
 ])
 
 AC_OUTPUT
