@@ -466,11 +466,11 @@ which is setup.exe enabled.  Add this address to your server list:
 
     ftp://sunsite.dk/projects/cygwinports/
 
-cygport is hosted on CVS.  Those interested in helping with cygport
-development, or testing the newest features should use the CVS version.
-Instructions for browsing and retrieving sources from CVS are available at:
+cygport is hosted on Subversion.  Those interested in helping with cygport
+development, or testing the newest features should use SVN trunk.
+Instructions for browsing and retrieving sources from SVN are available at:
 
-    http://sourceforge.net/cvs/?group_id=99645
+    http://sourceforge.net/svn/?group_id=99645
 
 
 8. SUPPORT
