@@ -3,7 +3,7 @@
 # git.cygclass - functions for building packages from GIT checkouts
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -45,13 +45,23 @@ git_fetch() {
 	# T likely doesn't exist at this point, so create it first
 	mkdir -p ${T}
 	cd ${T}
-	verbose git clone -q ${GIT_URI} ${GIT_MODULE}
-	if [ -n "${GIT_BRANCH}" ]
+	verbose git clone --no-checkout --quiet ${GIT_URI} ${GIT_MODULE} || error "git clone failed"
+	cd ${T}/${GIT_MODULE}
+
+	if defined GIT_TAG
 	then
-		cd ${T}/${GIT_MODULE}
-		verbose git checkout ${GIT_BRANCH}
-		cd ${T}
+		verbose git checkout tags/${GIT_TAG} || error "git checkout failed"
+	elif defined GIT_BRANCH
+	then
+		verbose git checkout remotes/${GIT_BRANCH} || error "git checkout failed"
+	elif defined GIT_REV
+	then
+		verbose git checkout ${GIT_REV} || error "git checkout failed"
+	else
+	then
+		verbose git checkout master || error "git checkout failed"
 	fi
 
+	cd ${T}
 	tar jcf ${top}/${git_tarball} --exclude=.git --exclude=.gitignore ${GIT_MODULE}
 }

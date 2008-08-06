@@ -1,4 +1,6 @@
 
+	* lib/git.cygclass (git_fetch): Accept GIT_TAG, GIT_BRANCH, GIT_REV.
+
 	* Makefile.am (SUBDIRS): Change test to tests.
 	* configure.ac (AC_CONFIG_FILES): Ditto.
 	* test/*: Moved to tests/*.
