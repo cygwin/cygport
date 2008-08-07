@@ -1,4 +1,6 @@
 
+	* lib/gst-plugins0.10.cygclass: Add pulse to gst-plugins-good.
+
 	* bin/cygport.in (__src_prep): Use rsync to copy origsrc/ to src/.
 	* CYGWIN-PATCHES/*: Add rsync dependency.
 

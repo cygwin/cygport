@@ -89,8 +89,8 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		# wavpack moved from bad in 0.10.6
 		# soup moved from bad in 0.10.8
 		my_gst_plugins="aalib annodex cairo cdio directdraw directsound
-		                esd flac gconf gdk_pixbuf jpeg libcaca libdv
-		                libpng oss shout2 soup speex taglib wavpack x xshm"
+		                esd flac gconf gdk_pixbuf jpeg libcaca libdv libpng
+		                oss pulse shout2 soup speex taglib wavpack x xshm"
 		conftest_gst_plugins="aalibtest esdtest shout2test"
 		never_gst_plugins="dv1394 gst_v4l2 hal ladspa osx_audio osx_video sunaudio xvideo"
 		;;
