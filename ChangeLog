@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (cygautoreconf): Accept ACLOCAL_FLAGS.
+
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am: 
 	* lib/apache1.cygclass: Added for apache-1.x only.

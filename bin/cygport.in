@@ -1009,6 +1009,11 @@ cygautoreconf() {
 			fi
 			export ${tool}
 		done
+
+		if defined ACLOCAL_FLAGS
+		then
+			declare ACLOCAL="${ACLOCAL:-aclocal} ${ACLOCAL_FLAGS}"
+		fi
 	fi
 
 	export WANT_AUTOCONF=${WANT_AUTOCONF:-2.5};
