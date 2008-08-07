@@ -406,7 +406,7 @@ fi
 
 # check now for all mandatory programs
 for _myprog in bzip2 cat chmod cp cygcheck diff find grep gzip install ln \
-               mkdir mv objdump patch rm sed sort strip tar xargs
+               mkdir mv objdump patch rm rsync sed sort strip tar xargs
 do
 	if ! check_prog ${_myprog}
 	then
@@ -817,7 +817,7 @@ __src_prep() {
 
 	__step "Preparing working source directory";
 
-	cp -fpr ${origsrcdir}/* ${srcdir};
+	rsync -aqv --delete-before ${origsrcdir}/ ${srcdir}/;
 
 	mkdir -p ${C};
 	ln -sfn ${C} ${workdir}/CYGWIN-PATCHES;
