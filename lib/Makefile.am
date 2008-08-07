@@ -2,6 +2,8 @@ cygclassdir = $(pkglibdir)/lib
 
 dist_cygclass_DATA = 			\
 	apache.cygclass				\
+	apache1.cygclass			\
+	apache2.cygclass			\
 	aspell-dict.cygclass		\
 	berkdb.cygclass				\
 	bzr.cygclass				\

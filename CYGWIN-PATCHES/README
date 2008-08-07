@@ -91,6 +91,8 @@ Files included in the binary package:
   /usr/lib/cygport/bin/prep_libtool_modules.sh
   /usr/lib/cygport/lib/R.cygclass
   /usr/lib/cygport/lib/apache.cygclass
+  /usr/lib/cygport/lib/apache1.cygclass
+  /usr/lib/cygport/lib/apache2.cygclass
   /usr/lib/cygport/lib/aspell-dict.cygclass
   /usr/lib/cygport/lib/berkdb.cygclass
   /usr/lib/cygport/lib/bzr.cygclass

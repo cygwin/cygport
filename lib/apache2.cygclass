@@ -1,0 +1,204 @@
+################################################################################
+#
+# apache2.cygclass - functions for building Apache 2.x mod_* modules
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2007, 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+case ${PN} in
+	apache2-*)
+		ORIG_PN=${PN#apache2-}
+		ORIG_P=${ORIG_PN}-${PV}
+		APACHE_MOD_NAME="${ORIG_PN}" 
+		DESCRIPTION="Apache 2.x ${ORIG_PN} module"
+		;;
+esac
+
+APXS=/usr/sbin/apxs2
+APXS2=/usr/sbin/apxs2
+LIBHTTPD="-lhttpd2core"
+LIBHTTPD2="-lhttpd2core"
+
+check_prog_req ${APXS2} apache2-devel
+
+# libhttpd variables
+for var in CFLAGS INCLUDEDIR LIBEXECDIR SYSCONFDIR
+do
+	eval APACHE2_${var}=\"$(${APXS2} -q ${var})\"
+	eval APXS_${var}=\"$(${APXS2} -q ${var})\"
+done
+APACHE2_LIBS_SHLIB="-lhttpd2core"
+APACHE2_SYSCONFDIR="${APACHE2_SYSCONFDIR}/conf.d"
+APXS_LIBS_SHLIB="-lhttpd2core"
+APXS_SYSCONFDIR="${APXS_SYSCONFDIR}/conf.d"
+
+HTTPD2=$(${APXS2} -q SBINDIR)/$(${APXS2} -q TARGET)
+APACHE2_VERSION=$(${HTTPD2} -v | cut -d ' ' -f 3 | cut -d / -f 2)
+
+# libapr variables
+case ${APACHE2_VERSION:0:3} in
+	2.2)	APR_VERSION=1 ;;
+	*)		error "Don't know anything about Apache ${APACHE2_VERSION}" ;;
+esac
+
+case ${APR_VERSION} in
+	1)	APR_CONFIG=/usr/bin/apr-${APR_VERSION}-config
+		APU_CONFIG=/usr/bin/apu-${APR_VERSION}-config
+		;;
+	*)	error "Illegal value ${APR_VERSION} for APR_VERSION" ;;
+esac
+
+check_prog_req ${APR_CONFIG##*/} apr${APR_VERSION}
+check_prog_req ${APU_CONFIG##*/} aprutil${APR_VERSION}
+APR_CFLAGS="$(${APU_CONFIG} --includes) $(${APR_CONFIG} --cppflags --includes)"
+APR_LIBS="$(${APU_CONFIG} --link-ld) $(${APR_CONFIG} --link-ld --libs)"
+APR_LIBTOOL="$(${APR_CONFIG} --apr-libtool)"
+
+# libapreq
+APREQ_CONFIG=/usr/bin/apreq2-config
+APREQ_CFLAGS="$(${APREQ_CONFIG} --includes)"
+APREQ_LIBS="$(${APREQ_CONFIG} --link-ld)"
+
+apache2_compile() {
+	if ! defined APACHE_MOD_NAME
+	then
+		error "define APACHE_MOD_NAME before calling apache_compile"
+	fi
+
+	cygconf \
+		--disable-static \
+		--with-apxs=${APXS2} \
+		--with-apr-config=${APR_CONFIG} \
+		"${@}"
+
+	cygmake \
+		${APACHE_MOD_NAME}_la_CPPFLAGS="${APACHE2_CFLAGS} -I${APACHE2_INCLUDEDIR} ${APR_CFLAGS}" \
+		${APACHE_MOD_NAME}_la_LDFLAGS="-module -avoid-version -no-undefined -shrext .so" \
+		${APACHE_MOD_NAME}_la_LIBADD="-lhttpd2core ${APR_LIBS}"
+}
+
+# NOTE: CFLAGS need to proceed source files, with LIBS following
+# e.g. apache_apxs_compile CFLAGS *.c LIBS
+apache2_apxs_compile() {
+	local ldflags
+
+	if ! defined APACHE_MOD_NAME
+	then
+		error "define APACHE_MOD_NAME before calling apache_apxs_compile"
+	fi
+
+	${APXS2} -c -o ${APACHE_MOD_NAME}.la "${@:-*.c}" \
+		|| error "apxs compile failed"
+}
+
+# alias for apache_apxs_compile
+apxs2_compile() { apache_apxs_compile "$@" ; }
+
+doapache2conf() {
+	local f
+
+	dodir ${APACHE2_SYSCONFDIR}
+
+	for f
+	do
+		if [ -e ${f} ]
+		then
+			cat ${f} >> ${D}${APACHE2_SYSCONFDIR}/${ORIG_PN}.conf
+		fi
+	done
+}
+
+doapache2mod() {
+	local mod
+
+	for mod
+	do
+		case ${mod##*.} in
+			${mod})	mod=${mod}.la ;;
+		esac
+
+		if [ ! -f ${mod} ]
+		then
+			error "doapache2mod: ${mod}: File not found"
+		fi
+
+		case ${mod} in
+			*.la)
+				dodir ${APACHE2_LIBEXECDIR}
+				verbose ${APR_LIBTOOL} --mode=install /usr/bin/install \
+					${mod} ${D}${APACHE2_LIBEXECDIR} \
+					|| error "install ${mod} failed"
+				;;
+			*.so)
+				exeinto ${APACHE2_LIBEXECDIR}
+				doexe ${mod}
+				;;
+			*)	error "doapache2mod: ${mod##*/}: Unknown file type"
+		esac
+	done
+}
+
+apache2_postinst() {
+	local imp mod sym
+
+	dodir /etc/postinstall /etc/preremove
+
+	for mod in ${D}${APACHE2_LIBEXECDIR}/*.so
+	do
+		imp=${mod%.so}.dll.a
+
+		if [ -f ${imp} ]
+		then
+			sym=$(nm ${imp} 2>/dev/null | grep ' I __nm__.*_module$' | sed -e 's#.*__\(.*\)_module#\1#')
+		fi
+
+		if ! defined sym
+		then
+			sym=$(nm ${mod} 2>/dev/null | grep ' D .*_module$' | sed -e 's#.*D _\(.*\)_module#\1#')
+		fi
+
+		if ! defined sym
+		then
+			dso=${mod##*/}
+			dso=${dso%.*}
+
+			case ${dso} in
+				mod_*)	sym=${dso:4} ;;
+				cyg*|lib*)	sym=${dso:3} ;;
+			esac
+		fi
+
+		if ! objdump -p ${mod} 2> /dev/null | grep -q "\] ${sym}_module$"
+		then
+			error "Cannot determine module symbol name for ${mod##*/}"
+		fi
+
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			${APXS2} -e -a -n ${sym%_module} ${mod#${D}}
+			_EOF
+
+		# No option exists to remove a module from httpd.conf;
+		# this will comment out the relevant line(s) instead
+		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+			${APXS2} -e -A -n ${sym%_module} ${mod#${D}}
+			_EOF
+	done
+}

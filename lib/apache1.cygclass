@@ -1,0 +1,174 @@
+################################################################################
+#
+# apache1.cygclass - functions for building Apache 1.x mod_* modules
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2007, 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+case ${PN} in
+	apache-*)
+		ORIG_PN=${PN#apache-}
+		ORIG_P=${ORIG_PN}-${PV}
+		APACHE_MOD_NAME="${ORIG_PN}" 
+		DESCRIPTION="Apache 1.x ${ORIG_PN} module"
+		;;
+esac
+
+APXS=/usr/sbin/apxs
+LIBHTTPD="-lhttpd"
+
+check_prog_req ${APXS} apache
+
+# libhttpd variables
+for var in CFLAGS INCLUDEDIR LIBEXECDIR SYSCONFDIR
+do
+	eval APACHE1_${var}=\"$(${APXS} -q ${var})\"
+	eval APXS_${var}=\"$(${APXS} -q ${var})\"
+done
+APXS_LIBS_SHLIB="-lhttpd"
+
+HTTPD=$(${APXS} -q SBINDIR)/$(${APXS} -q TARGET)
+APACHE1_VERSION=$(${HTTPD} -v | cut -d ' ' -f 3 | cut -d / -f 2)
+
+apache1_compile() {
+	if ! defined APACHE_MOD_NAME
+	then
+		error "define APACHE_MOD_NAME before calling apache_compile"
+	fi
+
+	cygconf \
+		--disable-static \
+		--with-apxs=${APXS} \
+		"${@}"
+
+	cygmake \
+		${APACHE_MOD_NAME}_la_CPPFLAGS="${APACHE1_CFLAGS} -I${APACHE1_INCLUDEDIR}" \
+		${APACHE_MOD_NAME}_la_LDFLAGS="-module -avoid-version -no-undefined -shrext .dll" \
+		${APACHE_MOD_NAME}_la_LIBADD="-lhttpd"
+}
+
+# NOTE: CFLAGS need to proceed source files, with LIBS following
+# e.g. apache_apxs_compile CFLAGS *.c LIBS
+apache1_apxs_compile() {
+	local ldflags
+
+	if ! defined APACHE_MOD_NAME
+	then
+		error "define APACHE_MOD_NAME before calling apache_apxs_compile"
+	fi
+
+	${APXS} -c -o ${APACHE_MOD_NAME}.dll "${@:-*.c}" -lhttpd -Wl,--enable-auto-image-base \
+		|| error "apxs compile failed"
+}
+
+# alias for apache_apxs_compile
+apxs1_compile() { apache1_apxs_compile "$@" ; }
+
+doapache1conf() {
+	local f
+
+	dodir ${APACHE1_SYSCONFDIR}
+
+	for f
+	do
+		if [ -e ${f} ]
+		then
+			cat ${f} >> ${D}${APACHE1_SYSCONFDIR}/${ORIG_PN}.conf
+		fi
+	done
+}
+
+doapache1mod() {
+	local mod
+
+	for mod
+	do
+		case ${mod##*.} in
+			${mod})	mod=${mod}.dll ;;
+		esac
+
+		if [ ! -f ${mod} ]
+		then
+			error "doapache1mod: ${mod}: File not found"
+		fi
+
+		case ${mod} in
+			*.la)
+				dodir ${APACHE1_LIBEXECDIR}
+				verbose /usr/bin/libtool --mode=install /usr/bin/install \
+					${mod} ${D}${APACHE1_LIBEXECDIR} \
+					|| error "install ${mod} failed"
+				;;
+			*.dll)
+				exeinto ${APACHE1_LIBEXECDIR}
+				doexe ${mod}
+				;;
+			*)	error "doapache1mod: ${mod##*/}: Unknown file type"
+		esac
+	done
+}
+
+apache1_postinst() {
+	local imp mod sym
+
+	dodir /etc/postinstall /etc/preremove
+
+	for mod in ${D}${APACHE1_LIBEXECDIR}/*.dll
+	do
+		imp=${mod}.a
+
+		if [ -f ${imp} ]
+		then
+			sym=$(nm ${imp} 2>/dev/null | grep ' I __nm__.*_module$' | sed -e 's#.*__\(.*\)_module#\1#')
+		fi
+
+		if ! defined sym
+		then
+			sym=$(nm ${mod} 2>/dev/null | grep ' D .*_module$' | sed -e 's#.*D _\(.*\)_module#\1#')
+		fi
+
+		if ! defined sym
+		then
+			dso=${mod##*/}
+			dso=${dso%.*}
+
+			case ${dso} in
+				mod_*)	sym=${dso:4} ;;
+				cyg*|lib*)	sym=${dso:3} ;;
+			esac
+		fi
+
+		if ! objdump -p ${mod} 2> /dev/null | grep -q "\] ${sym}_module$"
+		then
+			error "Cannot determine module symbol name for ${mod##*/}"
+		fi
+
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			${APXS} -e -a -n ${sym%_module} ${mod#${D}}
+			_EOF
+
+		# No option exists to remove a module from httpd.conf;
+		# this will comment out the relevant line(s) instead
+		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+			${APXS} -e -A -n ${sym%_module} ${mod#${D}}
+			_EOF
+	done
+}

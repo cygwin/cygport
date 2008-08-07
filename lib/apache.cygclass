@@ -1,6 +1,6 @@
 ################################################################################
 #
-# apache.cygclass - functions for building Apache mod_* modules
+# apache.cygclass - wrapper for versioned apache cygclasses
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2007, 2008 Yaakov Selkowitz
@@ -25,234 +25,41 @@
 
 case ${PN} in
 	apache-*)
-		ORIG_PN=${PN#apache-}
 		APACHE_MAJOR=1
 		;;
 	apache2-*)
-		ORIG_PN=${PN#apache2-}
 		APACHE_MAJOR=2
 		;;
 	*)
-		ORIG_PN=${ORIG_PN:-${PN}}
-		if ! defined APACHE_MAJOR
-		then
-			error "APACHE_MAJOR must be defined to 1 or 2"
-		fi
+		case ${APACHE_MAJOR} in
+			1|2)	;;
+			*|'')	error "APACHE_MAJOR must be defined to 1 or 2" ;;
+		esac
 		;;
 esac
 
-case ${APACHE_MAJOR} in
-	1)
-		APACHE_PN="apache"
-		APXS=/usr/sbin/apxs
-		LIBHTTPD="-lhttpd"
-		APACHE_MOD_SHREXT=".dll"
-		APACHE_MOD_EXT=${APACHE_MOD_SHREXT}
-		;;
-	2)
-		APACHE_PN="apache2-devel"
-		APXS=/usr/sbin/apxs2
-		LIBHTTPD="-lhttpd2core"
-		APACHE_MOD_SHREXT=".so"
-		APACHE_MOD_EXT=".la"
-		;;
-	*) 	error "APACHE_MAJOR must be defined to 1 or 2" ;;
-esac
-
-case ${ORIG_PN} in
-	mod_*)	APACHE_MOD_NAME="${ORIG_PN}" ;;
-esac
-
-ORIG_P="${ORIG_PN}-${PV}"
-SRC_DIR="${ORIG_P}"
-DESCRIPTION="Apache ${APACHE_MAJOR}.x ${ORIG_PN} module"
-
-check_prog_req ${APXS} ${APACHE_PN}
-
-# libhttpd variables
-for var in CFLAGS INCLUDEDIR LIBEXECDIR SYSCONFDIR
-do
-	eval APXS_${var}=\"$(${APXS} -q ${var})\"
-done
-APXS_LIBS_SHLIB="${LIBHTTPD}"
-
-# Apache 2.x will automatically load conf.d/*.conf
-case ${APACHE_MAJOR} in
-	2) APXS_SYSCONFDIR="${APXS_SYSCONFDIR}/conf.d" ;;
-esac
-
-HTTPD=$(${APXS} -q SBINDIR)/$(${APXS} -q TARGET)
-APACHE_VERSION=$(${HTTPD} -v | cut -d ' ' -f 3 | cut -d / -f 2)
-
-# libapr variables
-case ${APACHE_VERSION:0:3} in
-	1.*)	APR_VERSION='' ;;
-	2.0)	APR_VERSION=${APR_VERSION:-0} ;;
-	2.2)	APR_VERSION=${APR_VERSION:-1} ;;
-	*)		error "Don't know anything about Apache ${APACHE_VERSION}" ;;
-esac
-
-case ${APR_VERSION} in
-	'')	APR_CONFIG=no
-		APU_CONFIG=no
-		;;
-	0)	APR_CONFIG=/usr/bin/apr-config
-		APU_CONFIG=/usr/bin/apu-config
-		;;
-	1)	APR_CONFIG=/usr/bin/apr-${APR_VERSION}-config
-		APU_CONFIG=/usr/bin/apu-${APR_VERSION}-config
-		;;
-	*)	error "Illegal value ${APR_VERSION} for APR_VERSION" ;;
-esac
-
-if [ "x${APR_CONFIG}" != "xno" ]
-then
-	check_prog_req ${APR_CONFIG##*/} apr${APR_VERSION}
-	check_prog_req ${APU_CONFIG##*/} aprutil${APR_VERSION}
-	APR_CFLAGS="$(${APU_CONFIG} --includes) $(${APR_CONFIG} --cppflags --includes)"
-	APR_LIBS="$(${APU_CONFIG} --link-ld) $(${APR_CONFIG} --link-ld --libs)"
-	APR_LIBTOOL="$(${APR_CONFIG} --apr-libtool)"
-fi
-
-# libapreq
-case ${APACHE_MAJOR} in
-	1)	APREQ_CONFIG=no_such_thing ;;
-	2)	APREQ_CONFIG=/usr/bin/apreq2-config ;;
-esac
-
-if check_prog ${APREQ_CONFIG##*/}
-then
-	APREQ_CFLAGS="$(${APREQ_CONFIG} --includes)"
-	APREQ_LIBS="$(${APREQ_CONFIG} --link-ld)"
-fi
+inherit apache${APACHE_MAJOR}
 
 apache_compile() {
-	if ! defined APACHE_MOD_NAME
-	then
-		error "define APACHE_MOD_NAME before calling apache_compile"
-	fi
-
-	cygconf \
-		--disable-static \
-		--with-apxs=${APXS} \
-		--with-apr-config=${APR_CONFIG} \
-		"${@}"
-
-	cygmake \
-		${APACHE_MOD_NAME}_la_CPPFLAGS="${APXS_CFLAGS} -I${APXS_INCLUDEDIR} ${APR_CFLAGS}" \
-		${APACHE_MOD_NAME}_la_LDFLAGS="-module -avoid-version -no-undefined -shrext ${APACHE_MOD_SHREXT}" \
-		${APACHE_MOD_NAME}_la_LIBADD="${LIBHTTPD} ${APR_LIBS}"
+	apache${APACHE_MAJOR}_compile "$@"
 }
 
-# NOTE: CFLAGS need to proceed source files, with LIBS following
-# e.g. apache_apxs_compile CFLAGS *.c LIBS
 apache_apxs_compile() {
-	local ldflags
-
-	if ! defined APACHE_MOD_NAME
-	then
-		error "define APACHE_MOD_NAME before calling apache_apxs_compile"
-	fi
-
-	# apache 1.x apxs does not automatically add -lhttpd
-	case ${APACHE_MAJOR} in
-		1)	ldflags="${LIBHTTPD} -Wl,--enable-auto-image-base" ;;
-	esac
-
-	${APXS} -c -o ${APACHE_MOD_NAME}${APACHE_MOD_EXT} "${@:-*.c}" ${ldflags} \
-		|| error "apxs compile failed"
+	apache${APACHE_MAJOR}_apxs_compile "$@"
 }
 
-# alias for apache_apxs_compile
-apxs_compile() { apache_apxs_compile "$@" ; }
+apxs_compile() {
+	apache${APACHE_MAJOR}_apxs_compile "$@"
+}
 
 doapacheconf() {
-	local f
-
-	dodir ${APXS_SYSCONFDIR}
-
-	for f
-	do
-		if [ -e ${f} ]
-		then
-			cat ${f} >> ${D}${APXS_SYSCONFDIR}/${ORIG_PN}.conf
-		fi
-	done
+	doapache${APACHE_MAJOR}conf "$@"
 }
 
 doapachemod() {
-	local mod
-
-	for mod
-	do
-		case ${mod##*.} in
-			${mod})	mod=${mod}${APACHE_MOD_EXT} ;;
-		esac
-
-		if [ ! -f ${mod} ]
-		then
-			error "doapachemod: ${mod}: File not found"
-		fi
-
-		case ${mod} in
-			*.la)
-				dodir ${APXS_LIBEXECDIR}
-				verbose ${APR_LIBTOOL} --mode=install /usr/bin/install \
-					${mod} ${D}${APXS_LIBEXECDIR} \
-					|| error "install ${mod} failed"
-				;;
-			*${APACHE_MOD_SHREXT})
-				exeinto ${APXS_LIBEXECDIR}
-				doexe ${mod}
-				;;
-			*)	error "doapachemod: ${mod##*/}: Unknown file type"
-		esac
-	done
+	doapache${APACHE_MAJOR}mod "$@"
 }
 
 apache_postinst() {
-	local imp mod sym
-
-	dodir /etc/postinstall /etc/preremove
-
-	for mod in ${D}${APXS_LIBEXECDIR}/*${APACHE_MOD_SHREXT}
-	do
-		imp=${mod%${APACHE_MOD_SHREXT}}.dll.a
-
-		if [ -f ${imp} ]
-		then
-			sym=$(nm ${imp} 2>/dev/null | grep ' I __nm__.*_module$' | sed -e 's#.*__\(.*\)_module#\1#')
-		fi
-
-		if ! defined sym
-		then
-			sym=$(nm ${mod} 2>/dev/null | grep ' D .*_module$' | sed -e 's#.*D _\(.*\)_module#\1#')
-		fi
-
-		if ! defined sym
-		then
-			dso=${mod##*/}
-			dso=${dso%.*}
-
-			case ${dso} in
-				mod_*)	sym=${dso:4} ;;
-				cyg*|lib*)	sym=${dso:3} ;;
-			esac
-		fi
-
-		if ! objdump -p ${mod} 2> /dev/null | grep -q "\] ${sym}_module$"
-		then
-			error "Cannot determine module symbol name for ${mod##*/}"
-		fi
-
-		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			${APXS} -e -a -n ${sym%_module} ${mod#${D}}
-			_EOF
-
-		# No option exists to remove a module from httpd.conf;
-		# this will comment out the relevant line(s) instead
-		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-			${APXS} -e -A -n ${sym%_module} ${mod#${D}}
-			_EOF
-	done
+	apache${APACHE_MAJOR}_postinst
 }
