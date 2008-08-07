@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: dodoc,v 1.8 2007-10-15 03:40:14 yselkowitz Exp $
+# $Id$
 #
 ################################################################################
 set -e

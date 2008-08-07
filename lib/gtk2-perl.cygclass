@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gtk2-perl.cygclass,v 1.16 2008-05-12 15:20:14 yselkowitz Exp $
+# $Id$
 #
 ################################################################################
 

@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: qt4-qmake.cygclass,v 1.2 2008-07-31 07:03:14 yselkowitz Exp $
+# $Id$
 #
 ################################################################################
 

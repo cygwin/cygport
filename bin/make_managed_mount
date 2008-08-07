@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: make_managed_mount,v 1.8 2008-04-16 05:34:17 yselkowitz Exp $
+# $Id$
 #
 ################################################################################
 set -e

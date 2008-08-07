@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: pygtk.cygclass,v 1.14 2008-06-06 20:20:51 yselkowitz Exp $
+# $Id$
 #
 ################################################################################
 

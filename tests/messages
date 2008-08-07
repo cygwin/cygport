@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# $Id: messages,v 1.4 2006-11-20 05:48:59 yselkowitz Exp $
+# $Id$
 
 set -e
 

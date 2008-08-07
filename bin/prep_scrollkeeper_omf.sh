@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: prep_scrollkeeper_omf.sh,v 1.6 2007-10-15 03:40:15 yselkowitz Exp $
+# $Id$
 #
 ################################################################################
 set -e

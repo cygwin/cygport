@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gstreamer.cygclass,v 1.7 2007-12-10 07:23:38 yselkowitz Exp $
+# $Id$
 #
 ################################################################################
 

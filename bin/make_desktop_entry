@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with cygport.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: make_desktop_entry,v 1.7 2007-10-15 03:41:34 yselkowitz Exp $
+# $Id$
 #
 ################################################################################
 set -e

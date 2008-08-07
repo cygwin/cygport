@@ -1,4 +1,4 @@
-# $Id: sample.cygport,v 1.5 2006-11-20 05:48:58 yselkowitz Exp $
+# $Id$
 
 DESCRIPTION="Next-generation Cygwin packaging application"
 HOMEPAGE="http://cygwinports.dotsrc.org/"
