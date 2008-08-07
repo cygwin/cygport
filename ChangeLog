@@ -1,4 +1,10 @@
 
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am: 
+	* lib/apache1.cygclass: Added for apache-1.x only.
+	* lib/apache2.cygclass: Added for apache-2.x only.
+	* lib/apache.cygclass: Now a wrapper for apache1 and apache2.
+
 	* lib/git.cygclass (git_fetch): Accept GIT_TAG, GIT_BRANCH, GIT_REV.
 
 	* Makefile.am (SUBDIRS): Change test to tests.
