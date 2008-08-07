@@ -1,5 +1,7 @@
 
 	* bin/cygport.in (cygautoreconf): Accept ACLOCAL_FLAGS.
+	(__prep_symlinks): Added to check for symlinks after install.
+	(__src_postinst): Call it.
 
 	* CYGWIN-PATCHES/README:
 	* lib/Makefile.am: 

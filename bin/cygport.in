@@ -1363,6 +1363,7 @@ readonly -f dodir keepdir docinto exeinto insinto __prepinstalldirs cyginstall
 #	__prepstrip
 #	__prep_empty_dirs
 #	__prep_libtool_modules
+#	__prep_symlinks
 #	__src_postinst
 #
 ################################################################################
@@ -1617,16 +1618,46 @@ __prepstrip() {
 	done
 }
 
+__prep_symlinks() {
+	local l l_src
+
+	echo "Checking for symlinks:"
+
+	for l in $(find ${D}/ -type l)
+	do
+		l_src=$(readlink ${l})
+		case ${l_src} in
+			${D}/*)
+				echo "        ${l#${D}}";
+				rm -f ${l};
+				dosym ${l_src#${D}} ${l#${D}};
+				;;
+			${workdir}/*)
+				echo "        ${l#${D}}";
+				rm -f ${l};
+				cp -LR ${l_src} ${l};
+				;;
+			/*)
+				if [ ! -e ${D}${l_src} ] && [ ! -e ${l_src} ]
+				then
+					warning "symlink ${l#${D}} points to nonexistant ${l_src}";
+				fi
+				;;
+		esac
+	done
+}
+
 __prep_libtool_modules() {
 	find * -name '*.la' -exec prep_libtool_modules.sh '{}' + || error "Libtool module postinstall failed"
 }
 
 __src_postinst() {
-	__prepdoc && __prepetc && __prepman && __prep_empty_dirs && __prepstrip && __prep_libtool_modules;
+	__prep_symlinks && __prepdoc && __prepetc && __prepman && __prep_empty_dirs && __prepstrip && __prep_libtool_modules;
 }
 
 # protect functions
-readonly -f __prepdoc __prepetc __prepman __prep_empty_dirs __prepstrip __prep_libtool_modules __src_postinst
+readonly -f __prepdoc __prepetc __prepman __prep_empty_dirs __prepstrip \
+            __prep_symlinks __prep_libtool_modules __src_postinst
 
 
 ################################################################################
