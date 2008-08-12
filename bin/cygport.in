@@ -817,7 +817,7 @@ __src_prep() {
 
 	__step "Preparing working source directory";
 
-	rsync -aqv --delete-before ${origsrcdir}/ ${srcdir}/;
+	rsync -aq --delete-before ${origsrcdir}/ ${srcdir}/;
 
 	mkdir -p ${C};
 	ln -sfn ${C} ${workdir}/CYGWIN-PATCHES;
