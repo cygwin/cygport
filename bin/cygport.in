@@ -1359,6 +1359,7 @@ readonly -f dodir keepdir docinto exeinto insinto __prepinstalldirs cyginstall
 # private:
 #	__prepdoc
 #	__prepetc
+#	__prepinfo
 #	__prepman
 #	__prepstrip
 #	__prep_empty_dirs
@@ -1483,12 +1484,6 @@ __prepetc() {
 		prep_fonts_dir.sh || error "Fonts postinstall failed"
 	fi
 
-	# GNU info pages
-	if [ -d ${D}/usr/share/info ]
-	then
-		prep_gnu_info.sh || error "GNU info postinstall failed"
-	fi
-
 	# GTK+ 2.x modules
 	if [ -d ${D}/usr/share/icons ]
 	then
@@ -1549,6 +1544,32 @@ __prepman() {
 		do
 			echo "        ${manpage##*/}";
 			gzip -q ${manpage};
+		done
+	fi
+}
+
+__prepinfo() {
+	local infopage;
+
+	if [ -d ${D}/usr/info ]
+	then
+		inform "Moving /usr/info to /usr/share/info...";
+		dodir /usr/share/info
+		# just in case there is already /usr/share/info
+		cp -r ${D}/usr/info/* ${D}/usr/share/info/
+		rm -fr ${D}/usr/info/
+	fi
+
+	if [ -d ${D}/usr/share/info ]
+	then
+		rm -f ${D}/usr/share/info/dir
+
+		echo "Compressing info pages:";
+
+		for infopage in $(find ${D}/usr/share/info -type f ! -name '*.gz' ! -name '*.bz2')
+		do
+			echo "        ${infopage##*/}";
+			gzip -q ${infopage};
 		done
 	fi
 }
@@ -1652,12 +1673,19 @@ __prep_libtool_modules() {
 }
 
 __src_postinst() {
-	__prep_symlinks && __prepdoc && __prepetc && __prepman && __prep_empty_dirs && __prepstrip && __prep_libtool_modules;
+	__prep_symlinks;
+	__prepdoc;
+	__prepetc;
+	__prepman;
+	__prepinfo;
+	__prep_empty_dirs;
+	__prepstrip;
+	__prep_libtool_modules;
 }
 
 # protect functions
-readonly -f __prepdoc __prepetc __prepman __prep_empty_dirs __prepstrip \
-            __prep_symlinks __prep_libtool_modules __src_postinst
+readonly -f __prepdoc __prepetc __prepman __prepinfo __prep_empty_dirs \
+            __prepstrip __prep_symlinks __prep_libtool_modules __src_postinst
 
 
 ################################################################################

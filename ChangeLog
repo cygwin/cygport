@@ -1,4 +1,9 @@
 
+	* bin/Makefile.am: Drop prep_gnu_info.sh.
+	* bin/cygport.in (__prepetc): Ditto.
+	(__prepinfo): Replaces prep_gnu_info.sh w/o postinstall.
+	(__src_postinst): Call it.
+
 	* lib/gst-plugins0.10.cygclass: Add pulse to gst-plugins-good.
 	Update for gst-plugins-bad 0.10.8.
 

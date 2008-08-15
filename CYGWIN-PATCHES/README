@@ -86,7 +86,6 @@ Files included in the binary package:
   /usr/lib/cygport/bin/prep_fonts_dir.sh
   /usr/lib/cygport/bin/prep_freedesktop_mime.sh
   /usr/lib/cygport/bin/prep_gconf_schemas.sh
-  /usr/lib/cygport/bin/prep_gnu_info.sh
   /usr/lib/cygport/bin/prep_gtk_icon_theme.sh
   /usr/lib/cygport/bin/prep_gtk2_modules.sh
   /usr/lib/cygport/bin/prep_libtool_modules.sh
