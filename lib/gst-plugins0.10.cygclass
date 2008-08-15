@@ -37,6 +37,7 @@ case ${gst_pn} in
 		do
 			case ${plugin} in
 				mad) GST_PLUGINS_MODULE+=" id3tag mad" ;;
+				resindvd) GST_PLUGINS_MODULE+=" dvdnav" ;;
 				ximage|ximagesrc) GST_PLUGINS_MODULE+=" x xshm" ;;
 				*) GST_PLUGINS_MODULE+=" ${plugin}" ;;
 			esac
@@ -101,11 +102,11 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		# amrwb codec is patent encumbered
 		my_gst_plugins="amrwb bz2 dirac dts faac faad gsm ivorbis jack libmms
 		                metadata mpeg2enc mplex musepack musicbrainz nas neon
-		                ofa opengl oss4 sdl sndfile soundtouch soup spc swfdec
+		                ofa opengl resindvd sdl sndfile soundtouch soup spc swfdec
                         theoradec timidity wavpack wildmidi wininet x264 xvid"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
-                           ladspa mythtv quicktime vcd"
+                           ladspa mythtv oss4 quicktime vcd"
 		;;
 	ugly)
 		# WARNING: the dependent codecs may be patent encumbered
