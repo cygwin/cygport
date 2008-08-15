@@ -1,4 +1,7 @@
 
+	* bin/cygport.in (cygautoreconf):
+	Install config.rpath in subdirs as well when required.
+
 	* bin/Makefile.am: Drop prep_gnu_info.sh.
 	* bin/cygport.in (__prepetc): Ditto.
 	(__prepinfo): Replaces prep_gnu_info.sh w/o postinstall.

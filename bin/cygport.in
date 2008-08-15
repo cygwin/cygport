@@ -948,11 +948,11 @@ cygautoreconf() {
 				done
 
 				unset ac_config_files;
-			fi
 
-			if $(grep -q /config.rpath configure)
-			then
-				cp -f /usr/share/gettext/config.rpath .
+				if $(grep -q /config.rpath ${d}/configure)
+				then
+					cp -f /usr/share/gettext/config.rpath ${d}/
+				fi
 			fi
 
 			# Automake will exit if these are not present
