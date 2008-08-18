@@ -58,7 +58,6 @@ git_fetch() {
 	then
 		verbose git checkout ${GIT_REV} || error "git checkout failed"
 	else
-	then
 		verbose git checkout master || error "git checkout failed"
 	fi
 
