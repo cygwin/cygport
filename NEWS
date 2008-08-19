@@ -1,3 +1,21 @@
+0.3.13:
+	* Added dependency on rsync.
+	* cygautoreconf(): Accepts ACLOCAL_FLAGS.
+	* No longer generates postinstall scripts for GNU info files.
+	* Automatic check for bad symlinks during postinstall.
+	* apache{1,2}.cygclass: Split up apache for 1.x and 2.x.
+	* apache.cygclass: Now a wrapper for apache1 and apache2.
+	* berkdb.cygclass: Update for db4.7.
+	* git.cygclass: Accepts GIT_TAG, GIT_BRANCH, GIT_REV.
+	* gst-plugins0.10.cygclass: Update for -bad 0.10.8.
+	* kde4.cygclass: NEW for KDE4 packages (still in flux).
+	* qt3.cygclass: Namespace constants to make space for Qt4.
+	* qt4.cygclass: NEW for Qt4-dependent packages.
+	* qt4-cmake.cygclass: NEW for Qt4 cmake-based packages.
+	* qt4-qmake.cygclass: NEW for Qt4 qmake-based packages.
+	* R.cygclass: Fix bug which installed symlinks instead of files.
+	* ruby-gnome2.cygclass: Refactored for 0.17.0 and external packages.
+
 0.3.12:  TESTING
 	* unpack(): now handles .tar.bz tarballs.
 	* KEEPDIRS can be defined in place to call keepdir() automatically.

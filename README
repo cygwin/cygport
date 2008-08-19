@@ -357,12 +357,11 @@ docs you want installed.
 Many common postinstall/preremove script tasks are provided
 automatically, including:
 
-    1) GNU info pages (install-info);
+    1) GTK+ icon caching (gtk-update-icon-cache);
     2) GConf schemas (gconftool-2 --(un)install-makefile-rule);
     3) GNOME Yelp documentation (scrollkeeper-update);
     4) FreeDesktop.org Desktop Menu files (update-desktop-database);
     5) FreeDesktop.org Shared Mime Info files (update-mime-database);
-    6) Perl perllocal.pod updating.
 
 Custom postinstall and preremove commands may be included in the
 CYGWIN-PATCHES directory as postinstall.sh and preremove.sh; these
@@ -445,14 +444,15 @@ addition to the packages own dependencies:
     file
     grep
     gzip
-    intltool
-    libtool1.5
+    libtool
     lndir  (xorg-x11-bin-lndir)
     make
     patch
+    rsync
     sed
     tar
     unzip
+    util-linux
     wget
 
 7. DOWNLOAD AND INSTALLATION

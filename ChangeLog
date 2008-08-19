@@ -1,3 +1,4 @@
+*** 0.3.13 ***
 
 	* bin/cygport.in (cygautoreconf):
 	Install config.rpath in subdirs as well when required.
