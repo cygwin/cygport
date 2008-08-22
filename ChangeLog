@@ -1,5 +1,7 @@
 2008-Aug-22  yselkowitz
 
+	* bin/cygport.in (__prepinfo): Compress only *.info* files.
+
 	* configure.in: Post-release version bump.
 
 2008-Aug-19  yselkowitz
