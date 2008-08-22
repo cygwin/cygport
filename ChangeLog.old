@@ -1,0 +1,1694 @@
+*** 0.3.13 ***
+
+	* bin/cygport.in (cygautoreconf):
+	Install config.rpath in subdirs as well when required.
+
+	* bin/Makefile.am: Drop prep_gnu_info.sh.
+	* bin/cygport.in (__prepetc): Ditto.
+	(__prepinfo): Replaces prep_gnu_info.sh w/o postinstall.
+	(__src_postinst): Call it.
+
+	* lib/gst-plugins0.10.cygclass: Add pulse to gst-plugins-good.
+	Update for gst-plugins-bad 0.10.8.
+
+	* bin/cygport.in (__src_prep): Use rsync to copy origsrc/ to src/.
+	* CYGWIN-PATCHES/*: Add rsync dependency.
+
+	* bin/cygport.in (cygautoreconf): Accept ACLOCAL_FLAGS.
+	(__prep_symlinks): Added to check for symlinks after install.
+	(__src_postinst): Call it.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am: 
+	* lib/apache1.cygclass: Added for apache-1.x only.
+	* lib/apache2.cygclass: Added for apache-2.x only.
+	* lib/apache.cygclass: Now a wrapper for apache1 and apache2.
+
+	* lib/git.cygclass (git_fetch): Accept GIT_TAG, GIT_BRANCH, GIT_REV.
+
+	* Makefile.am (SUBDIRS): Change test to tests.
+	* configure.ac (AC_CONFIG_FILES): Ditto.
+	* test/*: Moved to tests/*.
+
+	* bin/cygport.in (__pkg_diff): Trim diff command lines from patches.
+
+	* lib/qt4-qmake.cygclass (qt4_qmake_install):
+	Fix location of pkg-config files after install.
+
+	* bin/cygport.in (__src_prep): Remove DISTCLEANFILES after unpack.
+	(cygcmake) 
+
+	* lib/kde4.cygclass (kde4_compile): Define SVN_URI.
+	Handle DO_NOT_COMPILE by passing appropriate options to cmake.
+	Pass additional Qt4- and KDE4-specific options to cmake.
+	(kde4_install): Delete kdeinit4 implibs.
+
+	* lib/qt4.cygclass: Define QT4_RCC and QT4_UIC3.
+	* lib/qt4-cmake.cygclass: Pass Qt4-specific options to cmake.
+
+	* lib/R.cygclass (R_install): Use cp -LR to avoid dangling symlinks.
+
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_install):
+	Do not rely on extconf.rb to determine implib name.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/kde4.cygclass: New cygclass for KDE4 packages (in progress).
+
+	* lib/ruby-gnome2.cygclass: Refactored for 0.17.0-rc1.
+
+	* lib/qt3.cygclass: Prefer QT3_* constant naming to not clash with Qt4.
+	(cygqmake3): New name for qt3_qmake, latter is deprecated.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/qt4.cygclass:
+	* lib/qt4-cmake.cygclass:
+	* lib/qt4-qmake.cygclass: New cygclasses for Qt4 support.
+
+	* lib/berkdb.cygclass:
+	(__berkdb_build_java): Added; db4.7 Java bindings require Java 1.5.
+	(berkdb_compile): Fix --with-tcl configure flag.
+	Link C++/JNI/Tcl bindings against libdb.
+	(berkdb_install): Java bindings only if __berkdb_build_java.
+	(berkdb_postinst): Only -devel package should use alternatives.
+	(berkdb_prerm): Merged into berkdb_postinst.
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.3.12 ***
+
+	* bin/cygport.in (cygautoreconf):
+	Handle COPYING and INSTALL only if files, not directories (e.g. gcc).
+	Handle COPYING and INSTALL for AC_CONFIG_SUBDIRS.
+
+	* lib/gst-plugins0.10.cygclass: Add support for gst-plugins-gl.
+	Update external Farsight plugin list.
+	(gst_plugins_compile): Pass Cygwin default sinks/srcs to configure.
+
+	* lib/ruby-gnome2.cygclass:
+	Overhaul to fix building all modules from monolithic ruby-gnome2-all source.
+
+	* bin/cygport.in (unpack): Accept .tar.bz files.
+	(__prep_empty_dirs): Call keepdir() where KEEPDIRS is defined.
+	(__list_deps): Sort dependent packages as case-insensitive.
+	(__pkg_binpkg): Fix sanity check where PKG_CONTENTS and .list's are used.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/claws-mail.cygclass: New cygclass for Claws Mail plugins.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/octave.cygclass: New cygclass for Octave extensions.
+	* bin/cygport.in (__list_deps, __prepstrip): Treat .oct as DLLs.
+
+	* lib/apache.cygclass (apache_postinst): Adapt to binutils changes.
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.3.11 ***
+
+	* bin/cygport.in (__prepetc): Accept RESTRICT=postinst-gconf.
+	(cygautoreconf): Install config.rpath if required.
+
+	* bin/cygport.in: Allow SRC_URI/PATCH_URI to contain CGI arguments.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/ebook.cygclass: New cygclass for EBook documentation.
+
+	* lib/java.cygclass: Use fully-qualified paths for all tools.
+
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Add support for skipping directories with GNOME2_NO_AUTOGEN.
+	Install config.rpath if required.
+	Improve automake version detection (requires gnome-common-2.20.0-2).	
+
+	* lib/git.cygclass (git_fetch): Ignore .gitignore.
+
+	* lib/kde3.cygclass: Correct SRC_URI of kdevelop-3.5.2.
+
+	* lib/php.cygclass: Define PHP_PEAR_DIR.
+	(php_postinst): Fix .ini naming based on extension, not package name.
+
+	* lib/pygtk.cygclass: Correct naming of nautilus-python.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/ggz.cygclass: New cygclass for GGZ packages.
+
+	* bin/cygport.in (__pkg_binpkg): Allow empty subpackages.
+
+	* lib/ruby.cygclass (ruby_install): Pass arguments to 'rake install'.
+
+	* CYGWIN-PATCHES/README:
+	* bin/cygport.in (__src_fetch):
+	* lib/Makefile.am:
+	* lib/mtn.cygclass: New cygclass for Monotone checkouts.
+
+	* bin/cygport.in (__pkg_diff): Exclude *config.h.in.
+	(__pkg_diff): Fix deprecated use of DIFF_EXCLUDES="-x foo".
+	(LIBS): default to empty and export.
+	(cygconf): Pass --datadir=/usr/share regardless of autoconf version.
+
+	* lib/gtk2-perl.cygclass: Add Mozilla-DOM and Gtk2-MozEmbed.
+
+	* bin/cygport.in (__prepdoc): Accept RESTRICT=postinst-doc.
+
+	* bin/cygport.in (__pkg_diff):
+	Only exclude aclocal.m4 from patch if generated by aclocal.
+	* lib/berkdb.cygclass (DIFF_EXCLUDES): Add aclocal.m4 to compensate.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/opensync.cygclass: New cygclass for OpenSync plugins.
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.3.10 ***
+
+	* bin/cygport.in (__pkg_pkgcheck): Accept PKG_IGNORE.
+
+	* bin/cygport.in (__prep_empty_dirs): Notify when removing empty dirs.
+
+	* lib/fox.cygclass: Allow building separate apps and libs from one -src.
+
+	* bin/cygport.in (__prepman): Relocate /usr/man directory if present.
+
+	* lib/php.cygclass: Fix DESCRIPTION.
+
+	* lib/gst-plugins0.10.cygclass: Update plugin list for base 0.10.19,
+	good 0.10.8, and bad 0.10.7.
+	Fix build where GST_PLUGINS_SRC is defined.
+
+	* lib/php.cygclass: Add capability for external PHP_CHANNELs.
+	(php_postinst): Fix .ini script for Zend extensions.
+
+	* lib/gnome2.cygclass (gnome2_autoreconf): Use gnome-autogen.sh.
+
+	* bin/cygport.in (__prepstrip): Remove Mono .mdb debug symbols.
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.3.9 ***
+
+	* bin/cygport.in (unpack): Add support for .tar.lzma archives.
+
+	* bin/cygport.in (cygautoreconf, __pkg_diff):
+	* bin/doexe:
+	* bin/prep_libtool_modules.sh:
+	* lib/berkdb.cygclass (berkdb_autoreconf):
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	* lib/kde3.cygclass (kde3_autoreconf):
+	Make compatible with libtool-2.2.
+
+	* lib/R.cygclass: Define HOMEPAGE,SRC_URI,etc. only for CRAN packages.
+
+	* lib/gtk2-perl.cygclass (gtk2_perl_compile):
+	Fix linking to other modules for perl-5.10.
+
+	* bin/cygport.in (cygautoreconf): Fixed typo in NO_LIBTOOLIZE.
+
+	* CYGWIN-PATCHES/README:
+	* bin/cygport.in (__src_fetch):
+	* lib/Makefile.am:
+	* lib/hg.cygclass: New cygclass for Mercurial checkouts.
+
+	* lib/perl.cygclass (perl_postinst): Just delete perllocal.pod stub.
+
+	* lib/php.cygclass (php_postinst): Cleanup /tmp/pear.
+
+	* lib/R.cygclass: Updated HOMEPAGE.
+
+	* lib/gtk2-perl.cygclass (gtk2_perl_compile): Fix Cairo linkage.
+
+	* lib/gst-plugins0.10.cygclass: Updated for gst-plugins-bad 0.10.6.
+
+	* bin/cygport.in (__src_prep) [UNSTABLE_API]:
+	Run src_patch_hook, if defined, after SRC_PATCH patching.
+
+	* bin/cygport.in (__prepetc):
+	Allow either postinstall.sh or PN.postinstall (ditto with preremove).
+	Allow individual NAME.{postinstall,preremove} for multiple-binary pkgs.
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.3.8 ***
+
+	* bin/cygport.in (__prepman): Fix manpage symlinks.
+
+	* lib/ocaml.cygclass (ocaml_install): Don't define DOCDIR.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/lua.cygclass: New cygclass for Lua modules.
+
+	* lib/cvs.cygclass: Handle '/' in CVS_MODULE.
+
+	* lib/R.cygclass: Define R_INCLUDEDIR.
+
+	* lib/docbook.cygclass: Some fixes for docbook-xml-simple.
+
+	* lib/R.cygclass:
+	* lib/distutils.cygclass:
+	* lib/perl.cygclass:
+	Auto-define ORIG_PN only if PN indicates we are building a module.
+
+	* lib/apache.cygclass: Define APREQ_CONFIG, APREQ_CFLAGS, APREQ_LIBS.
+
+	* bin/cygport.in (__prepstrip):
+	Don't strip OCaml bytecode executables, based on file magic test.
+
+	* lib/ocaml.cygclass (OCAML_SITEDIR): Fix for 3.10 and new findlib.
+	(ocaml_install): Provide default ocamlfind-based install function.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/docbook.cygclass: New cygclass for DocBook SGML/DSSSL/XML/XSL.
+
+	* lib/berkdb.cygclass: Code cleanup.
+	(berkdb_compile): JAVA and friends defined by java.cygclass.
+	(berkdb_install): Override emode, fmode, strip to minimize patches.
+	(berkdb_postinst): Utilities vary per version, so auto-generate list.
+
+	* bin/doexe: Install .la files with libtool.
+
+	* data/mirrors (mirror_debian): Added.
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.3.7 ***
+
+	* bin/make_managed_mount: Prefix PN to tarball name.
+
+	* bin/doman:
+	* bin/newman: Support Tcl .n manpages.
+
+	* lib/apache2.cygclass (apache_compile): Accept APACHE_MOD_NAME.
+	(doapacheconf): Append rather than overwrite.
+	(apache_postinst): Automatically enter LoadModule commands to httpd.conf.
+
+	* bin/cygport.in (__check_unstable): Added unstable API guard function.
+	(__check_function): New function to check if function is defined.
+	(__src_prep) [UNSTABLE]: Run src_unpack_hook in original source tree.
+	(__show_version): Update license notice.
+
+	* bin/prep_gnu_info.sh:
+	Accept RESTRICT=postinst-info to not add install-info postinst command.
+
+	* CYGWIN-PATCHES/README:
+	* bin/Makefile.am:
+	* bin/cygport.in (__prepetc):
+	scrollkeeper has been replaced by rarian, and scrollkeeper-update
+	is just a placeholder which does nothing.
+
+	* lib/gtk2-perl.cygclass (gtk2_perl_compile): Support Gnome2-PanelApplet.
+
+	* lib/php.cygclass: Overhaul to support both PECL and PEAR extensions.
+
+	* lib/berkdb.cygclass (berkdb_install): Support db-4.6.
+	(berkdb_postinst): Fix postinstall scripts.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/aspell-dict.cygclass: New cygclass for Aspell dictionaries.
+
+	* bin/cygport.in (cygconf): Properly detect autoconf-2.6x configure.
+	(__src_fetch): Support local files not in working directory.
+	(__prepdoc): Search for Cygwin READMEs by PKG_HINTS names also.
+
+	* lib/gtkmm.cygclass (gtkmm_compile): Pass -no-undefined to LDFLAGS.
+
+	* lib/perl.cygclass (perl_compile): Change Makefile.PL argument order.
+
+	* lib/kde3.cygclass: Support kdevelop-3.5.0.
+	(kde3_compile): Remove berkeley-db from default configure arguments.
+	(kde3_install): Sanity check.
+
+	* lib/gstreamer.cygclass: Fix aliases.
+
+	* lib/pygtk.cygclass: Allow monolithic builds of gnome-python et al.
+	(PYGTK_INCLUDEDIR, PYGTK_LIBDIR, PYGTK_DATADIR): Define.
+
+	* lib/ruby-gnome2.cygclass: Add support for SVN checkouts.
+	(src_compile): Speed up compile by lndir'ing only the relevant subdir.
+
+	* bin/cygport.in (__list_deps): Really ignore Windows libraries.
+
+	* lib/pygtk.cygclass: Add support for gtksourceview2.
+
+	* lib/wxwidgets.cygclass (_find_wx_config):
+	Fix 2.8 detection.
+	Cygwin does not have support for Unicode builds, so error out.
+
+	* lib/gst-plugins0.8.cygclass: Fixed spc, arts, and cdparanoia plugins.
+
+	* lib/kde3.cygclass (kde3_compile): Standardize configure arguments.
+	(kde3_install): Modulize libkdeinit libs, as their implibs aren't used.
+
+	* lib/php.cygclass (php_postinst):
+	Move php.ini generation into separate function.
+
+	* bin/cygport.in (__list_deps): Ignore most Windows libraries.
+	Include ${D}-prefixed equivalents in DEPS_PATH as well.
+
+	* lib/apache.cygclass: Accomodate usage for libapreq2.
+	(apache_apxs_compile, apxs_compile): New wrapper for 'apxs -c'.
+	(doapachemod): Smarter detection of module extension.
+	Do not override src_compile and src_install.
+
+	* bin/make_desktop_entry: Application is not a valid Category.
+
+	* Relicensed under GPL-3.
+
+	* lib/pygtk.cygclass: Add gtop2 from gnome-python-desktop.
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.3.6 ***
+
+	* bin/cygport.in (cygautoreconf): Sanity check.
+	(__prep_libtool_modules): Break off from __prepstrip.
+	(__pkg_diff): Ignore config.rpath if not building gettext.
+
+	* lib/php.cygclass: Adapt for fixed PHP build system.
+
+	* bin/prep_libtool_modules.sh:
+	Check that library was properly installed.
+	Simplify code and add comments.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/php.cygclass: New cygclass for PHP PECL extensions.
+
+	* lib/gtk2-perl.cygclass:
+	Recognize CPAN_AUTHOR for modules not on sf.net (Gtk2-Notify, Goo-Canvas).
+	Set correct ldflags for Goo-Canvas.
+
+	* bin/newmenu: Fix installation directory.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/R.cygclass: New cygclass for CRAN packages.
+
+	* bin/doman: Accept --lang=xx (-l xx) to install NLS manpages.
+
+	* data/mirrors (mirror_cran): Added.
+
+	* bin/prep_gconf_schemas.sh: Get GCONF_CONFIG_SOURCE from gconftool-2.
+
+	* lib/xorg.cygclass: pixman is in lib/.
+
+	* bin/*, lib/*: Fix whitepsace.  for a in $@ -> for a.
+
+	* data/cygport.nanorc: Highlight trailing whitespace (from c.nanorc).
+
+	* lib/utils.cygport (check_header, check_lib):
+	More robust; searches gcc dirs; additional dirs added with -I and -L.
+
+	* bin/cygport.in (cygcmake): Fixed typo.
+
+	* CYGWIN-PATCHES/README:
+	* bin/Makefile.am:
+	* bin/newsbin:  Added newsbin().
+
+	* bin/cygport.in (__pkg_diff):
+	Accept RESTRICT=diff to skip .src.patch creation.
+
+	* lib/gst-plugins0.10.cygclass: Update for good .6 and bad .5.
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.3.5 ***
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	* NEWS:
+	Pre-release version bump to reflect numerous changes.
+
+	* lib/svn.cygclass: SVN_TAG now accepted.
+	SVN_BRANCH requires 'full' path (including branches/).
+
+	* lib/mono.cygclass: MONO_SOURCE_TYPE defaults to tar.bz2.
+
+	* lib/gnome.org.cygclass: Don't override preset {CVS,SVN}_URI.
+
+	* bin/cygport.in (unpack): Handle .gem with 'gem unpack'.
+	(cygautoreconf): Handle foo.out:foo.in syntax during writability check.
+
+	* lib/gst-plugins0.10.cygclass: Accomodate farsight optional features.
+
+	* lib/gtkmm.cygclass (gtkmm_autoreconf):
+	Check for scripts dir before including.
+
+	* lib/wxwidgets.cygclass: Default to wx-2.8.
+
+	* lib/gst-plugins0.10.cygclass: Better accomodate external plugins.
+
+	* lib/mono.cygclass: Don't override preset SVN_URI.
+	(mono_wrapper) Fix.
+
+	* lib/svn.cygclass: Handle SVN_URI containing trunk or branch.
+
+	* bin/cygport.in (cygautoreconf): Assure autotool files are writable.
+
+	* lib/kde3.cygclass: Fix SRC_URI for kdevelop-3.4.1+.
+
+	* lib/berkdb.cygclass: Enable Tcl bindings.
+	Rename devel package to libdbX.Y-devel.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/tcl.cygclass: New cygclass for Tcl modules.
+
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_install): Fix docdir.
+
+	* lib/bzr.cygclass:
+	* lib/cvs.cygclass:
+	* lib/git.cygclass:
+	* lib/svn.cygclass: SRC_DIR hardcoded, as there can be no choice.
+
+	* bin/prep_libtool_modules.sh: Set dependency_libs to empty.
+
+	* lib/xfce4.cygclass: Allow SRC_URI not on xfce.org.
+
+	* bin/doman: Accept more pre-gzipped manpages.
+
+	* lib/gtk2-perl.cygclass: Handle module names not beginning with G.
+
+	* lib/java.cygclass: Unset CLASSPATH to prevent Win32 Java interference.
+
+	* bin/cygport.in (__pkg_diff): Ignore Python .egg-info files.
+
+	* lib/zope.cygclass: Update for Python-2.5 and zope-3.4.
+
+	* lib/wxwidgets.cygclass (_wx_find_config, wx-config): Refactor.
+	(WX_CONFIG): Define and export.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/ocaml.cygclass: New cygclass for OCaml packages.
+
+	* bin/cygport.in (lndirs): Accepts optional args for source and target.
+	(cygcmake): New command to wrap cmake with standard args.
+
+	* lib/distutils.cygclass:
+	* lib/pygtk.cygclass:
+	* lib/python.cygclass: Python 2.5 upgrade.
+
+	* lib/pygtk.cygclass: Honour predefined ORIG_PN.
+
+	* bin/cygport.in (cygconf):
+	Create symlinks for files removed to be regenerated by configure.
+	(__pkg_diff): Ignore SlackBuild and .png files.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/xfce4.cygclass: New cygclass for Xfce 4.4.
+
+	* lib/qt3.cygclass: Add QBINDIR to PATH.
+
+	* bin/cygport.in: Accept RESTRICT.
+	(__prepstrip): Skip if RESTRICT=strip.
+
+	* CYGWIN-PATCHES/README:
+	* bin/cygport.in (__src_fetch):
+	* lib/Makefile.am:
+	* lib/bzr.cygclass: New cygclass for Bazaar-VCS checkout packages.
+
+	* lib/apache.cygclass (doapachemod): New command.
+	* lib/gtkmm.cygclass: Ignore MSVC_Net2003 during diff.
+	* lib/java.cygclass: Define JAVA_HOME.
+
+	* lib/mono.cygclass (mono_wrapper): Allow full path to wrapper.
+
+	* bin/cygport.in (cygpatch): Accept {g,bz}ipped patches.
+	(cygconf): Remove files in S that will be recreated by configure in B.
+	(__prepstrip): Don't 'chmod +x' .NET assemblies.
+	(__pkg_diff): Ignore .spec files.
+
+	* lib/python.cygclass: Provide default HOMEPAGE and SRC_URI at cheeseshop.
+	(python_optimize) Inform of action instead of showing output.
+
+	* data/mirrors (mirror_mplayer): Added.
+
+	* lib/cvs.cygclass:
+	* lib/git.cygclass:
+	* lib/svn.cygclass: Redefine, not append, SRC_URI.
+	(svn_fetch): Ignore .cvsignore files found in cvs2svn repos.
+
+	* bin/cygport.in: Index mutable, public, and private symbols in 
+	each section. Added double-underscore prefix to some private functions.
+
+	* bin/cygport.in:
+	* lib/cvs.cygclass:
+	* lib/git.cygclass:
+	* lib/svn.cygclass:
+	Reworked src_fetch and RCS_fetch to allow RCS and FTP/HTTP in SRC_URI.
+	Renamed former to __src_fetch as private API.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am:
+	* lib/zope.cygclass: New cygclass for Zope modular libraries.
+
+	* lib/java.cygclass (dojar): Renamed command.
+	(dojava): Alias to dojar.
+	(dojavadoc, java_wrapper): New install helpers.
+
+	* lib/mono.cygclass (dogac): New helper command for gacutil installation.
+
+	* bin/cygport.in (cyginstall): Redefine exec_prefix for USE_DESTDIR=0.
+	(pkg_diff): Exclude .stackdump files by default.
+
+	* bin/prep_scrollkeeper_omf.sh: Improve postinstall and add preremove.
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.3.0 ***
+
+	* bin/cygport.in (fetch): Remove tarball placeholder if download fails.
+
+	* test/Makefile.am (clean-local):
+	Remove bootstrap workdir, in case make check was interrupted.
+
+	* bin/cygport.in (keepdir): New function to keep empty directories.
+	(__prep_empty_dirs, src_postinst): Remove empty directories under $D.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am
+	* lib/berkdb.cygclass:
+	New cygclass for building the Berkeley DB versions 3.x and 4.x.
+
+	* CYGWIN-PATCHES/README:
+	* lib/Makefile.am
+	* lib/java.cygclass:
+	New cygclass for GNU Classpath based Java packages.
+
+	* bin/dosym: Properly handle multiple targets and relative targets.
+
+	* lib/python.cygclass (dopython): Install DLLs executable.
+
+	* bin/cygport.in (__mkdirs, src_prep):
+	New config/ directory for storing configuration information during build.
+	Create cygport-version file for future use.
+
+	* bin/cygport.in (__mkdirs, finish): Use user-only managed mounts.
+
+	* bin/cygport.in (cygtest): Smarter detection of make check and make test.
+
+	* lib/python.cygclass (pythoninto, dopython): New convenience functions.
+	(python_compile): Created alias to python_optimize.
+	(python_optimize):
+	Defaults to compiling in PYTHON_SITELIB if no arguments passed.
+
+	* bin/cygport.in (pkg_diff): Restructure to be more precise.
+
+	* lib/distutils.cygclass (distutils_install):
+	Only python_optimize PYTHON_SITELIB if existant. 
+
+	* lib/gst-plugins0.10.cygclass: Added new plugins in bad-10.4.
+	Force xshm support for ximage.
+	Enable cdparanoia support (requires patch to use libcdio_paranoia).
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump for post-0.2 HEAD.
+
+*** 0.2.11 ***
+
+	* Branch STABLE_0_2.
+
+	* bin/cygport.in (apply_patch): Pass --binary to patch for d2u issues.
+
+	* lib/perl.cygclass (check_perl_module): Cleaner syntax.
+
+	* lib/kde3.cygclass: Don't run kde3_autoreconf for i18n/l10n packages.
+
+	* CYGWIN-PATCHES/README:
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.2.10 ***
+
+	* README: Update location of sample.cygport.
+
+	* lib/ruby.cygclass (ruby_install): Fix last setup.rb install patch.
+
+	* lib/gst-plugins0.8.cygclass: Restore opengl plugin.
+
+	* bin/cygport.in: Allow user-specific cygport.conf files in $HOME.
+
+	* data/mirrors (mirror_apache): Added.
+
+	* lib/pygtk.cygclass: Add pytotem from gnome-python-desktop.
+
+	* data/mirrors (mirror_xfce): Added.
+
+	* lib/kde3.cygclass: Define SRC_URI for kdevelop-3.4 and amarok.
+
+	* CYGWIN-PATCHES/README
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.2.9 ***
+
+	* bin/cygport.in (unpack): Handle .shar files with unshar.
+
+	* lib/ruby.cygclass (ruby_install): Pass --prefix to setup.rb install.
+
+	* bin/cygport.in (__prepdoc): Add HISTORY to default_docs.
+
+	* bin/cygport.in (src_prep): 
+	Sanity check for origsrc/SRC_DIR before applying PATCH_URIs.
+
+	* data/mirrors (mirror_gentoo): Added.
+
+	* data/mirrors (mirror_rubyforge): Added.
+
+	* data/Makefile.am
+	* data/cygport.nanorc:
+	nano(1) syntax highlighting rcfile for cygports and cygclasses.
+
+	* bin/cygport.in: Added postinstall command for developers.
+
+	* bin/cygport.in (apply_patch): Fix patchlevel redefinition.
+
+	* lib/Makefile.am
+	* lib/apache.cygclass:
+	New cygclass for building Apache mod_* modules.
+
+	* lib/qt3.cygclass: Add --enable-auto-import to LDFLAGS.
+
+	* lib/kde3.cygclass (kde3_compile):
+	Enable arts by default. Run make apidox when applicable.
+	* (kde3_install): Handle alternate split-package naming.
+
+	* data/mirrors (mirror_berlios): Added.
+
+	* lib/ruby.cygclass (ruby_compile, ruby_install):
+	Support ruby extensions which use solely rake.
+
+	* bin/cygport.in (gpg_verify): Fix .sig extensions.
+	Patch by Eric Blake: http://cygwin.com/ml/cygwin/2007-01/msg00593.html
+
+	* lib/gnome.org.cygclass: Add GNOME SVN_URI.
+	* lib/svn.cygclass: Append SVN_BRANCH (defaults to 'trunk') to SVN_URI.
+
+	* CYGWIN-PATCHES/README
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.2.8 ***
+
+	* CYGWIN-PATCHES/README
+	* lib/Makefile.am
+	* lib/wxwidgets.cygclass:
+	New cygclass for building wxWidgets-dependent packages.
+
+	* autogen.sh: Fix ac-2.60 to 2.61 transition.
+	* bin/cygport.in (cygautoreconf): Use datarootdir with ac-2.61 also.
+	Prepare for ac-2.62.
+	Reported by Charles Wilson:
+	http://cygwin.com/ml/cygwin/2007-01/msg00109.html
+
+	* bin/cygport.in (apply_patch): Correct variable names.
+	Patch by Charles Wilson:
+	http://cygwin.com/ml/cygwin/2007-01/msg00118.html
+
+	* Add .cvsignore files.
+
+	* bin/cygport.in (apply_patch):
+	Fix patchlevel for .cygwin.patch, making code more readable as well.
+	Reported by Christian Franke:
+	http://cygwin.com/ml/cygwin/2007-01/msg00036.html
+
+	* lib/gtk2-perl.cygclass: Fix DEPS_PATH.  Fix Gnome2-Rsvg dependencies.
+
+	* CYGWIN-PATCHES/README
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.2.7 ***
+
+	* CYGWIN-PATCHES/README
+	* configure.ac
+	* doc/Makefile.am: Use groff instead of man2html.
+
+	* bin/cygport.in (__list_deps): Ignore KERNEL32.dll. Show mono dep.
+
+	* data/mirrors (mirror_trolltech): Added.
+
+	* bin/cygport.in: Support autoconf-2.61.
+
+	* bin/cygport.in: Move comment.
+	* doc/Makefile.am
+	* test/bootstrap: Fix make distcheck.
+
+	* TODO
+	* bin/cygport.in (src_fetch, src_prep, apply_patch, pkg_srcpkg):
+	Implement PATCH_URI for upstream or third-party patches.
+	(cygautoreconf): Fix where not using AC_CONFIG_HEADERS.
+
+	* data/mirrors (mirror_portage): New mirror for gentoo-x86 CVS repo.
+	(mirror_sourceforge): Prepend downloads.sourceforge.net.
+	(mirror_vim): Added.
+
+	* bin/cygport.in (__list_deps): 
+	New algorithm for calculating deps.  More accurate and usually faster.
+
+	* bin/cygport.in (fetch, src_fetch): Support HTTPS with invalid certs.
+
+	* bin/cygport.in (cygautoreconf)
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Assure that subdirs specified in AC_CONFIG_SUBDIRS grep actually exist.
+
+	* lib/perl.cygclass (perl_postinst):
+	Test for, and warn upon, use of site_perl instead of vendor_perl.
+	
+	* CYGWIN-PATCHES/README
+	* bin/Makefile.am
+	* bin/cygport.in (__prepetc)
+	* bin/prep_gtk_icon_theme.sh:
+	New postinstall step for calling gtk-update-icon-cache.
+
+	* lib/qt3.cygclass: export QTDIR.
+
+	* bin/cygport.in (verbose, cygconf, cygmake, cyginstall): Preserve
+	shell metacharacters in args.  Patch by Eric Blake
+	<http://cygwin.com/ml/cygwin/2006-12/msg00440.html>.
+
+	* lib/ruby-gnome2.cygclass:
+	Ruby-GNOME2 does not support parallel make.
+	Fix modules which don't use a src subdir.
+	Add support for modules outside of ruby-gnome2-all (e.g. gstreamer0.10).
+
+	* lib/pygtk.cygclass:
+	Add support for new bindings in gnome-python-desktop-2.16.
+
+	* lib/fox.cygclass (fox_compile):
+	Restore API reference doc generation.
+	Accept doxygen.cfg as well as Doxyfile.
+
+	* bin/*
+	* lib/*:
+	New function: defined(), behaves like the CPP macro.  Use throughout.
+	Code cleanup.
+
+	* CYGWIN-PATCHES/README
+	* autogen.sh
+	* configure.ac
+	* doc/Makefile.am:
+	Add HTML versions of man page with man2html.
+
+	* data/mirrors (mirror_gnome):
+	Remove download.gnome.org, as it just redirects to ftp.gnome.org.
+
+	* Add CVS Id keywords.
+
+	* lib/gstreamer.cygclass
+	* lib/gst-plugins0.8.cygclass
+	* lib/gst-plugins0.10.cygclass:
+	Define GST_PLUGINDIR.
+	Accept GST_PLUGINS_EXT for building separate external plugins together 
+	with base plugins.
+	Separate possible, impossible (i.e. Linux-specific) and configure test
+	module options.
+
+	* bin/cygport.in (pkg_binpkg):
+	Accept PKG_LISTS variable to define .list names; defaults to PKG_NAMES.
+
+	* bin/cygport.in (pkg_diff):
+	Exclude mdate-sh from the .src.patch.
+
+	* test/bootstrap
+	* test/messages:
+	Allow test execution when called by cygport.
+
+	* CYGWIN-PATCHES/README
+	* TODO
+	* lib/Makefile.am (cygclass_DATA)
+	* lib/cross.cygclass:
+	New cygclass for creating and using cross-compilers.
+
+	* lib/ruby.cygclass (RUBY_ARCH):
+	Define as archdir, not arch.
+
+	* CYGWIN-PATCHES/README
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.2.6 ***
+
+	* data/mirrors (mirror_gnome): Add download.gnome.org.
+
+	* bin/cygport.in (__list_deps): Fix dependency listing.
+	Patch by Eric Blake <http://cygwin.com/ml/cygwin/2006-10/msg00852.html>.
+
+	* bin/cygport.in (cygautoreconf)
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Fix support for AC_CONFIG_HEADERS([config.h:config.hin]).
+
+	* lib/pygtk.cygclass: Support pycairo.
+
+	* bin/prep_gtk2_modules.sh:
+	Set GTK_API based on built gtk+-2.0 instead of system's.
+	Fixes built of gtk+-2.10 when 2.8 is installed.
+
+	* bin/cygport.in (cygautoreconf),
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Support AC_CONFIG_HEADERS([config.h:config.hin]) syntax.
+	Patch proposed by Eric Blake /ml/cygwin/2006-10/msg00786.html
+
+	* lib/svn.cygclass (svn_fetch):
+	Allow for SVN_MODULE != ${SVN_URI##*/}; fixes netpbm build.
+
+	* lib/kde3.cygclass (kde3_install):
+	Always install application subdir documentation.
+
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Call aclocal --force with 1.10 as well.
+
+	* CYGWIN-PATCHES/README
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.2.5 ***
+
+	* bin/cygport.in (cygautoreconf)
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Fix handling of square-bracket quoting when parsing configure.ac.
+
+	* autogen.sh
+	* configure.ac
+	* Makefile.am
+	* bin/cygport.in (cygautoreconf, cygconf):
+	Add support for and require autoconf-2.60.
+
+	* bin/cygport.in:
+	Fix error redirection.
+
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Accept NO_AUTOHEADER and NO_AUTOMAKE.
+
+	* bin/cygport.in (__prepstrip, pkg_diff)
+	* lib/kde3.cygclass (kde3_autoreconf)
+	* lib/perl.cygclass (perl_postinst):
+	Use find -exec instead of pipes and xargs.
+
+	* bin/cygport.in (apply_patch): Fix handling of patches that won't apply.
+	(cyginstall): Pass MAKEOPTS to make install.
+	(pkg_diff): Fix gtk-doc excludes.
+
+	* lib/gtkmm.cygclass (gtkmm_autoreconf):
+	Define ACLOCAL to search the scripts directory.
+
+	* lib/qt3.cygclass (doqt3inc, doqt3lib, qt3pluginto, doqt3plugin):
+	New convenience functions for qt3 src_install().
+
+	* bin/cygport.in (cygautoreconf)
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Improve detection of AC_CONFIG_SUBDIRS and AC_CONFIG_HEADERS.
+
+	* bin/cygport.in (pkg_diff):
+	Ignore KDE configure.in files only if ${S}/configure.in.in is present.
+
+	* CYGWIN-PATCHES/README
+	* lib/Makefile.am (cygclass_DATA)
+	* lib/mono.cygclass:
+	New mono.cygclass for building Mono C# packages.
+
+	* CYGWIN-PATCHES/README
+	* TODO
+	* bin/cygport.in (src_unpack)
+	* lib/Makefile.am (cygclass_DATA)
+	* lib/git.cygclass:
+	New git.cygclass for git snapshots.
+
+	* bin/cygport.in (unpack):
+	Fix handling of non-tar .bz2 and .gz archives.
+
+	* data/Makefile.am:
+	Don't clobber cygport.conf on a local install.
+
+	* bin/cygport.in (cygautoreconf)
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Prevent automake from installing COPYING and INSTALL where not
+	originally included.
+
+	* bin/cygport.in (src_test, pkg_diff):
+	Handle various Makefile names.
+
+	* bin/prep_libtool_modules.sh:
+	Ignore ../bin/ when looking for module versioning.
+	Support Apache2 .so modules.
+
+	* lib/gtk2-perl.cygclass (gtk2_perl_install):
+	Add missing perl_postinst.
+
+	* data/cygport.conf
+	* data/mirrors:
+	Fix headers.
+
+	* lib/perl.cygclass:
+	Check for Module::Build before use.
+
+	* bin/cygport.in
+	* lib/xorg.cygclass:
+	Provide universal default {C,CPP,CXX,F77,GCJ}FLAGS and MAKEOPTS.
+
+	* bin/dodoc:
+	Don't overwrite already-installed files.
+
+	* CYGWIN-PATCHES/README
+	* CYGWIN-PATCHES/setup.hint
+	* README, bin/cygport.in (__prepstrip):
+	Do not strip Mono assemblies during postinstall.
+	Require binutils for objdump and strip.
+
+	* bin/cygport.in (cygautoreconf):
+	Touch README as well to prevent automake failure.
+
+	* CYGWIN-PATCHES/README
+	* TODO
+	* bin/Makefile.am
+	* bin/cygport.in
+	* data/Makefile.am
+	* data/cygport.conf
+	* data/mirrors
+	* data/sample.cygport
+	* lib/gnome.org.cygclass
+	* lib/perl.cygclass
+	* lib/gtk2-perl.cygclass
+	* lib/kde3.cygclass
+	* lib/ruby-gnome2.cygclass:
+	Implement mirror:// SRC_URIs and use throughout.
+
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Touch files whose presence is required by automake.
+
+	* lib/gst-plugins0.8.cygclass:
+	Support gst-monkeysaudio.
+
+	* CYGWIN-PATCHES/README, configure.ac:
+	Post-release version bump.
+
+*** 0.2.4 ***
+
+	* ChangeLog
+	* NEWS:
+	Tag for release.
+
+	* lib/xorg.cygclass:
+	Rename xorg-font-*-{75,100}dpi to xorg-font-*-dpi{75,100}.
+
+	* Makefile.am:
+	Since we refer to the README in help, have make install it.
+
+	* lib/kde3.cygclass (kde3_install):
+	Install component-specific README files.
+
+	* lib/gst-plugins0.8.cygclass:
+	Build smoothwave with the base plugins, as it has no external deps.
+	The flag --disable-gdk-pixbuf-loader is broken and defaults to no, so 
+	don't pass it.
+
+	* bin/cygport.in (src_prep):
+	Verify that SRC_URI is correctly defined.
+
+	* CYGWIN-PATCHES/README
+	* lib/Makefile.am
+	* lib/gst-plugins0.8.cygclass
+	* lib/gst-plugins0.10.cygclass
+	* lib/gstreamer.cygclass:
+	Create a new gstreamer cygclass which can be used by both gst-plugins
+	as well as other GStreamer packages.
+
+	* lib/gtkmm.cygclass (gtkmm_autoreconf):
+	Use cygautoreconf NO_AUTOHEADER.
+
+	* bin/cygport.in (cygautoreconf):
+	Accept NO_AUTO* variables to not use certain tools during autoreconf-2.5;
+	the most common use will be NO_AUTOHEADER.
+
+	* CYGWIN-PATCHES/README
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.2.3 ***
+
+	* bin/cygport.in (pkg_binpkg, pkg_dist):
+	If undefined, PKG_HINTS defaults to PKG_NAMES with split packages.
+	CYGWIN-PATCHES/*.list files can be used instead of PKG_CONTENTS.
+
+	* lib/gst-plugins0.8.cygclass:
+	Fix the dependency locations for 0.8.
+	Use PATH instead of LD_LIBRARY_PATH for the postinstall.
+
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_install):
+	Derive correct name of implib from extconf.rb.
+
+	* bin/prep_gconf_schemas.sh:
+	GConf-2.14 shouldn't require the shutdown/kill commands anymore.
+
+	* lib/gst-plugins0.10.cygclass:
+	Add support for Fluendo plugins.
+
+	* lib/gst-plugins0.8.cygclass:
+	Define DEPS_PATH, as 0.8 plugins can depend on others.
+	Build gconf and oss as part of the base plugins package.
+	Pass LD_LIBRARY_PATH to gst-register.
+
+	* TODO
+	* lib/Makefile.am
+	* lib/gst-plugins.cygclass
+	* lib/gst-plugins0.8.cygclass
+	* lib/gst-plugins0.10.cygclass:
+	Switch to versioned gst-plugins0.x cygclasses, and make gst-plugins
+	a wrapper which inherits the correct version, based on ${PV_MAJ_MIN}.
+
+	* bin/cygport.in (unpack):
+	Handle all files which aren't archives nor GPG sigs with cp -t.
+	Provide a default SRC_DIR of ${P}.
+
+	* bin/cygport.in (cygconf, cyginstall)
+	* lib/gnome2.cygclass (gnome2_compile):
+	Change default localstatedir to /var.
+	Override to /var/lib in gnome2 for scrollkeeper compatibility.
+
+	* bin/cygport.in (src_prep, pkg_srcpkg):
+	Don't include 0-byte .src.patch in source package.
+	Don't assume any patches are actually present.
+	Drop support for g-b-s unified patches.
+
+	* bin/cygport.in (gpg_verify, unpack, src_prep):
+	Accept .asc and .sign extensions for source GPG signatures.
+
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.2.2 ***
+
+	* bin/cygport.in (unpack):
+	Support *.pl and *.py scripts.
+
+	* lib/xorg.cygclass (src_compile):
+	Don't skip cygautoreconf with xorg-docs.
+
+	* bin/cygport.in (pkg_pkgcheck):
+	Properly check where there are both missing and duplicate files.
+
+	* bin/cygport.in (src_test, pkg_diff):
+	Support GNUmakefile.{am,in} files.
+
+	* lib/kde3.cygclass (kde3_compile):
+	Add --disable-rpath to configure options.
+	Add --disable-pie to configure options.
+	Export DO_NOT_COMPILE.
+
+	* lib/xorg.cygclass:
+	Accept package-defined ORIG_PN.
+
+	* lib/xorg.cygclass (xorg_compile):
+	Add -DX_LOCALE to CPPFLAGS.
+
+	* Makefile.am
+	* doc/Makefile.am
+	* test/Makefile.am
+	* test/bootstrap:
+	Fixed *clean make targets.
+
+	* lib/perl.cygclass (perl_compile):
+	Don't pass --prefix /usr to Build.PL after all.
+
+	* README: Various updates.
+
+	* lib/gst-plugins.cygclass (gst_plugins_autoreconf):
+	GStreamer tarballs include autogen.sh, so use it instead.
+	Add files generated by autogen.sh to DIFF_EXCLUDES.
+
+	* lib/ruby.cygclass (ruby_compile, ruby_install):
+	Accept arguments and pass them to appropriate commands.
+
+	* lib/gst-plugins.cygclass (gst_plugins_autoreconf):
+	Use gnome2_autoreconf to avoid breaking po/Makefile.in.in.
+
+	* bin/cygport.in (verbose, cygconf)
+	* lib/cvs.cygclass (cvs_unpack)
+	* lib/gnome2.cygclass (gnome2_autoreconf)
+	* lib/svn.cygclass (svn_unpack):
+	New function to print a command before execution, as make does.
+	Use throughout.
+
+	* bin/cygport.in (pkg_pkgcheck):
+	Only warn where files are missing, as there are cases where that's 
+	acceptable, but error if files are duplicated.
+
+	* bin/cygport.in (pkg_diff):
+	Ignore intltool.m4, except for within intltool.
+	Ignore omf.make and xmldocs.make, except for within gnome-common.
+
+	* lib/xorg.cygclass:
+	Don't force WANT_AUTOMAKE.
+
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Only pass --force to aclocal-1.8/1.9; earlier versions don't accept it.
+
+	* configure.ac:
+	Post-release version bump.
+
+*** 0.2.1 ***
+
+	* bin/cygport.in (pkg_pkgcheck):
+	New internal function for detecting duplicate and missing files from 
+	binary packages.  Patch provided by Reini Urban:
+	http://www.cygwin.com/ml/cygwin/2006-06/msg00140.html
+
+	* bin/cygport.in (cygautoreconf):
+	Run touch config.h.in if present, since autoheader doesn't if unchanged.
+
+	* lib/kde3.cygclass:
+	Support koffice.
+
+	* lib/qt3.cygclass (qt3_qmake):
+	Simplified.
+	Don't define src_install(), as qt3_install doesn't always work.
+
+	* lib/gnome2.cygclass (gnome2_autoreconf):
+	Totally rewritten based on gnome-autogen.sh.
+
+	* bin/cygconf.in (check_prog_req, cygautoreconf, unpack)
+	* lib/cvs.cygclass (cvs_unpack)
+	* lib/gst-plugins.cygclass (gst_plugins_autoreconf)
+	* lib/perl.cygclass
+	* lib/python.cygclass
+	* lib/ruby.cygclass
+	* lib/svn.cygclass (svn_unpack)
+	* lib/utils.cygclass (check_pkg_config):
+	New check_prog_req() function which errors if command not found.
+	Use check_prog_req throughout.
+
+	* lib/perl.cygclass (SRC_URI, perl_compile):
+	Accept CPAN_TARBALL_SUFFIX and default to tar.gz.
+	Pass arguments to perl_compile() to perl Build.PL/Makefile.PL.
+	Pass --prefix /usr to Build.PL.
+
+	* doc/Makefile.am (DISTCLEANFILES):
+	Added cygport.1.
+
+	* lib/gnome.org.cygclass:
+	Point CVS_URI to GNOME's CVS server.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.2.0 ***
+
+	* bin/Makefile.am (privbin_SCRIPTS)
+	* bin/cygport.in (__prepetc)
+	* bin/prep_perl_modules.sh
+	* lib/perl.cygclass (perl_postinst):
+	Moved the perl postinstall steps into perl.cygclass.
+
+	* bin/make_desktop_entry:
+	Properly handle desktop commands with arguments.
+
+	* lib/gtkmm.cygclass:
+	Restrict the tests directory, if present, to src_test().
+
+	* lib/perl.cygclass (check_perl_module):
+	New function for verifying presence of given Perl module(s).
+
+	* bin/cygport.in (inherit):
+	Prevent cygclasses from being imported more than once.
+
+	* bin/cygport.in:
+	Check that cygport version is as least CYGPORT_DEPEND, if defined.
+
+	* bin/cygport.in:
+	New __step function (for now, internal use only) for low-level messages.
+
+	* lib/ruby.cygclass:
+	Don't install examples, samples, etc.
+	Run rdoc on dirs defined in RDOC_SOURCE.
+
+	* configure.ac (AC_CONFIG_FILES)
+	* bin/Makefile.am:
+	Create cygport during make instead of by config.status.
+
+	* README:
+	Documented PKG_* variable usage, USE_DESTDIR, and other new features.
+
+	* autogen.sh
+	* configure.ac (AC_CONFIG_FILES)
+	* Makefile.am (SUBDIRS)
+	* data/sample.cygport (src_compile)
+	* doc/Makefile.am:
+	Create a basic man1 page, built with help2man(1).
+
+	* test/messages:
+	Test the --version argument also.
+	Remove the fake .cygport file after execution.
+
+	* bin/cygport.in (__mkdirs, apply_patch, src_prep, pkg_diff):
+	Allow SRC_DIR='.' and multiple files in SRC_URI; implementing:
+	Create top-level /origsrc dir, instead of ${S}-orig;
+	apply_patch tests different -p? args to determine correct patch level;
+	Other transparent changes to accomodate.
+
+	* Makefile.am (dist-hook):
+	chmod 644 INSTALL.
+
+	* bin/cygport.in:
+	Formatting improvements.
+
+	* bin/cygport.in (cygtest):
+	Assure presence of Makefile, else error.
+
+	* bin/cygport.in (__show_help, __show_version):
+	List download and almostall commands in --help.
+	Improve conformance with GNU Coding standards and help2man formatting.
+
+	* bin/cygport.in (cygconf):
+	Support running ${S}/configure in subdirs of ${B}; useful if running
+	multiple configure's from the same tarball (e.g. fxscintilla, fftw3, 
+	wxWidgets).
+	Implement CYGCONF_SOURCE, to be set to the directory containing 
+	configure, for those cases that it's not ${S}.
+
+	* bin/cygport.in (unpack):
+	Support RAR archives with unrar.
+	Support non-tar .bz2 and .gz archives.
+	Support .c, .patch, and .sh files.
+	Ignore .md5 and .sig files.
+	Support multiple arguments.
+
+	* bin/cygport.in (pkg_diff):
+	Ignore texinfo.tex and ylwrap.
+
+	* test/bootstrap
+	* test/messages:
+	SKIP tests if called by 'cygport check'.
+
+	* bin/cygport.in (apply_patch):
+	Pass -t (--batch) to patch, and remove -Z (--set-utc).
+
+	* bin/cygport.in (src_fetch)
+	* lib/Makefile.am (cygclass_DATA)
+	* lib/svn.cygclass:
+	New cygclass for creating packages from SVN snapshots.
+
+	* lib/python.cygclass (python_optimize)
+	* lib/ruby.cygclass (ruby_install):
+	Localize variables.
+
+	* lib/fox.cygclass:
+	Improved documentation.
+
+	* lib/emacs.cygclass (emacs_compile):
+	Only compile if check_prog emacs successful, else throw a warning.
+
+	* Added explicit GPL-2 licensing in headers of all relevant files.
+
+	* bin/cygport.in (cygautoreconf):
+	Tidying.
+
+	* bin/dodoc:
+	Assure that the given doc name is not a directory.
+	Install .txt file if extensionless file is not present.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.93 ***
+
+	* bin/prep_libtool_modules.sh:
+	Check that .la files are actually from libtool; this was failing on
+	/usr/share/xmodmap/xmodmap.la from gnome-applets, where .la there is 
+	just a language code.
+
+	* bin/cygport.in (cygconf):
+	Simplify configure directory logic.
+
+	* bin/cygport.in (error):
+	Assure that error() exits with a non-zero value.
+
+	* bin/cygport.in (src_fetch)
+	* lib/Makefile.am (cygclass_DATA)
+	* lib/cvs.cygclass:
+	New cygclass for creating packages from CVS snapshots.
+
+	* bin/cygport.in (pkg_diff):
+	Create a new ${PF}/patch directory, for easier access to patches.
+
+	* bin/cygport.in (cygconf):
+	Define --exec-prefix=/usr.
+
+	* lib/gst-plugins.cygclass:
+	Added support for new plugins in gst-plugins-{good,bad}-0.10.3.
+	Added support for gnonlin.
+
+	* bin/cygport.in (__prepdoc),
+	* bin/dodoc:
+	Move all doc checks into dodoc.
+
+	* lib/fox.cygclass (fox_autoreconf):
+	Fix sed for apps Makefile.in.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.92 ***
+
+	* bin/cygport.in:
+	More error-handling fixes.
+
+	* bin/prep_perl_modules.sh:
+	Module::Build started making .packlist files, so sed them too.
+
+	* bin/cygport.in (pkg_diff):
+	Ignore gnome-doc-utils.make, unless building gnome-doc-utils itself.
+
+	* lib/fox.cygclass:
+	Reworked to allow building the libraries and apps separately.
+
+	* lib/pygtk.cygclass:
+	Add support for pynautilus (nautilus-python).
+	Add support for gnome-python-desktop and gnome-python-extras 
+	packages whose C libraries are currently available.
+	Add support for pygtkglext.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.91 ***
+
+	* lib/pygtk.cygclass:
+	Add support for modular gnome-python* packages.
+
+	* lib/perl.cygclass
+	* lib/python.cygclass
+	* lib/ruby.cygclass:
+	Define LIBPERL, LIBPYTHON, and LIBRUBY.
+
+	* lib/utils.cygclass:
+	New function: check_pkg_config, equivalent to PKG_CHECK_MODULES.
+
+	* bin/cygport.in
+	* lib/gnome2.cygclass
+	* lib/gst-plugins.cygclass
+	* lib/perl.cygclass
+	* lib/python.cygclass
+	* lib/ruby.cygclass:
+	check_prog is back, this time based on hash.
+	Use check_prog throughout to verify presence of programs.
+
+	* bin/cygport.in:
+	Sanity check PKG_* variables for the same package quantity.
+	Provide a non-DESTDIR cyginstall if USE_DESTDIR=0.
+	Improve stage messages.
+	Try again to fix multi-command error handling.
+
+	* bin/prep_gtk2_modules.sh:
+	Get GTK_API via pkg-config.
+
+	* lib/gst-plugins.cygclass:
+	gst-plugins-ugly doesn't have sys/Makefile, so don't try to make it.
+
+	* test/Makefile.am
+	* test/bootstrap
+	* test/messages:
+	Move 'info' and '--help' tests into a separate messages test.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.90 ***
+
+	* bin/cygport.in
+	* lib/gtk2-perl.cygclass
+	* lib/ruby-gnome2.cygclass:
+	Implement DEPS_PATH for adding to PATH during __list_deps(), and defined
+	DEPS_PATH for gtk2-perl and ruby-gnome2 packages, which need it most.
+
+	* bin/cygport.in
+	* lib/gnome2.cygclass:
+	When ORIG_PN is defined, SRC_DIR defaults to $ORIG_PN-$PV.
+	Remove similar logic from gnome2 and make it global.
+
+	* lib/gnome2.cygclass:
+	Don't run autoreconf on specific data-only packages.
+
+	* lib/font.cygclass:
+	Rewritten to provide fontinto and dofont.
+
+	* Makefile.am
+	* configure.ac
+	* bin/cygport.in
+	* test/Makefile.am
+	* test/bootstrap:
+	Add CYGPORT_BOOTSTRAP mode for running cygport from the builddir,
+	and add a bootstrap test which uses this.
+
+	* CYGWIN-PATCHES/README
+	* CYGWIN-PATCHES/setup.hint
+	* Makefile.am:
+	Maintain the Cygwin README and setup.hint as part of the sources.
+
+	* lib/perl.cygclass:
+	Allow CPAN_AUTHOR to be defined as upper or lower case.
+
+	* bin/prep_libtool_modules.sh:
+	Fixed test for versioned modules.
+
+	* lib/xorg.cygclass:
+	Handle xorg-font-* fontdir configure option automatically.
+
+	* lib/gnome.org.cygclass
+	* lib/gtk2-perl.cygclass
+	* lib/gtkmm.cygclass
+	* lib/perl.cygclass
+	* lib/pygtk.cygclass:
+	Define DESCRIPTION and/or HOMEPAGE.
+
+	* bin/cygport.in:
+	New command: oldpatch, for applying patches from a previous release.
+	Implement a for loop in apply_patch().
+	Label some private functions with a __ prefix.
+	Clean up cygconf() code and output.
+
+	* bin/*
+	* lib/*:
+	Use bash parameter expansion in place of basename and dirname.
+
+	* lib/ruby.cygclass:
+	Use 'cp -Lr' for examples, etc.
+
+	* lib/gnome2.cygclass:
+	Don't run gtkdocize for gtk-doc, or intltoolize for intltool.
+
+	* bin/cygport.in:
+	Define cygconf sbindir without final forward slash.
+	Correctly handle lack of arguments.
+	Use curl for fetch() if wget is not present.
+	Make fetch() and unpack() externally useful.
+	Colorize error(), warning(), and inform().
+	Handle DIFF_EXCLUDES without specifying '-x'.
+
+	* bin/Makefile.am
+	* bin/cygport.in
+	* bin/prep_fonts_dir.sh:
+	New postinstall command for system fonts.
+
+	* bin/prep_gtk2_modules.sh:
+	Define GTK_API.
+
+	* lib/xorg.cygclass:
+	Handle doc and font packages correctly.
+
+	* lib/perl.cygclass:
+	Fix definition of HOMEPAGE.
+
+	* lib/gst-plugins.cygclass:
+	Make more robust.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.6 ***
+
+	* bin/cygport.in:
+	Attempt to fix error handling when given multiple commands.
+
+	* lib/xorg.cygclass:
+	Use releases/individual/ packages instead of X11R7.0.
+
+	* lib/Makefile.am
+	* lib/gst-plugins.cygclass
+	* lib/ruby-gnome2.cygclass:
+	TWO new cygclasses: gst-plugins and ruby-gnome2.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.5 ***
+
+	* bin/cygport.in
+	* README:
+	Rename {F} to {C}.
+
+	* bin/prep_libtool_modules.sh:
+	Fix non-existant shared module check.
+
+	* bin/cygport.in
+	* lib/gnome2.cygclass
+	* lib/perl.cygclass
+	* README:
+	check_prog didn't work; require and use which(1) instead.
+
+	* configure.in:
+	Post-release version bump.
+
+*** 0.1.4 ***
+
+	* bin/*:
+	'set -e' on all scripts.
+
+	* bin/cygport.in:
+	Added check_prog() function and use it internally.
+	diffstat patches upon creation if diffstat is installed.
+
+	* lib/fox.cygclass:
+	Set appropriate DOCS and DESCRIPTION.
+
+	* lib/perl.cygclass:
+	Set default HOMEPAGE to CPAN_AUTHOR's search.cpan.org module page.
+
+	* lib/gnome2.cygclass:
+	Set default HOMEPAGE to gnome.org.
+	Don't run gnome-doc-prepare when building gnome-doc-utils.
+
+	* bin/cygport.in:
+	Add pkg_dist() to packaging stages.
+	Check for setup.hint files presence during pkg_dist().
+	Avoid recursive directory loops with top-level CYGWIN-PATCHES symlink.
+	Create ${S}-orig only if nonexistant.
+	Exclude more file patterns from gtk-doc package diffs.
+	Localize function variables.
+
+	* bin/prep_libtool_modules.sh:
+	Raise error if dynamic module is missing.
+
+	* configure.in: 
+	Post-release version bump.
+
+*** 0.1.3 ***
+
+	* bin/Makefile.am
+	* bin/cygport.in
+	* bin/prep_gtk2_modules.sh:
+	New postinstall script for Pango and GTK2 modules.
+
+	* lib/gnome2.cygclass:
+	Also update gnome-doc-utils.make.
+
+	* bin/cygport.in:
+	Look for multiple-package Cygwin READMEs also by PKG_HINTS names.
+	Switch from exit to return in error().
+	Wait a second before removing workdir.
+	Fix gtk-doc dependent patch excludes.
+	Remove src_orig_pkg during src_fetch() if already present.
+	Removed clean().
+	export inherit().
+	
+	* bin/Makefile.am
+	* bin/make_managed_mount:
+	New command for making installable managed mounts.
+
+	* bin/make_desktop_entry:
+	Removed extraneous warning.
+
+	* lib/ruby.cygclass:
+	Added Ruby directory variables.
+
+	* lib/python.cygclass
+	* lib/distutils.cygclass
+	* lib/pygtk.cygclass:
+	Consistent naming for Python directory variables.
+
+	* lib/perl.cygclass
+	* lib/gtk2-perl.cygclass:
+	Consistent naming for Perl directory variables.
+
+	* bin/prep_perl_localpod.sh:
+	inherit perl.
+
+	* configure.in: 
+	Post-release version bump.
+
+*** 0.1.2 ***
+
+	* bin/cygport.in:
+	Create top-level symlink to CYGWIN-PATCHES directory.
+	Fix error message.
+	Fix LDFLAGS export.
+
+	* lib/Makefile.am
+	* lib/fox.cygclass:
+	New cygclass for the FOX Toolkit.
+	
+	* lib/kde3.cygclass
+	* lib/qt3.cygclass:
+	Fix handling of Q*DIR variables.
+
+	* lib/kde3.cygclass:
+	Set HOMEPAGE and SRC_URI.
+
+	* configure.in: 
+	Post-release version bump.
+
+*** 0.1.1 ***
+
+	* lib/xorg.cygclass:
+	Accomodate xorg-scripts.
+
+	* lib/gtk2-perl.cygclass:
+	Gtk2 (>=1.120) now requires Cairo at link time.
+
+	* lib/Makefile.am
+	* lib/pygtk.cyglass:
+	New cygclass for PyGTK packages.
+
+	* bin/prep_perl_localpod.sh:
+	Fix .packlist only for EU::MM modules; Module::Build doesn't use .packlist.
+
+	* lib/perl.cygclass: 
+	Set SRC_URI based on value of CPAN_AUTHOR.
+
+	* bin/cygport.in: 
+	declare PVP as an array.
+
+	* configure.in: 
+	Post-release version bump.
+
+*** 0.1.0 ***
+
+	First public test release.
