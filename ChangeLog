@@ -1,5 +1,8 @@
 2008-Aug-22  yselkowitz
 
+	* lib/gtk2-perl.cygclass: PODs and manpages build OOTB on 1.7.
+	Inter-module linking fixed in perl 5.10.0-5 and EU::D 0.300-2.
+
 	* bin/cygport.in (__mkdirs, __finish): Managed mounts are extinct.
 	bin/Makefile.am: Do not install make_managed_mount.
 

@@ -1,7 +1,6 @@
 Possible changes for 0.9 (Cygwin 1.7):
 
 * Fix rcs tarball names to allow more than one at a time
-* Remove prep_gnu_info and rely on _update-info-dir (?)
 * Delete prep_scrollkeeper_omf, no longer needed with rarian
 * autotools: move cygautoreconf and cygconf here, and auto-inherit (?)
 * berkdb: remove java
@@ -10,8 +9,6 @@ Possible changes for 0.9 (Cygwin 1.7):
 * emacs: not working, remove (?)
 * fox: change to wxwidgets-like fox-config wrapper
 * gst-plugins0.8: remove (?)
-* gtk2-perl: patches for EU::D and EU::Liblist::Kid may allow OOTB build
-* gtk2-perl: "::" hack not needed, if setup.exe supports it
 * mono: remove -j1, move to .cygport's
 * qt3: separate qt3-qmake from qt3
 * svn: fix SVN_MODULE
