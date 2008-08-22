@@ -1,6 +1,5 @@
 Possible changes for 0.9 (Cygwin 1.7):
 
-* No more managed mounts
 * Fix rcs tarball names to allow more than one at a time
 * Remove prep_gnu_info and rely on _update-info-dir (?)
 * Delete prep_scrollkeeper_omf, no longer needed with rarian

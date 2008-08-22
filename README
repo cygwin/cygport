@@ -195,19 +195,6 @@ determine the original source package and assume its top directory name;
 if the latter does not conform to PKGNAME-VERSION (in cygport syntax,
 ${PN}-${PV}, or ${P}), then define SRC_DIR.
 
-There are certain cases where building within a managed mount is required, 
-namely where the source package:
-
-    * contains illegal Windows filenames;
-    * contains filenames in the same directory with the same name but 
-      different capitalizations (one of which will be overwritten if 
-      unpacked normally),
-    * contains headers with same name but different capitalization with
-      system headers which are also used.
-
-In these cases, a managed mount may be used automatically by defining 
-USE_MANAGED_MOUNT.
-
 During the src_* functions, be sure to cd into the correct directory. 
 The directories are defined by cygport as follows:
 

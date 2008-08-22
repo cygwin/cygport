@@ -434,7 +434,6 @@ readonly -f check_prog check_prog_req __check_function __check_unstable __versio
 #
 # mutable:
 #	DISTCLEANFILES
-#	USE_MANAGED_MOUNT
 #	src_patch_hook()
 #	src_unpack_hook()
 #
@@ -653,14 +652,6 @@ __gpg_verify() {
 
 __mkdirs() {
 	cd ${top};
-
-	mkdir -p ${workdir};
-
-	if defined USE_MANAGED_MOUNT
-	then
-		mount -u -o managed $(cygpath -w ${workdir}) ${workdir} || error "managed mount creation failed"
-	fi
-
 	mkdir -p ${srcdir} ${origsrcdir} ${B} ${D} ${T} ${configdir} ${logdir} ${distdir} ${patchdir} ${spkgdir};
 }
 
@@ -2139,16 +2130,7 @@ __finish() {
 
 	__step "Removing work directory NOW.";
 
-	rm -rf ${workdir}/*;
-
-	sleep 1;
-
-	if defined USE_MANAGED_MOUNT
-	then
-		umount -u ${workdir} || warning "managed mount removal failed";
-	fi
-
-	rmdir ${workdir};
+	rm -rf ${workdir};
 
 	__step "Finished.";
 }

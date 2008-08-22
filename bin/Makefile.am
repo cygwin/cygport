@@ -32,7 +32,6 @@ dist_privbin_SCRIPTS = \
 	newsbin \
 	make_desktop_entry \
 	make_etc_defaults \
-	make_managed_mount \
 	prep_fonts_dir.sh \
 	prep_freedesktop_mime.sh \
 	prep_gconf_schemas.sh \
