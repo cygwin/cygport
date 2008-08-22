@@ -1,5 +1,7 @@
 2008-Aug-22  yselkowitz
 
+	* bin/cygport.in: Only run on Cygwin 1.7.
+
 	* bin/cygport.in (__prepinfo): Compress only *.info* files.
 
 	* configure.in: Post-release version bump.

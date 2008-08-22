@@ -78,6 +78,13 @@ alias ifndef="if ! defined"
 ################################################################################
 set -e;
 
+# Make sure we are on 1.7 before proceeding
+case $(uname -r) in
+	1.7.*)	;;
+	1.5.*)	echo -e " \e[1;31m*\e[0;0m cygport 0.4 is required for Cygwin 1.5."; exit 127 ;;
+	*)		echo -e " \e[1;31m*\e[0;0m cygport: Unknown cygwin version: $(uname -r)"; exit 127 ;;
+esac
+
 declare -rx _name=@PACKAGE@;
 declare -r  _version=@VERSION@;
 
