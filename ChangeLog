@@ -1,4 +1,6 @@
 
+	* bin/cygport.in (__prepinfo): Compress only *.info* files.
+
 	* configure.ac: Post-release version bump.
 
 *** 0.3.13 ***

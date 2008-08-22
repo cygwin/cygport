@@ -1566,7 +1566,7 @@ __prepinfo() {
 
 		echo "Compressing info pages:";
 
-		for infopage in $(find ${D}/usr/share/info -type f ! -name '*.gz' ! -name '*.bz2')
+		for infopage in $(find ${D}/usr/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2')
 		do
 			echo "        ${infopage##*/}";
 			gzip -q ${infopage};
