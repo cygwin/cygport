@@ -1,5 +1,7 @@
 2008-Aug-22  yselkowitz
 
+	* lib/Makefile.am (cygclass_DATA): Don't install gst-plugins0.8.cygclass.
+
 	* lib/gtk2-perl.cygclass: PODs and manpages build OOTB on 1.7.
 	Inter-module linking fixed in perl 5.10.0-5 and EU::D 0.300-2.
 
