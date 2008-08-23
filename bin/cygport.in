@@ -69,9 +69,9 @@ alias ifndef="if ! defined"
 #	_name
 #	_prefix
 #	_privbindir
+#	_privclassdir
 #	_privdatadir
 #	_privdocdir
-#	_privlibdir
 #	_sysconfdir
 #	_version
 #
@@ -95,18 +95,19 @@ then
 		/*) declare -rx _prefix=${top_srcdir} ;;
     esac
 
-	declare -r _privdatadir=${_prefix}/data;
-	declare -r _privdocdir=${_prefix};
-	declare -r _sysconfdir=${_prefix}/data;
+	declare -r  _privbindir=${_prefix}/bin;
+	declare -r  _privdatadir=${_prefix}/data;
+	declare -rx _privclassdir=${_prefix}/lib;
+	declare -r  _privdocdir=${_prefix};
+	declare -r  _sysconfdir=${_prefix}/data;
 else
 	declare -rx _prefix=@pkglibdir@;
+	declare -r  _privbindir=${_prefix}/bin;
 	declare -r  _privdatadir=@pkgdatadir@;
+	declare -rx _privclassdir=${_privdatadir}/cygclass;
 	declare -r  _privdocdir=@docdir@;
 	declare -r  _sysconfdir=@sysconfdir@;
 fi
-
-declare -r  _privbindir=${_prefix}/bin;
-declare -rx _privlibdir=${_prefix}/lib;
 
 declare -r os_path="$PATH";
 declare -x PATH="${_privbindir}:$PATH";
@@ -2172,14 +2173,14 @@ inherit() {
 	do
 		classname=${class%.cygclass}
 
-		if [ ! -f ${_privlibdir}/${classname}.cygclass ]
+		if [ ! -f ${_privclassdir}/${classname}.cygclass ]
 		then
 			error "inherit: unknown cygclass ${class}";
 		fi
 
 		if ! defined _${classname//[-\.]/_}_CYGCLASS_
 		then
-			source ${_privlibdir}/${classname}.cygclass || error "inherit ${classname} failed"
+			source ${_privclassdir}/${classname}.cygclass || error "inherit ${classname} failed"
 			export _${classname//[-\.]/_}_CYGCLASS_=1
 		fi
 	done

@@ -1,5 +1,8 @@
 2008-Aug-22  yselkowitz
 
+	* bin/cygport.in (_privclassdir): Move to $pkgdatadir/cygclass.
+	lib/Makefile.am (cygclassdir): Ditto.
+
 	* lib/Makefile.am (cygclass_DATA): Don't install gst-plugins0.8.cygclass.
 
 	* lib/gtk2-perl.cygclass: PODs and manpages build OOTB on 1.7.

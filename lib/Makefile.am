@@ -1,4 +1,4 @@
-cygclassdir = $(pkglibdir)/lib
+cygclassdir = $(pkgdatadir)/cygclass
 
 dist_cygclass_DATA = 			\
 	apache.cygclass				\
