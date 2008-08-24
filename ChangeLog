@@ -1,5 +1,7 @@
 2008-Aug-24  yselkowitz
 
+	* bin/cygport.in: Make dependency on diffstat required.
+
 	* lib/fox-build.cygclass, lib/Makefile.am: Renamed old fox.cygclass.
 	lib/fox.cygclass: Replaced with wxwidgets-style fox-config wrapper.
 

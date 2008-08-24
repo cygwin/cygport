@@ -413,8 +413,8 @@ then
 fi
 
 # check now for all mandatory programs
-for _myprog in bzip2 cat chmod cp cygcheck diff find grep gzip install ln \
-               mkdir mv objdump patch rm rsync sed sort strip tar xargs
+for _myprog in bzip2 cat chmod cp cygcheck diff diffstat find grep gzip install \
+               ln mkdir mv objdump patch rm rsync sed sort strip tar xargs
 do
 	if ! check_prog ${_myprog}
 	then
@@ -2006,11 +2006,7 @@ __pkg_diff() {
 
 	sed -e '/^diff -urN/d' -i ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
 
-	if check_prog diffstat
-	then
-		diffstat -p${difflevel} ${patchdir}/${cygwin_patchfile} \
-			${patchdir}/${src_patchfile};
-	fi
+	diffstat -p${difflevel} ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
 }
 
 __gpg_sign() {
