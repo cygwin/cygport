@@ -1,0 +1,78 @@
+################################################################################
+#
+# qt3-qmake.cygclass - functions for building QMake-based Qt3 packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+inherit qt3
+
+cygqmake3() {
+	local pro
+
+	if [ ! -x ${QT3_QMAKE} ]
+	then
+		error "qt3-devel is required to build this package"
+	fi
+
+	for pro in $(find . -name '*.pro')
+	do
+		rm -f ${pro%/*}/Makefile
+
+		${QT3_QMAKE} -spec cygwin-g++ -o ${pro%/*}/Makefile ${pro} \
+			|| error "qmake ${pro} failed"
+	done
+}
+
+qt3_qmake_compile() {
+	cygqmake3
+	cygmake
+}
+
+# FIXME: This won't work for most packages!!!
+qt3_qmake_install() {
+	local dll pc
+
+	make install INSTALL_ROOT=${D} || error "make install failed"
+
+	for dll in $(find ${D}${QT3_LIBDIR} -name '*.dll' 2> /dev/null)
+	do
+		dodir /usr/bin
+		mv ${dll} ${D}/usr/bin/
+	done
+
+	for pc in $(find ${D}${QT3_LIBDIR}/pkgconfig -name '*.pc' 2> /dev/null)
+	do
+		dodir /usr/lib/pkgconfig
+		mv ${pc} ${D}/usr/lib/pkgconfig/
+	done
+}
+
+src_compile() {
+	lndirs
+	cd ${B}
+	qt3_qmake_compile
+}
+
+src_install() {
+	cd ${B}
+	qt3_qmake_install
+}

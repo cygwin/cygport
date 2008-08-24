@@ -3,7 +3,7 @@
 # qt3.cygclass - functions for building Qt3-dependent packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -25,12 +25,6 @@
 
 export QTDIR=/usr/lib/qt3
 
-# deprecated
-QBINDIR=/usr/lib/qt3/bin
-QINCLUDEDIR=/usr/include/qt3
-QLIBDIR=/usr/lib/qt3/lib
-QDATADIR=/usr/share/qt3
-
 QT3_BINDIR=/usr/lib/qt3/bin
 QT3_INCLUDEDIR=/usr/include/qt3
 QT3_LIBDIR=/usr/lib/qt3/lib
@@ -41,44 +35,8 @@ QT3_QMAKE=${QT3_BINDIR}/qmake
 QT3_MOC=${QT3_BINDIR}/moc
 QT3_UIC=${QT3_BINDIR}/uic
 
-PATH="${QBINDIR}:${PATH}"
+PATH="${QT3_BINDIR}:${PATH}"
 LDFLAGS+=" -Wl,--enable-auto-import"
-
-cygqmake3() {
-	local pro
-
-	if [ ! -x ${QT3_QMAKE} ]
-	then
-		error "qt3-devel is required to build this package"
-	fi
-
-	for pro in $(find . -name '*.pro')
-	do
-		rm -f ${pro%/*}/Makefile
-
-		${QT3_QMAKE} -spec cygwin-g++ -o ${pro%/*}/Makefile ${pro} \
-			|| error "qmake ${pro} failed"
-	done
-}
-
-# deprecated
-qt3_qmake() { cygqmake3 ; }
-
-# FIXME: This won't work for most packages!!!
-qt3_install() {
-	make install INSTALL_ROOT=${D}/usr/ || error "make install failed"
-}
-
-src_compile() {
-	lndirs
-	cd ${B}
-	cygqmake3
-	cygmake
-}
-
-src_test() {
-	:
-}
 
 #
 # Convenience functions for custom src_install()

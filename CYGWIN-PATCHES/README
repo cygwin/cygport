@@ -131,6 +131,7 @@ Files included in the binary package:
   /usr/share/cygport/cygclass/pygtk.cygclass
   /usr/share/cygport/cygclass/python.cygclass
   /usr/share/cygport/cygclass/qt3.cygclass
+  /usr/share/cygport/cygclass/qt3-qmake.cygclass
   /usr/share/cygport/cygclass/qt4.cygclass
   /usr/share/cygport/cygclass/qt4-cmake.cygclass
   /usr/share/cygport/cygclass/qt4-qmake.cygclass

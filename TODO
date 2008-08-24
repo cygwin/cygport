@@ -7,7 +7,6 @@ Possible changes for 0.9 (Cygwin 1.7):
 * cross: overhaul, support mingw (perhaps separate mingw.cygclass)
 * emacs: not working, remove (?)
 * mono: remove -j1, move to .cygport's
-* qt3: separate qt3-qmake from qt3
 * svn: fix SVN_MODULE
 
 

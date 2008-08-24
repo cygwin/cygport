@@ -1,5 +1,10 @@
 2008-Aug-24  yselkowitz
 
+	* lib/qt3.cygclass:
+	lib/qt3-qmake.cygclass:
+	lib/Makefile.am:
+	Move qmake code into separate qt3-qmake cygclass.
+
 	* bin/cygport.in: Make dependency on diffstat required.
 
 	* lib/fox-build.cygclass, lib/Makefile.am: Renamed old fox.cygclass.
