@@ -1,0 +1,208 @@
+################################################################################
+#
+# fox.cygclass - functions for building the FOX Toolkit
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+# This eclass allows building parallel-installable FOX Toolkit packages
+# (fox1?, fox1?-devel, fox1?-doc), while installing only one version of
+# the utilities (reswrap) and apps (adie, calculator, pathfinder,
+# shutterbug).
+#
+# Version numbering follows the kernel-style odd-even minor version
+# designation.  Even-number minor versions are API stable, which patch
+# releases aimed mostly at the library; apps generally won't need to be
+# bumped for a patch release.
+#
+# Odd-number versions are development branches with their own SLOT and
+# are API unstable; changes are made to the apps, and likely need to be
+# bumped together with the library.
+#
+# This cygclass is only meant for building the FOX Toolkit and its included
+# programs, NOT for packages dependent on FOX.
+
+HOMEPAGE="http://www.fox-toolkit.org/"
+SRC_URI="http://www.fox-toolkit.org/ftp/fox-${PV}.tar.gz"
+SRC_DIR=fox-${PV}
+
+slot=${PVP[0]}.${PVP[1]}
+
+case ${slot} in
+	1.0) error "fox: version 1.0 does not run when build with current toolchain" ;;
+esac
+
+DOCS="ADDITIONS LICENSE_ADDENDUM TRACING"
+FOX_APPS="adie calculator pathfinder shutterbug"
+
+case ${PN} in
+	fox)
+		DESCRIPTION="FOX C++ GUI Toolkit (${slot} branch)"
+		PKG_NAMES="${PN} ${PN}${slot/.} ${PN}${slot/.}-devel ${PN}${slot/.}-doc reswrap ${FOX_APPS}"
+		PKG_HINTS="setup lib devel doc reswrap ${FOX_APPS}"
+		PKG_CONTENTS[0]="usr/share/doc/Cygwin/ usr/share/doc/${P}/"
+		PKG_CONTENTS[1]="usr/bin/*.dll"
+		PKG_CONTENTS[2]='usr/bin/*-config usr/include/ usr/lib/'
+		PKG_CONTENTS[3]="usr/share/doc/fox-${slot}/"
+		PKG_CONTENTS[4]="usr/bin/reswrap* usr/share/man/man1/reswrap.*"
+		PKG_CONTENTS[5]="usr/bin/Adie.stx "
+		n=5
+		for app in ${FOX_APPS/pathfinder/PathFinder}
+		do
+			PKG_CONTENTS[$((n++))]+="usr/bin/${app}*
+			                         usr/share/applications/${app}.*
+			                         usr/share/man/man1/${app}.*
+			                         usr/share/pixmaps/${app}.*"
+		done
+		unset n
+		fox_subdir=.
+		;;
+	fox${slot/.})
+		DESCRIPTION="FOX C++ GUI Toolkit (${slot} branch)"
+		PKG_NAMES="${PN} ${PN}-devel ${PN}-doc"
+		PKG_HINTS="setup devel doc"
+		PKG_CONTENTS[0]="usr/bin/*.dll usr/share/doc/Cygwin/ usr/share/doc/${P}/"
+		PKG_CONTENTS[1]='usr/bin/*-config usr/include/ usr/lib/'
+		PKG_CONTENTS[2]="usr/share/doc/fox-${slot}/"
+		fox_subdir=.
+		;;
+	reswrap)
+		DESCRIPTION="${PN} utility for the FOX C++ GUI Toolkit"
+		fox_subdir=utils
+		;;
+	adie|calculator|pathfinder|shutterbug)
+		DESCRIPTION="${PN} application from the FOX C++ GUI Toolkit"
+		fox_subdir=${PN}
+		;;
+	*)	error "fox: unknown package name: ${PN}" ;;
+esac
+
+fox_autoreconf() {
+	WANT_AUTOCONF=2.5
+	WANT_AUTOMAKE=1.4
+	cygautoreconf
+
+	# Fix the Makefiles to use the system-installed components
+	case ${PN} in
+		fox${slot/.})
+			sed -e 's:\$(top_builddir)/utils/reswrap:/usr/bin/reswrap:g' \
+				-i $(find . -name Makefile.in)
+			sed -e 's:^SUBDIRS.*:SUBDIRS = include src chart doc:' \
+				-i Makefile.in
+			;;
+		adie|calculator|pathfinder|shutterbug)
+			sed -e 's:\$(top_builddir)/utils/reswrap:/usr/bin/reswrap:g' \
+				-e "s:-I\$(top_srcdir)/include -I\$(top_builddir)/include:-I\$(includedir)/fox-${slot}:g" \
+				-e 's:\$(top_builddir)/src/libFOX:/usr/lib/libFOX:g' \
+				-e 's:\.\./src/libFOX:/usr/lib/libFOX:g' \
+				-i ${fox_subdir}/Makefile.in
+			;;
+	esac
+}
+
+fox_compile() {
+	case ${PN} in
+		adie|calculator|pathfinder|shutterbug)
+			if [ ! -f /usr/lib/libFOX-${slot}.la ]
+			then
+				error "fox: ${PN} requires installed fox${slot/.}-devel"
+			fi
+	esac
+
+	cygconf \
+		--disable-static \
+		--enable-bz2lib \
+		--enable-jpeg \
+		--enable-png \
+		--enable-release \
+		--enable-threads \
+		--enable-tiff \
+		--enable-zlib \
+		--with-opengl \
+		--with-shape \
+		--with-xcursor \
+		--with-xft \
+		--with-xrandr \
+		--without-xshm \
+		"${@}"
+
+	cd ${fox_subdir}
+	cygmake
+
+	if [ -f doc/Doxyfile -o -f doc/doxygen.cfg ]
+	then
+		cygmake -C doc docs
+	fi
+}
+
+fox_install() {
+	cd ${fox_subdir}
+	cyginstall \
+		htmldir=/usr/share/doc/fox-${slot}/html \
+		artdir=/usr/share/doc/fox-${slot}/html/art \
+		screenshotsdir=/usr/share/doc/fox-${slot}/html/screenshots
+
+	if [ -d ${B}/doc/ref ]
+	then
+		cp -Rp ${B}/doc/ref ${D}/usr/share/doc/fox-${slot}/html
+	fi
+
+	if [ -f ${D}/usr/bin/fox-config ]
+	then
+		mv ${D}/usr/bin/fox-config ${D}/usr/bin/fox-${slot}-config
+	fi
+
+	if [ -f ${D}/usr/bin/adie.exe ]
+	then
+		newicon ${S}/adie/big_gif.gif adie.gif
+		make_desktop_entry adie "Adie Text Editor" adie.gif "TextEditor"
+	fi
+
+	if [ -f ${D}/usr/bin/calculator.exe ]
+	then
+		newicon ${S}/calculator/bigcalc.gif calculator.gif
+		make_desktop_entry calculator "FOX Calculator" calculator.gif "Science;Calculator"
+	fi
+
+	if [ -f ${D}/usr/bin/PathFinder.exe ]
+	then
+		newicon ${S}/pathfinder/iconpath.gif PathFinder.gif
+		make_desktop_entry PathFinder "PathFinder" PathFinder.gif "FileManager"
+	fi
+
+	if [ -f ${D}/usr/bin/shutterbug.exe ]
+	then
+		doicon ${S}/shutterbug/shutterbug.gif
+	    make_desktop_entry shutterbug "ShutterBug" shutterbug.gif "Graphics"
+	fi
+}
+
+src_compile() {
+	cd ${S}
+	fox_autoreconf
+	cd ${B}
+	fox_compile
+}
+
+src_install() {
+	cd ${B}
+	fox_install
+}

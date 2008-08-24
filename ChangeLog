@@ -1,5 +1,8 @@
 2008-Aug-24  yselkowitz
 
+	* lib/fox-build.cygclass, lib/Makefile.am: Renamed old fox.cygclass.
+	lib/fox.cygclass: Replaced with wxwidgets-style fox-config wrapper.
+
 	* configure.in: Post-release version bump.
 
 2008-Aug-22  yselkowitz

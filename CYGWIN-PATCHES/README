@@ -105,6 +105,7 @@ Files included in the binary package:
   /usr/share/cygport/cygclass/emacs.cygclass
   /usr/share/cygport/cygclass/font.cygclass
   /usr/share/cygport/cygclass/fox.cygclass
+  /usr/share/cygport/cygclass/fox-build.cygclass
   /usr/share/cygport/cygclass/ggz.cygclass
   /usr/share/cygport/cygclass/git.cygclass
   /usr/share/cygport/cygclass/gnome.org.cygclass
