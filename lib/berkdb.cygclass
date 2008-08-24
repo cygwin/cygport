@@ -23,24 +23,7 @@
 #
 ################################################################################
 
-# DB-4.7's Direct Persistence Layer API requires Java 1.5 (generics)
-__berkdb_build_java() {
-	local ret;
-
-	case ${SLOT} in
-		3.*|4.[0-6])	ret=0 ;;
-		4.*)	ret=1 ;;
-	esac
-
-	return ${ret}
-}
-
 inherit tcl
-
-if __berkdb_build_java
-then
-	inherit java
-fi
 
 case ${PV_MAJ_MIN} in
 	3.*|4.*)	SLOT="${PV_MAJ_MIN}" ;;
@@ -69,13 +52,6 @@ PKG_CONTENTS[1]="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
 PKG_CONTENTS[2]="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib*"
 PKG_CONTENTS[3]="usr/share/doc/${P}/html/"
 PKG_CONTENTS[4]="${TCL_LIBDIR#/}"
-
-if __berkdb_build_java
-then
-	PKG_NAMES+=" java-${PN}"
-	PKG_HINTS+=" java"
-	PKG_CONTENTS[5]="usr/bin/cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
-fi
 
 DIFF_EXCLUDES="aclocal.m4 configure config.hin db.jar libtool.ac lt*.ac"
 
@@ -120,13 +96,6 @@ berkdb_autoreconf() {
 }
 
 berkdb_compile() {
-	if __berkdb_build_java
-	then
-		use_java="--enable-java"
-	else
-		use_java="--disable-java"
-	fi
-
 	CYGCONF_SOURCE=${S}/dist \
 	cygconf \
 		--includedir=/usr/include/db${SLOT} \
@@ -136,7 +105,7 @@ berkdb_compile() {
 		--enable-dynamic \
 		--enable-test \
 		--enable-tcl --with-tcl=/usr/lib \
-		${use_java}
+		--disable-java
 
 	cygmake libdb-${SLOT}.la
 
@@ -185,14 +154,6 @@ berkdb_install() {
 	mv ${D}/usr/lib/cygdb_tcl-${SLOT}.dll ${D}${TCL_LIBDIR}/db${SLOT}/
 	echo pkg_mkIndex ${D}${TCL_LIBDIR}/db${SLOT} cygdb_tcl-${SLOT}.dll | ${TCLSH}
 	sed -i -e "s#${D}##g" ${D}${TCL_LIBDIR}/db${SLOT}/pkgIndex.tcl
-
-	if __berkdb_build_java
-	then
-		sed -i -e 's#shouldnotlink=no#shouldnotlink=yes#' ${D}/usr/lib/libdb_java-${SLOT}.la
-		# relocate and slot Java jar
-		dodir ${JAVA_DIR}
-		mv ${D}/usr/lib/db.jar ${D}${JAVA_DIR}/db-${SLOT}.jar
-	fi
 }
 
 berkdb_postinst() {

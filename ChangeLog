@@ -1,5 +1,7 @@
 2008-Aug-24  yselkowitz
 
+	* lib/berkdb.cygclass: Disable building of Java bindings.
+
 	* lib/mono.cygclass: Remove MAKEOPTS override.
 
 	* lib/qt3.cygclass:
