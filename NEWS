@@ -1,4 +1,10 @@
-0.3.13:
+0.9.0:
+	* Run only on Cygwin 1.7.
+	* Removed all managed mount code.
+	* cygclasses now installed into ${datadir}/cygport/cygclass.
+	* gtk2-perl.cygclass: Adapt for Cygwin 1.7 and patches to perl and EU:D.
+
+0.3.13:  CYGWIN-1.5 Branchpoint
 	* Added dependency on rsync.
 	* cygautoreconf(): Accepts ACLOCAL_FLAGS.
 	* No longer generates postinstall scripts for GNU info files.

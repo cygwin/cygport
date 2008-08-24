@@ -45,15 +45,15 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack cygport-0.3.13-X-src.tar.bz2
+  unpack cygport-0.9.0-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./cygport-0.3.13-X.cygport all
+  cygport ./cygport-0.9.0-X.cygport all
 
 This will create:
-  /usr/src/cygport-0.3.13-X-src.tar.bz2
-  /usr/src/cygport-0.3.13-X.tar.bz2
+  /usr/src/cygport-0.9.0-X-src.tar.bz2
+  /usr/src/cygport-0.9.0-X.tar.bz2
 
 -------------------------------------------
 
@@ -89,77 +89,77 @@ Files included in the binary package:
   /usr/lib/cygport/bin/prep_gtk_icon_theme.sh
   /usr/lib/cygport/bin/prep_gtk2_modules.sh
   /usr/lib/cygport/bin/prep_libtool_modules.sh
-  /usr/lib/cygport/lib/R.cygclass
-  /usr/lib/cygport/lib/apache.cygclass
-  /usr/lib/cygport/lib/apache1.cygclass
-  /usr/lib/cygport/lib/apache2.cygclass
-  /usr/lib/cygport/lib/aspell-dict.cygclass
-  /usr/lib/cygport/lib/berkdb.cygclass
-  /usr/lib/cygport/lib/bzr.cygclass
-  /usr/lib/cygport/lib/claws-mail.cygclass
-  /usr/lib/cygport/lib/cross.cygclass
-  /usr/lib/cygport/lib/cvs.cygclass
-  /usr/lib/cygport/lib/distutils.cygclass
-  /usr/lib/cygport/lib/docbook.cygclass
-  /usr/lib/cygport/lib/ebook.cygclass
-  /usr/lib/cygport/lib/emacs.cygclass
-  /usr/lib/cygport/lib/font.cygclass
-  /usr/lib/cygport/lib/fox.cygclass
-  /usr/lib/cygport/lib/ggz.cygclass
-  /usr/lib/cygport/lib/git.cygclass
-  /usr/lib/cygport/lib/gnome.org.cygclass
-  /usr/lib/cygport/lib/gnome2.cygclass
-  /usr/lib/cygport/lib/gst-plugins.cygclass
-  /usr/lib/cygport/lib/gst-plugins0.8.cygclass
-  /usr/lib/cygport/lib/gst-plugins0.10.cygclass
-  /usr/lib/cygport/lib/gstreamer.cygclass
-  /usr/lib/cygport/lib/gtk2-perl.cygclass
-  /usr/lib/cygport/lib/gtkmm.cygclass
-  /usr/lib/cygport/lib/hg.cygclass
-  /usr/lib/cygport/lib/java.cygclass
-  /usr/lib/cygport/lib/kde3.cygclass
-  /usr/lib/cygport/lib/kde4.cygclass
-  /usr/lib/cygport/lib/lua.cygclass
-  /usr/lib/cygport/lib/mono.cygclass
-  /usr/lib/cygport/lib/mtn.cygclass
-  /usr/lib/cygport/lib/ocaml.cygclass
-  /usr/lib/cygport/lib/octave.cygclass
-  /usr/lib/cygport/lib/opensync.cygclass
-  /usr/lib/cygport/lib/perl.cygclass
-  /usr/lib/cygport/lib/php.cygclass
-  /usr/lib/cygport/lib/pygtk.cygclass
-  /usr/lib/cygport/lib/python.cygclass
-  /usr/lib/cygport/lib/qt3.cygclass
-  /usr/lib/cygport/lib/qt4.cygclass
-  /usr/lib/cygport/lib/qt4-cmake.cygclass
-  /usr/lib/cygport/lib/qt4-qmake.cygclass
-  /usr/lib/cygport/lib/ruby.cygclass
-  /usr/lib/cygport/lib/ruby-gnome2.cygclass
-  /usr/lib/cygport/lib/svn.cygclass
-  /usr/lib/cygport/lib/tcl.cygclass
-  /usr/lib/cygport/lib/utils.cygclass
-  /usr/lib/cygport/lib/wxwidgets.cygclass
-  /usr/lib/cygport/lib/xfce4.cygclass
-  /usr/lib/cygport/lib/xorg.cygclass
-  /usr/lib/cygport/lib/zope.cygclass
+  /usr/share/cygport/cygclass/R.cygclass
+  /usr/share/cygport/cygclass/apache.cygclass
+  /usr/share/cygport/cygclass/apache1.cygclass
+  /usr/share/cygport/cygclass/apache2.cygclass
+  /usr/share/cygport/cygclass/aspell-dict.cygclass
+  /usr/share/cygport/cygclass/berkdb.cygclass
+  /usr/share/cygport/cygclass/bzr.cygclass
+  /usr/share/cygport/cygclass/claws-mail.cygclass
+  /usr/share/cygport/cygclass/cross.cygclass
+  /usr/share/cygport/cygclass/cvs.cygclass
+  /usr/share/cygport/cygclass/distutils.cygclass
+  /usr/share/cygport/cygclass/docbook.cygclass
+  /usr/share/cygport/cygclass/ebook.cygclass
+  /usr/share/cygport/cygclass/emacs.cygclass
+  /usr/share/cygport/cygclass/font.cygclass
+  /usr/share/cygport/cygclass/fox.cygclass
+  /usr/share/cygport/cygclass/ggz.cygclass
+  /usr/share/cygport/cygclass/git.cygclass
+  /usr/share/cygport/cygclass/gnome.org.cygclass
+  /usr/share/cygport/cygclass/gnome2.cygclass
+  /usr/share/cygport/cygclass/gst-plugins.cygclass
+  /usr/share/cygport/cygclass/gst-plugins0.8.cygclass
+  /usr/share/cygport/cygclass/gst-plugins0.10.cygclass
+  /usr/share/cygport/cygclass/gstreamer.cygclass
+  /usr/share/cygport/cygclass/gtk2-perl.cygclass
+  /usr/share/cygport/cygclass/gtkmm.cygclass
+  /usr/share/cygport/cygclass/hg.cygclass
+  /usr/share/cygport/cygclass/java.cygclass
+  /usr/share/cygport/cygclass/kde3.cygclass
+  /usr/share/cygport/cygclass/kde4.cygclass
+  /usr/share/cygport/cygclass/lua.cygclass
+  /usr/share/cygport/cygclass/mono.cygclass
+  /usr/share/cygport/cygclass/mtn.cygclass
+  /usr/share/cygport/cygclass/ocaml.cygclass
+  /usr/share/cygport/cygclass/octave.cygclass
+  /usr/share/cygport/cygclass/opensync.cygclass
+  /usr/share/cygport/cygclass/perl.cygclass
+  /usr/share/cygport/cygclass/php.cygclass
+  /usr/share/cygport/cygclass/pygtk.cygclass
+  /usr/share/cygport/cygclass/python.cygclass
+  /usr/share/cygport/cygclass/qt3.cygclass
+  /usr/share/cygport/cygclass/qt4.cygclass
+  /usr/share/cygport/cygclass/qt4-cmake.cygclass
+  /usr/share/cygport/cygclass/qt4-qmake.cygclass
+  /usr/share/cygport/cygclass/ruby.cygclass
+  /usr/share/cygport/cygclass/ruby-gnome2.cygclass
+  /usr/share/cygport/cygclass/svn.cygclass
+  /usr/share/cygport/cygclass/tcl.cygclass
+  /usr/share/cygport/cygclass/utils.cygclass
+  /usr/share/cygport/cygclass/wxwidgets.cygclass
+  /usr/share/cygport/cygclass/xfce4.cygclass
+  /usr/share/cygport/cygclass/xorg.cygclass
+  /usr/share/cygport/cygclass/zope.cygclass
   /usr/share/cygport/cygport.nanorc
   /usr/share/cygport/mirrors
   /usr/share/cygport/sample.cygport
-  /usr/share/doc/cygport-0.3.13/AUTHORS
-  /usr/share/doc/cygport-0.3.13/COPYING
-  /usr/share/doc/cygport-0.3.13/ChangeLog
-  /usr/share/doc/cygport-0.3.13/INSTALL
-  /usr/share/doc/cygport-0.3.13/NEWS
-  /usr/share/doc/cygport-0.3.13/README
-  /usr/share/doc/cygport-0.3.13/TODO
-  /usr/share/doc/cygport-0.3.13/html/cygport.1.html
+  /usr/share/doc/cygport-0.9.0/AUTHORS
+  /usr/share/doc/cygport-0.9.0/COPYING
+  /usr/share/doc/cygport-0.9.0/ChangeLog
+  /usr/share/doc/cygport-0.9.0/INSTALL
+  /usr/share/doc/cygport-0.9.0/NEWS
+  /usr/share/doc/cygport-0.9.0/README
+  /usr/share/doc/cygport-0.9.0/TODO
+  /usr/share/doc/cygport-0.9.0/html/cygport.1.html
   /usr/share/man/man1/cygport.1.gz
 
 ------------------
 
 Port Notes:
 
------ version 0.3.13-1 -----
+----- version 0.9.0-1 -----
 Version bump.
 See ChangeLog and NEWS for more information about this and past releases.
 
