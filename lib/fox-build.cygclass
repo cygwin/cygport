@@ -1,6 +1,6 @@
 ################################################################################
 #
-# fox.cygclass - functions for building the FOX Toolkit
+# fox-build.cygclass - functions for building the FOX Toolkit
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006, 2008 Yaakov Selkowitz
@@ -47,7 +47,7 @@ SRC_DIR=fox-${PV}
 slot=${PVP[0]}.${PVP[1]}
 
 case ${slot} in
-	1.0) error "fox: version 1.0 does not run when build with current toolchain" ;;
+	1.0) error "fox-build: version 1.0 does not run when build with current toolchain" ;;
 esac
 
 DOCS="ADDITIONS LICENSE_ADDENDUM TRACING"
@@ -92,7 +92,7 @@ case ${PN} in
 		DESCRIPTION="${PN} application from the FOX C++ GUI Toolkit"
 		fox_subdir=${PN}
 		;;
-	*)	error "fox: unknown package name: ${PN}" ;;
+	*)	error "fox-build: unknown package name: ${PN}" ;;
 esac
 
 fox_autoreconf() {
@@ -123,7 +123,7 @@ fox_compile() {
 		adie|calculator|pathfinder|shutterbug)
 			if [ ! -f /usr/lib/libFOX-${slot}.la ]
 			then
-				error "fox: ${PN} requires installed fox${slot/.}-devel"
+				error "fox-build: ${PN} requires installed fox${slot/.}-devel"
 			fi
 	esac
 
