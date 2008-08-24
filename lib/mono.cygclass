@@ -38,7 +38,6 @@ then
 fi
 
 CYGCONF_ARGS+=" --disable-static"
-MAKEOPTS+=" -j1"
 
 dogac() {
 	local gacdll=${1}

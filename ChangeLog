@@ -1,5 +1,7 @@
 2008-Aug-24  yselkowitz
 
+	* lib/mono.cygclass: Remove MAKEOPTS override.
+
 	* lib/qt3.cygclass:
 	lib/qt3-qmake.cygclass:
 	lib/Makefile.am:
