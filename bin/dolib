@@ -36,5 +36,13 @@ do
 		error "file ${i} does not exist"
 	fi
 
-	/bin/install -m0644 ${i} ${D}${libdir} || error "dolib ${i} failed"
+	case ${i} in
+		*.la)
+			check_prog_req libtool
+			inst_prog="libtool --mode=install /bin/install"
+			;;
+		*) 	inst_prog="/bin/install -m0644" ;;
+	esac
+
+	${inst_prog} ${i} ${D}${libdir} || error "dolib ${i} failed"
 done
