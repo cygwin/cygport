@@ -1,5 +1,8 @@
 2008-Aug-24  yselkowitz
 
+	* lib/berkdb.cygclass: Java and Tcl bindings are optional, depending
+	on whether their respective cygclasses have already been inherited.
+
 	* bin/cygport.in (inherited): New function.
 
 	* lib/cmake.cygclass: NEW for cygcmake() and default src_compile().

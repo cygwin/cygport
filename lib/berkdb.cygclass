@@ -23,8 +23,6 @@
 #
 ################################################################################
 
-inherit tcl
-
 case ${PV_MAJ_MIN} in
 	3.*|4.*)	SLOT="${PV_MAJ_MIN}" ;;
 	*)			error "berkdb: accepts only versions 3.x or 4.x" ;;
@@ -45,13 +43,30 @@ then
 	done
 fi
 
-PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc tcl-${PN}"
-PKG_HINTS="setup lib devel doc tcl"
-PKG_CONTENTS[0]="--exclude=html usr/bin/db${SLOT}_*.exe usr/share/doc/"
-PKG_CONTENTS[1]="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
-PKG_CONTENTS[2]="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib*"
-PKG_CONTENTS[3]="usr/share/doc/${P}/html/"
-PKG_CONTENTS[4]="${TCL_LIBDIR#/}"
+n=0
+
+PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc tcl"
+PKG_HINTS="setup lib devel doc"
+PKG_CONTENTS[((n++))]="--exclude=html usr/bin/db${SLOT}_*.exe usr/share/doc/"
+PKG_CONTENTS[((n++))]="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
+PKG_CONTENTS[((n++))]="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib*"
+PKG_CONTENTS[((n++))]="usr/share/doc/${P}/html/"
+
+if inherited java
+then
+	PKG_NAMES+=" java-${PN}"
+	PKG_HINTS+=" java"
+	PKG_CONTENTS[((n++))]="usr/bin/cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
+fi
+
+if inherited tcl
+then
+	PKG_NAMES+=" tcl-${PN}"
+	PKG_HINTS+=" tcl"
+	PKG_CONTENTS[((n++))]="${TCL_LIBDIR#/}"
+fi
+
+unset n
 
 DIFF_EXCLUDES="aclocal.m4 configure config.hin db.jar libtool.ac lt*.ac"
 
@@ -96,6 +111,22 @@ berkdb_autoreconf() {
 }
 
 berkdb_compile() {
+	local use_java use_tcl
+
+	if inherited java
+	then
+		use_java="--enable-java"
+	else
+		use_java="--disable-java"
+	fi
+
+	if inherited tcl
+	then
+		use_tcl="--enable-tcl --with-tcl=/usr/lib --enable-test"
+	else
+		use_tcl="--disable-tcl --disable-test"
+	fi
+
 	CYGCONF_SOURCE=${S}/dist \
 	cygconf \
 		--includedir=/usr/include/db${SLOT} \
@@ -103,9 +134,7 @@ berkdb_compile() {
 		--enable-compat185 \
 		--enable-cxx \
 		--enable-dynamic \
-		--enable-test \
-		--enable-tcl --with-tcl=/usr/lib \
-		--disable-java
+		${use_java} ${use_tcl}
 
 	cygmake libdb-${SLOT}.la
 
@@ -148,12 +177,23 @@ berkdb_install() {
 	 rename db_ db${SLOT}_ *.exe
 	)
 
-	# relocate and install Tcl module
-	rm -f ${D}/usr/lib/libdb_tcl-${SLOT}.*
-	dodir ${TCL_LIBDIR}/db${SLOT}
-	mv ${D}/usr/lib/cygdb_tcl-${SLOT}.dll ${D}${TCL_LIBDIR}/db${SLOT}/
-	echo pkg_mkIndex ${D}${TCL_LIBDIR}/db${SLOT} cygdb_tcl-${SLOT}.dll | ${TCLSH}
-	sed -i -e "s#${D}##g" ${D}${TCL_LIBDIR}/db${SLOT}/pkgIndex.tcl
+	if inherited java
+	then
+		rm -f ${D}/usr/lib/libdb_java-${SLOT}.*
+		# relocate and slot Java jar
+		dodir ${JAVA_DIR}
+		mv ${D}/usr/lib/db.jar ${D}${JAVA_DIR}/db-${SLOT}.jar
+	fi
+
+	if inherited tcl
+	then
+		rm -f ${D}/usr/lib/libdb_tcl-${SLOT}.*
+		# relocate and install Tcl module
+		dodir ${TCL_LIBDIR}/db${SLOT}
+		mv ${D}/usr/lib/cygdb_tcl-${SLOT}.dll ${D}${TCL_LIBDIR}/db${SLOT}/
+		echo pkg_mkIndex ${D}${TCL_LIBDIR}/db${SLOT} cygdb_tcl-${SLOT}.dll | ${TCLSH}
+		sed -i -e "s#${D}##g" ${D}${TCL_LIBDIR}/db${SLOT}/pkgIndex.tcl
+	fi
 }
 
 berkdb_postinst() {
