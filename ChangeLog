@@ -1,5 +1,7 @@
 2008-Aug-24  yselkowitz
 
+	* bin/cygport.in (inherited): New function.
+
 	* lib/cmake.cygclass: NEW for cygcmake() and default src_compile().
 	lib/kde4.cygclass: Call it.
 	lib/opensync.cygclass: Ditto.

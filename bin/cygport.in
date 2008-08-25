@@ -2116,6 +2116,7 @@ readonly -f __pkg_binpkg __pkg_diff __gpg_sign __pkg_srcpkg __pkg_dist __finish
 #
 # public:
 #	inherit CYGCLASS [CYGCLASS2 ...]
+#	inherited CYGCLASS [CYGCLASS2 ...]
 #
 # private:
 #	_CYGPORT_RESTRICT_*_
@@ -2145,8 +2146,26 @@ inherit() {
 	done
 }
 
-export -f inherit
-readonly -f inherit
+# detect if a given cygclass has been inherit()ed
+inherited() {
+	local class;
+	local classname;
+
+	for class
+	do
+		classname=${class%.cygclass};
+
+		if ! defined _${classname//[-\.]/_}_CYGCLASS_
+		then
+			return 1;
+		fi
+	done
+
+	return 0;
+}
+
+export -f inherit inherited
+readonly -f inherit inherited
 
 # Values which can be overridden either system-wide or per package
 declare -x CFLAGS="-O2 -pipe ";
