@@ -1,5 +1,7 @@
 2008-Aug-24  yselkowitz
 
+	* lib/wxwidgets.cygclass: WX_VERSION is mandatory, no default value.
+
 	* lib/berkdb.cygclass: Java and Tcl bindings are optional, depending
 	on whether their respective cygclasses have already been inherited.
 

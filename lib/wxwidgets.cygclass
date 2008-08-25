@@ -27,9 +27,7 @@ _wx_find_config() {
 	local wx_config
 	local wx_base
 
-	WX_VERSION=${WX_VERSION:-2.8}
 	WX_TOOLKIT=${WX_TOOLKIT:-gtk2}
-	WX_CODESET="ansi"
 
 	case ${WX_TOOLKIT} in
 		base)
@@ -42,6 +40,8 @@ _wx_find_config() {
 			;;
 		x11) WX_TOOLKIT=x11univ ;;
 	esac
+
+	WX_CODESET=${WX_CODESET:-ansi}
 
 	case ${WX_CODESET} in
 		unicode)
@@ -64,6 +64,7 @@ _wx_find_config() {
 
 	case ${WX_VERSION} in
 		2.6|2.8) wx_config=/usr/lib/wx/config/${WX_TOOLKIT}-${WX_CODESET}-release-${WX_VERSION} ;;
+		'') error "WX_VERSION must be defined" ;;
 		*) error "wxWidgets ${WX_VERSION} is not yet supported" ;;
 	esac
 
