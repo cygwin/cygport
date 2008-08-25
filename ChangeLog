@@ -1,5 +1,7 @@
 2008-Aug-24  yselkowitz
 
+	* bin/dolib: Use libtool to install libtool libraries.
+
 	* bin/cygport.in (__prepdoc): Don't default install ABOUT-NLS or INSTALL.
 
 	* lib/berkdb.cygclass: Disable building of Java bindings.
