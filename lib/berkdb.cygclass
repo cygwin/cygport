@@ -45,7 +45,7 @@ fi
 
 n=0
 
-PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc tcl"
+PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc"
 PKG_HINTS="setup lib devel doc"
 PKG_CONTENTS[((n++))]="--exclude=html usr/bin/db${SLOT}_*.exe usr/share/doc/"
 PKG_CONTENTS[((n++))]="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
