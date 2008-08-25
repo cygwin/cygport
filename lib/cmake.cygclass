@@ -1,6 +1,6 @@
 ################################################################################
 #
-# qt4-cmake.cygclass - functions for building CMake-based Qt4 packages
+# cmake.cygclass - functions for building CMake-based packages
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2008 Yaakov Selkowitz
@@ -23,29 +23,41 @@
 #
 ################################################################################
 
-inherit cmake qt4
+# cmake configuration
+cygcmake() {
+	local cmdir;
 
-qt4_cmake_compile() {
-	cygcmake \
-		-DAUTOMOC4_EXECUTABLE=/usr/bin/automoc4 \
+	check_prog_req cmake;
+
+	if defined CYGCMAKE_SOURCE && [ -e ${CYGCMAKE_SOURCE}/CMakeLists.txt ]
+	then
+		cmdir=${CYGCMAKE_SOURCE};
+	elif [ -e ${PWD/${B}/${S}}/CMakeLists.txt ]
+	then
+		cmdir=${PWD/${B}/${S}};
+	elif [ -e ${S}/CMakeLists.txt ]
+	then
+		cmdir=${S};
+	else
+		error "cygcmake: cmake directory not found";
+	fi
+
+	cmake \
+		${cmdir} \
+		-DCMAKE_BINARY_DIR=. \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_EXE_LINKER_FLAGS=-Wl,--enable-auto-import \
-		-DCMAKE_MODULE_LINKER_FLAGS=-Wl,--enable-auto-import \
-		-DCMAKE_SHARED_LINKER_FLAGS=-Wl,--enable-auto-import \
-		-DQT_MOC_EXECUTABLE=${QT4_MOC} \
-		-DQT_INCLUDE_DIR=${QT4_INCLUDEDIR} \
-		-DQT_LIBRARY_DIR=${QT4_LIBDIR} \
-		-DQT_PLUGINS_DIR=${QT4_PLUGINSDIR} \
-		-DQT_QMAKE_EXECUTABLE=${QT4_QMAKE} \
-		-DQT_RCC_EXECUTABLE=${QT4_RCC} \
-		-DQT_UIC_EXECUTABLE=${QT4_UIC} \
-		-DQT_UIC3_EXECUTABLE=${QT4_UIC3} \
-		"${@}"
-
-	cygmake
+		-DCMAKE_C_COMPILER=$(type -P gcc) \
+		-DCMAKE_C_FLAGS="${CFLAGS}" \
+		-DCMAKE_CXX_COMPILER=$(type -P g++) \
+		-DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		"${@}" \
+		${CYGCMAKE_ARGS} \
+		|| error "cmake failed"
 }
 
 src_compile() {
 	cd ${B}
-	qt4_cmake_compile
+	cygcmake
+	cygmake
 }

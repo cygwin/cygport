@@ -840,8 +840,6 @@ readonly -f fetch __mirror_fetch __src_fetch unpack __gpg_verify __mkdirs cygpat
 # mutable:
 #	CYGCONF_ARGS
 #	CYGCONF_SOURCE
-#	CYGCMAKE_ARGS
-#	CYGCMAKE_SOURCE
 #	NO_ACLOCAL
 #	NO_AUTOCONF
 #	NO_AUTOHEADER
@@ -855,7 +853,6 @@ readonly -f fetch __mirror_fetch __src_fetch unpack __gpg_verify __mkdirs cygpat
 # public:
 #	cygautoreconf
 #	cygconf CONF_OPTIONS
-#	cygcmake CMAKE_OPTIONS
 #	cygmake MAKE_OPTIONS
 #	lndirs
 #
@@ -1107,40 +1104,6 @@ cygconf() {
 	verbose ${configure} \
 		--srcdir="${confdir}" ${confargs} "${@}" ${CYGCONF_ARGS} \
 		|| error "configure failed"
-}
-
-# cmake configuration
-# adding -j1 to MAKEOPTS is highly recommended
-cygcmake() {
-	local cmdir;
-
-	check_prog_req cmake;
-
-	if defined CYGCMAKE_SOURCE && [ -e ${CYGCMAKE_SOURCE}/CMakeLists.txt ]
-	then
-		cmdir=${CYGCMAKE_SOURCE};
-	elif [ -e ${PWD/${B}/${S}}/CMakeLists.txt ]
-	then
-		cmdir=${PWD/${B}/${S}};
-	elif [ -e ${S}/CMakeLists.txt ]
-	then
-		cmdir=${S};
-	else
-		error "cygcmake: cmake directory not found";
-	fi
-
-	cmake \
-		${cmdir} \
-		-DCMAKE_BINARY_DIR=. \
-		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_C_COMPILER=$(type -P gcc) \
-		-DCMAKE_C_FLAGS="${CFLAGS}" \
-		-DCMAKE_CXX_COMPILER=$(type -P g++) \
-		-DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
-		-DCMAKE_INSTALL_PREFIX=/usr \
-		"${@}" \
-		${CYGCMAKE_ARGS} \
-		|| error "cmake failed"
 }
 
 # standard GNU make call

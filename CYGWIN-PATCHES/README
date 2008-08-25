@@ -97,6 +97,7 @@ Files included in the binary package:
   /usr/share/cygport/cygclass/berkdb.cygclass
   /usr/share/cygport/cygclass/bzr.cygclass
   /usr/share/cygport/cygclass/claws-mail.cygclass
+  /usr/share/cygport/cygclass/cmake.cygclass
   /usr/share/cygport/cygclass/cross.cygclass
   /usr/share/cygport/cygclass/cvs.cygclass
   /usr/share/cygport/cygclass/distutils.cygclass

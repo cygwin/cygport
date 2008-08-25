@@ -8,6 +8,7 @@ dist_cygclass_DATA = 			\
 	berkdb.cygclass				\
 	bzr.cygclass				\
 	claws-mail.cygclass			\
+	cmake.cygclass				\
 	cross.cygclass				\
 	cvs.cygclass				\
 	distutils.cygclass			\

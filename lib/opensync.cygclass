@@ -23,6 +23,8 @@
 #
 ################################################################################
 
+inherit cmake
+
 OPENSYNC_PLUGIN=${PN/libopensync*-plugin-}
 
 DESCRIPTION="OpenSync ${OPENSYNC_PLUGIN} plugin"

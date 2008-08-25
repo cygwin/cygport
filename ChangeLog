@@ -1,5 +1,11 @@
 2008-Aug-24  yselkowitz
 
+	* lib/cmake.cygclass: NEW for cygcmake() and default src_compile().
+	lib/kde4.cygclass: Call it.
+	lib/opensync.cygclass: Ditto.
+	lib/qt4-cmake.cygclass: Ditto.
+	bin/cygport.in (cygcmake): Removed.
+
 	* bin/dolib: Use libtool to install libtool libraries.
 
 	* bin/cygport.in (__prepdoc): Don't default install ABOUT-NLS or INSTALL.
