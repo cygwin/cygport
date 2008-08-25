@@ -1,5 +1,7 @@
 2008-Aug-22  yselkowitz
 
+	* bin/cygport.in (inherited): New function (backported from trunk).
+
 	* bin/dolib: Use libtool to install libtool libraries.
 
 	* bin/cygport.in: Only run on Cygwin 1.5.
