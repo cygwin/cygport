@@ -1,3 +1,8 @@
+2008-Aug-25  yselkowitz
+
+	* lib/berkdb.cygclass: Java and Tcl bindings are optional, depending
+	on whether their respective cygclasses have already been inherited.
+
 2008-Aug-22  yselkowitz
 
 	* bin/cygport.in (inherited): New function (backported from trunk).
