@@ -1,0 +1,249 @@
+################################################################################
+#
+# autotools.cygclass - functions for building autotool-based packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+# Regenerates auto* files; most importantly, pulls in the Cygwin libtool
+cygautoreconf() {
+	local d;
+	local f;
+	local f_in;
+	local tool;
+	local ac_config_files;
+	local ac_config_headers;
+	local ac_subdirs;
+	local ac_ver;
+	local configure_ac;
+	local config_h;
+	local config_h_in;
+
+	if [ -f configure.ac ]
+	then
+		configure_ac="configure.ac";
+	elif [ -f configure.in ]
+	then
+		configure_ac="configure.in";
+	else
+		error "Could not find configure.ac or configure.in";
+	fi
+
+	ac_subdirs="$(grep 'AC_CONFIG_SUBDIRS*' ${configure_ac} | sed -e 's!.*AC_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
+
+	for d in . ${ac_subdirs}
+	do
+		if [ -d ${d} ]
+		then
+			# e.g. CVS checkouts
+			if [ -f ${d}/configure ]
+			then
+				# Assure that autotool files are writable (e.g. less)
+				eval $(grep -h '^ac_config_files=' ${d}/configure)
+				# eval $(grep -h '^ac_config_headers=' ${d}/configure)
+
+				chmod +wx ${d}/configure;
+
+				for f in ${ac_config_files} ${ac_config_headers}
+				do
+					case ${f} in
+						*:*)	f_in=${d}/${f#*:} ;;
+						*)		f_in=${d}/${f}.in ;;
+					esac
+
+					if [ -e ${f_in} ]
+					then
+						chmod +w ${f_in};
+					fi
+				done
+
+				unset ac_config_files;
+
+				if $(grep -q /config.rpath ${d}/configure)
+				then
+					cp -f /usr/share/gettext/config.rpath ${d}/
+				fi
+			fi
+
+			# Automake will exit if these are not present
+			# dodoc won't install these, however, since they will be empty
+			touch ${d}/{AUTHORS,ChangeLog,NEWS,README};
+
+			# These required files can be overwritten by automake, so we
+			# back them up now and restore them afterwards
+			for f in COPYING INSTALL
+			do
+				if [ -f ${d}/${f} ]
+				then
+					cp ${d}/${f} ${d}/${f}.temp;
+					chmod +w ${f}.temp;
+				elif [ -d ${d}/${f} ]
+				then
+					:
+				else
+					touch ${d}/${f}
+				fi
+			done
+		fi
+	done
+
+	check_prog_req autoreconf autoconf
+
+	if [ "x${WANT_AUTOCONF}" = "x2.1" ]
+	then
+		check_prog_req autoconf-2.13 autoconf2.1
+
+		if grep -Eq "^(LT_INIT|A[CM]_PROG_LIBTOOL)" ${S}/${configure_ac}
+		then
+			warning "Current libtool is incompatible with autoconf-2.13";
+		fi
+	else
+		while true
+		do
+			for ac_ver in 2.62 2.61 2.60 2.59 2.5x
+			do
+				if check_prog autoconf-${ac_ver}
+				then
+					break 2;
+				fi
+			done
+
+			error "autoconf2.5 is required to build this package"
+		done
+
+		for tool in ACLOCAL LIBTOOLIZE AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
+		do
+			if defined NO_${tool}
+			then
+				declare ${tool}=true
+			fi
+			export ${tool}
+		done
+
+		if defined ACLOCAL_FLAGS
+		then
+			declare ACLOCAL="${ACLOCAL:-aclocal} ${ACLOCAL_FLAGS}"
+		fi
+	fi
+
+	export WANT_AUTOCONF=${WANT_AUTOCONF:-2.5};
+	export WANT_AUTOMAKE;
+	/usr/bin/autoreconf --force -i --verbose || error "autoreconf failed"
+
+	for d in . ${ac_subdirs}
+	do
+		if [ -d ${d} ]
+		then
+			config_h="$(grep 'A[CM]_CONFIG_HEADERS*' ${d}/${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')";
+
+			case "${config_h}" in
+				'') config_h_in= ;;
+				*:*) config_h_in="$(echo "${config_h//:/ }" | cut -d ' ' -f 2-)" ;;
+				*) config_h_in="${config_h}.in" ;;
+			esac
+
+			for f in ${config_h_in}
+			do
+				touch ${d}/${f}
+			done
+
+			for f in COPYING INSTALL
+			do
+				if [ -f ${d}/${f}.temp ]
+				then
+					mv -f ${d}/${f}.temp ${d}/${f};
+				fi
+			done
+		fi
+	done
+}
+
+# standard configure call
+cygconf() {
+	local ac_config_files;
+	local ac_config_headers;
+	local confargs;
+	local confdir;
+	local configure;
+	local f;
+
+	if defined CYGCONF_SOURCE && [ -x ${CYGCONF_SOURCE}/configure ]
+	then
+		confdir=${CYGCONF_SOURCE};
+	elif [ -x ${PWD/${B}/${S}}/configure ]
+	then
+		confdir=${PWD/${B}/${S}};
+	elif [ -x ${S}/configure ]
+	then
+		confdir=${S};
+	else
+		error "no configure script found";
+	fi
+
+	configure="${confdir}/configure"
+
+	# AC_CONFIG_FILES should not be dist'ed, but it sometimes happens anyway
+	eval $(grep -h '^ac_config_files=' ${configure})
+	eval $(grep -h '^ac_config_headers=' ${configure})
+
+	for f in ${ac_config_files} ${ac_config_headers}
+	do
+		if [ -f ${confdir}/${f} ]
+		then
+			inform "Removing ${f} to be regenerated by configure"
+			rm -f ${confdir}/${f}
+			ln -sf ${confdir/${S}/${B}}/${f} ${confdir}/${f}
+		fi
+	done
+
+	# Set default configure arguments
+	confargs="--prefix=/usr --exec-prefix=/usr --bindir=/usr/bin \
+			  --sbindir=/usr/sbin --libexecdir=/usr/sbin \
+			  --datadir=/usr/share --localstatedir=/var --sysconfdir=/etc"
+
+	case "x$(grep -m 1 'GNU Autoconf' ${configure} | cut -d ' ' -f 6)" in
+		x2.6[0-9]*)
+			confargs+=" --datarootdir=/usr/share --docdir=/usr/share/doc/${P}"
+			;;
+		*)
+			confargs+=" --infodir=/usr/share/info --mandir=/usr/share/man"
+			;;
+	esac
+
+	# AC_HAVE_MMAP fails despite a working mmap, so we force this to yes
+	# (see http://www.cygwin.com/ml/cygwin/2004-09/msg00741.html
+	# and following thread for details)
+	export ac_cv_func_mmap_fixed_mapped=yes;
+
+	verbose ${configure} \
+		--srcdir="${confdir}" ${confargs} "${@}" ${CYGCONF_ARGS} \
+		|| error "configure failed"
+}
+
+# provides default src_compile
+# will be overridden by cygclasses or cygports as necessary
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	cd ${B}
+	cygconf
+	cygmake
+}

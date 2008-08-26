@@ -1,5 +1,10 @@
 2008-Aug-26  yselkowitz
 
+	* bin/cygport.in (cygautoreconf, cygconf, src_compile):
+	Moved out; auto-inherit autotools instead.
+	lib/autotools.cygclass:
+	lib/Makefile.am: Added new cygclass for cygautoreconf and cygconf.
+
 	* bin/make_etc_defaults:
 	bin/prep_fonts_dir.sh:
 	bin/prep_gtk2_modules.sh:

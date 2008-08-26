@@ -94,6 +94,7 @@ Files included in the binary package:
   /usr/share/cygport/cygclass/apache1.cygclass
   /usr/share/cygport/cygclass/apache2.cygclass
   /usr/share/cygport/cygclass/aspell-dict.cygclass
+  /usr/share/cygport/cygclass/autotools.cygclass
   /usr/share/cygport/cygclass/berkdb.cygclass
   /usr/share/cygport/cygclass/bzr.cygclass
   /usr/share/cygport/cygclass/claws-mail.cygclass
