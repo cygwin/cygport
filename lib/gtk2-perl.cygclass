@@ -31,66 +31,17 @@ then
 	SRC_URI="mirror://sourceforge/gtk2-perl/${ORIG_PN}-${PV}.tar.gz"
 fi
 
+USE_MANAGED_MOUNT=1
+
 DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS:${PERL_VENDORARCH}/auto/Gnome2/GConf"
 
 gtk2_perl_compile() {
-	local ldflags
-	local man3pm
-	local pod
+	perl_compile
 
-	local libperlcairo="${PERL_VENDORARCH}/auto/Cairo/Cairo.dll"
-	local libperlglib="${PERL_VENDORARCH}/auto/Glib/Glib.dll"
-	local libperlgtk2="${PERL_VENDORARCH}/auto/Gtk2/Gtk2.dll"
-	local libperlgconf="${PERL_VENDORARCH}/auto/Gnome2/GConf/GConf.dll"
-	local libperlvfs="${PERL_VENDORARCH}/auto/Gnome2/VFS/VFS.dll"
-	local libperlmozdom="${PERL_VENDORARCH}/auto/Mozilla/DOM/DOM.dll"
-
-	${PERL} Makefile.PL PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
-
-	case ${ORIG_PN} in
-		Cairo|Glib|Mozilla-DOM)
-			ldflags=""
-			;;
-		Gtk2|Gnome2-Rsvg)
-			ldflags="${libperlglib} ${libperlcairo}"
-			;;
-		Gnome2-GConf|Gnome2-VFS|GStreamer)
-			ldflags="${libperlglib}"
-			;;
-		Gnome2)
-			ldflags="${libperlvfs} ${libperlgtk2} ${libperlglib}"
-			;;
-		Gnome2-PanelApplet)
-			ldflags="${libperlgconf} ${libperlgtk2} ${libperlglib}"
-			;;
-		Gtk2-MozEmbed)
-			ldflags="${libperlgtk2} ${libperlglib} ${libperlmozdom}"
-			;;
-		*)
-			ldflags="${libperlgtk2} ${libperlglib} ${libperlcairo}"
-			;;
-	esac
-
-	cygmake all OTHERLDFLAGS="${ldflags}"
-	make manifypods || true		# manifypods *will* bail out
-
-	for pod in $(find blib/lib/[A-Z]* -name '*.pod' | sed -e 's:^blib/lib/::')
+	for man3pm in blib/man3/*.3pm
 	do
-		man3pm=$(echo ${pod} | sed -e 's!/!.!g' -e 's!\.pod$!.3pm!')
-		if [ ! -f blib/man3/${man3pm} ]
-		then
-			${PERL} "-MExtUtils::Command::MM" -e pod2man "--" \
-				--section=3 --perm_rw=644 \
-				blib/lib/${pod} blib/man3/${man3pm}
-		fi
+		mv ${man3pm} ${man3pm//::/.}
 	done
-
-	if [ ! -f blib/man3/${ORIG_PN//\-/\.}.3pm ]
-	then
-		${PERL} "-MExtUtils::Command::MM" -e pod2man "--" \
-			--section=3 --perm_rw=644 \
-			blib/lib/${ORIG_PN//\-/\/}.pm blib/man3/${ORIG_PN//\-/\.}.3pm
-	fi
 }
 
 gtk2_perl_install() {

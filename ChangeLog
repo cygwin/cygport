@@ -1,3 +1,9 @@
+2008-Aug-26  yselkowitz
+
+	* lib/gtk2-perl.cygclass (gtk2_perl_compile):
+	Manpage workaround missed some pages; use managed mount instead.
+	Inter-module linking fixed in perl 5.10.0-5 and EU::D 0.300-2.
+
 2008-Aug-25  yselkowitz
 
 	* lib/berkdb.cygclass: Java and Tcl bindings are optional, depending
