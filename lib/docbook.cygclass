@@ -120,8 +120,8 @@ docbook_sgml_postinst() {
 	dodir /etc/postinstall
 
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		mkdir -p /etc/sgml
-		install-catalog --add ${SGML_CATALOG} ${DOCBOOK_DIR}/${mycat}
+		/usr/bin/mkdir -p /etc/sgml
+		/usr/bin/install-catalog --add ${SGML_CATALOG} ${DOCBOOK_DIR}/${mycat}
 
 		_EOF
 }
@@ -135,7 +135,7 @@ docbook_sgml_prerm() {
 	dodir /etc/preremove
 
 	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-		install-catalog --remove ${SGML_CATALOG} ${DOCBOOK_DIR}/${mycat}
+		/usr/bin/install-catalog --remove ${SGML_CATALOG} ${DOCBOOK_DIR}/${mycat}
 
 		_EOF
 }
@@ -144,9 +144,9 @@ docbook_xml_postinst() {
 	dodir /etc/postinstall
 
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		mkdir -p ${XML_CATALOG%/*}
-		rm -f ${XML_CATALOG%/*}/docbook
-		build-docbook-catalog
+		/usr/bin/mkdir -p ${XML_CATALOG%/*}
+		/usr/bin/rm -f ${XML_CATALOG%/*}/docbook
+		/usr/bin/build-docbook-catalog
 
 		_EOF
 }
@@ -155,9 +155,9 @@ docbook_xml_prerm() {
 	dodir /etc/preremove
 
 	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-		rm -f ${XML_CATALOG%/*}/docbook
-		rm -f ${DOCBOOK_DIR}/docbookx.dtd
-		build-docbook-catalog
+		/usr/bin/rm -f ${XML_CATALOG%/*}/docbook
+		/usr/bin/rm -f ${DOCBOOK_DIR}/docbookx.dtd
+		/usr/bin/build-docbook-catalog
 
 		_EOF
 }

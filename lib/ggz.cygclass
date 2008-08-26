@@ -75,11 +75,11 @@ ggz_postinst() {
 		dodir /etc/postinstall /etc/preremove
 
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			ggz-config --force --install --modfile=${GGZ_MODULES_DIR}/${g##*/}
+			/usr/bin/ggz-config --force --install --modfile=${GGZ_MODULES_DIR}/${g##*/}
 			_EOF
 
 		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-			ggz-config --remove --modfile=${GGZ_MODULES_DIR}/${g##*/}
+			/usr/bin/ggz-config --remove --modfile=${GGZ_MODULES_DIR}/${g##*/}
 			_EOF
 	done
 }

@@ -140,7 +140,7 @@ php_postinst() {
 	'') ;;
 	*)	dodir /etc/postinstall
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			pear channel-discover ${PHP_CHANNEL} || true
+			/usr/bin/pear channel-discover ${PHP_CHANNEL} || true
 
 			_EOF
 		;;

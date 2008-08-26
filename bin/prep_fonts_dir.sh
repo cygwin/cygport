@@ -51,11 +51,11 @@ do
 		rm -f ${D}${fontsubdir}/encodings.dir ${D}${fontsubdir}/fonts.{dir,cache-1,scale}
 
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			rm -f ${fontsubdir}/encodings.dir ${fontsubdir}/fonts.{dir,scale,cache-1}
-			mkfontscale ${encodings} ${fontsubdir} || rm -f ${fontsubdir}/fonts.scale
-			mkfontdir ${encodings} ${fontsubdir} || rm -f ${fontsubdir}/fonts.dir
-			mkfontscale -n -e ${encodingsdir} ${fontsubdir} || rm -f ${fontsubdir}/encodings.dir
-			fc-cache -f ${fontsubdir} || rm -f ${fontsubdir}/fonts.cache-1
+			/usr/bin/rm -f ${fontsubdir}/encodings.dir ${fontsubdir}/fonts.{dir,scale,cache-1}
+			/usr/bin/mkfontscale ${encodings} ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/fonts.scale
+			/usr/bin/mkfontdir ${encodings} ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/fonts.dir
+			/usr/bin/mkfontscale -n -e ${encodingsdir} ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/encodings.dir
+			/usr/bin/fc-cache -f ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/fonts.cache-1
 
 		_EOF
 	fi

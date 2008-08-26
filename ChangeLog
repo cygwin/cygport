@@ -1,3 +1,14 @@
+2008-Aug-26  yselkowitz
+
+	* bin/make_etc_defaults:
+	bin/prep_fonts_dir.sh:
+	bin/prep_gtk2_modules.sh:
+	lib/docbook.cygclass (docbook_sgml_postinst, docbook_sgml_prerm):
+	(docbook_xml_postinst, docbook_xml_prerm):
+	lib/ggz.cygclass (ggz_postinst):
+	lib/php.cygclass (php_postinst):
+	Use fully qualified paths for all commands in postinstall scripts.
+
 2008-Aug-24  yselkowitz
 
 	* lib/wxwidgets.cygclass: WX_VERSION is mandatory, no default value.

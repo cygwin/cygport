@@ -35,8 +35,8 @@ then
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 		if [ -x /usr/bin/pango-querymodules.exe ]
 		then
-		    mkdir -p /etc/pango
-		    chmod 777 /etc/pango
+		    /usr/bin/mkdir -p /etc/pango
+		    /usr/bin/chmod 777 /etc/pango
 		    /usr/bin/pango-querymodules > /etc/pango/pango.modules
 		fi
 
@@ -50,8 +50,8 @@ then
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 		if [ -x /usr/bin/gdk-pixbuf-query-loaders.exe ]
 		then
-		    mkdir -p /etc/gtk-2.0
-		    chmod 777 /etc/gtk-2.0
+		    /usr/bin/mkdir -p /etc/gtk-2.0
+		    /usr/bin/chmod 777 /etc/gtk-2.0
 		    /usr/bin/gdk-pixbuf-query-loaders > /etc/gtk-2.0/gdk-pixbuf.loaders
 		fi
 
@@ -65,8 +65,8 @@ then
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 		if [ -x /usr/bin/gtk-query-immodules-2.0.exe ]
 		then
-		    mkdir -p /etc/gtk-2.0
-		    chmod 777 /etc/gtk-2.0
+		    /usr/bin/mkdir -p /etc/gtk-2.0
+		    /usr/bin/chmod 777 /etc/gtk-2.0
 		    /usr/bin/gtk-query-immodules-2.0 > /etc/gtk-2.0/gtk.immodules
 		fi
 
