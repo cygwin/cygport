@@ -1,5 +1,8 @@
 2008-Aug-27  yselkowitz
 
+	* lib/gtk2-perl.cygclass (gtk2_perl_compile):
+	man still subs '.' for '::', so we still need to rename the manpages.
+
 	* tests/bootstrap:
 	Always run make dist first, unless in distcheck. Clean up after test.
 

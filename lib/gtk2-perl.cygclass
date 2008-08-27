@@ -32,3 +32,22 @@ then
 fi
 
 DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS:${PERL_VENDORARCH}/auto/Gnome2/GConf"
+
+gtk2_perl_compile() {
+	perl_compile
+
+	# Since prior to 1.7, files could not ordinarly contain ':',
+	# man and perl were patched to substitute '.' for '::'.
+	# However, gtk2-perl always created with '::', and with 1.7
+	# it works OOTB, but man is still patched and hence won't find these.
+	for man3pm in blib/man3/*.3pm
+	do
+		mv ${man3pm} ${man3pm//::/.}
+	done
+}
+
+src_compile() {
+	lndirs
+	cd ${B}
+	gtk2_perl_compile
+}
