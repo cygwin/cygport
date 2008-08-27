@@ -641,13 +641,22 @@ __gpg_verify() {
 	local _filetype=${2};
 	local _sigext=${3:-sig};
 
+	if ! check_prog gpg
+	then
+		# display notice only once
+		if ! defined _gpg_not_found_
+		then
+			inform "gnupg must be installed in order to check signatures.";
+			_gpg_not_found_=1
+		fi
+
+		return 0;
+	fi
+
 	if [ -f ${_file}.${_sigext} ]
 	then
 		inform "${_filetype} signature follows:";
-		# we 'check_prog gpg' in __src_prep
-		gpg --verify ${_file}.${_sigext} ${_file};
-	else
-		inform "${_filetype} signature missing.";
+		gpg --verify ${_file}.${_sigext} ${_file} || true;
 	fi
 }
 
@@ -730,6 +739,8 @@ __oldpatch() {
 
 __src_prep() {
 	local sigext;
+	local sig_exts="asc sig sign";
+	local src_orig_patch;
 	local src_patch;
 	local src_pkg;
 	local n=1;
@@ -738,38 +749,48 @@ __src_prep() {
 
 	__mkdirs;
 
+	# FIXME: do something with this; e.g. check that cygport
+	# wasn't upgraded since prep
 	if [ ! -f ${configdir}/cygport-version ]
 	then
 		echo ${_version} > ${configdir}/cygport-version
 	fi
 
-	# FIXME: dependent also on $SIG ??
-	if check_prog gpg
+	if [ -f ${top}/${PF}.cygport.sig ]
 	then
-		for src_pkg in ${_src_orig_pkgs}
+		__gpg_verify ${top}/${PF}.cygport "CYGPORT SCRIPT";
+	fi
+
+	for src_pkg in ${_src_orig_pkgs}
+	do
+		for sigext in ${sig_exts}
 		do
-			for sigext in asc sig sign
-			do
-				if [ -f ${src_pkg}.${sigext} ]
-				then
-					__gpg_verify ${src_pkg} "ORIGINAL PACKAGE $((n++))" ${sigext};
-				fi
-			done
+			if [ -f ${src_pkg}.${sigext} ]
+			then
+				__gpg_verify ${src_pkg} "SOURCE $((n++))" ${sigext};
+			fi
 		done
+	done
 
-		__gpg_verify ${PF}.cygport "CYGPORT SCRIPT";
+	for src_orig_patch in ${_src_orig_patches}
+	do
+		for sigext in ${sig_exts}
+		do
+			if [ -f ${src_orig_patch}.${sigext} ]
+			then
+				__gpg_verify ${src_orig_patch} "PATCH $((n++))" ${sigext};
+			fi
+		done
+	done
 
-		if [ -f ${top}/${cygwin_patchfile} ]
-		then
-			__gpg_verify ${top}/${cygwin_patchfile} "CYGWIN PATCH";
-		fi
+	if [ -f ${top}/${cygwin_patchfile}.sig ]
+	then
+		__gpg_verify ${top}/${cygwin_patchfile} "CYGWIN PATCH";
+	fi
 
-		if [ -f ${top}/${src_patchfile} ]
-		then
-			__gpg_verify ${top}/${src_patchfile} "SOURCE PATCH";
-		fi
-	else
-		inform "gnupg must be installed in order to check signatures.";
+	if [ -f ${top}/${src_patchfile}.sig ]
+	then
+		__gpg_verify ${top}/${src_patchfile} "SOURCE PATCH";
 	fi
 
 	cd ${origsrcdir};
