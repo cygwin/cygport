@@ -3,7 +3,7 @@
 # xorg.cygclass - functions for building Xorg components
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -24,16 +24,10 @@
 ################################################################################
 
 case ${PN} in
-	xorg-font-*-dpi*)
-		ORIG_PN=${PN/xorg-/}
-		ORIG_PN=${ORIG_PN/-dpi/-}dpi
-		;;
-	xorg-util-macros|xorg-encodings|xorg-font*|xorg-scripts)
-		ORIG_PN=${PN/xorg-/}
-		;;
-	*)
-		ORIG_PN=${ORIG_PN:-${PN}}
-		;;
+	font-*-dpi*)	ORIG_PN=${ORIG_PN/-dpi/-}dpi ;;
+	font-encodings) ORIG_PN="encodings" ;;
+	xorg-util-macros|xorg-scripts) ORIG_PN=${PN/xorg-/} ;;
+	*)	ORIG_PN=${ORIG_PN:-${PN}} ;;
 esac
 
 case ${PN} in
@@ -43,7 +37,7 @@ case ${PN} in
 	xorg-docs|xorg-sgml*)
 		xorg_cat=doc
 		;;
-	xorg-encodings|xorg-font*)
+	font-*)
 		xorg_cat=font
 		;;
 	lib*|pixman|xtrans)
@@ -70,40 +64,41 @@ SRC_DIR="${ORIG_PN}-${PV}"
 
 xorg_compile() {
 	local xorg_conf
+
 	case ${PN} in
-		xorg-font-*-dpi75)
+		font-*-dpi75)
 			xorg_conf="--with-fontdir=/usr/share/fonts/75dpi"
 			;;
-		xorg-font-*-dpi100)
+		font-*-dpi100)
 			xorg_conf="--with-fontdir=/usr/share/fonts/100dpi"
 			;;
-		xorg-font-*-speedo)
+		font-*-speedo)
 			xorg_conf="--with-fontdir=/usr/share/fonts/Speedo"
 			;;
-		xorg-font-*-ttf)
+		font-*-ttf)
 			xorg_conf="--with-fontdir=/usr/share/fonts/TTF"
 			;;
-		xorg-font-*-type1)
+		font-*-type1)
 			xorg_conf="--with-fontdir=/usr/share/fonts/Type1"
 			;;
-		xorg-font-*-cyrillic)
+		font-*-cyrillic)
 			xorg_conf="--with-fontdir=/usr/share/fonts/cyrillic"
 			;;
-		xorg-font-*-misc)
+		font-*-misc)
 			xorg_conf="--with-fontdir=/usr/share/fonts/misc"
 			;;
 	esac
 
 	CPPFLAGS+=" -DX_LOCALE"
 
-	cygconf --disable-static ${xorg_conf} ${@}
+	cygconf ${xorg_conf} ${@}
 
 	cygmake
 }
 
 src_compile() {
 	case ${PN} in
-		xorg-util-macros|*proto*|evieext|xbitmaps|xcursor-themes|xtrans|xorg-sgml-doctools|xorg-encodings|xorg-font*)
+		xorg-util-macros|*proto*|evieext|xbitmaps|xcursor-themes|xtrans|xorg-sgml-doctools|font-*)
 			# these are just data and don't benefit from autoreconf
 			;;
 		*)
