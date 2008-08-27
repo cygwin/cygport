@@ -6,17 +6,16 @@ set -e
 
 export CYGPORT_BOOTSTRAP=1
 
+rm -f ${PACKAGE}-${VERSION}-1-src.tar.bz2 ${PACKAGE}-${VERSION}-1.tar.bz2
+
 if [ -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.bz2 ]
 then
 	# running under make distcheck
 	# make dist during make distcheck won't work because all files in 
 	# DISTDIR are read-only
 	cp -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.bz2 .
-elif [ -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.bz2 ]
-then
-	cp -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.bz2 .
 else
-	${MAKE} -C ${top_builddir} dist-bzip2
+	${MAKE} -C ${top_builddir} dist-bzip2 > /dev/null
 	cp -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.bz2 .
 fi	
 	
@@ -27,3 +26,6 @@ ${top_builddir}/bin/cygport ${PACKAGE}-${VERSION}-1.cygport prep compile install
 cp -r ${PACKAGE}-${VERSION}-1/dist/${PACKAGE} .
 
 ${top_builddir}/bin/cygport ${PACKAGE}-${VERSION}-1.cygport finish
+
+rm -f ${PACKAGE}-${VERSION}-1-src.tar.bz2 ${PACKAGE}-${VERSION}-1.tar.bz2
+rm -f ${PACKAGE}-${VERSION}.tar.bz2 ${PACKAGE}-${VERSION}-1.cygport

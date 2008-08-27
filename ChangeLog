@@ -1,3 +1,8 @@
+2008-Aug-27  yselkowitz
+
+	* tests/bootstrap:
+	Always run make dist first, unless in distcheck. Clean up after test.
+
 2008-Aug-26  yselkowitz
 
 	* bin/cygport.in (__gpg_verify, __src_prep):
