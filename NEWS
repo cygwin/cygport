@@ -1,4 +1,13 @@
-0.3.13:
+0.4.0:  STABLE
+	* Runs only on Cygwin 1.5; use 0.9.x (trunk) for Cygwin 1.7.
+	* dolib(): Uses libtool to install libtool libraries.
+	* inherited(): New function.
+	* berkdb.cygclass: Java and Tcl bindings are now dependent on previous
+	  inheritance of java and/or tcl cygclasses.
+	* gtk2-perl.cygclass: Use managed mount to fix manpage generation.
+	  Requires perl-5.10.0-5 and perl-ExtUtils-Depends-0.300-2 for linking.
+
+0.3.13:  CYGWIN-1.5 BRANCHPOINT
 	* Added dependency on rsync.
 	* cygautoreconf(): Accepts ACLOCAL_FLAGS.
 	* No longer generates postinstall scripts for GNU info files.
