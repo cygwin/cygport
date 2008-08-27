@@ -87,30 +87,26 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		never_gst_plugins="alsa gst_v4l gst_v4l2 xvideo"
 		;;
 	good)
-		# wavpack moved from bad in 0.10.6
-		# soup moved from bad in 0.10.8
-		my_gst_plugins="aalib annodex cairo cdio directdraw directsound
+		my_gst_plugins="aalib annodex cairo directdraw directsound
 		                esd flac gconf gdk_pixbuf jpeg libcaca libdv libpng
 		                oss pulse shout2 soup speex taglib wavpack x xshm"
 		conftest_gst_plugins="aalibtest esdtest shout2test"
 		never_gst_plugins="dv1394 gst_v4l2 hal ladspa osx_audio osx_video sunaudio xvideo"
 		;;
 	bad)
-		# wavpack moved to good in 0.10.5
-		# opengl moved out in 0.10.6
-		# soup moved to good in 0.10.7
 		# amrwb codec is patent encumbered
 		my_gst_plugins="amrwb bz2 dirac dts faac faad gsm ivorbis jack libmms
 		                metadata mpeg2enc mplex musepack musicbrainz nas neon
-		                ofa opengl resindvd sdl sndfile soundtouch soup spc swfdec
-                        theoradec timidity wavpack wildmidi wininet x264 xvid"
+		                ofa resindvd sdl sndfile soundtouch spc swfdec
+		                theoradec timidity wildmidi wininet x264 xvid"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
                            ladspa mythtv oss4 quicktime vcd"
 		;;
 	ugly)
 		# WARNING: the dependent codecs may be patent encumbered
-		my_gst_plugins="amrnb a52dec dvdnav dvdread id3tag lame mad mpeg2dec sidplay"
+		my_gst_plugins="amrnb a52dec cdio dvdnav dvdread id3tag lame
+		                mad mpeg2dec sidplay"
 		conftest_gst_plugins=
 		never_gst_plugins=
 		;;

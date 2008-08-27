@@ -1,5 +1,7 @@
 2008-Aug-27  yselkowitz
 
+	* lib/gst-plugins0.10.cygclass: Update module lists.
+
 	* lib/xorg.cygclass: Drop xorg- prefix from font-* packages.
 
 	* lib/gtk2-perl.cygclass (gtk2_perl_compile):
