@@ -45,15 +45,15 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack cygport-0.4.0-X-src.tar.bz2
+  unpack cygport-0.4.1-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./cygport-0.4.0-X.cygport all
+  cygport ./cygport-0.4.1-X.cygport all
 
 This will create:
-  /usr/src/cygport-0.4.0-X-src.tar.bz2
-  /usr/src/cygport-0.4.0-X.tar.bz2
+  /usr/src/cygport-0.4.1-X-src.tar.bz2
+  /usr/src/cygport-0.4.1-X.tar.bz2
 
 -------------------------------------------
 
@@ -145,20 +145,20 @@ Files included in the binary package:
   /usr/share/cygport/cygport.nanorc
   /usr/share/cygport/mirrors
   /usr/share/cygport/sample.cygport
-  /usr/share/doc/cygport-0.4.0/AUTHORS
-  /usr/share/doc/cygport-0.4.0/COPYING
-  /usr/share/doc/cygport-0.4.0/ChangeLog
-  /usr/share/doc/cygport-0.4.0/INSTALL
-  /usr/share/doc/cygport-0.4.0/NEWS
-  /usr/share/doc/cygport-0.4.0/README
-  /usr/share/doc/cygport-0.4.0/html/cygport.1.html
+  /usr/share/doc/cygport-0.4.1/AUTHORS
+  /usr/share/doc/cygport-0.4.1/COPYING
+  /usr/share/doc/cygport-0.4.1/ChangeLog
+  /usr/share/doc/cygport-0.4.1/INSTALL
+  /usr/share/doc/cygport-0.4.1/NEWS
+  /usr/share/doc/cygport-0.4.1/README
+  /usr/share/doc/cygport-0.4.1/html/cygport.1.html
   /usr/share/man/man1/cygport.1.gz
 
 ------------------
 
 Port Notes:
 
------ version 0.4.0-1 -----
+----- version 0.4.1-1 -----
 Version bump.
 See ChangeLog and NEWS for more information about this and past releases.
 

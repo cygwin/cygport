@@ -1,3 +1,9 @@
+2008-Aug-27  yselkowitz
+
+	* configure.in: Post-release version bump.
+
+	* Tagged 0.4.0 release.
+
 2008-Aug-26  yselkowitz
 
 	* lib/gtk2-perl.cygclass (gtk2_perl_compile):
