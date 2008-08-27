@@ -1,21 +1,14 @@
 Possible changes for 0.9 (Cygwin 1.7):
 
 * Fix rcs tarball names to allow more than one at a time
-* autotools: move cygautoreconf and cygconf here, and auto-inherit (?)
 * cross: overhaul, support mingw (perhaps separate mingw.cygclass)
 * emacs: not working, remove (?)
 * svn: fix SVN_MODULE
-
-
-GOALS for 0.3 development:
-
-* Custom commands (CW)
 * warnings for deprecated APIs
 * Debug and/or Verbose mode
 * Additional cygclasses:
 	- alternatives
 	- relocate: http://cygwin.com/ml/cygwin/2006-10/msg00743.html
-* Check postinstalls for absolute paths
 * Fix all FIXMEs
 
 
