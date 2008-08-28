@@ -1,3 +1,17 @@
+0.9.1:
+	* dolib(): Installs *.la with libtool.
+	* inherited(): New function.
+	* Use fully qualified paths within all postinstall/preremove scripts.
+	* autotools.cygclass: cygautoreconf, cygconf moved here; auto-inherited.
+	* berkdb.cygclass: Bindings dependent on first inheriting java or tcl.
+	* cmake.cygclass: cygcmake moved here; provides a src_compile.
+	* fox-build.cygclass: Renamed prev. fox.cygclass.
+	* fox.cygclass: NEW as fox-config wrapper.
+	* mono.cygclass: No longer sets MAKEOPTS.
+	* qt3-qmake.cygclass: cygqmake3 moved here; provides a src_compile.
+	* wxwidgets.cygclass: WX_VERSION is mandatory.
+	* xorg.cygclass: Drop xorg- prefix from font-* packages.
+
 0.9.0:
 	* Run only on Cygwin 1.7.
 	* Removed all managed mount code.
