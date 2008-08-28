@@ -1,5 +1,9 @@
 2008-Aug-27  yselkowitz
 
+	* configure.in: Post-release version bump.
+
+	* Tagged 0.9.1.
+
 	* lib/gst-plugins0.10.cygclass: Update module lists.
 
 	* lib/xorg.cygclass: Drop xorg- prefix from font-* packages.
