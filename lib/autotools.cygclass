@@ -23,6 +23,22 @@
 #
 ################################################################################
 
+# These functions were previously part of cygport itself, but were moved
+# out for easier maintainability.  For backwards compatibility, this
+# cygclass is auto-inherit()ed, so these functions are always available
+# as before.
+#
+# Normally, a cygclass can only be inherited once.  Even though this
+# is auto-inherit()ed, it can still be manually inherit()ed if desired.
+# In most cases this is unnecessary, but it can be useful if you inherit()
+# other cygclasses but still want the default src_compile().  IOW,
+# 'inherit perl autotools' provides all the perl_*() functions and
+# PERL_* variables, but will build with cygconf/cygmake instead of
+# with perl's ExtUtils::MakeMaker or Module::Build.
+#
+# For this reason, other cygclasses should NOT inherit autotools.
+
+
 # Regenerates auto* files; most importantly, pulls in the Cygwin libtool
 cygautoreconf() {
 	local d;

@@ -1976,9 +1976,13 @@ done
 
 unset conf;
 
-# load .cygport
+# Auto-inherit autotools for backwards compatibility. But we
+# want to allow it to be inherited one more time in order to
+# reset src_compile() when other cygclasses override it.
 inherit autotools;
+unset _autotools_CYGCLASS_
 
+# load .cygport
 source ${top}/${cygportfile} || error "could not read ${cygportfile}"
 
 if defined CYGPORT_DEPEND
