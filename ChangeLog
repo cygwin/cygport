@@ -1,5 +1,7 @@
 2008-Aug-28  yselkowitz
 
+	* bin/cygport.in (__oldpatch): Remove long-deprecated function.
+
 	* bin/cygport.in: Allow autotools.cygclass to be manually re-inherit()ed.
 	lib/autotools.cygclass: Document this feature.
 
