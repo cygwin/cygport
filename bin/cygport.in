@@ -1283,7 +1283,7 @@ __prepman() {
 			echo ".so ${manref##*/}" > ${manlink};
 		done
 
-		for manpage in $(find ${D}/usr/share/man -type f ! -name '*.gz' ! -name '*.bz2')
+		for manpage in $(find ${D}/usr/share/man -type f ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma')
 		do
 			echo "        ${manpage##*/}";
 			gzip -q ${manpage};
