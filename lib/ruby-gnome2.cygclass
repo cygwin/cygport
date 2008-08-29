@@ -139,19 +139,15 @@ ruby_gnome2_compile() {
 
 	cygmake LOCAL_LIBS="-L${RUBY_SITEARCH}"
 
-	if false; then ######### disable rdoc
-
 	for d in ${rbg2_dir}
 	do
 		if [ -d ${d}/src ]
 		then
-			rdoc ${d}/src -o ${d}/rdoc
+			rdoc --ri --op ${d}/rdoc ${d}/src
 		else
-			rdoc ${d} -o ${d}/rdoc
+			rdoc --ri --op ${d}/rdoc ${d}
 		fi
 	done
-
-	fi ######### disable rdoc
 }
 
 ruby_gnome2_install() {
@@ -179,7 +175,8 @@ ruby_gnome2_install() {
 
 		if [ -d ${d}/rdoc ]
 		then
-			cp -r ${d}/rdoc ${D}/usr/share/doc/ruby-${mod}-${PV}/
+			dodir ${RI_SITEDIR}
+			cp -r ${d}/rdoc/*/ ${D}${RI_SITEDIR}/
 		fi
 	done
 }

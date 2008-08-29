@@ -1,5 +1,8 @@
 2008-Aug-28  yselkowitz
 
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_compile, ruby_gnome2_install):
+	Enable rdoc generation, using ri docs, not HTML.
+
 	* lib/ruby.cygclass (RI_SITEDIR): Define.
 	(ruby_compile, ruby_install) [RDOC_SOURCE]: Build ri docs, not HTML.
 
