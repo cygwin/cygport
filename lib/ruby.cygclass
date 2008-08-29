@@ -31,6 +31,7 @@ RUBY_LIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 RUBY_ARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["archdir"]')
 RUBY_SITELIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitelibdir"]')
 RUBY_SITEARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitearchdir"]')
+RI_SITEDIR=/usr/share/ri/${RUBY_VERSION}/site
 LIBRUBY=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["LIBRUBYARG"]')
 
 ruby_compile() {
@@ -56,7 +57,7 @@ ruby_compile() {
 
 	if defined RDOC_SOURCE
 	then
-		rdoc ${RDOC_SOURCE} -o rdoc
+		rdoc --ri --op ${B}/.rdoc ${RDOC_SOURCE}
 	fi
 }
 
@@ -80,10 +81,10 @@ ruby_install() {
 		error "No Ruby module detected"
 	fi
 
-	if [ -d rdoc ] 
+	if [ -d .rdoc ]
 	then
-		dodir /usr/share/doc/${P}
-		cp -r rdoc ${D}/usr/share/doc/${P}/
+		dodir ${RI_SITEDIR}
+		cp -r .rdoc/*/ ${D}${RI_SITEDIR}/
 	fi
 }
 
