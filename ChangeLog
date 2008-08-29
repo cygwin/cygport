@@ -1,3 +1,7 @@
+2008-Aug-29  yselkowitz
+
+	* lib/gnome2.cygclass: No need to override localstatedir with rarian.
+
 2008-Aug-28  yselkowitz
 
 	* lib/ruby-gnome2.cygclass (ruby_gnome2_compile, ruby_gnome2_install):
