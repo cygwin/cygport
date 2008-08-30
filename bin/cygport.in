@@ -550,7 +550,6 @@ __src_fetch() {
 }
 
 # unpacks archives
-# FIXME: public api?
 unpack() {
 	local unpack_cmd;
 	local unpack_file_path;
@@ -1845,8 +1844,6 @@ __finish() {
 
 	while (( n < 5 ))
 	do
-		# FIXME: beep?
-		# echo $'\a';
 		sleep 1 || exit $?;
 		n+=1;
 	done

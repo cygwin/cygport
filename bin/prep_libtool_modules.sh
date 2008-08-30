@@ -25,7 +25,7 @@
 ################################################################################
 set -e
 
-declare -r ltversion="$(/usr/bin/libtool --version | /bin/grep ltmain.sh)"
+declare -r ltversion="$(/usr/bin/libtool --version | head -n 1)"
 
 echo "Fixing libtool modules:"
 
@@ -53,8 +53,7 @@ do
 	do
 		if defined ${l} && [ ! -f ${ltlibdir}/${!l} ]
 		then
-			# FIXME: error?
-			warning "${!l} was not installed"
+			error "${!l} was not installed"
 		fi
 	done
 

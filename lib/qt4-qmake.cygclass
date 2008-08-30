@@ -47,7 +47,7 @@ qt4_qmake_compile() {
 	cygmake
 }
 
-# FIXME: This won't work for most packages!!!
+# Warning: This won't work for some packages!!!
 qt4_qmake_install() {
 	local dll pc
 

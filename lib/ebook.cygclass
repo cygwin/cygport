@@ -23,7 +23,6 @@
 #
 ################################################################################
 
-# FIXME: multiple versions of same package (not currently available)
 ORIG_PN="${PN#ebook-}"
 
 DESCRIPTION="EBook ${ORIG_PN} documentation"

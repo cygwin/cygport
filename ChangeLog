@@ -1,5 +1,12 @@
 2008-Aug-29  yselkowitz
 
+	* bin/cygport.in:
+	bin/prep_libtool_modules.sh:
+	lib/ebook.cygclass:
+	lib/qt3-qmake.cygclass:
+	lib/qt4-qmake.cygclass:
+	Clean up a number of old FIXMEs.
+
 	* lib/gnome2.cygclass: No need to override localstatedir with rarian.
 
 2008-Aug-28  yselkowitz
