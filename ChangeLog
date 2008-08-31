@@ -1,5 +1,8 @@
 2008-Aug-31  yselkowitz
 
+	* bin/cygport.in (__srpm_extract): New function.
+	(unpack): Call it for *.src.rpm sources.
+
 	* bin/cygport.in:
 	lib/berkdb.cygclass (berkdb_autoreconf):
 	lib/cross.cygclass (cross_config_sub):

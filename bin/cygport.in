@@ -548,6 +548,27 @@ __src_fetch() {
 	done
 }
 
+__srpm_extract() {
+	local rpmpath=${1};
+	local rpmfile=${1##*/};
+	local cpiofile=${rpmfile%.rpm}.cpio;
+	local cpiopath=${T}/${cpiofile};
+	local srcfile;
+
+	check_prog_req rpm2cpio rpm;
+	check_prog_req cpio;
+
+	rpm2cpio ${rpmpath} > ${cpiopath};
+	(cd ${T}
+	 cpio -i --quiet < ${cpiofile};
+	)
+
+	for srcfile in $(cpio -t --quiet < ${cpiopath})
+	do
+		unpack ${T}/${srcfile};
+	done
+}
+
 # unpacks archives
 unpack() {
 	local unpack_cmd;
@@ -589,6 +610,9 @@ unpack() {
 			*.rar)
 				check_prog_req unrar;
 				unpack_cmd="unrar x -inul";
+				;;
+			*.src.rpm)
+				unpack_cmd="__srpm_extract";
 				;;
 			*.shar)
 				check_prog_req unshar;
