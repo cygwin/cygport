@@ -1,14 +1,10 @@
-Possible changes for 0.9 (Cygwin 1.7):
+Priority changes for 0.9 (Cygwin 1.7):
 
 * Fix rcs tarball names to allow more than one at a time
 * cross: overhaul, support mingw (perhaps separate mingw.cygclass)
-* emacs: not working, remove (?)
+* emacs: not working, remove/disable emacs_compile (?)
 * svn: fix SVN_MODULE
-* warnings for deprecated APIs
 * Debug and/or Verbose mode
-* Additional cygclasses:
-	- alternatives
-	- relocate: http://cygwin.com/ml/cygwin/2006-10/msg00743.html
 * Fix all FIXMEs
 
 
@@ -18,14 +14,13 @@ particular order:
 * Documentation (man/info/HTML ??)
 * Complete test suite
 * NLS
-* Additional cygclasses:
-	- doxygen
-* Additional mirrors:
-	- kernel
-	- mysql
 * dolocale
 * dosed
+* ROX desktop
 * multiple-patch tarballs in cygpatch
+* Additional cygclasses:
+	- alternatives
+	- relocate: http://cygwin.com/ml/cygwin/2006-10/msg00743.html
 * Windows shortcuts for X11 programs
 	doico /path/to/pixmap.png [calls png(to|2)ico and doins]
 	make_win_shortcut Foo [run.exe foo.exe -wait --display=...]
