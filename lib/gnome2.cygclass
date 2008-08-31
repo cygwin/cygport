@@ -52,7 +52,7 @@ gnome2_autoreconf() {
 	export NOCONFIGURE=1
 	export PKG_NAME=${ORIG_PN:-${PN}}
 	export REQUIRED_AUTOMAKE_VERSION=$(automake --version | head -n 1 | sed 's/^.*[  ]\([0-9.]*[a-z]*\).*$/\1/')
-	export REQUIRED_LIBTOOL_VERSION=1.5.18	# new autotools layout
+	export REQUIRED_LIBTOOL_VERSION=2.2.2
 	export USE_COMMON_DOC_BUILD
 
 	for skip_d in ${GNOME2_NO_AUTOGEN}

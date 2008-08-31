@@ -45,7 +45,7 @@ CROSS_BUILD=i686-pc-cygwin
 
 cross_config_sub() {
 	# cygport requires libtool anyway, so this need not be verified (?)
-	/usr/share/libtool/config.sub ${@} 2> /dev/null
+	/usr/share/libtool/config/config.sub ${@} 2> /dev/null
 }
 
 __cross_test_target() {
