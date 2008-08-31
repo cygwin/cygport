@@ -1,3 +1,8 @@
+2008-Aug-31  yselkowitz
+
+	* bin/cygport.in (__srpm_extract): New function.
+	(unpack): Call it for *.src.rpm sources.
+
 2008-Aug-28  yselkowitz
 
 	* lib/ruby.cygclass (RI_SITEDIR): Define.
