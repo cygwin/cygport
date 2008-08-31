@@ -1,3 +1,7 @@
+2008-Aug-31  yselkowitz
+
+	* bin/cygport.in: Tweak argument parser catch-all.
+
 2008-Aug-29  yselkowitz
 
 	* bin/cygport.in:

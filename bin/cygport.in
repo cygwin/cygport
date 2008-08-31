@@ -2158,8 +2158,17 @@ do
 			__show_version;
 			exit 0;
 			;;
-		*)
+		_*)
 			error "unknown command ${argv[${arg_n}]}";
+			exit 1;
+			;;
+		*)
+			if __check_function ${argv[${arg_n}]}
+			then
+				${argv[${arg_n}]};
+			else
+				error "unknown command ${argv[${arg_n}]}";
+			fi
 			_status=$?;
 			;;
 	esac
