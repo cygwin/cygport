@@ -371,7 +371,6 @@ __check_unstable() {
 }
 
 # determine if version is at least the given minimum
-# FIXME: public api?
 __version_at_least() {
 	local want_v=${1%-*};
 	local want_r=${1#*-};

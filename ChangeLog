@@ -8,6 +8,7 @@
 
 	* bin/cygport.in:
 	bin/prep_libtool_modules.sh:
+	lib/aspell-dict.cygclass:
 	lib/ebook.cygclass:
 	lib/qt3-qmake.cygclass:
 	lib/qt4-qmake.cygclass:

@@ -35,7 +35,6 @@ esac
 
 ASPELL_LANG="${PN#aspell-}"
 
-# FIXME: .tab deprecated in favour of XML
 iso_639=/usr/share/iso-codes/iso_639.tab
 
 if [ -f ${iso_639} ]
