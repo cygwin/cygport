@@ -1,5 +1,7 @@
 2008-Aug-31  yselkowitz
 
+	* lib/pygtk.cygclass: Remove deprecated packages.
+
 	* bin/cygport.in: Tweak argument parser catch-all.
 
 2008-Aug-29  yselkowitz

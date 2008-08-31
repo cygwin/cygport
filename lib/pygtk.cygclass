@@ -3,7 +3,7 @@
 # pygtk.cygclass - functions for building PyGTK and Gnome-Python packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,48 +23,22 @@
 #
 ################################################################################
 
-pygtk_mod=${PN#python-}
-
-# There are TWO versions of PyGtkSourceView:
-# First for GtkSourceView 1.8, provided by gnome-python-desktop
-# Second for GtkSourceView 2.x, with its own package
-case ${pygtk_mod} in
-	gtksourceview*) ;;
-	*)	pygtk_mod=${pygtk_mod%${PV_MAJ}} ;;
-esac
-
-case ${pygtk_mod} in
-	gnome-python|gnome-python-desktop|gnome-python-extras)
-		pygtk_subdir=.
+case ${PN#python-} in
+	gnome-python|nautilus-python)
+		pygtk_mod=${PN/-python}
 		ORIG_PN=${PN}
 		;;
-	bonobo|gconf|gnome|gnomecanvas|gnomevfs)
-		pygtk_subdir=${pygtk_mod}
-		ORIG_PN=gnome-python
+	gnome-python-desktop|gnome-python-extras)
+		pygtk_mod=${PN/-python-/ }
+		ORIG_PN=${PN}
 		;;
-	gnomeapplet|gnomedesktop|gnomekeyring|gnomeprint|gtksourceview|gtop|mediaprofiles|metacity|rsvg|totem|wnck)
-		pygtk_subdir=${pygtk_mod}
-		ORIG_PN=gnome-python-desktop
-		;;
-	gtkhtml)
-		pygtk_subdir=gtkhtml2
-		ORIG_PN=gnome-python-extras
-		;;
-	egg|gtkspell|gda|gdl)
-		pygtk_subdir=${pygtk_mod}
-		ORIG_PN=gnome-python-extras
-		;;
-	nautilus|nautilus-python)
-		pygtk_subdir=.
-		ORIG_PN=nautilus-python
-		;;
-	gtksourceview2)
-		pygtk_subdir=.
-		ORIG_PN=pygtksourceview
+	gst0.10)
+		pygtk_mod="gstreamer 0.10"
+		ORIG_PN="gst-python"
 		;;
 	*)
-		pygtk_subdir=.
-		ORIG_PN=${ORIG_PN:-py${pygtk_mod}}
+		pygtk_mod=${PN#python-}
+		ORIG_PN=${ORIG_PN:-py${pygtk_mod%2}}
 		;;
 esac
 
@@ -79,36 +53,16 @@ PYGTK_DATADIR="/usr/share/pygtk/2.0"
 
 pygtk_compile() {
 	cygconf --disable-static "${@}"
-	cd ${pygtk_subdir}
 	cygmake LIBS="-no-undefined ${LIBPYTHON}"
-}
-
-pygtk_install() {
-	cd ${pygtk_subdir}
-	cyginstall
-
-	# FIXME: are gnome-python-{desktop,extras}-2.0.pc actually used for
-	# anything?  How should they be packaged?
-	case ${pygtk_mod} in
-		gnomevfs)
-			insinto /usr/lib/pkgconfig
-			doins ${B}/${ORIG_PN}-*.pc
-			;;
-	esac
 }
 
 src_compile() {
 	cd ${S}
 	if [ -d m4 ]
 	then
-		ACLOCAL='aclocal -I m4'
+		ACLOCAL_FLAGS='-I m4'
 	fi
 	cygautoreconf
 	cd ${B}
 	pygtk_compile
-}
-
-src_install() {
-	cd ${B}
-	pygtk_install
 }
