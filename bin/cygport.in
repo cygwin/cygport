@@ -356,6 +356,12 @@ __check_function() {
 	return $?
 }
 
+# Check if function has been defined and declared readonly
+__check_function_ro() {
+	declare -Fr | grep -q " ${1}$"
+	return $?
+}
+
 # Unstable API guard
 __check_unstable() {
 	local unstable_var=CYGPORT_USE_UNSTABLE_API
@@ -425,7 +431,8 @@ unset _myprog;
 
 # protect functions
 export -f check_prog check_prog_req
-readonly -f check_prog check_prog_req __check_function __check_unstable __version_at_least
+readonly -f check_prog check_prog_req __check_function __check_function_ro \
+            __check_unstable __version_at_least
 
 
 ################################################################################
@@ -2182,7 +2189,7 @@ do
 			exit 1;
 			;;
 		*)
-			if __check_function ${argv[${arg_n}]}
+			if __check_function ${argv[${arg_n}]} && ! __check_function_ro ${argv[${arg_n}]}
 			then
 				${argv[${arg_n}]};
 			else
