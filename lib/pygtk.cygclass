@@ -66,3 +66,5 @@ src_compile() {
 	cd ${B}
 	pygtk_compile
 }
+
+readonly -f pygtk_compile

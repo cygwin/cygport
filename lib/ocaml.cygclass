@@ -51,3 +51,5 @@ src_install() {
 	cd ${B}
 	ocaml_install
 }
+
+readonly -f ocaml_install

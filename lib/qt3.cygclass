@@ -70,3 +70,5 @@ doqt3plugin() {
 	exeinto ${QT3_PLUGINSDIR}/${__QT3_PLUGIN_SUBDIR}
 	doexe ${@}
 }
+
+readonly -f doqt3inc doqt3lib qt3pluginto doqt3plugin

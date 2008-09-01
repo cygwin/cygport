@@ -187,3 +187,6 @@ src_install() {
 			;;
 	esac
 }
+
+readonly -f docbook_install docbook_sgml_postinst docbook_sgml_prerm \
+            docbook_xml_postinst docbook_xml_prerm

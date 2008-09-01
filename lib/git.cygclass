@@ -64,3 +64,5 @@ git_fetch() {
 	cd ${T}
 	tar jcf ${top}/${git_tarball} --exclude=.git --exclude=.gitignore ${GIT_MODULE}
 }
+
+readonly -f git_fetch

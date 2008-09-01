@@ -3,7 +3,7 @@
 # svn.cygclass - functions for building packages from SVN checkouts
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -76,3 +76,5 @@ svn_fetch() {
 	# many SVN repos were made by cvs2svn and .cvsignore files remain
 	tar jcf ${top}/${svn_tarball} --exclude=.svn --exclude=.cvsignore ${SVN_MODULE}
 }
+
+readonly -f svn_fetch

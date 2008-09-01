@@ -3,7 +3,7 @@
 # font.cygclass - functions for installing X11 fonts
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -57,3 +57,5 @@ dofont() {
 		/bin/install -m0644 ${i} ${D}${_fontinto_dir} || error "dofont ${i} failed"
 	done
 }
+
+readonly -f fontinto dofont

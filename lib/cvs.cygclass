@@ -60,3 +60,5 @@ cvs_fetch() {
 
 	tar jcf ${top}/${cvs_tarball} --exclude=CVS --exclude=.cvsignore ${CVS_MODULE}
 }
+
+readonly -f cvs_fetch

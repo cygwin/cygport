@@ -80,3 +80,5 @@ src_install() {
 	cd ${B}
 	distutils_install
 }
+
+readonly -f distutils_compile distutils_test distutils_install

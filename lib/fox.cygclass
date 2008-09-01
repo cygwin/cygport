@@ -45,3 +45,4 @@ fox-config() {
 }
 
 export -f fox-config
+readonly -f _fox_find_config fox-config

@@ -51,3 +51,5 @@ src_compile() {
 	cd ${B}
 	gtk2_perl_compile
 }
+
+readonly -f gtk2_perl_compile

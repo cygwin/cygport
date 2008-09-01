@@ -212,3 +212,5 @@ src_install() {
 	cd ${B}
 	gst_plugins_install
 }
+
+readonly -f gst_plugins_autoreconf gst_plugins_compile gst_plugins_install

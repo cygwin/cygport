@@ -110,3 +110,5 @@ src_compile() {
 	cd ${B}
 	xorg_compile
 }
+
+readonly -f xorg_compile

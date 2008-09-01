@@ -172,3 +172,6 @@ apache1_postinst() {
 			_EOF
 	done
 }
+
+readonly -f apache1_compile apache1_apxs_compile apxs1_compile doapache1conf \
+            doapache1mod apache1_postinst

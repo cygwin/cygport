@@ -102,3 +102,5 @@ src_compile() {
 	cd ${B}
 	gnome2_compile
 }
+
+readonly -f gnome2_autoreconf gnome2_compile

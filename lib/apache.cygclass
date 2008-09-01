@@ -63,3 +63,6 @@ doapachemod() {
 apache_postinst() {
 	apache${APACHE_MAJOR}_postinst
 }
+
+readonly -f apache_compile apache_apxs_compile apxs_compile doapacheconf \
+            doapachemod apache_postinst

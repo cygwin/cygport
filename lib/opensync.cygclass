@@ -96,3 +96,5 @@ src_compile() {
 	cd ${B}
 	opensync_plugin_compile
 }
+
+readonly -f opensync_plugin_compile opensync_doconfig opensync_doplugin

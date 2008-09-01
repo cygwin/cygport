@@ -54,3 +54,5 @@ hg_fetch() {
 
 	tar jcf ${top}/${hg_tarball} --exclude=.hg ${HG_MODULE}
 }
+
+readonly -f hg_fetch

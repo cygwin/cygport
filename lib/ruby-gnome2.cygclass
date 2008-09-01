@@ -3,7 +3,7 @@
 # ruby-gnome2.cygclass - functions for building Ruby GNOME 2.x bindings
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -34,10 +34,6 @@ __ruby_gnome2_get_module_dir() {
 		error "$FUNCNAME: too many arguments"
 	fi
 
-	# poppler and vte were ADDED in 0.15.0
-	# gstreamer and libgda were REMOVED in 0.16.0
-	# bonobo and bonoboui were ADDED in 0.17.0
-	# gtksourceview2 will be added after 0.17.0
 	case ${@} in
 		atk|pango|gnomevfs|gtkglext|gtkhtml2|gtkmozembed|gtksourceview|\
 		gtksourceview2|poppler|vte|libgda)
@@ -205,3 +201,5 @@ src_install() {
 	cd ${B}
 	ruby_gnome2_install
 }
+
+readonly -f __ruby_gnome2_get_module_dir ruby_gnome2_compile ruby_gnome2_install

@@ -61,3 +61,5 @@ src_compile() {
 	cygcmake
 	cygmake
 }
+
+readonly -f cygcmake

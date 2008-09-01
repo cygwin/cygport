@@ -3,7 +3,7 @@
 # gstreamer.cygclass - common functions for building GStreamer components
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -48,7 +48,6 @@ gstreamer_cvs_checkout() {
 }
 
 gst_cvs_checkout() { gstreamer_cvs_checkout ${@} ; }
-gst_cvs_co() { gstreamer_cvs_checkout ${@} ; }
 
 gstreamer_autoreconf() {
 	# gstreamer packages require a custom autogen.sh
@@ -61,3 +60,5 @@ gstreamer_autoreconf() {
 }
 
 gst_autoreconf() { gstreamer_autoreconf ; }
+
+readonly -f gstreamer_cvs_checkout gst_cvs_checkout gstreamer_autoreconf gst_autoreconf

@@ -120,3 +120,5 @@ src_install() {
 	cd ${B}
 	kde4_install
 }
+
+readonly -f kde4_compile kde4_install

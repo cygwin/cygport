@@ -29,8 +29,6 @@
 #
 # public:
 #	defined VARIABLE_NAME
-#	ifdef VARIABLE_NAME
-#	ifndef VARIABLE_NAME
 #
 ################################################################################
 
@@ -50,9 +48,6 @@ defined() {
 
 readonly -f defined
 export -f defined
-
-alias ifdef="if defined"
-alias ifndef="if ! defined"
 
 
 ################################################################################
@@ -861,7 +856,7 @@ __src_prep() {
 }
 
 # protect functions
-readonly -f fetch __mirror_fetch __src_fetch unpack __gpg_verify __mkdirs cygpatch __src_prep
+readonly -f fetch __mirror_fetch __src_fetch __srpm_extract unpack __gpg_verify __mkdirs cygpatch __src_prep
 
 
 ################################################################################
@@ -908,7 +903,7 @@ lndirs() {
 }
 
 # standard GNU make call
-# if parallel build doesn't work for a package, call 'cygmake -j1'
+# if parallel build does not work for a package, call 'cygmake -j1'
 cygmake() {
 	make ${MAKEOPTS} "${@}" || error "make failed"
 }

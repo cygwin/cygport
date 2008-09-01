@@ -47,3 +47,5 @@ src_install() {
 	cd ${S}
 	ebook_install
 }
+
+readonly -f ebook_install

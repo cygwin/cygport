@@ -263,3 +263,5 @@ src_compile() {
 	cygconf
 	cygmake
 }
+
+readonly -f cygautoreconf cygconf

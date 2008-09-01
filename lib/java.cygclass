@@ -3,7 +3,7 @@
 # java.cygclass - functions for creating GNU Classpath based Java packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007 Yaakov Selkowitz
+# Copyright (C) 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -62,7 +62,6 @@ dojar() {
 		fi
 	done
 }
-alias dojava='dojar'
 
 newjar() {
 	if (( $# != 2 ))
@@ -82,7 +81,6 @@ newjar() {
 		fi
 	done
 }
-alias newjava='newjar'
 
 dojavadoc() {
 	if (( $# != 1 ))
@@ -125,3 +123,5 @@ java_wrapper() {
 	echo -e "#!/bin/sh\nexec ${JAVA} ${jcommand} \"\$@\"" > ${D}/usr/bin/${jwrapper}
 	chmod +x ${D}/usr/bin/${jwrapper}
 }
+
+readonly -f dojar newjar dojavadoc java_wrapper

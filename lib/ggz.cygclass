@@ -114,3 +114,5 @@ src_install() {
 	cyginstall
 	ggz_postinst
 }
+
+readonly -f ggz_autoreconf ggz_compile ggz_postinst doggzmod

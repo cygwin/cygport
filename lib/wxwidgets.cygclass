@@ -3,7 +3,7 @@
 # wxwidgets.cygclass - functions for building wxWidgets-dependent packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007 Yaakov Selkowitz
+# Copyright (C) 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -83,3 +83,4 @@ wx-config() {
 }
 
 export -f wx-config
+readonly -f _wx_find_config wx-config

@@ -173,3 +173,5 @@ src_install() {
 	php_install
 	php_postinst
 }
+
+readonly -f php_is_binary php_autoreconf php_compile php_install php_postinst

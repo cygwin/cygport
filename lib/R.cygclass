@@ -90,3 +90,5 @@ src_compile() {
 src_install() {
 	R_install
 }
+
+readonly -f check_R_package R_compile R_install

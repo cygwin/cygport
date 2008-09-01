@@ -76,3 +76,5 @@ src_install() {
 	cd ${B}
 	qt3_qmake_install
 }
+
+readonly -f cygqmake3 qt3_qmake_compile qt3_qmake_install

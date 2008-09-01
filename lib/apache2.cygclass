@@ -202,3 +202,6 @@ apache2_postinst() {
 			_EOF
 	done
 }
+
+readonly -f apache2_compile apache2_apxs_compile apxs2_compile doapache2conf \
+            doapache2mod apache2_postinst

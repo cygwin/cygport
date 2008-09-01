@@ -70,3 +70,5 @@ doqt4plugin() {
 	exeinto ${QT4_PLUGINSDIR}/${__QT4_PLUGIN_SUBDIR}
 	doexe ${@}
 }
+
+readonly -f doqt4inc doqt4lib qt4pluginto doqt4plugin

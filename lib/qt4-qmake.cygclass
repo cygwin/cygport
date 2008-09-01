@@ -76,3 +76,5 @@ src_install() {
 	cd ${B}
 	qt4_qmake_install
 }
+
+readonly -f cygqmake4 qt4_qmake_compile qt4_qmake_install

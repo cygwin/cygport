@@ -49,3 +49,5 @@ src_compile() {
 	cd ${B}
 	qt4_cmake_compile
 }
+
+readonly -f qt4_cmake_compile

@@ -164,3 +164,5 @@ src_install() {
 	cd ${B}
 	kde3_install
 }
+
+readonly -f kde3_autoreconf kde3_compile kde3_install

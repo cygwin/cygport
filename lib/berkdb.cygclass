@@ -236,3 +236,5 @@ src_install() {
 	berkdb_install
 	berkdb_postinst
 }
+
+readonly -f berkdb_autoreconf berkdb_compile berkdb_install berkdb_postinst

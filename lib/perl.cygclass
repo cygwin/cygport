@@ -139,3 +139,5 @@ src_install() {
 	perl_install
 	perl_postinst
 }
+
+readonly -f check_perl_module perl_compile perl_test perl_install perl_postinst

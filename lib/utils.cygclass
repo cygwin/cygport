@@ -3,7 +3,7 @@
 # utils.cygclass - assortment of miscellaneous functions
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -104,3 +104,5 @@ check_pkg_config() {
 	export ${modname}_LIBS="$(pkg-config --libs ${*})";
 	return 0;
 }
+
+readonly -f check_header check_lib check_pkg_config

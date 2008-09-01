@@ -3,7 +3,7 @@
 # cross.cygclass - for building and using cross-compilers
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -121,3 +121,5 @@ docrosslib() {
 		/bin/install -m0644 ${i} ${D}${crosslibdir} || error "docrosslib ${i} failed"
 	done
 }
+
+readonly -f cross_config_sub __cross_test_target docrossbin docrosslib
