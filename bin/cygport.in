@@ -1041,10 +1041,6 @@ insinto() {
 # Pre-install steps
 __prepinstalldirs() {
 	rm -fr ${D}/*;
-
-	# circumvent pointless libtool relinking during install
-	find ${B} -name '*.la' -exec sed -i -e '/^relink_command/d' '{}' +;
-	find ${B} -type f -exec touch -t $(date +%Y%m%d%H%M.%S) '{}' + 2> /dev/null || true
 }
 
 # run 'make install'
