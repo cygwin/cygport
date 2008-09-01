@@ -1,5 +1,7 @@
 2008-Sep-01  yselkowitz
 
+	* lib/lua.cygclass: Remove support for obsolete 5.0.
+
 	* lib/gnome.org.cygclass: Remove obsolete CVS_URI.
 
 	* bin/cygport.in:

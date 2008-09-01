@@ -34,17 +34,13 @@ then
 fi
 LUA_VERSION_NUM=${LUA_VERSION//./0}
 case ${LUA_VERSION} in
-	4.*)  error "Lua 4.x not supported" ;;
-	5.0)  LUA_VERSION=${LUA_VERSION//.} ;;
+	[1-4].*|5.0)  error "Lua ${LUA_VERSION} not supported" ;;
 esac
 
 # Compile flags
 LUA_INCLUDEDIR="/usr/include/lua${LUA_VERSION}"
 LUA_CFLAGS="-I${LUA_INCLUDEDIR}"
-case ${LUA_VERSION} in
-	50)		LUA_LIBS="-llualib${LUA_VERSION} -llua${LUA_VERSION}" ;;
-	5.*)	LUA_LIBS="-llua${LUA_VERSION}" ;;
-esac
+LUA_LIBS="-llua${LUA_VERSION}"
 
 # locations
 LUA=${_lua}${LUA_VERSION}
