@@ -25,15 +25,7 @@
 
 inherit python
 
-if ! defined ORIG_PN
-then
-	case ${PN} in
-		python-py*|python-*py)
-			ORIG_PN="${PN#python-}" ;;
-		python-*)
-			ORIG_PN="${PN/python-/py}" ;;
-	esac
-fi
+ORIG_PN=${ORIG_PN:-${PN#python-}}
 
 HOMEPAGE="http://cheeseshop.python.org/pypi/${ORIG_PN}"
 SRC_URI="http://cheeseshop.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
