@@ -31,7 +31,6 @@ then
 fi
 
 SVN_URI=${SVN_URI%/}
-SVN_MODULE=${SVN_MODULE:-${SVN_URI##*/}}
 
 if defined SVN_BRANCH
 then
@@ -44,12 +43,17 @@ else
 fi
 
 case ${SVN_URI} in
+	*/${svn_branch})
+		svn_uri="${SVN_URI}"
+		SVN_URI="${SVN_URI%/${svn_branch}}"
+		;;
 	*/${svn_branch}/*)
 		svn_uri="${SVN_URI}" ;;
 	*)
 		svn_uri="${SVN_URI}/${svn_branch}" ;;
 esac
 
+SVN_MODULE=${SVN_MODULE:-${SVN_URI##*/}}
 svn_tarball="${SVN_MODULE}-${PV}.tar.bz2"
 
 SRC_URI="${svn_tarball} "

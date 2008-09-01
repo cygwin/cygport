@@ -1,5 +1,7 @@
 2008-Sep-01  yselkowitz
 
+	* lib/svn.cygclass: Fix SVN_MODULE where SVN_URI ends with SVN_BRANCH.
+
 	* lib/distutils.cygclass: Simplify ORIG_PN definition.
 
 	* lib/lua.cygclass: Remove support for obsolete 5.0.
