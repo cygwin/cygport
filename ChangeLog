@@ -1,5 +1,7 @@
 2008-Aug-31  yselkowitz
 
+	* lib/kde3.cygclass: Add KDevelop 3.5.3; remove obsolete versions.
+
 	* bin/cygport.in (__srpm_extract): New function.
 	(unpack): Call it for *.src.rpm sources.
 
