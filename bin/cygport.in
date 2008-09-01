@@ -85,7 +85,6 @@ case $(uname -r) in
 	*)		echo -e " \e[1;31m*\e[0;0m cygport: Unknown cygwin version: $(uname -r)"; exit 127 ;;
 esac
 
-declare -rx _name=@PACKAGE@;
 declare -r  _version=@VERSION@;
 
 if defined CYGPORT_BOOTSTRAP && defined top_srcdir
@@ -128,9 +127,9 @@ declare -ir argc=$(( $# + 1 ))
 
 __show_help() {
 	cat <<-_EOF
-		${_name} is a utility for creating and building Cygwin software packages.
+		cygport is a utility for creating and building Cygwin software packages.
 
-		Usage: ${_name} [/path/to/]PKGNAME-VER-REL[.cygport] COMMAND [COMMAND2 ...]
+		Usage: cygport [/path/to/]PKGNAME-VER-REL[.cygport] COMMAND [COMMAND2 ...]
 
 		COMMAND may be one or more of the following:
 
@@ -151,7 +150,7 @@ __show_help() {
 
 __show_version() {
 	cat <<-_EOF
-		${_name} ${_version}
+		cygport ${_version}
 		Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 
 		This program comes with NO WARRANTY, to the extent permitted by law.
@@ -414,7 +413,7 @@ __version_at_least() {
 # assure that _privbindir is in PATH
 if ! check_prog doins
 then
-	error "${_name} does not seem to be installed properly";
+	error "cygport does not seem to be installed properly";
 fi
 
 # check now for all mandatory programs
@@ -423,7 +422,7 @@ for _myprog in bzip2 cat chmod cp cygcheck diff diffstat find grep gzip install 
 do
 	if ! check_prog ${_myprog}
 	then
-		error "${_myprog} is required to run ${_name}";
+		error "${_myprog} is required to run cygport";
 	fi
 done
 
@@ -1968,10 +1967,10 @@ declare    CHOST="i686-pc-cygwin";
 source ${_privdatadir}/mirrors || warning "could not read mirrors file"
 
 # load configuration
-for conf in ${_sysconfdir}/${_name}.conf \
-			"${HOME}/.${_name}rc" \
-			"${HOME}/.${_name}.conf" \
-			"${HOME}/.${_name}/${_name}.conf"
+for conf in ${_sysconfdir}/cygport.conf \
+			"${HOME}/.cygportrc" \
+			"${HOME}/.cygport.conf" \
+			"${HOME}/.cygport/cygport.conf"
 do
 	if [ -e "${conf}" ]
 	then

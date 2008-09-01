@@ -1,8 +1,7 @@
 nodist_bin_SCRIPTS = cygport
 
 cygport: cygport.in
-	sed -e "s!\@PACKAGE\@!$(PACKAGE)!"			\
-		-e "s!\@VERSION\@!$(VERSION)!"			\
+	sed	-e "s!\@VERSION\@!$(VERSION)!"			\
 		-e "s!\@docdir\@!$(docdir)!"			\
 		-e "s!\@pkgdatadir\@!$(pkgdatadir)!"	\
 		-e "s!\@pkglibdir\@!$(pkglibdir)!"		\

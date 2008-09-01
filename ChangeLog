@@ -1,5 +1,7 @@
 2008-Sep-01  yselkowitz
 
+	* bin/cygport.in: No need for _name variable.
+
 	* bin/cygport.in (__check_function_ro): New function.
 
 2008-Aug-31  yselkowitz
