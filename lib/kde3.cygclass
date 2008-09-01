@@ -32,6 +32,7 @@ case "${PN}:${PV}" in
 	kdevelop:3.3.*)	ftp_pv=3.$((PVP[1] + 2)).${PVP[2]} ;;
 	kdevelop:3.4.*)	ftp_pv=3.$((PVP[1] + 1)).$((PVP[2] + 6)) ;;
 	kdevelop:3.5.[01])	ftp_pv=3.${PVP[1]}.$((PVP[2] + 8)) ;;
+	kdevelop:3.5.3)	ftp_pv=3.${PVP[1]}.$((PVP[2] + 7)) ;;
 	*)				ftp_pv=${PV} ;;
 esac
 
