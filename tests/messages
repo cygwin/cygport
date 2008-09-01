@@ -15,7 +15,7 @@ echo
 cat > foo-1.2.3-4.cygport <<-_EOF
 	DESCRIPTION="Cygport messages test package"
 	HOMEPAGE="http://cygwinports.dotsrc.org/"
-	SRC_URI="http://cygwinports.dotsrc.org/${P}.ABC"
+	SRC_URI="http://cygwinports.dotsrc.org/\${P}.ABC"
 	_EOF
 
 ${top_builddir}/bin/cygport foo-1.2.3-4.cygport info
