@@ -26,11 +26,6 @@
 HOMEPAGE="http://www.gnome.org/"
 SRC_URI="mirror://gnome/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
 
-if ! defined CVS_URI
-then
-	CVS_URI=":pserver:anonymous@anoncvs.gnome.org:/cvs/gnome"
-fi
-
 if ! defined SVN_URI
 then
 	SVN_URI="http://svn.gnome.org/svn/${ORIG_PN:-${PN}}"
