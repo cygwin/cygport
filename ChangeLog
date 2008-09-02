@@ -1,3 +1,7 @@
+2008-Sep-02  yselkowitz
+
+	* bin/cygport.in (__src_prep): Handle multiple-patch tarballs.
+
 2008-Sep-01  yselkowitz
 
 	* bin/make_desktop_entry: Update to 1.0 spec; allow additional args.

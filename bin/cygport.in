@@ -748,6 +748,7 @@ __src_prep() {
 	local src_orig_patch;
 	local src_patch;
 	local src_pkg;
+	local tar_patch;
 	local n=1;
 
 	cd ${top};
@@ -829,7 +830,20 @@ __src_prep() {
 
 	for src_patch in ${_src_orig_patches}
 	do
-		cygpatch ${top}/${src_patch};
+		case ${src_patch} in
+			*.tar.gz|*.tgz|*.tar.bz2|*.tbz2)
+				(cd ${T};
+				 unpack ${src_patch};
+				)
+				for tar_patch in $(tar tf ${src_patch} | grep -E '(diff|patch)$')
+				do
+					cygpatch ${T}/${tar_patch};
+				done
+				;;
+			*)
+				cygpatch ${top}/${src_patch};
+				;;
+		esac
 	done
 
 	# similar to src_unpack_hook(), but is called after SRC_PATCH patches
