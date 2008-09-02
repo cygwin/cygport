@@ -35,12 +35,13 @@ fi
 cat > ${D}/usr/share/applications/${1%% *}.desktop <<-_EOF
 	[Desktop Entry]
 	Encoding=UTF-8
+	Version=1.0
 	Name=${2}
 	Type=Application
 	Comment=${5}
 	Exec=${1}
-	TryExec=${1}
-	Path=
+	TryExec=${1%% *}
 	Icon=${3}
 	Categories=${4};
+	${6}
 	_EOF

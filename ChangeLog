@@ -1,5 +1,7 @@
 2008-Sep-01  yselkowitz
 
+	* bin/make_desktop_entry: Update to 1.0 spec; allow additional args.
+
 	* lib/Makefile.am:
 	lib/rox.cygclass: NEW cygclass for ROX desktop packages.
 
