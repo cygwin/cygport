@@ -1,5 +1,8 @@
 2008-Sep-01  yselkowitz
 
+	* lib/Makefile.am:
+	lib/rox.cygclass: NEW cygclass for ROX desktop packages.
+
 	* lib/svn.cygclass: Fix SVN_MODULE where SVN_URI ends with SVN_BRANCH.
 
 	* lib/distutils.cygclass: Simplify ORIG_PN definition.

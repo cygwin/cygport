@@ -48,6 +48,7 @@ dist_cygclass_DATA = 			\
 	qt4-cmake.cygclass			\
 	qt4-qmake.cygclass			\
 	R.cygclass					\
+	rox.cygclass				\
 	ruby.cygclass				\
 	ruby-gnome2.cygclass		\
 	svn.cygclass				\

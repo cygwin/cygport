@@ -1,0 +1,109 @@
+################################################################################
+#
+# rox.cygclass - functions for building ROX Desktop packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+inherit python
+
+ORIG_PN=${ORIG_PN:-${PN#rox-}}
+
+DESCRIPTION="ROX Desktop ${ORIG_PN} component"
+HOMEPAGE="http://roscidus.com/desktop/"
+
+rox_autoreconf() {
+	if [ ! -e configure.in ]
+	then
+		error "not in src directory"
+	fi
+
+	rm -f configure
+	autoconf --force || error "autoconf failed"
+}
+
+rox_compile() {
+	if [ ! -e AppRun ]
+	then
+		error "AppRun: not found"
+	fi
+
+	./AppRun --compile || error "compile failed"
+}
+
+rox_install() {
+	local icoext
+	local wrapper=${ROX_WRAPPER:-rox-${ORIG_PN#rox-}}
+
+	if [ ! -d ${ROX_APP} ]
+	then
+		error "${ROX_APP}: directory not found"
+	fi
+
+	dodir /usr/lib/rox
+	cp -LR ${ROX_APP} ${D}/usr/lib/rox/
+	rm -fr ${D}/usr/lib/rox/${ROX_APP}/{build,src}
+
+	python_optimize /usr/lib/rox/${ROX_APP}
+
+	if [ "${wrapper}" != "none" ]
+	then
+		dodir /usr/bin
+		cat > ${D}/usr/bin/${wrapper} <<-_EOF
+			#! /bin/sh
+			exec /usr/lib/rox/${ROX_APP}/AppRun "\$@"
+			_EOF
+		chmod 0755 ${D}/usr/bin/${wrapper}
+	fi
+
+	if defined ROX_MENU
+	then
+		case "$(file -biL ${ROX_APP}/.DirIcon)" in
+			image/png)		icoext=".png" ;;
+			image/x-xpm*)	icoext=".xpm" ;;
+			text/xml)		icoext=".svg" ;;
+		esac
+
+		newicon ${ROX_APP}/.DirIcon ${wrapper}${icoext}
+
+		make_desktop_entry ${wrapper} "ROX ${ROX_APP}" ${wrapper} ${ROX_MENU} "${DESCRIPTION}" MimeType=${ROX_MIME}
+	fi
+
+	dodoc ${ROX_APP}/Help/{COPYING,Changes,README}
+}
+
+src_compile() {
+	lndirs
+	if [ -d ${S}/${ROX_APP}/src ]
+	then
+		cd ${B}/${ROX_APP}/src
+		rox_autoreconf
+		cd ${B}/${ROX_APP}
+		rox_compile
+	fi
+}
+
+src_install() {
+	cd ${B}
+	rox_install
+}
+
+readonly -f rox_autoreconf rox_compile rox_install
