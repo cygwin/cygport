@@ -23,6 +23,9 @@ verbose automake --add-missing --copy --force-missing
 
 cd ${B}
 verbose ${S}/configure \
-	--srcdir=${S} --enable-maintainer-mode --prefix=/usr --sysconfdir=/etc \
-	--datarootdir=/usr/share --docdir=/usr/share/doc/cygport-${V// } \
+	--srcdir=${S} \
+	--enable-maintainer-mode \
+	--prefix=/usr \
+	--sysconfdir=/etc \
+	--datarootdir=/usr/share \
 	"${@}"
