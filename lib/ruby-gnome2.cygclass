@@ -160,7 +160,7 @@ ruby_gnome2_install() {
 		insinto ${RUBY_SITEARCH}
 		doins ${implib}
 
-		insinto /usr/share/doc/ruby-${mod}-${PV}
+		insinto /usr/share/doc/ruby-${mod}
 		for doc in COPYING.LIB ChangeLog README
 		do
 			if [ -f ${S}/${d}/${doc} ]

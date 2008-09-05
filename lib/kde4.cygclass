@@ -100,11 +100,11 @@ kde4_install() {
 		do
 			if [ -f ${S}/${kdepkg}/${doc} ]
 			then
-				insinto /usr/share/doc/${kdepkg}-${PV}
+				insinto /usr/share/doc/${kdepkg}
 				doins ${S}/${kdepkg}/${doc}
 			elif [ -f ${S}/${kdepkg#${PN}-}/${doc} ]
 			then
-				insinto /usr/share/doc/${kdepkg}-${PV}
+				insinto /usr/share/doc/${kdepkg}
 				doins ${S}/${kdepkg#${PN}-}/${doc}
 			fi
 		done

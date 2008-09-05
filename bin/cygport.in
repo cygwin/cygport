@@ -1027,7 +1027,7 @@ docinto() {
 		/*) error "docinto argument should be only a subdirectory" ;;
 	esac
 
-	dodir /usr/share/doc/${P}/${1};
+	dodir /usr/share/doc/${PN}/${1};
 	export _docinto_dir=${1};
 }
 
@@ -1159,11 +1159,11 @@ __prepdoc() {
 	if [ -e ${C}/README ]
 	then
 		insinto /usr/share/doc/Cygwin;
-		newins ${C}/README ${P}.README;
+		newins ${C}/README ${PN}.README;
 	elif [ -e ${C}/${PN}.README ]
 	then
 		insinto /usr/share/doc/Cygwin;
-		newins ${C}/${PN}.README ${P}.README;
+		doins ${C}/${PN}.README;
 	else
 		warning "Cygwin README is missing"
 	fi
@@ -1175,13 +1175,13 @@ __prepdoc() {
 		if [ -f ${C}/${pkg_name[${n}]}.README ]
 		then
 			insinto /usr/share/doc/Cygwin;
-			newins ${C}/${pkg_name[${n}]}.README ${pkg_name[${n}]}-${PV}.README;
+			doins ${C}/${pkg_name[${n}]}.README;
 		elif defined pkg_hint[${n}]
 		then
 			if [ -f ${C}/${pkg_hint[${n}]}.README ]
 			then
 				insinto /usr/share/doc/Cygwin;
-				newins ${C}/${pkg_hint[${n}]}.README ${pkg_name[${n}]}-${PV}.README;
+				doins ${C}/${pkg_hint[${n}]}.README
 			fi
 		fi
 

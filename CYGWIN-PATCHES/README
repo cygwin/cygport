@@ -150,14 +150,14 @@ Files included in the binary package:
   /usr/share/cygport/cygport.nanorc
   /usr/share/cygport/mirrors
   /usr/share/cygport/sample.cygport
-  /usr/share/doc/cygport-0.9.2/AUTHORS
-  /usr/share/doc/cygport-0.9.2/COPYING
-  /usr/share/doc/cygport-0.9.2/ChangeLog
-  /usr/share/doc/cygport-0.9.2/INSTALL
-  /usr/share/doc/cygport-0.9.2/NEWS
-  /usr/share/doc/cygport-0.9.2/README
-  /usr/share/doc/cygport-0.9.2/TODO
-  /usr/share/doc/cygport-0.9.2/html/cygport.1.html
+  /usr/share/doc/cygport/AUTHORS
+  /usr/share/doc/cygport/COPYING
+  /usr/share/doc/cygport/ChangeLog
+  /usr/share/doc/cygport/INSTALL
+  /usr/share/doc/cygport/NEWS
+  /usr/share/doc/cygport/README
+  /usr/share/doc/cygport/TODO
+  /usr/share/doc/cygport/html/cygport.1.html
   /usr/share/man/man1/cygport.1.gz
 
 ------------------

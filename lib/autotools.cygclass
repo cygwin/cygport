@@ -237,7 +237,7 @@ cygconf() {
 
 	case "x$(grep -m 1 'GNU Autoconf' ${configure} | cut -d ' ' -f 6)" in
 		x2.6[0-9]*)
-			confargs+=" --datarootdir=/usr/share --docdir=/usr/share/doc/${P}"
+			confargs+=" --datarootdir=/usr/share --docdir=/usr/share/doc/${PN}"
 			;;
 		*)
 			confargs+=" --infodir=/usr/share/info --mandir=/usr/share/man"

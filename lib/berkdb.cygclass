@@ -50,7 +50,7 @@ PKG_HINTS="setup lib devel doc"
 PKG_CONTENTS[((n++))]="--exclude=html usr/bin/db${SLOT}_*.exe usr/share/doc/"
 PKG_CONTENTS[((n++))]="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
 PKG_CONTENTS[((n++))]="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib*"
-PKG_CONTENTS[((n++))]="usr/share/doc/${P}/html/"
+PKG_CONTENTS[((n++))]="usr/share/doc/${PN}/html/"
 
 if inherited java
 then
@@ -133,19 +133,19 @@ berkdb_install() {
 	case ${SLOT} in
 		4.[3-9])
 			USE_DESTDIR=1 cyginstall \
-				docdir=/usr/share/doc/${P}/html \
+				docdir=/usr/share/doc/${PN}/html \
 				emode=755 fmode=644
 			;;
 		4.[012])
 			USE_DESTDIR=0 cyginstall \
 				includedir=${D}/usr/include/db${SLOT} \
-				docdir=${D}/usr/share/doc/${P}/html \
+				docdir=${D}/usr/share/doc/${PN}/html \
 				emode=755 fmode=644
 			;;
 		3.*)
 			USE_DESTDIR=0 cyginstall \
 				includedir=${D}/usr/include/db${SLOT} \
-				docdir=${D}/usr/share/doc/${P}/html \
+				docdir=${D}/usr/share/doc/${PN}/html \
 				emode=755 fmode=644 \
 				chmod=true ln=true strip=true
 			;;
