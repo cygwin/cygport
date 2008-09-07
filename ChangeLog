@@ -1,3 +1,7 @@
+2008-Sep-07  yselkowitz
+
+	* lib/tcl.cygclass (TK_INCLUDEDIR, TK_LIBDIR): Define.
+
 2008-Aug-31  yselkowitz
 
 	* lib/kde3.cygclass: Add KDevelop 3.5.3.

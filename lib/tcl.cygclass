@@ -30,5 +30,7 @@ TCL_VERSION=$(echo "puts [info tclversion]" | ${_tclsh})
 TCLSH=${_tclsh}${TCL_VERSION}
 TCL_LIBDIR=$(echo "puts [info library]" | ${TCLSH})
 TCL_INCLUDEDIR="/usr/include/tcl${TCL_VERSION}"
+TK_INCLUDEDIR=${TCL_INCLUDEDIR}
+TK_LIBDIR=${TCL_LIBDIR/tcl/tk}
 LIBTCL="-ltcl${TCL_VERSION}"
 LIBTK="-ltk{TCL_VERSION}"
