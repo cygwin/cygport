@@ -1,3 +1,19 @@
+2008-Sep-07  yselkowitz
+
+	* lib/tcl.cygclass (TK_INCLUDEDIR, TK_LIBDIR): Define.
+
+2008-Sep-05  yselkowitz
+
+	* bin/cygport.in (__prepdoc):
+	bin/dodoc:
+	bin/newdoc:
+	lib/autotools.cygclass (cygconf):
+	lib/berkdb.cygclass (berkdb_install):
+	lib/kde3.cygclass (kde3_install):
+	lib/kde4.cygclass (kde4_install):
+	lib/ruby-gnome2.cygclass (ruby_gnome2_install):
+	Move docdir to /usr/share/doc/PACKAGE.
+
 2008-Sep-02  yselkowitz
 
 	* bin/cygport.in (__src_prep): Handle multiple-patch tarballs.
