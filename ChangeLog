@@ -1,5 +1,7 @@
 2008-Sep-07  yselkowitz
 
+	* lib/ruby-gnome2.cygclass: Remove support for obsolete versions.
+
 	* lib/tcl.cygclass (TK_INCLUDEDIR, TK_LIBDIR): Define.
 
 2008-Sep-05  yselkowitz

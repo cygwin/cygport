@@ -58,12 +58,6 @@ __ruby_gnome2_get_module_dir() {
 
 rbg2_pn=${PN#ruby-}
 
-case ${PV} in
-	0.17.0*rc*)	rbg2_orig_src="ruby-gnome2" ;;
-	*)	rbg2_orig_src="ruby-gnome2-all" ;;
-esac
-
-
 case ${rbg2_pn} in
 	gnome2-all)
 		if ! defined RUBY_GNOME2_MODULES
@@ -76,14 +70,14 @@ case ${rbg2_pn} in
 			rbg2_dir+="$(__ruby_gnome2_get_module_dir ${_mod}) "
 		done
 		unset _mod
-		ORIG_PN=${rbg2_orig_src}
+		ORIG_PN="ruby-gnome2-all"
 		;;
 	glib2|gtk2|libglade2|bonobo2|bonoboui2|libart2|gnomecanvas2|gconf2|\
 	gnome2|gnomeprint2|gnomeprintui2|rsvg2|gdk_pixbuf2|gst|panelapplet2|\
 	atk|pango|gnomevfs|gtkglext|gtkhtml2|gtkmozembed|gtksourceview|\
 	gtksourceview2|poppler|vte|libgda)
 		rbg2_dir=$(__ruby_gnome2_get_module_dir ${rbg2_pn})
-		ORIG_PN=${rbg2_orig_src}
+		ORIG_PN="ruby-gnome2-all"
 		RUBY_GNOME2_MODULES=${rbg2_pn}
 		;;
 	*)
