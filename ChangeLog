@@ -1,5 +1,8 @@
 2008-Sep-07  yselkowitz
 
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_install):
+	Only install implibs where required.
+
 	* lib/tcl.cygclass (TK_INCLUDEDIR, TK_LIBDIR): Define.
 
 2008-Aug-31  yselkowitz
