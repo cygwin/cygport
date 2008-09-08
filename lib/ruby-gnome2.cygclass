@@ -141,7 +141,7 @@ ruby_gnome2_compile() {
 }
 
 ruby_gnome2_install() {
-	local d mod implib
+	local d mod
 
 	ruby_install
 
@@ -149,10 +149,12 @@ ruby_gnome2_install() {
 	do
 		d=$(__ruby_gnome2_get_module_dir ${mod})
 
-		implib=$(find ${d}/ -name '*.so' | sed -e 's|\(.*\)/\(.*\)\.so|\1/libruby-\2.a|')
-
-		insinto ${RUBY_SITEARCH}
-		doins ${implib}
+		case ${mod} in
+			cairo|glib2|atk|pango|gtk2|libart2)
+				insinto ${RUBY_SITEARCH}
+				doins $(find ${d}/ -name '*.so' | sed -e 's|\(.*\)/\(.*\)\.so|\1/libruby-\2.a|')
+				;;
+		esac
 
 		insinto /usr/share/doc/ruby-${mod}
 		for doc in COPYING.LIB ChangeLog README
