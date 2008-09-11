@@ -1,3 +1,16 @@
+0.9.2:
+	* SRC_URI: now accepts SRPMs.
+	* PATCH_URI: now accepts multiple-patch tarballs.
+	* Installs documentation into /usr/share/doc/PACKAGE.
+	* Removed support for libtool-1.5.
+	* make_desktop_entry(): Updated spec; accepts additional arguments.
+	* autotools.cygclass: Can now be manually re-inherit()ed.
+	* kde3.cygclass: Add KDevelop 3.5.3; remove support for KDE 3.4.
+	* lua.cygclass: Removed support for lua-5.0.
+	* rox.cygclass: NEW for ROX Desktop packages.
+	* ruby.cygclass: Builds and installs RI docs instead of HTML.
+	* ruby-gnome2.cygclass: Removed support for older versions.
+
 0.9.1:
 	* dolib(): Installs *.la with libtool.
 	* inherited(): New function.
