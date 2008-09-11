@@ -3,7 +3,6 @@ Priority changes for 0.9 (Cygwin 1.7):
 * Fix rcs tarball names to allow more than one at a time
 * cross: overhaul, support mingw (perhaps separate mingw.cygclass)
 * emacs: not working, remove/disable emacs_compile (?)
-* svn: fix SVN_MODULE
 * Debug and/or Verbose mode
 * Fix all FIXMEs
 
@@ -16,8 +15,6 @@ particular order:
 * NLS
 * dolocale
 * dosed
-* ROX desktop
-* multiple-patch tarballs in cygpatch
 * Additional cygclasses:
 	- alternatives
 	- relocate: http://cygwin.com/ml/cygwin/2006-10/msg00743.html
