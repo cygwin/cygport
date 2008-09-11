@@ -2,6 +2,8 @@
 
 	* Tagged 0.9.2.
 
+	* Website moved to sourceware.org.
+
 2008-Sep-07  yselkowitz
 
 	* lib/ruby-gnome2.cygclass: Remove support for obsolete versions.

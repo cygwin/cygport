@@ -5,7 +5,7 @@
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006 Yaakov Selkowitz
-# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

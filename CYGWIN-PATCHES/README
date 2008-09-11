@@ -37,7 +37,7 @@ Build requirements:
   sed-4.1.5-2
 
 Canonical website:
-  http://cygwinports.dotsrc.org/
+  http://sourceware.org/cygwinports/
 
 Canonical download:
   http://downloads.sourceforge.net/cygwin-ports/
@@ -170,4 +170,4 @@ See ChangeLog and NEWS for more information about this and past releases.
 
 
 Cygwin port maintained by:
-http://cygwinports.dotsrc.org/
+http://sourceware.org/cygwinports/

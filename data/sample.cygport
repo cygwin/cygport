@@ -1,7 +1,7 @@
 # $Id$
 
 DESCRIPTION="Next-generation Cygwin packaging application"
-HOMEPAGE="http://cygwinports.dotsrc.org/"
+HOMEPAGE="http://sourceware.org/cygwinports/"
 SRC_URI="mirror://sourceforge/cygwin-ports/${P}.tar.bz2"
 
 # We use the standard src_compile and src_test.
