@@ -56,5 +56,4 @@ dist_cygclass_DATA = 			\
 	utils.cygclass				\
 	wxwidgets.cygclass			\
 	xfce4.cygclass				\
-	xorg.cygclass				\
-	zope.cygclass
+	xorg.cygclass

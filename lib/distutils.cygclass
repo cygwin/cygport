@@ -52,6 +52,13 @@ distutils_install() {
 
 	${PYTHON} setup.py install -O0 --root=${D} "${@}" || error "setup.py install failed"
 
+	# only zope.interface should provide zope.__init__ because
+	# (almost) all other zope modules depend on it
+	case ${PN} in
+		zope.interface) ;;
+		zope.*)  rm -f ${D}${PYTHON_SITELIB}/zope/__init__.py* ;;
+	esac
+
 	if [ -d ${D}${PYTHON_SITELIB} ]
 	then
 		python_optimize ${PYTHON_SITELIB}
