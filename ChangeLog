@@ -1,5 +1,7 @@
 2008-Sep-23  yselkowitz
 
+	* lib/berkdb.cygclass (berkdb_compile) [tcl]: tclConfig.sh moved.
+
 	* lib/autotools.cygclass (cygautoreconf),
 	lib/gnome2.cygclass (gnome2_autoreconf): Detect missing LT_OUTPUT.
 

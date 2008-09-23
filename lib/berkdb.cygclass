@@ -72,7 +72,6 @@ DIFF_EXCLUDES="aclocal.m4 configure config.hin db.jar libtool.ac lt*.ac"
 
 # At a minimum, the following must be changed:
 # * chmod +w dist/Makefile.in dist/aclocal/tcl.ac dist/configure.ac
-# * sed -i -e 's/test -f/test -e/g' dist/aclocal/tcl.ac
 # * sed -i -e 's/aix\*/aix*|cygwin*/g' dist/aclocal/tcl.ac
 # * Modify/define MAKEFILE_TSOLINK (before 4.5)
 # * Undef __lock_* macros in lock/lock_region.c (before 4.3)
@@ -105,7 +104,7 @@ berkdb_compile() {
 
 	if inherited tcl
 	then
-		use_tcl="--enable-tcl --with-tcl=/usr/lib --enable-test"
+		use_tcl="--enable-tcl --with-tcl=${TCL_LIBDIR} --enable-test"
 	else
 		use_tcl="--disable-tcl --disable-test"
 	fi
