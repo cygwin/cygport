@@ -1,5 +1,8 @@
 2008-Sep-23  yselkowitz
 
+	* lib/autotools.cygclass (cygautoreconf): Better detection of autoconf2.5.
+	Catch illegal WANT_AUTOCONF value.
+
 	* bin/cygport.in (cygtest): Don't exit if tests causes errors.
 
 2008-Sep-15  yselkowitz

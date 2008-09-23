@@ -123,27 +123,25 @@ cygautoreconf() {
 
 	check_prog_req autoreconf autoconf
 
-	if [ "x${WANT_AUTOCONF}" = "x2.1" ]
-	then
+	export WANT_AUTOCONF;
+	export WANT_AUTOMAKE;
+
+	case "${WANT_AUTOCONF}" in
+	2.1)
 		check_prog_req autoconf-2.13 autoconf2.1
 
 		if grep -Eq "^(LT_INIT|A[CM]_PROG_LIBTOOL)" ${S}/${configure_ac}
 		then
-			warning "Current libtool is incompatible with autoconf-2.13";
+			warning "libtool is incompatible with autoconf-2.13";
 		fi
-	else
-		while true
-		do
-			for ac_ver in 2.62 2.61 2.60 2.59 2.5x
-			do
-				if check_prog autoconf-${ac_ver}
-				then
-					break 2;
-				fi
-			done
+		;;
+	2.5|'')
+		WANT_AUTOCONF=2.5
 
-			error "autoconf2.5 is required to build this package"
-		done
+		case $(autoconf --version 2> /dev/null | head -n 1) in
+			autoconf*2.[56]?) ;;
+			*)	error "autoconf2.5 is required to build this package" ;;
+		esac
 
 		for tool in ACLOCAL LIBTOOLIZE AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
 		do
@@ -158,10 +156,12 @@ cygautoreconf() {
 		then
 			declare ACLOCAL="${ACLOCAL:-aclocal} ${ACLOCAL_FLAGS}"
 		fi
-	fi
+		;;
+	*)
+		error "illegal WANT_AUTOCONF value: ${WANT_AUTOCONF}"
+		;;
+	esac
 
-	export WANT_AUTOCONF=${WANT_AUTOCONF:-2.5};
-	export WANT_AUTOMAKE;
 	/usr/bin/autoreconf --force -i --verbose || error "autoreconf failed"
 
 	for d in . ${ac_subdirs}
