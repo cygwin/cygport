@@ -1,3 +1,7 @@
+2008-Sep-23  yselkowitz
+
+	* bin/cygport.in (cygtest): Don't exit if tests causes errors.
+
 2008-Sep-15  yselkowitz
 
 	* lib/distutils.cygclass (distutils_install):

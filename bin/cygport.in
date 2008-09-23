@@ -944,10 +944,10 @@ cygtest() {
 	then
 		if make -n check &> /dev/null
 		then
-			make check;
+			make -k check || true
 		elif make -n test &> /dev/null
 		then
-			make test;
+			make -k test || true
 		else
 			error "Neither make check nor make test work.  You must define your own src_test().";
 		fi
