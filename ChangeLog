@@ -1,6 +1,7 @@
 2008-Sep-22  yselkowitz
 
 	* bin/cygport.in (cygautoreconf): Better detection of autoconf2.5.
+	(cygtest): Don't give up when tests give errors.
 
 2008-Sep-07  yselkowitz
 
