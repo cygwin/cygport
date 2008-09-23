@@ -99,7 +99,7 @@ cygautoreconf() {
 				fi
 			fi
 
-			if $(grep -q '\./libtool' ${d}/${configure_ac}) && ! $(grep -q 'LT_OUTPUT' ${d}/${configure_ac})
+			if $(grep -q '\./libtool -' ${d}/${configure_ac}) && ! $(grep -q 'LT_OUTPUT' ${d}/${configure_ac})
 			then
 				warning "${d}/${configure_ac} may require LT_OUTPUT macro"
 			fi

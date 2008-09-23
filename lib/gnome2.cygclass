@@ -71,7 +71,7 @@ gnome2_autoreconf() {
 		cp -f /usr/share/gettext/config.rpath .
 	fi
 
-	if $(grep -q '\./libtool' ${configure_ac}) && ! $(grep -q 'LT_OUTPUT' ${configure_ac})
+	if $(grep -q '\./libtool -' ${configure_ac}) && ! $(grep -q 'LT_OUTPUT' ${configure_ac})
 	then
 		warning "${configure_ac} may require LT_OUTPUT macro"
 	fi
