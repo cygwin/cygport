@@ -99,6 +99,11 @@ cygautoreconf() {
 				fi
 			fi
 
+			if $(grep -q '\./libtool' ${d}/${configure_ac}) && ! $(grep -q 'LT_OUTPUT' ${d}/${configure_ac})
+			then
+				warning "${d}/${configure_ac} may require LT_OUTPUT macro"
+			fi
+
 			# Automake will exit if these are not present
 			# dodoc won't install these, however, since they will be empty
 			touch ${d}/{AUTHORS,ChangeLog,NEWS,README};

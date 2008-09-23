@@ -1,5 +1,8 @@
 2008-Sep-23  yselkowitz
 
+	* lib/autotools.cygclass (cygautoreconf),
+	lib/gnome2.cygclass (gnome2_autoreconf): Detect missing LT_OUTPUT.
+
 	* lib/autotools.cygclass (cygautoreconf): Better detection of autoconf2.5.
 	Catch illegal WANT_AUTOCONF value.
 
