@@ -1,3 +1,7 @@
+2008-Sep-28  yselkowitz
+
+	* lib/ruby-gnome2.cygclass: Add ruby-goocanvas.
+
 2008-Sep-22  yselkowitz
 
 	* bin/cygport.in (cygautoreconf): Better detection of autoconf2.5.
