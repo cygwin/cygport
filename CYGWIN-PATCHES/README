@@ -104,6 +104,7 @@ Files included in the binary package:
   /usr/lib/cygport/lib/ebook.cygclass
   /usr/lib/cygport/lib/emacs.cygclass
   /usr/lib/cygport/lib/font.cygclass
+  /usr/lib/cygport/lib/fossil.cygclass
   /usr/lib/cygport/lib/fox.cygclass
   /usr/lib/cygport/lib/ggz.cygclass
   /usr/lib/cygport/lib/git.cygclass

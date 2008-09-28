@@ -526,7 +526,7 @@ __src_fetch() {
 	# it's not assured because the tarball names could be the same.
 	# Unfortunately, changing the RCS tarball names would break existing
 	# source packages.  So for now, follow the previous behavior.
-	for rcs in cvs svn git bzr hg mtn
+	for rcs in cvs svn git bzr hg mtn fossil
 	do
 		if defined _USE_${rcs}_FETCH
 		then

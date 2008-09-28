@@ -23,6 +23,8 @@
 #
 ################################################################################
 
+_USE_fossil_FETCH=1
+
 FOSSIL_MODULE=${FOSSIL_MODULE:-${ORIG_PN:-${PN}}}
 
 fossil_tarball="${FOSSIL_MODULE}-${PV}_fossil.tar.bz2"

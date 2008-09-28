@@ -1,5 +1,9 @@
 2008-Sep-28  yselkowitz
 
+	* bin/cygport.in (__src_fetch),
+	lib/Makefile.am:
+	lib/fossil.cygclass: NEW cygclass for Fossil checkouts.
+
 	* lib/berkdb.cygclass (berkdb_compile) [tcl]: tclConfig.sh moved.
 
 	* lib/ruby-gnome2.cygclass: Add ruby-goocanvas.
