@@ -1,0 +1,66 @@
+################################################################################
+#
+# fossil.cygclass - functions for building packages from Fossil checkouts
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2008 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+FOSSIL_MODULE=${FOSSIL_MODULE:-${ORIG_PN:-${PN}}}
+
+fossil_tarball="${FOSSIL_MODULE}-${PV}_fossil.tar.bz2"
+
+SRC_URI="${fossil_tarball} "
+SRC_DIR="${FOSSIL_MODULE}"
+
+fossil_fetch() {
+	check_prog_req fossil
+
+	if ! defined FOSSIL_URI
+	then
+		error "FOSSIL_URI must be defined"
+	fi
+
+	# T likely doesn't exist at this point, so create it first
+	mkdir -p ${T}
+	cd ${T}
+
+	# just in case we are re-fetching
+	rm -fr ${FOSSIL_MODULE}.fossil ${FOSSIL_MODULE}/
+
+	verbose fossil clone ${FOSSIL_URI} ${FOSSIL_MODULE}.fossil || error "fossil clone failed"
+
+	mkdir ${FOSSIL_MODULE}
+	pushd ${FOSSIL_MODULE}
+
+	verbose fossil open ${T}/${FOSSIL_MODULE}.fossil || error "fossil open failed"
+
+	if defined FOSSIL_REV
+	then
+		fossil update ${FOSSIL_REV}
+	fi
+
+	popd
+
+	# manifest and manifest.uuid may be used in sources (e.g. fossil itself)
+	tar jcf ${top}/${fossil_tarball} --exclude=_FOSSIL_ ${FOSSIL_MODULE}
+}
+
+readonly -f fossil_fetch
