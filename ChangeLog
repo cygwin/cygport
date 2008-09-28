@@ -1,5 +1,7 @@
 2008-Sep-28  yselkowitz
 
+	* lib/berkdb.cygclass (berkdb_compile) [tcl]: tclConfig.sh moved.
+
 	* lib/ruby-gnome2.cygclass: Add ruby-goocanvas.
 
 2008-Sep-22  yselkowitz
