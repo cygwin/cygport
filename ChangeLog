@@ -1,6 +1,10 @@
 2008-Sep-28  yselkowitz
 
-	* bin/cygport.in (__src_patch),
+	* bin/cygport.in (__src_fetch),
+	lib/Makefile.am:
+	lib/fossil.cygclass: NEW cygclass for Fossil checkouts.
+
+	* bin/cygport.in (__src_fetch),
 	lib/bzr.cygclass,
 	lib/cvs.cygclass,
 	lib/git.cygclass,

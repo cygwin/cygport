@@ -17,6 +17,7 @@ dist_cygclass_DATA = 			\
 	ebook.cygclass				\
 	emacs.cygclass				\
 	font.cygclass				\
+	fossil.cygclass				\
 	fox.cygclass				\
 	fox-build.cygclass			\
 	ggz.cygclass				\
