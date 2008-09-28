@@ -23,8 +23,6 @@
 #
 ################################################################################
 
-_USE_hg_FETCH=1
-
 if ! defined HG_URI
 then
 	error "HG_URI must be defined"

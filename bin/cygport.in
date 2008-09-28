@@ -537,7 +537,7 @@ __src_fetch() {
 	# source packages.  So for now, follow the previous behavior.
 	for rcs in cvs svn git bzr hg mtn
 	do
-		if defined _USE_${rcs}_FETCH
+		if inherited ${rcs}
 		then
 			${rcs}_fetch;
 			break;

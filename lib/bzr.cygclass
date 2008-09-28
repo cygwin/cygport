@@ -23,8 +23,6 @@
 #
 ################################################################################
 
-_USE_bzr_FETCH=1
-
 if ! defined BZR_URI
 then
 	error "BZR_URI must be defined"

@@ -1,5 +1,13 @@
 2008-Sep-28  yselkowitz
 
+	* bin/cygport.in (__src_patch),
+	lib/bzr.cygclass,
+	lib/cvs.cygclass,
+	lib/git.cygclass,
+	lib/hg.cygclass,
+	lib/mtn.cygclass,
+	lib/svn.cygclass: Use inherited() instead of _USE_rcs_FETCH.
+
 	* bin/cygport.in (pushd, popd): Added overrides. Use throughout.
 
 	* lib/ruby.cygclass (ruby_install): Accept RDOC_MODULE.

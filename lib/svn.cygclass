@@ -23,8 +23,6 @@
 #
 ################################################################################
 
-_USE_svn_FETCH=1
-
 if ! defined SVN_URI
 then
 	error "SVN_URI must be defined"

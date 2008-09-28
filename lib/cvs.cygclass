@@ -23,8 +23,6 @@
 #
 ################################################################################
 
-_USE_cvs_FETCH=1
-
 if ! defined CVS_URI
 then
 	error "CVS_URI must be defined"

@@ -23,8 +23,6 @@
 #
 ################################################################################
 
-_USE_mtn_FETCH=1
-
 if ! defined MTN_URI
 then
 	error "MTN_URI must be defined"
