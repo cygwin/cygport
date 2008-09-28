@@ -29,6 +29,8 @@
 #
 # public:
 #	defined VARIABLE_NAME
+#	popd DIR
+#	pushd DIR
 #
 ################################################################################
 
@@ -46,8 +48,16 @@ defined() {
 	fi
 }
 
-readonly -f defined
-export -f defined
+pushd() {
+	builtin pushd ${@} > /dev/null
+}
+
+popd() {
+	builtin popd ${@} > /dev/null
+}
+
+readonly -f defined pushd popd
+export -f defined pushd popd
 
 
 ################################################################################
