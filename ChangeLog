@@ -1,5 +1,8 @@
 2008-Sep-28  yselkowitz
 
+	* lib/ruby.cygclass (ruby_install): Accept RDOC_MODULE.
+	(rubyinto, doruby): Added.
+
 	* lib/ruby-gnome2.cygclass: Add ruby-goocanvas.
 
 2008-Sep-23  yselkowitz

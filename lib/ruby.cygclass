@@ -57,7 +57,7 @@ ruby_compile() {
 
 	if defined RDOC_SOURCE
 	then
-		rdoc --ri --op ${B}/.rdoc ${RDOC_SOURCE}
+		rdoc -U --ri --op ${B}/.rdoc ${RDOC_SOURCE}
 	fi
 }
 
@@ -84,8 +84,73 @@ ruby_install() {
 	if [ -d .rdoc ]
 	then
 		dodir ${RI_SITEDIR}
-		cp -r .rdoc/*/ ${D}${RI_SITEDIR}/
+
+		pushd .rdoc
+		for mod in ${RDOC_MODULE:-*/}
+		do
+			if [ ! -d ${mod} ]
+			then
+				warning "RI module ${mod} was not generated"
+				continue
+			fi
+
+			cp -r ${mod} ${D}${RI_SITEDIR}/
+		done
+		popd
 	fi
+}
+
+rubyinto() {
+	if (( $# != 1 ))
+	then
+	    error "rubyinto accepts exactly one argument";
+	fi
+
+	case ${1} in
+    	/*) error "rubyinto argument should be only a subdirectory" ;;
+	esac
+
+	export _rubyinto_dir=${1};
+}
+
+doruby() {
+	local rbdir
+	local sodir
+	local i
+
+	if defined _rubyinto_dir
+	then
+		rbdir=${RUBY_SITELIB}/${_rubyinto_dir}
+		sodir=${RUBY_SITEARCH}/${_rubyinto_dir}
+	else
+		rbdir=${RUBY_SITELIB}
+		sodir=${RUBY_SITEARCH}
+	fi
+
+	dodir ${rbdir} ${sodir}
+
+	for i
+	do
+		if [ -e ${i} ]
+		then
+			case ${i} in
+				*.la)
+					/usr/bin/libtool --mode=install /usr/bin/install ${i} ${D}${sodir} || error "doruby ${i} failed"
+					;;
+				*.so)
+					/usr/bin/install -m0755 ${i} ${D}${sodir} || error "doruby ${i} failed"
+					;;
+				*.a|*.h)
+					/usr/bin/install -m0644 ${i} ${D}${sodir} || error "doruby ${i} failed"
+					;;
+				*)
+					/usr/bin/install -m0644 ${i} ${D}${rbdir} || error "doruby ${i} failed"
+					;;
+			esac
+		else
+			error "doruby: ${i}: file not found"
+		fi
+	done
 }
 
 src_compile() {
@@ -99,4 +164,4 @@ src_install() {
 	ruby_install
 }
 
-readonly -f ruby_compile ruby_install
+readonly -f ruby_compile ruby_install rubyinto doruby
