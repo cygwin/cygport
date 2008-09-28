@@ -1,6 +1,6 @@
 2008-Sep-28  yselkowitz
 
-	* bin/cygport.in (pushd, popd): Added overrides.
+	* bin/cygport.in (pushd, popd): Added overrides. Use throughout.
 
 	* lib/ruby.cygclass (ruby_install): Accept RDOC_MODULE.
 	(rubyinto, doruby): Added.

@@ -148,8 +148,9 @@ php_postinst() {
 
 	if [ -d ${D}${PHP_PEAR_DIR} ]
 	then
-		(cd ${D}${PHP_PEAR_DIR}
-		rm -fr .channels/ .depdb .depdblock .filemap .lock)
+		pushd ${D}${PHP_PEAR_DIR}
+		rm -fr .channels/ .depdb .depdblock .filemap .lock
+		popd
 	fi
 
 	rm -fr ${D}/tmp/pear

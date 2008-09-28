@@ -570,9 +570,9 @@ __srpm_extract() {
 	check_prog_req cpio;
 
 	rpm2cpio ${rpmpath} > ${cpiopath};
-	(cd ${T}
-	 cpio -i --quiet < ${cpiofile};
-	)
+	pushd ${T}
+	cpio -i --quiet < ${cpiofile};
+	popd
 
 	for srcfile in $(cpio -t --quiet < ${cpiopath})
 	do
@@ -724,10 +724,9 @@ cygpatch() {
 				fi
 				;;
 			*.bz2|*.gz)
-				(
-					cd ${T}
-					unpack ${patchfile_path}
-				)
+				pushd ${T}
+				unpack ${patchfile_path}
+				popd
 				patchfile_path=${T}/${patchfile_name%.*}
 				;;
 		esac
@@ -842,9 +841,10 @@ __src_prep() {
 	do
 		case ${src_patch} in
 			*.tar.gz|*.tgz|*.tar.bz2|*.tbz2)
-				(cd ${T};
-				 unpack ${src_patch};
-				)
+				pushd ${T};
+				unpack ${src_patch};
+				popd;
+
 				for tar_patch in $(tar tf ${src_patch} | grep -E '(diff|patch)$')
 				do
 					cygpatch ${T}/${tar_patch};
@@ -1484,15 +1484,15 @@ __show_info() {
 }
 
 __list_files() {
-	(cd ${D}
+	pushd ${D}
 	find . ! -type d | sed 's!^\.!  !' | sort
-	)
+	popd
 }
 
 __list_deps() {
-	(local d
+	local d
 
-	cd ${D}
+	pushd ${D}
 	# This prevents a package from listing itself as a dependency if
 	# already installed
 	#
@@ -1505,14 +1505,15 @@ __list_deps() {
 		PATH+="${D}${d}:${d}:"
 	done
 
-	export PATH+="${D}/usr/bin:${os_path}";
+	export PATH="${D}/usr/bin:${os_path}";
 
-	# Ruby and Apache2 modules should be *.so, nothing else!!!
+	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
+	# *.oct: Octave modules
 	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' \) \
 		-exec objdump -p '{}' + | grep "DLL Name:" | sort -u | \
 		cut -d ' ' -f 3 | sed -e '/^[A-Z32]*\.[Dd][Ll][Ll]$/d' -e 's!mscoree.dll!mono.exe!' | \
 		xargs -r which | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
-	)
+	popd
 }
 
 # protect functions
