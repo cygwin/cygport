@@ -23,11 +23,6 @@
 #
 ################################################################################
 
-if ! defined CVS_URI
-then
-	error "CVS_URI must be defined"
-fi
-
 CVS_MODULE=${CVS_MODULE:-${ORIG_PN:-${PN}}}
 
 cvs_tarball="${CVS_MODULE//\//-}-${PV}.tar.bz2"
@@ -40,6 +35,11 @@ cvs_fetch() {
 	local cvs_date
 
 	check_prog_req cvs
+
+	if ! defined CVS_URI
+	then
+		error "CVS_URI must be defined"
+	fi
 
 	if defined CVS_BRANCH
 	then

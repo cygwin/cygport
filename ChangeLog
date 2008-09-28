@@ -1,5 +1,8 @@
 2008-Sep-28  yselkowitz
 
+	* lib/bzr.cygclass,
+	lib/cvs.cygclass: Only check for _URI during fetch.
+
 	* bin/cygport.in (__src_fetch),
 	lib/Makefile.am:
 	lib/fossil.cygclass: NEW cygclass for Fossil checkouts.
