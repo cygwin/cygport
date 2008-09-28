@@ -36,7 +36,7 @@ __ruby_gnome2_get_module_dir() {
 
 	case ${@} in
 		atk|pango|gnomevfs|gtkglext|gtkhtml2|gtkmozembed|gtksourceview|\
-		gtksourceview2|poppler|vte|libgda)
+		gtksourceview2|poppler|vte|libgda|goocanvas)
 			ret=${@} ;;
 		glib2|gtk2|libglade2|bonobo2|bonoboui2|libart2|gnomecanvas2|gconf2|\
 		gnome2|gnomeprint2|gnomeprintui2|rsvg2)
@@ -75,7 +75,7 @@ case ${rbg2_pn} in
 	glib2|gtk2|libglade2|bonobo2|bonoboui2|libart2|gnomecanvas2|gconf2|\
 	gnome2|gnomeprint2|gnomeprintui2|rsvg2|gdk_pixbuf2|gst|panelapplet2|\
 	atk|pango|gnomevfs|gtkglext|gtkhtml2|gtkmozembed|gtksourceview|\
-	gtksourceview2|poppler|vte|libgda)
+	gtksourceview2|poppler|vte|libgda|goocanvas)
 		rbg2_dir=$(__ruby_gnome2_get_module_dir ${rbg2_pn})
 		ORIG_PN="ruby-gnome2-all"
 		RUBY_GNOME2_MODULES=${rbg2_pn}
@@ -180,7 +180,7 @@ src_compile() {
 		glib2|gtk2|libglade2|bonobo2|bonoboui2|libart2|gnomecanvas2|gconf2|\
 		gnome2|gnomeprint2|gnomeprintui2|rsvg2|gdk_pixbuf2|gst|panelapplet2|\
 		atk|pango|gnomevfs|gtkglext|gtkhtml2|gtkmozembed|gtksourceview|\
-		gtksourceview2|poppler|vte|libgda)
+		gtksourceview2|poppler|vte|libgda|goocanvas)
 			ln -sf ${S}/*.rb ${B}
 			mkdir -p ${rbg2_dir}
 			lndirs ${S}/${rbg2_dir} ${B}/${rbg2_dir}
