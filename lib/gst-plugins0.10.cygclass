@@ -93,20 +93,20 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		                esd flac gconf gdk_pixbuf jpeg libcaca libdv libpng
 		                oss pulse shout2 soup speex taglib wavpack x xshm"
 		conftest_gst_plugins="aalibtest esdtest shout2test"
-		never_gst_plugins="dv1394 gst_v4l2 hal ladspa osx_audio osx_video sunaudio xvideo"
+		never_gst_plugins="dv1394 gst_v4l2 hal osx_audio osx_video sunaudio xvideo"
 		;;
 	bad)
 		# wavpack moved to good in 0.10.5
 		# opengl moved out in 0.10.6
 		# soup moved to good in 0.10.7
 		# amrwb codec is patent encumbered
-		my_gst_plugins="amrwb bz2 dirac dts faac faad gsm ivorbis jack libmms
+		my_gst_plugins="amrwb bz2 dirac dts faac faad gsm ivorbis jack ladspa libmms
 		                metadata mpeg2enc mplex musepack musicbrainz nas neon
 		                ofa opengl resindvd sdl sndfile soundtouch soup spc swfdec
                         theoradec timidity wavpack wildmidi wininet x264 xvid"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
-                           ladspa mythtv oss4 quicktime vcd"
+                           mythtv oss4 quicktime vcd"
 		;;
 	ugly)
 		# WARNING: the dependent codecs may be patent encumbered
