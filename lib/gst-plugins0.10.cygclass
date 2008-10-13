@@ -89,6 +89,7 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 	good)
 		# wavpack moved from bad in 0.10.6
 		# soup moved from bad in 0.10.8
+		# cdio moved to ugly in 0.10.10
 		my_gst_plugins="aalib annodex cairo cdio directdraw directsound
 		                esd flac gconf gdk_pixbuf jpeg libcaca libdv libpng
 		                oss pulse shout2 soup speex taglib wavpack x xshm"
@@ -110,7 +111,8 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		;;
 	ugly)
 		# WARNING: the dependent codecs may be patent encumbered
-		my_gst_plugins="amrnb a52dec dvdnav dvdread id3tag lame mad mpeg2dec sidplay"
+		# cdio moved from good in 0.10.9
+		my_gst_plugins="amrnb a52dec cdio dvdnav dvdread id3tag lame mad mpeg2dec sidplay"
 		conftest_gst_plugins=
 		never_gst_plugins=
 		;;
