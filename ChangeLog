@@ -1,3 +1,9 @@
+2008-Oct-12  yselkowitz
+
+	* Tagged 0.4.1 release.
+
+	* lib/gst-plugins0.10.cygclass: Add ladspa to -bad.
+
 2008-Sep-28  yselkowitz
 
 	* bin/cygport.in (__src_fetch),

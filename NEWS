@@ -1,3 +1,12 @@
+0.4.1:
+	* SRC_URI now accepts .src.rpm files.
+	* cygautoreconf(): Better detection of autoconf-2.6x.
+	* fossil.cygclass: NEW for fossil RCS checkouts.
+	* kde3.cygclass: Add KDE 3.5.10, KDevelop 3.5.3.
+	* ruby.cygclass: Build RI docs instead of HTML.
+	* ruby-gnome2.cygclass: Added goocanvas; install implibs only as needed.
+	* tcl.cygclass: Define TK_INCLUDEDIR, TK_LIBDIR.
+
 0.4.0:  STABLE
 	* Runs only on Cygwin 1.5; use 0.9.x (trunk) for Cygwin 1.7.
 	* dolib(): Uses libtool to install libtool libraries.
