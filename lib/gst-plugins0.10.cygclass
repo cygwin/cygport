@@ -91,17 +91,18 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		                esd flac gconf gdk_pixbuf jpeg libcaca libdv libpng
 		                oss pulse shout2 soup speex taglib wavpack x xshm"
 		conftest_gst_plugins="aalibtest esdtest shout2test"
-		never_gst_plugins="dv1394 gst_v4l2 hal ladspa osx_audio osx_video sunaudio xvideo"
+		never_gst_plugins="dv1394 gst_v4l2 hal osx_audio osx_video sunaudio xvideo"
 		;;
 	bad)
 		# amrwb codec is patent encumbered
-		my_gst_plugins="amrwb bz2 dirac dts faac faad gsm ivorbis jack libmms
-		                metadata mpeg2enc mplex musepack musicbrainz nas neon
-		                ofa resindvd sdl sndfile soundtouch spc swfdec
-		                theoradec timidity wildmidi wininet x264 xvid"
+		my_gst_plugins="acm amrwb apexsink bz2 celt dirac dts faac faad gsm
+		                ivorbis jack jp2k ladspa libmms metadata mpeg2enc mplex
+		                musepack musicbrainz nas neon ofa resindvd sdl sndfile
+		                soundtouch spc theoradec timidity twolame wildmidi
+		                wininet x264 xvid"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
-                           ladspa mythtv oss4 quicktime vcd"
+                           ladspa mythtv oss4 quicktime swfdec vcd"
 		;;
 	ugly)
 		# WARNING: the dependent codecs may be patent encumbered
