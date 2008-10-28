@@ -299,13 +299,14 @@ then
 fi
 
 declare -rx  PN=$(echo ${PF} | sed -e 's/\-[^\-]*\-[^\-]*$//');
-declare -rx  PV=$(echo ${PF} | sed -e "s/${PN}\-//" -e 's/\-[^\-]*$//');
+             PV=$(echo ${PF} | sed -e "s/${PN}\-//" -e 's/\-[^\-]*$//');
 declare -rx  PR=${PF#${PN}-${PV}-};
 declare -rx  P=${PN}-${PV};
 declare -rx  PVR=${PV}-${PR};
 declare -arx PVP=(${PV//[-\._]/ });
-declare -rx  PV_MAJ=${PVP[0]};
-declare -rx  PV_MAJ_MIN="${PVP[0]}.${PVP[1]}";
+declare -rx  PV=(${PV} ${PVP[*]});
+declare -rx  PV_MAJ=${PV[1]};
+declare -rx  PV_MAJ_MIN="${PV[1]}.${PV[2]}";
 
 
 ################################################################################
@@ -1545,6 +1546,7 @@ readonly -f __list_files __list_deps __show_info
 
 __pkg_binpkg() {
 	local -i n=0;
+	local pkg_contents_var;
 	local pkg_list;
 
 	pkg_list=(${PKG_LISTS:-${PKG_NAMES}});
@@ -1572,7 +1574,14 @@ __pkg_binpkg() {
 	do
 		__step "${pkg_name[${n}]}-${PVR}.tar.bz2";
 
-		if defined PKG_CONTENTS[${n}]
+		pkg_contents_var=${pkg_name[${n}]//[+-\.]/_}_CONTENTS;
+
+		if defined ${pkg_contents_var}
+		then
+			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
+				${!pkg_contents_var} \
+				|| error "Binary package creation failed"
+		elif defined PKG_CONTENTS[${n}]
 		then
 			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
 				${PKG_CONTENTS[${n}]} \
