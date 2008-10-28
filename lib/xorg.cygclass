@@ -4,7 +4,7 @@
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
-# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+# Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,47 +24,95 @@
 ################################################################################
 
 case ${PN} in
-	font-*-dpi*)	ORIG_PN=${ORIG_PN/-dpi/-}dpi ;;
-	font-encodings) ORIG_PN="encodings" ;;
-	xorg-util-macros|xorg-scripts) ORIG_PN=${PN/xorg-/} ;;
-	*)	ORIG_PN=${ORIG_PN:-${PN}} ;;
+	font-*-dpi*)  ORIG_PN=${PN/-dpi/-}dpi ;;
+	font-encodings)  ORIG_PN="encodings" ;;
+	xorg-scripts|xorg-util-macros)  ORIG_PN=${PN/xorg-/} ;;
+	*)  ORIG_PN=${ORIG_PN:-${PN}} ;;
 esac
 
 case ${PN} in
-	xbitmaps|xcursor-themes|xkbdata)
-		xorg_cat=data
+	xbitmaps)
+		xorg_cat="data"
+		xorg_git="xorg/data/bitmaps"
 		;;
-	xorg-docs|xorg-sgml*)
-		xorg_cat=doc
+	xcursor-themes)
+		xorg_cat="data"
+		xorg_git="xorg/data/cursors"
 		;;
+	xkeyboard-config)
+		xorg_cat="data"
+		xorg_git=${PN}
+		;;
+
+	xorg-docs|xorg-sgml-doctools)
+		xorg_cat="doc"
+		xorg_git=xorg/doc/${PN}
+		;;
+
 	font-*)
-		xorg_cat=font
+		xorg_cat="font"
+		xorg_git=xorg/font/${ORIG_PN#font-}
 		;;
-	lib*|pixman|xtrans)
-		xorg_cat=lib
+
+	lib*)
+		xorg_cat="lib"
+		xorg_git=xorg/lib/${ORIG_PN}
 		;;
-	*proto|*protocol|evieext)
-		xorg_cat=proto
+	pixman)
+		xorg_cat="lib"
+		xorg_git=${PN}
 		;;
-	*make*|lndir|xorg-cf-files|xorg-util-macros)
-		xorg_cat=util
+	xtrans)
+		xorg_cat="lib"
+		xorg_git="xorg/lib/libxtrans"
 		;;
-	xorg-server*)
-		xorg_cat=xserver
+
+	evieext)
+		xorg_cat="proto"
+		xorg_git="xorg/proto/evieproto"
 		;;
+	xproxymanagementprotocol)
+		xorg_cat="proto"
+		xorg_git="xorg/proto/pmproto"
+		;;
+	*proto)
+		xorg_cat="proto"
+		xorg_git=xorg/proto/${PN}
+		;;
+
+	gccmakedep|imake|lndir|makedepend)
+		xorg_cat="util"
+		xorg_git=xorg/util/${PN}
+		;;
+	xorg-cf-files)
+		xorg_cat="util"
+		xorg_git="xorg/util/cf"
+		;;
+	xorg-util-macros)
+		xorg_cat="util"
+		xorg_git="xorg/util/macros"
+		;;
+
+	xorg-server)
+		xorg_cat="xserver"
+		xorg_git="xorg/xserver"
+		;;
+
 	*)
-		xorg_cat=app
+		xorg_cat="app"
+		xorg_git=xorg/app/${PN}
 		;;
 esac
 
-DESCRIPTION="X.org ${ORIG_PN} component"
+DESCRIPTION="X.Org ${ORIG_PN} component"
 HOMEPAGE="http://xorg.freedesktop.org/"
 SRC_URI="http://xorg.freedesktop.org/releases/individual/${xorg_cat}/${ORIG_PN}-${PV}.tar.bz2"
+GIT_URI="git://anongit.freedesktop.org/git/${xorg_git}"
+
 SRC_DIR="${ORIG_PN}-${PV}"
 
 xorg_compile() {
 	local xorg_conf
-
 	case ${PN} in
 		font-*-dpi75)
 			xorg_conf="--with-fontdir=/usr/share/fonts/75dpi"

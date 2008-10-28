@@ -1,3 +1,7 @@
+2008-Oct-28  yselkowitz
+
+	* lib/xorg.cygclass: Add GIT_URI; rename font packages.
+
 2008-Sep-28  yselkowitz
 
 	* lib/bzr.cygclass,
