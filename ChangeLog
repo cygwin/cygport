@@ -1,5 +1,7 @@
 2008-Oct-28  yselkowitz
 
+	* Tagged 0.4.2 release.
+
 	* bin/cygport.in: Pack PVP into PV[1-*].
 	(__pkg_binpkg): Accept foo_CONTENTS over PKG_CONTENTS[].
 
