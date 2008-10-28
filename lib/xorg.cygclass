@@ -3,7 +3,7 @@
 # xorg.cygclass - functions for building Xorg components
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -24,86 +24,129 @@
 ################################################################################
 
 case ${PN} in
-	xorg-font-*-dpi*)
-		ORIG_PN=${PN/xorg-/}
-		ORIG_PN=${ORIG_PN/-dpi/-}dpi
-		;;
-	xorg-util-macros|xorg-encodings|xorg-font*|xorg-scripts)
-		ORIG_PN=${PN/xorg-/}
-		;;
-	*)
-		ORIG_PN=${ORIG_PN:-${PN}}
-		;;
+	font-*-dpi*)  ORIG_PN=${PN/-dpi/-}dpi ;;
+	font-encodings)  ORIG_PN="encodings" ;;
+	xorg-scripts|xorg-util-macros)  ORIG_PN=${PN/xorg-/} ;;
+	*)  ORIG_PN=${ORIG_PN:-${PN}} ;;
 esac
 
 case ${PN} in
-	xbitmaps|xcursor-themes|xkbdata)
-		xorg_cat=data
+	xbitmaps)
+		xorg_cat="data"
+		xorg_git="xorg/data/bitmaps"
 		;;
-	xorg-docs|xorg-sgml*)
-		xorg_cat=doc
+	xcursor-themes)
+		xorg_cat="data"
+		xorg_git="xorg/data/cursors"
 		;;
-	xorg-encodings|xorg-font*)
-		xorg_cat=font
+	xkeyboard-config)
+		xorg_cat="data"
+		xorg_git=${PN}
 		;;
-	lib*|pixman|xtrans)
-		xorg_cat=lib
+		
+	xorg-docs|xorg-sgml-doctools)
+		xorg_cat="doc"
+		xorg_git=xorg/doc/${PN}
 		;;
-	*proto|*protocol|evieext)
-		xorg_cat=proto
+
+	font-*)
+		xorg_cat="font"
+		xorg_git=xorg/font/${ORIG_PN#font-}
 		;;
-	*make*|lndir|xorg-cf-files|xorg-util-macros)
-		xorg_cat=util
+
+	lib*)
+		xorg_cat="lib"
+		xorg_git=xorg/lib/${ORIG_PN}
 		;;
-	xorg-server*)
-		xorg_cat=xserver
+	pixman)
+		xorg_cat="lib"
+		xorg_git=${PN}
 		;;
+	xtrans)
+		xorg_cat="lib"
+		xorg_git="xorg/lib/libxtrans"
+		;;
+
+	evieext)
+		xorg_cat="proto"
+		xorg_git="xorg/proto/evieproto"
+		;;
+	xproxymanagementprotocol)
+		xorg_cat="proto"
+		xorg_git="xorg/proto/pmproto"
+		;;
+	*proto)
+		xorg_cat="proto"
+		xorg_git=xorg/proto/${PN}
+		;;
+
+	gccmakedep|imake|lndir|makedepend)
+		xorg_cat="util"
+		xorg_git=xorg/util/${PN}
+		;;
+	xorg-cf-files)
+		xorg_cat="util"
+		xorg_git="xorg/util/cf"
+		;;
+	xorg-util-macros)
+		xorg_cat="util"
+		xorg_git="xorg/util/macros"
+		;;
+		
+	xorg-server)
+		xorg_cat="xserver"
+		xorg_git="xorg/xserver"
+		;;
+
 	*)
-		xorg_cat=app
+		xorg_cat="app"
+		xorg_git=xorg/app/${PN}
 		;;
 esac
 
-DESCRIPTION="X.org ${ORIG_PN} component"
+DESCRIPTION="X.Org ${ORIG_PN} component"
 HOMEPAGE="http://xorg.freedesktop.org/"
 SRC_URI="http://xorg.freedesktop.org/releases/individual/${xorg_cat}/${ORIG_PN}-${PV}.tar.bz2"
+GIT_URI="git://anongit.freedesktop.org/git/${xorg_git}"
+
 SRC_DIR="${ORIG_PN}-${PV}"
 
 xorg_compile() {
 	local xorg_conf
 	case ${PN} in
-		xorg-font-*-dpi75)
+		font-*-dpi75)
 			xorg_conf="--with-fontdir=/usr/share/fonts/75dpi"
 			;;
-		xorg-font-*-dpi100)
+		font-*-dpi100)
 			xorg_conf="--with-fontdir=/usr/share/fonts/100dpi"
 			;;
-		xorg-font-*-speedo)
+		font-*-speedo)
 			xorg_conf="--with-fontdir=/usr/share/fonts/Speedo"
 			;;
-		xorg-font-*-ttf)
+		font-*-ttf)
 			xorg_conf="--with-fontdir=/usr/share/fonts/TTF"
 			;;
-		xorg-font-*-type1)
+		font-*-type1)
 			xorg_conf="--with-fontdir=/usr/share/fonts/Type1"
 			;;
-		xorg-font-*-cyrillic)
+		font-*-cyrillic)
 			xorg_conf="--with-fontdir=/usr/share/fonts/cyrillic"
 			;;
-		xorg-font-*-misc)
+		font-*-misc)
 			xorg_conf="--with-fontdir=/usr/share/fonts/misc"
 			;;
 	esac
 
 	CPPFLAGS+=" -DX_LOCALE"
 
-	cygconf --disable-static ${xorg_conf} ${@}
+	cygconf ${xorg_conf} ${@}
 
 	cygmake
 }
 
 src_compile() {
 	case ${PN} in
-		xorg-util-macros|*proto*|evieext|xbitmaps|xcursor-themes|xtrans|xorg-sgml-doctools|xorg-encodings|xorg-font*)
+		xorg-util-macros|*proto*|evieext|xbitmaps|xcursor-themes|xtrans|xorg-sgml-doctools|font-*)
 			# these are just data and don't benefit from autoreconf
 			;;
 		*)
