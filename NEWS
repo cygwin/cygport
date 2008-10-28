@@ -1,3 +1,14 @@
+0.9.3:
+	* PV is now an array; members 1-* replace PVP[].
+	* foo_CONTENTS can now be used in place of PKG_CONTENTS[].
+	* cygtest(): Doesn't exit when tests fail.
+	* autotools.cygclass: Detect ac-2.63+; detect missing LT_OUTPUT.
+	* fossil.cygclass: NEW for Fossil RCS checkouts.
+	* ruby.cygclass: Added rubyinto, doruby. Accept RDOC_MODULE.
+	* ruby-gnome2.cygclass: Added ruby-goocanvas.
+	* xorg.cygclass: Added GIT_URI; renamed font- packages.
+	* zope.cygclass: REMOVED.  Use distutils instead.
+
 0.9.2:
 	* SRC_URI: now accepts SRPMs.
 	* PATCH_URI: now accepts multiple-patch tarballs.
