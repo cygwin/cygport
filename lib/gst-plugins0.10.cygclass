@@ -101,10 +101,11 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		# opengl moved out in 0.10.6
 		# soup moved to good in 0.10.7
 		# amrwb codec is patent encumbered
-		my_gst_plugins="amrwb bz2 dirac dts faac faad gsm ivorbis jack ladspa libmms
-		                metadata mpeg2enc mplex musepack musicbrainz nas neon
-		                ofa opengl resindvd sdl sndfile soundtouch soup spc swfdec
-                        theoradec timidity wavpack wildmidi wininet x264 xvid"
+		my_gst_plugins="acm amrwb apexsink bz2 celt dirac dts faac faad gsm
+		                ivorbis jack jp2k ladspa libmms metadata mpeg2enc
+		                mplex musepack musicbrainz nas neon ofa resindvd
+		                sdl sndfile soundtouch soup spc swfdec theoradec
+                        timidity twolame wavpack wildmidi wininet x264 xvid"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
                            mythtv oss4 quicktime vcd"
