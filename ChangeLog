@@ -1,5 +1,8 @@
 2008-Oct-28  yselkowitz
 
+	* bin/cygport.in: Pack PVP into PV[1-*].
+	(__pkg_binpkg): Accept foo_CONTENTS over PKG_CONTENTS[].
+
 	* lib/gst-plugins0.10.cygclass: Add new plugins in -bad 0.10.9.
 
 	* lib/xorg.cygclass: Add GIT_URI; rename font packages.
