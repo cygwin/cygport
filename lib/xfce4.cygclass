@@ -33,16 +33,16 @@ case ${PN} in
 	thunar-thumbnails|*-plugin)
 		SRC_URI="http://goodies.xfce.org/releases/${PN}/${P}.tar.bz2"
 		;;
+	terminal) ORIG_PN=Terminal ;;
 	thunar) ORIG_PN=Thunar ;;
-	xfce4-terminal) ORIG_PN=Terminal ;;
 esac
 
 if ! defined SRC_URI
 then
 	case ${PN} in
-		libxfce4mcs|libxfce4util|libxfcegui4|orage|xfce-mcs-manager\
-		|xfce-mcs-plugins|xfce-utils|xfce4-appfinder|xfce4-dev-tools\
-		|xfce4-icon-theme|xfce4-mixer|xfce4-panel|xfce4-session\
+		libxfce4menu|libxfce4util|libxfcegui4|orage\
+		|xfce-utils|xfce4-appfinder|xfce4-dev-tools\
+		|xfce4-icon-theme|xfce4-mixer|xfce4-panel|xfce4-session|xfce4-settings\
 		|xfdesktop|xfprint|xfwm4|xfwm4-themes)
 			XFCE_VERSION=${PV} ;;
 	esac
@@ -58,21 +58,23 @@ SRC_DIR=${ORIG_PN:-${PN}}-${PV}
 xfce4_autoreconf() {
 	check_prog_req xdt-autogen xfce4-dev-tools
 
-	NOCONFIGURE=1 xdt-autogen || error "xdt-autogen failed"	
+	NOCONFIGURE=1 xdt-autogen || error "xdt-autogen failed"
 }
 
 xfce4_compile() {
 	cygconf \
-		--libexecdir=/usr/lib/xfce4 \
+		--libexecdir=/usr/lib \
 		--sbindir=/usr/lib/xfce4 \
-		--disable-static
+		--disable-static \
+		--disable-visibility
+
 	cygmake
 }
 
 src_compile() {
 	cd ${S}
 	case ${PN} in
-		xfce4-dev-tools) ;;
+		xfce4-dev-tools|xfce4-icon-theme|xfwm4-themes) ;;
 		*)	xfce4_autoreconf ;;
 	esac
 	cd ${B}
