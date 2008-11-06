@@ -1,5 +1,8 @@
 2008-Nov-02  yselkowitz
 
+	* bin/cygport.in (__pkg_dist): In the case of split binary packages,
+	an empty binary package is not required to be aside the source package.
+
 	* lib/xfce4.cygclass: Update for 4.6 betas.
 
 	* Post-release version bump.
