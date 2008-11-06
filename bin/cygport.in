@@ -1843,7 +1843,7 @@ __pkg_srcpkg() {
 }
 
 __pkg_dist() {
-	local -i n=1;
+	local -i n;
 	local -a pkg_hint;
 
 	rm -fr ${distdir}/*;
@@ -1852,7 +1852,13 @@ __pkg_dist() {
 
 	mkdir -p ${distdir}/${PN};
 
-	cp ${top}/${PF}-src.tar.bz2 ${top}/${PF}.tar.bz2 ${distdir}/${PN};
+	cp ${top}/${PF}-src.tar.bz2 ${distdir}/${PN};
+
+	# sources with split binaries do NOT require a corresponding empty binary
+	if (( $(du -b ${top}/${PF}.tar.bz2 | cut -f 1) > 46 ))
+	then
+		cp ${top}/${PF}.tar.bz2 ${distdir}/${PN};
+	fi
 
 	if (( pkg_count > 1 ))
 	then
@@ -1873,9 +1879,11 @@ __pkg_dist() {
 		warning "${pkg_hint[0]%.hint}.hint is missing";
 	fi
 
+	n=1;
 	while defined pkg_name[${n}]
 	do
 		mkdir -p ${distdir}/${PN}/${pkg_name[${n}]};
+
 		cp ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${distdir}/${PN}/${pkg_name[${n}]};
 
 		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]

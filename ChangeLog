@@ -1,5 +1,8 @@
 2008-Nov-05  yselkowitz
 
+	* bin/cygport.in (__pkg_dist): In the case of split binary packages, 
+	an empty binary package is not required to be aside the source package.
+
 	* Post-release version bump.
 
 2008-Oct-28  yselkowitz
