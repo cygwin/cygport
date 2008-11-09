@@ -1,5 +1,8 @@
 2008-Nov-09  yselkowitz
 
+	* bin/cygport.in (lndirs): lndir is now in the distro as part of
+	modular X11, so we can require it unconditionally.
+
 	* bin/cygport.in (pushd, popd): Override builtins with quiet versions.
 
 2008-Nov-02  yselkowitz

@@ -900,8 +900,6 @@ readonly -f fetch __mirror_fetch __src_fetch unpack __gpg_verify __mkdirs cygpat
 ################################################################################
 
 lndirs() {
-	local d;
-	local f;
 	local fromdir=${1};
 	local todir=${2};
 
@@ -914,22 +912,8 @@ lndirs() {
 		todir=.;
 	fi
 
-	if check_prog lndir
-	then
-		lndir -silent ${fromdir} ${todir} || error "lndir failed"
-	else
-		cd ${fromdir};
-
-		for d in $(find . -type d)
-		do
-			mkdir -p ${todir}/${d#./};
-		done
-
-		for f in $(find . ! -type d)
-		do
-			ln -sf ${fromdir}/${f#./} ${todir}/${f#./};
-		done
-	fi
+	check_prog_req lndir
+	lndir -silent ${fromdir} ${todir} || error "lndir failed"
 }
 
 # Regenerates auto* files; most importantly, pulls in the Cygwin libtool
