@@ -1,3 +1,7 @@
+2008-Nov-09  yselkowitz
+
+	* bin/cygport.in (pushd, popd): Override builtins with quiet versions.
+
 2008-Nov-02  yselkowitz
 
 	* bin/cygport.in (__pkg_dist): In the case of split binary packages,
