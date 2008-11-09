@@ -1,5 +1,8 @@
 2008-Nov-09  yselkowitz
 
+	* bin/cygport.in (lndirs): lndir is now in the distro as part of 
+	modular X11, so we can require it unconditionally.
+
 	* lib/fox-build.cygclass: Removed.
 
 2008-Nov-05  yselkowitz
