@@ -1,3 +1,7 @@
+2008-Nov-09  yselkowitz
+
+	* lib/fox-build.cygclass: Removed.
+
 2008-Nov-05  yselkowitz
 
 	* lib/xfce4.cygclass: Update for 4.6-beta.
