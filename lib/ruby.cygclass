@@ -84,7 +84,19 @@ ruby_install() {
 	if [ -d .rdoc ]
 	then
 		dodir ${RI_SITEDIR}
-		cp -r .rdoc/*/ ${D}${RI_SITEDIR}/
+
+		pushd .rdoc
+		for mod in ${RDOC_MODULE:-*/}
+		do
+			if [ ! -d ${mod} ]
+			then
+				warning "RI module ${mod} was not generated"
+				continue
+			fi
+
+			cp -r ${mod} ${D}${RI_SITEDIR}/
+		done
+		popd
 	fi
 }
 
