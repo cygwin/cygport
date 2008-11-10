@@ -1,5 +1,8 @@
 2008-Nov-09  yselkowitz
 
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_compile): Build RI docs.
+	(ruby_gnome2_install): Accept RDOC_MODULE.
+
 	* lib/ruby.cygclass (ruby_install): Accept RDOC_MODULE.
 
 	* bin/cygport.in (lndirs): lndir is now in the distro as part of
