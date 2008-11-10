@@ -1,5 +1,7 @@
 2008-Nov-09  yselkowitz
 
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_install): Accept RDOC_MODULE.
+
 	* bin/cygport.in (lndirs): lndir is now in the distro as part of 
 	modular X11, so we can require it unconditionally.
 

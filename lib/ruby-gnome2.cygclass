@@ -133,9 +133,9 @@ ruby_gnome2_compile() {
 	do
 		if [ -d ${d}/src ]
 		then
-			rdoc --ri --op ${d}/rdoc ${d}/src
+			rdoc --ri --op rdoc ${d}/src
 		else
-			rdoc --ri --op ${d}/rdoc ${d}
+			rdoc --ri --op rdoc ${d}
 		fi
 	done
 }
@@ -165,10 +165,22 @@ ruby_gnome2_install() {
 			fi
 		done
 
-		if [ -d ${d}/rdoc ]
+		if [ -d rdoc ]
 		then
 			dodir ${RI_SITEDIR}
-			cp -r ${d}/rdoc/*/ ${D}${RI_SITEDIR}/
+
+			pushd rdoc
+			for mod in ${RDOC_MODULE:-*/}
+			do
+				if [ ! -d ${mod} ]
+				then
+					warning "RI module ${mod} was not generated"
+					continue
+				fi
+
+				cp -r ${mod}/ ${D}${RI_SITEDIR}/
+			done
+			popd
 		fi
 	done
 }
