@@ -170,6 +170,7 @@ gst_plugins_compile() {
 	done
 
 	cygconf \
+		--enable-experimental \
 		--enable-gtk-doc \
 		--disable-examples \
 		--disable-schemas-install \
@@ -181,6 +182,7 @@ gst_plugins_compile() {
 		--with-default-videosink=autovideosink \
 		--with-default-videosrc=videotestsrc \
 		--with-default-visualizer=goom \
+		ac_cv_header_winsock2_h=no \
 		${gst_conf} "${@}"
 
 	if [ "x${GST_PLUGINS_DIR}" != "x." ]

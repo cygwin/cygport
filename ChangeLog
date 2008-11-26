@@ -1,3 +1,8 @@
+2008-Nov-26  yselkowitz
+
+	* lib/gst-plugins0.10.cygclass: Enable experimental plugins.
+	Override winsock2.h detection in favour of sys/socket.h.
+
 2008-Nov-09  yselkowitz
 
 	* lib/ruby-gnome2.cygclass (ruby_gnome2_compile): Build RI docs.
