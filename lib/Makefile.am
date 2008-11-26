@@ -19,7 +19,6 @@ dist_cygclass_DATA = 			\
 	font.cygclass				\
 	fossil.cygclass				\
 	fox.cygclass				\
-	fox-build.cygclass			\
 	ggz.cygclass				\
 	git.cygclass				\
 	gnome.org.cygclass			\
