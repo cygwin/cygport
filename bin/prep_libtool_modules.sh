@@ -25,7 +25,7 @@
 ################################################################################
 set -e
 
-declare -r ltversion="$(/usr/bin/libtool --version | /bin/grep ltmain.sh)"
+declare -r ltversion="$(grep '^# ltmain.sh (GNU' /usr/bin/libtool | cut -d ' ' -f 2-)"
 
 echo "Fixing libtool modules:"
 
