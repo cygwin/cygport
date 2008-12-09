@@ -28,10 +28,7 @@ set -e
 fontsdir=/usr/share/fonts
 encodingsdir=${fontsdir}/encodings
 
-for pcf in $(find ${D}${fontsdir} -name '*.pcf')
-do
-	gzip -q ${pcf}
-done
+find ${D}${fontsdir} -name '*.pcf' -exec gzip -q '{}' +
 
 n=0
 while (( n < 9 ))

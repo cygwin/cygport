@@ -1,5 +1,7 @@
 2008-Dec-08  yselkowitz
 
+	* bin/prep_fonts_dir.sh: Simplify .pcf compression code.
+
 	* bin/prep_libtool_modules.sh: Speed up libtool version detection.
 
 2008-Nov-26  yselkowitz
