@@ -1,5 +1,7 @@
 2008-Dec-08  yselkowitz
 
+	* bin/cygport.in (cygpatch): Try with and without --binary.
+
 	* bin/cygport.in (__prepinstalldirs, __pkg_diff),
 	lib/berkdb.cygclass (berkdb_autoreconf),
 	lib/cross.cygclass (cross_config_sub),
