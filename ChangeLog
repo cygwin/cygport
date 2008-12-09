@@ -1,5 +1,7 @@
 2008-Dec-08  yselkowitz
 
+	* bin/cygport.in (__prepetc): Fix per-package postinst/prerm install.
+
 	* bin/cygport.in (cygpatch): Try with and without --binary.
 
 	* bin/cygport.in (__prepinstalldirs, __pkg_diff),

@@ -1452,7 +1452,7 @@ __prepdoc() {
 __prepetc() {
 	local d;
 	local f;
-	local n;
+	local -i n;
 	local s;
 
 	for s in postinstall preremove
