@@ -1,5 +1,7 @@
 2008-Dec-08  yselkowitz
 
+	* lib/gtkmm.cygclass: Improve ORIG_PN. Fix DIFF_EXCLUDES for 2.24.
+
 	* bin/prep_fonts_dir.sh: Simplify .pcf compression code.
 
 2008-Nov-26  yselkowitz
