@@ -79,26 +79,9 @@ DIFF_EXCLUDES="aclocal.m4 configure config.hin db.jar libtool.ac lt*.ac"
 berkdb_autoreconf() {
 	check_prog_req libtoolize libtool
 
-	local errormsg="berkdb: libtoolize failed"
-	local lt_v=$(libtoolize --version | head -n 1 | cut -d ' ' -f 4)
-
 	[ -f s_config ] && [ -d aclocal ] || error "not in dist/ directory"
 
-	case ${lt_v} in
-	1.5.*)
-		cp -f /usr/share/aclocal/libtool.m4 aclocal/ || error "${errormsg}"
-		libtoolize --copy --force || error "${errormsg}"
-		;;
-	1.*|2.[01].*)
-		error "berkdb: unsupported libtool version: ${lt_v}"
-		;;
-	2.*)
-		ac_macrodir=aclocal libtoolize --copy --force --install || error "${errormsg}"
-		;;
-	*)
-		error "berkdb: unsupported libtool version: ${lt_v}"
-		;;
-	esac
+	ac_macrodir=aclocal libtoolize --copy --force --install || error "berkdb: libtoolize failed"
 
 	# some versions require .ac extension, others use .m4
 	if [ -f aclocal/libtool.ac ]

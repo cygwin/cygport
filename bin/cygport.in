@@ -1310,10 +1310,6 @@ insinto() {
 # Pre-install steps
 __prepinstalldirs() {
 	rm -fr ${D}/*;
-
-	# circumvent pointless libtool relinking during install
-	find ${B} -name '*.la' -exec sed -i -e '/^relink_command/d' '{}' +;
-	find ${B} -type f -exec touch -t $(date +%Y%m%d%H%M.%S) '{}' + 2> /dev/null || true
 }
 
 # run 'make install'
@@ -1911,7 +1907,7 @@ __pkg_diff() {
 		*.class *.pyc *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
 
 	case ${PN} in
-		automake*|libtool*) ;;
+		automake*|libtool) ;;
 		*)	default_excludes+=" COPYING INSTALL compile config-ml.in \
 				config.guess config.sub depcomp elisp-comp install-sh \
 				libtool.m4 ltoptions.m4 ltsugar.m4 ltversion.m4 lt~obsolete.m4 \
@@ -1974,7 +1970,7 @@ __pkg_diff() {
 			intltool-merge intltool-merge.in intltool-update intltool-update.in";
 	fi
 
-	# KDE
+	# KDE3
 	if [ -f ${S}/admin/libtool.m4.in ]
 	then
 		default_excludes+=" libtool.m4.in* configure.bak \

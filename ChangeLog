@@ -1,5 +1,11 @@
 2008-Dec-08  yselkowitz
 
+	* bin/cygport.in (__prepinstalldirs, __pkg_diff),
+	lib/berkdb.cygclass (berkdb_autoreconf),
+	lib/cross.cygclass (cross_config_sub),
+	lib/gnome2.cygclass (gnome2_autoreconf),
+	lib/kde3.cygclass (kde3_autoreconf):  Require stable libtool-2.2.
+
 	* lib/gtkmm.cygclass: Improve ORIG_PN. Fix DIFF_EXCLUDES for 2.24.
 
 	* bin/prep_fonts_dir.sh: Simplify .pcf compression code.

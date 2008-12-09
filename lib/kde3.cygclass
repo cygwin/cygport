@@ -77,19 +77,11 @@ kde3_autoreconf() {
 
 	# libtoolize
 	check_prog_req libtoolize libtool
-	local lt_args
-	local lt_v=$(libtoolize --version | head -n 1 | cut -d ' ' -f 4)
 
 	# rely on libtool macro(s) in system aclocal path
 	echo -n > admin/libtool.m4.in
 
-	case ${lt_v} in
-	1.5.*)  ;;
-	1.*|2.[01].*)  error "kde3: unsupported libtool version: ${lt_v}" ;;
-	2.*)  lt_args="--install" ;;
-	esac
-
-	libtoolize --copy --force ${lt_args} || error "kde3: libtoolize failed"
+	libtoolize --copy --force --install || error "kde3: libtoolize failed"
 
 	# autoreconf
 	make -f admin/Makefile.common || error "KDE autoreconf failed"
