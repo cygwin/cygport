@@ -1,5 +1,9 @@
 2008-Dec-08  yselkowitz
 
+	* bin/cygport.in (__pkg_diff): Ignore *.jlc (compiled librep lisp) files.
+
+	* bin/cygport.in (__prepetc): Fix per-package postinst/prerm install.
+
 	* bin/cygport.in (cygpatch): Try with and without --binary.
 
 	* lib/gtkmm.cygclass: Improve ORIG_PN. Fix DIFF_EXCLUDES for 2.24.
