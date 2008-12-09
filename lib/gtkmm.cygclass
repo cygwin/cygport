@@ -23,7 +23,7 @@
 #
 ################################################################################
 
-ORIG_PN=${ORIG_PN:-${PN/2[046]/}}
+ORIG_PN=${ORIG_PN:-${PN/[012]*/}}
 SRC_DIR=${ORIG_PN}-${PV}
 
 inherit gnome.org
@@ -32,7 +32,7 @@ DESCRIPTION="GNOME C++ bindings for ${ORIG_PN/mm/}-${PV_MAJ}.x"
 HOMEPAGE="http://www.gtkmm.org/"
 
 # .rc files are removed for regeneration by configure
-DIFF_EXCLUDES+=" Doxyfile MSVC_Net2003"
+DIFF_EXCLUDES+=" Doxyfile MSVC_Net200*"
 
 gtkmm_autoreconf() {
 	WANT_AUTOCONF=2.5
