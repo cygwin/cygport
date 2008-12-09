@@ -734,7 +734,12 @@ cygpatch() {
 
 		while (( patchlevel <= 3 ))
 		do
-			if patch -N -s --binary --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
+			if patch -N -s --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
+			then
+				inform "applying patch ${patchfile_name}:";
+				patch -N -p${patchlevel} -i ${patchfile_path} || error "patch ${patchfile_name} failed"
+				break;
+			elif patch -N -s --binary --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
 			then
 				inform "applying patch ${patchfile_name}:";
 				patch -N --binary -p${patchlevel} -i ${patchfile_path} || error "patch ${patchfile_name} failed"
@@ -1188,7 +1193,7 @@ __prepdoc() {
 __prepetc() {
 	local d;
 	local f;
-	local n;
+	local -i n;
 	local s;
 
 	for s in postinstall preremove
