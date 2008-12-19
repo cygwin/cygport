@@ -1,5 +1,8 @@
 2008-Dec-18  yselkowitz
 
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_compile, ruby_gnome2_install):
+	Fix rdoc generation when building monolithic ruby-gnome2-all.
+
 	* lib/pygtk.cygclass (pygtk_compile): Use pygobject-codegen-2.0 if present.
 
 	* lib/gtkmm.cygclass: Remove all number suffixes from ORIG_PN.
