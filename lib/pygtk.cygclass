@@ -78,6 +78,11 @@ PYGTK_LIBDIR="${PYTHON_SITELIB}/gtk-2.0"
 PYGTK_DATADIR="/usr/share/pygtk/2.0"
 
 pygtk_compile() {
+	if check_prog pygobject-codegen-2.0
+	then
+		export PYGTK_CODEGEN="/usr/bin/pygobject-codegen-2.0"
+	fi
+
 	cygconf --disable-static "${@}"
 	cd ${pygtk_subdir}
 	cygmake LIBS="-no-undefined ${LIBPYTHON}"
