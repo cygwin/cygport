@@ -29,7 +29,7 @@ However, the g-b-s has many drawbacks:
 5) There is no simple method of dealing with an original source package
    whose name or top directory do not conform with the PKGNAME-VERSION
    form, or where the Cygwin package name differs from the upstream name
-   (e.g. gtk2-x11 from gtk+).
+   (e.g. gtk2.0 from gtk+).
    
 6) It is not designed to create more than one binary package per source
    package -- e.g.  whereby the foo source is separated into foo, libfoo1,
@@ -210,7 +210,7 @@ running configure, in order to pull in the current Cygwin libtool, and
 to assure that patches to configure.in or Makefile.am actually take
 affect.  The defaults are autoconf-2.5 and automake-1.9; these may be
 overridden by defining WANT_AUTOCONF and WANT_AUTOMAKE to the desired
-versions; be sure to remember that libtool-1.5 requires that
+versions; be sure to remember that libtool >= 1.5 requires that
 autoconf-2.5 be used.  The 'cygautoreconf' command handles all this for
 you, and must be called at the beginning of the src_compile step. 
 (Files regenerated through this process will be ignored when generating
@@ -225,7 +225,7 @@ following arguments to configure:
     --sysconfdir=/etc
     --localstatedir=/var
 
-    (autoconf-2.13 or 2.5x)          (autoconf-2.60)
+    (autoconf-2.13 or 2.5x)          (autoconf-2.6x)
     --datadir=/usr/share             --datarootdir=/usr/share
     --infodir=/usr/share/info        --docdir=/usr/share/doc/${P}
     --mandir=/usr/share/man
@@ -432,7 +432,7 @@ addition to the packages own dependencies:
     grep
     gzip
     libtool
-    lndir  (xorg-x11-bin-lndir)
+    lndir
     make
     patch
     rsync
@@ -447,11 +447,6 @@ addition to the packages own dependencies:
 Cygwin binary and source packages of cygport are available as part of
 the Cygwin distribution, under the 'Devel' category.  Installing cygport 
 with setup.exe will automatically install all mandatory dependencies.
-
-Periodically, test versions are posted to the Cygwin Ports repository,
-which is setup.exe enabled.  Add this address to your server list:
-
-    ftp://sunsite.dk/projects/cygwinports/
 
 cygport is hosted on Subversion.  Those interested in helping with cygport
 development, or testing the newest features should use SVN trunk.

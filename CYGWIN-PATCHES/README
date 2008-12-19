@@ -29,7 +29,7 @@ Runtime requirements:
 
 Build requirements:
   autoconf2.5-2.63-1
-  automake1.10-1.10.1-1
+  automake1.10-1.10.1-2
   gawk-3.1.6-1
   groff-1.18.1-2
   help2man-1.36.4-2
