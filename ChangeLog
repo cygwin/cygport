@@ -1,3 +1,7 @@
+2008-Dec-18  yselkowitz
+
+	* lib/gtk2-perl.cygclass (gtk2_perl_install): Avoid mv 'same file' error.
+
 2008-Dec-08  yselkowitz
 
 	* bin/cygport.in (__pkg_diff): Ignore *.jlc (compiled librep lisp) files.

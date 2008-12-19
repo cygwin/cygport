@@ -38,7 +38,7 @@ DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VEN
 gtk2_perl_compile() {
 	perl_compile
 
-	for man3pm in blib/man3/*.3pm
+	for man3pm in blib/man3/*::*.3pm
 	do
 		mv ${man3pm} ${man3pm//::/.}
 	done
