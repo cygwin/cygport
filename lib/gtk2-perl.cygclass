@@ -40,7 +40,7 @@ gtk2_perl_compile() {
 	# man and perl were patched to substitute '.' for '::'.
 	# However, gtk2-perl always created with '::', and with 1.7
 	# it works OOTB, but man is still patched and hence won't find these.
-	for man3pm in blib/man3/*.3pm
+	for man3pm in blib/man3/*::*.3pm
 	do
 		mv ${man3pm} ${man3pm//::/.}
 	done
