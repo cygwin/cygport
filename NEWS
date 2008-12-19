@@ -1,3 +1,17 @@
+0.4.3:
+	* Requires libtool-2.2 throughout.
+	* cygpatch() tries with and without --binary.
+	* lndirs() uses lndir(1) unconditionally.
+	* Override pushd and popd with quiet versions.
+	* Fixed per-package postinstall and preremove script installation.
+	* gst-plugins0.10.cygclass: Enabled experimental plugins.
+	  Override configure detection of winsock2.h.
+	* gtkmm.cygclass: Fix ORIG_PN and DIFF_EXCLUDES for GNOME 2.24.
+	* pygtk.cygclass: Use pygobject-codegen-2.0 if present.
+	* ruby.cyclass: Use RDOC_MODULE to filter rdoc installation.
+	* ruby-gnome2.cygclass: Build RI docs.
+	* xfce4.cygclass: Updated for 4.6 betas.
+
 0.4.2:
 	* PV is now an array; members 1-* replace PVP[].
 	* foo_CONTENTS can now be used in place of PKG_CONTENTS[].
