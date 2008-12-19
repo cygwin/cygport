@@ -1,5 +1,7 @@
 2008-Dec-18  yselkowitz
 
+	* lib/gtkmm.cygclass: Remove all number suffixes from ORIG_PN.
+
 	* lib/gtk2-perl.cygclass (gtk2_perl_install): Avoid mv 'same file' error.
 
 2008-Dec-08  yselkowitz
