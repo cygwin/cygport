@@ -1,3 +1,7 @@
+2009-Jan-05  yselkowitz
+
+	* lib/kde3.cygclass (kde3_compile): Disable apidox for KDE3.
+
 2008-Dec-18  yselkowitz
 
 	* lib/ruby-gnome2.cygclass (ruby_gnome2_compile, ruby_gnome2_install):
