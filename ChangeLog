@@ -1,5 +1,7 @@
 2009-Jan-05  yselkowitz
 
+	* bin/cygport.in (__pkg_diff): Make .src.patch with diff -p.
+
 	* lib/claws-mail.cygclass: Stop mangling ORIG_PN.
 
 	* lib/kde3.cygclass (kde3_compile): Disable apidox for KDE3.

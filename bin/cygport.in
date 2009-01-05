@@ -1767,12 +1767,12 @@ __pkg_diff() {
 		rm -f ${patchdir}/${src_patchfile};
 		touch ${patchdir}/${src_patchfile};
 	else
-		diff -urN ${diff_excludes_x} \
+		diff -uprN ${diff_excludes_x} \
 			${origsrcdir##*/} ${srcdir##*/} \
 			> ${patchdir}/${src_patchfile} || true;
 	fi
 
-	sed -e '/^diff -urN/d' -i ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
+	sed -e '/^diff -u/d' -i ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
 
 	diffstat -p${difflevel} ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
 }
