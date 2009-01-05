@@ -119,11 +119,6 @@ kde3_compile() {
 		"${@}"
 
 	cygmake
-
-	if make -n apidox &> /dev/null
-	then
-		cygmake -j1 apidox QTDOCDIR=/usr/share/qt3/doc/html
-	fi
 }
 
 kde3_install() {
