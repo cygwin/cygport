@@ -28,9 +28,9 @@ inherit qt3
 HOMEPAGE="http://www.kde.org/"
 
 case "${PN}:${PV}" in
-	arts:*)			ftp_pv=3.${PVP[1]}.${PVP[2]} ;;
-	kdevelop:3.5.[01])	ftp_pv=3.${PVP[1]}.$((PVP[2] + 8)) ;;
-	kdevelop:3.5.3)	ftp_pv=3.${PVP[1]}.$((PVP[2] + 7)) ;;
+	arts:*)			ftp_pv=3.${PV[2]}.${PV[3]} ;;
+	kdevelop:3.5.[01])	ftp_pv=3.${PV[2]}.$((PV[3] + 8)) ;;
+	kdevelop:3.5.4)	ftp_pv=3.${PV[2]}.$((PV[3] + 6)) ;;
 	*)				ftp_pv=${PV} ;;
 esac
 
