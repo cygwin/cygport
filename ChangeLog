@@ -1,3 +1,7 @@
+2009-Jan-09  yselkowitz
+
+	* lib/kde3.cygclass: Fix SRC_URI for kdevelop-3.5.4.
+
 2009-Jan-05  yselkowitz
 
 	* lib/claws-mail.cygclass: Stop mangling ORIG_PN.
