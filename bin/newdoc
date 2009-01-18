@@ -25,12 +25,11 @@
 ################################################################################
 set -e
 
-if defined _docinto_dir
-then
-	docdir=/usr/share/doc/${PN}/${_docinto_dir}
-else
-	docdir=/usr/share/doc/${PN}
-fi
+case "${_docinto_dir}" in
+	'')	docdir=/usr/share/doc/${PN} ;;
+	/*)	docdir=/usr/share/doc${_docinto_dir} ;;
+	*)	docdir=/usr/share/doc/${PN}/${_docinto_dir} ;;
+esac
 
 dodir ${docdir}
 

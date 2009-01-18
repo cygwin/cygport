@@ -156,14 +156,8 @@ ruby_gnome2_install() {
 				;;
 		esac
 
-		insinto /usr/share/doc/ruby-${mod}
-		for doc in COPYING.LIB ChangeLog README
-		do
-			if [ -f ${S}/${d}/${doc} ]
-			then
-				doins ${S}/${d}/${doc}
-			fi
-		done
+		docinto /ruby-${mod}
+		dodoc ${S}/${d}/{COPYING.LIB,ChangeLog,README}
 
 		if [ -d ${d}/rdoc ]
 		then

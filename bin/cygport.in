@@ -1027,10 +1027,6 @@ docinto() {
 		error "docinto accepts exactly one argument";
 	fi
 
-	case ${1} in
-		/*) error "docinto argument should be only a subdirectory" ;;
-	esac
-
 	dodir /usr/share/doc/${PN}/${1};
 	export _docinto_dir=${1};
 }

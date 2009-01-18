@@ -123,18 +123,15 @@ kde3_install() {
 
 	for kdepkg in ${PKG_NAMES:-${PN}}
 	do
-		for doc in AUTHORS BUGS ChangeLog NEWS README TODO
-		do
-			if [ -f ${S}/${kdepkg}/${doc} ]
-			then
-				insinto /usr/share/doc/${kdepkg}
-				doins ${S}/${kdepkg}/${doc}
-			elif [ -f ${S}/${kdepkg#${PN}-}/${doc} ]
-			then
-				insinto /usr/share/doc/${kdepkg}
-				doins ${S}/${kdepkg#${PN}-}/${doc}
-			fi
-		done
+		if [ -d ${S}/${kdepkg} ]
+		then
+			docinto /${kdepkg}
+			dodoc ${S}/${kdepkg}/{AUTHORS,BUGS,ChangeLog,NEWS,README,TODO}
+		elif [ -d ${S}/${kdepkg#${PN}-} ]
+		then
+			docinto /${kdepkg}
+			dodoc ${S}/${kdepkg#${PN}-}/{AUTHORS,BUGS,ChangeLog,NEWS,README,TODO}
+		fi
 	done
 
 	# except for kded in kdelibs, libkdeinit_* implibs are unnecessary

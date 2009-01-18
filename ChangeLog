@@ -1,5 +1,13 @@
 2009-Jan-18  yselkowitz
 
+	* bin/cygport.in (docinto),
+	* bin/dodoc,
+	* bin/newdoc: Allow installing docs into custom dir under /usr/share/doc
+	by calling docinto with a leading slash (e.g. /HTML/en/foo).
+	* lib/kde3.cygclass (kde3_install),
+	* lib/kde4.cygclass (kde4_install),
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_install): Use docinto /....
+
 	* bin/cygport.in (__pkg_binpkg): Fix mixing of .list and pkg_CONTENTS.
 
 	* bin/cygport.in (unpack): Support .tar.lzo archives.
