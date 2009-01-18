@@ -167,7 +167,7 @@ cygautoreconf() {
 		;;
 	esac
 
-	/usr/bin/autoreconf --force -i --verbose || error "autoreconf failed"
+	autoreconf --force -i --verbose || error "autoreconf failed"
 
 	for d in . ${ac_subdirs}
 	do
