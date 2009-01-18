@@ -52,5 +52,5 @@ bzr_fetch() {
 	cd ${T}
 	verbose bzr branch ${BZR_URI} ${BZR_MODULE} ${bzr_branch}
 
-	tar jcf ${top}/${bzr_tarball} --exclude=.bzr --exclude=.bzrignore --exclude=.rsyncexclude ${BZR_MODULE}
+	tar jcf ${top}/${bzr_tarball} --exclude-vcs ${BZR_MODULE}
 }

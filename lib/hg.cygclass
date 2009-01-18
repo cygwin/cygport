@@ -52,5 +52,5 @@ hg_fetch() {
 
 	verbose hg clone ${hg_rev} ${HG_URI} ${HG_MODULE}
 
-	tar jcf ${top}/${hg_tarball} --exclude=.hg ${HG_MODULE}
+	tar jcf ${top}/${hg_tarball} --exclude-vcs ${HG_MODULE}
 }

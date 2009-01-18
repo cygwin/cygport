@@ -1,5 +1,11 @@
 2009-Jan-18  yselkowitz
 
+	* lib/bzr.cygclass (bzr_fetch),
+	* lib/cvs.cygclass (cvs_fetch),
+	* lib/git.cygclass (git_fetch),
+	* lib/hg.cygclass (hg_fetch),
+	* lib/svn.cygclass (svn_fetch): Use tar --exclude-vcs.
+
 	* lib/xfce4.cygclass: Rename gtk-engines-xfce binary package.
 
 	* bin/cygport.in (cygautoreconf): Install config.rpath based on
