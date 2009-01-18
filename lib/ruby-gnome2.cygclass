@@ -179,7 +179,8 @@ ruby_gnome2_install() {
 			do
 				if [ -d ${docmod} ]
 				then
-					cp -r ${docmod}/ ${D}${RI_SITEDIR}/
+					dodir ${RI_SITEDIR}/${docmod}
+					cp -r ${docmod}/* ${D}${RI_SITEDIR}/${docmod}
 				fi
 			done
 

@@ -1,5 +1,8 @@
 2009-Jan-18  yselkowitz
 
+	* lib/ruby-gnome2.cygclass (ruby_gnome2_install): Fix installation
+	of partially overlapping ri doc modules.
+
 	* lib/bzr.cygclass (bzr_fetch),
 	* lib/cvs.cygclass (cvs_fetch),
 	* lib/git.cygclass (git_fetch),
