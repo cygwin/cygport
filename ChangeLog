@@ -29,6 +29,8 @@
 	*  data/cygport.nanorc: Fix regexes, replacing \< with [[:<:]], etc:
 	http://cygwin.com/ml/cygwin/2009-01/msg00531.html
 
+	* configure.ac: Post-release version bump.
+
 2009-Jan-09  yselkowitz
 
 	* lib/kde3.cygclass: Fix SRC_URI for kdevelop-3.5.4.
