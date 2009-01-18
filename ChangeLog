@@ -1,5 +1,8 @@
 2009-Jan-18  yselkowitz
 
+	* bin/cygport.in (cygautoreconf): Install config.rpath based on
+	configure.ac, as configure is not always present yet (e.g. CVS checkouts).
+
 	* bin/cygport.in (docinto),
 	* bin/dodoc,
 	* bin/newdoc: Allow installing docs into custom dir under /usr/share/doc
