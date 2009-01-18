@@ -606,6 +606,10 @@ unpack() {
 				check_prog_req lzma
 				unpack_cmd="tar --lzma -xf"
 				;;
+			*.tar.lzo)
+				check_prog_req lzop
+				unpack_cmd="tar --lzop -xf"
+				;;
 			*.tar)  unpack_cmd="tar xf"  ;;
 			*.bz2)
 				unpack_cmd="bunzip2 -c";
