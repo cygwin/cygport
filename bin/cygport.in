@@ -1806,18 +1806,21 @@ __pkg_binpkg() {
 
 	__step "Creating binary package(s)";
 
-	while (( n < pkg_count ))
-	do
-		if [ -f ${C}/${pkg_list[${n}]}.list ]
-		then
-			PKG_CONTENTS[${n}]=
-		fi
-		n+=1
-	done
-
-	if defined PKG_CONTENTS[*] && (( ${#PKG_CONTENTS[*]} != ${pkg_count} ))
+	if defined PKG_CONTENTS[*]
 	then
-		error "PKG_CONTENTS[n] must be defined from 0 through $((pkg_count - 1))"
+		while (( n < pkg_count ))
+		do
+			if [ -f ${C}/${pkg_list[${n}]}.list ]
+			then
+				PKG_CONTENTS[${n}]=
+			fi
+			n+=1
+		done
+
+		if (( ${#PKG_CONTENTS[*]} != ${pkg_count} ))
+		then
+			error "PKG_CONTENTS[n] must be defined from 0 through $((pkg_count - 1))"
+		fi
 	fi
 
 	n=0
