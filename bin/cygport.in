@@ -1280,15 +1280,14 @@ keepdir() {
 # doesn't work from a separate script, hence they are here
 
 # set dodoc install subdir
+#
+# relative paths go under /usr/share/doc/${P}/, absolute paths (those
+# beginning with '/' go under /usr/share/doc/.
 docinto() {
 	if (( $# != 1 ))
 	then
 		error "docinto accepts exactly one argument";
 	fi
-
-	case ${1} in
-		/*) error "docinto argument should be only a subdirectory" ;;
-	esac
 
 	dodir /usr/share/doc/${P}/${1};
 	export _docinto_dir=${1};
