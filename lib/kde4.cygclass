@@ -28,10 +28,16 @@ inherit qt4
 HOMEPAGE="http://www.kde.org/"
 
 case "${PN}:${PV}" in
-	kdevplatform:0.*)
-		SRC_URI="mirror://kde/unstable/kdevelop/3.${PVP[1]}/src/${P}.tar.bz2"
+	automoc4:0.*)
+		SRC_URI="mirror://kde/unstable/${PN}/${PV}/${P}.tar.bz2"
 		;;
-	amarok:1.*|kdevelop:3.*)
+	amarok:2.*)
+		SRC_URI="mirror://kde/stable/${PN}/${PV}/src/${P}.tar.bz2"
+		;;
+	kdevplatform:0.*)
+		SRC_URI="mirror://kde/unstable/kdevelop/3.${PV#0.}/src/${P}.tar.bz2"
+		;;
+	kdevelop:3.*)
 		SRC_URI="mirror://kde/unstable/${PN}/${PV}/src/${P}.tar.bz2"
 		;;
 	koffice:1.9.*)
