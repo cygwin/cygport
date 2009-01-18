@@ -1,5 +1,7 @@
 2009-Jan-18  yselkowitz
 
+	* bin/cygport.in (cygautoreconf): Don't force path of autoreconf.
+
 	* lib/kde4.cygclass: Update SRC_URI for automoc4, amarok-2, kdevplatform.
 
 	* lib/ruby-gnome2.cygclass (ruby_gnome2_install): Fix installation
