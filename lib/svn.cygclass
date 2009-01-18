@@ -76,7 +76,7 @@ svn_fetch() {
 	verbose svn checkout ${svn_uri} ${svn_rev} ${SVN_MODULE}
 
 	# many SVN repos were made by cvs2svn and .cvsignore files remain
-	tar jcf ${top}/${svn_tarball} --exclude=.svn --exclude=.cvsignore ${SVN_MODULE}
+	tar jcf ${top}/${svn_tarball} --exclude-vcs ${SVN_MODULE}
 }
 
 readonly -f svn_fetch

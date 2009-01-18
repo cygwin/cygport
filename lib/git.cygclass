@@ -60,7 +60,7 @@ git_fetch() {
 	fi
 
 	cd ${T}
-	tar jcf ${top}/${git_tarball} --exclude=.git --exclude=.gitignore ${GIT_MODULE}
+	tar jcf ${top}/${git_tarball} --exclude-vcs ${GIT_MODULE}
 }
 
 readonly -f git_fetch
