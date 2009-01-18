@@ -1,5 +1,7 @@
 2009-Jan-18  yselkowitz
 
+	* bin/cygport.in (__pkg_binpkg): Fix mixing of .list and pkg_CONTENTS.
+
 	* bin/cygport.in (unpack): Support .tar.lzo archives.
 
 	*  data/cygport.nanorc: Fix regexes, replacing \< with [[:<:]], etc:
