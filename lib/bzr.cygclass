@@ -25,11 +25,6 @@
 
 _USE_bzr_FETCH=1
 
-if ! defined BZR_URI
-then
-	error "BZR_URI must be defined"
-fi
-
 BZR_MODULE=${BZR_MODULE:-${ORIG_PN:-${PN}}}
 
 bzr_tarball="${BZR_MODULE}-bzr-${PV}.tar.bz2"
@@ -41,6 +36,11 @@ bzr_fetch() {
 	local bzr_branch
 
 	check_prog_req bzr
+
+	if ! defined BZR_URI
+	then
+		error "BZR_URI must be defined"
+	fi
 
 	if defined BZR_BRANCH
 	then
