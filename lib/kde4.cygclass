@@ -28,6 +28,9 @@ inherit qt4
 HOMEPAGE="http://www.kde.org/"
 
 case "${PN}:${PV}" in
+	automoc4:0.9.8[89]|phonon:4.*)
+		SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.bz2"
+		;;
 	automoc4:0.*)
 		SRC_URI="mirror://kde/unstable/${PN}/${PV}/${P}.tar.bz2"
 		;;
@@ -98,7 +101,7 @@ kde4_install() {
 
 	cyginstall
 
-	rm -f ${D}/usr/lib/kde4/lib/libkdeinit4_*
+	rm -f ${D}/usr/lib/libkdeinit4_*
 
 	for kdepkg in ${PKG_NAMES:-${PN}}
 	do
