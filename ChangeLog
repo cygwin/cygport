@@ -1,3 +1,7 @@
+2009-Feb-02  yselkowitz
+
+	* lib/qt4-qmake.cygclass (cygqmake4): Pass given arguments to qmake.
+
 2009-Jan-18  yselkowitz
 
 	* lib/autotools.cygclass (cygautoreconf): Don't force path of autoreconf.

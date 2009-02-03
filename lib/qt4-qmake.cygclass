@@ -37,7 +37,7 @@ cygqmake4() {
 	do
 		rm -f ${pro%/*}/Makefile
 
-		${QT4_QMAKE} -spec cygwin-g++ -o ${pro%/*}/Makefile ${pro} \
+		${QT4_QMAKE} -spec cygwin-g++ -o ${pro%/*}/Makefile ${pro} ${CYGQMAKE4_ARGS} ${@} \
 			|| error "qmake ${pro} failed"
 	done
 }
