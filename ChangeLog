@@ -1,5 +1,7 @@
 2009-Feb-02  yselkowitz
 
+	* lib/kde4.cygclass: Set SRC_URI for stable automoc4 and phonon.
+
 	* lib/qt4-qmake.cygclass (cygqmake4): Pass given arguments to qmake.
 
 2009-Jan-18  yselkowitz

@@ -28,6 +28,9 @@ inherit cmake qt4
 HOMEPAGE="http://www.kde.org/"
 
 case "${PN}:${PV}" in
+	automoc4:0.9.8[89]|phonon:4.*)
+		SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.bz2"
+		;;
 	automoc4:0.*)
 		SRC_URI="mirror://kde/unstable/${PN}/${PV}/${P}.tar.bz2"
 		;;
