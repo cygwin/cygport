@@ -28,7 +28,7 @@ HOMEPAGE="http://www.xfce.org/"
 case ${PN} in
 	gtk2.0-engines-xfce)
 		ORIG_PN=gtk-xfce-engine
-		XFCE_VERSION=$((PVP[0] + 2)).${PVP[1]}.${PVP[2]}
+		XFCE_VERSION=4.${PV#2.}
 		;;
 	thunar-thumbnails|*-plugin)
 		SRC_URI="http://goodies.xfce.org/releases/${PN}/${P}.tar.bz2"
