@@ -1289,7 +1289,6 @@ docinto() {
 		error "docinto accepts exactly one argument";
 	fi
 
-	dodir /usr/share/doc/${P}/${1};
 	export _docinto_dir=${1};
 }
 
