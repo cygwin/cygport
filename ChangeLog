@@ -1,3 +1,7 @@
+2009-Feb-12  yselkowitz
+
+	* bin/cygport.in (__pkg_diff): Exclude binary graphics files by default.
+
 2009-Feb-02  yselkowitz
 
 	* lib/kde4.cygclass: Set SRC_URI for stable automoc4 and phonon.
