@@ -1,5 +1,8 @@
 2009-Feb-12  yselkowitz
 
+	* lib/pygtk.cygclass: Allow usage within packages which ship their
+	Python bindings together with the C library.
+
 	* lib/xfce4.cygclass: Fix XFCE_VERSION for nano-version releases.
 
 	* lib/kde3.cygclass (kde3_compile): Remove --disable-xinerama.

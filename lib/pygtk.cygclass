@@ -34,6 +34,10 @@ case ${pygtk_mod} in
 esac
 
 case ${pygtk_mod} in
+	${PN})
+		pygtk_subdir=.
+		# for packages which provide pygtk bindings together with the C lib.
+		;;
 	gnome-python|gnome-python-desktop|gnome-python-extras)
 		pygtk_subdir=.
 		ORIG_PN=${PN}
@@ -77,12 +81,14 @@ PYGTK_INCLUDEDIR="/usr/include/pygtk-2.0"
 PYGTK_LIBDIR="${PYTHON_SITELIB}/gtk-2.0"
 PYGTK_DATADIR="/usr/share/pygtk/2.0"
 
-pygtk_compile() {
-	if check_prog pygobject-codegen-2.0
-	then
-		export PYGTK_CODEGEN="/usr/bin/pygobject-codegen-2.0"
-	fi
+# codegen was moved from pygtk to pygobject for GNOME 2.24. pygtk-codegen-2.0
+# is still provided for compatibility, which just calls pygobject-codegen-2.0.
+if check_prog pygobject-codegen-2.0
+then
+	export PYGTK_CODEGEN="/usr/bin/pygobject-codegen-2.0"
+fi
 
+pygtk_compile() {
 	cygconf --disable-static "${@}"
 	cd ${pygtk_subdir}
 	cygmake LIBS="-no-undefined ${LIBPYTHON}"
