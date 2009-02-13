@@ -1654,6 +1654,7 @@ __pkg_diff() {
 	default_excludes="CYGWIN-PATCHES aclocal.m4~ aclocal.m4t autom4te.cache
 		config.cache config.log config.status config.h *config.h.in
 		ABOUT-NLS Makefile.in.in Makevars.template *SlackBuild* *.egg-info
+		*.jpg *.png *.svgz *.tif
 		*.class *.jlc *.pyc *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
 
 	case ${PN} in
