@@ -1384,15 +1384,19 @@ __prepstrip() {
 
 		# Mono assemblies must not be stripped,
 		# but .(dll|exe).mdb debug symbols should be removed
-		if objdump -p ${exe} | grep -q "DLL Name: mscoree.dll"
+		if objdump -p ${exe} 2>&1 | grep -q "DLL Name: mscoree.dll"
 		then
 			rm -f ${exe}.mdb
 			continue
 		fi
 
-		echo "        ${exe}";
-		chmod +x ${exe};
-		strip ${exe};
+		# assure this is actually a PE-COFF object
+		if objdump -f ${exe} &>/dev/null
+		then
+			echo "        ${exe}";
+			chmod +x ${exe};
+			strip ${exe};
+		fi
 	done
 }
 

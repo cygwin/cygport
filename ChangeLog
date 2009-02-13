@@ -1,5 +1,8 @@
 2009-Feb-12  yselkowitz
 
+	* bin/cygport.in (__prepstrip): Assure that files are really PE-COFF
+	before stripping them. (e.g. some .oct files aren't from Octave.)
+
 	* bin/cygport.in (docinto): Leave dodir until dodoc, as it is needed
 	then for the default case.
 
