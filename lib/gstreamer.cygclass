@@ -31,6 +31,7 @@ SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz
 SRC_DIR=${ORIG_PN}-${PV}
 
 CVS_URI=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/gstreamer"
+GIT_URI="git://anongit.freedesktop.org/git/gstreamer/${ORIG_PN}"
 
 DIFF_EXCLUDES="common m4 po autoregen.sh stamp-h.in"
 

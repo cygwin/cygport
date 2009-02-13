@@ -1,5 +1,7 @@
 2009-Feb-12  yselkowitz
 
+	* lib/gstreamer.cygclass: Define GIT_URI.
+
 	* lib/pygtk.cygclass: Allow usage within packages which ship their
 	Python bindings together with the C library.
 
