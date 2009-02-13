@@ -1,5 +1,8 @@
 2009-Feb-12  yselkowitz
 
+	* bin/cygport.in (docinto): Leave dodir until dodoc, as it is needed
+	then for the default case.
+
 	* bin/cygport.in (__pkg_diff): Exclude binary graphics files by default.
 
 2009-Feb-02  yselkowitz
