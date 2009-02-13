@@ -24,6 +24,10 @@
 ################################################################################
 
 case ${PN#python-} in
+	${PN})
+		# for packages which provide pygtk bindings together with the C lib.
+		pygtk_mod=${PN}
+		;;
 	gnome-python|nautilus-python)
 		pygtk_mod=${PN/-python}
 		ORIG_PN=${PN}
@@ -51,12 +55,14 @@ PYGTK_INCLUDEDIR="/usr/include/pygtk-2.0"
 PYGTK_LIBDIR="${PYTHON_SITELIB}/gtk-2.0"
 PYGTK_DATADIR="/usr/share/pygtk/2.0"
 
-pygtk_compile() {
-	if check_prog pygobject-codegen-2.0
-	then
-		export PYGTK_CODEGEN="/usr/bin/pygobject-codegen-2.0"
-	fi
+# codegen was moved from pygtk to pygobject for GNOME 2.24. pygtk-codegen-2.0
+# is still provided for compatibility, which just calls pygobject-codegen-2.0.
+if check_prog pygobject-codegen-2.0
+then
+	export PYGTK_CODEGEN="/usr/bin/pygobject-codegen-2.0"
+fi
 
+pygtk_compile() {
 	cygconf --disable-static "${@}"
 	cygmake LIBS="-no-undefined ${LIBPYTHON}"
 }
