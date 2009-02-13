@@ -110,7 +110,6 @@ kde3_compile() {
 		--without-ipv6-lookup \
 		--without-java \
 		--without-pam \
-		--without-xinerama \
 		"${@}"
 
 	cygmake

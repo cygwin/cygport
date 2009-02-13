@@ -1,5 +1,7 @@
 2009-Feb-12  yselkowitz
 
+	* lib/kde3.cygclass (kde3_compile): Remove --disable-xinerama.
+
 	* bin/cygport.in (__prepstrip): Assure that files are really PE-COFF
 	before stripping them. (e.g. some .oct files aren't from Octave.)
 
