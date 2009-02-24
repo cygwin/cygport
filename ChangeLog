@@ -1,3 +1,7 @@
+2009-Feb-24  yselkowitz
+
+	* bin/prep_fonts_dir.sh: Fix encodings.dir creation (sourceware bug 9872).
+
 2009-Feb-12  yselkowitz
 
 	* lib/gstreamer.cygclass: Define GIT_URI.
