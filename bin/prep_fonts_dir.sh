@@ -4,7 +4,7 @@
 # prep_fonts_dir.sh - Postinstall commands for system fonts
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -26,34 +26,28 @@
 set -e
 
 fontsdir=/usr/share/fonts
-encodingsdir=${fontsdir}/encodings
 
 find ${D}${fontsdir} -name '*.pcf' -exec gzip -q '{}' +
 
-n=0
-while (( n < 9 ))
-do
-	encodings="${encodings} -a microsoft-cp125${n}"
-	let n+=1
-done
-unset n
-
 dodir /etc/postinstall
-for fonttype in 100dpi 75dpi TTF Type1 cyrillic misc
+
+for d in $(find ${D}${fontsdir}/ -mindepth 1 -type d)
 do
+	fonttype=${d#${D}${fontsdir}/}
 	fontsubdir=${fontsdir}/${fonttype}
 
-	if [ -d ${D}${fontsubdir} ]
-	then
-		rm -f ${D}${fontsubdir}/encodings.dir ${D}${fontsubdir}/fonts.{dir,cache-1,scale}
+	case ${fonttype} in
+	encodings|encodings/large|util) ;;
+	*)
+		rm -f ${D}${fontsubdir}/encodings.dir ${D}${fontsubdir}/fonts.{dir,scale}
 
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			/usr/bin/rm -f ${fontsubdir}/encodings.dir ${fontsubdir}/fonts.{dir,scale,cache-1}
-			/usr/bin/mkfontscale ${encodings} ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/fonts.scale
-			/usr/bin/mkfontdir ${encodings} ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/fonts.dir
-			/usr/bin/mkfontscale -n -e ${encodingsdir} ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/encodings.dir
-			/usr/bin/fc-cache -f ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/fonts.cache-1
+			/usr/bin/rm -f ${fontsubdir}/encodings.dir ${fontsubdir}/fonts.{dir,scale}
+			/usr/bin/mkfontscale ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/fonts.scale
+			/usr/bin/mkfontdir -e ${fontsdir}/encodings -e ${fontsdir}/encodings/large ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/{encodings,fonts}.dir
+			/usr/bin/fc-cache -f ${fontsubdir}
 
 		_EOF
-	fi
+		;;
+	esac
 done
