@@ -1,5 +1,7 @@
 2009-Mar-11  yselkowitz
 
+	* bin/prep_freedesktop_mime.sh: Remove more update-generated files.
+
 	* bin/cygport.in (__pkg_diff): Ignore *.qm (Qt compiled l10n files).
 
 	* bin/make_etc_defaults: Create preremove script to remove if unchanged.
