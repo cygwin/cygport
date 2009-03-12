@@ -3,7 +3,7 @@
 # berkdb.cygclass - functions for building the Berkeley DB
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -28,45 +28,38 @@ case ${PV_MAJ_MIN} in
 	*)			error "berkdb: accepts only versions 3.x or 4.x" ;;
 esac
 
-tarpv=${PVP[0]}.${PVP[1]}.${PVP[2]}
+tarpv=${PV[1]}.${PV[2]}.${PV[3]}
 
 DESCRIPTION="Berkeley DB version ${SLOT}"
 HOMEPAGE="http://www.oracle.com/technology/products/berkeley-db/db/index.html"
 SRC_URI="http://download.oracle.com/berkeley-db/db-${tarpv}.tar.gz"
 SRC_DIR="db-${tarpv}"
 
-if defined PVP[3]
+if defined PV[4]
 then
-	for ((p = 1; p <= PVP[3]; p++))
+	for ((p = 1; p <= PV[4]; p++))
 	do
 		PATCH_URI+=" ${HOMEPAGE%/*}/update/${tarpv}/patch.${tarpv}.${p}"
 	done
 fi
 
-n=0
-
 PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc"
-PKG_HINTS="setup lib devel doc"
-PKG_CONTENTS[((n++))]="--exclude=html usr/bin/db${SLOT}_*.exe usr/share/doc/"
-PKG_CONTENTS[((n++))]="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
-PKG_CONTENTS[((n++))]="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib*"
-PKG_CONTENTS[((n++))]="usr/share/doc/${PN}/html/"
+export ${PN//./_}_CONTENTS="--exclude=html usr/bin/db${SLOT}_*.exe usr/share/doc/"
+export lib${PN//./_}_CONTENTS="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
+export lib${PN//./_}_devel_CONTENTS="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib*"
+export ${PN//./_}_doc_CONTENTS="usr/share/doc/${PN}/html/"
 
 if inherited java
 then
 	PKG_NAMES+=" java-${PN}"
-	PKG_HINTS+=" java"
-	PKG_CONTENTS[((n++))]="usr/bin/cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
+	export java_${PN//./_}_CONTENTS="usr/bin/cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
 fi
 
 if inherited tcl
 then
 	PKG_NAMES+=" tcl-${PN}"
-	PKG_HINTS+=" tcl"
-	PKG_CONTENTS[((n++))]="${TCL_LIBDIR#/}"
+	export tcl_${PN//./_}_CONTENTS="${TCL_LIBDIR#/}"
 fi
-
-unset n
 
 DIFF_EXCLUDES="aclocal.m4 configure config.hin db.jar libtool.ac lt*.ac"
 
@@ -188,7 +181,7 @@ berkdb_postinst() {
 		incdir=/usr/include
 		libdir=/usr/lib
 		slot=${SLOT}
-		rank=$(( PVP[0] * 100 + PVP[1] ))
+		rank=$(( PV[1] * 100 + PV[2] ))
 
 		/usr/sbin/update-alternatives \\
 		  --install \${incdir}/db.h      db.h       \${incdir}/db\${slot}/db.h \${rank} \\
@@ -203,13 +196,13 @@ berkdb_postinst() {
 		  --slave   \${libdir}/libdb_cxx.la     libdb_cxx.la     \${libdir}/libdb_cxx-\${slot}.la
 
 		/usr/sbin/update-alternatives \\
-		  --install \${incdir}/db${PVP[0]}  db${PVP[0]}  \${incdir}/db\${slot} \${rank} \\
-		  --slave   \${libdir}/libdb${PVP[0]}.a      libdb${PVP[0]}.a      \${libdir}/libdb-\${slot}.a \\
-		  --slave   \${libdir}/libdb${PVP[0]}.dll.a  libdb${PVP[0]}.dll.a  \${libdir}/libdb-\${slot}.dll.a \\
-		  --slave   \${libdir}/libdb${PVP[0]}.la     libdb${PVP[0]}.la     \${libdir}/libdb-\${slot}.la \\
-		  --slave   \${libdir}/libdb${PVP[0]}_cxx.a      libdb${PVP[0]}_cxx.a      \${libdir}/libdb_cxx-\${slot}.a \\
-		  --slave   \${libdir}/libdb${PVP[0]}_cxx.dll.a  libdb${PVP[0]}_cxx.dll.a  \${libdir}/libdb_cxx-\${slot}.dll.a \\
-		  --slave   \${libdir}/libdb${PVP[0]}_cxx.la     libdb${PVP[0]}_cxx.la     \${libdir}/libdb_cxx-\${slot}.la
+		  --install \${incdir}/db${PV[1]}  db${PV[1]}  \${incdir}/db\${slot} \${rank} \\
+		  --slave   \${libdir}/libdb${PV[1]}.a      libdb${PV[1]}.a      \${libdir}/libdb-\${slot}.a \\
+		  --slave   \${libdir}/libdb${PV[1]}.dll.a  libdb${PV[1]}.dll.a  \${libdir}/libdb-\${slot}.dll.a \\
+		  --slave   \${libdir}/libdb${PV[1]}.la     libdb${PV[1]}.la     \${libdir}/libdb-\${slot}.la \\
+		  --slave   \${libdir}/libdb${PV[1]}_cxx.a      libdb${PV[1]}_cxx.a      \${libdir}/libdb_cxx-\${slot}.a \\
+		  --slave   \${libdir}/libdb${PV[1]}_cxx.dll.a  libdb${PV[1]}_cxx.dll.a  \${libdir}/libdb_cxx-\${slot}.dll.a \\
+		  --slave   \${libdir}/libdb${PV[1]}_cxx.la     libdb${PV[1]}_cxx.la     \${libdir}/libdb_cxx-\${slot}.la
 		_EOF
 
 	dodir /etc/preremove
@@ -219,7 +212,7 @@ berkdb_postinst() {
 		slot=${SLOT}
 
 		/usr/sbin/update-alternatives --remove db.h \${incdir}/db\${slot}/db.h
-		/usr/sbin/update-alternatives --remove db${PVP[0]} \${incdir}/db\${slot}
+		/usr/sbin/update-alternatives --remove db${PV[1]} \${incdir}/db\${slot}
 		_EOF
 }
 
