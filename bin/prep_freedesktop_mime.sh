@@ -4,7 +4,7 @@
 # prep_freedesktop_mime.sh - Postinstall commands for fd.o mimetypes
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -30,6 +30,9 @@ unset _already_updated_mime_db
 # Freedesktop.org Desktop Menu files with MimeType declarations
 if [ -d ${D}/usr/share/applications ]
 then
+	# make sure system-generated files aren't clobbered
+	rm -f ${D}/usr/share/applications/mimeinfo.cache
+
 	if [ -n "$(grep -lr MimeType ${D}/usr/share/applications)" ]
 	then
 		declare _already_updated_mime_db=1
@@ -46,7 +49,7 @@ fi
 if [ -d ${D}/usr/share/mime ]
 then
 	# make sure system-generated files aren't clobbered
-	rm -f ${D}/usr/share/mime/{aliases,globs,magic,mime.cache,subclasses,XMLnamespaces}
+	rm -f ${D}/usr/share/mime/{aliases,generic-icons,globs,globs2,icons,magic,mime.cache,subclasses,XMLnamespaces}
 
 	if [ -z "${_already_updated_mime_db}" ]
 	then
