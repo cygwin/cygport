@@ -3,7 +3,7 @@
 # claws-mail.cygclass - functions for building Claws Mail plugins
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2008 Yaakov Selkowitz
+# Copyright (C) 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify

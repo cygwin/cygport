@@ -3,7 +3,7 @@
 # gst-plugins.cygclass - wrapper for versioned gst-plugins cygclasses
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006 Yaakov Selkowitz
+# Copyright (C) 2006, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,4 +23,4 @@
 #
 ################################################################################
 
-inherit gst-plugins${PVP[0]}.$((PVP[1] + PVP[1] % 2))
+inherit gst-plugins${PV[1]}.$((PV[2] + PV[2] % 2))
