@@ -4,7 +4,7 @@
 # prep_etc_defaults - postinstall steps for /etc/defaults config files
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -40,6 +40,15 @@ do
 		if [ ! -f ${etc} ]
 		then
 		    /bin/cp /etc/defaults${etc} ${etc}
+		fi
+		
+		_EOF
+
+	dodir /etc/preremove
+	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+		if [ -f ${etc} ] && cmp -s /etc/defaults${etc} ${etc}
+		then
+		    rm ${etc}
 		fi
 		
 		_EOF
