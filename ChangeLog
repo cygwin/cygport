@@ -1,5 +1,7 @@
 2009-Mar-11  yselkowitz
 
+	* bin/cygport.in (__pkg_diff): Ignore *.qm (Qt compiled l10n files).
+
 	* bin/make_etc_defaults: Create preremove script to remove if unchanged.
 
 2009-Feb-24  yselkowitz
