@@ -1,3 +1,7 @@
+2009-Mar-11  yselkowitz
+
+	* bin/make_etc_defaults: Create preremove script to remove if unchanged.
+
 2009-Feb-24  yselkowitz
 
 	* bin/prep_fonts_dir.sh: Fix encodings.dir creation (sourceware bug 9872).
