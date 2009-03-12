@@ -1,3 +1,18 @@
+0.9.5:
+	* SRC_URI accepts .tar.lzo archives.
+	* postinstall: doesn't strip files which aren't PE-COFF despite their name.
+	  Fixed encodings.dir creation for fonts.
+	* docinto() /foo is now accepted, installing into /usr/share/doc/foo.
+	* make_etc_defaults() also creates a preremove script.
+	* git.cygclass: Honours .gitmodules by running 'git submodule init/update'.
+	* gstreamer.cygclass: Defines GIT_URI for new git repository.
+	* kde4.cygclass: Updates for KDE 4.2.
+	* pygtk.cygclass: Can now be inherited along with gnome2, for those
+	  C packages which ship their own Python bindings.
+	* qt4-qmake.cygclass: cygqmake4() passes along args and CYGQMAKE4_ARGS.
+	* ruby-gnome2.cygclass: Fixed ri doc installation.
+	* cygport.nanorc: Fixed regexes.
+
 0.9.4:
 	* cygpatch() tries with and without --binary.
 	* lndirs() uses lndir(1) unconditionally.
