@@ -3,7 +3,7 @@
 # qt3-qmake.cygclass - functions for building QMake-based Qt3 packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2008 Yaakov Selkowitz
+# Copyright (C) 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -30,7 +30,7 @@ cygqmake3() {
 
 	if [ ! -x ${QT3_QMAKE} ]
 	then
-		error "qt3-devel is required to build this package"
+		error "libqt3-devel is required to build this package"
 	fi
 
 	for pro in $(find . -name '*.pro')
