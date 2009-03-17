@@ -1,5 +1,7 @@
 2009-Mar-17  yselkowitz
 
+	* bin/prep_freedesktop_mime.sh: Remove any update-generated files.
+
 	* bin/prep_gtk2_modules.sh: Remove pango module handling, as only
 	pango itself needs it.
 

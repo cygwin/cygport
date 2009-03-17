@@ -46,7 +46,7 @@ fi
 if [ -d ${D}/usr/share/mime ]
 then
 	# make sure system-generated files aren't clobbered
-	rm -f ${D}/usr/share/mime/{aliases,generic-icons,globs,globs2,icons,magic,mime.cache,subclasses,XMLnamespaces}
+	find ${D}/usr/share/mime/ -maxdepth 1 -type f -delete
 
 	if [ -z "${_already_updated_mime_db}" ]
 	then
