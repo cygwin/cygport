@@ -1252,7 +1252,7 @@ __prepetc() {
 	fi
 
 	# GTK+ 2.x modules
-	if [ -d ${D}/usr/lib/pango -o -d ${D}/usr/lib/gtk-2.0 ]
+	if [ -d ${D}/usr/lib/gtk-2.0 ]
 	then
 		prep_gtk2_modules.sh || error "GTK+ modules postinstall failed"
 	fi
