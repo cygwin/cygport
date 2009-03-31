@@ -1,3 +1,7 @@
+2009-Mar-30  yselkowitz
+
+	* bin/cygport.in (unpack): Support .tar.xz archives.
+
 2009-Mar-17  yselkowitz
 
 	* bin/prep_freedesktop_mime.sh: Remove any update-generated files.

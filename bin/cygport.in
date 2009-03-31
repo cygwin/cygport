@@ -602,9 +602,9 @@ unpack() {
 			*.asc|*.md5|*.sig|*.sign)  continue ;;
 			*.tar.bz2|*.tbz2|*.tar.bz|*.tbz) unpack_cmd="tar jxf" ;;
 			*.tar.gz|*.tgz|*.tar.Z) unpack_cmd="tar zxf" ;;
-			*.tar.lzma)
-				check_prog_req lzma
-				unpack_cmd="tar --lzma -xf"
+			*.tar.lzma|*.tar.xz)
+				check_prog_req xz
+				unpack_cmd="tar --xz -xf"
 				;;
 			*.tar.lzo)
 				check_prog_req lzop
