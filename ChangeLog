@@ -1,5 +1,8 @@
 2009-Mar-30  yselkowitz
 
+	* bin/cygport.in (cygpatch): Assume reversed patches were applied
+	upstream and skip them, with a warning.
+
 	* bin/cygport.in (unpack): Support .tar.xz archives.
 
 2009-Mar-17  yselkowitz

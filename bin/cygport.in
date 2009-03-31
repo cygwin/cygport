@@ -748,6 +748,10 @@ cygpatch() {
 				inform "applying patch ${patchfile_name}:";
 				patch -N --binary -p${patchlevel} -i ${patchfile_path} || error "patch ${patchfile_name} failed"
 				break;
+			elif patch -R -s --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
+			then
+				warning "patch ${patchfile_name} already applied; skipping";
+				break;
 			else
 				if (( patchlevel == 3 ))
 				then
