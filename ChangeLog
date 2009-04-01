@@ -1,3 +1,8 @@
+2009-Apr-01  yselkowitz
+
+	* lib/qt3.cygclass:
+	* lib/qt4.cygclass: Define and export QMAKESPEC.
+
 2009-Mar-30  yselkowitz
 
 	* bin/cygport.in (cygpatch): Assume reversed patches were applied

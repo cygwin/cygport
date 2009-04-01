@@ -36,6 +36,8 @@ QT4_RCC=${QT4_BINDIR}/rcc
 QT4_UIC=${QT4_BINDIR}/uic
 QT4_UIC3=${QT4_BINDIR}/uic3
 
+export QMAKESPEC=cygwin-g++
+
 PATH="${QT4_BINDIR}:${PATH}"
 
 #

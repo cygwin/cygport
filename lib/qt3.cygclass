@@ -24,6 +24,7 @@
 ################################################################################
 
 export QTDIR=/usr/lib/qt3
+export QMAKESPEC=cygwin-g++
 
 QT3_BINDIR=/usr/lib/qt3/bin
 QT3_INCLUDEDIR=/usr/include/qt3
