@@ -1,5 +1,8 @@
 2009-Apr-01  yselkowitz
 
+	* lib/kde3.cygclass (kde3_compile): Fix --with-qt-includes/libraries
+	configure options for new syntax.  Remove --without-ipv6-lookup.
+
 	* lib/gtk2-perl.cygclass (gtk2_perl_compile): Fix manpages fixup
 	for Cairo, which has no namespaced manpages.
 

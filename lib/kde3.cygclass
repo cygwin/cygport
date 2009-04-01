@@ -101,13 +101,12 @@ kde3_compile() {
 		--disable-strict \
 		--disable-warnings \
 		--with-qt-dir=${QTDIR} \
-		--with-qt-includes=${QINCLUDEDIR} \
-		--with-qt-libraries=${QLIBDIR} --enable-mt \
+		--with-qt-includes=${QT3_INCLUDEDIR} \
+		--with-qt-libraries=${QT3_LIBDIR} --enable-mt \
 		--with-arts --enable-arts \
 		--with-distribution=Cygwin \
 		--with-ssl-dir=/usr \
 		--without-dpms \
-		--without-ipv6-lookup \
 		--without-java \
 		--without-pam \
 		"${@}"
