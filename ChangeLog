@@ -1,5 +1,8 @@
 2009-Apr-01  yselkowitz
 
+	* lib/gtk2-perl.cygclass (gtk2_perl_compile): Fix manpages fixup
+	for Cairo, which has no namespaced manpages.
+
 	* lib/qt3.cygclass:
 	* lib/qt4.cygclass: Define and export QMAKESPEC.
 
