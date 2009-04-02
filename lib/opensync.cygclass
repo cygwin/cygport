@@ -55,7 +55,7 @@ opensync_plugin_compile() {
 	case ${OPENSYNC_ABI} in
 		0)	CFLAGS+=" -Wno-error"
 			cygconf --libexecdir=/usr/lib/opensync "${@}"
-			cygmake LDFLAGS="-no-undefined"
+			cygmake LDFLAGS="${LDFLAGS} -no-undefined"
 			;;
 		1)	cygcmake "${@}"
 			cygmake
