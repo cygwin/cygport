@@ -1,5 +1,7 @@
 2009-Apr-01  yselkowitz
 
+	* lib/gtkmm.cygclass (gtkmm_compile): Don't overwrite LDFLAGS.
+
 	* lib/kde3.cygclass (kde3_compile): Fix --with-qt-includes/libraries
 	configure options for new syntax.  Remove --without-ipv6-lookup.
 

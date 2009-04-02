@@ -49,7 +49,7 @@ gtkmm_autoreconf() {
 
 gtkmm_compile() {
 	cygconf --disable-static --disable-demos --disable-examples ${@}
-	cygmake LDFLAGS='-no-undefined'
+	cygmake LDFLAGS="${LDFLAGS} -no-undefined"
 }
 
 gtkmm_test() {
