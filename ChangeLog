@@ -1,5 +1,8 @@
 2009-Apr-01  yselkowitz
 
+	* lib/wxwidgets.cygclass (_wx_find_config): Add support for
+	gtk2-unicode builds, and make it the default.  Remove msw support.
+
 	* lib/gtkmm.cygclass (gtkmm_compile): Don't overwrite LDFLAGS.
 	lib/opensync.cygclass (opensync_plugin_compile): Ditto.
 

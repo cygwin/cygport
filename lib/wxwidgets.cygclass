@@ -34,31 +34,39 @@ _wx_find_config() {
 			WX_TOOLKIT=gtk2
 			wx_base="base"
 			;;
-		gtk2u|mswu)
+		gtk2u)
 			WX_TOOLKIT=${WX_TOOLKIT%u}
 			WX_CODESET=unicode
 			;;
 		x11) WX_TOOLKIT=x11univ ;;
 	esac
 
-	WX_CODESET=${WX_CODESET:-ansi}
+	if ! defined WX_CODESET
+	then
+		case ${WX_TOOLKIT} in
+			gtk2)	WX_CODESET="unicode" ;;
+			*)		WX_CODESET="ansi" ;;
+		esac
+	fi
 
 	case ${WX_CODESET} in
 		unicode)
 			case ${WX_TOOLKIT} in
-				# Cygwin does not have support for Unicode builds
-				*)	error "wxWidgets ${WX_TOOLKIT} is only available in ANSI"
+				gtk2) ;;
+				gtk|motif|x11univ)
+					error "wxWidgets ${WX_TOOLKIT} is only available in ANSI"
+					;;
+				*)	error "Unknown or unsupported wxWidgets toolkit"
 					;;
 			esac
 			;;
 		ansi)
 			case ${WX_TOOLKIT} in
-				gtk|gtk2|motif|msw|x11univ) ;;
-				*) error "Unknown wxWidgets toolkit"
+				gtk|gtk2|motif|x11univ) ;;
+				*)	error "Unknown or unsupported wxWidgets toolkit"
 			esac
 			;;
-		*)	warning "Unknown codeset; defaulting to ANSI"
-			WX_CODESET=ansi
+		*)	error "Unknown value for WX_CODESET; must be 'ansi' or 'unicode'"
 			;;
 		esac
 
