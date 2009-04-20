@@ -1,3 +1,8 @@
+2009-Apr-20  yselkowitz
+
+	* data/Makefile.am:
+	* data/cygport-bash-completion: Added, contributed by Reini Urban.
+
 2009-Apr-01  yselkowitz
 
 	* lib/wxwidgets.cygclass (_wx_find_config): Add support for
