@@ -39,6 +39,7 @@ do
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 		if [ ! -f ${etc} ]
 		then
+		    /usr/bin/mkdir -p ${etc%/*}
 		    /usr/bin/cp /etc/defaults${etc} ${etc}
 		fi
 		
