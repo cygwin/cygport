@@ -1,3 +1,7 @@
+2009-May-03  yselkowitz
+
+	* lib/claws-mail.cygclass: Don't clobber LDFLAGS.
+
 2009-Apr-20  yselkowitz
 
 	* data/Makefile.am:

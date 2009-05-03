@@ -35,5 +35,5 @@ SRC_DIR="${ORIG_PN}-${PV}"
 
 DIFF_EXCLUDES+=" m4 po"
 
+LDFLAGS+=" -no-undefined"
 LIBS+=" -lclaws-mail"
-MAKEOPTS+=" LDFLAGS=-no-undefined"
