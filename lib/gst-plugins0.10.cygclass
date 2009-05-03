@@ -98,7 +98,7 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		my_gst_plugins="acm amrwb apexsink bz2 celt dirac dts faac faad gsm
 		                ivorbis jack jp2k ladspa libmms metadata mpeg2enc mplex
 		                musepack musicbrainz nas neon ofa resindvd sdl sndfile
-		                soundtouch spc theoradec timidity twolame wildmidi
+		                soundtouch spc theoradec timidity wildmidi
 		                wininet x264 xvid"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
@@ -107,7 +107,7 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 	ugly)
 		# WARNING: the dependent codecs may be patent encumbered
 		my_gst_plugins="amrnb a52dec cdio dvdnav dvdread id3tag lame
-		                mad mpeg2dec sidplay"
+		                mad mpeg2dec sidplay twolame"
 		conftest_gst_plugins=
 		never_gst_plugins=
 		;;

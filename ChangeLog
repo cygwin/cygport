@@ -1,5 +1,7 @@
 2009-May-03  yselkowitz
 
+	* lib/gst-plugins0.10.cygclass: twolame moved from -bad to -ugly.
+
 	* bin/make_etc_defaults: Make sure target directory exists before copying.
 
 	* lib/claws-mail.cygclass: Don't clobber LDFLAGS.
