@@ -37,7 +37,6 @@ QT3_MOC=${QT3_BINDIR}/moc
 QT3_UIC=${QT3_BINDIR}/uic
 
 PATH="${QT3_BINDIR}:${PATH}"
-LDFLAGS+=" -Wl,--enable-auto-import"
 
 #
 # Convenience functions for custom src_install()
