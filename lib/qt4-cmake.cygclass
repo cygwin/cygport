@@ -28,10 +28,6 @@ inherit cmake qt4
 qt4_cmake_compile() {
 	cygcmake \
 		-DAUTOMOC4_EXECUTABLE=/usr/bin/automoc4 \
-		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_EXE_LINKER_FLAGS=-Wl,--enable-auto-import \
-		-DCMAKE_MODULE_LINKER_FLAGS=-Wl,--enable-auto-import \
-		-DCMAKE_SHARED_LINKER_FLAGS=-Wl,--enable-auto-import \
 		-DQT_MOC_EXECUTABLE=${QT4_MOC} \
 		-DQT_INCLUDE_DIR=${QT4_INCLUDEDIR} \
 		-DQT_LIBRARY_DIR=${QT4_LIBDIR} \
