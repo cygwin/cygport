@@ -76,10 +76,6 @@ kde4_compile() {
 
 	cygcmake \
 		-DAUTOMOC4_EXECUTABLE=/usr/bin/automoc4 \
-		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_EXE_LINKER_FLAGS=-Wl,--enable-auto-import \
-		-DCMAKE_MODULE_LINKER_FLAGS=-Wl,--enable-auto-import \
-		-DCMAKE_SHARED_LINKER_FLAGS=-Wl,--enable-auto-import \
 		-DKDE4_BUILD_TESTS=OFF \
 		-DKDE4_ENABLE_FINAL=OFF \
 		-DKDE4_ENABLE_FPIE=OFF \

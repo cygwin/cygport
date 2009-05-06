@@ -1,3 +1,8 @@
+2009-May-05  yselkowitz
+
+	* lib/kde4.cygclass (kde4_compile): --enable-auto-import is now
+	defined globally.
+
 2009-May-03  yselkowitz
 
 	* lib/qt3.cygclass: --enable-auto-import is now defined globally.
