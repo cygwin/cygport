@@ -1,5 +1,7 @@
 2009-May-05  yselkowitz
 
+	* lib/ggz.cygclass: Refactor and simplify.
+
 	* lib/kde3.cygclass (kde3_compile): -fvisibility is not supported
 	on PE/COFF platforms, even with gcc-4.
 

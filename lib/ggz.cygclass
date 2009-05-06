@@ -29,38 +29,17 @@ SRC_URI="http://ftp.ggzgamingzone.org/pub/ggz/${PV}/${P}.tar.gz "
 
 GGZ_MODULES_DIR=/etc/ggz/modules
 
-_ggz_bad_macros="gettext.m4 gtk-2.0.m4 iconv.m4 sdl.m4"
-
+DISTCLEANFILES+=" m4/gettext.m4 m4/gtk-2.0.m4 m4/iconv.m4 m4/sdl.m4"
 DIFF_EXCLUDES+=" config.rpath ${_ggz_bad_macros}"
 
 ggz_autoreconf() {
-	if [ ! -f configure.ac ]
-	then
-		error "ggz_autoreconf: cannot find configure.ac"
-	fi
-
-	for f in ${_ggz_bad_macros}
-	do
-		if [ -f m4/${f} ]
-		then
-			rm -f m4/${f}
-		fi
-	done
-
 	cp -f /usr/share/gettext/config.rpath .
 
 	cygautoreconf
 }
 
-ggz_compile() {
-	cygconf \
-		--disable-static \
-		ac_cv_header_winsock_h=no \
-		ac_cv_header_winsock2_h=no \
-		"${@}"
-
-	cygmake
-}
+export ac_cv_header_winsock_h=no
+export ac_cv_header_winsock2_h=no
 
 ggz_postinst() {
 	rm -f ${D}/etc/ggz.modules
@@ -106,7 +85,8 @@ src_compile() {
 	cd ${S}
 	ggz_autoreconf
 	cd ${B}
-	ggz_compile
+	cygconf
+	cygmake
 }
 
 src_install() {
@@ -115,4 +95,4 @@ src_install() {
 	ggz_postinst
 }
 
-readonly -f ggz_autoreconf ggz_compile ggz_postinst doggzmod
+readonly -f ggz_autoreconf ggz_postinst doggzmod
