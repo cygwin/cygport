@@ -109,6 +109,7 @@ kde3_compile() {
 		--without-dpms \
 		--without-java \
 		--without-pam \
+		kde_cv_prog_cxx_fvisibility_hidden=no \
 		"${@}"
 
 	cygmake

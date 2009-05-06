@@ -1,5 +1,8 @@
 2009-May-05  yselkowitz
 
+	* lib/kde3.cygclass (kde3_compile): -fvisibility is not supported
+	on PE/COFF platforms, even with gcc-4.
+
 	* lib/kde4.cygclass (kde4_compile): --enable-auto-import is now
 	defined globally.
 	* lib/qt4-cmake.cygclass (qt4_cmake_compile): Ditto.
