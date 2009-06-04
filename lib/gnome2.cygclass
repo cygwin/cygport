@@ -49,6 +49,8 @@ gnome2_autoreconf() {
 	export WANT_AUTOMAKE
 
 	export ACLOCAL_FLAGS
+	# packages that use intltool w/o glib-gettext get this wrong
+	export DATADIRNAME=share
 	export NOCONFIGURE=1
 	export PKG_NAME=${ORIG_PN:-${PN}}
 	export REQUIRED_AUTOMAKE_VERSION=$(automake --version | head -n 1 | sed 's/^.*[  ]\([0-9.]*[a-z]*\).*$/\1/')
@@ -68,7 +70,11 @@ gnome2_autoreconf() {
 	# FIXME: does not detect sublevel configures
 	if $(grep -Eq 'AM_(GNU_GETTEXT|ICONV)' ${configure_ac})
 	then
+		__config_set with_gnu_gettext 1
 		cp -f /usr/share/gettext/config.rpath .
+	elif $(grep -Eq 'AM_GLIB_GNU_GETTEXT' ${configure_ac})
+	then
+		__config_set with_glib_gettext 1
 	fi
 
 	if $(grep -q '\./libtool -' ${configure_ac}) && ! $(grep -q 'LT_OUTPUT' ${configure_ac})

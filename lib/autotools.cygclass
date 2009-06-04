@@ -97,6 +97,12 @@ cygautoreconf() {
 			if $(grep -Eq 'AM_(GNU_GETTEXT|ICONV)' ${d}/${configure_ac})
 			then
 				cp -f /usr/share/gettext/config.rpath ${d}/
+				__config_set with_gnu_gettext 1
+			fi
+
+			if $(grep -Eq '(A[CM]_PROG_LIBTOOL|LT_INIT)' ${d}/${configure_ac})
+			then
+				__config_set with_libtool 1
 			fi
 
 			if $(grep -q '\./libtool -' ${d}/${configure_ac}) && ! $(grep -q 'LT_OUTPUT' ${d}/${configure_ac})
@@ -135,7 +141,7 @@ cygautoreconf() {
 	2.1)
 		check_prog_req autoconf-2.13 autoconf2.1
 
-		if grep -Eq "^(LT_INIT|A[CM]_PROG_LIBTOOL)" ${S}/${configure_ac}
+		if __config_equals with_libtool 1
 		then
 			warning "libtool is incompatible with autoconf-2.13";
 		fi
@@ -147,6 +153,11 @@ cygautoreconf() {
 			autoconf*2.[56]?) ;;
 			*)	error "autoconf2.5 is required to build this package" ;;
 		esac
+
+		if __config_equals with_libtool 1
+		then
+			AUTOPOINT="autopoint -V 0.17"
+		fi
 
 		for tool in ACLOCAL LIBTOOLIZE AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
 		do

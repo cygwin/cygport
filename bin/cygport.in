@@ -311,6 +311,42 @@ declare -rx  PV_MAJ_MIN="${PV[1]}.${PV[2]}";
 
 ################################################################################
 #
+# Configuration functions
+#
+# private:
+#   __config_equals KEY VALUE
+#   __config_get KEY
+#   __config_set KEY VALUE
+#
+################################################################################
+
+__config_get() {
+	if [ -f ${configdir}/${1} ]
+	then
+		echo -n $(cat ${configdir}/${1});
+	else
+		echo -n "0";
+	fi
+}
+
+__config_equals() {
+	if [ -f ${configdir}/${1} ] && [ $(cat ${configdir}/${1}) = ${2} ]
+	then
+		return 0;
+	else
+		return 1;
+	fi
+}
+
+__config_set() {
+	echo -n ${2} > ${configdir}/${1};
+}
+
+readonly -f __config_equals __config_get __config_set
+
+
+################################################################################
+#
 # Sanity check functions
 #
 # mutable:
@@ -780,10 +816,7 @@ __src_prep() {
 
 	# FIXME: do something with this; e.g. check that cygport
 	# wasn't upgraded since prep
-	if [ ! -f ${configdir}/cygport-version ]
-	then
-		echo ${_version} > ${configdir}/cygport-version
-	fi
+	__config_set cygport_version ${_version}
 
 	if [ -f ${top}/${PF}.cygport.sig ]
 	then
@@ -1675,7 +1708,16 @@ __pkg_diff() {
 
 	case ${PN} in
 		gettext) ;;
-		*)	default_excludes+=" config.rpath" ;;
+		*)	if __config_equals with_gnu_gettext 1
+			then
+				default_excludes+=" intl"
+				default_excludes+=" $(tar ztf /usr/share/gettext/archive.tar.gz | grep -Ev '(/$|/intl/)' | sed -e 's|.*/\([^/]*\),v|\1|g' | grep -v 'Makefile.in$' )"
+			fi
+			if __config_equals with_glib_gettext 1
+			then
+				default_excludes+=" config.rpath Makefile.in.in"
+			fi
+			;;
 	esac
 
 	# exclude aclocal.m4 if generated from aclocal
