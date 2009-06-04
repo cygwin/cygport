@@ -2034,12 +2034,12 @@ readonly -f inherit inherited
 # Values which can be overridden either system-wide or per package
 declare -x CFLAGS="-O2 -pipe ";
 declare -x CPPFLAGS="";
-declare -x CXXFLAGS="-O2 -pipe ";
-declare -x F77FLAGS="-O2 -pipe ";
-declare -x GCJFLAGS="-O2 -pipe ";
-declare -x LDFLAGS="";
+declare -x CXXFLAGS="${CFLAGS}";
+declare -x FFLAGS="${CFLAGS}";
+declare -x GCJFLAGS="${CFLAGS}";
+declare -x LDFLAGS="-Wl,--enable-auto-import ";
 declare -x LIBS="";
-declare    MAKEOPTS="-j2 ";
+declare    MAKEOPTS="-j$(($(grep -c '^proc' /proc/cpuinfo) + 1)) ";
 declare    CHOST="i686-pc-cygwin";
 
 # load mirrors list

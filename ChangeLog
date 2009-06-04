@@ -1,5 +1,18 @@
 2009-Jun-04  yselkowitz
 
+	* bin/cygport.in: Set LDFLAGS default to "-Wl,--enable-auto-import".
+	Set MAKEOPTS to number_of_cores + 1 even on multicore systems.
+	* data/cygport.conf: Ditto, and document it.
+
+	* bin/cygport.in (__config_equals, __config_get, __config_set):
+	New internal functions for saving information across stages.
+	(__src_prep): Use them to declare cygport_version.
+	(__pkg_diff): Use them to detect gettext usage.
+	* lib/autotools.cygclass (cygautoreconf): Use them to declare gettext and
+	libtool usage.  If libtool is being used, force current gettext usage.
+	* lib/gnome2.cygclass (gnome2_autoreconf): Fix packages that use intltool
+	w/o glib-gettext.  Declare gettext usage.
+
 	* lib/kde4.cygclass: Drop support for phonon tarballs; KDE now uses the
 	phonon (4.3.1) provided by Qt 4.5.
 	(kde4_compile): Disable gcc4 visibility (not supported on PE/COFF).
