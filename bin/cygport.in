@@ -1158,6 +1158,7 @@ readonly -f dodir keepdir docinto exeinto insinto __prepinstalldirs cyginstall
 #	__prepinfo
 #	__prepman
 #	__prepstrip
+#	__prepuac
 #	__prepvargames
 #	__prep_empty_dirs
 #	__prep_libtool_modules
@@ -1420,13 +1421,8 @@ __prepstrip() {
 
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
-	for exe in $(find * -type f -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.oct')
+	for exe in $(find * -type f -writable -a \( -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.oct' \))
 	do
-		if [ ! -w ${exe} ]
-		then
-			continue
-		fi
-
 		# OCaml bytecode must not be stripped
 		# this test generates false positives with the ocaml core and
 		# compilers, but should otherwise be accurate
@@ -1449,6 +1445,29 @@ __prepstrip() {
 			echo "        ${exe}";
 			chmod +x ${exe};
 			strip ${exe};
+		fi
+	done
+}
+
+__prepuac() {
+	local exe exename;
+
+	cd ${D};
+
+	echo "Preparing executables for UAC:";
+
+	for exe in $(find * -type f -executable -a \( -name '*instal*.exe' -o -name '*patch*.exe' -o -name '*setup*.exe' -o -name '*update*.exe' \))
+	do
+		exename=${exe##*/};
+
+		# Mono assemblies may already include .manifest files.
+		if [ ! -e ${exe}.manifest ]
+		then
+			echo "        ${exe}";
+			sed -e "s|@PKGNAME@|${PN//.}|" \
+				-e "s|@APPNAME@|${exename%.exe}|" \
+				${_privdatadir}/uac-manifest.in > ${exe}.manifest
+			chmod +x ${exe}.manifest
 		fi
 	done
 }
@@ -1495,12 +1514,13 @@ __src_postinst() {
 	__prepvargames;
 	__prep_empty_dirs;
 	__prepstrip;
+	__prepuac;
 	__prep_libtool_modules;
 }
 
 # protect functions
 readonly -f __prepdoc __prepetc __prepman __prepinfo __prepvargames __prep_empty_dirs \
-            __prepstrip __prep_symlinks __prep_libtool_modules __src_postinst
+            __prepstrip __prepuac __prep_symlinks __prep_libtool_modules __src_postinst
 
 
 ################################################################################

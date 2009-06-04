@@ -1,5 +1,11 @@
 2009-Jun-04  yselkowitz
 
+	* bin/cygport.in (__prepuac): New internal function to create side-by-side
+	.manifest files for apps whose names trigger UAC.
+	(__src_postinst): Call it.
+	* data/Makefile.am:
+	* data/uac-manifest.in: Add manifest template for it.
+
 	* bin/cygport.in (__prepvargames): New internal function to run
 	make_etc_defaults on scores files in /var/games.
 	(__src_postinst): Call it.

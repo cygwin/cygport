@@ -1,4 +1,8 @@
-dist_pkgdata_DATA = cygport.nanorc mirrors sample.cygport
+dist_pkgdata_DATA = \
+	cygport.nanorc	\
+	mirrors			\
+	sample.cygport	\
+	uac-manifest.in
 
 bashcompletiondir = /etc/bash_completion.d
 dist_bashcompletion_DATA = cygport-bash-completion
