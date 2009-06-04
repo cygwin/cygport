@@ -1158,6 +1158,7 @@ readonly -f dodir keepdir docinto exeinto insinto __prepinstalldirs cyginstall
 #	__prepinfo
 #	__prepman
 #	__prepstrip
+#	__prepvargames
 #	__prep_empty_dirs
 #	__prep_libtool_modules
 #	__prep_symlinks
@@ -1371,6 +1372,18 @@ __prepinfo() {
 	fi
 }
 
+__prepvargames() {
+	local f;
+
+	if [ -d ${D}/var/games ]
+	then
+		for f in $(find ${D}/var/games -type f)
+		do
+			make_etc_defaults ${f#${D}};
+		done
+	fi
+}
+
 # remove empty directories in D
 # if empty directory must remain, call keepdir() in src_install()
 __prep_empty_dirs() {
@@ -1479,13 +1492,14 @@ __src_postinst() {
 	__prepetc;
 	__prepman;
 	__prepinfo;
+	__prepvargames;
 	__prep_empty_dirs;
 	__prepstrip;
 	__prep_libtool_modules;
 }
 
 # protect functions
-readonly -f __prepdoc __prepetc __prepman __prepinfo __prep_empty_dirs \
+readonly -f __prepdoc __prepetc __prepman __prepinfo __prepvargames __prep_empty_dirs \
             __prepstrip __prep_symlinks __prep_libtool_modules __src_postinst
 
 

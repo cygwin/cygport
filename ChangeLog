@@ -1,5 +1,9 @@
 2009-Jun-04  yselkowitz
 
+	* bin/cygport.in (__prepvargames): New internal function to run
+	make_etc_defaults on scores files in /var/games.
+	(__src_postinst): Call it.
+
 	* bin/cygport.in (__prepman): Fix ncurses manpage postinstall:
 	http://cygwin.com/ml/cygwin/2009-03/msg00987.html
 
