@@ -28,7 +28,7 @@ inherit cmake qt4
 HOMEPAGE="http://www.kde.org/"
 
 case "${PN}:${PV}" in
-	automoc4:0.9.8[89]|phonon:4.*)
+	automoc4:0.9.8[89])
 		SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.bz2"
 		;;
 	automoc4:0.*)
@@ -86,6 +86,7 @@ kde4_compile() {
 		-DQT_INCLUDE_DIR=${QT4_INCLUDEDIR} \
 		-DQT_LIBRARY_DIR=${QT4_LIBDIR} \
 		-DQT_UIC_EXECUTABLE=${QT4_UIC} \
+		-D__KDE_HAVE_GCC_VISIBILITY=NO \
 		${skipargs} \
 		"${@}"
 
