@@ -1332,8 +1332,9 @@ __prepman() {
 		for manlink in $(find ${D}/usr/share/man -type l)
 		do
 			manref=$(readlink ${manlink})
+			manref=${manref##*/};
 			rm -f ${manlink};
-			echo ".so ${manref##*/}" > ${manlink};
+			echo ".so ${manref%.gz}" > ${manlink%.gz};
 		done
 
 		for manpage in $(find ${D}/usr/share/man -type f ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma')
