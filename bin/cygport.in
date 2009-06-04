@@ -742,6 +742,7 @@ cygpatch() {
 	local patchfile_name;
 	local patchfile_path;
 	local -i patchlevel;
+	local srcdir_depth;
 
 	for patchfile_path
 	do
@@ -761,7 +762,8 @@ cygpatch() {
 				then
 					patchlevel=1;
 				else
-					patchlevel=2;
+					srcdir_depth=${SRC_DIR//[!\/]}
+					patchlevel=$(( ${#srcdir_depth} + 2 ));
 				fi
 				;;
 			*.bz2|*.gz)

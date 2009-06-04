@@ -1,5 +1,8 @@
 2009-Jun-04  yselkowitz
 
+	* bin/cygport.in (cygpatch): Fix .cygwin.patch application where
+	SRC_DIR is deep: http://www.cygwin.com/ml/cygwin/2009-05/msg00281.html
+
 	* bin/cygport.in: Set LDFLAGS default to "-Wl,--enable-auto-import".
 	Set MAKEOPTS to number_of_cores + 1 even on multicore systems.
 	* data/cygport.conf: Ditto, and document it.
