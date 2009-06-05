@@ -1,3 +1,19 @@
+0.9.6:
+	* SRC_URI accepts .tar.xz archives.
+	* LDFLAGS defaults to "-Wl,--enable-auto-import" (prev. empty).
+	* MAKEOPTS defaults to "-j[number_of_cores + 1]" (prev. -j2).
+	* Improved gettext handling with libtool2.
+	* Automatically creates manifests for programs whose names trigger UAC.
+	* Files in /var/games are automatically handled with /etc/defaults.
+	* cygpatch: Reversed patches generate a warning instead of failing.
+	            Fixed .cygwin.patch application with deep SRC_DIR.
+	* make_etc_defaults: Makes sure target directory exists before copying.
+	* gtk2-perl.cygclass: Build fixes for perl-Cairo.
+	* kde3.cygclass: Avoid -fvisibility with gcc4 (invalid for PE/COFF).
+	* kde4.cygclass: Ditto. Updated for KDE4.2 and Qt4.5.
+	* wxwidgets.cygclass: Default to Unicode builds. Removed MSW support.
+	* cygport-bash-completion: Now ships with cygport.
+
 0.9.5:
 	* SRC_URI accepts .tar.lzo archives.
 	* postinstall: doesn't strip files which aren't PE-COFF despite their name.

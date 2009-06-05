@@ -2,7 +2,6 @@ Priority changes for 0.9 (Cygwin 1.7):
 
 * Fix rcs tarball names to allow more than one at a time
 * cross: overhaul, support mingw (perhaps separate mingw.cygclass)
-* emacs: not working, remove/disable emacs_compile (?)
 * Debug and/or Verbose mode
 * Fix all FIXMEs
 
@@ -22,3 +21,4 @@ particular order:
 	doico /path/to/pixmap.png [calls png(to|2)ico and doins]
 	make_win_shortcut Foo [run.exe foo.exe -wait --display=...]
 * error(): use 'caller' builtin?
+* Split debug
