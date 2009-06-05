@@ -1,5 +1,8 @@
 2009-Jun-04  yselkowitz
 
+	* bin/cygport.in: Export CC, CXX, and friends.
+	* lib/cmake.cygclass: Use CC, CXX, and LDFLAGS.
+
 	* bin/cygport.in (__prepuac): New internal function to create side-by-side
 	.manifest files for apps whose names trigger UAC.
 	(__src_postinst): Call it.
