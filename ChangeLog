@@ -1,3 +1,9 @@
+2009-Jun-05  yselkowitz
+
+	* configure.ac: Post-release version bump.	
+
+	* Tagged 0.9.6.
+
 2009-Jun-04  yselkowitz
 
 	* bin/cygport.in: Export CC, CXX, and friends.
