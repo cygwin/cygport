@@ -1117,7 +1117,7 @@ cyginstall() {
 				includedir=${D}/usr/include \
 				libdir=${D}/usr/lib \
 				sbindir=${D}/usr/sbin \
-				libexecdir=${D}/usr/sbin \
+				libexecdir=${D}/usr/lib \
 				datadir=${D}/usr/share \
 				infodir=${D}/usr/share/info \
 				mandir=${D}/usr/share/man \

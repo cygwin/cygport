@@ -1,3 +1,14 @@
+2009-Jun-15  yselkowitz
+
+	* bin/cygport.in (cyginstall):
+	* lib/autotools.cygclass (cygconf): Default libexecdir should be /usr/lib;
+	see http://cygwin.com/ml/cygwin-apps/2009-06/msg00101.html and thread.
+
+2009-Jun-09  yselkowitz
+
+	* lib/gnome.org.cygclass: GNOME development has moved from subversion
+	to git; define GIT_URI instead of SVN_URI.
+
 2009-Jun-05  yselkowitz
 
 	* configure.ac: Post-release version bump.	
