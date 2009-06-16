@@ -31,26 +31,23 @@ case "${PN}:${PV}" in
 	automoc4:0.9.8[89])
 		SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.bz2"
 		;;
-	automoc4:0.*)
-		SRC_URI="mirror://kde/unstable/${PN}/${PV}/${P}.tar.bz2"
-		;;
 	amarok:2.*)
 		SRC_URI="mirror://kde/stable/${PN}/${PV}/src/${P}.tar.bz2"
 		;;
-	kdevplatform:0.*)
-		SRC_URI="mirror://kde/unstable/kdevelop/3.${PV#0.}/src/${P}.tar.bz2"
+	kdevplatform:0.*|kdevelop:3.*)
+		SRC_URI="mirror://kde/unstable/kdevelop/3.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
 		;;
-	kdevelop:3.*)
-		SRC_URI="mirror://kde/unstable/${PN}/${PV}/src/${P}.tar.bz2"
+	koffice:2.*)
+		SRC_URI="mirror://kde/stable/koffice-${PV}/src/${P}.tar.bz2"
 		;;
-	koffice:1.9.*)
-		SRC_URI="mirror://kde/unstable/koffice-${PV}/src/${P}.tar.bz2"
-		;;
-	kde-l10n-*:*.[89]?)
-		SRC_URI="mirror://kde/unstable/${PV}/src/kde-l10n/${P}.tar.bz2"
+	phonon:4.3.1)
+		SRC_URI="mirror://kde/stable/4.2.${PV[3]}/src/${P}.tar.bz2"
 		;;
 	kde-l10n-*:*)
 		SRC_URI="mirror://kde/stable/${PV}/src/kde-l10n/${P}.tar.bz2"
+		;;
+	koffice-l10n-*:*)
+		SRC_URI="mirror://kde/stable/koffice-${PV}/src/koffice-l10n/${P}.tar.bz2"
 		;;
 	*:*.[89]?)
 		SRC_URI="mirror://kde/unstable/${PV}/src/${P}.tar.bz2"
