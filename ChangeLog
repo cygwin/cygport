@@ -1,5 +1,7 @@
 2009-Jun-16  yselkowitz
 
+	* lib/git.cygclass: Allow GIT_MODULE to be user-defined.
+
 	* lib/xfce4.cygclass: Leave ORIG_PN handling to the .cygport file.
 	(xfce4_autoreconf): Declare glib-gettext usage.
 	(xfce4_compile): No need to override libexecdir any more.

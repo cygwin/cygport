@@ -29,8 +29,12 @@ then
 fi
 
 GIT_URI=${GIT_URI%/}
-GIT_MODULE=${GIT_URI##*/}
-GIT_MODULE=${GIT_MODULE%.git}
+
+if ! defined GIT_MODULE
+then
+	GIT_MODULE=${GIT_URI##*/}
+	GIT_MODULE=${GIT_MODULE%.git}
+fi
 
 git_tarball="${GIT_MODULE}-${PV}.tar.bz2"
 
