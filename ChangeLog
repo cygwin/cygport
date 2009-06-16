@@ -1,3 +1,7 @@
+2009-Jun-16  yselkowitz
+
+	* lib/python.cygclass (python_optimize): Omit ${D} from compiled location.
+
 2009-Jun-15  yselkowitz
 
 	* bin/cygport.in (cyginstall):

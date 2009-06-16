@@ -87,8 +87,8 @@ python_optimize() {
 		fi
 
 		inform "Compiling ${pyd}..."
-		${PYTHON} ${PYTHON_LIB}/compileall.py ${D}${pyd} &> /dev/null
-		${PYTHON} -OO ${PYTHON_LIB}/compileall.py ${D}${pyd} &> /dev/null
+		${PYTHON} ${PYTHON_LIB}/compileall.py -f -q -d ${pyd} ${D}${pyd}
+		${PYTHON} -OO ${PYTHON_LIB}/compileall.py -f -q -d ${pyd} ${D}${pyd}
 	done
 }
 
