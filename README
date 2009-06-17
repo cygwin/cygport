@@ -208,7 +208,7 @@ All compilation is handled in the src_compile() function.
 All autotool-based packages should have autoreconf run on them before
 running configure, in order to pull in the current Cygwin libtool, and
 to assure that patches to configure.in or Makefile.am actually take
-affect.  The defaults are autoconf-2.5 and automake-1.9; these may be
+affect.  The defaults are autoconf-2.5 and automake-1.10; these may be
 overridden by defining WANT_AUTOCONF and WANT_AUTOMAKE to the desired
 versions; be sure to remember that libtool >= 1.5 requires that
 autoconf-2.5 be used.  The 'cygautoreconf' command handles all this for
@@ -221,7 +221,7 @@ following arguments to configure:
 
     --prefix=/usr
     --exec-prefix=/usr
-    --libexecdir=/usr/sbin
+    --libexecdir=/usr/lib
     --sysconfdir=/etc
     --localstatedir=/var
 
@@ -346,9 +346,8 @@ automatically, including:
 
     1) GTK+ icon caching (gtk-update-icon-cache);
     2) GConf schemas (gconftool-2 --(un)install-makefile-rule);
-    3) GNOME Yelp documentation (scrollkeeper-update);
-    4) FreeDesktop.org Desktop Menu files (update-desktop-database);
-    5) FreeDesktop.org Shared Mime Info files (update-mime-database);
+    3) FreeDesktop.org Desktop Menu files (update-desktop-database);
+    4) FreeDesktop.org Shared Mime Info files (update-mime-database).
 
 Custom postinstall and preremove commands may be included in the
 CYGWIN-PATCHES directory as postinstall.sh and preremove.sh; these

@@ -1,5 +1,7 @@
 2009-Jun-16  yselkowitz
 
+	* Tagged 0.9.7.
+
 	* lib/kde4.cygclass: Add SRC_URI for stable KOffice2.
 
 	* lib/git.cygclass: Allow GIT_MODULE to be user-defined.

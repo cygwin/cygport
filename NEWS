@@ -1,3 +1,11 @@
+0.9.7:
+	* Default libexecdir changed to /usr/lib.
+	* gnome2.cygclass: Define GIT_URI as GNOME has moved from svn to git.
+    * git.cygclass: Allow GIT_MODULE to be user-defined.
+    * kde4.cygclass: Updated for stable KOffice2.
+    * python.cygclass: python_optimize() omits ${D} from compiled location.
+    * xfce4.cygclass: Infrastructure fixes.
+
 0.9.6:
 	* SRC_URI accepts .tar.xz archives.
 	* LDFLAGS defaults to "-Wl,--enable-auto-import" (prev. empty).
