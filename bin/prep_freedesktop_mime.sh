@@ -35,8 +35,14 @@ then
 		declare _already_updated_mime_db=1
 		dodir /etc/postinstall
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			/usr/bin/update-desktop-database
-			/usr/bin/update-mime-database /usr/share/mime
+			if [ -x /usr/bin/update-desktop-database ]
+			then
+			    /usr/bin/update-desktop-database
+			fi
+			if [ -x /usr/bin/update-mime-database ]
+			then
+			    /usr/bin/update-mime-database /usr/share/mime
+			fi
 
 			_EOF
 	fi
@@ -52,7 +58,10 @@ then
 	then
 		dodir /etc/postinstall
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			/usr/bin/update-mime-database /usr/share/mime
+			if [ -x /usr/bin/update-mime-database ]
+			then
+			    /usr/bin/update-mime-database /usr/share/mime
+			fi
 
 			_EOF
 	fi

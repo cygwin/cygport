@@ -1,5 +1,9 @@
 2009-Jun-21  yselkowitz
 
+	* bin/prep_freedesktop_mime.sh: postinstall should test for
+	update-{desktop,mime}-database before running to avoid log spam;
+	see http://cygwin.com/ml/cygwin/2009-06/msg00714.html
+
 	* Post-release version bump.
 
 2009-Jun-16  yselkowitz
