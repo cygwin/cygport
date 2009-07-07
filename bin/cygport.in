@@ -2070,10 +2070,8 @@ readonly -f inherit inherited
 # Values which can be overridden either system-wide or per package
 declare -x CC="gcc";
 declare -x CFLAGS="-O2 -pipe ";
-declare -x CPP="cpp";
 declare -x CPPFLAGS="";
 declare -x CXX="g++";
-declare -x CXXCPP="cpp";
 declare -x CXXFLAGS="${CFLAGS}";
 declare -x F77="g77";
 declare -x FFLAGS="${CFLAGS}";

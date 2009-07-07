@@ -1,3 +1,9 @@
+2009-Jul-06  yselkowitz
+
+	* bin/cygport.in: Do not define CPP/CXXCPP, as it messes up stages
+	2/3 of the gcc build, and autoconf will do the right thing anyway:
+	http://thread.gmane.org/gmane.os.cygwin.ports.general/615
+
 2009-Jun-21  yselkowitz
 
 	* bin/prep_freedesktop_mime.sh: postinstall should test for
