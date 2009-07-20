@@ -1,5 +1,9 @@
 2009-Jul-20  yselkowitz
 
+	* lib/kde4.cygclass: Define SRC_URI for kdevelop-3.9.94.
+	(kde4_compile): Let FindAutomoc4 do it's job.
+	(kde4_install): Accept arguments.
+
 	* lib/Makefile.am:
 	* lib/waf.cygclass: NEW cygclass for Waf-based packages.
 

@@ -34,7 +34,10 @@ case "${PN}:${PV}" in
 	amarok:2.*)
 		SRC_URI="mirror://kde/stable/${PN}/${PV}/src/${P}.tar.bz2"
 		;;
-	kdevplatform:0.*|kdevelop:3.*)
+	kdevplatform:0.9.94|kdevelop:3.9.94)
+		SRC_URI="mirror://kde/unstable/kdevelop/3.${PV[2]}.${PV[3]}/${P}.tar.bz2"
+		;;
+	kdevplatform:0.9.*|kdevelop:3.9.*)
 		SRC_URI="mirror://kde/unstable/kdevelop/3.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
 		;;
 	koffice:2.*)
@@ -72,7 +75,6 @@ kde4_compile() {
 	done
 
 	cygcmake \
-		-DAUTOMOC4_EXECUTABLE=/usr/bin/automoc4 \
 		-DKDE4_BUILD_TESTS=OFF \
 		-DKDE4_ENABLE_FINAL=OFF \
 		-DKDE4_ENABLE_FPIE=OFF \
@@ -93,7 +95,7 @@ kde4_compile() {
 kde4_install() {
 	local doc kdepkg
 
-	cyginstall
+	cyginstall "${@}"
 
 	rm -f ${D}/usr/lib/kde4/lib/libkdeinit4_*
 
