@@ -1,0 +1,72 @@
+################################################################################
+#
+# waf.cygclass - functions for building Waf-based packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+WAF="/usr/bin/waf"
+
+if [ ! -x ${WAF} ]
+then
+	error "waf must be installed in order to build this package"
+fi
+
+waf_compile() {
+	if [ ! -e wscript ]
+	then
+		error "waf_compile: wscript: file not found"
+	fi
+
+	${WAF} configure --prefix=/usr ${WAF_CONFIGURE_FLAGS} ${@} || error "waf configure failed"
+	${WAF} build ${WAF_BUILD_FLAGS} || error "waf build failed"
+}
+
+waf_test() {
+	if [ ! -e wscript ]
+	then
+		error "waf_install: wscript: file not found"
+	fi
+
+	${WAF} check -k || true
+}
+
+waf_install() {
+	if [ ! -e wscript ]
+	then
+		error "waf_install: wscript: file not found"
+	fi
+
+	${WAF} install --destdir=${D} ${WAF_INSTALL_FLAGS} ${@} || error "waf install failed"
+}
+
+src_compile() {
+	lndirs
+	cd ${B}
+	waf_compile
+}
+
+src_install() {
+	cd ${B}
+	waf_install
+}
+
+readonly -f waf_compile waf_test waf_install

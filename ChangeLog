@@ -1,3 +1,8 @@
+2009-Jul-20  yselkowitz
+
+	* lib/Makefile.am:
+	* lib/waf.cygclass: NEW cygclass for Waf-based packages.
+
 2009-Jul-06  yselkowitz
 
 	* bin/cygport.in: Do not define CPP/CXXCPP, as it messes up stages
