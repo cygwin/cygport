@@ -73,9 +73,12 @@ APR_LIBS="$(${APU_CONFIG} --link-ld) $(${APR_CONFIG} --link-ld --libs)"
 APR_LIBTOOL="$(${APR_CONFIG} --apr-libtool)"
 
 # libapreq
-APREQ_CONFIG=/usr/bin/apreq2-config
-APREQ_CFLAGS="$(${APREQ_CONFIG} --includes)"
-APREQ_LIBS="$(${APREQ_CONFIG} --link-ld)"
+if check_prog apreq2-config
+then
+	APREQ_CONFIG=/usr/bin/apreq2-config
+	APREQ_CFLAGS="$(${APREQ_CONFIG} --includes)"
+	APREQ_LIBS="$(${APREQ_CONFIG} --link-ld)"
+fi
 
 apache2_compile() {
 	if ! defined APACHE_MOD_NAME

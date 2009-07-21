@@ -1,5 +1,7 @@
 2009-Jul-20  yselkowitz
 
+	* lib/apache2.cygclass: Only define APREQ_* if libapreq2-devel is installed.
+
 	* lib/gtkmm.cygclass (gtkmm_autoreconf): Allow the wrappers to set
 	the correct automake version.
 
