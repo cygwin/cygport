@@ -1,5 +1,7 @@
 2009-Jul-20  yselkowitz
 
+	* lib/tcl.cygclass (LIBTK): Fixed typo.
+
 	* lib/kde3.cygclass: Define KDEDIR for both cmake and autotools builds.
 
 	* lib/kde4.cygclass: Define SRC_URI for kdevelop-3.9.94.
