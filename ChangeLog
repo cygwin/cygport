@@ -1,5 +1,8 @@
 2009-Jul-20  yselkowitz
 
+	* lib/gtkmm.cygclass (gtkmm_autoreconf): Allow the wrappers to set
+	the correct automake version.
+
 	* lib/tcl.cygclass (LIBTK): Fixed typo.
 
 	* lib/kde3.cygclass: Define KDEDIR for both cmake and autotools builds.

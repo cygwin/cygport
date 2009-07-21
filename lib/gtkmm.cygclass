@@ -35,8 +35,6 @@ HOMEPAGE="http://www.gtkmm.org/"
 DIFF_EXCLUDES+=" Doxyfile MSVC_Net200*"
 
 gtkmm_autoreconf() {
-	WANT_AUTOCONF=2.5
-	WANT_AUTOMAKE=${WANT_AUTOMAKE:-1.9}
 	if [ -d scripts ]
 	then
 		ACLOCAL="aclocal -I scripts"
