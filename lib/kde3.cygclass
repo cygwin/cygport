@@ -27,6 +27,9 @@ inherit qt3
 
 HOMEPAGE="http://www.kde.org/"
 
+# KDE prefix, used by both autotools and FindKDE3.cmake
+export KDEDIR=/usr
+
 case "${PN}:${PV}" in
 	arts:*)			ftp_pv=3.${PV[2]}.${PV[3]} ;;
 	kdevelop:3.5.[01])	ftp_pv=3.${PV[2]}.$((PV[3] + 8)) ;;
