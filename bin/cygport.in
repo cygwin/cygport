@@ -1421,7 +1421,8 @@ __prepstrip() {
 
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
-	for exe in $(find * -type f -writable -a \( -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.oct' \))
+	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
+	for exe in $(find * -type f -writable -a \( -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \))
 	do
 		# OCaml bytecode must not be stripped
 		# this test generates false positives with the ocaml core and
@@ -1576,7 +1577,8 @@ __list_deps() {
 
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
-	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' \) \
+	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
+	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
 		-exec objdump -p '{}' + | grep "DLL Name:" | sort -u | \
 		cut -d ' ' -f 3 | sed -e '/^[A-Z32]*\.[Dd][Ll][Ll]$/d' -e 's!mscoree.dll!mono.exe!' | \
 		xargs -r which | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';

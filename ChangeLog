@@ -1,3 +1,8 @@
+2009-Jul-22  yselkowitz
+
+	* bin/cygport.in (__prepstrip, __list_deps): Handle *.cmxs OCaml native
+	dynlink modules as DLLs.
+
 2009-Jul-20  yselkowitz
 
 	* bin/prep_libtool_modules.sh: Adjust ltversion grep for current libtool.
