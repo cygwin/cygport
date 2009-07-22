@@ -1,5 +1,9 @@
 2009-Jul-22  yselkowitz
 
+	* lib/git.cygclass: Accept GIT_SUBDIR to package only one subdirectory
+	of a Git repository, since partial clones/checkouts aren't possible.
+	(git_fetch): If pulling master/HEAD, don't clone history.
+
 	* bin/cygport.in (__list_deps): Fix DEPS_PATH.
 
 	* bin/cygport.in (__prepstrip, __list_deps): Handle *.cmxs OCaml native

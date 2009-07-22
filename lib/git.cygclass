@@ -39,15 +39,23 @@ fi
 git_tarball="${GIT_MODULE}-${PV}.tar.bz2"
 
 SRC_URI="${git_tarball} "
-SRC_DIR="${GIT_MODULE}"
+SRC_DIR="${GIT_MODULE}${GIT_SUBDIR+/}${GIT_SUBDIR}"
 
 git_fetch() {
+	local _depth
+
 	check_prog_req git
+
+	if ! defined GIT_TAG && ! defined GIT_BRANCH && ! defined GIT_REV
+	then
+		# fetching master/HEAD, so we don't need any history
+		_depth="--depth 1"
+	fi
 
 	# T likely doesn't exist at this point, so create it first
 	mkdir -p ${T}
 	cd ${T}
-	verbose git clone --no-checkout --quiet ${GIT_URI} ${GIT_MODULE} || error "git clone failed"
+	verbose git clone ${_depth} --no-checkout ${GIT_URI} ${GIT_MODULE} || error "git clone failed"
 	cd ${T}/${GIT_MODULE}
 
 	if defined GIT_TAG
@@ -57,7 +65,6 @@ git_fetch() {
 	then
 		verbose git checkout remotes/${GIT_BRANCH} || error "git checkout failed"
 	elif defined GIT_REV
-	then
 		verbose git checkout ${GIT_REV} || error "git checkout failed"
 	else
 		verbose git checkout master || error "git checkout failed"
@@ -69,8 +76,8 @@ git_fetch() {
 		git submodule update
 	fi
 
-	cd ${T}
-	tar jcf ${top}/${git_tarball} --exclude-vcs ${GIT_MODULE}
+	cd ${T}/
+	tar jcf ${top}/${git_tarball} --exclude-vcs ${GIT_MODULE}/${GIT_SUBDIR}
 }
 
 readonly -f git_fetch
