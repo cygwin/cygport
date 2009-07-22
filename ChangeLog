@@ -1,5 +1,7 @@
 2009-Jul-22  yselkowitz
 
+	* Tagged 0.9.8.
+
 	* bin/cygport.in (__pkg_diff):  Don't set default_excludes for
 	gcc[34], since it provides a forked libtool.  Patch by Dave Korn:
 	http://article.gmane.org/gmane.os.cygwin.ports.general/620

@@ -1,3 +1,15 @@
+0.9.8:
+	* OCaml natdynlink modules (*.cmxs) are handled as DLLs in terms of
+	  postinst-strip and dependency-list steps.
+	* Fixed DEPS_PATH.
+	* Various fixes for building gcc.
+	* apache2.cygclass: APREQ_* are set only if libapreq2 is installed.
+	* git.cygclass: Accept GIT_SUBDIR to create a source-package from 
+      a subdirectory of a git repository.
+	* kde3.cygclass: Fix for CMake-based packages.
+	* kde4.cygclass: kde4_install passes arguments to cyginstall.
+	* waf.cygclass: NEW for building packages using the waf build system.
+
 0.9.7:
 	* Default libexecdir changed to /usr/lib.
 	* gnome2.cygclass: Define GIT_URI as GNOME has moved from svn to git.
