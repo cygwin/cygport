@@ -1736,7 +1736,8 @@ __pkg_diff() {
 		*.class *.jlc *.pyc *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
 
 	case ${PN} in
-		automake*|libtool) ;;
+		# gcc[34]: uses a forked libtool to support boostrapping
+		automake*|gcc[34]|libtool) ;;
 		*)	default_excludes+=" COPYING INSTALL compile config-ml.in \
 				config.guess config.sub depcomp elisp-comp install-sh \
 				libtool.m4 ltoptions.m4 ltsugar.m4 ltversion.m4 lt~obsolete.m4 \

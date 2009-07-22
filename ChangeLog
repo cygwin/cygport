@@ -1,5 +1,9 @@
 2009-Jul-22  yselkowitz
 
+	* bin/cygport.in (__pkg_diff):  Don't set default_excludes for
+	gcc[34], since it provides a forked libtool.  Patch by Dave Korn:
+	http://article.gmane.org/gmane.os.cygwin.ports.general/620
+
 	* lib/git.cygclass: Accept GIT_SUBDIR to package only one subdirectory
 	of a Git repository, since partial clones/checkouts aren't possible.
 	(git_fetch): If pulling master/HEAD, don't clone history.
