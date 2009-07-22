@@ -1573,7 +1573,7 @@ __list_deps() {
 		PATH+="${D}${d}:${d}:"
 	done
 
-	export PATH="${D}/usr/bin:${os_path}";
+	export PATH+="${D}/usr/bin:${os_path}";
 
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules

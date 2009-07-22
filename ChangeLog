@@ -1,5 +1,7 @@
 2009-Jul-22  yselkowitz
 
+	* bin/cygport.in (__list_deps): Fix DEPS_PATH.
+
 	* bin/cygport.in (__prepstrip, __list_deps): Handle *.cmxs OCaml native
 	dynlink modules as DLLs.
 
