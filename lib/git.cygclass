@@ -65,6 +65,7 @@ git_fetch() {
 	then
 		verbose git checkout remotes/${GIT_BRANCH} || error "git checkout failed"
 	elif defined GIT_REV
+	then
 		verbose git checkout ${GIT_REV} || error "git checkout failed"
 	else
 		verbose git checkout master || error "git checkout failed"
