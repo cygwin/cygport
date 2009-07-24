@@ -1,3 +1,6 @@
+0.9.8.1:
+	Brown-bag release to fix syntax error in git.cygclass.
+
 0.9.8:
 	* OCaml natdynlink modules (*.cmxs) are handled as DLLs in terms of
 	  postinst-strip and dependency-list steps.

@@ -45,15 +45,15 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack cygport-0.9.8-X-src.tar.bz2
+  unpack cygport-0.9.8.1-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./cygport-0.9.8-X.cygport all
+  cygport ./cygport-0.9.8.1-X.cygport all
 
 This will create:
-  /usr/src/cygport-0.9.8-X-src.tar.bz2
-  /usr/src/cygport-0.9.8-X.tar.bz2
+  /usr/src/cygport-0.9.8.1-X-src.tar.bz2
+  /usr/src/cygport-0.9.8.1-X.tar.bz2
 
 -------------------------------------------
 
@@ -164,7 +164,7 @@ Files included in the binary package:
 
 Port Notes:
 
------ version 0.9.8-1 -----
+----- version 0.9.8.1-1 -----
 Version bump.
 See ChangeLog and NEWS for more information about this and past releases.
 

@@ -1,5 +1,7 @@
 2009-Jul-23  yselkowitz
 
+	* Tagged 0.9.8.1.
+
 	* lib/git.cygclass: Fix syntax error in r7215.
 
 2009-Jul-22  yselkowitz
