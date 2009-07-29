@@ -57,7 +57,7 @@ case ${gst_pn} in
 		GST_PLUGINS_DIR=.
 		ORIG_PN=gst-plugins-gl
 		;;
-	nonlin)
+	gnonlin)
 		GST_PLUGINS_DIR=.
 		ORIG_PN=gnonlin
 		;;
@@ -94,25 +94,25 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		never_gst_plugins="dv1394 gst_v4l2 hal osx_audio osx_video sunaudio xvideo"
 		;;
 	bad)
-		# amrwb codec is patent encumbered
-		my_gst_plugins="acm amrwb apexsink bz2 celt dirac dts faac faad gsm
-		                ivorbis jack jp2k ladspa libmms metadata mpeg2enc mplex
-		                musepack musicbrainz nas neon ofa resindvd sdl sndfile
-		                soundtouch spc theoradec timidity wildmidi
-		                wininet x264 xvid"
+		# WARNING: some of the dependent codecs may be patent encumbered
+		my_gst_plugins="acm amrwb apexsink assrender bz2 celt dirac dts
+		                faac faad gsm ivorbis jack jp2k ladspa libmms
+		                metadata mimic modplug mpeg2enc mplex musepack musicbrainz
+		                nas neon ofa resindvd sdl sndfile soundtouch spc
+		                theoradec timidity wildmidi wininet xvid"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
-                           ladspa mythtv oss4 quicktime swfdec vcd"
+                           mythtv oss4 osxvideo quicktime swfdec vcd"
 		;;
 	ugly)
 		# WARNING: the dependent codecs may be patent encumbered
 		my_gst_plugins="amrnb a52dec cdio dvdnav dvdread id3tag lame
-		                mad mpeg2dec sidplay twolame"
+		                mad mpeg2dec sidplay twolame x264"
 		conftest_gst_plugins=
 		never_gst_plugins=
 		;;
 	farsight)
-		my_gst_plugins="gconf gsm jasper jingle-p2p jrtplib mimic"
+		my_gst_plugins="gconf gsm jasper jingle-p2p jrtplib"
 		conftest_gst_plugins=
 		never_gst_plugins=
 		;;
@@ -122,7 +122,7 @@ gst_plugins_autoreconf() {
 	gstreamer_autoreconf
 
 	case ${gst_pn} in
-		base|good|bad|ugly|farsight|ffmpeg|fluendo-*|gl|nonlin)
+		base|good|bad|ugly|farsight|ffmpeg|fluendo-*|gl|gnonlin)
 			;;
 		*)
 			# Remove generation of any other Makefiles except the plugin's Makefile

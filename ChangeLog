@@ -1,5 +1,8 @@
 2009-Jul-28  yselkowitz
 
+	* lib/gst-plugins0.10.cygclass: Fix gnonlin package name.
+	Update plugins for -bad .13 and -ugly .12.
+
 	* configure.ac: Post-release version bump.
 
 2009-Jul-23  yselkowitz
