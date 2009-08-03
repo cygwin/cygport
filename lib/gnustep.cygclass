@@ -1,0 +1,74 @@
+################################################################################
+#
+# gnustep.cygclass - functions for building GNUstep packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+case ${PN} in
+	*.app) ORIG_PN=${ORIG_PN:-${PN%.app}} ;;
+	*.framework) ORIG_PN=${ORIG_PN:-${PN%.framework}} ;;
+esac
+
+DESCRIPTION="GNUstep ${ORIG_PN:-${PN#gnustep-}} component"
+HOMEPAGE="http://www.gnustep.org/"
+mirror_gnustep="http://ftpmain.gnustep.org/pub/gnustep/"
+
+SVN_URI="svn://svn.gna.org/svn/gnustep"
+SVN_MODULE=${ORIG_PN}
+
+gnustep_env() {
+	if ! defined GNUSTEP_MAKEFILES
+	then
+		source /usr/share/GNUstep/Makefiles/GNUstep.sh
+	fi
+}
+
+gnustep_compile() {
+	gnustep_env
+
+	case ${PN} in
+		gnustep-base|gnustep-back|gnustep-gui)
+			cygconf --with-installation-domain=SYSTEM
+		;;
+	esac
+
+	cygmake GNUSTEP_INSTALLATION_DOMAIN=SYSTEM ${@}
+}
+
+gnustep_install() {
+	gnustep_env
+
+	cyginstall GNUSTEP_INSTALLATION_DOMAIN=SYSTEM ${@}
+}
+
+src_compile() {
+	lndirs
+	cd ${B}
+	gnustep_compile
+}
+
+src_install() {
+	cd ${B}
+	gnustep_install
+}
+
+readonly -f gnustep_env gnustep_compile gnustep_install

@@ -1,3 +1,8 @@
+2009-Aug-03  yselkowitz
+
+	* lib/Makefile.am:
+	* lib/gnustep.cygclass: NEW cygclass for GNUstep packages.
+
 2009-Jul-28  yselkowitz
 
 	* lib/gst-plugins0.10.cygclass: Fix gnonlin package name.
