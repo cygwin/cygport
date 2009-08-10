@@ -1,5 +1,8 @@
 2009-Aug-10  yselkowitz
 
+	OCaml 3.11 update.
+	* lib/ocaml.cygclass (LIBCAMLRUN): Change to libcamlrun_shared.
+
 	Update for binutils-2.19.51.
 	* bin/cygport.in: binutils now defaults to --enable-auto-import.
 
