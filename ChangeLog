@@ -1,3 +1,11 @@
+2009-Aug-10  yselkowitz
+
+	GNUstep improvements.
+	* lib/gnustep.cygclass: Require gnustep-config (gnustep-make).
+	(__gnustep_dir): New internal function.
+	(gnustep_pkg_apps, gnustep_pkg_frameworks): New functions.
+	* data/mirrors: Define mirror://gnustep/.
+
 2009-Aug-03  yselkowitz
 
 	* lib/Makefile.am:

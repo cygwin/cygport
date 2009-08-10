@@ -23,52 +23,130 @@
 #
 ################################################################################
 
+check_prog_req gnustep-config gnustep-make
+
 case ${PN} in
-	*.app) ORIG_PN=${ORIG_PN:-${PN%.app}} ;;
-	*.framework) ORIG_PN=${ORIG_PN:-${PN%.framework}} ;;
+	*.app|*.bundle|*.framework|*.tool)
+		ORIG_PN=${ORIG_PN:-${PN%.*}}
+	;;
 esac
 
 DESCRIPTION="GNUstep ${ORIG_PN:-${PN#gnustep-}} component"
 HOMEPAGE="http://www.gnustep.org/"
-mirror_gnustep="http://ftpmain.gnustep.org/pub/gnustep/"
 
 SVN_URI="svn://svn.gna.org/svn/gnustep"
 SVN_MODULE=${ORIG_PN}
 
-gnustep_env() {
-	if ! defined GNUSTEP_MAKEFILES
+__gnustep_dir() {
+	if (( $# != 1 ))
 	then
-		source /usr/share/GNUstep/Makefiles/GNUstep.sh
+		error "__gnustep_dir: requires exactly one argument"
 	fi
+
+	local d=${1}
+	local suffix=
+
+	case ${d} in
+		BUNDLES)	d="SYSTEM_LIBRARY"; suffix="/Bundles" ;;
+		FONTS)		d="SYSTEM_LIBRARY"; suffix="/Fonts" ;;
+		FRAMEWORKS)	d="SYSTEM_LIBRARY"; suffix="/Frameworks" ;;
+		MAKEFILES)	;;
+		SERVICES)	d="SYSTEM_LIBRARY"; suffix="/Services" ;;
+		APPS|DOC|HEADERS|LIBRARIES|TOOLS)	d="SYSTEM_${d}" ;;
+		*)	error "__gnustep_dir: unknown directory type: ${d}"
+	esac
+
+	var="GNUSTEP_${d}"
+	eval $(grep "^${var}=" /etc/GNUstep/GNUstep.conf)
+	echo -n ${!var#/}${suffix}
+}
+
+#for dvar in APPS BUNDLES DOC FONTS FRAMEWORKS HEADERS LIBRARIES MAKEFILES SERVICES TOOLS
+#do
+#	declare GNUSTEP_${dvar}=$(__gnustep_dir ${dvar})
+#done
+#unset dvar
+
+gnustep_env() {
+	local mf=$(gnustep-config --variable=GNUSTEP_MAKEFILES)
+	. ${mf}/GNUstep-reset.sh
+	. ${mf}/GNUstep.sh
 }
 
 gnustep_compile() {
-	gnustep_env
+	if ! defined GNUSTEP_HOST
+	then
+		error "gnustep_env must be called first"
+	fi
 
-	case ${PN} in
-		gnustep-base|gnustep-back|gnustep-gui)
-			cygconf --with-installation-domain=SYSTEM
-		;;
-	esac
+	if [ -e configure ]
+	then
+		cygconf --with-installation-domain=SYSTEM
+	fi
 
 	cygmake GNUSTEP_INSTALLATION_DOMAIN=SYSTEM ${@}
 }
 
 gnustep_install() {
-	gnustep_env
+	if ! defined GNUSTEP_HOST
+	then
+		error "gnustep_env must be called first"
+	fi
 
 	cyginstall GNUSTEP_INSTALLATION_DOMAIN=SYSTEM ${@}
+}
+
+gnustep_pkg_apps() {
+	local a an
+
+	for a in ${@}
+	do
+		an=${a%.app}
+
+		PKG_NAMES+=" ${an}.app"
+		export ${an}_app_CONTENTS="usr/bin/${an} $(__gnustep_dir APPS)/${an}.app/"
+	done
+}
+
+gnustep_pkg_frameworks() {
+	local fd fn fv f_v _v
+
+	for f_v in ${@}
+	do
+		fn=${f_v%:*}
+		fv=${f_v#*:}
+		_v=${fv//./_}
+		fd=$(__gnustep_dir FRAMEWORKS)/${fn}.framework
+
+		PKG_NAMES+=" lib${fn}${fv} lib${fn}-devel"
+		export lib${fn}${_v}_CONTENTS="usr/bin/cyg${fn}-${_v}.dll \
+		                               ${fd}/Resources \
+		                               ${fd}/Versions/${fv}/Resources/ \
+		                               ${fd}/Versions/${fv}/cyg${fn}-${_v}.dll \
+		                               ${fd}/Versions/Current"
+		export lib${fn}_devel_CONTENTS="$(__gnustep_dir HEADERS)/${fn}/ \
+		                                ${fd}/Headers \
+		                                ${fd}/${fn} \
+		                                ${fd}/Versions/${fv}/Headers \
+		                                ${fd}/Versions/${fv}/${fn} \
+		                                ${fd}/Versions/${fv}/lib${fn}.dll.a \
+		                                ${fd}/lib${fn}.dll.a \
+		                                usr/lib/lib${fn}.dll.a"
+	done
 }
 
 src_compile() {
 	lndirs
 	cd ${B}
+	gnustep_env
 	gnustep_compile
 }
 
 src_install() {
 	cd ${B}
+	gnustep_env
 	gnustep_install
 }
 
-readonly -f gnustep_env gnustep_compile gnustep_install
+readonly -f __gnustep_dir gnustep_env gnustep_compile gnustep_install \
+            gnustep_pkg_apps gnustep_pkg_frameworks

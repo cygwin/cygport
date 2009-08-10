@@ -1211,6 +1211,12 @@ mirror_gnu="
 	ftp://gnu.teleglobe.net/ftp.gnu.org
 "   # mirror_gnu
 
+# http://www.gnustep.org/resources/sources.html
+mirror_gnustep="
+	http://ftp.gnustep.org/pub/gnustep
+	ftp://ftp.gnustep.org/pub/gnustep
+"	# mirror_gnustep
+
 # http://www.kde.org/mirrors/ftp.php
 # cat ftp.php | grep '<dd><a' | \
 #   sed -e 's!.*<dd><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
