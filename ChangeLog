@@ -1,5 +1,9 @@
 2009-Aug-10  yselkowitz
 
+	Add support for QConf based packages.
+	* lib/Makefile.am:
+	* lib/qt4-qconf.cygclass: Added.
+
 	OCaml 3.11 update.
 	* lib/ocaml.cygclass (LIBCAMLRUN): Change to libcamlrun_shared.
 

@@ -1,0 +1,56 @@
+################################################################################
+#
+# qt4-qconf.cygclass - functions for building QConf-based Qt4 packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+inherit qt4-qmake
+
+cygqconf4() {
+	if ! find . -maxdepth 1 -name '*.qc'
+	then
+		error "cygqconf4: could not find .qc file"
+	fi
+
+	rm -f configure
+	qconf || error "qconf failed"
+}
+
+qt4_qconf_compile() {
+	if [ ! -e configure ]
+	then
+		error "qt4_qconf_compile: could not find configure file"
+	fi
+
+	./configure --prefix=/usr --qtdir=${QT4_QTDIR} ${@} || error "qconf configure failed"
+	cygmake
+}
+
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygqconf4
+	qt4_qconf_compile
+}
+
+readonly -f cygqconf4 qt4_qconf_compile

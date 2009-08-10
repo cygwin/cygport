@@ -47,6 +47,7 @@ dist_cygclass_DATA = 			\
 	qt3-qmake.cygclass			\
 	qt4.cygclass				\
 	qt4-cmake.cygclass			\
+	qt4-qconf.cygclass			\
 	qt4-qmake.cygclass			\
 	R.cygclass					\
 	rox.cygclass				\
