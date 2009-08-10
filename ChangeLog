@@ -1,5 +1,8 @@
 2009-Aug-10  yselkowitz
 
+	Update for binutils-2.19.51.
+	* bin/cygport.in: binutils now defaults to --enable-auto-import.
+
 	GNUstep improvements.
 	* lib/gnustep.cygclass: Require gnustep-config (gnustep-make).
 	(__gnustep_dir): New internal function.
