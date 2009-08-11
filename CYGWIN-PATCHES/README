@@ -45,15 +45,15 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack cygport-0.9.8.1-X-src.tar.bz2
+  unpack cygport-0.9.9-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./cygport-0.9.8.1-X.cygport all
+  cygport ./cygport-0.9.9-X.cygport all
 
 This will create:
-  /usr/src/cygport-0.9.8.1-X-src.tar.bz2
-  /usr/src/cygport-0.9.8.1-X.tar.bz2
+  /usr/src/cygport-0.9.9-X-src.tar.bz2
+  /usr/src/cygport-0.9.9-X.tar.bz2
 
 -------------------------------------------
 
@@ -111,6 +111,7 @@ Files included in the binary package:
   /usr/share/cygport/cygclass/git.cygclass
   /usr/share/cygport/cygclass/gnome.org.cygclass
   /usr/share/cygport/cygclass/gnome2.cygclass
+  /usr/share/cygport/cygclass/gnustep.cygclass
   /usr/share/cygport/cygclass/gst-plugins.cygclass
   /usr/share/cygport/cygclass/gst-plugins0.10.cygclass
   /usr/share/cygport/cygclass/gstreamer.cygclass
@@ -134,6 +135,7 @@ Files included in the binary package:
   /usr/share/cygport/cygclass/qt3-qmake.cygclass
   /usr/share/cygport/cygclass/qt4.cygclass
   /usr/share/cygport/cygclass/qt4-cmake.cygclass
+  /usr/share/cygport/cygclass/qt4-qconf.cygclass
   /usr/share/cygport/cygclass/qt4-qmake.cygclass
   /usr/share/cygport/cygclass/rox.cygclass
   /usr/share/cygport/cygclass/ruby.cygclass
@@ -164,7 +166,7 @@ Files included in the binary package:
 
 Port Notes:
 
------ version 0.9.8.1-1 -----
+----- version 0.9.9-1 -----
 Version bump.
 See ChangeLog and NEWS for more information about this and past releases.
 

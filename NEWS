@@ -1,3 +1,10 @@
+0.9.9:
+	* Default LDFLAGS is empty; binutils now auto-imports by default.
+	* gnustep.cygclass: NEW for building GNUstep packages.
+	* gst-plugins0.10.cygclass: Update for latest releases of -bad/-ugly.
+	* ocaml.cygclass: LIBCAMLRUN points to libcamlrun_shared, new in 3.11.
+	* qt4-qconf.cygclass: NEW for building Qt4 QConf based packages.
+
 0.9.8.1:
 	Brown-bag release to fix syntax error in git.cygclass.
 
