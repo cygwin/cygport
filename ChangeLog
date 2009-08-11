@@ -1,5 +1,8 @@
 2009-Aug-10  yselkowitz
 
+	Modify PyGTK package naming scheme.
+	* lib/pygtk.cygclass: Chop 2.x version suffixes from PN to ORIG_PN.
+
 	Add support for QConf based packages.
 	* lib/Makefile.am:
 	* lib/qt4-qconf.cygclass: Added.

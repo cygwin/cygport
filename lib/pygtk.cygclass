@@ -42,7 +42,7 @@ case ${PN#python-} in
 		;;
 	*)
 		pygtk_mod=${PN#python-}
-		ORIG_PN=${ORIG_PN:-py${pygtk_mod%2}}
+		ORIG_PN=${ORIG_PN:-py${pygtk_mod%2*}}
 		;;
 esac
 
