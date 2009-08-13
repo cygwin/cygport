@@ -14,7 +14,7 @@ AC_CHECK_PROGS(HELP2MAN, help2man, :)
 AC_CONFIG_FILES([
 Makefile
 bin/Makefile
-lib/Makefile
+cygclass/Makefile
 data/Makefile
 doc/Makefile
 tests/Makefile

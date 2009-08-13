@@ -101,7 +101,7 @@ then
 
 	declare -r  _privbindir=${_prefix}/bin;
 	declare -r  _privdatadir=${_prefix}/data;
-	declare -rx _privclassdir=${_prefix}/lib;
+	declare -rx _privclassdir=${_prefix}/cygclass;
 	declare -r  _privdocdir=${_prefix};
 	declare -r  _sysconfdir=${_prefix}/data;
 else

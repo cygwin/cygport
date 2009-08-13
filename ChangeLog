@@ -1,5 +1,9 @@
 2009-Aug-13  yselkowitz
 
+	Source restructring.
+	* lib/*: Moved to...
+	* cygclass/*: here.
+
 	* configure.ac: Post-release version bump.
 
 2009-Aug-10  yselkowitz

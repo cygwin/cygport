@@ -1,4 +1,4 @@
-SUBDIRS = bin lib data doc tests
+SUBDIRS = bin cygclass data doc tests
 
 EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL NEWS README TODO CYGWIN-PATCHES/README CYGWIN-PATCHES/setup.hint
 
