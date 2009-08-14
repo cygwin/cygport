@@ -377,6 +377,61 @@ dosym() {
 }
 
 
+make_desktop_entry() {
+	if (( $# < 2 ))
+	then
+		error "make_desktop_entry requires a minimum of two arguments"
+	fi
+
+	dodir /usr/share/applications
+
+	cat > ${D}/usr/share/applications/${1%% *}.desktop <<-_EOF
+		[Desktop Entry]
+		Encoding=UTF-8
+		Version=1.0
+		Name=${2}
+		Type=Application
+		Comment=${5}
+		Exec=${1}
+		TryExec=${1%% *}
+		Icon=${3}
+		Categories=${4};
+		${6}
+	_EOF
+}
+
+make_etc_defaults() {
+	for etc in ${@}
+	do
+		if [ ! -f ${D}${etc} ]
+		then
+			error "file ${etc} does not exist"
+		fi
+
+		dodir /etc/defaults${etc%/*}
+		mv ${D}${etc} ${D}/etc/defaults${etc}
+
+		dodir /etc/postinstall
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			if [ ! -f ${etc} ]
+			then
+			    /usr/bin/mkdir -p ${etc%/*}
+			    /usr/bin/cp /etc/defaults${etc} ${etc}
+			fi
+
+		_EOF
+
+		dodir /etc/preremove
+		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+			if [ -f ${etc} ] && cmp -s /etc/defaults${etc} ${etc}
+			then
+			    rm ${etc}
+			fi
+
+		_EOF
+	done
+}
+
 # Pre-install steps
 __prepinstalldirs() {
 	rm -fr ${D}/*;
@@ -430,4 +485,4 @@ export -f dodir keepdir
 readonly -f __doinstall dodir keepdir dobin newbin docinto dodoc newdoc \
             exeinto doexe newexe insinto doins newins doicon newicon \
             dolib doman newman domenu newmenu dosbin newsbin dosym \
-            __prepinstalldirs cyginstall
+            make_desktop_entry make_etc_defaults __prepinstalldirs cyginstall

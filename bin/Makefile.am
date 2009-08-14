@@ -9,11 +9,5 @@ cygport: cygport.in
 		$< > $@ ; \
 	chmod 755 $@
 
-privbindir = $(pkglibdir)/bin
-dist_privbin_SCRIPTS = \
-	make_desktop_entry \
-	make_etc_defaults \
-	$(NULL)
-
 EXTRA_DIST = cygport.in
 CLEANFILES = cygport
