@@ -1,0 +1,66 @@
+################################################################################
+#
+# inheritance.cygpart - cygport cygclass inheritance functions
+#
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+# import functions and variables from a cygclass
+inherit() {
+	local class;
+	local classname;
+
+	for class
+	do
+		classname=${class%.cygclass}
+
+		if [ ! -f ${_privclassdir}/${classname}.cygclass ]
+		then
+			error "inherit: unknown cygclass ${class}";
+		fi
+
+		if ! defined _${classname//[-\.]/_}_CYGCLASS_
+		then
+			source ${_privclassdir}/${classname}.cygclass || error "inherit ${classname} failed"
+			export _${classname//[-\.]/_}_CYGCLASS_=1
+		fi
+	done
+}
+
+# detect if a given cygclass has been inherit()ed
+inherited() {
+	local class;
+	local classname;
+
+	for class
+	do
+		classname=${class%.cygclass};
+
+		if ! defined _${classname//[-\.]/_}_CYGCLASS_
+		then
+			return 1;
+		fi
+	done
+
+	return 0;
+}
+
+export -f inherit inherited
+readonly -f inherit inherited

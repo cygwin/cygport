@@ -1,0 +1,122 @@
+################################################################################
+#
+# src_fetch.cygpart - cygport source downloading functions
+#
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+# downloads file(s) from Internet
+fetch() {
+	local uri;
+	local urifile;
+
+	uri=${1};
+	urifile=${uri%\?*};
+	urifile=${urifile##*/};
+
+	if check_prog wget
+	then
+		if wget --no-check-certificate -O ${urifile}.tmp ${uri}
+		then
+			mv -f ${urifile}.tmp ${urifile}
+		else
+			rm -f ${urifile}.tmp
+			error "wget ${uri} failed"
+		fi
+	elif check_prog curl
+	then
+		if curl -k --url ${uri} -o ${urifile}.tmp
+		then
+			mv -f ${urifile}.tmp ${urifile}
+		else
+			rm -f ${urifile}.tmp
+			error "curl ${uri} failed"
+		fi
+	else
+		error "Either wget or curl are required to fetch sources.";
+	fi
+}
+
+__mirror_fetch() {
+	local miruri;
+	local mirname;
+	local mirvar;
+	local -a mirlist;
+	local -i n;
+
+	miruri=${1#mirror://};
+	mirname=${miruri%%/*};
+	mirvar=mirror_${mirname};
+
+	if ! defined ${mirvar}
+	then
+		error "unknown mirror ${mirname}";
+	fi
+
+	mirlist=(${!mirvar});
+
+	n=0;
+	while (( n < ${#mirlist[*]} ))
+	do
+		if fetch ${mirlist[${n}]}/${miruri#*/}
+		then
+			return 0;
+		fi
+		n+=1;
+	done
+
+	error "Could not download ${1##*/}";
+}
+
+# downloads all sources through method-specific functions
+__src_fetch() {
+	local rcs;
+	local uri;
+
+	# FIXME: Versions < 0.3.1 would allow only one in any case.
+	# While theoretically possible to use more than one of the RCS_fetch cmds
+	# it's not assured because the tarball names could be the same.
+	# Unfortunately, changing the RCS tarball names would break existing
+	# source packages.  So for now, follow the previous behavior.
+	for rcs in cvs svn git bzr hg mtn fossil
+	do
+		if inherited ${rcs}
+		then
+			${rcs}_fetch;
+			break;
+		fi
+	done
+
+	# the RCS_fetch functions change PWD
+	cd ${top};
+
+	for uri in ${SRC_URI} ${PATCH_URI}
+	do
+		case ${uri%%://*} in
+			mirror)			__mirror_fetch ${uri} ;;
+			http|https|ftp)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
+			file|/*)		cp -f ${uri#file://} . || error "Copying ${uri##*/} failed" ;;
+			${uri})			;; # file in working directory
+			*)				error "Invalid download URI ${uri}" ;;
+		esac
+	done
+}
+
+readonly -f fetch __mirror_fetch __src_fetch

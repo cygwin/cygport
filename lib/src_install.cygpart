@@ -1,0 +1,132 @@
+################################################################################
+#
+# src_install.cygpart - cygport source installation functions
+#
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+# creates directory under install path
+dodir() {
+	local d;
+
+	for d
+	do
+		if [ ! -d ${D}${d} ]
+		then
+			mkdir -p ${D}${d} || error "dodir ${d} failed"
+		fi
+	done
+}
+
+# prevents an otherwise empty directory from being automatically removed
+keepdir() {
+	for d
+	do
+		dodir ${d}
+		touch ${D}${d}/.keep-${PN}
+	done
+}
+
+# The foointo functions set _foointo_dir variables for dofoo, and that
+# doesn't work from a separate script, hence they are here
+
+# set dodoc install subdir
+docinto() {
+	if (( $# != 1 ))
+	then
+		error "docinto accepts exactly one argument";
+	fi
+
+	export _docinto_dir=${1};
+}
+
+# set doexe install dir
+exeinto() {
+	if (( $# != 1 ))
+	then
+		error "exeinto accepts exactly one argument";
+	fi
+
+	dodir ${1};
+	export _exeinto_dir=${1};
+}
+
+# set doins install dir
+insinto() {
+	if (( $# != 1 ))
+	then
+		error "insinto accepts exactly one argument";
+	fi
+
+	dodir ${1};
+	export _insinto_dir=${1};
+}
+
+# Pre-install steps
+__prepinstalldirs() {
+	rm -fr ${D}/*;
+}
+
+# run 'make install'
+cyginstall() {
+	if $(make -n -s install/fast &> /dev/null)
+	then
+		inst_target="install/fast"
+	else
+		inst_target="install"
+	fi
+
+	case ${USE_DESTDIR:-1} in
+		1|[Yy]|[Yy][Ee][Ss])
+			make ${MAKEOPTS} ${inst_target} DESTDIR=${D} "${@}" || error "make install DESTDIR failed"
+			;;
+		0|[Nn]|[Nn][Oo])
+			make ${MAKEOPTS} install \
+				prefix=${D}/usr \
+				exec_prefix=${D}/usr \
+				bindir=${D}/usr/bin/ \
+				includedir=${D}/usr/include \
+				libdir=${D}/usr/lib \
+				sbindir=${D}/usr/sbin \
+				libexecdir=${D}/usr/lib \
+				datadir=${D}/usr/share \
+				infodir=${D}/usr/share/info \
+				mandir=${D}/usr/share/man \
+				localstatedir=${D}/var \
+				sysconfdir=${D}/etc \
+				"${@}" \
+				|| error "make install No-DESTDIR failed"
+			;;
+		*)
+			error "USE_DESTDIR should be set to either 0 or 1 (default).";
+			;;
+	esac
+}
+
+# provides a default src_install
+# will be overridden by cygclasses or cygports as necessary
+src_install() {
+	cd ${B}
+	cyginstall
+}
+
+# protect functions
+export -f dodir keepdir docinto exeinto insinto
+readonly -f dodir keepdir docinto exeinto insinto __prepinstalldirs cyginstall

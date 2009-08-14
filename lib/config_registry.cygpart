@@ -1,0 +1,47 @@
+################################################################################
+#
+# config_registry.cygpart - cygport config registry functions
+#
+# Copyright (C) 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+__config_get() {
+	if [ -f ${configdir}/${1} ]
+	then
+		echo -n $(cat ${configdir}/${1});
+	else
+		echo -n "0";
+	fi
+}
+
+__config_equals() {
+	if [ -f ${configdir}/${1} ] && [ $(cat ${configdir}/${1}) = ${2} ]
+	then
+		return 0;
+	else
+		return 1;
+	fi
+}
+
+__config_set() {
+	echo -n ${2} > ${configdir}/${1};
+}
+
+readonly -f __config_equals __config_get __config_set

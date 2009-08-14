@@ -1,0 +1,379 @@
+################################################################################
+#
+# src_postinst.cygpart - cygport source post-installation functions
+#
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+# installs standard docs, html docs, and Cygwin README
+__prepdoc() {
+	local html;
+	local -i n=1;
+	local pkg_hint;
+	local default_docs="\
+		ANNOUNCE ANNOUNCEMENTS AUTHOR AUTHORS \
+		BUG-REPORTS BUGS \
+		Changes ChangeLog CONTRIBUTORS COPYING COPYING-DOCS COPYING.LIB COPYRIGHT CREDITS \
+		FAQ GPL HACKING HISTORY HOW-TO-CONTRIBUTE KNOWNBUG \
+		LEGAL LICENCE LICENSE MAINTAINERS NEWS NOTES \
+		PROGLIST README THANKS TODO WHATSNEW";
+
+	cd ${S};
+
+	if defined _CYGPORT_RESTRICT_postinst_doc_
+	then
+		inform "Skipping package doc installation per request";
+	else
+		unset _docinto_dir;
+		dodoc ${default_docs} ${DOCS};
+
+		for html in ${HTMLDOCS}
+		do
+			docinto html;
+			dodoc ${html};
+		done
+	fi
+
+	if [ -e ${C}/README ]
+	then
+		insinto /usr/share/doc/Cygwin;
+		newins ${C}/README ${PN}.README;
+	elif [ -e ${C}/${PN}.README ]
+	then
+		insinto /usr/share/doc/Cygwin;
+		doins ${C}/${PN}.README;
+	else
+		warning "Cygwin README is missing"
+	fi
+
+	pkg_hint=(${PKG_HINTS})
+
+	while defined pkg_name[${n}]
+	do
+		if [ -f ${C}/${pkg_name[${n}]}.README ]
+		then
+			insinto /usr/share/doc/Cygwin;
+			doins ${C}/${pkg_name[${n}]}.README;
+		elif defined pkg_hint[${n}]
+		then
+			if [ -f ${C}/${pkg_hint[${n}]}.README ]
+			then
+				insinto /usr/share/doc/Cygwin;
+				doins ${C}/${pkg_hint[${n}]}.README
+			fi
+		fi
+
+		n+=1;
+	done
+}
+
+# creates and installs postinstall, preremove, and profile.d scripts
+__prepetc() {
+	local d;
+	local f;
+	local -i n;
+	local s;
+
+	for s in postinstall preremove
+	do
+		if [ -f ${C}/${s}.sh -a -f ${C}/${PN}.${s} ]
+		then
+			error "Only one of ${s}.sh and ${PN}.${s} can exist";
+		fi
+
+		for f in ${s}.sh ${PN}.${s}
+		do
+			if [ -f ${C}/${f} ]
+			then
+				dodir /etc/${s};
+				cat >> ${D}/etc/${s}/${PN}.sh < ${C}/${f};
+			fi
+		done
+
+		n=1;
+		while [ -n "${pkg_name[${n}]}" ]
+		do
+			if [ -f ${C}/${pkg_name[${n}]}.${s} ]
+			then
+				dodir /etc/${s};
+				cat >> ${D}/etc/${s}/${pkg_name[${n}]}.sh < ${C}/${pkg_name[${n}]}.${s};
+			fi
+			n+=1
+		done
+	done
+
+	if [ -f ${C}/profile.d.sh ]
+	then
+		exeinto /etc/profile.d;
+		newexe ${C}/profile.d.sh ${PN}.sh;
+	fi
+
+	if [ -f ${C}/profile.d.csh ]
+	then
+		exeinto /etc/profile.d;
+		newexe ${C}/profile.d.csh ${PN}.csh;
+	fi
+
+	# System fonts
+	if [ -d ${D}/usr/share/fonts ]
+	then
+		prep_fonts_dir.sh || error "Fonts postinstall failed"
+	fi
+
+	# GTK+ 2.x modules
+	if [ -d ${D}/usr/share/icons ]
+	then
+		prep_gtk_icon_theme.sh || error "GTK+ icon theme postinstall failed"
+	fi
+
+	# GTK+ 2.x modules
+	if [ -d ${D}/usr/lib/gtk-2.0 ]
+	then
+		prep_gtk2_modules.sh || error "GTK+ modules postinstall failed"
+	fi
+
+	# GConf schemas
+	if [ -d ${D}/etc/gconf/schemas ] && ! defined _CYGPORT_RESTRICT_postinst_gconf_
+	then
+		prep_gconf_schemas.sh || error "GConf schemas postinstall failed"
+	fi
+
+	# Freedesktop.org Shared Mime Info
+	if [ -d ${D}/usr/share/applications -o -d ${D}/usr/share/mime ] 
+	then
+		prep_freedesktop_mime.sh || error "Shared Mime Info postinstall failed"
+	fi
+
+	for d in /etc/postinstall /etc/preremove
+	do
+		if [ -d ${D}${d} ]
+		then
+			find ${D}${d} -type f -exec chmod 0755 '{}' +;
+		fi
+	done
+}
+
+__prepman() {
+	local manpage;
+
+	if [ -d ${D}/usr/man ]
+	then
+		inform "Moving /usr/man to /usr/share/man...";
+		dodir /usr/share/man
+		# just in case there is already /usr/share/man, e.g. after doman()
+		cp -r ${D}/usr/man/* ${D}/usr/share/man/
+		rm -fr ${D}/usr/man/
+	fi
+
+	if [ -d ${D}/usr/share/man ]
+	then
+		echo "Compressing man pages:";
+
+		for manlink in $(find ${D}/usr/share/man -type l)
+		do
+			manref=$(readlink ${manlink})
+			manref=${manref##*/};
+			rm -f ${manlink};
+			echo ".so ${manref%.gz}" > ${manlink%.gz};
+		done
+
+		for manpage in $(find ${D}/usr/share/man -type f ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma')
+		do
+			echo "        ${manpage##*/}";
+			gzip -q ${manpage};
+		done
+	fi
+}
+
+__prepinfo() {
+	local infopage;
+
+	if [ -d ${D}/usr/info ]
+	then
+		inform "Moving /usr/info to /usr/share/info...";
+		dodir /usr/share/info
+		# just in case there is already /usr/share/info
+		cp -r ${D}/usr/info/* ${D}/usr/share/info/
+		rm -fr ${D}/usr/info/
+	fi
+
+	if [ -d ${D}/usr/share/info ]
+	then
+		rm -f ${D}/usr/share/info/dir
+
+		echo "Compressing info pages:";
+
+		for infopage in $(find ${D}/usr/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2')
+		do
+			echo "        ${infopage##*/}";
+			gzip -q ${infopage};
+		done
+	fi
+}
+
+__prepvargames() {
+	local f;
+
+	if [ -d ${D}/var/games ]
+	then
+		for f in $(find ${D}/var/games -type f)
+		do
+			make_etc_defaults ${f#${D}};
+		done
+	fi
+}
+
+# remove empty directories in D
+# if empty directory must remain, call keepdir() in src_install()
+__prep_empty_dirs() {
+	local d n;
+
+	if defined KEEPDIRS
+	then
+		keepdir ${KEEPDIRS}
+	fi
+
+	# PTC if you find a package deeper than 20 (even perl mods are < 15)
+	for (( n=20; n >= 1; n-- ))
+	do
+		for d in $(find ${D} -mindepth ${n} -type d -empty)
+		do
+			inform "Removing empty directory: ${d#${D}}";
+			rmdir ${d};
+		done
+	done
+}
+
+__prepstrip() {
+	if defined _CYGPORT_RESTRICT_strip_
+	then
+		inform "Skipping strip step per request.";
+		return 0;
+	fi
+
+	local exe;
+
+	cd ${D};
+
+	echo "Stripping executables:";
+
+	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
+	# *.oct: Octave modules
+	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
+	for exe in $(find * -type f -writable -a \( -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \))
+	do
+		# OCaml bytecode must not be stripped
+		# this test generates false positives with the ocaml core and
+		# compilers, but should otherwise be accurate
+		if grep -q 'Caml1999X008' ${exe}
+		then
+			continue
+		fi
+
+		# Mono assemblies must not be stripped,
+		# but .(dll|exe).mdb debug symbols should be removed
+		if objdump -p ${exe} 2>&1 | grep -q "DLL Name: mscoree.dll"
+		then
+			rm -f ${exe}.mdb
+			continue
+		fi
+
+		# assure this is actually a PE-COFF object
+		if objdump -f ${exe} &>/dev/null
+		then
+			echo "        ${exe}";
+			chmod +x ${exe};
+			strip ${exe};
+		fi
+	done
+}
+
+__prepuac() {
+	local exe exename;
+
+	cd ${D};
+
+	echo "Preparing executables for UAC:";
+
+	for exe in $(find * -type f -executable -a \( -name '*instal*.exe' -o -name '*patch*.exe' -o -name '*setup*.exe' -o -name '*update*.exe' \))
+	do
+		exename=${exe##*/};
+
+		# Mono assemblies may already include .manifest files.
+		if [ ! -e ${exe}.manifest ]
+		then
+			echo "        ${exe}";
+			sed -e "s|@PKGNAME@|${PN//.}|" \
+				-e "s|@APPNAME@|${exename%.exe}|" \
+				${_privdatadir}/uac-manifest.in > ${exe}.manifest
+			chmod +x ${exe}.manifest
+		fi
+	done
+}
+
+__prep_symlinks() {
+	local l l_src
+
+	echo "Checking for symlinks:"
+
+	for l in $(find ${D}/ -type l)
+	do
+		l_src=$(readlink ${l})
+		case ${l_src} in
+			${D}/*)
+				echo "        ${l#${D}}";
+				rm -f ${l};
+				dosym ${l_src#${D}} ${l#${D}};
+				;;
+			${workdir}/*)
+				echo "        ${l#${D}}";
+				rm -f ${l};
+				cp -LR ${l_src} ${l};
+				;;
+			/*)
+				if [ ! -e ${D}${l_src} ] && [ ! -e ${l_src} ]
+				then
+					warning "symlink ${l#${D}} points to nonexistant ${l_src}";
+				fi
+				;;
+		esac
+	done
+}
+
+__prep_libtool_modules() {
+	find * -name '*.la' -exec prep_libtool_modules.sh '{}' + || error "Libtool module postinstall failed"
+}
+
+__src_postinst() {
+	__prep_symlinks;
+	__prepdoc;
+	__prepetc;
+	__prepman;
+	__prepinfo;
+	__prepvargames;
+	__prep_empty_dirs;
+	__prepstrip;
+	__prepuac;
+	__prep_libtool_modules;
+}
+
+# protect functions
+readonly -f __prepdoc __prepetc __prepman __prepinfo __prepvargames __prep_empty_dirs \
+            __prepstrip __prepuac __prep_symlinks __prep_libtool_modules __src_postinst

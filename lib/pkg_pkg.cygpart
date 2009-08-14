@@ -1,0 +1,392 @@
+################################################################################
+#
+# pkg_pkg.cygpart - cygport packaging functions
+#
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+__pkg_binpkg() {
+	local -i n=0;
+	local pkg_contents_var;
+	local pkg_list;
+
+	pkg_list=(${PKG_LISTS:-${PKG_NAMES}});
+
+	cd ${D};
+
+	__step "Creating binary package(s)";
+
+	if defined PKG_CONTENTS[*]
+	then
+		while (( n < pkg_count ))
+		do
+			if [ -f ${C}/${pkg_list[${n}]}.list ]
+			then
+				PKG_CONTENTS[${n}]=
+			fi
+			n+=1
+		done
+
+		if (( ${#PKG_CONTENTS[*]} != ${pkg_count} ))
+		then
+			error "PKG_CONTENTS[n] must be defined from 0 through $((pkg_count - 1))"
+		fi
+	fi
+
+	n=0
+	while (( n < pkg_count ))
+	do
+		__step "${pkg_name[${n}]}-${PVR}.tar.bz2";
+
+		pkg_contents_var=${pkg_name[${n}]//[+-\.]/_}_CONTENTS;
+
+		if defined ${pkg_contents_var}
+		then
+			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
+				${!pkg_contents_var} \
+				|| error "Binary package creation failed"
+		elif defined PKG_CONTENTS[${n}]
+		then
+			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
+				${PKG_CONTENTS[${n}]} \
+				|| error "Binary package creation failed"
+		elif [ -f ${C}/${pkg_list[${n}]}.list ]
+		then
+			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
+				$(cat ${C}/${pkg_list[${n}]}.list) \
+				|| error "Binary package creation failed"
+		elif (( pkg_count == 1 ))
+		then
+			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 * \
+				|| error "Binary package creation failed"
+		else
+			inform "Creating empty package"
+			bzip2 < /dev/null > ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
+				|| error "Empty package creation failed"
+		fi
+		echo;
+		n+=1;
+	done
+}
+
+__pkg_pkgcheck() {
+	local -i n=0;
+	local tmp1="${T}/tmptar.log";
+	local tmp2="${T}/tmpfind.log";
+
+	cd ${D};
+	__step "Checking packages for missing or duplicate files";
+
+	rm -f ${tmp1} ${tmp2};
+
+	while defined pkg_name[${n}]
+	do
+		tar tjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 | grep -Ev "/$" >> ${tmp1}
+		n+=1
+	done
+
+	if defined PKG_IGNORE
+	then
+		find ${PKG_IGNORE} ! -type d >> ${tmp1}
+	fi
+
+	sort < ${tmp1} > "${tmp1}.sorted";
+	mv -f "${tmp1}.sorted" ${tmp1};
+
+	find * -type f -o -type l | sort > ${tmp2}
+
+	if ! diff -u0 ${tmp2} ${tmp1} > /dev/null
+	then
+		# detect duplicates and/or missing files
+		diff -u0 ${tmp2} ${tmp1} | grep -E -v '^@' > ${T}/pkgcheck.diff
+
+		if grep -E '^-[^\-]' ${T}/pkgcheck.diff > /dev/null
+		then
+			warning "Packages are missing files:";
+			grep -E '^-[^\-]' ${T}/pkgcheck.diff;
+	    fi
+
+		if grep -E '^\+[^\+]' ${T}/pkgcheck.diff > /dev/null
+		then
+			warning "Packages contain duplicate files:";
+			grep -E '^\+[^\+]' ${T}/pkgcheck.diff;
+			error "Packages contain duplicate files:";
+	    fi
+	fi
+
+	rm -f ${tmp1} ${tmp2};
+}
+
+__pkg_diff() {
+	local default_excludes;
+	local diff_excludes_x;
+	local difflevel;
+	local exclude;
+
+	default_excludes="CYGWIN-PATCHES aclocal.m4~ aclocal.m4t autom4te.cache
+		config.cache config.log config.status config.h *config.h.in
+		*SlackBuild* *.egg-info *.jpg *.png *.qm *.svgz *.tif
+		*.class *.jlc *.pyc *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
+
+	case ${PN} in
+		# gcc[34]: uses a forked libtool to support boostrapping
+		automake*|gcc[34]|libtool) ;;
+		*)	default_excludes+=" COPYING INSTALL compile config-ml.in \
+				config.guess config.sub depcomp elisp-comp install-sh \
+				libtool.m4 ltoptions.m4 ltsugar.m4 ltversion.m4 lt~obsolete.m4 \
+				ltmain.sh mdate-sh missing mkinstalldirs py-compile \
+				symlink-tree texinfo.tex ylwrap" ;;
+	esac
+
+	case ${PN} in
+		gettext) ;;
+		*)	if __config_equals with_gnu_gettext 1
+			then
+				default_excludes+=" intl"
+				default_excludes+=" $(tar ztf /usr/share/gettext/archive.tar.gz | grep -Ev '(/$|/intl/)' | sed -e 's|.*/\([^/]*\),v|\1|g' | grep -v 'Makefile.in$' )"
+			fi
+			if __config_equals with_glib_gettext 1
+			then
+				default_excludes+=" config.rpath Makefile.in.in"
+			fi
+			;;
+	esac
+
+	# exclude aclocal.m4 if generated from aclocal
+	if [ -f ${S}/aclocal.m4 ]
+	then
+		if $(head -n 1 ${S}/aclocal.m4 | grep -q 'generated.* by aclocal')
+		then
+			default_excludes+=" aclocal.m4";
+		fi
+	fi
+
+	# exclude Makefile.in only if using automake
+	for mf in Makefile GNUmakefile makefile
+	do
+		if [ -f ${S}/${mf}.am ]
+		then
+			default_excludes+=" ${mf}.in";
+		fi
+	done
+
+	# exclude configure only if using autoconf
+	if [ -f ${S}/configure.in -o -f ${S}/configure.ac ]
+	then
+		default_excludes+=" configure";
+	fi
+
+	# gtk-doc
+	if [ -f ${S}/gtk-doc.make -a "${PN}" != "gtk-doc" ]
+	then
+		default_excludes+=" *.stamp *.html *.bak *.sgml \
+			*.tmpl *.txt *.xml *.args *.devhelp* *.css \
+			*.hierarchy *.interfaces *.prerequisites *.signals \
+			*.png *.top *.bottom gtk-doc.make gtk-doc.m4";
+	fi
+
+	# GNOME miscellaneous
+	if [ "${PN}" != "gnome-common" ]
+	then
+		default_excludes+=" omf.make xmldocs.make";
+	fi
+
+	if [ "${PN}" != "gnome-doc-utils" ]
+	then
+		default_excludes+=" gnome-doc-utils.make gnome-doc-utils.m4";
+	fi
+
+	if [ "${PN}" != "intltool" ]
+	then
+		default_excludes+=" intltool.m4 intltool-extract intltool-extract.in \
+			intltool-merge intltool-merge.in intltool-update intltool-update.in";
+	fi
+
+	# KDE3
+	if [ -f ${S}/admin/libtool.m4.in ]
+	then
+		default_excludes+=" libtool.m4.in* configure.bak \
+			configure.files acinclude.m4 subdirs";
+
+		if [ -f ${S}/configure.in.in ]
+		then
+			default_excludes+=" configure.in";
+		fi
+	fi
+
+	for exclude in ${default_excludes}
+	do
+		diff_excludes_x+=" -x ${exclude}";
+	done
+
+	case ${DIFF_EXCLUDES} in
+		-x*)
+			diff_excludes_x+=" ${DIFF_EXCLUDES}";
+			;;
+		*)
+			for exclude in ${DIFF_EXCLUDES}
+			do
+				diff_excludes_x+=" -x ${exclude}";
+			done
+			;;
+	esac
+
+	cd ${workdir};
+
+	# diff exits >0 when targets differ, hence catch exception with true
+	if [ "${SRC_DIR}" = "." ]
+	then
+		diff -urN \
+			${origsrcdir##*/}/CYGWIN-PATCHES ${srcdir##*/}/CYGWIN-PATCHES \
+			> ${patchdir}/${cygwin_patchfile} || true;
+		difflevel=1;
+	else
+		diff -urN \
+			${origsrcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES ${srcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES \
+			> ${patchdir}/${cygwin_patchfile} || true;
+		difflevel=2;
+	fi
+
+	if defined _CYGPORT_RESTRICT_diff_
+	then
+		rm -f ${patchdir}/${src_patchfile};
+		touch ${patchdir}/${src_patchfile};
+	else
+		diff -uprN ${diff_excludes_x} \
+			${origsrcdir##*/} ${srcdir##*/} \
+			> ${patchdir}/${src_patchfile} || true;
+	fi
+
+	sed -e '/^diff -u/d' -i ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
+
+	diffstat -p${difflevel} ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
+}
+
+__gpg_sign() {
+	echo "${2} signature needs to be updated";
+	rm -f ${1}.sig;
+	# we 'check_prog gpg' in __pkg_srcpkg()
+	gpg --detach-sign ${1};
+}
+
+__pkg_srcpkg() {
+	local src;
+
+	rm -fr ${spkgdir}/*;
+
+	echo;
+	__step "Creating source patches";
+
+	__pkg_diff;
+
+	cp ${patchdir}/${cygwin_patchfile} ${spkgdir};
+
+	if [ "x$(file -b ${patchdir}/${src_patchfile})" != "xempty" ]
+	then
+		cp ${patchdir}/${src_patchfile} ${spkgdir};
+	fi
+
+	__step "Creating source package";
+
+	cp ${top}/${PF}.cygport ${spkgdir};
+
+	for src in ${_src_orig_pkgs} ${_src_orig_patches}
+	do
+		cp ${top}/${src} ${spkgdir};
+	done
+
+	cd ${spkgdir};
+
+	if defined SIG && [ "x${SIG}" != "x0" ]
+	then
+		if check_prog gpg
+		then
+			__gpg_sign ${spkgdir}/${PF}.cygport "CYGPORT SCRIPT";
+			__gpg_sign ${spkgdir}/${cygwin_patchfile} "CYGWIN PATCH";
+
+			if [ -f ${spkgdir}/${src_patchfile} ]
+			then
+				__gpg_sign ${spkgdir}/${src_patchfile} "SOURCE PATCH";
+			fi
+		else
+			inform "gnupg must be installed in order to make signatures.";
+		fi
+	fi
+
+	tar cvjf ${top}/${PF}-src.tar.bz2 * || error "Source package creation failed"
+}
+
+__pkg_dist() {
+	local -i n;
+	local -a pkg_hint;
+
+	rm -fr ${distdir}/*;
+
+	cd ${top};
+
+	mkdir -p ${distdir}/${PN};
+
+	cp ${top}/${PF}-src.tar.bz2 ${distdir}/${PN};
+
+	# sources with split binaries do NOT require a corresponding empty binary
+	if (( $(du -b ${top}/${PF}.tar.bz2 | cut -f 1) > 46 ))
+	then
+		cp ${top}/${PF}.tar.bz2 ${distdir}/${PN};
+	fi
+
+	if (( pkg_count > 1 ))
+	then
+		pkg_hint=(${PKG_HINTS:-${PKG_NAMES}})
+	else
+		pkg_hint=(${PKG_HINTS:-setup})
+	fi
+
+	if (( pkg_count != ${#pkg_hint[*]} ))
+	then
+		error "Different number of packages defined in PKG_NAMES and PKG_HINTS";
+	fi
+
+	if [ -f ${C}/${pkg_hint[0]%.hint}.hint ]
+	then
+		cp ${C}/${pkg_hint[0]%.hint}.hint ${distdir}/${PN}/setup.hint;
+	else
+		warning "${pkg_hint[0]%.hint}.hint is missing";
+	fi
+
+	n=1;
+	while defined pkg_name[${n}]
+	do
+		mkdir -p ${distdir}/${PN}/${pkg_name[${n}]};
+
+		cp ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${distdir}/${PN}/${pkg_name[${n}]};
+
+		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
+		then
+			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${pkg_name[${n}]}/setup.hint;
+		else
+			warning "${pkg_hint[${n}]%.hint}.hint is missing";
+		fi
+
+		n+=1;
+	done
+}
+
+# protect functions
+readonly -f __pkg_binpkg __pkg_diff __gpg_sign __pkg_srcpkg __pkg_dist

@@ -1,8 +1,14 @@
 2009-Aug-13  yselkowitz
 
 	Source restructring.
-	* lib/*: Moved to...
-	* cygclass/*: here.
+	* bin/cygport.in: Functions moved from here...
+	* lib/*.cygpart: ...to here.
+	* lib/Makefile.am:
+	* lib/*.cygclass: Cygclasses moved from here...
+	* cygclass/*.cygclass: ...to here.
+	* cygclass/Makefile.am: Added.
+	* configure.ac (AC_OUTPUT): Added cygclass/Makefile.am.
+	* Makefile.am (SUBDIRS): Added cygclass.
 
 	* configure.ac: Post-release version bump.
 

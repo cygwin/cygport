@@ -25,7 +25,7 @@
 
 ## Based on sh.nanorc
 ##
-syntax "cygport" "(\.cyg(class|port)$|cygport.in)"
+syntax "cygport" "(\.cyg(class|part|port)$|cygport.in)"
 icolor brightgreen "^[0-9A-Z_]+\(\)"
 color brightmagenta "[[:<:]](defined|inherit)[[:>:]]"
 color green "[[:<:]](case|do|done|elif|else|esac|exit|fi|for|function|if|in|local|read|return|select|shift|then|time|until|while)[[:>:]]"

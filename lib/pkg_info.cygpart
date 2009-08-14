@@ -1,0 +1,71 @@
+################################################################################
+#
+# pkg_info.cygpart - cygport package information functions
+#
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+__show_info() {
+	cat <<-_EOF
+	Cygport package information
+	    Package name:     ${PN}
+	    Package version:  ${PV}
+	    Cygwin release:   ${PR}
+	    Homepage:         ${HOMEPAGE}
+	    Description:      ${DESCRIPTION}
+		_EOF
+}
+
+__list_files() {
+	pushd ${D}
+	find . ! -type d | sed 's!^\.!  !' | sort
+	popd
+}
+
+__list_deps() {
+	local d
+
+	pushd ${D}
+	# This prevents a package from listing itself as a dependency if
+	# already installed
+	#
+	# DEPS_PATH is meant for packages with link deps outside of std PATH,
+	# e.g. gtk2-perl, ruby-gnome2, ogle
+	unset PATH
+
+	for d in ${DEPS_PATH//:/ }
+	do
+		PATH+="${D}${d}:${d}:"
+	done
+
+	export PATH+="${D}/usr/bin:${os_path}";
+
+	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
+	# *.oct: Octave modules
+	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
+	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
+		-exec objdump -p '{}' + | grep "DLL Name:" | sort -u | \
+		cut -d ' ' -f 3 | sed -e '/^[A-Z32]*\.[Dd][Ll][Ll]$/d' -e 's!mscoree.dll!mono.exe!' | \
+		xargs -r which | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
+	popd
+}
+
+# protect functions
+readonly -f __list_files __list_deps __show_info

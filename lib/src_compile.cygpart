@@ -1,0 +1,49 @@
+################################################################################
+#
+# src_compile.cygpart - cygport source compiling functions
+#
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+lndirs() {
+	local fromdir=${1};
+	local todir=${2};
+
+	if ! defined fromdir
+	then
+		fromdir="${S}";
+		todir="${B}";
+	elif ! defined todir
+	then
+		todir=.;
+	fi
+
+	check_prog_req lndir
+	lndir -silent ${fromdir} ${todir} || error "lndir failed"
+}
+
+# standard GNU make call
+# if parallel build does not work for a package, call 'cygmake -j1'
+cygmake() {
+	make ${MAKEOPTS} "${@}" || error "make failed"
+}
+
+# protect functions
+readonly -f lndirs cygmake

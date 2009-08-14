@@ -22,77 +22,26 @@
 # $Id$
 #
 ################################################################################
-
-################################################################################
-#
-# Language extensions
-#
-# public:
-#	defined VARIABLE_NAME
-#	popd DIR
-#	pushd DIR
-#
-################################################################################
-
-defined() {
-	if (( $# != 1 ))
-	then
-		error "defined accepts exactly one argument"
-	fi
-
-	if [ -n "${!1}" ]
-	then
-		return 0;
-	else
-		return 1;
-	fi
-}
-
-pushd() {
-	builtin pushd ${@} > /dev/null
-}
-
-popd() {
-	builtin popd ${@} > /dev/null
-}
-
-readonly -f defined pushd popd
-export -f defined pushd popd
+set -e;
 
 
 ################################################################################
 #
 # Initialization
 #
-# mutable:
-#	PATH
-#
-# private:
-#	argc
-#	argv
-#	os_name
-#	_name
-#	_prefix
-#	_privbindir
-#	_privclassdir
-#	_privdatadir
-#	_privdocdir
-#	_sysconfdir
-#	_version
-#
 ################################################################################
-set -e;
 
 # Make sure we are on 1.7 before proceeding
 case $(uname -r) in
 	1.7.*)	;;
-	1.5.*)	echo -e " \e[1;31m*\e[0;0m cygport 0.4 is required for Cygwin 1.5."; exit 127 ;;
+	1.5.*)	echo -e " \e[1;31m*\e[0;0m cygport 0.4.x is required for Cygwin 1.5."; exit 127 ;;
 	*)		echo -e " \e[1;31m*\e[0;0m cygport: Unknown cygwin version: $(uname -r)"; exit 127 ;;
 esac
 
 declare -r  _version=@VERSION@;
 
-if defined CYGPORT_BOOTSTRAP && defined top_srcdir
+# we can't use defined yet, as these must be declared first
+if [ "xCYGPORT_BOOTSTRAP" != "x" ] && [ "x$top_srcdir" != "x" ]
 then
 	case ${top_srcdir} in
 		.*) declare -rx _prefix=$(pwd)/${top_srcdir} ;;
@@ -100,6 +49,7 @@ then
     esac
 
 	declare -r  _privbindir=${_prefix}/bin;
+	declare -r  _privlibdir=${_prefix}/lib;
 	declare -r  _privdatadir=${_prefix}/data;
 	declare -rx _privclassdir=${_prefix}/cygclass;
 	declare -r  _privdocdir=${_prefix};
@@ -107,6 +57,7 @@ then
 else
 	declare -rx _prefix=@pkglibdir@;
 	declare -r  _privbindir=${_prefix}/bin;
+	declare -r  _privlibdir=${_prefix};
 	declare -r  _privdatadir=@pkgdatadir@;
 	declare -rx _privclassdir=${_privdatadir}/cygclass;
 	declare -r  _privdocdir=@docdir@;
@@ -120,57 +71,20 @@ declare -ar argv=(${0} ${@})
 declare -ir argc=$(( $# + 1 ))
 
 
+### import defined, pushd, popd
+source ${_privlibdir}/syntax.cygpart
+###
+
+
 ################################################################################
 #
-# Help and version messages
-#
-# private:
-#	__show_help
-#	__show_version
+# Command-line Help
 #
 ################################################################################
 
-__show_help() {
-	cat <<-_EOF
-		cygport is a utility for creating and building Cygwin software packages.
-
-		Usage: cygport [/path/to/]PKGNAME-VER-REL[.cygport] COMMAND [COMMAND2 ...]
-
-		COMMAND may be one or more of the following:
-
-		  download     download upstream sources from Internet
-		  prep         create working directory, unpack sources and apply patches
-		  compile      run all compilation steps
-		  install      install into a DESTDIR, and run post-installation steps
-		  package      create binary and source packages
-		  finish       delete the working directory
-		  almostall    run all of the above, excluding finish
-		  all          run all of the above, including finish
-
-		See ${_privdocdir}/README for further instructions.
-
-		Report bugs to <cygwin-ports-general@lists.sourceforge.net>.
-		_EOF
-}
-
-__show_version() {
-	cat <<-_EOF
-		cygport ${_version}
-		Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
-
-		This program comes with NO WARRANTY, to the extent permitted by law.
-
-		You may redistribute copies of this program under the terms of
-		the GNU General Public License as published by the Free Software
-		Foundation, either version 3 of the License, or (at your option) any
-		later version.
-
-		For more information about these matters, see the file named COPYING.
-
-		Written by Yaakov Selkowitz for the Cygwin Ports project
-		<http://sourceware.org/cygwinports/>.
-		_EOF
-}
+### import _show_help, _show_version
+source ${_privlibdir}/help.cygpart
+###
 
 # Accept --help and --version arguments without specifying a cygport file
 case ${argv[1]} in
@@ -199,84 +113,151 @@ fi
 
 ################################################################################
 #
-# Messaging functions
-#
-# public:
-#	error MESSAGE
-#	warning MESSAGE
-#	inform MESSAGE
-#	verbose COMMAND
-#
-# private:
-#	__stage MESSAGE
-#	__step MESSAGE
+# System checks
 #
 ################################################################################
 
-# displays error message and exits
-error() {
-	case $? in
-		0) local errorcode=1 ;;
-		*) local errorcode=$? ;;
-	esac
+### import check_prog and friends
+source ${_privlibdir}/check_funcs.cygpart
+###
 
-	echo -e "\e[1;31m*** ERROR:\e[0;0m ${1:-no error message provided}";
-	exit ${errorcode};
-}
+# assure that _privbindir is in PATH
+if ! check_prog doins
+then
+	error "cygport does not seem to be installed properly";
+fi
 
-# displays warning message only
-warning() {
-	echo -e "\e[1;33m*** Warning:\e[0;0m ${1}";
-}
+# check now for all mandatory programs
+for _myprog in bzip2 cat chmod cp cygcheck diff diffstat find grep gzip install \
+               ln mkdir mv objdump patch rm rsync sed sort strip tar xargs
+do
+	if ! check_prog ${_myprog}
+	then
+		error "${_myprog} is required to run cygport";
+	fi
+done
 
-# displays information message
-inform() {
-	echo -e "\e[1;32m*** Info:\e[0;0m ${1}";
-}
-
-# displays command to stdout before execution
-verbose() {
-	echo "${@}"
-	"${@}"
-	return $?
-}
-
-# for internal use only
-__stage() {
-	echo -e "\e[1;39m>>> ${1} ${PF}\e[0;0m";
-}
-
-__step() {
-	echo -e ">>> ${1}";
-}
-
-# protect functions
-readonly -f __show_help __show_version error warning inform verbose __stage __step
-export -f error warning inform verbose
+unset _myprog;
 
 
 ################################################################################
 #
-# Locate the cygport file and set package name and version
-#
-# public:
-#	P
-#	PF
-#	PN
-#	PR
-#	PV
-#	PV_MAJ
-#	PV_MAJ_MIN
-#	PVP[]
-#	PVR
-#
-# private:
-#	cygportfile
-#	top
+# Function definitions
 #
 ################################################################################
-declare -r PF=$(echo ${argv[1]##*/} | sed -e 's!\.cygport!!')
-declare -r cygportfile=${PF}.cygport;
+
+### __config_get/set and friends
+source ${_privlibdir}/config_registry.cygpart
+###
+
+### inherit and friends
+source ${_privlibdir}/inheritance.cygpart
+###
+
+### fetch and friends
+source ${_privlibdir}/src_fetch.cygpart
+###
+
+### mirrors list
+source ${_privdatadir}/mirrors
+###
+
+### unpack, cygpatch, __src_prep and friends
+source ${_privlibdir}/src_prep.cygpart
+###
+
+### lndirs, cygmake
+source ${_privlibdir}/src_compile.cygpart
+###
+
+### cygtest and friends
+source ${_privlibdir}/src_test.cygpart
+###
+
+### cyginstall, do*, new*, *into, and friends
+source ${_privlibdir}/src_install.cygpart
+###
+
+### __src_postinst and friends
+source ${_privlibdir}/src_postinst.cygpart
+###
+
+### __list_files, __list_deps, __show_info
+source ${_privlibdir}/pkg_info.cygpart
+###
+
+### __pkg_* functions
+source ${_privlibdir}/pkg_pkg.cygpart
+###
+
+### __finish
+source ${_privlibdir}/pkg_cleanup.cygpart
+###
+
+# Auto-inherit autotools for backwards compatibility. But we
+# want to allow it to be inherited one more time in order to
+# reset src_compile() when other cygclasses override it.
+inherit autotools;
+unset _autotools_CYGCLASS_
+
+
+################################################################################
+#
+# Import user settings
+#
+################################################################################
+
+# Values which can be overridden either system-wide or per package
+declare -x CC="gcc";
+declare -x CFLAGS="-O2 -pipe ";
+declare -x CPPFLAGS="";
+declare -x CXX="g++";
+declare -x CXXFLAGS="${CFLAGS}";
+declare -x F77="g77";
+declare -x FFLAGS="${CFLAGS}";
+declare -x GCJ="gcj";
+declare -x GCJFLAGS="${CFLAGS}";
+declare -x LDFLAGS="";
+declare -x LIBS="";
+declare    MAKEOPTS="-j$(($(grep -c '^proc' /proc/cpuinfo) + 1)) ";
+declare    CHOST="$(uname -m)-pc-cygwin";
+
+# load configuration
+for conf in ${_sysconfdir}/cygport.conf \
+			"${HOME}/.cygportrc" \
+			"${HOME}/.cygport.conf" \
+			"${HOME}/.cygport/cygport.conf"
+do
+	if [ -e "${conf}" ]
+	then
+		source "${conf}" || error "could not read ${conf}"
+	fi
+done
+
+unset conf;
+
+
+################################################################################
+#
+# Import the .cygport file
+#
+################################################################################
+
+# argv[1] may or may not include the .cygport extension
+             PF=${argv[1]##*/}
+declare -r   PF=${PF%.cygport}
+# these must be defined now to be available in SRC_URI
+declare -rx  PN=$(echo ${PF} | sed -e 's/\-[^\-]*\-[^\-]*$//');
+             PV=$(echo ${PF} | sed -e "s/${PN}\-//" -e 's/\-[^\-]*$//');
+declare -rx  PR=${PF#${PN}-${PV}-};
+declare -rx  P=${PN}-${PV};
+declare -rx  PVR=${PV}-${PR};
+declare -arx PVP=(${PV//[-\._]/ });
+declare -rx  PV=(${PV} ${PVP[*]});
+declare -rx  PV_MAJ=${PV[1]};
+declare -rx  PV_MAJ_MIN="${PV[1]}.${PV[2]}";
+
+declare -r   cygportfile=${PF}.cygport;
 
 _topdir=${argv[1]%/*};
 
@@ -298,1818 +279,9 @@ then
 	error "${cygportfile} not found.";
 fi
 
-declare -rx  PN=$(echo ${PF} | sed -e 's/\-[^\-]*\-[^\-]*$//');
-             PV=$(echo ${PF} | sed -e "s/${PN}\-//" -e 's/\-[^\-]*$//');
-declare -rx  PR=${PF#${PN}-${PV}-};
-declare -rx  P=${PN}-${PV};
-declare -rx  PVR=${PV}-${PR};
-declare -arx PVP=(${PV//[-\._]/ });
-declare -rx  PV=(${PV} ${PVP[*]});
-declare -rx  PV_MAJ=${PV[1]};
-declare -rx  PV_MAJ_MIN="${PV[1]}.${PV[2]}";
-
-
-################################################################################
-#
-# Configuration functions
-#
-# private:
-#   __config_equals KEY VALUE
-#   __config_get KEY
-#   __config_set KEY VALUE
-#
-################################################################################
-
-__config_get() {
-	if [ -f ${configdir}/${1} ]
-	then
-		echo -n $(cat ${configdir}/${1});
-	else
-		echo -n "0";
-	fi
-}
-
-__config_equals() {
-	if [ -f ${configdir}/${1} ] && [ $(cat ${configdir}/${1}) = ${2} ]
-	then
-		return 0;
-	else
-		return 1;
-	fi
-}
-
-__config_set() {
-	echo -n ${2} > ${configdir}/${1};
-}
-
-readonly -f __config_equals __config_get __config_set
-
-
-################################################################################
-#
-# Sanity check functions
-#
-# mutable:
-#   CYGPORT_USE_UNSTABLE_API
-#
-# public:
-#	check_prog EXE
-#	check_prog_req EXE [EXE_PACKAGE]
-#
-# private:
-#	__check_function FUNCTION
-#	__check_unstable COMMAND [ARGS...]
-#	__version_at_least VERSION_REQUIRED VERSION_HAVE
-#
-################################################################################
-
-# check that a program is found in PATH
-check_prog() {
-	local _prog;
-
-	for _prog
-	do
-		if ! hash ${_prog} &> /dev/null
-		then
-			return 1;
-		fi
-	done
-
-	return 0;
-}
-
-# check for mandatory program, else error
-check_prog_req() {
-	local prog=${1};
-	local pkg=${2:-${1}};
-
-	if ! check_prog ${prog}
-	then
-		error "${pkg} is required to build this package";
-	fi
-
-	return 0;
-}
-
-# Check if function has been defined
-__check_function() {
-	declare -F ${1} &> /dev/null
-	return $?
-}
-
-# Check if function has been defined and declared readonly
-__check_function_ro() {
-	declare -Fr | grep -q " ${1}$"
-	return $?
-}
-
-# Unstable API guard
-__check_unstable() {
-	local unstable_var=CYGPORT_USE_UNSTABLE_API
-
-	if defined ${unstable_var}
-	then
-		"${@}"
-		return $?
-	else
-		warning "The ${1} API is not yet stable and is subject to change"
-		warning "You must define ${unstable_var} in order to use it"
-	fi
-}
-
-# determine if version is at least the given minimum
-__version_at_least() {
-	local want_v=${1%-*};
-	local want_r=${1#*-};
-	local have_v=${2%-*};
-	local have_r=${2#*-};
-	local -a want_va=(${want_v//[-\._]/ });
-	local -a have_va=(${have_v//[-\._]/ });
-	local -i n=0;
-
-	while defined want_ver[${n}]
-	do
-		if (( want_ver[n] < ${have_ver[${n}]:-0} ))
-		then
-			return 0;
-		elif (( want_ver[n] > ${have_ver[${n}]:-0} ))
-		then
-			return 1;
-		else
-			n+=1;
-			continue;
-		fi
-	done
-
-	if [ "${want_r}" != "${want_v}" ]
-	then
-		if (( want_r > have_r ))
-		then
-			return 1;
-		fi
-	fi
-
-	return 0;	# equal
-}
-
-# assure that _privbindir is in PATH
-if ! check_prog doins
-then
-	error "cygport does not seem to be installed properly";
-fi
-
-# check now for all mandatory programs
-for _myprog in bzip2 cat chmod cp cygcheck diff diffstat find grep gzip install \
-               ln mkdir mv objdump patch rm rsync sed sort strip tar xargs
-do
-	if ! check_prog ${_myprog}
-	then
-		error "${_myprog} is required to run cygport";
-	fi
-done
-
-unset _myprog;
-
-# protect functions
-export -f check_prog check_prog_req
-readonly -f check_prog check_prog_req __check_function __check_function_ro \
-            __check_unstable __version_at_least
-
-
-################################################################################
-#
-# src_prep functions
-#
-# mutable:
-#	DISTCLEANFILES
-#	src_patch_hook()
-#	src_unpack_hook()
-#
-# public:
-#	cygpatch PATCHFILE [PATCHFILE2 ...]
-#
-# private:
-#	fetch WGET_URI
-#	unpack ARCHIVE
-#	__gpg_verify FILENAME FILE_DESCRIPTION [SIGFILE_EXTENSION]
-#	__mirror_fetch MIRROR_URI
-#	__mkdirs
-#	__src_fetch
-#	__src_prep
-#
-################################################################################
-
-# downloads file(s) from Internet
-fetch() {
-	local uri;
-	local urifile;
-
-	uri=${1};
-	urifile=${uri%\?*};
-	urifile=${urifile##*/};
-
-	if check_prog wget
-	then
-		if wget --no-check-certificate -O ${urifile}.tmp ${uri}
-		then
-			mv -f ${urifile}.tmp ${urifile}
-		else
-			rm -f ${urifile}.tmp
-			error "wget ${uri} failed"
-		fi
-	elif check_prog curl
-	then
-		if curl -k --url ${uri} -o ${urifile}.tmp
-		then
-			mv -f ${urifile}.tmp ${urifile}
-		else
-			rm -f ${urifile}.tmp
-			error "curl ${uri} failed"
-		fi
-	else
-		error "Either wget or curl are required to fetch sources.";
-	fi
-}
-
-__mirror_fetch() {
-	local miruri;
-	local mirname;
-	local mirvar;
-	local -a mirlist;
-	local -i n;
-
-	miruri=${1#mirror://};
-	mirname=${miruri%%/*};
-	mirvar=mirror_${mirname};
-
-	if ! defined ${mirvar}
-	then
-		error "unknown mirror ${mirname}";
-	fi
-
-	mirlist=(${!mirvar});
-
-	n=0;
-	while (( n < ${#mirlist[*]} ))
-	do
-		if fetch ${mirlist[${n}]}/${miruri#*/}
-		then
-			return 0;
-		fi
-		n+=1;
-	done
-
-	error "Could not download ${1##*/}";
-}
-
-# downloads all sources through method-specific functions
-__src_fetch() {
-	local rcs;
-	local uri;
-
-	# FIXME: Versions < 0.3.1 would allow only one in any case.
-	# While theoretically possible to use more than one of the RCS_fetch cmds
-	# it's not assured because the tarball names could be the same.
-	# Unfortunately, changing the RCS tarball names would break existing
-	# source packages.  So for now, follow the previous behavior.
-	for rcs in cvs svn git bzr hg mtn fossil
-	do
-		if inherited ${rcs}
-		then
-			${rcs}_fetch;
-			break;
-		fi
-	done
-
-	# the RCS_fetch functions change PWD
-	cd ${top};
-
-	for uri in ${SRC_URI} ${PATCH_URI}
-	do
-		case ${uri%%://*} in
-			mirror)			__mirror_fetch ${uri} ;;
-			http|https|ftp)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
-			file|/*)		cp -f ${uri#file://} . || error "Copying ${uri##*/} failed" ;;
-			${uri})			;; # file in working directory
-			*)				error "Invalid download URI ${uri}" ;;
-		esac
-	done
-}
-
-__srpm_extract() {
-	local rpmpath=${1};
-	local rpmfile=${1##*/};
-	local cpiofile=${rpmfile%.rpm}.cpio;
-	local cpiopath=${T}/${cpiofile};
-	local srcfile;
-
-	check_prog_req rpm2cpio rpm;
-	check_prog_req cpio;
-
-	rpm2cpio ${rpmpath} > ${cpiopath};
-	pushd ${T}
-	cpio -i --quiet < ${cpiofile};
-	popd
-
-	for srcfile in $(cpio -t --quiet < ${cpiopath})
-	do
-		unpack ${T}/${srcfile};
-	done
-}
-
-# unpacks archives
-unpack() {
-	local unpack_cmd;
-	local unpack_file_path;
-	local unpack_file_name;
-	local unpack_out;
-
-	for unpack_file_path
-	do
-		unpack_file_name=${unpack_file_path##*/};
-
-		if [ ! -f ${unpack_file_path} ]
-		then
-			error "Cannot find source package ${unpack_file_name}";
-		fi
-
-		# determine correct source decompression command
-		case ${unpack_file_path} in
-			*.asc|*.md5|*.sig|*.sign)  continue ;;
-			*.tar.bz2|*.tbz2|*.tar.bz|*.tbz) unpack_cmd="tar jxf" ;;
-			*.tar.gz|*.tgz|*.tar.Z) unpack_cmd="tar zxf" ;;
-			*.tar.lzma|*.tar.xz)
-				check_prog_req xz
-				unpack_cmd="tar --xz -xf"
-				;;
-			*.tar.lzo)
-				check_prog_req lzop
-				unpack_cmd="tar --lzop -xf"
-				;;
-			*.tar)  unpack_cmd="tar xf"  ;;
-			*.bz2)
-				unpack_cmd="bunzip2 -c";
-				unpack_out="${unpack_file_name%.bz2}";
-				;;
-			*.gz)
-				unpack_cmd="gunzip -c";
-				unpack_out="${unpack_file_name%.gz}";
-				;;
-			*.gem)
-				check_prog_req gem rubygems;
-				unpack_cmd="gem unpack";
-				;;
-			*.rar)
-				check_prog_req unrar;
-				unpack_cmd="unrar x -inul";
-				;;
-			*.src.rpm)
-				unpack_cmd="__srpm_extract";
-				;;
-			*.shar)
-				check_prog_req unshar;
-				unpack_cmd="unshar";
-				;;
-			*.xar)
-				check_prog_req xar;
-				unpack_cmd="xar -xf";
-				;;
-			*.zip)
-				check_prog_req unzip;
-				unpack_cmd="unzip -oq";
-				;;
-			*.7z)
-				if check_prog 7zr
-				then
-					unpack_cmd="7zr x";
-				elif check_prog 7za
-				then
-					unpack_cmd="7za x";
-				else
-					error "p7zip is required to unpack this source package";
-				fi
-				;;
-			*) unpack_cmd="cp -t ${SRC_DIR}" ;;
-		esac
-
-		__step "Unpacking source ${unpack_file_name}";
-
-		if defined unpack_out
-		then
-			if ! ${unpack_cmd} ${unpack_file_path} > ${unpack_out}
-			then
-				error "${unpack_cmd} ${unpack_file_name} failed";
-			fi
-		else
-			if ! ${unpack_cmd} ${unpack_file_path}
-			then
-				error "${unpack_cmd} ${unpack_file_name} failed";
-			fi
-		fi
-	done
-}
-
-__gpg_verify() {
-	local _file=${1};
-	local _filetype=${2};
-	local _sigext=${3:-sig};
-
-	if ! check_prog gpg
-	then
-		# display notice only once
-		if ! defined _gpg_not_found_
-		then
-			inform "gnupg must be installed in order to check signatures.";
-			_gpg_not_found_=1
-		fi
-
-		return 0;
-	fi
-
-	if [ -f ${_file}.${_sigext} ]
-	then
-		inform "${_filetype} signature follows:";
-		gpg --verify ${_file}.${_sigext} ${_file} || true;
-	fi
-}
-
-__mkdirs() {
-	cd ${top};
-	mkdir -p ${srcdir} ${origsrcdir} ${B} ${D} ${T} ${configdir} ${logdir} ${distdir} ${patchdir} ${spkgdir};
-}
-
-cygpatch() {
-	local patchfile_name;
-	local patchfile_path;
-	local -i patchlevel;
-	local srcdir_depth;
-
-	for patchfile_path
-	do
-		patchfile_name="${patchfile_path##*/}"
-
-		if [ ! -e ${patchfile_path} ]
-		then
-			inform "patch ${patchfile_name} not found";
-			continue;
-		fi
-
-		patchlevel=0;
-
-		case ${patchfile_name} in
-			${PF}.cygwin.patch)
-				if [ "${S}" = "${srcdir}" ]
-				then
-					patchlevel=1;
-				else
-					srcdir_depth=${SRC_DIR//[!\/]}
-					patchlevel=$(( ${#srcdir_depth} + 2 ));
-				fi
-				;;
-			*.bz2|*.gz)
-				pushd ${T}
-				unpack ${patchfile_path}
-				popd
-				patchfile_path=${T}/${patchfile_name%.*}
-				;;
-		esac
-
-		while (( patchlevel <= 3 ))
-		do
-			if patch -N -s --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
-			then
-				inform "applying patch ${patchfile_name}:";
-				patch -N -p${patchlevel} -i ${patchfile_path} || error "patch ${patchfile_name} failed"
-				break;
-			elif patch -N -s --binary --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
-			then
-				inform "applying patch ${patchfile_name}:";
-				patch -N --binary -p${patchlevel} -i ${patchfile_path} || error "patch ${patchfile_name} failed"
-				break;
-			elif patch -R -s --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
-			then
-				warning "patch ${patchfile_name} already applied; skipping";
-				break;
-			else
-				if (( patchlevel == 3 ))
-				then
-					error "patch ${patchfile_name} will not apply";
-				else
-					patchlevel+=1;
-					continue;
-				fi
-			fi
-		done
-	done
-}
-
-__src_prep() {
-	local sigext;
-	local sig_exts="asc sig sign";
-	local src_orig_patch;
-	local src_patch;
-	local src_pkg;
-	local tar_patch;
-	local n=1;
-
-	cd ${top};
-
-	__mkdirs;
-
-	# FIXME: do something with this; e.g. check that cygport
-	# wasn't upgraded since prep
-	__config_set cygport_version ${_version}
-
-	if [ -f ${top}/${PF}.cygport.sig ]
-	then
-		__gpg_verify ${top}/${PF}.cygport "CYGPORT SCRIPT";
-	fi
-
-	for src_pkg in ${_src_orig_pkgs}
-	do
-		for sigext in ${sig_exts}
-		do
-			if [ -f ${src_pkg}.${sigext} ]
-			then
-				__gpg_verify ${src_pkg} "SOURCE $((n++))" ${sigext};
-			fi
-		done
-	done
-
-	for src_orig_patch in ${_src_orig_patches}
-	do
-		for sigext in ${sig_exts}
-		do
-			if [ -f ${src_orig_patch}.${sigext} ]
-			then
-				__gpg_verify ${src_orig_patch} "PATCH $((n++))" ${sigext};
-			fi
-		done
-	done
-
-	if [ -f ${top}/${cygwin_patchfile}.sig ]
-	then
-		__gpg_verify ${top}/${cygwin_patchfile} "CYGWIN PATCH";
-	fi
-
-	if [ -f ${top}/${src_patchfile}.sig ]
-	then
-		__gpg_verify ${top}/${src_patchfile} "SOURCE PATCH";
-	fi
-
-	cd ${origsrcdir};
-
-	for src_pkg in ${_src_orig_pkgs}
-	do
-		unpack ${top}/${src_pkg};
-	done
-
-	if [ ! -d ${origsrcdir}/${SRC_DIR} ]
-	then
-		error "SRC_DIR is not correctly defined"
-	fi
-
-	cd ${origsrcdir}/${SRC_DIR};
-
-	if defined DISTCLEANFILES
-	then
-		inform "Removing DISTCLEANFILES..."
-		rm -f ${DISTCLEANFILES}
-	fi
-
-	# src_unpack_hook() is an optional function which can be defined
-	# to alter the original source tree and avoid large patches
-	# or long DIFF_EXCLUDES, or to apply patches in tarballs
-	if __check_function src_unpack_hook
-	then
-		__check_unstable src_unpack_hook;
-		cd ${origsrcdir}/${SRC_DIR};
-	fi
-
-	for src_patch in ${_src_orig_patches}
-	do
-		case ${src_patch} in
-			*.tar.gz|*.tgz|*.tar.bz2|*.tbz2)
-				pushd ${T};
-				unpack ${src_patch};
-				popd;
-
-				for tar_patch in $(tar tf ${src_patch} | grep -E '(diff|patch)$')
-				do
-					cygpatch ${T}/${tar_patch};
-				done
-				;;
-			*)
-				cygpatch ${top}/${src_patch};
-				;;
-		esac
-	done
-
-	# similar to src_unpack_hook(), but is called after SRC_PATCH patches
-	# useful for changing permissions, etc., on patched files
-	if __check_function src_patch_hook
-	then
-		__check_unstable src_patch_hook;
-		cd ${origsrcdir}/${SRC_DIR};
-	fi
-
-	__step "Preparing working source directory";
-
-	rsync -aq --delete-before ${origsrcdir}/ ${srcdir}/;
-
-	mkdir -p ${C};
-	ln -sfn ${C} ${workdir}/CYGWIN-PATCHES;
-
-	cd ${S};
-
-	if [ -f ${top}/${cygwin_patchfile} -o -f ${top}/${src_patchfile} ]
-	then
-		cygpatch ${top}/${cygwin_patchfile} ${top}/${src_patchfile};
-	fi
-}
-
-# protect functions
-readonly -f fetch __mirror_fetch __src_fetch __srpm_extract unpack __gpg_verify __mkdirs cygpatch __src_prep
-
-
-################################################################################
-#
-# src_compile functions
-#
-# public:
-#	cygmake MAKE_OPTIONS
-#	lndirs
-#
-################################################################################
-
-lndirs() {
-	local fromdir=${1};
-	local todir=${2};
-
-	if ! defined fromdir
-	then
-		fromdir="${S}";
-		todir="${B}";
-	elif ! defined todir
-	then
-		todir=.;
-	fi
-
-	check_prog_req lndir
-	lndir -silent ${fromdir} ${todir} || error "lndir failed"
-}
-
-# standard GNU make call
-# if parallel build does not work for a package, call 'cygmake -j1'
-cygmake() {
-	make ${MAKEOPTS} "${@}" || error "make failed"
-}
-
-# protect functions
-readonly -f lndirs cygmake
-
-
-################################################################################
-#
-# src_test functions
-#
-# mutable:
-#	src_test
-#
-# public:
-#	cygtest
-#
-################################################################################
-
-# runs 'make check' or 'make test'
-cygtest() {
-	if [ -e Makefile -o -e GNUmakefile -o -e makefile ]
-	then
-		if make -n check &> /dev/null
-		then
-			make -k check || true
-		elif make -n test &> /dev/null
-		then
-			make -k test || true
-		else
-			error "Neither make check nor make test work.  You must define your own src_test().";
-		fi
-	else
-		error "no Makefile found.  You must define your own src_test().";
-	fi
-}
-
-# provides default src_test
-# will be overridden by cygclasses or cygports as necessary
-src_test() {
-	cd ${B}
-	cygtest
-}
-
-# protect functions
-readonly -f cygtest
-
-
-################################################################################
-#
-# src_install functions
-#
-# mutable:
-#	USE_DESTDIR
-#	src_install
-#
-# public:
-#	cyginstall
-#	docinto
-#	dodir
-#	exeinto
-#	insinto
-#	keepdir
-#
-# private:
-#	_docinto_dir
-#	_exeinto_dir
-#	_insinto_dir
-#	__prepinstalldirs
-#
-################################################################################
-
-# creates directory under install path
-dodir() {
-	local d;
-
-	for d
-	do
-		if [ ! -d ${D}${d} ]
-		then
-			mkdir -p ${D}${d} || error "dodir ${d} failed"
-		fi
-	done
-}
-
-# prevents an otherwise empty directory from being automatically removed
-keepdir() {
-	for d
-	do
-		dodir ${d}
-		touch ${D}${d}/.keep-${PN}
-	done
-}
-
-# The foointo functions set _foointo_dir variables for dofoo, and that
-# doesn't work from a separate script, hence they are here
-
-# set dodoc install subdir
-docinto() {
-	if (( $# != 1 ))
-	then
-		error "docinto accepts exactly one argument";
-	fi
-
-	export _docinto_dir=${1};
-}
-
-# set doexe install dir
-exeinto() {
-	if (( $# != 1 ))
-	then
-		error "exeinto accepts exactly one argument";
-	fi
-
-	dodir ${1};
-	export _exeinto_dir=${1};
-}
-
-# set doins install dir
-insinto() {
-	if (( $# != 1 ))
-	then
-		error "insinto accepts exactly one argument";
-	fi
-
-	dodir ${1};
-	export _insinto_dir=${1};
-}
-
-# Pre-install steps
-__prepinstalldirs() {
-	rm -fr ${D}/*;
-}
-
-# run 'make install'
-cyginstall() {
-	if $(make -n -s install/fast &> /dev/null)
-	then
-		inst_target="install/fast"
-	else
-		inst_target="install"
-	fi
-
-	case ${USE_DESTDIR:-1} in
-		1|[Yy]|[Yy][Ee][Ss])
-			make ${MAKEOPTS} ${inst_target} DESTDIR=${D} "${@}" || error "make install DESTDIR failed"
-			;;
-		0|[Nn]|[Nn][Oo])
-			make ${MAKEOPTS} install \
-				prefix=${D}/usr \
-				exec_prefix=${D}/usr \
-				bindir=${D}/usr/bin/ \
-				includedir=${D}/usr/include \
-				libdir=${D}/usr/lib \
-				sbindir=${D}/usr/sbin \
-				libexecdir=${D}/usr/lib \
-				datadir=${D}/usr/share \
-				infodir=${D}/usr/share/info \
-				mandir=${D}/usr/share/man \
-				localstatedir=${D}/var \
-				sysconfdir=${D}/etc \
-				"${@}" \
-				|| error "make install No-DESTDIR failed"
-			;;
-		*)
-			error "USE_DESTDIR should be set to either 0 or 1 (default).";
-			;;
-	esac
-}
-
-# provides a default src_install
-# will be overridden by cygclasses or cygports as necessary
-src_install() {
-	cd ${B}
-	cyginstall
-}
-
-# protect functions
-export -f dodir keepdir docinto exeinto insinto
-readonly -f dodir keepdir docinto exeinto insinto __prepinstalldirs cyginstall
-
-
-################################################################################
-#
-# automatic src_postinst functions
-#
-# mutable:
-#	DOCS
-#	HTMLDOCS
-#
-# private:
-#	__prepdoc
-#	__prepetc
-#	__prepinfo
-#	__prepman
-#	__prepstrip
-#	__prepuac
-#	__prepvargames
-#	__prep_empty_dirs
-#	__prep_libtool_modules
-#	__prep_symlinks
-#	__src_postinst
-#
-################################################################################
-
-# installs standard docs, html docs, and Cygwin README
-__prepdoc() {
-	local html;
-	local -i n=1;
-	local pkg_hint;
-	local default_docs="\
-		ANNOUNCE ANNOUNCEMENTS AUTHOR AUTHORS \
-		BUG-REPORTS BUGS \
-		Changes ChangeLog CONTRIBUTORS COPYING COPYING-DOCS COPYING.LIB COPYRIGHT CREDITS \
-		FAQ GPL HACKING HISTORY HOW-TO-CONTRIBUTE KNOWNBUG \
-		LEGAL LICENCE LICENSE MAINTAINERS NEWS NOTES \
-		PROGLIST README THANKS TODO WHATSNEW";
-
-	cd ${S};
-
-	if defined _CYGPORT_RESTRICT_postinst_doc_
-	then
-		inform "Skipping package doc installation per request";
-	else
-		unset _docinto_dir;
-		dodoc ${default_docs} ${DOCS};
-
-		for html in ${HTMLDOCS}
-		do
-			docinto html;
-			dodoc ${html};
-		done
-	fi
-
-	if [ -e ${C}/README ]
-	then
-		insinto /usr/share/doc/Cygwin;
-		newins ${C}/README ${PN}.README;
-	elif [ -e ${C}/${PN}.README ]
-	then
-		insinto /usr/share/doc/Cygwin;
-		doins ${C}/${PN}.README;
-	else
-		warning "Cygwin README is missing"
-	fi
-
-	pkg_hint=(${PKG_HINTS})
-
-	while defined pkg_name[${n}]
-	do
-		if [ -f ${C}/${pkg_name[${n}]}.README ]
-		then
-			insinto /usr/share/doc/Cygwin;
-			doins ${C}/${pkg_name[${n}]}.README;
-		elif defined pkg_hint[${n}]
-		then
-			if [ -f ${C}/${pkg_hint[${n}]}.README ]
-			then
-				insinto /usr/share/doc/Cygwin;
-				doins ${C}/${pkg_hint[${n}]}.README
-			fi
-		fi
-
-		n+=1;
-	done
-}
-
-# creates and installs postinstall, preremove, and profile.d scripts
-__prepetc() {
-	local d;
-	local f;
-	local -i n;
-	local s;
-
-	for s in postinstall preremove
-	do
-		if [ -f ${C}/${s}.sh -a -f ${C}/${PN}.${s} ]
-		then
-			error "Only one of ${s}.sh and ${PN}.${s} can exist";
-		fi
-
-		for f in ${s}.sh ${PN}.${s}
-		do
-			if [ -f ${C}/${f} ]
-			then
-				dodir /etc/${s};
-				cat >> ${D}/etc/${s}/${PN}.sh < ${C}/${f};
-			fi
-		done
-
-		n=1;
-		while [ -n "${pkg_name[${n}]}" ]
-		do
-			if [ -f ${C}/${pkg_name[${n}]}.${s} ]
-			then
-				dodir /etc/${s};
-				cat >> ${D}/etc/${s}/${pkg_name[${n}]}.sh < ${C}/${pkg_name[${n}]}.${s};
-			fi
-			n+=1
-		done
-	done
-
-	if [ -f ${C}/profile.d.sh ]
-	then
-		exeinto /etc/profile.d;
-		newexe ${C}/profile.d.sh ${PN}.sh;
-	fi
-
-	if [ -f ${C}/profile.d.csh ]
-	then
-		exeinto /etc/profile.d;
-		newexe ${C}/profile.d.csh ${PN}.csh;
-	fi
-
-	# System fonts
-	if [ -d ${D}/usr/share/fonts ]
-	then
-		prep_fonts_dir.sh || error "Fonts postinstall failed"
-	fi
-
-	# GTK+ 2.x modules
-	if [ -d ${D}/usr/share/icons ]
-	then
-		prep_gtk_icon_theme.sh || error "GTK+ icon theme postinstall failed"
-	fi
-
-	# GTK+ 2.x modules
-	if [ -d ${D}/usr/lib/gtk-2.0 ]
-	then
-		prep_gtk2_modules.sh || error "GTK+ modules postinstall failed"
-	fi
-
-	# GConf schemas
-	if [ -d ${D}/etc/gconf/schemas ] && ! defined _CYGPORT_RESTRICT_postinst_gconf_
-	then
-		prep_gconf_schemas.sh || error "GConf schemas postinstall failed"
-	fi
-
-	# Freedesktop.org Shared Mime Info
-	if [ -d ${D}/usr/share/applications -o -d ${D}/usr/share/mime ] 
-	then
-		prep_freedesktop_mime.sh || error "Shared Mime Info postinstall failed"
-	fi
-
-	for d in /etc/postinstall /etc/preremove
-	do
-		if [ -d ${D}${d} ]
-		then
-			find ${D}${d} -type f -exec chmod 0755 '{}' +;
-		fi
-	done
-}
-
-__prepman() {
-	local manpage;
-
-	if [ -d ${D}/usr/man ]
-	then
-		inform "Moving /usr/man to /usr/share/man...";
-		dodir /usr/share/man
-		# just in case there is already /usr/share/man, e.g. after doman()
-		cp -r ${D}/usr/man/* ${D}/usr/share/man/
-		rm -fr ${D}/usr/man/
-	fi
-
-	if [ -d ${D}/usr/share/man ]
-	then
-		echo "Compressing man pages:";
-
-		for manlink in $(find ${D}/usr/share/man -type l)
-		do
-			manref=$(readlink ${manlink})
-			manref=${manref##*/};
-			rm -f ${manlink};
-			echo ".so ${manref%.gz}" > ${manlink%.gz};
-		done
-
-		for manpage in $(find ${D}/usr/share/man -type f ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma')
-		do
-			echo "        ${manpage##*/}";
-			gzip -q ${manpage};
-		done
-	fi
-}
-
-__prepinfo() {
-	local infopage;
-
-	if [ -d ${D}/usr/info ]
-	then
-		inform "Moving /usr/info to /usr/share/info...";
-		dodir /usr/share/info
-		# just in case there is already /usr/share/info
-		cp -r ${D}/usr/info/* ${D}/usr/share/info/
-		rm -fr ${D}/usr/info/
-	fi
-
-	if [ -d ${D}/usr/share/info ]
-	then
-		rm -f ${D}/usr/share/info/dir
-
-		echo "Compressing info pages:";
-
-		for infopage in $(find ${D}/usr/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2')
-		do
-			echo "        ${infopage##*/}";
-			gzip -q ${infopage};
-		done
-	fi
-}
-
-__prepvargames() {
-	local f;
-
-	if [ -d ${D}/var/games ]
-	then
-		for f in $(find ${D}/var/games -type f)
-		do
-			make_etc_defaults ${f#${D}};
-		done
-	fi
-}
-
-# remove empty directories in D
-# if empty directory must remain, call keepdir() in src_install()
-__prep_empty_dirs() {
-	local d n;
-
-	if defined KEEPDIRS
-	then
-		keepdir ${KEEPDIRS}
-	fi
-
-	# PTC if you find a package deeper than 20 (even perl mods are < 15)
-	for (( n=20; n >= 1; n-- ))
-	do
-		for d in $(find ${D} -mindepth ${n} -type d -empty)
-		do
-			inform "Removing empty directory: ${d#${D}}";
-			rmdir ${d};
-		done
-	done
-}
-
-__prepstrip() {
-	if defined _CYGPORT_RESTRICT_strip_
-	then
-		inform "Skipping strip step per request.";
-		return 0;
-	fi
-
-	local exe;
-
-	cd ${D};
-
-	echo "Stripping executables:";
-
-	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
-	# *.oct: Octave modules
-	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
-	for exe in $(find * -type f -writable -a \( -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \))
-	do
-		# OCaml bytecode must not be stripped
-		# this test generates false positives with the ocaml core and
-		# compilers, but should otherwise be accurate
-		if grep -q 'Caml1999X008' ${exe}
-		then
-			continue
-		fi
-
-		# Mono assemblies must not be stripped,
-		# but .(dll|exe).mdb debug symbols should be removed
-		if objdump -p ${exe} 2>&1 | grep -q "DLL Name: mscoree.dll"
-		then
-			rm -f ${exe}.mdb
-			continue
-		fi
-
-		# assure this is actually a PE-COFF object
-		if objdump -f ${exe} &>/dev/null
-		then
-			echo "        ${exe}";
-			chmod +x ${exe};
-			strip ${exe};
-		fi
-	done
-}
-
-__prepuac() {
-	local exe exename;
-
-	cd ${D};
-
-	echo "Preparing executables for UAC:";
-
-	for exe in $(find * -type f -executable -a \( -name '*instal*.exe' -o -name '*patch*.exe' -o -name '*setup*.exe' -o -name '*update*.exe' \))
-	do
-		exename=${exe##*/};
-
-		# Mono assemblies may already include .manifest files.
-		if [ ! -e ${exe}.manifest ]
-		then
-			echo "        ${exe}";
-			sed -e "s|@PKGNAME@|${PN//.}|" \
-				-e "s|@APPNAME@|${exename%.exe}|" \
-				${_privdatadir}/uac-manifest.in > ${exe}.manifest
-			chmod +x ${exe}.manifest
-		fi
-	done
-}
-
-__prep_symlinks() {
-	local l l_src
-
-	echo "Checking for symlinks:"
-
-	for l in $(find ${D}/ -type l)
-	do
-		l_src=$(readlink ${l})
-		case ${l_src} in
-			${D}/*)
-				echo "        ${l#${D}}";
-				rm -f ${l};
-				dosym ${l_src#${D}} ${l#${D}};
-				;;
-			${workdir}/*)
-				echo "        ${l#${D}}";
-				rm -f ${l};
-				cp -LR ${l_src} ${l};
-				;;
-			/*)
-				if [ ! -e ${D}${l_src} ] && [ ! -e ${l_src} ]
-				then
-					warning "symlink ${l#${D}} points to nonexistant ${l_src}";
-				fi
-				;;
-		esac
-	done
-}
-
-__prep_libtool_modules() {
-	find * -name '*.la' -exec prep_libtool_modules.sh '{}' + || error "Libtool module postinstall failed"
-}
-
-__src_postinst() {
-	__prep_symlinks;
-	__prepdoc;
-	__prepetc;
-	__prepman;
-	__prepinfo;
-	__prepvargames;
-	__prep_empty_dirs;
-	__prepstrip;
-	__prepuac;
-	__prep_libtool_modules;
-}
-
-# protect functions
-readonly -f __prepdoc __prepetc __prepman __prepinfo __prepvargames __prep_empty_dirs \
-            __prepstrip __prepuac __prep_symlinks __prep_libtool_modules __src_postinst
-
-
-################################################################################
-#
-# information functions
-#
-# mutable:
-#	DEPS_PATH
-#	DESCRIPTION
-#	HOMEPAGE
-#
-# private:
-#	__list_deps
-#	__list_files
-#	__show_info
-#
-################################################################################
-
-__show_info() {
-	cat <<-_EOF
-	Cygport package information
-	    Package name:     ${PN}
-	    Package version:  ${PV}
-	    Cygwin release:   ${PR}
-	    Homepage:         ${HOMEPAGE}
-	    Description:      ${DESCRIPTION}
-		_EOF
-}
-
-__list_files() {
-	pushd ${D}
-	find . ! -type d | sed 's!^\.!  !' | sort
-	popd
-}
-
-__list_deps() {
-	local d
-
-	pushd ${D}
-	# This prevents a package from listing itself as a dependency if
-	# already installed
-	#
-	# DEPS_PATH is meant for packages with link deps outside of std PATH,
-	# e.g. gtk2-perl, ruby-gnome2, ogle
-	unset PATH
-
-	for d in ${DEPS_PATH//:/ }
-	do
-		PATH+="${D}${d}:${d}:"
-	done
-
-	export PATH+="${D}/usr/bin:${os_path}";
-
-	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
-	# *.oct: Octave modules
-	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
-	find . \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
-		-exec objdump -p '{}' + | grep "DLL Name:" | sort -u | \
-		cut -d ' ' -f 3 | sed -e '/^[A-Z32]*\.[Dd][Ll][Ll]$/d' -e 's!mscoree.dll!mono.exe!' | \
-		xargs -r which | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
-	popd
-}
-
-# protect functions
-readonly -f __list_files __list_deps __show_info
-
-
-################################################################################
-#
-# packaging functions
-#
-# mutable:
-#	DIFF_EXCLUDES
-#	PKG_CONTENTS[]
-#	PKG_HINTS
-#	PKG_IGNORE
-#	PKG_LISTS
-#	SIG
-#
-# private:
-#	__finish
-#	__gpg_sign
-#	__pkg_binpkg
-#	__pkg_diff
-#	__pkg_dist
-#	__pkg_pkgcheck
-#	__pkg_srcpkg
-#
-################################################################################
-
-__pkg_binpkg() {
-	local -i n=0;
-	local pkg_contents_var;
-	local pkg_list;
-
-	pkg_list=(${PKG_LISTS:-${PKG_NAMES}});
-
-	cd ${D};
-
-	__step "Creating binary package(s)";
-
-	if defined PKG_CONTENTS[*]
-	then
-		while (( n < pkg_count ))
-		do
-			if [ -f ${C}/${pkg_list[${n}]}.list ]
-			then
-				PKG_CONTENTS[${n}]=
-			fi
-			n+=1
-		done
-
-		if (( ${#PKG_CONTENTS[*]} != ${pkg_count} ))
-		then
-			error "PKG_CONTENTS[n] must be defined from 0 through $((pkg_count - 1))"
-		fi
-	fi
-
-	n=0
-	while (( n < pkg_count ))
-	do
-		__step "${pkg_name[${n}]}-${PVR}.tar.bz2";
-
-		pkg_contents_var=${pkg_name[${n}]//[+-\.]/_}_CONTENTS;
-
-		if defined ${pkg_contents_var}
-		then
-			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
-				${!pkg_contents_var} \
-				|| error "Binary package creation failed"
-		elif defined PKG_CONTENTS[${n}]
-		then
-			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
-				${PKG_CONTENTS[${n}]} \
-				|| error "Binary package creation failed"
-		elif [ -f ${C}/${pkg_list[${n}]}.list ]
-		then
-			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
-				$(cat ${C}/${pkg_list[${n}]}.list) \
-				|| error "Binary package creation failed"
-		elif (( pkg_count == 1 ))
-		then
-			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 * \
-				|| error "Binary package creation failed"
-		else
-			inform "Creating empty package"
-			bzip2 < /dev/null > ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
-				|| error "Empty package creation failed"
-		fi
-		echo;
-		n+=1;
-	done
-}
-
-__pkg_pkgcheck() {
-	local -i n=0;
-	local tmp1="${T}/tmptar.log";
-	local tmp2="${T}/tmpfind.log";
-
-	cd ${D};
-	__step "Checking packages for missing or duplicate files";
-
-	rm -f ${tmp1} ${tmp2};
-
-	while defined pkg_name[${n}]
-	do
-		tar tjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 | grep -Ev "/$" >> ${tmp1}
-		n+=1
-	done
-
-	if defined PKG_IGNORE
-	then
-		find ${PKG_IGNORE} ! -type d >> ${tmp1}
-	fi
-
-	sort < ${tmp1} > "${tmp1}.sorted";
-	mv -f "${tmp1}.sorted" ${tmp1};
-
-	find * -type f -o -type l | sort > ${tmp2}
-
-	if ! diff -u0 ${tmp2} ${tmp1} > /dev/null
-	then
-		# detect duplicates and/or missing files
-		diff -u0 ${tmp2} ${tmp1} | grep -E -v '^@' > ${T}/pkgcheck.diff
-
-		if grep -E '^-[^\-]' ${T}/pkgcheck.diff > /dev/null
-		then
-			warning "Packages are missing files:";
-			grep -E '^-[^\-]' ${T}/pkgcheck.diff;
-	    fi
-
-		if grep -E '^\+[^\+]' ${T}/pkgcheck.diff > /dev/null
-		then
-			warning "Packages contain duplicate files:";
-			grep -E '^\+[^\+]' ${T}/pkgcheck.diff;
-			error "Packages contain duplicate files:";
-	    fi
-	fi
-
-	rm -f ${tmp1} ${tmp2};
-}
-
-__pkg_diff() {
-	local default_excludes;
-	local diff_excludes_x;
-	local difflevel;
-	local exclude;
-
-	default_excludes="CYGWIN-PATCHES aclocal.m4~ aclocal.m4t autom4te.cache
-		config.cache config.log config.status config.h *config.h.in
-		*SlackBuild* *.egg-info *.jpg *.png *.qm *.svgz *.tif
-		*.class *.jlc *.pyc *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
-
-	case ${PN} in
-		# gcc[34]: uses a forked libtool to support boostrapping
-		automake*|gcc[34]|libtool) ;;
-		*)	default_excludes+=" COPYING INSTALL compile config-ml.in \
-				config.guess config.sub depcomp elisp-comp install-sh \
-				libtool.m4 ltoptions.m4 ltsugar.m4 ltversion.m4 lt~obsolete.m4 \
-				ltmain.sh mdate-sh missing mkinstalldirs py-compile \
-				symlink-tree texinfo.tex ylwrap" ;;
-	esac
-
-	case ${PN} in
-		gettext) ;;
-		*)	if __config_equals with_gnu_gettext 1
-			then
-				default_excludes+=" intl"
-				default_excludes+=" $(tar ztf /usr/share/gettext/archive.tar.gz | grep -Ev '(/$|/intl/)' | sed -e 's|.*/\([^/]*\),v|\1|g' | grep -v 'Makefile.in$' )"
-			fi
-			if __config_equals with_glib_gettext 1
-			then
-				default_excludes+=" config.rpath Makefile.in.in"
-			fi
-			;;
-	esac
-
-	# exclude aclocal.m4 if generated from aclocal
-	if [ -f ${S}/aclocal.m4 ]
-	then
-		if $(head -n 1 ${S}/aclocal.m4 | grep -q 'generated.* by aclocal')
-		then
-			default_excludes+=" aclocal.m4";
-		fi
-	fi
-
-	# exclude Makefile.in only if using automake
-	for mf in Makefile GNUmakefile makefile
-	do
-		if [ -f ${S}/${mf}.am ]
-		then
-			default_excludes+=" ${mf}.in";
-		fi
-	done
-
-	# exclude configure only if using autoconf
-	if [ -f ${S}/configure.in -o -f ${S}/configure.ac ]
-	then
-		default_excludes+=" configure";
-	fi
-
-	# gtk-doc
-	if [ -f ${S}/gtk-doc.make -a "${PN}" != "gtk-doc" ]
-	then
-		default_excludes+=" *.stamp *.html *.bak *.sgml \
-			*.tmpl *.txt *.xml *.args *.devhelp* *.css \
-			*.hierarchy *.interfaces *.prerequisites *.signals \
-			*.png *.top *.bottom gtk-doc.make gtk-doc.m4";
-	fi
-
-	# GNOME miscellaneous
-	if [ "${PN}" != "gnome-common" ]
-	then
-		default_excludes+=" omf.make xmldocs.make";
-	fi
-
-	if [ "${PN}" != "gnome-doc-utils" ]
-	then
-		default_excludes+=" gnome-doc-utils.make gnome-doc-utils.m4";
-	fi
-
-	if [ "${PN}" != "intltool" ]
-	then
-		default_excludes+=" intltool.m4 intltool-extract intltool-extract.in \
-			intltool-merge intltool-merge.in intltool-update intltool-update.in";
-	fi
-
-	# KDE3
-	if [ -f ${S}/admin/libtool.m4.in ]
-	then
-		default_excludes+=" libtool.m4.in* configure.bak \
-			configure.files acinclude.m4 subdirs";
-
-		if [ -f ${S}/configure.in.in ]
-		then
-			default_excludes+=" configure.in";
-		fi
-	fi
-
-	for exclude in ${default_excludes}
-	do
-		diff_excludes_x+=" -x ${exclude}";
-	done
-
-	case ${DIFF_EXCLUDES} in
-		-x*)
-			diff_excludes_x+=" ${DIFF_EXCLUDES}";
-			;;
-		*)
-			for exclude in ${DIFF_EXCLUDES}
-			do
-				diff_excludes_x+=" -x ${exclude}";
-			done
-			;;
-	esac
-
-	cd ${workdir};
-
-	# diff exits >0 when targets differ, hence catch exception with true
-	if [ "${SRC_DIR}" = "." ]
-	then
-		diff -urN \
-			${origsrcdir##*/}/CYGWIN-PATCHES ${srcdir##*/}/CYGWIN-PATCHES \
-			> ${patchdir}/${cygwin_patchfile} || true;
-		difflevel=1;
-	else
-		diff -urN \
-			${origsrcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES ${srcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES \
-			> ${patchdir}/${cygwin_patchfile} || true;
-		difflevel=2;
-	fi
-
-	if defined _CYGPORT_RESTRICT_diff_
-	then
-		rm -f ${patchdir}/${src_patchfile};
-		touch ${patchdir}/${src_patchfile};
-	else
-		diff -uprN ${diff_excludes_x} \
-			${origsrcdir##*/} ${srcdir##*/} \
-			> ${patchdir}/${src_patchfile} || true;
-	fi
-
-	sed -e '/^diff -u/d' -i ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
-
-	diffstat -p${difflevel} ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
-}
-
-__gpg_sign() {
-	echo "${2} signature needs to be updated";
-	rm -f ${1}.sig;
-	# we 'check_prog gpg' in __pkg_srcpkg()
-	gpg --detach-sign ${1};
-}
-
-__pkg_srcpkg() {
-	local src;
-
-	rm -fr ${spkgdir}/*;
-
-	echo;
-	__step "Creating source patches";
-
-	__pkg_diff;
-
-	cp ${patchdir}/${cygwin_patchfile} ${spkgdir};
-
-	if [ "x$(file -b ${patchdir}/${src_patchfile})" != "xempty" ]
-	then
-		cp ${patchdir}/${src_patchfile} ${spkgdir};
-	fi
-
-	__step "Creating source package";
-
-	cp ${top}/${PF}.cygport ${spkgdir};
-
-	for src in ${_src_orig_pkgs} ${_src_orig_patches}
-	do
-		cp ${top}/${src} ${spkgdir};
-	done
-
-	cd ${spkgdir};
-
-	if defined SIG && [ "x${SIG}" != "x0" ]
-	then
-		if check_prog gpg
-		then
-			__gpg_sign ${spkgdir}/${PF}.cygport "CYGPORT SCRIPT";
-			__gpg_sign ${spkgdir}/${cygwin_patchfile} "CYGWIN PATCH";
-
-			if [ -f ${spkgdir}/${src_patchfile} ]
-			then
-				__gpg_sign ${spkgdir}/${src_patchfile} "SOURCE PATCH";
-			fi
-		else
-			inform "gnupg must be installed in order to make signatures.";
-		fi
-	fi
-
-	tar cvjf ${top}/${PF}-src.tar.bz2 * || error "Source package creation failed"
-}
-
-__pkg_dist() {
-	local -i n;
-	local -a pkg_hint;
-
-	rm -fr ${distdir}/*;
-
-	cd ${top};
-
-	mkdir -p ${distdir}/${PN};
-
-	cp ${top}/${PF}-src.tar.bz2 ${distdir}/${PN};
-
-	# sources with split binaries do NOT require a corresponding empty binary
-	if (( $(du -b ${top}/${PF}.tar.bz2 | cut -f 1) > 46 ))
-	then
-		cp ${top}/${PF}.tar.bz2 ${distdir}/${PN};
-	fi
-
-	if (( pkg_count > 1 ))
-	then
-		pkg_hint=(${PKG_HINTS:-${PKG_NAMES}})
-	else
-		pkg_hint=(${PKG_HINTS:-setup})
-	fi
-
-	if (( pkg_count != ${#pkg_hint[*]} ))
-	then
-		error "Different number of packages defined in PKG_NAMES and PKG_HINTS";
-	fi
-
-	if [ -f ${C}/${pkg_hint[0]%.hint}.hint ]
-	then
-		cp ${C}/${pkg_hint[0]%.hint}.hint ${distdir}/${PN}/setup.hint;
-	else
-		warning "${pkg_hint[0]%.hint}.hint is missing";
-	fi
-
-	n=1;
-	while defined pkg_name[${n}]
-	do
-		mkdir -p ${distdir}/${PN}/${pkg_name[${n}]};
-
-		cp ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${distdir}/${PN}/${pkg_name[${n}]};
-
-		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
-		then
-			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${pkg_name[${n}]}/setup.hint;
-		else
-			warning "${pkg_hint[${n}]%.hint}.hint is missing";
-		fi
-
-		n+=1;
-	done
-}
-
-__finish() {
-	local -i n=0;
-
-	cd ${top};
-
-	__step "Removing work directory in 5 seconds...";
-
-	while (( n < 5 ))
-	do
-		sleep 1 || exit $?;
-		n+=1;
-	done
-
-	__step "Removing work directory NOW.";
-
-	rm -rf ${workdir};
-
-	__step "Finished.";
-}
-
-# protect functions
-readonly -f __pkg_binpkg __pkg_diff __gpg_sign __pkg_srcpkg __pkg_dist __finish
-
-
-################################################################################
-#
-# import global prefs, then the cygport
-#
-# mutable:
-#	CFLAGS
-#	CPPFLAGS
-#	CXXFLAGS
-#	CYGPORT_DEPEND
-#	FFLAGS
-#	GCJFLAGS
-#	LDFLAGS
-#	MAKEOPTS
-#	RESTRICT
-#
-# public:
-#	inherit CYGCLASS [CYGCLASS2 ...]
-#	inherited CYGCLASS [CYGCLASS2 ...]
-#
-# private:
-#	_CYGPORT_RESTRICT_*_
-#	_*_CYGCLASS_
-#
-################################################################################
-
-# import functions and variables from a cygclass
-inherit() {
-	local class;
-	local classname;
-
-	for class
-	do
-		classname=${class%.cygclass}
-
-		if [ ! -f ${_privclassdir}/${classname}.cygclass ]
-		then
-			error "inherit: unknown cygclass ${class}";
-		fi
-
-		if ! defined _${classname//[-\.]/_}_CYGCLASS_
-		then
-			source ${_privclassdir}/${classname}.cygclass || error "inherit ${classname} failed"
-			export _${classname//[-\.]/_}_CYGCLASS_=1
-		fi
-	done
-}
-
-# detect if a given cygclass has been inherit()ed
-inherited() {
-	local class;
-	local classname;
-
-	for class
-	do
-		classname=${class%.cygclass};
-
-		if ! defined _${classname//[-\.]/_}_CYGCLASS_
-		then
-			return 1;
-		fi
-	done
-
-	return 0;
-}
-
-export -f inherit inherited
-readonly -f inherit inherited
-
-# Values which can be overridden either system-wide or per package
-declare -x CC="gcc";
-declare -x CFLAGS="-O2 -pipe ";
-declare -x CPPFLAGS="";
-declare -x CXX="g++";
-declare -x CXXFLAGS="${CFLAGS}";
-declare -x F77="g77";
-declare -x FFLAGS="${CFLAGS}";
-declare -x GCJ="gcj";
-declare -x GCJFLAGS="${CFLAGS}";
-declare -x LDFLAGS="";
-declare -x LIBS="";
-declare    MAKEOPTS="-j$(($(grep -c '^proc' /proc/cpuinfo) + 1)) ";
-declare    CHOST="i686-pc-cygwin";
-
-# load mirrors list
-source ${_privdatadir}/mirrors || warning "could not read mirrors file"
-
-# load configuration
-for conf in ${_sysconfdir}/cygport.conf \
-			"${HOME}/.cygportrc" \
-			"${HOME}/.cygport.conf" \
-			"${HOME}/.cygport/cygport.conf"
-do
-	if [ -e "${conf}" ]
-	then
-		source "${conf}" || error "could not read ${conf}"
-	fi
-done
-
-unset conf;
-
-# Auto-inherit autotools for backwards compatibility. But we
-# want to allow it to be inherited one more time in order to
-# reset src_compile() when other cygclasses override it.
-inherit autotools;
-unset _autotools_CYGCLASS_
-
-# load .cygport
+### load .cygport
 source ${top}/${cygportfile} || error "could not read ${cygportfile}"
+###
 
 if defined CYGPORT_DEPEND
 then
@@ -2127,38 +299,10 @@ done
 
 ################################################################################
 #
-# define package-dependant variables
-#
-# mutable:
-#	PATCH_URI
-#	PKG_NAMES
-#	SRC_DIR
-#	SRC_URI
-#
-# public:
-#	B
-#	C
-#	D
-#	SRC_DIR
-#	T
-#
-# private:
-#	configdir
-#	cygwin_patchfile
-#	distdir
-#	logdir
-#	origsrcdir
-#	patchdir
-#	pkg_count
-#	pkg_name[]
-#	spkgdir
-#	srcdir
-#	src_patchfile
-#	workdir
-#	_src_orig_patches
-#	_src_orig_pkgs
+# Define package-dependant variables
 #
 ################################################################################
+
 declare -r workdir="${top}/${PF}";
 declare -r srcdir="${workdir}/src";
 declare -r origsrcdir="${workdir}/origsrc";
@@ -2220,7 +364,7 @@ fi
 
 ################################################################################
 #
-# End of functions
+# Command processing
 #
 ################################################################################
 

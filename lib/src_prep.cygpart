@@ -1,0 +1,358 @@
+################################################################################
+#
+# src_prep.cygpart - cygport source unpacking and preparation functions
+#
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+__srpm_extract() {
+	local rpmpath=${1};
+	local rpmfile=${1##*/};
+	local cpiofile=${rpmfile%.rpm}.cpio;
+	local cpiopath=${T}/${cpiofile};
+	local srcfile;
+
+	check_prog_req rpm2cpio rpm;
+	check_prog_req cpio;
+
+	rpm2cpio ${rpmpath} > ${cpiopath};
+	pushd ${T}
+	cpio -i --quiet < ${cpiofile};
+	popd
+
+	for srcfile in $(cpio -t --quiet < ${cpiopath})
+	do
+		unpack ${T}/${srcfile};
+	done
+}
+
+# unpacks archives
+unpack() {
+	local unpack_cmd;
+	local unpack_file_path;
+	local unpack_file_name;
+	local unpack_out;
+
+	for unpack_file_path
+	do
+		unpack_file_name=${unpack_file_path##*/};
+
+		if [ ! -f ${unpack_file_path} ]
+		then
+			error "Cannot find source package ${unpack_file_name}";
+		fi
+
+		# determine correct source decompression command
+		case ${unpack_file_path} in
+			*.asc|*.md5|*.sig|*.sign)  continue ;;
+			*.tar.bz2|*.tbz2|*.tar.bz|*.tbz) unpack_cmd="tar jxf" ;;
+			*.tar.gz|*.tgz|*.tar.Z) unpack_cmd="tar zxf" ;;
+			*.tar.lzma|*.tar.xz)
+				check_prog_req xz
+				unpack_cmd="tar --xz -xf"
+				;;
+			*.tar.lzo)
+				check_prog_req lzop
+				unpack_cmd="tar --lzop -xf"
+				;;
+			*.tar)  unpack_cmd="tar xf"  ;;
+			*.bz2)
+				unpack_cmd="bunzip2 -c";
+				unpack_out="${unpack_file_name%.bz2}";
+				;;
+			*.gz)
+				unpack_cmd="gunzip -c";
+				unpack_out="${unpack_file_name%.gz}";
+				;;
+			*.gem)
+				check_prog_req gem rubygems;
+				unpack_cmd="gem unpack";
+				;;
+			*.rar)
+				check_prog_req unrar;
+				unpack_cmd="unrar x -inul";
+				;;
+			*.src.rpm)
+				unpack_cmd="__srpm_extract";
+				;;
+			*.shar)
+				check_prog_req unshar;
+				unpack_cmd="unshar";
+				;;
+			*.xar)
+				check_prog_req xar;
+				unpack_cmd="xar -xf";
+				;;
+			*.zip)
+				check_prog_req unzip;
+				unpack_cmd="unzip -oq";
+				;;
+			*.7z)
+				if check_prog 7zr
+				then
+					unpack_cmd="7zr x";
+				elif check_prog 7za
+				then
+					unpack_cmd="7za x";
+				else
+					error "p7zip is required to unpack this source package";
+				fi
+				;;
+			*) unpack_cmd="cp -t ${SRC_DIR}" ;;
+		esac
+
+		__step "Unpacking source ${unpack_file_name}";
+
+		if defined unpack_out
+		then
+			if ! ${unpack_cmd} ${unpack_file_path} > ${unpack_out}
+			then
+				error "${unpack_cmd} ${unpack_file_name} failed";
+			fi
+		else
+			if ! ${unpack_cmd} ${unpack_file_path}
+			then
+				error "${unpack_cmd} ${unpack_file_name} failed";
+			fi
+		fi
+	done
+}
+
+__gpg_verify() {
+	local _file=${1};
+	local _filetype=${2};
+	local _sigext=${3:-sig};
+
+	if ! check_prog gpg
+	then
+		# display notice only once
+		if ! defined _gpg_not_found_
+		then
+			inform "gnupg must be installed in order to check signatures.";
+			_gpg_not_found_=1
+		fi
+
+		return 0;
+	fi
+
+	if [ -f ${_file}.${_sigext} ]
+	then
+		inform "${_filetype} signature follows:";
+		gpg --verify ${_file}.${_sigext} ${_file} || true;
+	fi
+}
+
+__mkdirs() {
+	cd ${top};
+	mkdir -p ${srcdir} ${origsrcdir} ${B} ${D} ${T} ${configdir} ${logdir} ${distdir} ${patchdir} ${spkgdir};
+}
+
+cygpatch() {
+	local patchfile_name;
+	local patchfile_path;
+	local -i patchlevel;
+	local srcdir_depth;
+
+	for patchfile_path
+	do
+		patchfile_name="${patchfile_path##*/}"
+
+		if [ ! -e ${patchfile_path} ]
+		then
+			inform "patch ${patchfile_name} not found";
+			continue;
+		fi
+
+		patchlevel=0;
+
+		case ${patchfile_name} in
+			${PF}.cygwin.patch)
+				if [ "${S}" = "${srcdir}" ]
+				then
+					patchlevel=1;
+				else
+					srcdir_depth=${SRC_DIR//[!\/]}
+					patchlevel=$(( ${#srcdir_depth} + 2 ));
+				fi
+				;;
+			*.bz2|*.gz)
+				pushd ${T}
+				unpack ${patchfile_path}
+				popd
+				patchfile_path=${T}/${patchfile_name%.*}
+				;;
+		esac
+
+		while (( patchlevel <= 3 ))
+		do
+			if patch -N -s --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
+			then
+				inform "applying patch ${patchfile_name}:";
+				patch -N -p${patchlevel} -i ${patchfile_path} || error "patch ${patchfile_name} failed"
+				break;
+			elif patch -N -s --binary --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
+			then
+				inform "applying patch ${patchfile_name}:";
+				patch -N --binary -p${patchlevel} -i ${patchfile_path} || error "patch ${patchfile_name} failed"
+				break;
+			elif patch -R -s --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
+			then
+				warning "patch ${patchfile_name} already applied; skipping";
+				break;
+			else
+				if (( patchlevel == 3 ))
+				then
+					error "patch ${patchfile_name} will not apply";
+				else
+					patchlevel+=1;
+					continue;
+				fi
+			fi
+		done
+	done
+}
+
+__src_prep() {
+	local sigext;
+	local sig_exts="asc sig sign";
+	local src_orig_patch;
+	local src_patch;
+	local src_pkg;
+	local tar_patch;
+	local n=1;
+
+	cd ${top};
+
+	__mkdirs;
+
+	# FIXME: do something with this; e.g. check that cygport
+	# wasn't upgraded since prep
+	__config_set cygport_version ${_version}
+
+	if [ -f ${top}/${PF}.cygport.sig ]
+	then
+		__gpg_verify ${top}/${PF}.cygport "CYGPORT SCRIPT";
+	fi
+
+	for src_pkg in ${_src_orig_pkgs}
+	do
+		for sigext in ${sig_exts}
+		do
+			if [ -f ${src_pkg}.${sigext} ]
+			then
+				__gpg_verify ${src_pkg} "SOURCE $((n++))" ${sigext};
+			fi
+		done
+	done
+
+	for src_orig_patch in ${_src_orig_patches}
+	do
+		for sigext in ${sig_exts}
+		do
+			if [ -f ${src_orig_patch}.${sigext} ]
+			then
+				__gpg_verify ${src_orig_patch} "PATCH $((n++))" ${sigext};
+			fi
+		done
+	done
+
+	if [ -f ${top}/${cygwin_patchfile}.sig ]
+	then
+		__gpg_verify ${top}/${cygwin_patchfile} "CYGWIN PATCH";
+	fi
+
+	if [ -f ${top}/${src_patchfile}.sig ]
+	then
+		__gpg_verify ${top}/${src_patchfile} "SOURCE PATCH";
+	fi
+
+	cd ${origsrcdir};
+
+	for src_pkg in ${_src_orig_pkgs}
+	do
+		unpack ${top}/${src_pkg};
+	done
+
+	if [ ! -d ${origsrcdir}/${SRC_DIR} ]
+	then
+		error "SRC_DIR is not correctly defined"
+	fi
+
+	cd ${origsrcdir}/${SRC_DIR};
+
+	if defined DISTCLEANFILES
+	then
+		inform "Removing DISTCLEANFILES..."
+		rm -f ${DISTCLEANFILES}
+	fi
+
+	# src_unpack_hook() is an optional function which can be defined
+	# to alter the original source tree and avoid large patches
+	# or long DIFF_EXCLUDES, or to apply patches in tarballs
+	if __check_function src_unpack_hook
+	then
+		__check_unstable src_unpack_hook;
+		cd ${origsrcdir}/${SRC_DIR};
+	fi
+
+	for src_patch in ${_src_orig_patches}
+	do
+		case ${src_patch} in
+			*.tar.gz|*.tgz|*.tar.bz2|*.tbz2)
+				pushd ${T};
+				unpack ${src_patch};
+				popd;
+
+				for tar_patch in $(tar tf ${src_patch} | grep -E '(diff|patch)$')
+				do
+					cygpatch ${T}/${tar_patch};
+				done
+				;;
+			*)
+				cygpatch ${top}/${src_patch};
+				;;
+		esac
+	done
+
+	# similar to src_unpack_hook(), but is called after SRC_PATCH patches
+	# useful for changing permissions, etc., on patched files
+	if __check_function src_patch_hook
+	then
+		__check_unstable src_patch_hook;
+		cd ${origsrcdir}/${SRC_DIR};
+	fi
+
+	__step "Preparing working source directory";
+
+	rsync -aq --delete-before ${origsrcdir}/ ${srcdir}/;
+
+	mkdir -p ${C};
+	ln -sfn ${C} ${workdir}/CYGWIN-PATCHES;
+
+	cd ${S};
+
+	if [ -f ${top}/${cygwin_patchfile} -o -f ${top}/${src_patchfile} ]
+	then
+		cygpatch ${top}/${cygwin_patchfile} ${top}/${src_patchfile};
+	fi
+}
+
+# protect functions
+readonly -f __srpm_extract unpack __gpg_verify __mkdirs cygpatch __src_prep
