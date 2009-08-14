@@ -11,24 +11,6 @@ cygport: cygport.in
 
 privbindir = $(pkglibdir)/bin
 dist_privbin_SCRIPTS = \
-	dobin \
-	dodoc \
-	doexe \
-	doicon \
-	doins \
-	dolib \
-	doman \
-	domenu \
-	dosbin \
-	dosym \
-	newbin \
-	newdoc \
-	newexe \
-	newicon \
-	newins \
-	newman \
-	newmenu \
-	newsbin \
 	make_desktop_entry \
 	make_etc_defaults \
 	prep_fonts_dir.sh \

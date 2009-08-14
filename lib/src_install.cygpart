@@ -44,8 +44,49 @@ keepdir() {
 	done
 }
 
-# The foointo functions set _foointo_dir variables for dofoo, and that
-# doesn't work from a separate script, hence they are here
+__doinstall() {
+	local mode=${1}
+	local file=${2}
+	local targetdir=${3}
+	local targetfile=${4:-${2##*/}}
+	local ltinst
+
+	if [ ! -e ${file} ]
+	then
+		error "file ${file} does not exist"
+		return 2
+	fi
+
+	if [ ! -d ${D}${targetdir} ]
+	then
+		error "Directory ${targetdir} does not exist"
+		return 2
+	fi
+
+	case ${file##*/} in
+		*.la)  ltinst="/usr/bin/libtool --mode=install" ;;
+		*)     ltinst=  ;;
+	esac
+
+	verbose ${ltcmd} /usr/bin/install -m${mode} ${file} ${D}${targetdir}/${targetfile}
+	return $?
+}
+
+
+dobin() {
+	dodir /usr/bin
+
+	for i
+	do
+		__doinstall 0755 ${i} /usr/bin || error "dobin ${i} failed"
+	done
+}
+
+newbin() {
+	dodir /usr/bin
+	__doinstall 0755 ${1} /usr/bin ${2} || error "newbin ${1} failed"
+}
+
 
 # set dodoc install subdir
 docinto() {
@@ -54,8 +95,47 @@ docinto() {
 		error "docinto accepts exactly one argument";
 	fi
 
-	export _docinto_dir=${1};
+	_docinto_dir=${1};
 }
+
+dodoc() {
+	case "${_docinto_dir}" in
+		'')	docdir=/usr/share/doc/${PN} ;;
+		/*)	docdir=/usr/share/doc${_docinto_dir} ;;
+		*)	docdir=/usr/share/doc/${PN}/${_docinto_dir} ;;
+	esac
+
+	dodir ${docdir}
+
+	for i
+	do
+		if [ -f ${i} -o -L ${i} ]
+		then
+			if [ "x$(file -b ${i})" != "xempty" -a ! -f ${D}${docdir}/${i} ]
+			then
+				__doinstall 0644 ${i} ${docdir} || error "dodoc ${i} failed"
+			fi
+		elif [ -f ${i}.txt -o -L ${i}.txt ]
+		then
+			if [ "x$(file -b ${i}.txt)" != "xempty" -a ! -f ${D}${docdir}/${i}.txt ]
+			then
+				__doinstall 0644 ${i}.txt ${docdir} || error "dodoc ${i}.txt failed"
+			fi
+		fi
+	done
+}
+
+newdoc() {
+	case "${_docinto_dir}" in
+		'')	docdir=/usr/share/doc/${PN} ;;
+		/*)	docdir=/usr/share/doc${_docinto_dir} ;;
+		*)	docdir=/usr/share/doc/${PN}/${_docinto_dir} ;;
+	esac
+
+	dodir ${docdir}
+	__doinstall 0644 ${1} ${docdir} ${2} || error "newdoc ${1} failed"
+}
+
 
 # set doexe install dir
 exeinto() {
@@ -65,8 +145,30 @@ exeinto() {
 	fi
 
 	dodir ${1};
-	export _exeinto_dir=${1};
+	_exeinto_dir=${1};
 }
+
+doexe() {
+	if ! defined _exeinto_dir || [ ! -d ${D}${_exeinto_dir} ]
+	then
+		error "exeinto must be called before doexe"
+	fi
+
+	for i
+	do
+		__doinstall 0755 ${i} ${_exeinto_dir} || error "doexe ${i} failed"
+	done
+}
+
+newexe() {
+	if ! defined _exeinto_dir || [ ! -d ${D}${_exeinto_dir} ]
+	then
+		error "exeinto must be called before doexe"
+	fi
+
+	__doinstall 0755 ${1} ${_exeinto_dir} ${2} || error "newexe ${1} failed"
+}
+
 
 # set doins install dir
 insinto() {
@@ -76,8 +178,204 @@ insinto() {
 	fi
 
 	dodir ${1};
-	export _insinto_dir=${1};
+	_insinto_dir=${1};
 }
+
+doins() {
+	if ! defined _insinto_dir || [ ! -d ${D}${_insinto_dir} ]
+	then
+		error "insinto must be called before doins"
+	fi
+
+	for i
+	do
+		__doinstall 0644 ${i} ${_insinto_dir} || error "doins ${i} failed"
+	done
+}
+
+newins() {
+	if ! defined _insinto_dir || [ ! -d ${D}${_insinto_dir} ]
+	then
+		error "insinto must be called before doins"
+	fi
+
+	__doinstall 0644 ${1} ${_insinto_dir} ${2} || error "newins ${1} failed"
+}
+
+
+doicon() {
+	local _insinto_tmp=${_insinto_dir}
+
+	insinto /usr/share/pixmaps
+	doins ${@}
+
+	_insinto_dir=${_insinto_tmp}
+}
+
+newicon() {
+	local _insinto_tmp=${_insinto_dir}
+
+	insinto /usr/share/pixmaps
+	newins ${1} ${2}
+
+	_insinto_dir=${_insinto_tmp}
+}
+
+dolib() {
+	dodir /usr/lib
+	for i
+	do
+		case ${i} in
+			*.la) __doinstall 0755 ${i} /usr/lib || error "dolib ${i} failed" ;;
+			*)    __doinstall 0644 ${i} /usr/lib || error "dolib ${i} failed" ;;
+		esac
+	done
+}
+
+doman() {
+	local manroot=/usr/share/man
+	local mandir=${manroot}
+
+	for i
+	do
+		if defined _doman_next_arg_is_lang
+		then
+			case ${i} in
+				C)	mandir=${manroot} ;;
+				*)	mandir="${mandir}/${i}" ;;
+			esac
+			unset _doman_next_arg_is_lang
+			continue
+		fi
+
+		case ${i} in
+			--lang=*)
+				case ${i#*=} in
+					C)	mandir=${manroot} ;;
+					*)	mandir="${mandir}/${i#*=}" ;;
+				esac
+				continue
+			;;
+			-l)
+				_doman_next_arg_is_lang=1
+				continue
+			;;			
+			*.1|*.1m|*.1x|*.1.bz2|*.1.gz)  mansection=1 ;;
+			*.3|*.3pm|*.3t|*.3.gz)  mansection=3 ;;
+			*.4|*.4.gz)  mansection=4 ;;
+			*.5|*.5.gz)  mansection=5 ;;
+			*.6|*.6x|*.6.gz)  mansection=6 ;;
+			*.7|*.7.gz)  mansection=7 ;;
+			*.8|*.8.gz)  mansection=8 ;;
+			*.n|*.n.gz)  mansection=n ;;
+			*)  error "unknown man section" ;;
+		esac
+
+		dodir ${mandir}/man${mansection}
+		__doinstall 0644 ${i} ${mandir}/man${mansection} || error "doman ${i} failed"
+	done
+}
+
+newman() {
+	local manroot=/usr/share/man
+	local mandir=${manroot}
+
+	case ${1} in
+		--lang=*)
+			case ${1#*=} in
+				C)	mandir=${manroot} ;;
+				*)	mandir="${mandir}/${1#*=}" ;;
+			esac
+			shift
+		;;
+		-l)
+			case ${2} in
+				C)	mandir=${manroot} ;;
+				*)	mandir="${mandir}/${2}" ;;
+			esac
+			shift 2
+		;;
+	esac
+
+	case ${1} in
+		*.1|*.1m|*.1x|*.1.bz2|*.1.gz)  mansection=1 ;;
+		*.3|*.3pm|*.3t|*.3.gz)  mansection=3 ;;
+		*.4|*.4.gz)  mansection=4 ;;
+		*.5|*.5.gz)  mansection=5 ;;
+		*.6|*.6x|*.6.gz)  mansection=6 ;;
+		*.7|*.7.gz)  mansection=7 ;;
+		*.8|*.8.gz)  mansection=8 ;;
+		*.n|*.n.gz)  mansection=n ;;
+		*)  error "unknown man section" ;;
+	esac
+
+	dodir ${mandir}/man${mansection}
+	__doinstall 0644 ${1} ${mandir}/man${mansection} ${2} || error "doman ${1} failed"
+}
+
+domenu() {
+	local _insinto_tmp=${_insinto_dir}
+
+	insinto /usr/share/applications
+	doins ${@}
+
+	_insinto_dir=${_insinto_tmp}
+}
+
+newmenu() {
+	local _insinto_tmp=${_insinto_dir}
+
+	insinto /usr/share/applications
+	newins ${1} ${2}
+
+	_insinto_dir=${_insinto_tmp}
+}
+
+dosbin() {
+	local _exeinto_tmp=${_exeinto_dir}
+
+	exeinto /usr/sbin
+	doexe ${@}
+
+	_exeinto_dir=${_exeinto_tmp}
+}
+
+newsbin() {
+	local _exeinto_tmp=${_exeinto_dir}
+
+	exeinto /usr/sbin
+	doexe ${1} ${2}
+
+	_exeinto_dir=${_exeinto_tmp}
+}
+
+
+dosym() {
+	local _argv=("dosym" ${@})
+	local _argc=$#
+
+	if ((_argc < 2))
+	then
+		error "dosym: requires at least two arguments"
+	fi
+
+	dest="${_argv[${_argc}]}"
+
+	# cd should allow for relative symlinks
+	# e.g. dosym ../../share/foo /usr/lib/
+	if [ -d ${D}${dest} ]
+	then
+		cd ${D}${dest}
+	elif [ -d ${D}${dest%/*} ]
+	then
+		cd ${D}${dest%/*}
+	else
+		error "dosym: ${dest%/*} is not a directory"
+	fi
+
+	ln -sf ${_argv[*]:1:$((_argc - 1))} ${D}${dest} || error "dosym failed"
+}
+
 
 # Pre-install steps
 __prepinstalldirs() {
@@ -128,5 +426,8 @@ src_install() {
 }
 
 # protect functions
-export -f dodir keepdir docinto exeinto insinto
-readonly -f dodir keepdir docinto exeinto insinto __prepinstalldirs cyginstall
+export -f dodir keepdir
+readonly -f __doinstall dodir keepdir dobin newbin docinto dodoc newdoc \
+            exeinto doexe newexe insinto doins newins doicon newicon \
+            dolib doman newman domenu newmenu dosbin newsbin dosym \
+            __prepinstalldirs cyginstall

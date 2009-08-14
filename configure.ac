@@ -3,7 +3,7 @@ AC_INIT(cygport, 0.9.10,
 
 AC_PREREQ([2.60])
 
-AC_CONFIG_SRCDIR([bin/dobin])
+AC_CONFIG_SRCDIR([bin/cygport.in])
 
 AM_INIT_AUTOMAKE([1.10 dist-bzip2 no-dist-gzip])
 

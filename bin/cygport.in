@@ -122,7 +122,7 @@ source ${_privlibdir}/check_funcs.cygpart
 ###
 
 # assure that _privbindir is in PATH
-if ! check_prog doins
+if ! check_prog make_desktop_entry
 then
 	error "cygport does not seem to be installed properly";
 fi

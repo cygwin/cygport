@@ -9,6 +9,9 @@
 	* cygclass/Makefile.am: Added.
 	* configure.ac (AC_OUTPUT): Added cygclass/Makefile.am.
 	* Makefile.am (SUBDIRS): Added cygclass.
+	* bin/Makefile.am (dist_privbin_SCRIPTS): Remove do*/new*.
+	* bin/do*, bin/new*: Command scripts moved from here...
+	* lib/src_install.cygpart: ...into here as functions.
 
 	* configure.ac: Post-release version bump.
 
