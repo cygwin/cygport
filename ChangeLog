@@ -1,5 +1,9 @@
 2009-Aug-13  yselkowitz
 
+	* lib/src_postinst.cygpart (__src_postinst): Move __prepdoc up before
+	__prep_symlinks so dodoc verbosity is follow-up to install and not in the
+	middle of the postinstall steps.
+
 	Source restructring.
 	* bin/cygport.in: Functions moved from here...
 	* lib/*.cygpart: ...to here.

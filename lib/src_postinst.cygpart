@@ -362,8 +362,8 @@ __prep_libtool_modules() {
 }
 
 __src_postinst() {
-	__prep_symlinks;
 	__prepdoc;
+	__prep_symlinks;
 	__prepetc;
 	__prepman;
 	__prepinfo;
