@@ -41,6 +41,7 @@ __list_files() {
 
 __list_deps() {
 	local d
+	local os_path="${PATH}"
 
 	pushd ${D}
 	# This prevents a package from listing itself as a dependency if
@@ -65,6 +66,8 @@ __list_deps() {
 		cut -d ' ' -f 3 | sed -e '/^[A-Z32]*\.[Dd][Ll][Ll]$/d' -e 's!mscoree.dll!mono.exe!' | \
 		xargs -r which | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
 	popd
+
+	PATH="${os_path}"
 }
 
 # protect functions

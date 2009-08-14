@@ -1,5 +1,9 @@
 2009-Aug-13  yselkowitz
 
+	* bin/cygport.in: Remove privbindir PATH handling, as everything has
+	been converted to functions.
+	* lib/pkg_info.cygpart (__list_deps): Adapt accordingly.
+
 	* lib/src_postinst.cygpart (__src_postinst): Move __prepdoc up before
 	__prep_symlinks so dodoc verbosity is follow-up to install and not in the
 	middle of the postinstall steps.

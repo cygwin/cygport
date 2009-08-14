@@ -48,7 +48,6 @@ then
 		/*) declare -rx _prefix=${top_srcdir} ;;
     esac
 
-	declare -r  _privbindir=${_prefix}/bin;
 	declare -r  _privlibdir=${_prefix}/lib;
 	declare -r  _privdatadir=${_prefix}/data;
 	declare -rx _privclassdir=${_prefix}/cygclass;
@@ -56,16 +55,12 @@ then
 	declare -r  _sysconfdir=${_prefix}/data;
 else
 	declare -rx _prefix=@pkglibdir@;
-	declare -r  _privbindir=${_prefix}/bin;
 	declare -r  _privlibdir=${_prefix};
 	declare -r  _privdatadir=@pkgdatadir@;
 	declare -rx _privclassdir=${_privdatadir}/cygclass;
 	declare -r  _privdocdir=@docdir@;
 	declare -r  _sysconfdir=@sysconfdir@;
 fi
-
-declare -r os_path="$PATH";
-declare -x PATH="${_privbindir}:$PATH";
 
 declare -ar argv=(${0} ${@})
 declare -ir argc=$(( $# + 1 ))
@@ -120,12 +115,6 @@ fi
 ### import check_prog and friends
 source ${_privlibdir}/check_funcs.cygpart
 ###
-
-# assure that _privbindir is in PATH
-if ! check_prog make_desktop_entry
-then
-	error "cygport does not seem to be installed properly";
-fi
 
 # check now for all mandatory programs
 for _myprog in bzip2 cat chmod cp cygcheck diff diffstat find grep gzip install \
