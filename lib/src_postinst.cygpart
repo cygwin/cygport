@@ -643,5 +643,7 @@ __src_postinst() {
 }
 
 # protect functions
-readonly -f __prepdoc __prepetc __prepman __prepinfo __prepvargames __prep_empty_dirs \
+readonly -f __prep_fonts_dir __prep_freedesktop_mime __prep_gconf_schemas \
+            __prep_gtk2_modules __prep_gtk_icon_theme \
+            __prepdoc __prepetc __prepman __prepinfo __prepvargames __prep_empty_dirs \
             __prepstrip __prepuac __prep_symlinks __prep_libtool_modules __src_postinst
