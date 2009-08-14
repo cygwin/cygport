@@ -13,12 +13,7 @@ privbindir = $(pkglibdir)/bin
 dist_privbin_SCRIPTS = \
 	make_desktop_entry \
 	make_etc_defaults \
-	prep_fonts_dir.sh \
-	prep_freedesktop_mime.sh \
-	prep_gconf_schemas.sh \
-	prep_gtk_icon_theme.sh \
-	prep_gtk2_modules.sh \
-	prep_libtool_modules.sh
+	$(NULL)
 
 EXTRA_DIST = cygport.in
 CLEANFILES = cygport

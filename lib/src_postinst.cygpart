@@ -22,6 +22,163 @@
 #
 ################################################################################
 
+# these are called conditionally by __prepetc
+__prep_fonts_dir() {
+	fontsdir=/usr/share/fonts
+
+	find ${D}${fontsdir} -name '*.pcf' -exec gzip -q '{}' +
+
+	dodir /etc/postinstall
+
+	for d in $(find ${D}${fontsdir}/ -mindepth 1 -type d)
+	do
+		fonttype=${d#${D}${fontsdir}/}
+		fontsubdir=${fontsdir}/${fonttype}
+
+		case ${fonttype} in
+		encodings|encodings/large|util) ;;
+		*)
+			rm -f ${D}${fontsubdir}/encodings.dir ${D}${fontsubdir}/fonts.{dir,scale}
+
+			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+				/usr/bin/rm -f ${fontsubdir}/encodings.dir ${fontsubdir}/fonts.{dir,scale}
+				/usr/bin/mkfontscale ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/fonts.scale
+				/usr/bin/mkfontdir -e ${fontsdir}/encodings -e ${fontsdir}/encodings/large ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/{encodings,fonts}.dir
+				/usr/bin/fc-cache -f ${fontsubdir}
+
+			_EOF
+		;;
+		esac
+	done
+}
+
+__prep_freedesktop_mime() {
+	local _already_updated_mime_db
+
+	# Freedesktop.org Desktop Menu files with MimeType declarations
+	if [ -d ${D}/usr/share/applications ]
+	then
+		if [ -n "$(grep -lr MimeType ${D}/usr/share/applications)" ]
+		then
+			_already_updated_mime_db=1
+			dodir /etc/postinstall
+			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+				if [ -x /usr/bin/update-desktop-database ]
+				then
+				    /usr/bin/update-desktop-database
+				fi
+				if [ -x /usr/bin/update-mime-database ]
+				then
+				    /usr/bin/update-mime-database /usr/share/mime
+				fi
+
+			_EOF
+		fi
+	fi
+
+	# Freedesktop.org Shared Mime types
+	if [ -d ${D}/usr/share/mime ]
+	then
+		# make sure system-generated files aren't clobbered
+		find ${D}/usr/share/mime/ -maxdepth 1 -type f -delete
+
+		if ! defined _already_updated_mime_db
+		then
+			dodir /etc/postinstall
+			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+				if [ -x /usr/bin/update-mime-database ]
+				then
+				    /usr/bin/update-mime-database /usr/share/mime
+				fi
+
+			_EOF
+		fi
+	fi
+}
+
+__prep_gconf_schemas() {
+	dodir /etc/postinstall /etc/preremove
+
+	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+		export GCONF_CONFIG_SOURCE="$(gconftool-2 --get-default-source)"
+	_EOF
+
+	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+		export GCONF_CONFIG_SOURCE="$(gconftool-2 --get-default-source)"
+	_EOF
+
+	for schema in ${D}/etc/gconf/schemas/*.schemas
+	do
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			/usr/bin/gconftool-2 --makefile-install-rule /etc/gconf/schemas/${schema##*/} > /dev/null 2>&1
+		_EOF
+
+		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+			/usr/bin/gconftool-2 --makefile-uninstall-rule /etc/gconf/schemas/${schema##*/} > /dev/null 2>&1
+		_EOF
+	done
+
+	echo >> ${D}/etc/postinstall/${PN}.sh
+	echo >> ${D}/etc/preremove/${PN}.sh
+}
+
+__prep_gtk2_modules() {
+	# necessary for postinstalling gtk2 itself
+	export PKG_CONFIG_PATH="${B}:${PKG_CONFIG_PATH}"
+	local gtk_api=$(pkg-config --variable=gtk_binary_version gtk+-x11-2.0)
+
+	# Gdk-Pixbuf loaders
+	if [ -d ${D}/usr/lib/gtk-2.0/${gtk_api}/loaders ]
+	then
+		dodir /etc/postinstall
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			if [ -x /usr/bin/gdk-pixbuf-query-loaders.exe ]
+			then
+			    /usr/bin/mkdir -p /etc/gtk-2.0
+			    /usr/bin/chmod 777 /etc/gtk-2.0
+			    /usr/bin/gdk-pixbuf-query-loaders > /etc/gtk-2.0/gdk-pixbuf.loaders
+			fi
+
+		_EOF
+	fi
+
+	# GTK Immodules
+	if [ -d ${D}/usr/lib/gtk-2.0/${gtk_api}/immodules ]
+	then
+		dodir /etc/postinstall
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			if [ -x /usr/bin/gtk-query-immodules-2.0.exe ]
+			then
+			    /usr/bin/mkdir -p /etc/gtk-2.0
+			    /usr/bin/chmod 777 /etc/gtk-2.0
+			    /usr/bin/gtk-query-immodules-2.0 > /etc/gtk-2.0/gtk.immodules
+			fi
+
+		_EOF
+	fi
+}
+
+__prep_gtk_icon_theme() {
+	local icondir
+
+	for icondir in $(find ${D}/usr/share/icons -mindepth 1 -maxdepth 1 -type d)
+	do
+		if [ -f ${icondir}/index.theme -o -f ${icondir#${D}}/index.theme ]
+		then
+			dodir /etc/postinstall
+			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+				if [ -x /usr/bin/gtk-update-icon-cache.exe ]
+				then
+				    /usr/bin/gtk-update-icon-cache --force ${icondir#${D}}
+				fi
+
+			_EOF
+		fi
+	done
+}
+# end of conditional __prepetc helpers
+
+
 # installs standard docs, html docs, and Cygwin README
 __prepdoc() {
 	local html;
@@ -134,31 +291,31 @@ __prepetc() {
 	# System fonts
 	if [ -d ${D}/usr/share/fonts ]
 	then
-		prep_fonts_dir.sh || error "Fonts postinstall failed"
+		__prep_fonts_dir || error "Fonts postinstall failed"
 	fi
 
 	# GTK+ 2.x modules
 	if [ -d ${D}/usr/share/icons ]
 	then
-		prep_gtk_icon_theme.sh || error "GTK+ icon theme postinstall failed"
+		__prep_gtk_icon_theme || error "GTK+ icon theme postinstall failed"
 	fi
 
 	# GTK+ 2.x modules
 	if [ -d ${D}/usr/lib/gtk-2.0 ]
 	then
-		prep_gtk2_modules.sh || error "GTK+ modules postinstall failed"
+		__prep_gtk2_modules || error "GTK+ modules postinstall failed"
 	fi
 
 	# GConf schemas
 	if [ -d ${D}/etc/gconf/schemas ] && ! defined _CYGPORT_RESTRICT_postinst_gconf_
 	then
-		prep_gconf_schemas.sh || error "GConf schemas postinstall failed"
+		__prep_gconf_schemas || error "GConf schemas postinstall failed"
 	fi
 
 	# Freedesktop.org Shared Mime Info
 	if [ -d ${D}/usr/share/applications -o -d ${D}/usr/share/mime ] 
 	then
-		prep_freedesktop_mime.sh || error "Shared Mime Info postinstall failed"
+		__prep_freedesktop_mime || error "Shared Mime Info postinstall failed"
 	fi
 
 	for d in /etc/postinstall /etc/preremove
@@ -358,7 +515,118 @@ __prep_symlinks() {
 }
 
 __prep_libtool_modules() {
-	find * -name '*.la' -exec prep_libtool_modules.sh '{}' + || error "Libtool module postinstall failed"
+	local ltlibs ltlibdir ltlibname ltversion
+	local dlname library_names old_library inherited_linker_flags \
+	      dependency_libs weak_library_names current age revision \
+		  installed shouldnotlink dlopen dlpreopen libdir
+
+	ltlibs="$(find * -name '*.la')"
+
+	if ! defined ltlibs
+	then
+		# nothing to do
+		return 0
+	fi
+
+	echo "Fixing libtool modules:"
+
+	ltversion="$(grep '^# libtool (GNU' /usr/bin/libtool | cut -d ' ' -f 2-)"
+
+	for lib_la in ${ltlibs}
+	do
+		# check that the file is actually a libtool library
+		# e.g. xmodmap.la, where 'la' is a language code
+		if ! grep -q "libtool library file" ${lib_la}
+		then
+			continue
+		fi
+
+		source ${lib_la}
+
+		ltlibdir=${lib_la%/*}
+
+		# check that all library members were installed
+		for l in dlname library_names old_library
+		do
+			if defined ${l} && [ ! -f ${ltlibdir}/${!l} ]
+			then
+				error "${!l} was not installed"
+			fi
+		done
+
+		# Only a -module should be "fixed" in this way
+		if [ "x${shouldnotlink}" != "xyes" ]
+		then
+			continue
+		fi
+
+		echo "        ${lib_la}"
+
+		ltlibname=${lib_la##*/}
+		ltlibname=${ltlibname%.la}
+
+		if [ "x${dlname}" = "x" ]
+		then
+			error "${ltlibname}.la dynamic module was not built"
+		fi
+
+		# warn if -avoid-version was not used with -module
+		# 99.9% of time should be, but there are notable exceptions
+		case "${dlname#../bin/}" in
+			cyg${ltlibname#lib}.dll|${ltlibname}.dll)	;;
+			cyg${ltlibname#lib}.so|${ltlibname}.so)		;;
+			*)	warning "${ltlibname}.la appears to be a versioned module." ;;
+		esac
+
+		# static and import libraries are pointless for modules
+		rm -f ${ltlibdir}/${ltlibname}.a ${ltlibdir}/${ltlibname}.dll.a
+
+		cat > ${lib_la} <<-_EOF
+			# ${ltlibname}.la - a libtool library file
+			# Generated by ${ltversion}
+			# Modified by cygport
+			#
+			# Please DO NOT delete this file!
+			# It is necessary for linking the library.
+
+			# The name that we can dlopen(3).
+			dlname='${dlname}'
+
+			# Names of this library.
+			library_names='${dlname}'
+
+			# The name of the static archive.
+			old_library=''
+
+			# Linker flags that can not go in dependency_libs.
+			inherited_linker_flags='${inherited_linker_flags}'
+
+			# Libraries that this one depends upon.
+			# This is set to empty to speed up lt_dlopen and friends.
+			dependency_libs=''
+
+			# Names of additional weak libraries provided by this library
+			weak_library_names='${weak_library_names}'
+
+			# Version information for ${ltlibname}.
+			current=${current}
+			age=${age}
+			revision=${revision}
+
+			# Is this an already installed library?
+			installed=yes
+
+			# Should we warn about portability when linking against -modules?
+			shouldnotlink=yes
+
+			# Files to dlopen/dlpreopen
+			dlopen='${dlopen}'
+			dlpreopen='${dlpreopen}'
+
+			# Directory that this library needs to be installed in:
+			libdir='${libdir}'
+			_EOF
+	done
 }
 
 __src_postinst() {

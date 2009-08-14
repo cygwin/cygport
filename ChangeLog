@@ -16,6 +16,9 @@
 	* bin/Makefile.am (dist_privbin_SCRIPTS): Remove do*/new*.
 	* bin/do*, bin/new*: Command scripts moved from here...
 	* lib/src_install.cygpart: ...into here as functions.
+	* bin/Makefile.am (dist_privbin_SCRIPTS): Remove prep_*.sh.
+	* bin/prep_*.sh: Postinstall scripts moved from here...
+	* lib/src_postinst.cygpart: ...into here as functions.
 
 	* configure.ac: Post-release version bump.
 
