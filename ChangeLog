@@ -4,6 +4,7 @@
 	* configure.ac: Check for robodoc.  Add AM_CONDITIONALs for other progs.
 	* doc/Makefile.am: Add target for robodocs. Use AM_CONDITIONALs.
 	* doc/robodoc.rc: Added.
+	* cygclass/R.cygclass: Document.
 
 2009-Aug-13  yselkowitz
 
