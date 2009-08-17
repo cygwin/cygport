@@ -1,3 +1,10 @@
+2009-Aug-17  yselkowitz
+
+	Robodocize.
+	* configure.ac: Check for robodoc.  Add AM_CONDITIONALs for other progs.
+	* doc/Makefile.am: Add target for robodocs. Use AM_CONDITIONALs.
+	* doc/robodoc.rc: Added.
+
 2009-Aug-13  yselkowitz
 
 	* bin/cygport.in: Remove privbindir PATH handling, as everything has

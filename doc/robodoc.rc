@@ -1,0 +1,99 @@
+# $Id$
+
+options:
+	--documenttitle "Cygport Reference"
+	--html
+	--index
+	--masterindex "Index,index"
+	--multidoc
+	--nopre
+	--nosort
+	--no_subdirectories
+	--sections
+	--sectionnameonly
+	--syntaxcolors_enable "quotes,squotes,line_comments,keywords,non_alpha"
+	--toc
+items:
+	ARGUMENTS
+	AUTHOR
+	BUGS
+	COMMANDS
+	DEFAULT MIRROR
+	DEFINES
+	DEFINITION
+	DESCRIPTION
+	ERRORS
+	EXAMPLE
+	FUNCTION
+	HINT
+	HINTS
+	HISTORY
+	IDEAS
+	INHERITED BY
+	INHERITS
+	INPUT
+	INPUTS
+	INTRODUCTION
+	METHODS
+	MIRROR LIST
+	NAME
+	NOTE
+	NOTES
+	OPTIONS
+	OUTPUT
+	OVERLOADS
+	OVERVIEW
+	RESULT
+	RESULTS
+	RETURNS
+	SEE ALSO
+	SOURCE
+	SYNOPSIS
+	TAGS
+	TODO
+	USAGE
+	USES
+	VALUES
+	WARNING
+	WARNINGS
+preformatted items:
+	EXAMPLE
+	SYNOPSIS
+source items:
+	DEFINITION
+headertypes:
+#	e  "Makefile entries"  robo_mk_entries
+#	h  Cygclasses robo_cygclasses
+#	x  "System tests"  robo_sys_tests
+	*  Concepts robo_concepts
+ignore files:
+	autom4te.cache
+	CYGWIN-PATCHES
+	Makefile
+	Makefile.in
+	README
+	cygport
+	cygport-0.9.*
+	doc
+	html
+	man
+	patches
+	tmp
+	.svn
+	*.css
+	*.html
+	*.rc
+	*.orig
+	*.refs
+	*.rej
+	*.stderr
+	*.txt
+	*~
+remark begin markers:
+	#****
+remark markers:
+	#
+remark end markers:
+	#****
+source line comments:
+	#
