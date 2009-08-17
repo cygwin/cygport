@@ -3,7 +3,7 @@
 # aspell-dict.cygclass - functions for building Aspell dictionaries
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,17 +23,69 @@
 #
 ################################################################################
 
-check_prog_req aspell
+#****h* Cygclasses/aspell-dict.cygclass
+#  NAME
+#    aspell-dict.cygclass
+#  SYNOPSIS
+#    ASPELL_COMPAT=6
+#    inherit aspell-dict
+#  DESCRIPTION
+#    Aspell is a GNU project providing a spell checking library and command-line
+#    tool.  Aspell can support multiple languages by installing dictonaries.
+#
+#    The purpose of this cygclass is to create Aspell dictionary packages for
+#    the Cygwin Aspell package.  aspell-dict.cygclass expects the package name
+#    to be "aspell-<language_code>" and the hyphen in the canonical version number
+#    to be substituted with a point.  If the source tarball is named "aspell5-*"
+#    or "aspell6-*", ASPELL_COMPAT must be declared before inheriting.
+#  DEFINES
+#  * ORIG_PN
+#  * DESCRIPTION
+#  * HOMEPAGE
+#  * SRC_URI
+#  OVERLOADS
+#    src_compile
+#  SEE ALSO
+#    mirror_gnu
+#****
 
-ASPELL_DATADIR=$(aspell dump config data-dir)
-ASPELL_DICTDIR=$(aspell dump config dict-dir)
-
+#****v* aspell-dict.cygclass/ASPELL_COMPAT
+#  NAME
+#    ASPELL_COMPAT -- Dictionary compatibility level
+#  NOTE
+#    This variable, if necessary, must be declared before inheriting aspell-dict.cygclass.
+#  VALUES
+#  * unset -- Source named "aspell-*". Built with old system for 0.50; usually compatible with 0.60.
+#  * 5 -- Source named "aspell5-*". Built for 0.50 but usually compatible with 0.60.
+#  * 6 -- Source named "aspell6-*". Built for 0.60 and incompatible with 0.50.
+#****
 case "${ASPELL_COMPAT}" in
 	5|6|'') ;;
 	*)	error "aspell-dict: invalid value for ASPELL_COMPAT: ${ASPELL_COMPAT}" ;;
 esac
 
+check_prog_req aspell
+
+#****d* aspell-dict.cygclass/ASPELL_DATADIR
+#  NAME
+#    ASPELL_DATADIR -- Location of Aspell platform-independent dictionary files
+#  DEFINITION
+ASPELL_DATADIR=$(aspell dump config data-dir)
+#****
+
+#****d* aspell-dict.cygclass/ASPELL_DICTDIR
+#  NAME
+#    ASPELL_DICTDIR -- Location of Aspell compiled dictionary files
+#  DEFINITION
+ASPELL_DICTDIR=$(aspell dump config dict-dir)
+#****
+
+#****d* aspell-dict.cygclass/ASPELL_LANG
+#  NAME
+#    ASPELL_LANG -- ISO 639 short code for language name
+#  DEFINITION
 ASPELL_LANG="${PN#aspell-}"
+#****
 
 iso_639=/usr/share/iso-codes/iso_639.tab
 
@@ -53,6 +105,17 @@ HOMEPAGE="http://aspell.net/"
 SRC_URI="mirror://gnu/aspell/dict/${ASPELL_LANG}/${ORIG_PN}-${ORIG_PV}.tar.bz2"
 SRC_DIR="${ORIG_PN}-${ORIG_PV}"
 
+#****f* aspell-dict.cygclass/aspell_dict_compile
+#  NAME
+#    aspell_dict_compile -- Builds an Aspell dictionary
+#  SYNOPSIS
+#    lndirs
+#    cd ${B}
+#    aspell_dict_compile
+#  DESCRIPTION
+#    Compiles an Aspell dictionary by running the custom configure script, then
+#    calling cygmake.
+#****
 aspell_dict_compile() {
 	if [ ! -e configure ]
 	then
@@ -63,6 +126,16 @@ aspell_dict_compile() {
 	cygmake
 }
 
+#****f* aspell-dict.cygclass/doaspelldict
+#  NAME
+#    doaspelldict -- Manuall Aspell dictionary installation
+#  SYNOPSIS
+#    doaspelldict FILES
+#  DESCRIPTION
+#    Installs the Aspell dictionary files to the correct directories.  Aspell
+#    dictionaries usually install with the default src_install, so this is generally
+#    unnecessary.
+#****
 doaspelldict() {
 	local f
 
@@ -87,6 +160,10 @@ doaspelldict() {
 	done
 }
 
+#****f* aspell-dict.cygclass/doaspelldata
+#  NAME
+#    doaspelldata -- Alias for doaspelldict.
+#****
 doaspelldata() { doaspelldict ${@} ; }
 
 src_compile() {

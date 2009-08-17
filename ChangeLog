@@ -6,6 +6,7 @@
 	* doc/robodoc.rc: Added.
 	* cygclass/R.cygclass: Document.
 	* cygclass/apache*.cygclass: Document.
+	* cygclass/aspell-dict.cygclass: Document.
 
 2009-Aug-13  yselkowitz
 
