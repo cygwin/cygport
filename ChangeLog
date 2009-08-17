@@ -5,6 +5,7 @@
 	* doc/Makefile.am: Add target for robodocs. Use AM_CONDITIONALs.
 	* doc/robodoc.rc: Added.
 	* cygclass/R.cygclass: Document.
+	* cygclass/apache*.cygclass: Document.
 
 2009-Aug-13  yselkowitz
 

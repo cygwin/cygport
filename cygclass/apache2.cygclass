@@ -23,41 +23,124 @@
 #
 ################################################################################
 
+#****h* Cygclasses/apache2.cygclass
+#  NAME
+#    apache2.cygclass -- Build packages depending on Apache 2.x.
+#  SYNOPSIS
+#    inherit apache2
+#  DESCRIPTION
+#    The Apache Web Server is an HTTP server which can be extended through
+#    plugins, known as DSOs, to support all sorts of tasks, scripting languages,
+#    and more.  In version 2.x, DSOs use the ".so" extension, even on platforms
+#    which use DLLs.
+#
+#    The purpose of apache2.cygclass is to provide functions and definitions
+#    for building DSOs for the Cygwin Apache 2.x packages.  (For Apache 1.x
+#    support, see apache1.cygclass.)  Cygwin packages doing so should use the
+#    "apache2-" prefix before the canonical package name.  Because there is no
+#    consistent DSO source buildsystem, src_compile and src_install must be
+#    defined yourself.
+#  DEFINES
+#    If PN starts with "apache2-", then the following are defined:
+#    * ORIG_PN - PN without the leading "apache2-"
+#    * APACHE_MOD_NAME - Basename of the DSO; defaults to ORIG_PN.
+#    * DESCRIPTION
+#  SEE ALSO
+#    apache1.cygclass, mirror_apache
+#****
+
 case ${PN} in
 	apache2-*)
 		ORIG_PN=${PN#apache2-}
 		ORIG_P=${ORIG_PN}-${PV}
-		APACHE_MOD_NAME="${ORIG_PN}" 
+		APACHE_MOD_NAME=${APACHE_MOD_NAME:-${ORIG_PN}}
 		DESCRIPTION="Apache 2.x ${ORIG_PN} module"
 		;;
 esac
 
-APXS=/usr/sbin/apxs2
+#****d* apache2.cygclass/APXS2
+#  NAME
+#    APXS2 -- Path to apxs2(8), the APache eXtenSion tool
+#  DEFINITION
 APXS2=/usr/sbin/apxs2
-LIBHTTPD="-lhttpd2core"
-LIBHTTPD2="-lhttpd2core"
+#****
 
 check_prog_req ${APXS2} apache2-devel
 
-# libhttpd variables
-for var in CFLAGS INCLUDEDIR LIBEXECDIR SYSCONFDIR
-do
-	eval APACHE2_${var}=\"$(${APXS2} -q ${var})\"
-	eval APXS_${var}=\"$(${APXS2} -q ${var})\"
-done
-APACHE2_LIBS_SHLIB="-lhttpd2core"
-APACHE2_SYSCONFDIR="${APACHE2_SYSCONFDIR}/conf.d"
-APXS_LIBS_SHLIB="-lhttpd2core"
-APXS_SYSCONFDIR="${APXS_SYSCONFDIR}/conf.d"
+#****d* apache2.cygclass/HTTPD2
+#  NAME
+#    HTTPD2 -- Path to the Apache 2.x server
+#  DEFINITION
+HTTPD2=$(${APXS2} -q SBINDIR)/$(${APXS2} -q TARGET)  # /usr/sbin/httpd2
+#****
 
-HTTPD2=$(${APXS2} -q SBINDIR)/$(${APXS2} -q TARGET)
-APACHE2_VERSION=$(${HTTPD2} -v | cut -d ' ' -f 3 | cut -d / -f 2)
+#****d* apache2.cygclass/APACHE2_VERSION
+#  NAME
+#    APACHE2_VERSION -- Full version of Apache
+#  DEFINITION
+APACHE2_VERSION=$(${HTTPD2} -v | cut -d ' ' -f 3 | cut -d / -f 2)  # e.g. 2.2.6
+#****
 
-# libapr variables
+#****d* apache2.cygclass/APACHE2_INCLUDEDIR
+#  NAME
+#    APACHE2_INCLUDEDIR -- Location of Apache 2.x headers
+#  DEFINITION
+APACHE2_INCLUDEDIR="$(${APXS2} -q INCLUDEDIR)"  # /usr/include/apache2
+#****
+
+#****d* apache2.cygclass/APACHE2_LIBEXECDIR
+#  NAME
+#    APACHE2_LIBEXECDIR -- Location of Apache 2.x DSOs
+#  DEFINITION
+APACHE2_LIBEXECDIR="$(${APXS2} -q LIBEXECDIR)"  # /usr/lib/apache2
+#****
+
+#****d* apache2.cygclass/APACHE2_SYSCONFDIR
+#  NAME
+#    APACHE2_SYSCONFDIR -- Location of Apache 2.x configuration files
+#  DEFINITION
+APACHE2_SYSCONFDIR="$(${APXS2} -q SYSCONFDIR)/conf.d"  # /etc/apache2/conf.d
+#****
+
+#****d* apache2.cygclass/APACHE2_CFLAGS
+#  NAME
+#    APACHE2_CFLAGS -- CFLAGS for compiling Apache DSOs
+#****
+APACHE2_CFLAGS="-I${APACHE2_INCLUDEDIR} $(${APXS2} -q CFLAGS)"
+
+#****d* apache2.cygclass/APACHE2_LIBS
+#  NAME
+#    APACHE2_LIBS -- Link flags for Apache 2.x DSOs.
+#  NOTE
+#    This is Cygwin specific due to the linking requirements of PE/COFF DLLs.
+#****
+APACHE2_LIBS="-lhttpd2core"
+
+
+#****d* apache2.cygclass/APR_VERSION
+#  NAME
+#    APR_VERSION -- Major version of APR libraries used by this Apache version
+#  VALUES
+#    * 1 - For Apache 2.2.
+#****
 case ${APACHE2_VERSION:0:3} in
 	2.2)	APR_VERSION=1 ;;
 	*)		error "Don't know anything about Apache ${APACHE2_VERSION}" ;;
 esac
+
+#****d* apache2.cygclass/APR_CONFIG
+#  NAME
+#    APR_CONFIG -- Path to matching apr-config script
+#  VALUES
+#    * /usr/bin/apr-1-config - For Apache 2.2.
+#****
+
+#****d* apache2.cygclass/APU_CONFIG
+#  NAME
+#    APU_CONFIG -- Path to matching apu-config script
+#  VALUES
+#    * /usr/bin/apu-1-config - For Apache 2.2.
+#****
 
 case ${APR_VERSION} in
 	1)	APR_CONFIG=/usr/bin/apr-${APR_VERSION}-config
@@ -66,20 +149,79 @@ case ${APR_VERSION} in
 	*)	error "Illegal value ${APR_VERSION} for APR_VERSION" ;;
 esac
 
-check_prog_req ${APR_CONFIG##*/} apr${APR_VERSION}
-check_prog_req ${APU_CONFIG##*/} aprutil${APR_VERSION}
-APR_CFLAGS="$(${APU_CONFIG} --includes) $(${APR_CONFIG} --cppflags --includes)"
-APR_LIBS="$(${APU_CONFIG} --link-ld) $(${APR_CONFIG} --link-ld --libs)"
-APR_LIBTOOL="$(${APR_CONFIG} --apr-libtool)"
+check_prog_req ${APR_CONFIG##*/} libapr${APR_VERSION}-devel
+check_prog_req ${APU_CONFIG##*/} libaprutil${APR_VERSION}-devel
 
-# libapreq
+#****d* apache2.cygclass/APR_CFLAGS
+#  NAME
+#    APR_CFLAGS -- CFLAGS for compiling against APR libraries
+#  DEFINITION
+APR_CFLAGS="$(${APU_CONFIG} --includes) $(${APR_CONFIG} --cppflags --includes)"
+#****
+
+#****d* apache2.cygclass/APR_LIBS
+#  NAME
+#    APR_LIBS -- LIBS for linking against APR libraries
+#  DEFINITION
+APR_LIBS="$(${APU_CONFIG} --link-ld) $(${APR_CONFIG} --link-ld --libs)"
+#****
+
+#****d* apache2.cygclass/APR_LIBTOOL
+#  NAME
+#    APR_LIBTOOL -- Path to libtool script used by APR-dependent packages
+#  DEFINITION
+APR_LIBTOOL="$(${APR_CONFIG} --apr-libtool)"
+#****
+
+# Make APACHE2_* contain all required flags
+APACHE2_CFLAGS+=" ${APR_CFLAGS}"
+APACHE2_LIBS+=" ${APR_LIBS}"
+
 if check_prog apreq2-config
 then
-	APREQ_CONFIG=/usr/bin/apreq2-config
-	APREQ_CFLAGS="$(${APREQ_CONFIG} --includes)"
-	APREQ_LIBS="$(${APREQ_CONFIG} --link-ld)"
-fi
 
+#****d* apache2.cygclass/APREQ2_CONFIG
+#  NAME
+#    APREQ2_CONFIG -- Path to apreq2-config script
+#  NOTE
+#    This is only defined if installed.
+#  DEFINITION
+APREQ2_CONFIG=/usr/bin/apreq2-config
+#****
+
+#****d* apache2.cygclass/APREQ2_CFLAGS
+#  NAME
+#    APREQ2_CFLAGS -- CFLAGS for compiling against libapreq2
+#  NOTE
+#    This is only defined if APREQ2_CONFIG is installed.
+#  DEFINITION
+APREQ2_CFLAGS="$(${APREQ2_CONFIG} --includes)"
+#****
+
+#****d* apache2.cygclass/APREQ2_LIBS
+#  NAME
+#    APREQ2_LIBS -- Flags for linking against libapreq2
+#  NOTE
+#    This is only defined if APREQ2_CONFIG is installed.
+#  DEFINITION
+APREQ2_LIBS="$(${APREQ2_CONFIG} --link-ld)"
+#****
+
+fi  #  check_prog apreq2-config  #
+
+
+#****f* apache2.cygclass/apache2_compile
+#  NAME
+#    apache2_compile
+#  SYNOPSIS
+#    apache2_compile [CONFIGURE_FLAGS]
+#  DESCRIPTION
+#    Build a DSO which uses an autoconf/libtool buildsystem by calling cygconf
+#    and cygmake with some Apache-specific flags.  Arguments, if any, are passed
+#    as configure flags.
+#  NOTE
+#    This is very generic and may not work in all cases.
+#****
 apache2_compile() {
 	if ! defined APACHE_MOD_NAME
 	then
@@ -93,28 +235,47 @@ apache2_compile() {
 		"${@}"
 
 	cygmake \
-		${APACHE_MOD_NAME}_la_CPPFLAGS="${APACHE2_CFLAGS} -I${APACHE2_INCLUDEDIR} ${APR_CFLAGS}" \
+		${APACHE_MOD_NAME}_la_CPPFLAGS="${APACHE2_CFLAGS}" \
 		${APACHE_MOD_NAME}_la_LDFLAGS="-module -avoid-version -no-undefined -shrext .so" \
-		${APACHE_MOD_NAME}_la_LIBADD="-lhttpd2core ${APR_LIBS}"
+		${APACHE_MOD_NAME}_la_LIBADD="${APACHE2_LIBS}"
 }
 
-# NOTE: CFLAGS need to proceed source files, with LIBS following
-# e.g. apache_apxs_compile CFLAGS *.c LIBS
+#****f* apache2.cygclass/apache2_apxs_compile
+#  NAME
+#    apache2_apxs_compile
+#  SYNOPSIS
+#    apache2_apxs_compile [CFLAGS] SOURCES [LIBS]
+#  DESCRIPTION
+#    Uses APXS2 to build a DSO from one or more .c source files which ship without
+#    their own build system.
+#  ARGUMENTS
+#  - CFLAGS -- Additional CFLAGS required for compiling this DSO.
+#  - SOURCES -- One or more .c sources.
+#  - LIBS -- Additional libraries required for linking this DSO.  Must be last.
+#  EXAMPLE
+#    apache2_apxs_compile mod_foo.c $(foo-config --libs)
+#****
 apache2_apxs_compile() {
 	local ldflags
 
 	if ! defined APACHE_MOD_NAME
 	then
-		error "define APACHE_MOD_NAME before calling apache_apxs_compile"
+		error "define APACHE_MOD_NAME before calling apache2_apxs_compile"
 	fi
 
 	${APXS2} -c -o ${APACHE_MOD_NAME}.la "${@:-*.c}" \
 		|| error "apxs compile failed"
 }
 
-# alias for apache_apxs_compile
-apxs2_compile() { apache_apxs_compile "$@" ; }
-
+#****f* apache2.cygclass/doapache2conf
+#  NAME
+#    doapache2conf -- Install additional Apache configuration files
+#  SYNOPSIS
+#    doapache2conf CONF_FILE [CONF_FILE] ...
+#  NOTE
+#    All files passed to doapache2conf will be concenated into one file named
+#    APACHE_MOD_NAME.conf.  Therefore, this must only be called once.
+#****
 doapache2conf() {
 	local f
 
@@ -124,11 +285,21 @@ doapache2conf() {
 	do
 		if [ -e ${f} ]
 		then
-			cat ${f} >> ${D}${APACHE2_SYSCONFDIR}/${ORIG_PN}.conf
+			cat ${f} >> ${D}${APACHE2_SYSCONFDIR}/${APACHE_MOD_NAME}.conf
 		fi
 	done
 }
 
+#****f* apache2.cygclass/doapache2mod
+#  NAME
+#    doapache2mod -- Install Apache DSOs.
+#  SYNOPSIS
+#    doapache2mod DSO [DSO] ...
+#  DESCRIPTION
+#    Installs one or more DSOs into $D/APACHE2_LIBEXECDIR.  DSOs are usually
+#    a .la libtool library (whether build with apache2_compile or apache2_apxs_compile),
+#    but may also be a .so DLL if built without libtool.
+#****
 doapache2mod() {
 	local mod
 
@@ -159,6 +330,17 @@ doapache2mod() {
 	done
 }
 
+#****f* apache2.cygclass/apache2_postinst
+#  NAME
+#    apache2_postinst
+#  SYNOPSIS
+#    apache2_postinst
+#  DESCRIPTION
+#    Creates postinstall and preremove scripts which automatically add/remove
+#    the necessary lines in httpd.conf for loading this package's DSOs.  This
+#    means that users need not do anything more than install the package in
+#    order to use the DSO.
+#****
 apache2_postinst() {
 	local imp mod sym
 
