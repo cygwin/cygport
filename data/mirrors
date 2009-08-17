@@ -3,7 +3,7 @@
 # mirrors - default list for mirror:// URI resolution
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,13 +23,49 @@
 #
 ################################################################################
 
-# http://www.apache.org/mirrors/index.html
+#****** Downloading/Mirrors
+#  INTRODUCTION
+#    Many large software projects and hosting sites provide multiple download
+#    mirrors for their projects, allowing users to choose a site closer to them
+#    and to help distribute the bandwidth demands around the world.
+#
+#    Within cygport, the mirror:// notation can be used in SRC_URI and PATCH_URI
+#    to allow package maintainers both the ability to choose their favourite
+#    mirrors and use an abbreviated URI for common sites.
+#
+#    The default mirrors are usually the central download site or a redirector;
+#    other mirrors will be tried if downloading from the default mirror fails.
+#    Users can select their favourite mirrors by redefining the mirror_*
+#    variables listed below (as a string containing one or more mirror sites)
+#    in their cygport.conf.
+#
+#  HINT
+#    Custom per-package "mirrors" can also be defined in a .cygport file.  This 
+#    can be useful if SRC_URI or PATCH_URI contain a large number of long URIs.
+#
+#  NOTE
+#    Mirror providers change frequently.  If you define your own default mirror,
+#    you may experience errors or delays downloading if your mirror goes offline.
+#****
+
+#****d* Mirrors/mirror_apache
+#  NAME
+#    mirror_apache -- Apache Software Foundation project hosting
+#  SYNOPSIS
+#    SRC_URI="mirror://apache/projectname/${P}.tar.bz2"
+#  DEFAULT MIRROR
+#    http://www.apache.org/dist
+#  MIRROR LIST
+#    http://www.apache.org/mirrors/index.html
+#  SEE ALSO
+#    apache1.cygclass, apache2.cygclass
+#****
 # grep -h '^  <TD ALIGN="RIGHT"><A HREF=' index.html \
 # | sed -e 's#<TD ALIGN="RIGHT"><A HREF="\(.*\)/">.*#\1#g' \
 # | cut -d '"' -f 1 | sed -e 's#^  #\t#g' -e 's#/$##g'
 mirror_apache="
-	http://www.eu.apache.org/dist
 	http://www.apache.org/dist
+	http://www.eu.apache.org/dist
 	http://apache.mesi.com.ar
 	http://apache.xmundo.com.ar
 	http://apache.localhost.net.ar
@@ -310,14 +346,35 @@ mirror_apache="
 "	# mirror_apache
 
 
-# http://developer.berlios.de/mirrors/
+#****d* Mirrors/mirror_berlios
+#  NAME
+#    mirror_berlios -- BerliOS project hosting
+#  SYNOPSIS
+#    SRC_URI="mirror://berlios/projectname/${P}.tar.gz"
+#  DEFAULT MIRROR
+#    http://download.berlios.de
+#  MIRROR LIST
+#    http://developer.berlios.de/mirrors/
+#****
 # The FTP server listed is not for project releases
 mirror_berlios="
 	http://download.berlios.de
 	http://download2.berlios.de
 "	# mirror_berlios
 
-# http://www.cpan.org/SITES.html
+
+#****d* Mirrors/mirror_cpan
+#  NAME
+#    mirror_cpan -- Comprehensive Perl Archive Network
+#  SYNOPSIS
+#    SRC_URI="mirror://cpan/authors/id/A/AU/AUTHOR/${ORIG_PN}-${PV}.tar.gz"
+#  DEFAULT MIRROR
+#    http://search.cpan.org/CPAN
+#  MIRROR LIST
+#    http://www.cpan.org/SITES.html
+#  SEE ALSO
+#    perl.cygclass
+#****
 # cat SITES.html | egrep '^ *<A HREF=.*(CPAN|cpan).*(ht|f)tp:' | \
 #   sed -e 's! *<A HREF="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
 mirror_cpan="
@@ -721,7 +778,19 @@ mirror_cpan="
 	ftp://cpan.dcc.uchile.cl/pub/lang/cpan
 "   # mirror_cpan
 
-# http://cran.r-project.org/mirrors.html
+
+#****d* Mirrors/mirror_cran
+#  NAME
+#    mirror_cran -- Comprehensive R Archive Network
+#  SYNOPSIS
+#    SRC_URI="mirror://cran/src/contrib/${ORIG_PN}_${PV/_/-}.tar.gz"
+#  DEFAULT MIRROR
+#    http://cran.r-project.org/
+#  MIRROR LIST
+#    http://cran.r-project.org/mirrors.html
+#  SEE ALSO
+#    R.cygclass
+#****
 # grep -P '^http.*\n</a>' mirrors.html \
 #     | sed -e '/<\/a>/d' -e 's#^#\t#g' -e 's#/$##g'
 mirror_cran="
@@ -780,8 +849,17 @@ mirror_cran="
 	http://www.sourcekeg.co.uk/cran
 "	# mirror_cran
 
-# Debian package pool (primary mirrors only)
-# http://www.debian.org/mirror/list
+
+#****d* Mirrors/mirror_debian
+#  NAME
+#    mirror_debian -- Debian package pool
+#  SYNOPSIS
+#    SRC_URI="mirror://debian/pool/main/${PN:0:1}/${PN}/${PN}_${PV}.orig.tar.gz"
+#  DEFAULT MIRROR
+#    http://ftp.debian.org/debian
+#  MIRROR LIST
+#    http://www.debian.org/mirror/list
+#****
 # grep '^  <td><a href' list  | sed -e 's#.*"\(.*\)/".*#\t\1#g'
 mirror_debian="
 	http://ftp.debian.org/debian
@@ -832,17 +910,27 @@ mirror_debian="
 "	# mirror_debian
 
 
-# Gentoo distfiles
-# http://www.gentoo.org/main/en/mirrors.xml
+#****d* Mirrors/mirror_gentoo
+#  NAME
+#    mirror_gentoo -- Gentoo Linux distfiles
+#  SYNOPSIS
+#    SRC_URI="mirror://gentoo/${P}.tar.bz2"
+#  DEFAULT MIRROR
+#    http://gentoo.osuosl.org/distfiles
+#  MIRROR LIST
+#    http://www.gentoo.org/main/en/mirrors.xml
+#  SEE ALSO
+#    mirror_portage
+#****
 # egrep '^<a href="(ht|f)tp:.*</a><br>$' mirrors.xml | \
 #	sed -e 's#<a href="\(.*\)".*</a>.*#\t\1#' -e 's#/$##' -e 's#$#/distfiles#'
 mirror_gentoo="
+	http://gentoo.osuosl.org/distfiles
 	http://adelie.polymtl.ca/distfiles
 	ftp://gentoo.arcticnetwork.ca/pub/gentoo/distfiles
 	http://gentoo.arcticnetwork.ca/distfiles
 	ftp://mirrors.tera-byte.com/pub/gentoo/distfiles
 	http://gentoo.mirrors.tera-byte.com/distfiles
-	http://gentoo.osuosl.org/distfiles
 	ftp://distro.ibiblio.org/pub/linux/distributions/gentoo/distfiles
 	http://distro.ibiblio.org/pub/linux/distributions/gentoo/distfiles
 	ftp://ftp.gtlib.gatech.edu/pub/gentoo/distfiles
@@ -1023,12 +1111,19 @@ mirror_gentoo="
 	ftp://mirror.averse.net/pub/gentoo/distfiles
 "	# mirror_gentoo
 
-# Gentoo Portage CVS repository (mostly for patches)
-mirror_portage="
-	http://sources.gentoo.org/viewcvs.py/*checkout*/gentoo-x86
-"
 
-# http://ftp.gnome.org/pub/GNOME/MIRRORS
+#****d* Mirrors/mirror_gnome
+#  NAME
+#    mirror_gnome -- GNOME FTP
+#  SYNOPSIS
+#    SRC_URI="mirror://gnome/sources/${PN}/${PV}/${P}.tar.bz2"
+#  DEFAULT MIRROR 
+#    http://ftp.gnome.org/pub/gnome
+#  MIRROR LIST
+#    http://ftp.gnome.org/pub/GNOME/MIRRORS
+#  SEE ALSO
+#    gnome.org.cygclass
+#****
 # cat MIRRORS | grep 'tp:' | sed -e 's!/$!!g'
 mirror_gnome="
 	http://ftp.gnome.org/pub/gnome
@@ -1059,7 +1154,17 @@ mirror_gnome="
 	http://ftp.nara.wide.ad.jp/pub/X11/GNOME
 "   # mirror_gnome
 
-# http://www.gnu.org/order/ftp.html
+
+#****d* Mirrors/mirror_gnu
+#  NAME
+#    mirror_gnu -- GNU projects
+#  SYNOPSIS
+#    SRC_URI="mirror://gnu/projectname/${P}.tar.gz"
+#  DEFAULT MIRROR
+#    ftp://ftp.gnu.org/gnu
+#  MIRROR LIST
+#    http://www.gnu.org/order/ftp.html
+#****
 # cat ftp.html | grep '<li><a' | \
 #   sed -e 's!.*<li><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
 mirror_gnu="
@@ -1211,13 +1316,37 @@ mirror_gnu="
 	ftp://gnu.teleglobe.net/ftp.gnu.org
 "   # mirror_gnu
 
-# http://www.gnustep.org/resources/sources.html
+
+#****d* Mirrors/mirror_gnustep
+#  NAME
+#    mirror_gnustep -- GNUstep packages
+#  SYNOPSIS
+#    SRC_URI="mirror://gnustep/usr-apps/${ORIG_PN}-${PV}.tar.gz"
+#  DEFAULT MIRROR
+#    http://ftp.gnustep.org/pub/gnustep
+#  MIRROR LIST
+#    http://www.gnustep.org/resources/sources.html
+#  SEE ALSO
+#    gnustep.cygclass
+#****
 mirror_gnustep="
 	http://ftp.gnustep.org/pub/gnustep
 	ftp://ftp.gnustep.org/pub/gnustep
 "	# mirror_gnustep
 
-# http://www.kde.org/mirrors/ftp.php
+
+#****d* Mirrors/mirror_kde
+#  NAME
+#    mirror_kde -- KDE FTP
+#  SYNOPSIS
+#    SRC_URI="mirror://kde/stable/${PV}/src/${P}.tar.bz2"
+#  DEFAULT MIRROR
+#    ftp://ftp.kde.org/pub/kde
+#  MIRROR LIST
+#    http://www.kde.org/mirrors/ftp.php
+#  SEE ALSO
+#    kde3.cygclass, kde4.cygclass
+#****
 # cat ftp.php | grep '<dd><a' | \
 #   sed -e 's!.*<dd><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
 mirror_kde="
@@ -1313,7 +1442,19 @@ mirror_kde="
 	ftp://ftp.mirror.ac.uk/sites/ftp.kde.org/pub/kde
 "   # mirror_kde
 
-# http://www.mplayerhq.hu/dload.html
+
+#****d* Mirrors/mirror_mplayer
+#  NAME
+#    mirror_mplayer -- MPlayer releases and skins
+#  SYNOPSIS
+#    SRC_URI="mirror://mplayer/releases/${P}.tar.bz2"
+#  DEFAULT MIRROR
+#    http://www1.mplayerhq.hu/MPlayer
+#  MIRROR LIST
+#    http://www.mplayerhq.hu/dload.html
+#  NOTE
+#    MPlayer releases are often outdated; using a SVN checkout is recommended.
+#****
 mirror_mplayer="
 	http://www1.mplayerhq.hu/MPlayer
 	http://www2.mplayerhq.hu/MPlayer
@@ -1326,7 +1467,36 @@ mirror_mplayer="
 	ftp://ftp.fu-berlin.de/unix/X11/multimedia/MPlayer
 "	# mirror_mplayer
 
-# http://rubyforge.org/credits/
+
+#****d* Mirrors/mirror_portage
+#  NAME
+#    mirror_portage -- Gentoo Linux Portage tree (via ViewCVS)
+#  SYNOPSIS
+#    PATCH_URI="mirror://portage/cat-egory/packagename/files/${P}-whatever.patch"
+#  DEFAULT MIRROR
+#    http://sources.gentoo.org/viewcvs.py/*checkout*/gentoo-x86
+#  MIRROR LIST
+#    None
+#  SEE ALSO
+#    mirror_gentoo
+#****
+mirror_portage="
+	http://sources.gentoo.org/viewcvs.py/*checkout*/gentoo-x86
+"	# mirror_portage
+
+
+#****d* Mirrors/mirror_rubyforge
+#  NAME
+#    mirror_rubyforge -- RubyForge project hosting
+#  SYNOPSIS
+#    SRC_URI="mirror://rubyforge/projectname/${ORIG_PN}-${PV}.tar.gz"
+#  DEFAULT MIRROR
+#    http://rubyforge-files.ruby-forum.com
+#  MIRROR LIST
+#    http://rubyforge.org/credits/
+#  SEE ALSO
+#    ruby.cygclass
+#****
 mirror_rubyforge="
 	http://rubyforge-files.ruby-forum.com
 	http://files.rubyforge.mmmultiworks.com
@@ -1336,44 +1506,87 @@ mirror_rubyforge="
 	http://files.rubyforge.vm.bytemark.co.uk
 "	# mirror_rubyforge
 
+
+#****d* Mirrors/mirror_sourceforge
+#  NAME
+#    mirror_sourceforge -- SourceForge project hosting
+#  SYNOPSIS
+#    SRC_URI="mirror://sourceforge/projectname/${P}.tar.bz2"
+#  DEFAULT MIRROR
+#    http://downloads.sourceforge.net
+#  MIRROR LIST
+#    https://sourceforge.net/apps/trac/sourceforge/wiki/Mirrors
+#****
 mirror_sourceforge="
 	http://downloads.sourceforge.net
-	http://superb-west.dl.sourceforge.net
-	http://superb-east.dl.sourceforge.net
-	http://umn.dl.sourceforge.net
-	http://easynews.dl.sourceforge.net
-	http://kent.dl.sourceforge.net
-	http://heanet.dl.sourceforge.net
-	http://puzzle.dl.sourceforge.net
-	http://belnet.dl.sourceforge.net
-	http://surfnet.dl.sourceforge.net
-	http://ufpr.dl.sourceforge.net
-	http://optusnet.dl.sourceforge.net
-	http://jaist.dl.sourceforge.net
-	http://nchc.dl.sourceforge.net
 	http://osdn.dl.sourceforge.net
+	http://biznetnetworks.dl.sourceforge.net
+	http://belnet.dl.sourceforge.net
+	http://dfn.dl.sourceforge.net
+	http://easynews.dl.sourceforge.net
+	http://fastbull.dl.sourceforge.net
+	http://freefr.dl.sourceforge.net
+	http://garr.dl.sourceforge.net
+	http://heanet.dl.sourceforge.net
+	http://hivelocity.dl.sourceforge.net
+	http://internap.dl.sourceforge.net
+	http://internode.dl.sourceforge.net
+	http://iweb.dl.sourceforge.net
+	http://jaist.dl.sourceforge.net
+	http://kent.dl.sourceforge.net
+	http://mesh.dl.sourceforge.net
+	http://nchc.dl.sourceforge.net
+	http://ncu.dl.sourceforge.net
+	http://nfsi.dl.sourceforge.net
+	http://ovh.dl.sourceforge.net
+	http://puzzle.dl.sourceforge.net
+	http://softlayer.dl.sourceforge.net
+	http://sunet.dl.sourceforge.net
+	http://superb-east.dl.sourceforge.net
+	http://superb-west.dl.sourceforge.net
+	http://surfnet.dl.sourceforge.net
+	http://switch.dl.sourceforge.net
+	http://transact.dl.sourceforge.net
+	http://ufpr.dl.sourceforge.net
+	http://voxel.dl.sourceforge.net
+	http://waix.dl.sourceforge.net
 "   # mirror_sourceforge
 
-# http://www.trolltech.com/developer/downloads/qt/x11
+
+#****d* Mirrors/mirror_trolltech
+#  NAME
+#    mirror_trolltech -- Qt, QtCreator, and QtJambi downloads
+#  SYNOPSIS
+#    SRC_URI="mirror://trolltech/qt/${ORIG_PN}-${PV}.tar.bz2"
+#  DEFAULT MIRROR
+#    ftp://ftp.trolltech.com
+#  MIRROR LIST
+#    ftp://ftp.trolltech.com/mirrors
+#****
 mirror_trolltech="
 	ftp://ftp.trolltech.com
 	http://ftp.silug.org/mirrors/ftp.trolltech.com
 	ftp://ftp.silug.org/mirrors/ftp.trolltech.com
-	http://wftp.tu-chemnitz.de/pub/Qt
-	ftp://ftp.tu-chemnitz.de/pub/Qt
-	http://ftp.ntua.gr/pub/X11/Qt
-	ftp://ftp.ntua.gr/pub/X11/Qt
-	http://ftp.iasi.roedu.net/mirrors/ftp.trolltech.com
-	ftp://ftp.iasi.roedu.net/mirrors/ftp.trolltech.com
+	ftp://ftp.qtopia.org.cn/mirror/ftp.trolltech.com
 "   # mirror_trolltech
 
-# http://vim.sourceforge.net/mirrors.php
+
+#****d* Mirrors/mirror_vim
+#  NAME
+#    mirror_vim -- Vim downloads
+#  SYNOPSIS
+#    SRC_URI="mirror://vim/unix/${P}.tar.bz2 mirror://vim/extra/${P}-extra.tar.gz"
+#  DEFAULT MIRROR
+#    http://ftp.vim.org/pub/vim
+#  MIRROR LIST
+#    http://vim.sourceforge.net/mirrors.php
+#****
 # cat mirrors.php | egrep '^  <a href="(ht|f)tp:' | \
 #	sed -e 's#  <a.*>\(.*\)</a>.*#\t\1#' -e 's#/$##'
 mirror_vim="
-	ftp://ftp.home.vim.org/pub/vim
 	http://ftp.vim.org/pub/vim
 	ftp://ftp.vim.org/pub/vim
+	ftp://ftp.home.vim.org/pub/vim
 	ftp://ftp.us.vim.org/pub/vim
 	ftp://ftp2.us.vim.org/pub/vim
 	ftp://ftp3.us.vim.org/pub/mirrors/ftp.vim.org/vim
@@ -1426,7 +1639,19 @@ mirror_vim="
 	http://ftp2.kr.vim.org/pub/vim
 "	# mirror_vim
 
-# http://www.xfce.org/download/
+
+#****d* Mirrors/mirror_xfce
+#  NAME
+#    mirror_xfce -- Xfce sources
+#  SYNOPSIS
+#    SRC_URI="mirror://xfce/src/xfce-${XFCE_VERSION}/src/${P}.tar.bz2"
+#  DEFAULT MIRROR
+#    http://www.xfce.org/archive
+#  MIRROR LIST
+#    http://www.xfce.org/download/
+#  SEE ALSO
+#    xfce4.cygclass
+#****
 mirror_xfce="
 	http://www.xfce.org/archive
 	http://mocha.xfce.org/archive
