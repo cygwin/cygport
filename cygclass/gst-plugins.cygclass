@@ -23,4 +23,18 @@
 #
 ################################################################################
 
+#****h* Cygclasses/gst-plugins.cygclass
+#  NAME
+#    gst-plugins.cygclass -- Redirector for versioned gst-plugins cygclasses
+#  DESCRIPTION
+#    This cygclass inherits the versioned gst-plugins cygclass based on PV
+#    (e.g. 0.10.x -> gst-plugins0.10.cygclass).  If the package's PV does not
+#    match the corresponding GStreamer series (which is rare), then you must
+#    inherit the correct versioned cygclass directly.
+#
+#    Please note the only GStreamer series currently supported is 0.10.
+#  INHERITS
+#    gst-plugins0.10.cygclass
+#****
+
 inherit gst-plugins${PV[1]}.$((PV[2] + PV[2] % 2))
