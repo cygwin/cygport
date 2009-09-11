@@ -1,3 +1,8 @@
+2009-Sep-10  yselkowitz
+
+	* cygclass/gst-plugins0.10.cygclass: Document.
+	Update for -bad .14 and -ugly .13.
+
 2009-Aug-17  yselkowitz
 
 	Robodocize.

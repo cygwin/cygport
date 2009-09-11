@@ -23,12 +23,57 @@
 #
 ################################################################################
 
-# Borrowed heavily from Gentoo's gst-plugins* eclasses
+#****h* Cygclasses/gst-plugins0.10.cygclass
+#  NAME
+#    gst-plugins0.10.cygclass -- Build GStreamer 0.10 Plugins
+#  DESCRIPTION
+#    GStreamer is a modular multimedia framework, using plugins to support
+#    a wide variety of audio and video formats, effects, and input/output.
+#    Being based on GObject it is heavily used within GNOME, but it also seems
+#    some use as a backend for Qt4 Phonon.
+#
+#    GStreamer ships most of their plugins in four bundles (base, good, bad,
+#    and ugly), each of which contain a number of plugins, some with external
+#    dependencies and some without.  There also exist several packages which
+#    contain a single plugin or a very few related plugins.
+#
+#    This Cygclass handles GStreamer's unique build system requirements, as
+#    well as the de/selection of plugins with external dependencies.
+#  INHERITS
+#    autotools.cygclass, gstreamer.cygclass
+#  INHERITED BY
+#    gst-plugins.cygclass
+#****
 
 gst_pn=${PN#gstreamer[0-9]*-plugins-}
 
 # defaults
 ORIG_PN=gst-plugins-${gst_pn}
+
+#****iv* gst-plugins0.10.cygclass/GST_PLUGINS_SRC
+#****
+
+#****iv* gst-plugins0.10.cygclass/GST_PLUGINS_MODULE
+#****
+
+#****iv* gst-plugins0.10.cygclass/GST_PLUGINS_DIR
+#****
+
+#****v* gst-plugins0.10.cygclass/GST_PLUGINS_EXT
+#  NAME
+#    GST_PLUGINS_EXT -- String list of plugins with external dependencies
+#  DESCRIPTION
+#    This variable controls which plugins with external dependencies will be
+#    built.  It must be defined as a string, with plugins indicated by their
+#    configure argument.  Those plugins included in the source package which
+#    are not listed here will be forcefully disabled.
+#
+#    Because the name of the plugin often corresponds to its configure argument
+#    (e.g. ogg -> libgstogg.la), these plugins can easily be packaged separately
+#    with a 'for' loop with this variable as the iterator collection.
+#  USAGE
+#    This variable must be defined _before_ inheriting this cygclass.
+#****
 
 case ${gst_pn} in
 	base|good|bad|ugly|farsight)
@@ -76,7 +121,10 @@ esac
 
 inherit gstreamer
 
+#****o* gst-plugins0.10.cygclass/DESCRIPTION (gst-plugins0.10)
+#  DEFINITION
 DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
+#****
 
 case ${GST_PLUGINS_SRC:-${gst_pn}} in
 	base)
@@ -96,9 +144,9 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 	bad)
 		# WARNING: some of the dependent codecs may be patent encumbered
 		my_gst_plugins="acm amrwb apexsink assrender bz2 celt dirac dts
-		                faac faad gsm ivorbis jack jp2k ladspa libmms
+		                faac faad gme gsm ivorbis jack jp2k ladspa libmms lv2
 		                metadata mimic modplug mpeg2enc mplex musepack musicbrainz
-		                nas neon ofa resindvd sdl sndfile soundtouch spc
+		                nas neon ofa resindvd schro sdl sndfile soundtouch spc
 		                theoradec timidity wildmidi wininet xvid"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
@@ -106,7 +154,7 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		;;
 	ugly)
 		# WARNING: the dependent codecs may be patent encumbered
-		my_gst_plugins="amrnb a52dec cdio dvdnav dvdread id3tag lame
+		my_gst_plugins="amrnb amrwb a52dec cdio dvdread lame
 		                mad mpeg2dec sidplay twolame x264"
 		conftest_gst_plugins=
 		never_gst_plugins=
@@ -118,6 +166,10 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		;;
 esac
 
+#****f* gst-plugins0.10.cygclass/gst_plugins_autoreconf
+#  NAME
+#    gst_plugins_autoreconf -- Alias for gstreamer_autoreconf
+#****
 gst_plugins_autoreconf() {
 	gstreamer_autoreconf
 
@@ -147,6 +199,18 @@ gst_plugins_autoreconf() {
 	esac
 }
 
+#****f* gst-plugins0.10.cygclass/gst_plugins_compile
+#  NAME
+#    gst_plugins_compile -- Configure and build the plugins package
+#  DESCRIPTION
+#    First, cygconf is called with several GStreamer-specific arguments which
+#    apply to all plugin packages, as well as the necessary arguments to enable
+#    or disable plugins with external dependencies, per the value of GST_PLUGINS_EXT.
+#    Then cygmake is called to build the package.
+#
+#    gst_plugins_compile optionally accepts additional configure flags as 
+#    arguments, which are passed to cygconf.
+#****
 gst_plugins_compile() {
 	local plugin gst_conf
 
@@ -191,6 +255,10 @@ gst_plugins_compile() {
 	cygmake
 }
 
+#****f* gst-plugins0.10.cygclass/gst_plugins_install
+#  NAME
+#    gst_plugins_install -- Alias for cyginstall
+#****
 gst_plugins_install() {
 	if [ "x${GST_PLUGINS_DIR}" != "x." ]
 	then
@@ -204,16 +272,22 @@ gst_plugins_install() {
 	cyginstall
 }
 
+#****o* gst-plugins0.10.cygclass/src_compile (gst-plugins0.10)
+#  DEFINITION
 src_compile() {
 	cd ${S}
 	gst_plugins_autoreconf
 	cd ${B}
 	gst_plugins_compile
 }
+#****
 
+#****o* gst-plugins0.10.cygclass/src_install (gst-plugins0.10)
+#  DEFINITION
 src_install() {
 	cd ${B}
 	gst_plugins_install
 }
+#****
 
 readonly -f gst_plugins_autoreconf gst_plugins_compile gst_plugins_install
