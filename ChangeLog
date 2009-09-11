@@ -1,5 +1,6 @@
 2009-Sep-10  yselkowitz
 
+	* cygclass/gstreamer.cygclass: Document.
 	* cygclass/gst-plugins.cygclass: Document.
 	* cygclass/gst-plugins0.10.cygclass: Document.
 	Update for -bad .14 and -ugly .13.

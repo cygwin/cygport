@@ -23,33 +23,64 @@
 #
 ################################################################################
 
+#****h* Cygclasses/gstreamer.cygclass
+#  NAME
+#    gstreamer.cygclass -- Base functions for GStreamer packages.
+#  DESCRIPTION
+#    GStreamer is a modular multimedia framework, using plugins to support
+#    a wide variety of audio and video formats, effects, and input/output.
+#    Being based on GObject it is heavily used within GNOME, but it also seems
+#    some use as a backend for Qt4 Phonon.
+#
+#    GStreamer components include the core libraries and command-line tools,
+#    several sets of plugins, and Python bindings.  This cygclass defines
+#    variables and functions which are common to all GStreamer components,
+#    and is also the basis of the versions of gst-plugins.cygclass.
+#  INHERITED BY
+#    gst-plugins0.10.cygclass
+#****
+
 gst_component=${PN#gstreamer*-}
 ORIG_PN=${ORIG_PN:-gst-${gst_component}}
 
+#****o* gstreamer.cygclass/HOMEPAGE (gstreamer)
+#  DEFINITION
 HOMEPAGE="http://gstreamer.freedesktop.org/"
+#****
+
+#****o* gstreamer.cygclass/SRC_URI (gstreamer)
+#  DEFINITION
 SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
+#****
+
 SRC_DIR=${ORIG_PN}-${PV}
 
-CVS_URI=":pserver:anoncvs@anoncvs.freedesktop.org:/cvs/gstreamer"
+#****o* gstreamer.cygclass/GIT_URI (gstreamer)
+#  DEFINITION
 GIT_URI="git://anongit.freedesktop.org/git/gstreamer/${ORIG_PN}"
+#****
 
 DIFF_EXCLUDES="common m4 po autoregen.sh stamp-h.in"
 
+#****d* gstreamer.cygclass/GST_PLUGINDIR
+#  DEFINITION
 GST_PLUGINDIR="/usr/lib/gstreamer-${PV_MAJ_MIN}"
+#****
 
-gstreamer_cvs_checkout() {
-	check_prog_req cvs
-
-	if [ -z "${1}" ]
-	then
-		error "gstreamer_cvs_checkout requires the CVS module as an argument"
-	fi
-
-	cvs -d ${CVS_URI} co ${@}
-}
-
-gst_cvs_checkout() { gstreamer_cvs_checkout ${@} ; }
-
+#****f* gstreamer.cygclass/gstreamer_autoreconf
+#  NAME
+#    gstreamer_autoreconf -- Regenerate autotool files for GStreamer packages
+#  SYNOPSIS
+#    cd $S
+#    gstreamer_autoreconf
+#  DESCRIPTION
+#    GStreamer packages are autotool-based but require some custom steps to
+#    bootstrap, making cygautoreconf insufficient for a working build.
+#
+#    This function runs the toplevel autogen.sh script, which is shipped in
+#    each tarball, which makes sure that all necessary steps are taken.  It
+#    must be used instead of cygautoreconf in all GStreamer packages.
+#****
 gstreamer_autoreconf() {
 	# gstreamer packages require a custom autogen.sh
 	if [ ! -f autogen.sh ]
@@ -62,4 +93,4 @@ gstreamer_autoreconf() {
 
 gst_autoreconf() { gstreamer_autoreconf ; }
 
-readonly -f gstreamer_cvs_checkout gst_cvs_checkout gstreamer_autoreconf gst_autoreconf
+readonly -f gstreamer_autoreconf gst_autoreconf

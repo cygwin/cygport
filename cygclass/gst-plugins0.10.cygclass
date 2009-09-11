@@ -27,10 +27,7 @@
 #  NAME
 #    gst-plugins0.10.cygclass -- Build GStreamer 0.10 Plugins
 #  DESCRIPTION
-#    GStreamer is a modular multimedia framework, using plugins to support
-#    a wide variety of audio and video formats, effects, and input/output.
-#    Being based on GObject it is heavily used within GNOME, but it also seems
-#    some use as a backend for Qt4 Phonon.
+#    For an introduction to GStreamer, see gstreamer.cygclass.
 #
 #    GStreamer ships most of their plugins in four bundles (base, good, bad,
 #    and ugly), each of which contain a number of plugins, some with external
