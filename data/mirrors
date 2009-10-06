@@ -1161,15 +1161,16 @@ mirror_gnome="
 #  SYNOPSIS
 #    SRC_URI="mirror://gnu/projectname/${P}.tar.gz"
 #  DEFAULT MIRROR
-#    ftp://ftp.gnu.org/gnu
+#    http://ftpmirror.gnu.org
 #  MIRROR LIST
 #    http://www.gnu.org/order/ftp.html
 #****
 # cat ftp.html | grep '<li><a' | \
 #   sed -e 's!.*<li><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
 mirror_gnu="
-	ftp://ftp.gnu.org/gnu
+	http://ftpmirror.gnu.org
 
+	ftp://ftp.gnu.org/gnu
 	ftp://mirrors.kernel.org/gnu
 	http://mirrors.kernel.org/gnu
 	ftp://gatekeeper.dec.com/pub/GNU
@@ -1505,6 +1506,50 @@ mirror_rubyforge="
 	http://rubyforge.rubyuser.de
 	http://files.rubyforge.vm.bytemark.co.uk
 "	# mirror_rubyforge
+
+
+#****d* Mirrors/mirror_savannah
+#  NAME
+#    mirror_savannah -- Savannah GNU project hosting
+#  SYNOPSIS
+#    SRC_URI="mirror://savannah/projectname/${P}.tar.gz"
+#  DEFAULT MIRROR
+#    http://download.savannah.nongnu.org/releases
+#  MIRROR LIST
+#    http://download.savannah.nongnu.org/releases-noredirect/00_MIRRORS.txt
+#****
+#  sed -e 's|.* \(.*\)/|\t\1|g' 00_MIRRORS.txt
+mirror_savannah="
+	http://download.savannah.nongnu.org/releases
+
+	http://mirror.cinquix.com/pub/savannah
+	ftp://mirror.cinquix.com/pub/savannah
+	http://mirror.csclub.uwaterloo.ca/nongnu
+	ftp://mirror.csclub.uwaterloo.ca/nongnu
+	http://mirror.dknss.com/nongnu
+	http://mirror.sourceshare.org/savannah
+	http://mirrors.openfountain.cl/savannah
+	http://mirrors.zerg.biz/nongnu
+	http://www.very-clever.com/download/nongnu
+	http://nongnu.mirror.ironie.org/releases
+	http://mirror.its.uidaho.edu/pub/savannah
+	ftp://ftp.ironie.org/savannah.nongnu.org/releases
+	http://ftp.cc.uoc.gr/mirrors/nongnu.org
+	ftp://ftp.cc.uoc.gr/mirrors/nongnu.org
+	http://ftp.twaren.net/Unix/NonGNU
+	ftp://ftp.twaren.net/Unix/NonGNU
+	http://download.savannah.nongnu.org/releases-noredirect
+	http://nongnu.askapache.com
+	http://savannah.c3sl.ufpr.br
+	ftp://savannah.c3sl.ufpr.br/savannah-nongnu
+	http://savannah.inetbridge.net
+	http://mirror.lihnidos.org/GNU/savannah
+	http://mirrors.linhub.com/savannah
+	http://mirrors.aixtools.net/sv
+	http://ftp.tpnet.pl/vol/d12savannah
+	ftp://ftp.tpnet.pl/d12/savannah
+	http://mirror.vocabbuilder.net/savannah
+"
 
 
 #****d* Mirrors/mirror_sourceforge

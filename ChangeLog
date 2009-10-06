@@ -1,3 +1,7 @@
+2009-Oct-06  yselkowitz
+
+	* data/mirrors (mirror_savannah): Define and document.
+
 2009-Sep-10  yselkowitz
 
 	* cygclass/gstreamer.cygclass: Document.
