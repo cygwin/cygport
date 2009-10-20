@@ -1,3 +1,9 @@
+2009-Oct-20  yselkowitz
+
+	* cygclass/rox.cygclass: Document. Remove ROX_MENU and ROX_MIME,
+	as almost all ROX applications are unusable outside of the filer.
+	Similarly, only install a wrapper if ROX_WRAPPER is defined.
+
 2009-Oct-06  yselkowitz
 
 	* data/mirrors (mirror_savannah): Define and document.
