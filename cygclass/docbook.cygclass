@@ -139,7 +139,7 @@ docbook_install() {
 			;;
 		xml-simple)
 			doins *.css *.dtd *.mod
-			newins docbook-xml-simple*.cat* docbook.cat
+			newins docbook-xml-simple-dtd-${PV}.cat* docbook.cat
 			;;
 		xsl|xsl-ns)
 			doins VERSION
@@ -158,7 +158,6 @@ docbook_dsssl_postinst() {
 	dodir /etc/postinstall /etc/preremove
 
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		/usr/bin/mkdir -p /etc/sgml
 		/usr/bin/install-catalog --add ${DOCBOOK_SGML_CATALOG} ${DOCBOOK_DIR}/catalog
 
 		_EOF
@@ -186,7 +185,6 @@ docbook_sgml_postinst() {
 	dodir /etc/postinstall /etc/preremove
 
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		/usr/bin/mkdir -p /etc/sgml
 		/usr/bin/install-catalog --add ${DOCBOOK_PACKAGE_CATALOG} ${DOCBOOK_SGML_CATALOG}
 		/usr/bin/install-catalog --add ${DOCBOOK_PACKAGE_CATALOG} ${DOCBOOK_DIR}/${cat_name}
 
