@@ -3,7 +3,7 @@
 # docbook.cygclass - functions for packaging DocBook SGML/XML and DSSSL/XSL
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,66 +23,101 @@
 #
 ################################################################################
 
+#****h* Cygclasses/docbook.cygclass
+#  NAME
+#    docbook.cygclass -- Install DocBook DTDs and stylesheets
+#  SYNOPSIS
+#    inherit docbook
+#  DESCRIPTION
+#    DocBook is a schema for SGML and XML documents meant for formatting
+#    documents and books, and is sometimes used for software documentation.
+#    It is generally processed through the (Open)Jade parser, either
+#    directly or through the jw/docbook2* wrappers.
+#
+#    This cygclass handles downloading, installation and registration of
+#    DocBook SGML, XML, and Simplified XML DTDs, as well as the DSSSL and
+#    XSL stylesheets.
+#****
+
 my_pn=${PN%%[0-9]*}
 my_p=${my_pn}-${PV}
 
 dtd_type=${my_pn#docbook-}
 
-SGML_CATALOG=/etc/sgml/catalog
-XML_CATALOG=/etc/xml/catalog
+DOCBOOK_SGML_CATALOG=/etc/sgml/sgml-docbook.cat
+DOCBOOK_XML_CATALOG=/etc/xml/docbook
+DOCBOOK_ROOT=/usr/share/sgml/docbook
 
 case ${dtd_type} in
-	dsssl)		DOCBOOK_DIR=/usr/share/sgml/docbook/dsssl ;;
-	xsl)		DOCBOOK_DIR=/usr/share/xml/docbook/xsl ;;
-	sgml|xml*)	DOCBOOK_DIR=/usr/share/${dtd_type%-*}/docbook/${dtd_type}-${PV} ;;
-	*)			error "docbook: Unknown DTD type: ${dtd_type}"
+	dsssl|xsl*)
+		DOCBOOK_DIR=${DOCBOOK_ROOT}/${dtd_type}-stylesheets
+		;;
+	sgml|xml*)
+		DOCBOOK_DIR=${DOCBOOK_ROOT}/${dtd_type}-dtd-${PV}
+		DOCBOOK_PACKAGE_CATALOG=/etc/sgml/${dtd_type}-docbook-${PV}.cat
+		;;
+	*)	error "docbook: Unknown DTD type: ${dtd_type}"
 esac
 
 
 DESCRIPTION="DocBook ${dtd_type} DTD, version ${PN}"
+
+#****o* docbook.cygclass/HOMEPAGE (docbook)
+#  DEFINITION
 HOMEPAGE="http://www.oasis-open.org/docbook/"
+#****
 
 SRC_DIR=.
 
-case "${dtd_type}-${PV}" in
-	sgml-[12].*)
-		SRC_URI="http://www.oasis-open.org/docbook/${dtd_type//-//}/${PV}/docbk${PV//.}.zip"
-		;;
-	sgml-3.[01]*|sgml-4.[01]*)
+#****o* docbook.cygclass/SRC_URI (docbook)
+#****
+case "${dtd_type}:${PV}" in
+	sgml:3.[01]*|sgml:4.[01]*)
 		SRC_URI="http://www.oasis-open.org/docbook/${dtd_type//-//}/${PV}/docbk${PV//.}.zip"
 		PATCH_URI="mirror://portage/app-text/${my_pn}-dtd/files/${my_pn}-dtd-${PV}-catalog.diff"
 		;;
-	sgml-4.[234]*)
+	sgml:4.[2-5])
 		SRC_URI="http://www.oasis-open.org/docbook/${dtd_type//-//}/${PV}/docbook-${PV}.zip"
 		PATCH_URI="mirror://portage/app-text/${my_pn}-dtd/files/${my_pn}-dtd-${PV}-catalog.diff"
 		;;
-	sgml-4*)
-		SRC_URI="http://www.oasis-open.org/docbook/${dtd_type//-//}/${PV}/docbook-${PV}.zip"
-		;;
-	xml-4.[01]*)
+	xml:4.1.2)
 		SRC_URI="http://www.oasis-open.org/docbook/${dtd_type//-//}/${PV}/docbkx${PV//.}.zip"
+		PATCH_URI="http://cvs.fedoraproject.org/viewvc/rpms/docbook-dtds/devel/docbook-dtd412-entities.patch?view=co"
 		;;
-	xml-4.*)
+	xml:4.[2-5])
 		SRC_URI="http://www.oasis-open.org/docbook/${dtd_type//-//}/${PV}/docbook-xml-${PV}.zip"
 		;;
-	xml-simple-1.*)
-		SRC_URI="http://www.oasis-open.org/docbook/${dtd_type//-//}/${PV}/docbook-simple-${PV}.zip"
+	xml-simple:1.*)
+		SRC_URI="http://www.oasis-open.org/docbook/${dtd_type//-//}/${PV}/docbook-simple-${PV}.zip
+		         mirror://portage/app-text/docbook-xml-simple-dtd/files/docbook-xml-simple-dtd-${PV}.cat"
 		;;
-	xml-simple-4.*)
+	xml-simple:4.1.2.4)
+		SRC_URI="mirror://gentoo/sdb4124.zip
+		         mirror://portage/app-text/docbook-xml-simple-dtd/files/docbook-xml-simple-dtd-${PV}.catalog"
+		;;
+	xml-simple:4.1.2.5)
 		SRC_URI="http://www.oasis-open.org/docbook/${dtd_type//-//}/${PV}/simple${PV//.}.zip"
 		;;
-	dsssl-1.*|xsl-1.*)
+	dsssl:1.*|xsl:1*|xsl-ns:1*)
 		DESCRIPTION="DocBook ${dtd_type} stylesheets"
 		HOMEPAGE="http://docbook.sourceforge.net/"
 		SRC_URI="mirror://sourceforge/docbook/${my_p}.tar.bz2"
 		SRC_DIR="${my_p}"
 		;;
-	*)	error "docbook: unknown DTD version: ${dtd_type} ${PV}" ;;
+	*)	error "docbook: unknown or unsupported DTD version: ${dtd_type} ${PV}" ;;
 esac
 
+#****f* docbook.cygclass/docbook_install
+#  NAME
+#    docbook_install
+#  SYNOPSIS
+#    cd ${S}
+#    docbook_install
+#****
 docbook_install() {
 	insinto ${DOCBOOK_DIR}
 
+	# FIXME sgml/xml-4.5 added a catalog.xml file
 	case ${dtd_type} in
 		dsssl)
 			dobin bin/*.pl
@@ -92,17 +127,21 @@ docbook_install() {
 			doins VERSION catalog
 			;;
 		sgml)
-			doins *.cat *.dcl *.dtd *.mod
+			doins *.dcl *.dtd *.mod
+			newins docbook.cat catalog
 			;;
 		xml)
 			doins *.cat *.dtd *.mod
 			insinto ${DOCBOOK_DIR}/ent
 			doins ent/*.ent
+			# use the local copy even if a URI is specified
+			sed -i -e '1i\\OVERRIDE YES' ${D}${DOCBOOK_DIR}/docbook.cat
 			;;
 		xml-simple)
 			doins *.css *.dtd *.mod
+			newins docbook-xml-simple*.cat* docbook.cat
 			;;
-		xsl)
+		xsl|xsl-ns)
 			doins VERSION
 			cp -r {common,eclipse,fo,highlighting,html*}/ ${D}${DOCBOOK_DIR}/
 			cp -r {images,javahelp,lib,manpages,profiling}/ ${D}${DOCBOOK_DIR}/
@@ -111,82 +150,98 @@ docbook_install() {
 	esac
 }
 
-docbook_sgml_postinst() {
-	case ${dtd_type} in
-		dsssl) mycat="catalog" ;;
-		sgml) mycat="docbook.cat" ;;
-	esac
-
-	dodir /etc/postinstall
+#****f* docbook.cygclass/docbook_dsssl_postinst
+#  NAME
+#    docbook_dsssl_postinst -- Register DSSSL catalog in SGML catalog
+#****
+docbook_dsssl_postinst() {
+	dodir /etc/postinstall /etc/preremove
 
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 		/usr/bin/mkdir -p /etc/sgml
-		/usr/bin/install-catalog --add ${SGML_CATALOG} ${DOCBOOK_DIR}/${mycat}
+		/usr/bin/install-catalog --add ${DOCBOOK_SGML_CATALOG} ${DOCBOOK_DIR}/catalog
+
+		_EOF
+
+	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+		/usr/bin/install-catalog --remove ${DOCBOOK_SGML_CATALOG} ${DOCBOOK_DIR}/catalog
 
 		_EOF
 }
 
-docbook_sgml_prerm() {
+#****f* docbook.cygclass/docbook_sgml_postinst
+#  NAME
+#    docbook_sgml_postinst -- Register DTD in SGML catalog
+#  NOTE
+#    XML DTDs must also be registered in the SGML catalog.
+#****
+docbook_sgml_postinst() {
+	local cat_name
+
 	case ${dtd_type} in
-		dsssl) mycat="catalog" ;;
-		sgml) mycat="docbook.cat" ;;
+		sgml)	cat_name="catalog" ;;
+		xml)	cat_name="docbook.cat" ;;
 	esac
 
-	dodir /etc/preremove
-
-	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-		/usr/bin/install-catalog --remove ${SGML_CATALOG} ${DOCBOOK_DIR}/${mycat}
-
-		_EOF
-}
-
-docbook_xml_postinst() {
-	dodir /etc/postinstall
+	dodir /etc/postinstall /etc/preremove
 
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		/usr/bin/mkdir -p ${XML_CATALOG%/*}
-		/usr/bin/rm -f ${XML_CATALOG%/*}/docbook
-		/usr/bin/build-docbook-catalog
+		/usr/bin/mkdir -p /etc/sgml
+		/usr/bin/install-catalog --add ${DOCBOOK_PACKAGE_CATALOG} ${DOCBOOK_SGML_CATALOG}
+		/usr/bin/install-catalog --add ${DOCBOOK_PACKAGE_CATALOG} ${DOCBOOK_DIR}/${cat_name}
 
 		_EOF
-}
-
-docbook_xml_prerm() {
-	dodir /etc/preremove
 
 	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-		/usr/bin/rm -f ${XML_CATALOG%/*}/docbook
-		/usr/bin/rm -f ${DOCBOOK_DIR}/docbookx.dtd
+		/usr/bin/install-catalog --remove ${DOCBOOK_PACKAGE_CATALOG} ${DOCBOOK_SGML_CATALOG}
+		/usr/bin/install-catalog --remove ${DOCBOOK_PACKAGE_CATALOG} ${DOCBOOK_DIR}/${cat_name}
+
+		_EOF
+}
+
+#****f* docbook.cygclass/docbook_xml_postinst
+#  NAME
+#    docbook_xml_postinst -- Register XML DTD in XML catalog
+#****
+docbook_xml_postinst() {
+	dodir /etc/postinstall /etc/preremove
+
+	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+		/usr/bin/rm -f ${DOCBOOK_XML_CATALOG}
+		/usr/bin/build-docbook-catalog
+
+		_EOF
+
+	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+		/usr/bin/rm -f ${DOCBOOK_XML_CATALOG}
+		/usr/bin/rm -f ${DOCBOOK_DIR}/*docbook*.dtd
 		/usr/bin/build-docbook-catalog
 
 		_EOF
 }
 
-src_compile() {
-	:
-}
+#****o* docbook.cygclass/src_compile (docbook)
+#  DEFINITION
+src_compile() { :; }
+#****
 
+#****o* docbook.cygclass/src_install (docbook)
+#  DEFINITION
 src_install() {
 	cd ${S}
 	docbook_install
 
 	case ${dtd_type} in
-		dsssl|sgml)
-			docbook_sgml_postinst
-			docbook_sgml_prerm
-			;;
-		xml)
-			docbook_sgml_postinst
-			docbook_sgml_prerm
-			docbook_xml_postinst
-			docbook_xml_prerm
-			;;
-		xsl)
-			docbook_xml_postinst
-			docbook_xml_prerm
-			;;
+		dsssl)		docbook_dsssl_postinst ;;
+		sgml|xml*)	docbook_sgml_postinst ;;
+	esac
+
+	# XML DTDs need to be registered with both catalogs
+	case ${dtd_type} in
+		xml*|xsl*)	docbook_xml_postinst ;;
 	esac
 }
+#****
 
-readonly -f docbook_install docbook_sgml_postinst docbook_sgml_prerm \
-            docbook_xml_postinst docbook_xml_prerm
+readonly -f docbook_install docbook_dsssl_postinst docbook_sgml_postinst \
+            docbook_xml_postinst
