@@ -68,6 +68,10 @@ unpack() {
 				check_prog_req xz
 				unpack_cmd="tar --xz -xf"
 				;;
+			*.tar.lz)
+				check_prog_req lzip
+				unpack_cmd="tar -I lzip -xf"
+				;;
 			*.tar.lzo)
 				check_prog_req lzop
 				unpack_cmd="tar --lzop -xf"
@@ -354,5 +358,4 @@ __src_prep() {
 	fi
 }
 
-# protect functions
 readonly -f __srpm_extract unpack __gpg_verify __mkdirs cygpatch __src_prep

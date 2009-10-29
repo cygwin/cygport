@@ -1,3 +1,7 @@
+2009-Oct-29  yselkowitz
+
+	* lib/src_prep.cygpart (unpack): Add support for *.tar.lz archives.
+
 2009-Oct-26  yselkowitz
 
 	* cygclass/docbook.cygclass: Overhaul and document.
