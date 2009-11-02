@@ -1,3 +1,7 @@
+2009-Nov-02  yselkowitz
+
+	* cygclass/gst-plugins0.10.cygclass: Update for -bad .15.
+
 2009-Oct-29  yselkowitz
 
 	* lib/src_prep.cygpart (unpack): Add support for *.tar.lz archives.
