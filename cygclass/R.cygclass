@@ -33,7 +33,7 @@
 #    computing and graphics.
 #
 #    The primary purpose of R.cygclass is for creating Cygwin packages for
-#    CRAN packages (http://cran.r-project.org/web/packages/), the R equivalent
+#    CRAN packages ( http://cran.r-project.org/web/packages/ ), the R equivalent
 #    of Perl's CPAN.  CRAN package builds are driven by R itself.
 #
 #    Most CRAN packages build OOTB, but creating a Cygwin package may be helpful
@@ -45,17 +45,8 @@
 #    src_compile and src_install should suffice.
 #
 #    Alternatively, the definitions in this cygclass can be used to help build
-#    an R-dependent package which does not use CRAN, e.g. rkward 
-#    (http://cygwin-ports.svn.sourceforge.net/viewvc/cygwin-ports/ports/trunk/science/rkward/).
-#  DEFINES
-#    The following are defined for CRAN packages only:
-#    * ORIG_PN - The CRAN package name.
-#    * DESCRIPTION
-#    * HOMEPAGE - Package entry on CRAN
-#    * SRC_URI - defined relative to mirror_cran.
-#    * SRC_DIR
-#  OVERLOADS
-#     src_compile, src_install
+#    an R-dependent package which does not use CRAN, e.g. 
+#    |html <a href="http://cygwin-ports.svn.sourceforge.net/viewvc/cygwin-ports/ports/trunk/science/rkward/">rkward</a>.
 #  SEE ALSO
 #     mirror_cran
 #****
@@ -109,12 +100,27 @@ R_SITELIB=${R_HOME}/site-library
 
 case ${PN} in
 R-*)
-	ORIG_PN=${ORIG_PN:-${PN#R-}}
-	DESCRIPTION="R ${ORIG_PN} package"
-	HOMEPAGE="mirror://cran/web/packages/${ORIG_PN}/"
-	SRC_URI="mirror://cran/src/contrib/${ORIG_PN}_${PV/_/-}.tar.gz"
-	SRC_DIR="${ORIG_PN}"
-	;;
+ORIG_PN=${ORIG_PN:-${PN#R-}}
+#****o* R.cygclass/DESCRIPTION (R)
+#  DEFINITION
+DESCRIPTION="R ${ORIG_PN} package"
+#****
+
+#****o* R.cygclass/HOMEPAGE (R)
+#  DEFINITION
+HOMEPAGE="mirror://cran/web/packages/${ORIG_PN}/"
+#****
+
+#****o* R.cygclass/SRC_URI (R)
+#  DEFINITION
+SRC_URI="mirror://cran/src/contrib/${ORIG_PN}_${PV/_/-}.tar.gz"
+#****
+
+#****o* R.cygclass/SRC_DIR (R)
+#  DEFINITION
+SRC_DIR="${ORIG_PN}"
+#****
+;;
 esac
 
 #****f* R.cygclass/check_R_package
@@ -171,7 +177,7 @@ check_R_package() {
 #****
 R_compile() {
 	mkdir -p ${T}/inst
-	${R} CMD INSTALL --library ${T}/inst ${B}/${ORIG_PN}
+	${R} CMD INSTALL --library=${T}/inst ${B}/${ORIG_PN}
 }
 
 #****f* R.cygclass/R_install
@@ -191,14 +197,20 @@ R_install() {
 	cp -LR ${T}/inst/${ORIG_PN} ${D}${R_SITELIB}
 }
 
+#****o* R.cygclass/src_compile (R)
+#  DEFINITION
 src_compile() {
 	mkdir -p ${B}/${ORIG_PN}
 	lndirs ${S} ${B}/${ORIG_PN}
 	R_compile
 }
+#****
 
+#****o* R.cygclass/src_install (R)
+#  DEFINITION
 src_install() {
 	R_install
 }
+#****
 
 readonly -f check_R_package R_compile R_install

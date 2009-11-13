@@ -1,3 +1,8 @@
+2009-Nov-12  yselkowitz
+
+	* cygclass/R.cygclass: Document further.
+	(R_compile): Fix argument syntax for recent R.
+
 2009-Nov-02  yselkowitz
 
 	* cygclass/gst-plugins0.10.cygclass: Update for -bad .15.
