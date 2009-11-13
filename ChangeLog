@@ -1,5 +1,6 @@
 2009-Nov-12  yselkowitz
 
+	* cygclass/aspell-dict.cygclass: Document further.
 	* cygclass/R.cygclass: Document further.
 	(R_compile): Fix argument syntax for recent R.
 

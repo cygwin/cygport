@@ -38,13 +38,6 @@
 #    to be "aspell-<language_code>" and the hyphen in the canonical version number
 #    to be substituted with a point.  If the source tarball is named "aspell5-*"
 #    or "aspell6-*", ASPELL_COMPAT must be declared before inheriting.
-#  DEFINES
-#  * ORIG_PN
-#  * DESCRIPTION
-#  * HOMEPAGE
-#  * SRC_URI
-#  OVERLOADS
-#    src_compile
 #  SEE ALSO
 #    mirror_gnu
 #****
@@ -100,9 +93,21 @@ unset iso_639
 ORIG_PN="aspell${ASPELL_COMPAT}-${ASPELL_LANG}"
 ORIG_PV=${PV%.*}-${PV##*.}
 
+#****o* aspell-dict.cygclass/DESCRIPTION (aspell-dict)
+#  DEFINITION
 DESCRIPTION="Aspell ${ASPELL_LANG_FULL:-${ASPELL_LANG}} dictionary"
+#****
+
+#****o* aspell-dict.cygclass/HOMEPAGE (aspell-dict)
+#  DEFINITION
 HOMEPAGE="http://aspell.net/"
+#****
+
+#****o* aspell-dict.cygclass/SRC_URI (aspell-dict)
+#  DEFINITION
 SRC_URI="mirror://gnu/aspell/dict/${ASPELL_LANG}/${ORIG_PN}-${ORIG_PV}.tar.bz2"
+#****
+
 SRC_DIR="${ORIG_PN}-${ORIG_PV}"
 
 #****f* aspell-dict.cygclass/aspell_dict_compile
@@ -166,10 +171,13 @@ doaspelldict() {
 #****
 doaspelldata() { doaspelldict ${@} ; }
 
+#****o* aspell-dict.cygclass/src_compile (aspell-dict)
+#  DEFINITION
 src_compile() {
 	lndirs
 	cd ${B}
 	aspell_dict_compile
 }
+#****
 
 readonly -f aspell_dict_compile doaspelldict doaspelldata
