@@ -1,3 +1,10 @@
+2009-Nov-29  yselkowitz
+
+	* lib/src_install.cygclass: Stub documentation.
+	(__doinstall): Use libtool(1) to install libtool .la and .exe wrappers.
+	(newman, newsman): Fix typos.
+	(dosym): Use pushd/popd to avoid changing working directory.
+
 2009-Nov-12  yselkowitz
 
 	* cygclass/aspell-dict.cygclass: Document further.

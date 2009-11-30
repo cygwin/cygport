@@ -22,6 +22,25 @@
 #
 ################################################################################
 
+#****d* Installing/D
+#  NAME
+#    D
+#  DESCRIPTION
+#    Represents the installation staging directory.  All installation and
+#    post-install steps occur in this directory, and this is where the
+#    binary packages are created.
+#****
+
+#****f* Installing/dodir
+#  NAME
+#    dodir -- Create installation directory
+#  SYNOPSIS
+# dodir DIRECTORY [DIRECTORY] ...
+#  FUNCTION
+#    Creates one or more directories in the installation staging directory.
+#  NOTES
+#    Arguments to dodir should *not* be preceded by $D.
+#****
 # creates directory under install path
 dodir() {
 	local d;
@@ -35,6 +54,8 @@ dodir() {
 	done
 }
 
+#****f* Installing/keepdir
+#****
 # prevents an otherwise empty directory from being automatically removed
 keepdir() {
 	for d
@@ -44,6 +65,8 @@ keepdir() {
 	done
 }
 
+#****if* Installing/__doinstall
+#****
 __doinstall() {
 	local mode=${1}
 	local file=${2}
@@ -63,16 +86,19 @@ __doinstall() {
 		return 2
 	fi
 
-	case ${file##*/} in
+	ltinst=
+	case ${file} in
 		*.la)  ltinst="/usr/bin/libtool --mode=install" ;;
-		*)     ltinst=  ;;
+		*.exe) [ -f ${file%/*}/.libs/${file##*/} ] && ltinst="/usr/bin/libtool --mode=install" ;;
 	esac
 
-	verbose ${ltcmd} /usr/bin/install -m${mode} ${file} ${D}${targetdir}/${targetfile}
+	verbose ${ltinst} /usr/bin/install -m${mode} ${file} ${D}${targetdir}/${targetfile}
 	return $?
 }
 
 
+#****f* Installing/dobin
+#****
 dobin() {
 	dodir /usr/bin
 
@@ -82,13 +108,16 @@ dobin() {
 	done
 }
 
+#****f* Installing/newbin
+#****
 newbin() {
 	dodir /usr/bin
 	__doinstall 0755 ${1} /usr/bin ${2} || error "newbin ${1} failed"
 }
 
 
-# set dodoc install subdir
+#****f* Installing/docinto
+#****
 docinto() {
 	if (( $# != 1 ))
 	then
@@ -98,6 +127,8 @@ docinto() {
 	_docinto_dir=${1};
 }
 
+#****f* Installing/dodoc
+#****
 dodoc() {
 	case "${_docinto_dir}" in
 		'')	docdir=/usr/share/doc/${PN} ;;
@@ -125,6 +156,8 @@ dodoc() {
 	done
 }
 
+#****f* Installing/newdoc
+#****
 newdoc() {
 	case "${_docinto_dir}" in
 		'')	docdir=/usr/share/doc/${PN} ;;
@@ -137,7 +170,8 @@ newdoc() {
 }
 
 
-# set doexe install dir
+#****f* Installing/exeinfo
+#****
 exeinto() {
 	if (( $# != 1 ))
 	then
@@ -148,6 +182,8 @@ exeinto() {
 	_exeinto_dir=${1};
 }
 
+#****f* Installing/doexe
+#****
 doexe() {
 	if ! defined _exeinto_dir || [ ! -d ${D}${_exeinto_dir} ]
 	then
@@ -160,6 +196,8 @@ doexe() {
 	done
 }
 
+#****f* Installing/newexe
+#****
 newexe() {
 	if ! defined _exeinto_dir || [ ! -d ${D}${_exeinto_dir} ]
 	then
@@ -170,7 +208,8 @@ newexe() {
 }
 
 
-# set doins install dir
+#****f* Installing/insinto
+#****
 insinto() {
 	if (( $# != 1 ))
 	then
@@ -181,6 +220,8 @@ insinto() {
 	_insinto_dir=${1};
 }
 
+#****f* Installing/doins
+#****
 doins() {
 	if ! defined _insinto_dir || [ ! -d ${D}${_insinto_dir} ]
 	then
@@ -193,6 +234,8 @@ doins() {
 	done
 }
 
+#****f* Installing/newins
+#****
 newins() {
 	if ! defined _insinto_dir || [ ! -d ${D}${_insinto_dir} ]
 	then
@@ -203,6 +246,8 @@ newins() {
 }
 
 
+#****f* Installing/doicon
+#****
 doicon() {
 	local _insinto_tmp=${_insinto_dir}
 
@@ -212,6 +257,8 @@ doicon() {
 	_insinto_dir=${_insinto_tmp}
 }
 
+#****f* Installing/newicon
+#****
 newicon() {
 	local _insinto_tmp=${_insinto_dir}
 
@@ -221,6 +268,8 @@ newicon() {
 	_insinto_dir=${_insinto_tmp}
 }
 
+#****f* Installing/dolib
+#****
 dolib() {
 	dodir /usr/lib
 	for i
@@ -232,6 +281,8 @@ dolib() {
 	done
 }
 
+#****f* Installing/doman
+#****
 doman() {
 	local manroot=/usr/share/man
 	local mandir=${manroot}
@@ -276,6 +327,8 @@ doman() {
 	done
 }
 
+#****f* Installing/newman
+#****
 newman() {
 	local manroot=/usr/share/man
 	local mandir=${manroot}
@@ -297,7 +350,7 @@ newman() {
 		;;
 	esac
 
-	case ${1} in
+	case ${2} in
 		*.1|*.1m|*.1x|*.1.bz2|*.1.gz)  mansection=1 ;;
 		*.3|*.3pm|*.3t|*.3.gz)  mansection=3 ;;
 		*.4|*.4.gz)  mansection=4 ;;
@@ -313,6 +366,8 @@ newman() {
 	__doinstall 0644 ${1} ${mandir}/man${mansection} ${2} || error "doman ${1} failed"
 }
 
+#****f* Installing/domenu
+#****
 domenu() {
 	local _insinto_tmp=${_insinto_dir}
 
@@ -322,6 +377,8 @@ domenu() {
 	_insinto_dir=${_insinto_tmp}
 }
 
+#****f* Installing/newmenu
+#****
 newmenu() {
 	local _insinto_tmp=${_insinto_dir}
 
@@ -331,6 +388,8 @@ newmenu() {
 	_insinto_dir=${_insinto_tmp}
 }
 
+#****f* Installing/dosbin
+#****
 dosbin() {
 	local _exeinto_tmp=${_exeinto_dir}
 
@@ -340,16 +399,20 @@ dosbin() {
 	_exeinto_dir=${_exeinto_tmp}
 }
 
+#****f* Installing/newsbin
+#****
 newsbin() {
 	local _exeinto_tmp=${_exeinto_dir}
 
 	exeinto /usr/sbin
-	doexe ${1} ${2}
+	newexe ${1} ${2}
 
 	_exeinto_dir=${_exeinto_tmp}
 }
 
 
+#****f* Installing/dosym
+#****
 dosym() {
 	local _argv=("dosym" ${@})
 	local _argc=$#
@@ -365,18 +428,22 @@ dosym() {
 	# e.g. dosym ../../share/foo /usr/lib/
 	if [ -d ${D}${dest} ]
 	then
-		cd ${D}${dest}
+		pushd ${D}${dest}
 	elif [ -d ${D}${dest%/*} ]
 	then
-		cd ${D}${dest%/*}
+		pushd ${D}${dest%/*}
 	else
 		error "dosym: ${dest%/*} is not a directory"
 	fi
 
 	ln -sf ${_argv[*]:1:$((_argc - 1))} ${D}${dest} || error "dosym failed"
+
+	popd
 }
 
 
+#****f* Installing/make_desktop_entry
+#****
 make_desktop_entry() {
 	if (( $# < 2 ))
 	then
@@ -400,6 +467,8 @@ make_desktop_entry() {
 	_EOF
 }
 
+#****f* Installing/make_etc_defaults
+#****
 make_etc_defaults() {
 	for etc in ${@}
 	do
@@ -432,12 +501,14 @@ make_etc_defaults() {
 	done
 }
 
-# Pre-install steps
+#****if* Installing/__prepinstalldirs
+#****
 __prepinstalldirs() {
 	rm -fr ${D}/*;
 }
 
-# run 'make install'
+#****f* Installing/cyginstall
+#****
 cyginstall() {
 	if $(make -n -s install/fast &> /dev/null)
 	then
@@ -473,15 +544,15 @@ cyginstall() {
 	esac
 }
 
-# provides a default src_install
-# will be overridden by cygclasses or cygports as necessary
+#****f* Installing/src_install
+#  DEFINITION
 src_install() {
 	cd ${B}
 	cyginstall
 }
+#****
 
 # protect functions
-export -f dodir keepdir
 readonly -f __doinstall dodir keepdir dobin newbin docinto dodoc newdoc \
             exeinto doexe newexe insinto doins newins doicon newicon \
             dolib doman newman domenu newmenu dosbin newsbin dosym \
