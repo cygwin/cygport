@@ -1,3 +1,8 @@
+2009-Dec-14  yselkowitz
+
+	* cygclass/ggz.cygclass: Stub documentation.
+	(doggzmod): Fix for where CommandLine is not a full path.
+
 2009-Nov-29  yselkowitz
 
 	* lib/src_install.cygclass: Stub documentation.

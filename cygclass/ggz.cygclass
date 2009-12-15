@@ -23,15 +23,42 @@
 #
 ################################################################################
 
+#****h* Cygclasses/ggz.cygclass
+#****
+
+#****o* ggz.cygclass/DESCRIPTION (ggz)
+#  DEFINITION
 DESCRIPTION="GGZ Gaming Zone ${PN#ggz-} component"
+#****
+
+#****o* ggz.cygclass/HOMEPAGE (ggz)
+#  DEFINITION
 HOMEPAGE="http://dev.ggzgamingzone.org/"
+#****
+
+#****o* ggz.cygclass/SRC_URI (ggz)
+#  DEFINITION
 SRC_URI="http://ftp.ggzgamingzone.org/pub/ggz/${PV}/${P}.tar.gz "
+#****
 
-GGZ_MODULES_DIR=/etc/ggz/modules
-
+#****o* ggz.cygclass/DISTCLEANFILES (ggz)
+#  DEFINITION
 DISTCLEANFILES+=" m4/gettext.m4 m4/gtk-2.0.m4 m4/iconv.m4 m4/sdl.m4"
-DIFF_EXCLUDES+=" config.rpath ${_ggz_bad_macros}"
+#****
 
+#****o* ggz.cygclass/DIFF_EXCLUDES (ggz)
+#  DEFINITION
+DIFF_EXCLUDES+=" config.rpath ${_ggz_bad_macros}"
+#****
+
+#****d* ggz.cygclass/GGZ_MODULES_DIR
+#  DEFINITION
+GGZ_MODULES_DIR=/etc/ggz/modules
+#****
+
+
+#****f* ggz.cygclass/ggz_autoreconf
+#****
 ggz_autoreconf() {
 	cp -f /usr/share/gettext/config.rpath .
 
@@ -41,6 +68,8 @@ ggz_autoreconf() {
 export ac_cv_header_winsock_h=no
 export ac_cv_header_winsock2_h=no
 
+#****f* ggz.cygclass/ggz_postinst
+#****
 ggz_postinst() {
 	rm -f ${D}/etc/ggz.modules
 
@@ -63,8 +92,10 @@ ggz_postinst() {
 	done
 }
 
+#****f* ggz.cygclass/doggzmod
+#****
 doggzmod() {
-	local g
+	local cl
 	local m
 
 	for m in ${@}
@@ -74,13 +105,15 @@ doggzmod() {
 			error "doggzmod: ${m}: file not found"
 		fi
 
-		g=$(grep ^CommandLine ${m} | sed -e 's|CommandLine *= */.*/\([^ ]*\).*|\1|g')
+		cl=$(grep ^CommandLine ${m} | sed -e 's|CommandLine *= *\([^ ]*\).*|\1|g')
 
 		insinto ${GGZ_MODULES_DIR}
-		newins ${m} ${g}.dsc
+		newins ${m} ${cl##*/}.dsc
 	done
 }
 
+#****o* ggz.cygclass/src_compile (ggz)
+#  DEFINITION
 src_compile() {
 	cd ${S}
 	ggz_autoreconf
@@ -88,11 +121,15 @@ src_compile() {
 	cygconf
 	cygmake
 }
+#****
 
+#****o* ggz.cygclass/src_install (ggz)
+#  DEFINITION
 src_install() {
 	cd ${B}
 	cyginstall
 	ggz_postinst
 }
+#****
 
 readonly -f ggz_autoreconf ggz_postinst doggzmod
