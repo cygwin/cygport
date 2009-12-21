@@ -3,7 +3,7 @@
 # distutils.cygclass - functions for building Distutils Python modules
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,13 +23,41 @@
 #
 ################################################################################
 
+#****h* Cygclasses/distutils.cygclass
+#  NAME
+#    distutils.cygclass -- Build Python packages with distutils
+#  DESCRIPTION
+#    Distutils is the most common method for building and installing Python
+#    libraries and programs.  The build is defined by a setup.py file in the
+#    top source directory, which controls the installation of files and the
+#    building of C Python extensions.  Many such packages are hosted on the
+#    Python Package Index (PyPI, previously known as Cheeseshop).
+#
+#    This cygclass handles the building of distutils-based packages.
+#  INHERITS
+#    python.cygclass
+#****
 inherit python
 
 ORIG_PN=${ORIG_PN:-${PN#python-}}
 
-HOMEPAGE="http://cheeseshop.python.org/pypi/${ORIG_PN}"
-SRC_URI="http://cheeseshop.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
+#****o* distutils.cygclass/HOMEPAGE (distutils)
+#  DEFINITION
+HOMEPAGE="http://pypi.python.org/pypi/${ORIG_PN}"
+#****
 
+#****o* distutils.cygclass/SRC_URI (distutils)
+#  DEFINITION
+SRC_URI="http://pypi.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
+#****
+
+#****f* distutils.cygclass/distutils_compile
+#  SYNOPSIS
+#    distutils_compile [OPTIONS]
+#  DESCRIPTION
+#    Runs the setup.py 'config' and 'build' commands.  All arguments are passed
+#    to the setup.py 'build' command.
+#****
 distutils_compile() {
 	if [ ! -e setup.py ]
 	then
@@ -44,6 +72,14 @@ distutils_test() {
 	:
 }
 
+#****f* distutils.cygclass/distutils_install
+#  SYNOPSIS
+#    distutils_install [OPTIONS]
+#  DESCRIPTION
+#    Runs the setup.py 'install' phase, setting the root argument to install
+#    into $D, followed by python_optimize.  All arguments are passed to the
+#    setup.py 'install' command.
+#****
 distutils_install() {
 	if [ ! -e setup.py ]
 	then
@@ -65,19 +101,25 @@ distutils_install() {
 	fi
 }
 
+#****o* distutils.cygclass/src_compile (distutils)
+#  DEFINITION
 src_compile() {
 	lndirs
 	cd ${B}
 	distutils_compile
 }
+#****
 
 src_test() {
 	distutils_test
 }
 
+#****o* distutils.cygclass/src_install (distutils)
+#  DEFINITION
 src_install() {
 	cd ${B}
 	distutils_install
 }
+#****
 
 readonly -f distutils_compile distutils_test distutils_install
