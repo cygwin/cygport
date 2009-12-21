@@ -3,7 +3,7 @@
 # ebook.cygclass - functions for building Ebook documentation packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2008 Yaakov Selkowitz
+# Copyright (C) 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,13 +23,42 @@
 #
 ################################################################################
 
+#****h* Cygclasses/ebook.cygclass
+#  NAME
+#    ebook.cygclass -- Creates packages from HTML Help ebooks
+#  DESCRIPTION
+#    The HTML Help Books project converts manuals for the toolchain and other
+#    common tools into several formats.
+#
+#    This cygclass creates packages from the HTML format documentation which
+#    can then be viewed in DevHelp (GNOME's API documentation browser).
+#****
+
 ORIG_PN="${PN#ebook-}"
 
 DESCRIPTION="EBook ${ORIG_PN} documentation"
+
+#****o* ebook.cygclass/HOMEPAGE (ebook)
+#  DEFINITION
 HOMEPAGE="http://code.google.com/p/htmlhelp/"
+#****
+
+#****o* ebook.cygclass/SRC_URI (ebook)
+#  DEFINITION
 SRC_URI="http://htmlhelp.googlecode.com/files/${ORIG_PN}-${PV}.tgz"
+#****
+
 SRC_DIR="."
 
+#****f* ebook.cygclass/ebook_install
+#  SYNOPSIS
+#    cd $S
+#    ebook_install
+#  DESCRIPTION
+#    Installs the documentation into DevHelp's books directory under $D.
+#  NOTE
+#    Must be run from the directory containing the 'book.devhelp' file.
+#****
 ebook_install() {
 	if [ ! -e book.devhelp ]
 	then
@@ -41,11 +70,18 @@ ebook_install() {
 	doins book/*
 }
 
+#****o* ebook.cygclass/src_compile (ebook)
+#  DESCRIPTION
+#    There is nothing to build, so this is empty.
+#****
 src_compile() { :; }
 
+#****o* ebook.cygclass/src_install (ebook)
+#  DEFINITION
 src_install() {
 	cd ${S}
 	ebook_install
 }
+#****
 
 readonly -f ebook_install
