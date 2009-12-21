@@ -20,6 +20,9 @@ AM_CONDITIONAL(HAVE_GROFF, test "x$GROFF" != "x")
 AC_PATH_PROG(ROBODOC, robodoc)
 AM_CONDITIONAL(HAVE_ROBODOC, test "x$ROBODOC" != "x")
 
+AC_PATH_PROG(SVN2CL, svn2cl)
+AM_CONDITIONAL(HAVE_SVN2CL, test "x$SVN2CL" != "x")
+
 AC_CONFIG_FILES([
 Makefile
 bin/Makefile
