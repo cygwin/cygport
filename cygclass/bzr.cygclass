@@ -23,6 +23,27 @@
 #
 ################################################################################
 
+#****h* Cygclasses/bzr.cygclass
+#  NAME
+#    bzr.cygclass -- Create packages from Bazaar VCS checkouts
+#  SYNOPSIS
+#    BZR_URI="..."
+#    [BZR_REV="..."]
+#    inherit bzr
+#  DESCRIPTION
+#    Developed by Canonical Ltd., the company behind Ubuntu Linux,
+#    |html <a href="http://bazaar.canonical.com/">Bazaar</a> is a distributed
+#    version control system which is most commonly used by software hosted on
+#    |html <a href="http://launchpad.net/projects">Launchpad</a>.
+#
+#    This cygclass creates source tarballs from Bazaar checkouts.
+#  NOTES
+#    This cygclass sets a special SRC_URI for the tarball it creates.  If
+#    additional sources are required, be sure to _add_ to SRC_URI rather than
+#    outright setting it.
+#****
+
+# is this truly needed?
 BZR_MODULE=${BZR_MODULE:-${ORIG_PN:-${PN}}}
 
 bzr_tarball="${BZR_MODULE}-bzr-${PV}.tar.bz2"
@@ -31,24 +52,42 @@ SRC_URI="${bzr_tarball} "
 SRC_DIR="${BZR_MODULE}"
 
 bzr_fetch() {
-	local bzr_branch
+	local bzr_rev
 
 	check_prog_req bzr
 
+#****v* bzr.cygclass/BZR_URI
+#  NAME
+#    BZR_URI -- URI of upstream Bazaar repository/branch
+#  NOTES
+#    This variable is required when inherit()ing bzr.
+#
+#    Software hosted on Launchpad will have a special URI beginning with "lp:";
+#    see `bzr help launchpad' for details.
+#****
 	if ! defined BZR_URI
 	then
 		error "BZR_URI must be defined"
 	fi
 
-	if defined BZR_BRANCH
+#****v* bzr.cygclass/BZR_REV
+#  NAME
+#    BZR_REV -- Specific revision to checkout
+#  NOTES
+#    This variable is optional.  If unset, the latest revision for the branch
+#    specified in BZR_URI will be fetched.
+#
+#    See `bzr help revisionspec' for possible forms of revision identifiers.
+#****
+	if defined BZR_REV
 	then
-		bzr_branch="-r ${BZR_BRANCH}"
+		bzr_rev="-r ${BZR_REV}"
 	fi
 
 	# T likely doesn't exist at this point, so create it first
 	mkdir -p ${T}
 	cd ${T}
-	verbose bzr branch ${BZR_URI} ${BZR_MODULE} ${bzr_branch}
+	verbose bzr branch ${BZR_URI} ${BZR_MODULE} ${bzr_rev}
 
 	tar jcf ${top}/${bzr_tarball} --exclude-vcs ${BZR_MODULE}
 }
