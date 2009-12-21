@@ -5,9 +5,6 @@ set -e
 B=$(pwd)
 S=${0%/*}
 
-export WANT_AUTOCONF=2.5
-export WANT_AUTOMAKE=1.10
-
 V=$(head -n 1 ${S}/configure.ac | cut -d , -f 2)
 
 verbose() {
