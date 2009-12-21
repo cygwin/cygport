@@ -23,6 +23,27 @@
 #
 ################################################################################
 
+#****h* Cygclasses/cvs.cygclass
+#  NAME
+#    cvs.cygclass -- Create packages from CVS checkouts
+#  SYNOPSIS
+#    CVS_URI="..."
+#    [CVS_BRANCH="..."]
+#    [CVS_DATE="..."]
+#    inherit cvs
+#  DESCRIPTION
+#    CVS is a centralized version control system.  It was the first widely-used
+#    VCS for open-source software, but many projects have since moved to Subversion
+#    or one of the distributed VCSs.
+#
+#    This cygclass creates source tarballs from CVS checkouts.
+#  NOTES
+#    This cygclass sets a special SRC_URI for the tarball it creates.  If
+#    additional sources are required, be sure to _add_ to SRC_URI rather than
+#    outright setting it.
+#****
+
+# is this truly necessary?
 CVS_MODULE=${CVS_MODULE:-${ORIG_PN:-${PN}}}
 
 cvs_tarball="${CVS_MODULE//\//-}-${PV}.tar.bz2"
@@ -36,16 +57,22 @@ cvs_fetch() {
 
 	check_prog_req cvs
 
+#****v* cvs.cygclass/CVS_URI
+#****
 	if ! defined CVS_URI
 	then
 		error "CVS_URI must be defined"
 	fi
 
+#****v* cvs.cygclass/CVS_BRANCH
+#****
 	if defined CVS_BRANCH
 	then
 		cvs_branch="-r ${CVS_BRANCH}"
 	fi
 
+#****v* cvs.cygclass/CVS_DATE
+#****
 	if defined CVS_DATE
 	then
 		cvs_date="-D ${CVS_DATE}"
