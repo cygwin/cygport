@@ -2,6 +2,9 @@
 
 	* cygclass/autotools.cygclass: Document.
 
+	* doc/Makefile.am:
+	* doc/robodoc.rc: Switch HTML API docs to singledoc.
+
 2009-Dec-14  yselkowitz
 
 	* cygclass/ggz.cygclass: Stub documentation.

@@ -1,3 +1,6 @@
+htmldocdir = $(docdir)/html
+htmldoc_DATA =
+
 if HAVE_HELP2MAN
 
 man_MANS = cygport.1
@@ -8,35 +11,25 @@ cygport.1: $(top_builddir)/bin/cygport
 
 if HAVE_GROFF
 
-htmldocdir = $(docdir)/html
-htmldoc_DATA = html/cygport.1.html
+htmldoc_DATA += cygport.1.html
 
-html/cygport.1.html: cygport.1
-	$(MKDIR_P) html
+cygport.1.html: cygport.1
 	$(GROFF) -t -mandoc -Thtml $< > $@
 
-endif
-
-endif
+endif HAVE_GROFF
+endif HAVE_HELP2MAN
 
 if HAVE_ROBODOC
 
-noinst_DATA = html.stamp
+htmldoc_DATA += manual.html manual.css
 
-html.stamp: $(srcdir)/robodoc.rc $(wildcard $(top_srcdir)/cygclass/*.cygclass) $(wildcard $(top_srcdir)/lib/*.cygpart) $(top_srcdir)/bin/cygport.in $(top_srcdir)/data/mirrors
-	$(MKDIR_P) html
-	$(ROBODOC) --src $(abs_top_srcdir) --doc $(abs_builddir)/html --rc $(srcdir)/robodoc.rc
-	touch $@
+manual.html: $(srcdir)/robodoc.rc $(wildcard $(top_srcdir)/cygclass/*.cygclass) $(wildcard $(top_srcdir)/lib/*.cygpart) $(top_srcdir)/bin/cygport.in $(top_srcdir)/data/mirrors 
+	cd $(top_srcdir) && $(ROBODOC) --src . --doc $(abs_builddir)/manual --rc $(abs_srcdir)/robodoc.rc --html --singledoc
 
-install-data-local: html.stamp
-	$(MKDIR_P) $(DESTDIR)$(htmldocdir)
-	cp -fr html/* $(DESTDIR)$(htmldocdir)/
+manual.css: manual.html
 
-clean-local:
-	rm -fr html/
+endif HAVE_ROBODOC
 
-endif
-
-CLEANFILES = $(dist_man_MANS) $(dist_htmldoc_DATA)
+CLEANFILES = $(man_MANS) $(htmldoc_DATA)
 
 EXTRA_DIST = robodoc.rc

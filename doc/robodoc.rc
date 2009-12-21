@@ -2,10 +2,8 @@
 
 options:
 	--documenttitle "Cygport Reference"
-	--html
 	--index
 	--masterindex "Index,index"
-	--multidoc
 	--nopre
 	--nosort
 	--no_subdirectories
@@ -62,10 +60,12 @@ preformatted items:
 source items:
 	DEFINITION
 headertypes:
-#	e  "Makefile entries"  robo_mk_entries
-#	h  Cygclasses robo_cygclasses
-#	x  "System tests"  robo_sys_tests
-	*  Concepts robo_concepts
+	*  "Concepts" cygport_concepts
+	d  "Definitions" cygport_definitions
+	f  "Functions" cygport_functions
+	h  "Cygclasses" cygport_cygclasses
+	o  "Overloads" cygport_overloads
+	v  "Variables" cygport_variables
 ignore files:
 	autom4te.cache
 	CYGWIN-PATCHES
@@ -89,11 +89,11 @@ ignore files:
 	*.stderr
 	*.txt
 	*~
-remark begin markers:
+header markers:
 	#****
 remark markers:
 	#
-remark end markers:
+end markers:
 	#****
 source line comments:
 	#
