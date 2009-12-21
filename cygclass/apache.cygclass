@@ -76,10 +76,6 @@ apache_apxs_compile() {
 	apache${APACHE_MAJOR}_apxs_compile "$@"
 }
 
-#****f* apache.cygclass/apxs_compile
-#  NAME
-#    apxs_compile -- Wrapper for apache1_apxs_compile/apache2_apxs_compile
-#****
 apxs_compile() {
 	apache${APACHE_MAJOR}_apxs_compile "$@"
 }
