@@ -23,6 +23,26 @@
 #
 ################################################################################
 
+#****h* Cygclasses/berkdb.cygclass
+#  NAME
+#    berkdb.cygclass -- Build Berkeley DB 3.x/4.x
+#  SYNOPSIS
+#    inherit [java] [tcl] berkdb
+#  DESCRIPTION
+#    The Berkeley DB is an embedded database in the form of a C library and
+#    several command-line utilities, and includes optional C++, Java, and Tcl
+#    bindings.
+#
+#    This cygclass does all the work involved in building and packaging versions
+#    3.x and 4.x of the Berkeley DB.  Older versions are not supported.
+#
+#    The C++ bindings are always enabled, but the Java and Tcl bindings will
+#    only be enabled if their respective cygclasses are inherited _before_
+#    berkdb.
+#  INHERITS
+#    autotools.cygclass
+#****
+
 case ${PV_MAJ_MIN} in
 	3.*|4.*)	SLOT="${PV_MAJ_MIN}" ;;
 	*)			error "berkdb: accepts only versions 3.x or 4.x" ;;
@@ -31,10 +51,29 @@ esac
 tarpv=${PV[1]}.${PV[2]}.${PV[3]}
 
 DESCRIPTION="Berkeley DB version ${SLOT}"
+
+#****o* berkdb.cygclass/HOMEPAGE (berkdb)
+#  DEFINITION
 HOMEPAGE="http://www.oracle.com/technology/products/berkeley-db/db/index.html"
+#****
+
+#****o* berkdb.cygclass/SRC_URI (berkdb)
+#****
 SRC_URI="http://download.oracle.com/berkeley-db/db-${tarpv}.tar.gz"
+
 SRC_DIR="db-${tarpv}"
 
+#****o* berkdb.cygclass/PATCH_URI (berkdb)
+#  NOTES
+#    Upstream patches are automatically downloaded based on the fourth component
+#    of PV; e.g. version 4.6.21.4 will download patches 1-4 for the 4.6.21 tarball.
+#  WARNING
+#    If additional custom patches are required, be sure to add to, not override,
+#    the PATCH_URI variable as so:
+#      PATCH_URI+=" 4.6-libtool22.patch"
+#    Failure to do so will result in upstream patches not being included in your
+#    package.
+#****
 if defined PV[4]
 then
 	for ((p = 1; p <= PV[4]; p++))
@@ -43,6 +82,17 @@ then
 	done
 fi
 
+#****o* berkdb.cygclass/PKG_NAMES (berkdb)
+#  DESCRIPTION
+#    The following binary packages are created automatically:
+#    * dbX.Y: command-line utilities, Cygwin and upstream READMEs;
+#    * dbX.Y-doc: HTML documentation;
+#    * libdbX.Y: C and C++ runtime libraries;
+#    * libdbX.Y-devel: C and C++ headers and import libraries.
+#    The following packages are created if their bindings are enabled:
+#    * java-dbX.Y: JNI binding and Java jar;
+#    * tcl-dbX.Y: Tcl bindings.
+#****
 PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc"
 export ${PN//./_}_CONTENTS="--exclude=html usr/bin/db${SLOT}_*.exe usr/share/doc/"
 export lib${PN//./_}_CONTENTS="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
@@ -63,12 +113,19 @@ fi
 
 DIFF_EXCLUDES="aclocal.m4 configure config.hin db.jar libtool.ac lt*.ac"
 
-# At a minimum, the following must be changed:
-# * chmod +w dist/Makefile.in dist/aclocal/tcl.ac dist/configure.ac
-# * sed -i -e 's/aix\*/aix*|cygwin*/g' dist/aclocal/tcl.ac
-# * Modify/define MAKEFILE_TSOLINK (before 4.5)
-# * Undef __lock_* macros in lock/lock_region.c (before 4.3)
-
+#****f* berkdb.cygclass/berkdb_autoreconf
+#  NAME
+#    berkdb_autoreconf -- Regenerate build system files
+#  DESCRIPTION
+#    This function is used instead of cygautoreconf due to the unique build
+#    system of the Berkeley DB.  This step is required, as several build system
+#    files will need to be patched for a working build:
+#    * chmod +w dist/Makefile.in dist/aclocal/tcl.ac dist/configure.ac
+#    * Add LT_OUTPUT after AC_PROG_LIBTOOL in dist/configure.ac
+#    * sed -i -e 's/aix\*/aix*|cygwin*/g' dist/aclocal/tcl.ac
+#    * Modify/define MAKEFILE_TSOLINK (not needed with 4.5+)
+#    * Undefine __lock_* macros in lock/lock_region.c (not needed with 4.3+)
+#****
 berkdb_autoreconf() {
 	check_prog_req libtoolize libtool
 
@@ -85,6 +142,17 @@ berkdb_autoreconf() {
 	./s_config || error "s_config failed"
 }
 
+#****f* berkdb.cygclass/berkdb_compile
+#  NAME
+#    berkdb_compile -- Configure and compile the Berkeley DB
+#  DESCRIPTION
+#    This function calls cygconf with the necessary options for building the
+#    the C library shared and static, and the C++, Java and/or Tcl bindings.
+#  NOTES
+#    The C++ library, JNI bindings, and Tcl bindings are specially built to link
+#    against the C library instead of including the sources thereof.  This means
+#    that the java-dbX.Y and tcl-dbX.Y packages must depend on libdbX.Y.
+#****
 berkdb_compile() {
 	local use_java use_tcl
 
@@ -121,6 +189,13 @@ berkdb_compile() {
 	cygmake ${objvar}="libdb-${SLOT}.la"
 }
 
+#****f* berkdb.cygclass/berkdb_install
+#  NAME
+#    berkdb_install -- Installs the Berkeley DB into $D
+#  DESCRIPTION
+#    This function installs the Berkeley DB and moves some files so that
+#    multiple versions may be installed in parallel.
+#****
 berkdb_install() {
 	case ${SLOT} in
 		4.[3-9])
@@ -171,6 +246,17 @@ berkdb_install() {
 	fi
 }
 
+#****f* berkdb.cygclass/berkdb_postinst
+#  NAME
+#    berkdb_postinst -- Creates postinstall and preremove scripts
+#  DESCRIPTION
+#    This function creates postinstall and preremove scripts which manage the
+#    unversioned symlinks for the headers and link libraries with alternatives(8).
+#    No such symlinks are created for the command-line utilities, as the database
+#    and/or log formats do change from one version to the next.
+#  NOTES
+#    All libdbX.Y-devel packages must depend on alternatives.
+#****
 berkdb_postinst() {
 	local h l lx prog
 
@@ -216,17 +302,23 @@ berkdb_postinst() {
 		_EOF
 }
 
+#****o* berkdb.cygclass/src_compile (berkdb)
+#  DEFINITION
 src_compile() {
 	cd ${S}/dist
 	berkdb_autoreconf
 	cd ${B}
 	berkdb_compile
 }
+#****
 
+#****o* berkdb.cygclass/src_install (berkdb)
+#  DEFINITION
 src_install() {
 	cd ${B}
 	berkdb_install
 	berkdb_postinst
 }
+#****
 
 readonly -f berkdb_autoreconf berkdb_compile berkdb_install berkdb_postinst
