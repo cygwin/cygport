@@ -3,7 +3,7 @@
 # emacs.cygclass - functions for installing Emacs lisp files
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,8 +23,37 @@
 #
 ################################################################################
 
+#****h* Cygclasses/emacs.cygclass
+#  NAME
+#    emacs.cygclass -- Helper functions for installing Emacs Lisp files
+#  DESCRIPTION
+#    Emacs is a programmers' text editor which is extensible through libraries
+#    written in its own Lisp dialect, which is also bytecode compilable.
+#
+#    This cygclass includes helper functions for installing and compiling
+#    Emacs Lisp (.el) libraries.
+#****
+
+#****d* emacs.cygclass/EMACS
+#  DESCRIPTION
+#    Full path to the emacs command.
+#****
+EMACS=/usr/bin/emacs
+
+#****d* emacs.cygclass/EMACS_SITE
+#  DESCRIPTION
+#    Path of Emacs' site-lisp directory, where third-party libraries are installed.
+#****
 EMACS_SITE=/usr/share/emacs/site-lisp
 
+#****f* emacs.cygclass/doemacs
+#  SYNOPSIS
+#    doemacs FILE [FILE2] ...
+#  DESCRIPTION
+#    Installs one or more Emacs Lisp libraries into EMACS_SITE (under $D).
+#  NOTE
+#    emacs_compile must be run separately.
+#****
 doemacs() {
 	dodir ${EMACS_SITE}
 
@@ -39,10 +68,17 @@ doemacs() {
 	done
 }
 
+#****f* emacs.cygclass/emacs_compile
+#  SYNOPSIS
+#    emacs_compile
+#  DESCRIPTION
+#    Bytecode-compiles all Emacs Lisp libraries installed by the package,
+#    provided that emacs is installed.
+#****
 emacs_compile() {
 	if check_prog emacs
 	then
-		emacs --batch -f batch-byte-compile --no-site-file --no-init-file \
+		${EMACS} --batch -f batch-byte-compile --no-site-file --no-init-file \
 			${D}${EMACS_SITE}/*.el
 	else
 		warning "emacs not installed, cannot compile lisp files"
