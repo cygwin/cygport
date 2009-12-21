@@ -23,12 +23,57 @@
 #
 ################################################################################
 
-# cmake configuration
+#****h* Cygclasses/cmake.cygclass
+#  NAME
+#    cmake.cygclass
+#  SYNOPSIS
+#    inherit cmake
+#  DESCRIPTION
+#    CMake is a build system which can be used instead of autoconf and automake.
+#    The build configuration and commands are written as CMakeLists.txt files
+#    in each directory, which cmake uses to run configuration tests and create
+#    Makefiles, config headers, and other files.
+#
+#    CMake can be used for a wide variety of software, but is most commonly
+#    used in KDE4 and some Qt4 packages.
+#  INHERITED BY
+#    kde4.cygclass, opensync.cygclass, qt4-cmake.cygclass
+#****
+
+#****f* cmake.cygclass/cygcmake
+#  NAME
+#    cygcmake -- Configures a CMake-based package
+#  SYNOPSIS
+#    cygcmake [OPTIONS]
+#  DESCRIPTION
+#    Runs cmake to configure the package.  cygcmake passes cmake the flags
+#    necessary to install the package into the /usr prefix and according to the
+#    |html <a href="http://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
+#    |html <a href="http://cygwin.com/setup.html#package_contents">Cygwin package guidelines</a>.
+#    In addition, all arguments to cygcmake are passed to cmake, followed by
+#    CYGCMAKE_ARGS, if set.
+#  NOTES
+#    * cygcmake should be run in or under $B, as it defines the build directory of
+#      the package and creates numerous files.
+#    * If the top-level CMakeLists.txt is not in $S, see CYGCMAKE_SOURCE.
+#    * Packages configured with cygcmake use cygmake to compile.
+#****
 cygcmake() {
 	local cmdir;
 
 	check_prog_req cmake;
 
+#****v* cygcmake/CYGCMAKE_SOURCE
+#  NAME
+#    CYGCMAKE_SOURCE -- Directory containing the top-level CMakeLists.txt
+#  DESCRIPTION
+#    Set this variable to the directory containing the top-level CMakeLists.txt.
+#    This is only necessary when the top-level CMakeLists.txt is not in $S and
+#    cygcmake is not being run in the same subdirectory of $B which under $S
+#    contains the top-level CMakeLists.txt.  (IOW if the top-level CMakeLists.txt
+#    is in $S/unix and cygcmake is run from $B/unix, setting CYGCMAKE_SOURCE
+#    would not be necessary.)
+#****
 	if defined CYGCMAKE_SOURCE && [ -e ${CYGCMAKE_SOURCE}/CMakeLists.txt ]
 	then
 		cmdir=${CYGCMAKE_SOURCE};
@@ -42,13 +87,19 @@ cygcmake() {
 		error "cygcmake: cmake directory not found";
 	fi
 
+#****v* cygcmake/CYGCMAKE_ARGS
+#  NAME
+#    CYGCMAKE_ARGS -- Additional flags to pass to cmake
+#  NOTES
+#    Flags in CYGCMAKE_ARGS follow, and therefore override, flags passed by
+#    default and as arguments to cygcmake.
+#****
+
 	cmake \
 		${cmdir} \
 		-DCMAKE_BINARY_DIR=. \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_C_COMPILER=$(type -P ${CC}) \
 		-DCMAKE_C_FLAGS="${CFLAGS}" \
-		-DCMAKE_CXX_COMPILER=$(type -P ${CXX}) \
 		-DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
 		-DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
 		-DCMAKE_MODULE_LINKER_FLAGS="${LDFLAGS}" \
@@ -59,10 +110,13 @@ cygcmake() {
 		|| error "cmake failed"
 }
 
+#****o* cmake.cygclass/src_compile (cmake)
+#  DEFINITION
 src_compile() {
 	cd ${B}
 	cygcmake
 	cygmake
 }
+#****
 
 readonly -f cygcmake
