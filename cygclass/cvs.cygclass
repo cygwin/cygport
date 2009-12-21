@@ -58,6 +58,9 @@ cvs_fetch() {
 	check_prog_req cvs
 
 #****v* cvs.cygclass/CVS_URI
+#  DESCRIPTION
+#    Address of CVS repository, usually in the form:
+#      :pserver:anonymous@<server_uri>:/remote/path/to/repository
 #****
 	if ! defined CVS_URI
 	then
@@ -65,6 +68,8 @@ cvs_fetch() {
 	fi
 
 #****v* cvs.cygclass/CVS_BRANCH
+#  DESCRIPTION
+#    Specific revision or tag to checkout.
 #****
 	if defined CVS_BRANCH
 	then
@@ -72,6 +77,13 @@ cvs_fetch() {
 	fi
 
 #****v* cvs.cygclass/CVS_DATE
+#  DESCRIPTION
+#    Specific revision date to checkout.  Preferred form is YYYY-MM-DD [HH:MM],
+#    where the time is optional; the hyphens in the date can be omitted.
+#  NOTE
+#    If a date is specified without a time, then the time 00:00 is implied,
+#    which will exclude all revisions made on the given date.  Use the
+#    following day in CVS_DATE instead.
 #****
 	if defined CVS_DATE
 	then
