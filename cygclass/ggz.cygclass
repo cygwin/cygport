@@ -24,6 +24,16 @@
 ################################################################################
 
 #****h* Cygclasses/ggz.cygclass
+#  NAME
+#    ggz.cygclass -- Build GGZ Gaming Zone components
+#  DESCRIPTION
+#    The GGZ Gaming Zone is a framework for hosting and playing multi-player 
+#    games over the Internet.  The project provides a server for self-hosting,
+#    client libraries, and client games.  The GNOME Games and KDE Games suites
+#    also provide games which can be used as GGZ clients.
+#
+#    This cygclass is used for building GGZ upstream components and provides
+#    functions for installing third-party clients.
 #****
 
 #****o* ggz.cygclass/DESCRIPTION (ggz)
@@ -41,34 +51,19 @@ HOMEPAGE="http://dev.ggzgamingzone.org/"
 SRC_URI="http://ftp.ggzgamingzone.org/pub/ggz/${PV}/${P}.tar.gz "
 #****
 
-#****o* ggz.cygclass/DISTCLEANFILES (ggz)
-#  DEFINITION
-DISTCLEANFILES+=" m4/gettext.m4 m4/gtk-2.0.m4 m4/iconv.m4 m4/sdl.m4"
-#****
-
-#****o* ggz.cygclass/DIFF_EXCLUDES (ggz)
-#  DEFINITION
-DIFF_EXCLUDES+=" config.rpath ${_ggz_bad_macros}"
-#****
-
 #****d* ggz.cygclass/GGZ_MODULES_DIR
-#  DEFINITION
+#  DESCRIPTION
+#    The directory where GGZ ModuleInfo description files are installed.
+#****
 GGZ_MODULES_DIR=/etc/ggz/modules
-#****
-
-
-#****f* ggz.cygclass/ggz_autoreconf
-#****
-ggz_autoreconf() {
-	cp -f /usr/share/gettext/config.rpath .
-
-	cygautoreconf
-}
 
 export ac_cv_header_winsock_h=no
 export ac_cv_header_winsock2_h=no
 
 #****f* ggz.cygclass/ggz_postinst
+#  DESCRIPTION
+#    Creates postinstall and preremove scripts which de/register GGZ ModuleInfo
+#    description files with ggz-config.
 #****
 ggz_postinst() {
 	rm -f ${D}/etc/ggz.modules
@@ -93,6 +88,13 @@ ggz_postinst() {
 }
 
 #****f* ggz.cygclass/doggzmod
+#  SYNOPSIS
+#    doggzmod DESCRIPTION_FILE [DESCRIPTION_FILE] ...
+#  DESCRIPTION
+#    Installs the given GGZ ModuleInfo description file(s) into GGZ_MODULES_DIR.
+#    As such files are often generically named (e.g. "module.dsc"), files are
+#    automatically renamed to reflect the name of the program specified in their
+#    CommandLine attribute.
 #****
 doggzmod() {
 	local cl
@@ -112,17 +114,6 @@ doggzmod() {
 	done
 }
 
-#****o* ggz.cygclass/src_compile (ggz)
-#  DEFINITION
-src_compile() {
-	cd ${S}
-	ggz_autoreconf
-	cd ${B}
-	cygconf
-	cygmake
-}
-#****
-
 #****o* ggz.cygclass/src_install (ggz)
 #  DEFINITION
 src_install() {
@@ -132,4 +123,4 @@ src_install() {
 }
 #****
 
-readonly -f ggz_autoreconf ggz_postinst doggzmod
+readonly -f ggz_postinst doggzmod
