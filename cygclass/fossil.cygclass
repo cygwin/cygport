@@ -23,6 +23,25 @@
 #
 ################################################################################
 
+#****h* Cygclasses/fossil.cygclass
+#  NAME
+#    fossil.cygclass -- Create packages from Fossil checkouts
+#  SYNOPSIS
+#    FOSSIL_URI="..."
+#    [FOSSIL_REV="..."]
+#    inherit fossil
+#  DESCRIPTION
+#    Fossil is a distributed version control system which includes an integrated
+#    bug tracking system and wiki.  It is used by the SQLite project.
+#
+#    This cygclass creates source tarballs from Fossil checkouts.
+#  NOTE
+#    This cygclass sets a special SRC_URI for the tarball it creates.  If
+#    additional sources are required, be sure to _add_ to SRC_URI rather than
+#    outright setting it.
+#****
+
+# is this truly necessary?
 FOSSIL_MODULE=${FOSSIL_MODULE:-${ORIG_PN:-${PN}}}
 
 fossil_tarball="${FOSSIL_MODULE}-${PV}_fossil.tar.bz2"
@@ -33,6 +52,10 @@ SRC_DIR="${FOSSIL_MODULE}"
 fossil_fetch() {
 	check_prog_req fossil
 
+#****v* fossil.cygclass/FOSSIL_URI
+#  DESCRIPTION
+#    Address of Fossil repository from which to clone.
+#****
 	if ! defined FOSSIL_URI
 	then
 		error "FOSSIL_URI must be defined"
@@ -52,6 +75,14 @@ fossil_fetch() {
 
 	verbose fossil open ${T}/${FOSSIL_MODULE}.fossil || error "fossil open failed"
 
+#****v* fossil.cygclass/FOSSIL_REV
+#  DESCRIPTION
+#    This optional variable can be one of:
+#    * A specific revision tag, in the form of a SHA1 hash (a 40-digit hexadecimal)
+#      or an abbreviation thereof (typically the first 10 hexadecimal digits).
+#    * A branch name, in which case the latest revision of that branch will be used.
+#    If unset, the latest revision of the 'trunk' branch will be used.
+#****
 	if defined FOSSIL_REV
 	then
 		fossil update ${FOSSIL_REV}
