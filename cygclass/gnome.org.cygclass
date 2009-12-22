@@ -34,23 +34,32 @@
 #
 #    In most cases, you do not need to directly inherit this cygclass;
 #    most GNOME packages will anyway use one of the cygclasses listed below
-#    which already inherit this.
+#    which already inherit this cygclass.
 #
 #    If PN does not match the name of the original source tarball, 
-#    define ORIG_PN before inheriting.
-#  DEFINES
-#    * HOMEPAGE - http://www.gnome.org/
-#    * SRC_URI - File location on GNOME FTP servers.
-#    * GIT_URI - Location in GNOME Git repository
+#    define ORIG_PN before inherit()ing.
 #  INHERITED BY
 #    gnome2.cygclass, gtkmm.cygclass, pygtk.cygclass
 #  SEE ALSO
 #    mirror_gnome
 #****
+
+#****o* gnome.org.cygclass/HOMEPAGE (gnome.org)
+#  DEFINITION
 HOMEPAGE="http://www.gnome.org/"
+#****
+
+#****o* gnome.org.cygclass/SRC_URI (gnome.org)
+#  DEFINITION
 SRC_URI="mirror://gnome/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
+#****
 
 if ! defined GIT_URI
 then
-	GIT_URI="git://git.gnome.org/${ORIG_PN:-${PN}}"
+#****o* gnome.org.cygclass/GIT_URI (gnome.org)
+#  NOTE
+#    git.cygclass should be inherit() last for this to be of use.
+#  DEFINITION
+GIT_URI="git://git.gnome.org/${ORIG_PN:-${PN}}"
+#****
 fi
