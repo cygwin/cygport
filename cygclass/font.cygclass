@@ -23,8 +23,45 @@
 #
 ################################################################################
 
+#****h* Cygclasses/font.cygclass
+#  NAME
+#    font.cygclass -- Helper functions for installing fonts
+#  DESCRIPTION
+#    This cygclass provides functions for installing fonts so that they
+#    will be found by the X server (for Xaw/Motif applications) and fontconfig
+#    (used by most modern GUI toolkits).
+#  NOTE
+#    Regardless of the usage of font.cygclass, cygport will compress all
+#    bitmap fonts (.pcf) and create postinstall scripts for all fonts
+#    installed in FONTSDIR in order to register them with the X server and
+#    fontconfig.
+#****
+
+#****d* font.cygclass/FONTSDIR
+#  DESCRIPTION
+#    The top font directory, AKA the fontrootdir.
+#****
 FONTSDIR="/usr/share/fonts"
 
+#****f* font.cygclass/fontinto
+#  SYNOPSIS
+#    fontinto SUBDIR
+#  DESCRIPTION
+#    Tells dofont which font directory to install into.  Accepts a single
+#    argument, the name of the font subdirectory.
+#  NOTE
+#    Technically any subdir can be used for fonts, and fontconfig will
+#    find the font no matter which subdir you use.  OTOH, the X server by
+#    default searches only in a specific list of subdirectories, namely:
+#    * misc:  miscellaneous bitmap fonts (.pcf.gz)
+#    * 75dpi:  lower-resolution standard bitmap fonts (.pcf.gz)
+#    * 100dpi:  higher-resolution standard bitmap fonts (.pcf.gz)
+#    * OTF:  OpenType fonts (.otf)
+#    * TTF:  TrueType fonts (.ttf)
+#    * Type1:  Postscript fonts (.afm, .pfa/.pfb)
+#    Fonts installed into any other subdirectory will not be found by the
+#    X server without the user adjusting their fontpath accordingly.
+#****
 fontinto() {
 	if (( $# != 1 ))
 	then
@@ -41,6 +78,13 @@ fontinto() {
 	export _fontinto_dir=${FONTSDIR}/${1}
 }
 
+#****f* font.cygclass/dofont
+#  SYNOPSIS
+#    dofont FONTFILE [FONTFILE] ...
+#  DESCRIPTION
+#    Installs the given font file(s) into the font subdirectory specified by
+#    the most recent call to fontinto.
+#****
 dofont() {
 	if ! defined _fontinto_dir || [ ! -d ${D}${_fontinto_dir} ]
 	then
