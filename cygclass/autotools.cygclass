@@ -58,9 +58,6 @@
 #****
 
 
-	cat ${_privdatadir}/config.override >> config.cache
-}
-
 #****f* autotools.cygclass/cygautoreconf
 #  NAME
 #    cygautoreconf -- Regenerate Autotool files
@@ -122,7 +119,7 @@ cygautoreconf() {
 				unset ac_config_files;
 			fi
 
-			if $(grep -Eq 'AM_(GNU_GETTEXT|ICONV)' ${d}/${configure_ac})
+			if $(grep -Eq '(AM_GNU_GETTEXT|AM_ICONV|AC_GGZ_INTL)' ${d}/${configure_ac})
 			then
 				cp -f /usr/share/gettext/config.rpath ${d}/
 				__config_set with_gnu_gettext 1
