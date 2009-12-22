@@ -23,6 +23,32 @@
 #
 ################################################################################
 
+#****h* Cygclasses/git.cygclass
+#  NAME
+#    git.cygclass -- Create packages from Git checkouts
+#  SYNOPSIS
+#    GIT_URI="..."
+#    [GIT_BRANCH="..."]
+#    [GIT_REV="..."]
+#    [GIT_TAG="..."]
+#    inherit git
+#  DESCRIPTION
+#    Git is a distributed version control system.  Originally developed for the
+#    Linux kernel, it is widely used by a number of projects, including GNOME,
+#    GStreamer, X.Org, and Xfce.
+#
+#    This cygclass creates source tarballs from Git checkouts.
+#  NOTES
+#    This cygclass sets a special SRC_URI for the tarball it creates.  If
+#    additional sources are required, be sure to _add_ to SRC_URI rather than
+#    outright setting it.
+#****
+
+#****v* git.cygclass/GIT_URI
+#  DESCRIPTION
+#    Address of Git repository from which to clone.  Must be defined before
+#    inherit()ing git.cygclass.
+#****
 if ! defined GIT_URI
 then
 	error "GIT_URI must be defined"
@@ -57,6 +83,21 @@ git_fetch() {
 	cd ${T}
 	verbose git clone ${_depth} --no-checkout ${GIT_URI} ${GIT_MODULE} || error "git clone failed"
 	cd ${T}/${GIT_MODULE}
+
+#****v* git.cygclass/GIT_BRANCH
+#  DESCRIPTION
+#    Branch from which to clone.  If undefined, the 'master' branch is used.
+#****
+#****v* git.cygclass/GIT_REV
+#  DESCRIPTION
+#    Specific revision to clone, in the form of a SHA1 hash (a 40-digit hexadecimal)
+#    or an abbreviation thereof (the first 7 hexadecimal digits are usually
+#    sufficent).  If undefined, the latest revision in the given GIT_BRANCH is used.
+#****
+#****v* git.cygclass/GIT_TAG
+#  DESCRIPTION
+#    Tag to clone, essentially a legible shorthand for a given commit.
+#****
 
 	if defined GIT_TAG
 	then
