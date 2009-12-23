@@ -26,10 +26,12 @@
 #****h* Cygclasses/gstreamer.cygclass
 #  NAME
 #    gstreamer.cygclass -- Base functions for GStreamer packages.
+#  SYNOPSIS
+#    inherit gstreamer
 #  DESCRIPTION
 #    GStreamer is a modular multimedia framework, using plugins to support
 #    a wide variety of audio and video formats, effects, and input/output.
-#    Being based on GObject it is heavily used within GNOME, but it also seems
+#    Being based on GObject it is heavily used within GNOME, but it also sees
 #    some use as a backend for Qt4 Phonon.
 #
 #    GStreamer components include the core libraries and command-line tools,
@@ -40,8 +42,12 @@
 #    gst-plugins0.10.cygclass
 #****
 
-gst_component=${PN#gstreamer*-}
-ORIG_PN=${ORIG_PN:-gst-${gst_component}}
+case ${PN} in
+	gstreamer*)
+		gst_component=${PN#gstreamer*-}
+		ORIG_PN=${ORIG_PN:-gst-${gst_component}}
+	;;
+esac
 
 #****o* gstreamer.cygclass/HOMEPAGE (gstreamer)
 #  DEFINITION
@@ -52,8 +58,6 @@ HOMEPAGE="http://gstreamer.freedesktop.org/"
 #  DEFINITION
 SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
 #****
-
-SRC_DIR=${ORIG_PN}-${PV}
 
 #****o* gstreamer.cygclass/GIT_URI (gstreamer)
 #  DEFINITION
@@ -68,18 +72,22 @@ GST_PLUGINDIR="/usr/lib/gstreamer-${PV_MAJ_MIN}"
 #****
 
 #****f* gstreamer.cygclass/gstreamer_autoreconf
-#  NAME
-#    gstreamer_autoreconf -- Regenerate autotool files for GStreamer packages
 #  SYNOPSIS
 #    cd $S
 #    gstreamer_autoreconf
 #  DESCRIPTION
-#    GStreamer packages are autotool-based but require some custom steps to
-#    bootstrap, making cygautoreconf insufficient for a working build.
-#
-#    This function runs the toplevel autogen.sh script, which is shipped in
-#    each tarball, which makes sure that all necessary steps are taken.  It
-#    must be used instead of cygautoreconf in all GStreamer packages.
+#    Updates the build system with the included autogen.sh script, which is
+#    shipped in each tarball, which makes sure that all necessary steps are taken.
+#    This requires all the tools used by cygautoreconf in order to update the
+#    build system components.
+#  WARNING
+#    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
+#    macros, or Makefile.am files will not take effect until their tools have been
+#    regenerated.  Also, Cygwin's libtool package often includes patches which
+#    are not yet available in the latest upstream release, so libraries may not
+#    be built optimally, or even correctly, without this step having been run.
+#  SEE ALSO
+#    cygautoreconf
 #****
 gstreamer_autoreconf() {
 	# gstreamer packages require a custom autogen.sh
