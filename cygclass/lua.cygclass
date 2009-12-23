@@ -3,7 +3,7 @@
 # lua.cygclass - functions for installing Lua modules
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2008 Yaakov Selkowitz
+# Copyright (C) 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,27 +23,69 @@
 #
 ################################################################################
 
+#****h* Cygclasses/lua.cygclass
+#  NAME
+#    lua.cygclass -- Build packages which use the Lua programming language
+#  SYNOPSIS
+#    inherit lua
+#  DESCRIPTION
+#    Lua is a lightweight programming language commonly used for embedded scripting
+#    support in a variety of programs.  It is extensible through C/C++ modules
+#    and lua scripts.
+#
+#    This cygclass provides definitions used by packages depending on Lua.
+#****
+
 check_prog_req lua
+check_prog_req pkg-config
 
-_lua=/usr/bin/lua
+#****d* lua.cygclass/LUA
+#  DESCRIPTION
+#    Full path to the Lua interpreter.
+#****
+LUA=/usr/bin/lua
 
-# Lua versioning
-if ! defined LUA_VERSION
-then
-	LUA_VERSION=$(${_lua} -v 2>&1 | cut -c 5-7)
-fi
+#****d* lua.cygclass/LUAC
+#  DESCRIPTION
+#    Full path to the Lua bytecode compiler.
+#****
+LUAC=/usr/bin/luac
+
+#****d* lua.cygclass/LUA_VERSION
+#  DESCRIPTION
+#    The major.minor version of the Lua interpreter.
+#****
+LUA_VERSION=$(pkg-config --variable=V lua)
+
+# FIXME: is this really needed for anything?
 LUA_VERSION_NUM=${LUA_VERSION//./0}
-case ${LUA_VERSION} in
-	[1-4].*|5.0)  error "Lua ${LUA_VERSION} not supported" ;;
-esac
 
-# Compile flags
-LUA_INCLUDEDIR="/usr/include/lua${LUA_VERSION}"
-LUA_CFLAGS="-I${LUA_INCLUDEDIR}"
-LUA_LIBS="-llua${LUA_VERSION}"
+#****d* lua.cygclass/LUA_INCLUDEDIR
+#  DESCRIPTION
+#    Path containing the Lua C library headers.
+#****
+LUA_INCLUDEDIR=$(pkg-config --variable=INSTALL_INC lua)
 
-# locations
-LUA=${_lua}${LUA_VERSION}
-LUAC=${_lua}c${LUA_VERSION}
-LUA_LIBDIR="/usr/lib/lua/${LUA_VERSION}"
-LUA_SCRIPTDIR="/usr/share/lua/${LUA_VERSION}"
+#****d* lua.cygclass/LUA_LIBDIR
+#  DESCRIPTION
+#    Installation path for Lua C modules.
+#****
+LUA_LIBDIR=$(pkg-config --variable=INSTALL_CMOD lua)
+
+#****d* lua.cygclass/LUA_SCRIPTDIR
+#  DESCRIPTION
+#    Installation path for Lua script modules.
+#****
+LUA_SCRIPTDIR=$(pkg-config --variable=INSTALL_LMOD lua)
+
+#****d* lua.cygclass/LUA_CFLAGS
+#  DESCRIPTION
+#    Compile flags for the Lua C library.
+#****
+LUA_CFLAGS=$(pkg-config --cflags lua)
+
+#****d* lua.cygclass/LUA_LIBS
+#  DESCRIPTION
+#    Link flags for the Lua C library.
+#****
+LUA_LIBS=$(pkg-config --libs lua)
