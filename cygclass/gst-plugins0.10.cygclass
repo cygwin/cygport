@@ -150,7 +150,7 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		                theoradec timidity wildmidi wininet xvid zbar"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
-                           mythtv oss4 osxvideo quicktime swfdec vcd"
+                           mythtv oss4 osxvideo quicktime swfdec vcd vdpau"
 		;;
 	ugly)
 		# WARNING: the dependent codecs may be patent encumbered
