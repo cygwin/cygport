@@ -1,9 +1,9 @@
 ################################################################################
 #
-# xorg.cygclass - functions for building Xorg components
+# xorg.cygclass - functions for building X.Org components
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -22,6 +22,31 @@
 # $Id$
 #
 ################################################################################
+
+#****h* Cygclasses/xorg.cygclass
+#  NAME
+#    xorg.cygclass -- Build X.Org component packages
+#  SYNOPSIS
+#    inherit xorg
+#  DESCRIPTION
+#    X.Org provides the reference implementation of the X11 protocol. Since
+#    X11R7.0, packages have been released in a "modular" format, with the server
+#    and each library, application, set of headers, and font shipping in it's
+#    own autotools-based tarball.
+#
+#    This cygclass defines the variables necessary to download X.Org packages,
+#    either as tarballs (default) or from Git (if git.cygclass is inherit()ed
+#    afterwards).
+#  HISTORY
+#    Previous versions of Cygwin and X11 required some additional build steps:
+#    * Cygwin 1.5 did not have proper locale support, so -DX_LOCALE was added to
+#      CPPFLAGS to force usage of X11's own locale implementation instead.
+#    * Each font package had to be told where to install its fonts during configure.
+#    As of X11R7.5 for Cygwin 1.7, neither of these are necessary, so xorg.cygclass
+#    relies solely on the build functions provided by autotools.cygclass.
+#  INHERITS
+#    autotools.cygclass
+#****
 
 case ${PN} in
 	font-*-dpi*)  ORIG_PN=${PN/-dpi/-}dpi ;;
@@ -67,14 +92,6 @@ case ${PN} in
 		xorg_git="xorg/lib/libxtrans"
 		;;
 
-	evieext)
-		xorg_cat="proto"
-		xorg_git="xorg/proto/evieproto"
-		;;
-	xproxymanagementprotocol)
-		xorg_cat="proto"
-		xorg_git="xorg/proto/pmproto"
-		;;
 	*proto)
 		xorg_cat="proto"
 		xorg_git=xorg/proto/${PN}
@@ -104,59 +121,26 @@ case ${PN} in
 		;;
 esac
 
+#****o* xorg.cygclass/DESCRIPTION (xorg)
+#  DEFINITION
 DESCRIPTION="X.Org ${ORIG_PN} component"
+#****
+
+#****o* xorg.cygclass/HOMEPAGE (xorg)
+#  DEFINITION
 HOMEPAGE="http://xorg.freedesktop.org/"
+#****
+
+#****o* xorg.cygclass/SRC_URI (xorg)
+#  DESCRIPTION
+#    Download location of the release tarball.
+#****
 SRC_URI="http://xorg.freedesktop.org/releases/individual/${xorg_cat}/${ORIG_PN}-${PV}.tar.bz2"
+
+#****o* xorg.cygclass/GIT_URI (xorg)
+#  DESCRIPTION
+#    Git repository for the package.
+#  NOTE
+#    git.cygclass should be inherit()ed last for this to be of use.
+#****
 GIT_URI="git://anongit.freedesktop.org/git/${xorg_git}"
-
-SRC_DIR="${ORIG_PN}-${PV}"
-
-xorg_compile() {
-	local xorg_conf
-	case ${PN} in
-		font-*-dpi75)
-			xorg_conf="--with-fontdir=/usr/share/fonts/75dpi"
-			;;
-		font-*-dpi100)
-			xorg_conf="--with-fontdir=/usr/share/fonts/100dpi"
-			;;
-		font-*-speedo)
-			xorg_conf="--with-fontdir=/usr/share/fonts/Speedo"
-			;;
-		font-*-ttf)
-			xorg_conf="--with-fontdir=/usr/share/fonts/TTF"
-			;;
-		font-*-type1)
-			xorg_conf="--with-fontdir=/usr/share/fonts/Type1"
-			;;
-		font-*-cyrillic)
-			xorg_conf="--with-fontdir=/usr/share/fonts/cyrillic"
-			;;
-		font-*-misc)
-			xorg_conf="--with-fontdir=/usr/share/fonts/misc"
-			;;
-	esac
-
-	CPPFLAGS+=" -DX_LOCALE"
-
-	cygconf ${xorg_conf} ${@}
-
-	cygmake
-}
-
-src_compile() {
-	case ${PN} in
-		xorg-util-macros|*proto*|evieext|xbitmaps|xcursor-themes|xtrans|xorg-sgml-doctools|font-*)
-			# these are just data and don't benefit from autoreconf
-			;;
-		*)
-			cd ${S}
-			cygautoreconf
-			;;
-	esac
-
-	cd ${B}
-	xorg_compile
-}
-
-readonly -f xorg_compile
