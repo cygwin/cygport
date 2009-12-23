@@ -3,7 +3,7 @@
 # mtn.cygclass - functions for building packages from Monotone checkouts
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,12 +23,44 @@
 #
 ################################################################################
 
+#****h* Cygclasses/mtn.cygclass
+#  NAME
+#    mtn.cygclass -- Create packages from Monotone checkouts
+#  SYNOPSIS
+#    MTN_URI="..."
+#    [MTN_BRANCH="..."]
+#    [MTN_REV="..."]
+#    inherit mtn
+#  DESCRIPTION
+#    Monotone is one of the earlier distributed version control systems.  It
+#    is most notably used by the Pidgin project.
+#
+#    This cygclass creates source tarballs from Monotone checkouts.
+#  NOTE
+#    This cygclass sets a special SRC_URI for the tarball it creates.  If
+#    additional sources are required, be sure to _add_ to SRC_URI rather than
+#    outright setting it.
+#****
+
+#****v* mtn.cygclass/MTN_URI
+#  DESCRIPTION
+#    Address of Monotone repository from which to clone.  Must be defined before
+#    inherit()ing mtn.cygclass.
+#****
 if ! defined MTN_URI
 then
 	error "MTN_URI must be defined"
 fi
 
+# FIXME: is this really necessary?
 MTN_MODULE=${MTN_MODULE:-${ORIG_PN:-${PN}}}
+
+#****v* mtn.cygclass/MTN_BRANCH
+#  DESCRIPTION
+#    Branch from which to clone, usually in the form of a "Reverse-DNS".  Must
+#    be defined before inherit()ing mtn.cygclass; if undefined, the "Reverse-DNS"
+#    of MTN_URI is used.
+#****
 
 if ! defined MTN_BRANCH
 then
@@ -52,6 +84,12 @@ SRC_DIR="${MTN_MODULE}"
 mtn_fetch() {
 	check_prog_req mtn monotone
 
+#****v* mtn.cygclass/MTN_REV
+#  DESCRIPTION
+#    Specific revision to clone, in the form of a SHA1 hash (a 40-digit hexadecimal)
+#    or an abbreviation thereof (customarily the first 8 hexadecimal digits).
+#    If undefined, the latest revision is used.
+#****
 	if defined MTN_REV
 	then
 		mtn_rev="-r ${MTN_REV}"
