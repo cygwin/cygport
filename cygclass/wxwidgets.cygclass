@@ -23,6 +23,52 @@
 #
 ################################################################################
 
+#****h* Cygclasses/wxwidgets.cygclass
+#  NAME
+#    wxwidgets.cygclass -- Build packages dependent on the wxWidgets GUI toolkit
+#  SYNOPSIS
+#    WX_VERSION="X.Y"
+#    [WX_CODESET="..."]
+#    [WX_TOOLKIT="..."]
+#    inherit wxwidgets
+#  DESCRIPTION
+#    The wxWidgets toolkit is a cross-platform, C++ GUI toolkit which is built
+#    on top of other GUI toolkits for a native look on all platforms.  Each
+#    combination of major.minor version, backend toolkit, and choice of ANSI or
+#    Unicode text codesets are parallel-installable.  Packages which depend on
+#    the wxWidgets toolkit will only build against one or two versions at any
+#    given time, and may require a particular codeset or toolkit.
+#
+#    This cygclass selects the wx-config script for the desired version, backend
+#    tookit, and codeset of the wxWidgets toolkit.
+#****
+
+#****v* wxwidgets.cygclass/WX_VERSION
+#  DESCRIPTION
+#    The desired major.minor branch of the wxWidgets toolkit.  This variable must
+#    be set before inherit()ing the wxwidgets.cygclass.
+#  NOTE
+#    Even minor version numbers represent stable branches; versions 2.6 and 2.8
+#    are supported.  Unstable branches (with odd minor versions) are currently
+#    not supported.
+#****
+#****v* wxwidgets.cygclass/WX_TOOLKIT
+#  DESCRIPTION
+#    The desired backend toolkit version of the wxWidgets toolkit.  Possible values
+#    are "gtk2", "gtk", "motif", or "x11univ".
+#
+#    This variable must be set before inherit()ing the wxwidgets.cygclass.
+#    If undefined, "gtk2" is used as the default.
+#****
+#****v* wxwidgets.cygclass/WX_CODESET
+#  DESCRIPTION
+#    The choice of text codeset of the wxWidgets toolkit.  Possible values are
+#    "ansi" and "unicode", but only the "gtk2" WX_TOOLKIT supports "unicode".
+#
+#    This variable must be set before inherit()ing the wxwidgets.cygclass.
+#    If undefined, "unicode" is the default if WX_TOOLKIT is "gtk2".
+#****
+
 _wx_find_config() {
 	local wx_config
 	local wx_base
@@ -84,8 +130,18 @@ _wx_find_config() {
 	echo ${wx_config} ${wx_base}
 }
 
+#****d* wxwidgets.cygclass/WX_CONFIG
+#  DESCRIPTION
+#    Full path to the wx-config script for the given WX_VERSION, WX_TOOLKIT, and
+#    WX_CODESET.  This definition is exported to the build environment.
+#****
 export WX_CONFIG="$(_wx_find_config)"
 
+#****f* wxwidgets.cygclass/wx-config
+#  DESCRIPTION
+#    Wrapper function for calling WX_CONFIG.  This function is exported to the
+#    build environment.
+#****
 wx-config() {
 	${WX_CONFIG} ${@}
 }
