@@ -23,12 +23,67 @@
 #
 ################################################################################
 
+#****h* Cygclasses/svn.cygclass
+#  NAME
+#    svn.cygclass -- Create packages from Subversion checkouts
+#  SYNOPSIS
+#    SVN_URI="..."
+#    [SVN_BRANCH="..."]
+#    [SVN_DATE="..."]
+#    [SVN_REV="..."]
+#    inherit svn
+#  DESCRIPTION
+#    Subversion is a centralized version control system, designed to be mostly
+#    compatible with CVS while adding some new features and avoiding some of
+#    CVS' limitations.  It is still widely used.
+#
+#    This cygclass creates source tarballs from Subversion checkouts.
+#  NOTE
+#    This cygclass sets a special SRC_URI for the tarball it creates.  If
+#    additional sources are required, be sure to _add_ to SRC_URI rather than
+#    outright setting it.
+#****
+
+#****v* svn.cygclass/SVN_URI
+#  DESCRIPTION
+#    Address of the Subversion repository.  This must be set before inherit()ing
+#    svn.cygclass.
+#  NOTE
+#    While a Subversion repository URI can include the desired branch or tag, for
+#    these purposes it is usually best to use the repository top-level (which
+#    customarily includes the folders branch/, tags/, and trunk/) as the SVN_URI,
+#    and the desired branch or tag subdirectory as the SVN_BRANCH.
+#****
+
 if ! defined SVN_URI
 then
 	error "SVN_URI must be defined"
 fi
 
 SVN_URI=${SVN_URI%/}
+
+#****v* svn.cygclass/SVN_BRANCH
+#  DESCRIPTION
+#    The branch or tag subdirectory to be downloaded relative to SVN_URI, such
+#    as "branches/some_feature" or "tags/X.Y.Z".
+#
+#    This must be set before inherit()ing svn.cygclass.  If undefined, the "trunk"
+#    branch will be used.
+#****
+#****v* svn.cygclass/SVN_REV
+#  DESCRIPTION
+#    The revision number to be downloaded.  If undefined, the latest revision
+#    from the given SVN_BRANCH will be used.
+#****
+#****v* svn.cygclass/SVN_DATE
+#  DESCRIPTION
+#    The revision date to be downloaded.  Preferred form is YYYY-MM-DD [HH:MM],
+#    where the time is optional; the hyphens in the date can be omitted.
+#  NOTE
+#    If a date is specified without a time, then the time 00:00 is implied,
+#    which will exclude all revisions made on the given date.  Use the
+#    following day in SVN_DATE instead.
+#****
 
 if defined SVN_BRANCH
 then
@@ -75,7 +130,6 @@ svn_fetch() {
 	cd ${T}
 	verbose svn checkout ${svn_uri} ${svn_rev} ${SVN_MODULE}
 
-	# many SVN repos were made by cvs2svn and .cvsignore files remain
 	tar jcf ${top}/${svn_tarball} --exclude-vcs ${SVN_MODULE}
 }
 
