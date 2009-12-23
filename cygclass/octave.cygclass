@@ -3,7 +3,7 @@
 # octave.cygclass - functions for installing Octave modules
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2008 Yaakov Selkowitz
+# Copyright (C) 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,21 +23,93 @@
 #
 ################################################################################
 
+#****h* Cygclasses/octave.cygclass
+#  NAME
+#    octave.cygclass -- Build packages which use the Octave programming language
+#  DESCRIPTION
+#    GNU Octave is a programming language primarily designed for numerical
+#    computations, and is mostly compatible with MATLAB.  It is extendible
+#    with both scripts (.m) and dynamic modules (.oct, but are ordinary DLLs).
+#
+#    This cygclass provides definitions for packages dependent on Octave.
+#****
+
 check_prog_req mkoctfile octave-devel
 
+#****d* octave.cygclass/OCTAVE
+#  DESCRIPTION
+#    Full path to the Octave interpreter.
+#****
 OCTAVE=/usr/bin/octave
+
+#****d* octave.cygclass/MKOCTFILE
+#  DESCRIPTION
+#    Full path to the Octave dynamic module (.oct) compiler/linker.
+#****
 MKOCTFILE=/usr/bin/mkoctfile
+
+#****d* octave.cygclass/OCTAVE_CONFIG
+#  DESCRIPTION
+#    Full path to the Octave installation information script.
+#****
 OCTAVE_CONFIG=/usr/bin/octave-config
+
+#****d* octave.cygclass/OCTAVE_VERSION
+#  DESCRIPTION
+#    Full version of the Octave interpreter.
+#****
 OCTAVE_VERSION=$(${OCTAVE_CONFIG} --version)
 
-# Compile flags
+#****d* octave.cygclass/OCTAVE_INCLUDEDIR
+#  DESCRIPTION
+#    Location of the Octave C library headers.
+#****
 OCTAVE_INCLUDEDIR=$(${OCTAVE_CONFIG} -p OCTINCLUDEDIR)
+
+#****d* octave.cygclass/OCTAVE_LIBDIR
+#  DESCRIPTION
+#    Location of the Octave C link libraries.
+#****
 OCTAVE_LIBDIR=$(${OCTAVE_CONFIG} -p OCTLIBDIR)
+
+#****d* octave.cygclass/OCTAVE_CFLAGS
+#  DESCRIPTION
+#    Compile flags for the Octave C library.
+#****
 OCTAVE_CFLAGS="-I${OCTAVE_INCLUDEDIR} -I${OCTAVE_INCLUDEDIR}/octave"
+
+#****d* octave.cygclass/OCTAVE_LIBS
+#  DESCRIPTION
+#    Link flags for the Octave C library.
+#****
 OCTAVE_LIBS="-L${OCTAVE_LIBDIR} -loctave"
 
-# install locations
+#****d* octave.cygclass/OCTAVE_M_DIR
+#  DESCRIPTION
+#    Full path to the Octave standard library scripts (.m).
+#  NOTE
+#    Third-party packages must not be installed into this directory.
+#    OCTAVE_M_SITEDIR must be used instead.
+#****
 OCTAVE_M_DIR=$(${OCTAVE_CONFIG} -p FCNFILEDIR)
+
+#****d* octave.cygclass/OCTAVE_OCTDIR
+#  DESCRIPTION
+#    Full path to the Octave standard library dynamic modules (.oct).
+#  NOTE
+#    Third-party packages must not be installed into this directory.
+#    OCTAVE_OCT_SITEDIR must be used instead.
+#****
 OCTAVE_OCT_DIR=$(${OCTAVE_CONFIG} -p OCTFILEDIR)
+
+#****d* octave.cygclass/OCTAVE_M_SITEDIR
+#  DESCRIPTION
+#    Installation path for third-party Octave scripts (.m).
+#****
 OCTAVE_M_SITEDIR=$(${OCTAVE_CONFIG} --m-site-dir)
+
+#****d* octave.cygclass/OCTAVE_OCT_SITEDIR
+#  DESCRIPTION
+#    Installation path for third-party Octave dynamic modules (.oct).
+#****
 OCTAVE_OCT_SITEDIR=$(${OCTAVE_CONFIG} --oct-site-dir)
