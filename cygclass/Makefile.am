@@ -43,6 +43,7 @@ dist_cygclass_DATA = 			\
 	php.cygclass				\
 	pygtk.cygclass				\
 	python.cygclass				\
+	python3.cygclass			\
 	qt3.cygclass				\
 	qt3-qmake.cygclass			\
 	qt4.cygclass				\

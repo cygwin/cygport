@@ -1,0 +1,172 @@
+################################################################################
+#
+# python3.cygclass - functions for installing Python3 modules
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+#****h* Cygclasses/python3.cygclass
+#  NAME
+#    python3.cygclass -- Build packages which use the Python3 programming language
+#  SYNOPSIS
+#    inherit python3
+#  DESCRIPTION
+#    Python is a general-purpose, interpreted programming language used in a
+#    wide variety of software.  It comes with a large standard library, and is
+#    easily extendible with modules written in Python and/or C/C++.  Programs
+#    can also embed a Python interpreter for use with their own extensions.
+#
+#    The new 3.x versions of Python are incompatible with the widely used 2.x 
+#    versions, so they are designed to be installed in parallel as separate
+#    interpreters.
+#
+#    This cygclass provides definitions and some install helpers which can be used
+#    by any Python3-based package.  Python3 modules and programs are built in a
+#    number of ways, so this cygclass does not provide any build functions.  The
+#    two most common build systems for Python3 packages are Distutils and autotools.
+#  NOTE
+#    python3.cygclass is for the 3.x versions of Python; for the 2.x versions,
+#    see python.cygclass.
+#****
+
+check_prog_req python3
+
+#****d* python3.cygclass/PYTHON3
+#  DESCRIPTION
+#    Full path to the Python3 interpreter.
+#****
+PYTHON3=/usr/bin/python3
+
+#****d* python3.cygclass/PYTHON3_VERSION
+#  DESCRIPTION
+#    The major.minor version of the current Python3 interpreter.
+#****
+PYTHON3_VERSION=$(${PYTHON3} -c 'from distutils.sysconfig import * ; print(get_python_version());')
+
+#****d* python3.cygclass/PYTHON3_INCLUDEDIR
+#  DESCRIPTION
+#    Path containing the Python3 C library headers.
+#****
+PYTHON3_INCLUDEDIR=$(${PYTHON3} -c 'from distutils.sysconfig import * ; print(get_python_inc());')
+
+#****d* python3.cygclass/PYTHON3_LIB
+#  DESCRIPTION
+#    Path containing the Python3 standard library.
+#  NOTE
+#    Never install third-party extensions into PYTHON3_LIB; use PYTHON3_SITELIB instead.
+#****
+PYTHON3_LIB=$(${PYTHON3} -c 'from distutils.sysconfig import * ; print(get_python_lib(0,1));')
+
+#****d* python3.cygclass/PYTHON3_SITELIB
+#  DESCRIPTION
+#    Installation path for all Python3 extension modules.
+#****
+PYTHON3_SITELIB=$(${PYTHON3} -c 'from distutils.sysconfig import * ; print(get_python_lib(0,0));')
+
+#****d* python3.cygclass/LIBPYTHON3
+#  DESCRIPTION
+#    Link flags for the Python3 C library.  This definition must be properly quoted.
+#****
+LIBPYTHON3="-L${PYTHON3_LIB}/config -lpython${PYTHON3_VERSION}"
+
+#****f* python3.cygclass/python3into
+#  SYNOPSIS
+#    python3into SUBDIRECTORY
+#  DESCRIPTION
+#    Subdirectory of PYTHON3_SITELIB into which dopython3 should install.  This is
+#    usually unnecessary.
+#****
+python3into() {
+	if (( $# != 1 ))
+	then
+	    error "python3into accepts exactly one argument";
+	fi
+
+	case ${1} in
+    	/*) error "python3into argument should be only a subdirectory" ;;
+	esac
+
+	export _python3into_dir=${1};
+}
+
+#****f* python3.cygclass/dopython3
+#  SYNOPSIS
+#    [python3into SUBDIRECTORY]
+#    dopython3 MODULE1 [MODULE2] ...
+#  DESCRIPTION
+#    Installs the given Python3 module(s) (.py or .dll) into PYTHON3_SITELIB under $D,
+#    or a subdirectory thereof if python3into was previously called.
+#****
+dopython3() {
+	local pydir
+	local i
+
+	if defined _python3into_dir
+	then
+		pydir=${PYTHON3_SITELIB}/${_python3into_dir}
+	else
+		pydir=${PYTHON3_SITELIB}
+	fi
+
+	dodir ${pydir}
+
+	for i
+	do
+		if [ -e ${i} ]
+		then
+			case ${i} in
+				*.dll)
+					/bin/install -m0755 ${i} ${D}${pydir} || error "dopython3 ${i} failed"
+					;;
+				*)
+					/bin/install -m0644 ${i} ${D}${pydir} || error "dopython3 ${i} failed"
+					;;
+			esac
+		else
+			error "dopython3: ${i}: file not found"
+		fi
+	done
+}
+
+#****f* python3.cygclass/python3_optimize
+#  SYNOPSIS
+#    python3_optimize [DIRECTORY1] [DIRECTORY2] ...
+#  DESCRIPTION
+#    Bytecode-compile all Python3 modules found in the given directories under $D.
+#    If no directories are specified, PYTHON3_SITELIB under $D is assumed.
+#****
+python3_optimize() {
+	local pyd
+
+	for pyd in "${@:-${PYTHON3_SITELIB}}"
+	do
+		if [ ! -d ${D}${pyd} ]
+		then
+			error "directory ${pyd} does not exist"
+		fi
+
+		inform "Compiling ${pyd}..."
+		${PYTHON3} ${PYTHON3_LIB}/compileall.py -f -q -d ${pyd} ${D}${pyd}
+		${PYTHON3} -OO ${PYTHON3_LIB}/compileall.py -f -q -d ${pyd} ${D}${pyd}
+	done
+}
+
+readonly -f python3into dopython3 python3_optimize
