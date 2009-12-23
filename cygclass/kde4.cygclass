@@ -23,10 +23,36 @@
 #
 ################################################################################
 
+#****h* Cygclasses/kde4.cygclass
+#  NAME
+#    kde4.cygclass -- Build KDE 4.x packages
+#  SYNOPSIS
+#    inherit kde4
+#  DESCRIPTION
+#    The KDE project provides a full-featured X desktop with a wide variety
+#    of applications, built on a library stack all based on the Qt C++ libraries.
+#    Most packages are written in C++ and are built with CMake.
+#
+#    This cygclass manages the building of most KDE4-based packages.
+#  NOTE
+#    This is only for KDE 4.x packages; for KDE 3.x, use kde3.cygclass instead.
+#  INHERITS
+#    cmake.cygclass, qt4.cygclass
+#****
+
 inherit cmake qt4
 
+#****o* kde4.cygclass/HOMEPAGE (kde4)
+#  DEFINITION
 HOMEPAGE="http://www.kde.org/"
+#****
 
+#****o* kde4.cygclass/SRC_URI (kde4)
+#  DESCRIPTION
+#    Download location for the release tarball.
+#  SEE ALSO
+#    mirror_kde
+#****
 case "${PN}:${PV}" in
 	automoc4:0.9.8[89])
 		SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.bz2"
@@ -39,6 +65,9 @@ case "${PN}:${PV}" in
 		;;
 	kdevplatform:0.9.*|kdevelop:3.9.*)
 		SRC_URI="mirror://kde/unstable/kdevelop/3.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
+		;;
+	koffice:2.1.0)
+		SRC_URI="mirror://kde/stable/koffice-${PV}/${P}.tar.bz2"
 		;;
 	koffice:2.*)
 		SRC_URI="mirror://kde/stable/koffice-${PV}/src/${P}.tar.bz2"
@@ -60,15 +89,33 @@ case "${PN}:${PV}" in
 		;;
 esac
 
+#****o* kde4.cygclass/SVN_URI (kde4)
+#  NOTE
+#    svn.cygclass should be inherit()ed last for this to be of use.
+#  DEFINITION
 SVN_URI="svn://anonsvn.kde.org/home/kde"
+#****
+
 SVN_MODULE=${SVN_MODULE:-${ORIG_PN:-${PN}}}
 
 export QTDIR=${QT4_QTDIR}
 export QT_PLUGIN_PATH=${QT4_PLUGINSDIR}
 
+#****f* kde4.cygclass/kde4_compile
+#  SYNOPSIS
+#    kde4_compile [OPTIONS]
+#  DESCRIPTION
+#    Runs cygcmake to configure the package with several Cygwin- and KDE-specific
+#    options, then runs cygmake to compile.  Options, in the form of
+#    -DVARIABLE=VALUE, are passed on to cygcmake.
+#  NOTE
+#    Source subdirectories which are declared with macro_optional_add_subdirectory()
+#    in CMakeLists.txt can be disabled with '-DBUILD_foo=OFF' arguments.
+#****
 kde4_compile() {
 	local skip skipargs
 
+	# for backwards compatibility with KDE3
 	for skip in ${DO_NOT_COMPILE}
 	do
 		skipargs+=" -DBUILD_${skip}=OFF"
@@ -92,6 +139,16 @@ kde4_compile() {
 	cygmake
 }
 
+#****f* kde4.cygclass/kde4_install
+#  SYNOPSIS
+#    kde4_install [OPTIONS]
+#  DESCRIPTION
+#    Installs a KDE4 package with cyginstall into $D with some additional steps:
+#    * Import libraries for libkdeinit4_* libraries are removed, as they are never used.
+#    * README docs for subpackages in PKG_NAMES are installed into their own
+#      subdirectories of /usr/share/doc/ under $D.
+#    Options, if any, are passed on to cyginstall.
+#****
 kde4_install() {
 	local doc kdepkg
 
@@ -113,14 +170,20 @@ kde4_install() {
 	done
 }
 
+#****o* kde4.cygclass/src_compile (kde4)
+#  DEFINITION
 src_compile() {
 	cd ${B}
 	kde4_compile
 }
+#****
 
+#****o* kde4.cygclass/src_install (kde4)
+#  DEFINITION
 src_install() {
 	cd ${B}
 	kde4_install
 }
+#****
 
 readonly -f kde4_compile kde4_install

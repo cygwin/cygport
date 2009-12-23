@@ -23,9 +23,32 @@
 #
 ################################################################################
 
+#****h* Cygclasses/kde3.cygclass
+#  NAME
+#    kde3.cygclass -- Build KDE 3.x packages
+#  SYNOPSIS
+#    inherit kde3
+#  DESCRIPTION
+#    The KDE project provides a full-featured X desktop with a wide variety
+#    of applications, built on a library stack all based on the Qt C++ library.
+#    Most packages are written in C++ and are built with a modified autotools
+#    system.
+#
+#    This cygclass manages the building of most KDE3-based packages.
+#  NOTES
+#    * This is only for KDE 3.x packages; for KDE 4.x, use kde4.cygclass instead.
+#    * The KDE 3.x series is obsolete, and support for it will likely be dropped
+#      sometime in 2010.
+#  INHERITS
+#    qt3.cygclass
+#****
+
 inherit qt3
 
+#****o* kde3.cygclass/HOMEPAGE (kde3)
+#  DEFINITION
 HOMEPAGE="http://www.kde.org/"
+#****
 
 # KDE prefix, used by both autotools and FindKDE3.cmake
 export KDEDIR=/usr
@@ -37,6 +60,12 @@ case "${PN}:${PV}" in
 	*)				ftp_pv=${PV} ;;
 esac
 
+#****o* kde3.cygclass/SRC_URI (kde3)
+#  DESCRIPTION
+#    Download location for the release tarball.
+#  SEE ALSO
+#    mirror_kde
+#****
 case "${PN}:${PV}" in
 	amarok:*)
 		SRC_URI="mirror://kde/stable/${PN}/${PV}/src/${P}.tar.bz2"
@@ -58,6 +87,23 @@ case "${PN}:${PV}" in
 		;;
 esac
 
+#****f* kde3.cygclass/kde3_autoreconf
+#  SYNOPSIS
+#    cd $S
+#    kde3_autoreconf
+#  DESCRIPTION
+#    Updates the build system with the special files included in each package's
+#    admin/ directory.  This requires all the tools used by cygautoreconf, with
+#    the addition of perl, in order to update their build system components.
+#  WARNING
+#    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
+#    macros, or Makefile.am files will not take effect until their tools have been
+#    regenerated.  Also, Cygwin's libtool package often includes patches which
+#    are not yet available in the latest upstream release, so libraries may not
+#    be built optimally, or even correctly, without this step having been run.
+#  SEE ALSO
+#    cygautoreconf
+#****
 kde3_autoreconf() {
 	case ${PN} in
 		kde-i18n-*|koffice-l10n-*)
@@ -85,7 +131,24 @@ kde3_autoreconf() {
 	make -f admin/Makefile.common || error "KDE autoreconf failed"
 }
 
+#****f* kde3.cygclass/kde3_compile
+#  SYNOPSIS
+#    kde3_compile [OPTIONS]
+#  DESCRIPTION
+#    Runs cygconf to configure the package with several Cygwin- and KDE-specific
+#    options, then runs cygmake to compile.  Options, in the form of
+#    configure flags, are passed on to cygconf.
+#  NOTE
+#    Select source subdirectories can be not built by defining DO_NOT_COMPILE.
+#****
 kde3_compile() {
+#****v* kde3_compile/DO_NOT_COMPILE
+#  SYNOPSIS
+#    DO_NOT_COMPILE="DIRECTORY1 [DIRECTORY2] ..."
+#  DESCRIPTION
+#    String list of source subdirectories that should not be built, usually
+#    because they are Linux-specific.
+#****
 	export DO_NOT_COMPILE
 
 	cygconf \
@@ -118,6 +181,16 @@ kde3_compile() {
 	cygmake
 }
 
+#****f* kde3.cygclass/kde3_install
+#  SYNOPSIS
+#    kde3_install [OPTIONS]
+#  DESCRIPTION
+#    Installs a KDE3 package with cyginstall into $D with some additional steps:
+#    * Import libraries for libkdeinit_* libraries are removed, as they are never used.
+#    * README docs for subpackages in PKG_NAMES are installed into their own
+#      subdirectories of /usr/share/doc/ under $D.
+#    Options, if any, are passed on to cyginstall.
+#****
 kde3_install() {
 	local doc kdepkg
 
@@ -143,6 +216,8 @@ kde3_install() {
 	fi
 }
 
+#****o* kde3.cygclass/src_compile (kde3)
+#  DEFINITION
 src_compile() {
 	cd ${S}
 	case ${PN} in
@@ -153,10 +228,14 @@ src_compile() {
 	cd ${B}
 	kde3_compile
 }
+#****
 
+#****o* kde3.cygclass/src_install (kde3)
+#  DEFINITION
 src_install() {
 	cd ${B}
 	kde3_install
 }
+#****
 
 readonly -f kde3_autoreconf kde3_compile kde3_install
