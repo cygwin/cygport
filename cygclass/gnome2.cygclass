@@ -23,8 +23,43 @@
 #
 ################################################################################
 
+#****h* Cygclasses/gnome2.cygclass
+#  NAME
+#    gnome2.cygclass -- Build GNOME 2.x packages
+#  SYNOPSIS
+#    inherit gnome2
+#  DESCRIPTION
+#    The GNOME project provides a full-featured X desktop with a wide variety
+#    of applications, built on an object-oriented library stack based on GLib
+#    and the GTK+ toolkit.  Most packages are written in C and are built with
+#    an autotools-based system with some additional tools.
+#
+#    This cygclass manages the building of most GNOME-based packages.
+#  INHERITS
+#    autotools.cygclass, gnome.org.cygclass
+#****
+
 inherit gnome.org
 
+#****f* gnome2.cygclass/gnome2_autoreconf
+#  SYNOPSIS
+#    cd $S
+#    gnome2_autoreconf
+#  DESCRIPTION
+#    Updates the build system with gnome-autogen.sh (from the gnome-common package).
+#    In addition to the tools used by cygautoreconf, gnome2_autoreconf may require
+#    any or all of gnome-doc-utils, gtk-doc, intltool, libglib2.0-devel, and
+#    pkg-config in order to update their build system components.
+#  WARNING
+#    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
+#    macros, or Makefile.am files will not take effect until their tools have been
+#    regenerated.  Also, Cygwin's libtool package often includes patches which
+#    are not yet available in the latest upstream release, so libraries may not
+#    be built optimally, or even correctly, without this step having been run.
+#    The same applies for some of the GNOME build tools as well.
+#  SEE ALSO
+#    cygautoreconf
+#****
 gnome2_autoreconf() {
 	local configure_ac
 	local skip_d
@@ -57,14 +92,25 @@ gnome2_autoreconf() {
 	export REQUIRED_LIBTOOL_VERSION=2.2.2
 	export USE_COMMON_DOC_BUILD
 
+#****v* gnome2.cygclass/GNOME2_NO_AUTOGEN
+#  DESCRIPTION
+#    By default, gnome-autogen.sh will retool the working directory's and any
+#    subdirectories containing a configure.ac/configure.in which may be configured
+#    separately with an AC_CONFIG_SUBDIRS.  If a subdirectory need not be
+#    retooled (e.g. it will not built for whatever reason), or it does not use
+#    autotools (e.g. the libdb included in evolution), define this variable to
+#    the subdirectories to skip, relative to the directory where gnome2_autoreconf
+#    will be run (usually $S).
+#****
 	for skip_d in ${GNOME2_NO_AUTOGEN}
 	do
-		if [ -d ${skip_d} ]
+		if [ ! -d ${skip_d} ]
 		then
-			touch ${skip_d}/NO-AUTO-GEN
-		else
 			warning "GNOME2_NO_AUTOGEN: directory not found: ${skip_d}"
+			continue
 		fi
+
+		touch ${skip_d}/NO-AUTO-GEN
 	done
 
 	# FIXME: does not detect sublevel configures
@@ -89,6 +135,20 @@ gnome2_autoreconf() {
 	gnome-autogen.sh || error "gnome2: autoreconf failed"
 }
 
+#****f* gnome2.cygclass/gnome2_compile
+#  SYNOPSIS
+#    cd $B
+#    gnome2_compile [CONFIGURE_FLAGS]
+#  DESCRIPTION
+#    Calls cygconf with the following options, followed by cygmake:
+#    * --enable-gtk-doc: create and install API documentation
+#    * --disable-schemas-install: GConf schemas are still installed, but are
+#      registered with postinstall and preremove scripts
+#    * --disable-scrollkeeper: Scrollkeeper is obsolete
+#    * --disable-static: GNOME packages use plugins extensively, so static
+#      libraries are of little value
+#    All arguments to gnome2_compile are passed to cygconf as configure flags.
+#****
 gnome2_compile() {
 	cygconf \
 		--enable-gtk-doc \
@@ -99,19 +159,14 @@ gnome2_compile() {
 	cygmake
 }
 
+#****o* gnome2.cygclass/src_compile (gnome2)
+#  DEFINITION
 src_compile() {
-	case ${PN} in
-		gnome-backgrounds|gnome-common|gnome-icon-theme|gnome-themes|gnome-themes-extras|gnome-games-extra-data)
-			# These are just data and don't benefit from autoreconf
-			;;
-		*)
-			cd ${S}
-			gnome2_autoreconf
-			;;
-	esac
-
+	cd ${S}
+	gnome2_autoreconf
 	cd ${B}
 	gnome2_compile
 }
+#****
 
 readonly -f gnome2_autoreconf gnome2_compile
