@@ -22,7 +22,13 @@
 #
 ################################################################################
 
-# runs 'make check' or 'make test'
+#****f* Testing/cygtest
+#  SYNOPSIS
+#    cd $B
+#    cygtest
+#  DESCRIPTION
+#    Runs the package testsuite with 'make check' or 'make test'.
+#****
 cygtest() {
 	if [ -e Makefile -o -e GNUmakefile -o -e makefile ]
 	then
@@ -40,12 +46,15 @@ cygtest() {
 	fi
 }
 
-# provides default src_test
-# will be overridden by cygclasses or cygports as necessary
+#****o* Testing/src_test
+#  DESCRIPTION
+#    The default src_test function, which may be overridden by cygclasses
+#    or in the .cygport file.
+#  DEFINITION
 src_test() {
 	cd ${B}
 	cygtest
 }
+#****
 
-# protect functions
 readonly -f cygtest
