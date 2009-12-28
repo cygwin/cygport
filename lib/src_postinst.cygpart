@@ -187,9 +187,9 @@ __prepdoc() {
 	local default_docs="\
 		ANNOUNCE ANNOUNCEMENTS AUTHOR AUTHORS \
 		BUG-REPORTS BUGS \
-		Changes ChangeLog CONTRIBUTORS COPYING COPYING-DOCS COPYING.LIB COPYRIGHT CREDITS \
+		CHANGES Changes ChangeLog CONTRIBUTORS COPYING COPYING-DOCS COPYING.LIB COPYRIGHT CREDITS \
 		FAQ GPL HACKING HISTORY HOW-TO-CONTRIBUTE KNOWNBUG \
-		LEGAL LICENCE LICENSE MAINTAINERS NEWS NOTES \
+		LEGAL LICENCE LICENSE MAINTAINERS NEWS NOTES NOTICE \
 		PROGLIST README THANKS TODO WHATSNEW";
 
 	cd ${S};
@@ -419,13 +419,14 @@ __prep_empty_dirs() {
 }
 
 __prepstrip() {
+	local exe;
+	local all_exes;
+
 	if defined _CYGPORT_RESTRICT_strip_
 	then
 		inform "Skipping strip step per request.";
 		return 0;
 	fi
-
-	local exe;
 
 	cd ${D};
 
@@ -434,8 +435,18 @@ __prepstrip() {
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
-	for exe in $(find * -type f -writable -a \( -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \))
+	all_exes=$(find * -type f -a \( -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \))
+	# could be .exe from non-automake Makefile which install(1) didn't fix
+	all_exes+=" "$(find * -type f -executable ! -name '*.*')
+
+	for exe in ${all_exes}
 	do
+		# assure this is actually a PE-COFF object
+		if ! objdump -f ${exe} &>/dev/null
+		then
+			continue
+		fi
+
 		# OCaml bytecode must not be stripped
 		# this test generates false positives with the ocaml core and
 		# compilers, but should otherwise be accurate
@@ -444,21 +455,18 @@ __prepstrip() {
 			continue
 		fi
 
-		# Mono assemblies must not be stripped,
-		# but .(dll|exe).mdb debug symbols should be removed
+		# Mono assemblies must not be stripped, but remove .mdb debug symbols,
+		# and make them non-executable so they're not launched by MS .NET
 		if objdump -p ${exe} 2>&1 | grep -q "DLL Name: mscoree.dll"
 		then
+			chmod 0644 ${exe}
 			rm -f ${exe}.mdb
 			continue
 		fi
 
-		# assure this is actually a PE-COFF object
-		if objdump -f ${exe} &>/dev/null
-		then
-			echo "        ${exe}";
-			chmod +x ${exe};
-			strip ${exe};
-		fi
+		echo "        ${exe}";
+		chmod 0755 ${exe};
+		strip ${exe};
 	done
 }
 
@@ -642,7 +650,6 @@ __src_postinst() {
 	__prep_libtool_modules;
 }
 
-# protect functions
 readonly -f __prep_fonts_dir __prep_freedesktop_mime __prep_gconf_schemas \
             __prep_gtk2_modules __prep_gtk_icon_theme \
             __prepdoc __prepetc __prepman __prepinfo __prepvargames __prep_empty_dirs \
