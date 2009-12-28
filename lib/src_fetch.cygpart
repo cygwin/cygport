@@ -22,6 +22,19 @@
 #
 ################################################################################
 
+#****v* Downloading/SRC_URI
+#  DESCRIPTION
+#    Download address(es) for the package source file(s), as a string.
+#    The first file in SRC_URI will be considered the primary source file
+#    and will determine the default SRC_DIR.
+#
+#    Individual source files maintained locally may also be used by adding
+#    their basenames to SRC_URI.
+#
+#    This variable is required, but many cygclasses automatically define
+#    a default SRC_URI based on the values of PN and PV.
+#****
+
 # downloads file(s) from Internet
 fetch() {
 	local uri;
