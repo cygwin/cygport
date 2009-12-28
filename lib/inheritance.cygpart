@@ -22,7 +22,12 @@
 #
 ################################################################################
 
-# import functions and variables from a cygclass
+#****f* Syntax/inherit
+#  SYNOPSIS
+#    inherit CYGCLASS [CYGCLASS] ...
+#  DESCRIPTION
+#    Imports the given Cygclass(es) (without the .cygclass suffix) into the build.
+#****
 inherit() {
 	local class;
 	local classname;
@@ -44,7 +49,14 @@ inherit() {
 	done
 }
 
-# detect if a given cygclass has been inherit()ed
+#****f* Inheritance/inherited
+#  SYNOPSIS
+#    inherited CYGCLASS [CYGCLASS] ...
+#  DESCRIPTION
+#    Check whether the given Cygclass(es) (without the .cygclass suffix) have
+#    already been inherit()ed.  Returns TRUE if all given Cygclasses have been
+#    inherit()ed, otherwise FALSE.
+#****
 inherited() {
 	local class;
 	local classname;
@@ -62,5 +74,4 @@ inherited() {
 	return 0;
 }
 
-export -f inherit inherited
 readonly -f inherit inherited
