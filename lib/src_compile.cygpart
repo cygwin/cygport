@@ -22,6 +22,21 @@
 #
 ################################################################################
 
+#****f* Compiling/lndirs
+#  SYNOPSIS
+#    lndirs [SOURCE_DIRECTORY [BUILD_DIRECTORY]]
+#  DESCRIPTION
+#    Replicates the given source directory into the given build directory by
+#    creating subdirectories and symlinking files.  This is to be used in order
+#    to build in $B where the build system does not natively support out-of-path
+#    builds.
+#
+#    If only the source directory is given, the current working directory is
+#    used for the build directory.  If no arguments are given, $S is linked
+#    into $B.
+#  REQUIRES
+#    lndir
+#****
 lndirs() {
 	local fromdir=${1};
 	local todir=${2};
@@ -39,11 +54,18 @@ lndirs() {
 	lndir -silent ${fromdir} ${todir} || error "lndir failed"
 }
 
-# standard GNU make call
-# if parallel build does not work for a package, call 'cygmake -j1'
+#****f* Compiling/cygmake
+#  SYNOPSIS
+#    cygmake [OPTIONS]
+#  DESCRIPTION
+#    Calls 'make', passing MAKEOPTS and any options given.
+#  NOTE
+#    By default, MAKEOPTS is set to use parallel make based on the number
+#    of CPU cores on the system.  If the package's Makefiles do not support
+#    parallel builds, append "-j1" to MAKEOPTS or call "cygmake -j1".
+#****
 cygmake() {
 	make ${MAKEOPTS} "${@}" || error "make failed"
 }
 
-# protect functions
 readonly -f lndirs cygmake
