@@ -44,16 +44,18 @@
 #    * ORIG_PN - PN without the leading "apache-"
 #    * APACHE_MOD_NAME - Basename of the DSO; defaults to ORIG_PN.
 #    * DESCRIPTION
+#  REQUIRES
+#    apache
 #  SEE ALSO
 #    apache2.cygclass, mirror_apache
 #****
 
 case ${PN} in
 	apache-*)
-		ORIG_PN=${PN#apache-}
+		ORIG_PN=${ORIG_PN:-${PN#apache-}}
 		ORIG_P=${ORIG_PN}-${PV}
-		APACHE_MOD_NAME=${APACHE_MOD_NAME:-${ORIG_PN}}
-		DESCRIPTION="Apache 1.x ${ORIG_PN} module"
+		APACHE_MOD_NAME=${APACHE_MOD_NAME:-${PN#apache-}}
+		DESCRIPTION="Apache 1.x ${APACHE_MOD_NAME} module"
 		;;
 esac
 

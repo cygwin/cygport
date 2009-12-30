@@ -45,16 +45,18 @@
 #    * ORIG_PN - PN without the leading "apache2-"
 #    * APACHE_MOD_NAME - Basename of the DSO; defaults to ORIG_PN.
 #    * DESCRIPTION
+#  REQUIRES
+#    apache2-devel, libapr1-devel, libaprutil1-devel
 #  SEE ALSO
 #    apache1.cygclass, mirror_apache
 #****
 
 case ${PN} in
 	apache2-*)
-		ORIG_PN=${PN#apache2-}
+		ORIG_PN=${ORIG_PN:-${PN#apache2-}}
 		ORIG_P=${ORIG_PN}-${PV}
-		APACHE_MOD_NAME=${APACHE_MOD_NAME:-${ORIG_PN}}
-		DESCRIPTION="Apache 2.x ${ORIG_PN} module"
+		APACHE_MOD_NAME=${APACHE_MOD_NAME:-${PN#apache2-}}
+		DESCRIPTION="Apache 2.x ${APACHE_MOD_NAME} module"
 		;;
 esac
 
@@ -388,5 +390,5 @@ apache2_postinst() {
 	done
 }
 
-readonly -f apache2_compile apache2_apxs_compile apxs2_compile doapache2conf \
+readonly -f apache2_compile apache2_apxs_compile doapache2conf \
             doapache2mod apache2_postinst
