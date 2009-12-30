@@ -57,6 +57,7 @@ dist_cygclass_DATA = 			\
 	svn.cygclass				\
 	tcl.cygclass				\
 	utils.cygclass				\
+	vim.cygclass				\
 	waf.cygclass				\
 	wxwidgets.cygclass			\
 	xfce4.cygclass				\

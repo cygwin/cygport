@@ -1,0 +1,132 @@
+################################################################################
+#
+# vim.cygclass - functions for installing Vim files
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2009 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+#****h* Cygclasses/vim.cygclass
+#  NAME
+#    vim.cygclass -- Helper functions for installing Vim scripts
+#  DESCRIPTION
+#    Vim is a text editor which is extensible through scripts written in its
+#    own Vimscript language.
+#
+#    This cygclass includes functions for installing Vim scripts.
+#  REQUIRES
+#    vim
+#****
+
+check_prog_req vim
+
+#****d* vim.cygclass/VIM
+#  DESCRIPTION
+#    Root data directory for the Vim editor.
+#  NOTE
+#    This is NOT the path to the Vim editor.
+#****
+VIM=$(/usr/bin/vim -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIM|quit' | tr -d '\015')
+
+#****d* vim.cygclass/VIMRUNTIME
+#  DESCRIPTION
+#    Directory containing scripts shipped with the Vim editor.
+#  NOTE
+#    Third-party Vim scripts should not be installed here; use VIMFILES instead.
+#****
+VIMRUNTIME=$(/usr/bin/vim -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIMRUNTIME|quit' | tr -d '\015')
+
+#****d* vim.cygclass/VIMFILES
+#  DESCRIPTION
+#    Installation path for third-party Vim scripts.
+#****
+VIMFILES="${VIM}/vimfiles"
+
+
+#****f* vim.cygclass/viminto
+#  SYNOPSIS
+#    viminto SUBDIRECTORY
+#  DESCRIPTION
+#    Subdirectory into which dovim and newvim should install.  Subdirectories
+#    supported by Vim are:
+#    * autoload: automatically loaded functions
+#    * colors: color scheme scripts
+#    * compiler: compiler scripts
+#    * doc: documentation
+#    * ftplugin: filetype plugins
+#    * indent: indentation scripts
+#    * keymap: key mapping scripts
+#    * lang: translations
+#    * plugin: automatically loaded plugins
+#    * print: print encodings
+#    * spell: spell checking dictionaries
+#    * syntax: syntax highlighting scripts
+#    A subdirectory may also be prefixed by "after/" if the scripts to be
+#    installed are meant to override those included in Vim.
+#****
+viminto() {
+	if (( $# != 1 ))
+	then
+	    error "viminto accepts exactly one argument";
+	fi
+
+	case ${1} in
+    	/*) error "viminto argument should be only a subdirectory" ;;
+	esac
+
+	export _viminto_dir=${1};
+}
+
+#****f* vim.cygclass/dovim
+#  SYNOPSIS
+#    viminto SUBDIRECTORY
+#    dovim SCRIPT [SCRIPT2] ...
+#  DESCRIPTION
+#    Installs the given Vim script(s) into the subdirectory of VIMFILES declared
+#    by the preceding call to viminto.
+#****
+dovim() {
+	local _insinto_tmp=${_insinto_dir}
+
+	insinto ${VIMFILES}/${_viminto_dir}
+	doins ${@}
+
+	_insinto_dir=${_insinto_tmp}
+}
+
+#****f* vim.cygclass/newvim
+#  SYNOPSIS
+#    viminto SUBDIRECTORY
+#    newvim SCRIPT_FILE NEW_SCRIPT_NAME
+#  DESCRIPTION
+#    Installs the given Vim script into the subdirectory of VIMFILES declared
+#    by the preceding call to viminto, renaming it as indicated by the second
+#    argument.
+#****
+newvim() {
+	local _insinto_tmp=${_insinto_dir}
+
+	insinto ${VIMFILES}/${_viminto_dir}
+	newins ${1} ${2}
+
+	_insinto_dir=${_insinto_tmp}
+}
+
+readonly -f viminto dovim newvim
