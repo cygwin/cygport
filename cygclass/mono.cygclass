@@ -3,7 +3,7 @@
 # mono.cygclass - functions for building Mono assemblies
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,13 +23,70 @@
 #
 ################################################################################
 
+#****h* Cygclasses/mono.cygclass
+#  NAME
+#    mono.cygclass -- Build Mono components and .NET assemblies
+#  DESCRIPTION
+#    Mono is an open-source implementation of the C# compiler, Common
+#    Language Runtime (the Windows version of which is known as the .NET
+#    Framework), and related tools.  The most common FOSS usage of Mono is
+#    Gtk#, a group of bindings for the GTK+ and GNOME libraries which is used
+#    by several GNOME applications written in C#.  There are also a number of
+#    other programming languages implemented on the CLR, some unique (such as
+#    Boo, Cobra, Nemerle, and VB.NET) and some previously existing (such as
+#    Java/IKVM, Lua2IL, and mPHP).
+#
+#    This cygclass sets definitions for downloading and building Mono components,
+#    and provides functions for installing CLR assemblies and programs.
+#  REQUIRES
+#    mono
+#****
+
+#****d* mono.cygclass/MONO
+#  DESCRIPTION
+#    Full path to the Mono JIT interpreter.
+#****
 MONO=/usr/bin/mono
+
+#****d* mono.cygclass/MCS
+#  DESCRIPTION
+#    Full path to the Mono C# 1.0 compiler.
+#****
 MCS=/usr/bin/mcs
+
+#****d* mono.cygclass/GMCS
+#  DESCRIPTION
+#    Full path to the Mono C# 2.0/3.0 compiler.
+#****
 GMCS=/usr/bin/gmcs
+
+#****d* mono.cygclass/GACUTIL
+#  DESCRIPTION
+#    Full path to the Mono Global Assembly Cache tool.
+#****
 GACUTIL=/usr/bin/gacutil
 
-HOMEPAGE="http://www.mono-project.com/"
+#****d* mono.cygclass/MONO_SNK
+#  DESCRIPTION
+#    Path to a strongname key that can be used to sign assemblies for installation
+#    into the GAC which do not ship with their own key.  This key should only
+#    be used if an upstream key is not available.
+#****
+MONO_SNK=${_privdatadir}/mono.snk
 
+#****o* mono.cygclass/HOMEPAGE (mono)
+#  DEFINITION
+HOMEPAGE="http://www.mono-project.com/"
+#****
+
+#****o* mono.cygclass/SRC_URI (mono)
+#  DESCRIPTION
+#    Download location for sources from the Mono project.
+#****
+#****o* mono.cygclass/SVN_URI (mono)
+#  DESCRIPTION
+#    Location of Subversion repository for Mono projects.
+#****
 if ! defined SVN_URI
 then
 	SRC_URI="http://go-mono.com/sources/${ORIG_PN:-${PN}}/${ORIG_PN:-${PN}}-${PV}.${MONO_SOURCE_TYPE:-tar.bz2}"
@@ -37,27 +94,119 @@ then
 	SRC_DIR="${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}}"
 fi
 
-CYGCONF_ARGS+=" --disable-static"
-
-dogac() {
-	local gacdll=${1}
-	local gacpkg="${2:+-package} ${2}"
-
-	if (( $# > 2 ))
+#****f* mono.cygclass/gacinto
+#  SYNOPSIS
+#    gacinto SUBDIRECTORY
+#  DESCRIPTION
+#    Package name to use when installing assemblies into the GAC with dogac.
+#    Symlinks to the assemblies installed with dogac will be created in
+#    /usr/lib/mono/SUBDIRECTORY.
+#****
+gacinto() {
+	if (( $# != 1 ))
 	then
-		error "dogac: Accepts one or two arguments"
+		error "gacinto accepts exactly one argument";
 	fi
+
+	case ${1} in
+		/*|*/*)	error "gacinto: argument must be a single subdirectory name" ;;
+	esac
+
+	_gacinto_dir=${1};
+}
+
+#****f* mono.cygclass/gacinto
+#  SYNOPSIS
+#    [gacinto SUBDIRECTORY]
+#    dogac ASSEMBLY [ASSEMBLY2] ...
+#  DESCRIPTION
+#    Installs the given assembly libraries into the GAC under $D, using the
+#    package name from the previous call to gacinto.
+#  NOTE
+#    Assemblies must be strongname signed in order to be installed into the
+#    GAC.  If an assembly is meant for general consumption but a strongname
+#    key is not available from upstream, MONO_SNK can be used to sign the
+#    assembly.
+#****
+dogac() {
+	local gacdll gacpkg
 
 	check_prog_req ${GACUTIL} mono
 
-	if [ ! -f ${gacdll} ]
+	if defined _gacinto_dir
 	then
-		error "dogac: ${gacdll}: File not found"
+		gacpkg="-package ${_gacinto_dir}"
 	fi
 
-	${GACUTIL} -i ${gacdll} ${gacpkg} -gacdir ${D}/usr/lib || error "dogac ${gacdll} failed"
+	for gacdll in $@
+	do
+		if [ ! -f ${gacdll} ]
+		then
+			error "dogac: ${gacdll}: File not found"
+		fi
+
+		${GACUTIL} -i ${gacdll} ${gacpkg} -gacdir ${D}/usr/lib || error "dogac ${gacdll} failed"
+	done
 }
 
+#****f* mono.cygclass/mono_create_policy
+#  SYNOPSIS
+#    mono_create_policy ASSEMBLY_NAME "OLD_VERSIONS" NEW_VERSION STRONGNAME_KEY
+#  DESCRIPTION
+#    Creates a policy file within the GAC.  Policy files are used to redirect
+#    assembly dependencies on (usually) older versions to a new version which is
+#    still API-compatible.  Versions are in the form of major.minor.micro.patch;
+#    the old versions argument can be a range (x.y.z.a-x.y.z.a) or use wildcards
+#    (x.y.*).  This function is meant to be called during src_install().
+#****
+mono_create_policy() {
+	local assembly=${1%.dll}
+	local oldv="$2"
+	local newv=$3
+	local snk=$4
+	local token
+
+	if (( $# != 4 ))
+	then
+		error "mono_create_policy: requires exactly four arguments"
+	fi
+
+	if [ ! -e ${snk} ]
+	then
+		error "mono_create_policy: ${snk}: file not found"
+	fi
+
+	token=$(sn -t ${snk} | grep Token: | cut -d' ' -f4)
+
+	pushd ${T}
+
+	cat > policy.${assembly}.config <<_EOF
+<configuration>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="${assembly}" publicKeyToken="${token}"/>
+        <bindingRedirect oldVersion="${oldv}" newVersion="${newv}"/>
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>
+_EOF
+
+	/usr/bin/al -link:policy.${assembly}.config -out:policy.${assembly}.dll -keyfile:${snk} || error "mono_create_policy: al link failed"
+	${GACUTIL} -i policy.${assembly}.dll -gacdir ${D}/usr/lib || error "mono_create_policy: gacutil install failed"
+
+	popd # ${T}
+}
+
+#****f* mono.cygclass/mono_wrapper
+#  SYNOPSIS
+#    mono_wrapper SCRIPT_NAME PATH_TO_ASSEMBLY
+#  DESCRIPTION
+#    Creates a wrapper script to launch the given assembly path (as it will be
+#    installed on the system) with Mono.  This function is meant to be called
+#    during src_install().
+#****
 mono_wrapper() {
 	local massembly
 	local massemblyfile
@@ -99,4 +248,4 @@ mono_wrapper() {
 	chmod +x ${D}${mscript}
 }
 
-readonly -f dogac mono_wrapper
+readonly -f gacinto dogac mono_create_policy mono_wrapper

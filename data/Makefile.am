@@ -1,6 +1,7 @@
 dist_pkgdata_DATA = \
 	cygport.nanorc	\
 	mirrors			\
+	mono.snk		\
 	sample.cygport	\
 	uac-manifest.in
 
