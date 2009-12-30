@@ -23,51 +23,102 @@
 #
 ################################################################################
 
+#****h* Cygclasses/opensync.cygclass
+#  NAME
+#    opensync.cygclass -- Build OpenSync 0.4x plugin packages
+#  DESCRIPTION
+#    OpenSync is a Personal Information Management (PIM) data syncronization
+#    framework which supports various PIM sources through plugins.
+#
+#    This cygclass builds plugins for the new OpenSync 0.4x series, beginning
+#    with 0.39.  Previous versions are no longer supported.
+#  INHERITS
+#    cmake.cygclass
+#  REQUIRES
+#    cmake, libopensync-devel, pkg-config
+#****
+
 inherit cmake
 
 OPENSYNC_PLUGIN=${PN/libopensync*-plugin-}
 
 DESCRIPTION="OpenSync ${OPENSYNC_PLUGIN} plugin"
+
+#****o* opensync.cygclass/HOMEPAGE (opensync)
+#  DEFINITION
 HOMEPAGE="http://www.opensync.org/wiki/"
+#****
+
+#****o* opensync.cygclass/SRC_URI (opensync)
+#  DESCRIPTION
+#    Download location for the OpenSync plugin source package.
+#****
 SRC_URI="http://www.opensync.org/download/releases/${PV}/libopensync-plugin-${OPENSYNC_PLUGIN}-${PV}.tar.bz2"
+
 SRC_DIR="libopensync-plugin-${OPENSYNC_PLUGIN}-${PV}"
 
 case ${PV} in
-	0.2[0-1])	error "opensync-plugin: minimum 0.2x version is 0.22" ;;
-	0.2*)		OPENSYNC_ABI=0 ;;
-	0.3[0-5])	error "opensync-plugin: minimum 0.3x version is 0.36" ;;
-	0.3*)		OPENSYNC_ABI=1 ;;
-	*)			error "opensync-plugin: unknown version: ${PV}" ;;
+	0.39|0.4*)	;;
+	0.2*|0.3*)	error "opensync.cygclass: minimum supported version is 0.39" ;;
+	*)			error "opensync.cygclass: unknown or unsupported version: ${PV}" ;;
 esac
 
 check_prog_req pkg-config
-OPENSYNC_VERSION=$(pkg-config --modversion opensync-1.0)
-OPENSYNC_PLUGINDIR=$(pkg-config --variable=plugindir opensync-1.0)
-OPENSYNC_PYTHON_PLUGINDIR=${OPENSYNC_PLUGINDIR%/*}/python-plugins
-OPENSYNC_CONFIGDIR=$(pkg-config --variable=configdir opensync-1.0)
 
+#****d* opensync.cygclass/OPENSYNC_VERSION
+#  DESCRIPTION
+#    Version of the currently installed OpenSync library.
+#****
+OPENSYNC_VERSION=$(pkg-config --modversion libopensync1)
+
+#****d* opensync.cygclass/OPENSYNC_CONFIGDIR
+#  DESCRIPTION
+#    Installation directory for OpenSync default configuration files.
+#****
+OPENSYNC_CONFIGDIR=$(pkg-config --variable=configdir libopensync1)
+
+#****d* opensync.cygclass/OPENSYNC_PLUGINDIR
+#  DESCRIPTION
+#    Installation directory for OpenSync C/C++ plugins.
+#****
+OPENSYNC_PLUGINDIR=$(pkg-config --variable=plugindir libopensync1)
+
+#****d* opensync.cygclass/OPENSYNC_PYTHON_PLUGINDIR
+#  DESCRIPTION
+#    Installation directory for OpenSync Python plugins.
+#****
+OPENSYNC_PYTHON_PLUGINDIR=${OPENSYNC_PLUGINDIR%/*}/python-plugins
+
+#****f* opensync.cygclass/opensync_plugin_compile
+#  SYNOPSIS
+#    opensync_plugin_compile [OPTIONS]
+#  DESCRIPTION
+#    Configures and compiles the OpenSync plugin package.  Options, if any, are
+#    passed as flags to cygcmake.
+#****
 opensync_plugin_compile() {
 	if [ ${PV} != ${OPENSYNC_VERSION} ]
 	then
 		error "${P} requires libopensync-devel-${PV}"
 	fi
 
-	case ${OPENSYNC_ABI} in
-		0)	CFLAGS+=" -Wno-error"
-			cygconf --libexecdir=/usr/lib/opensync "${@}"
-			cygmake LDFLAGS="${LDFLAGS} -no-undefined"
-			;;
-		1)	cygcmake "${@}"
-			cygmake
-			;;
-	esac
+	cygcmake "${@}"
+	cygmake
 }
 
+#****f* opensync.cygclass/opensync_doconfig
+#****
 opensync_doconfig() {
 	insinto ${OPENSYNC_CONFIGDIR}
 	doins ${@}
 }
 
+#****f* opensync.cygclass/opensync_doplugin
+#  SYNOPSIS
+#    opensync_doplugin PLUGIN [PLUGIN2] ...
+#  DESCRIPTION
+#    Installs OpenSync plugins into OPENSYNC_PLUGINDIR or OPENSYNC_PYTHON_PLUGINDIR.
+#****
 opensync_doplugin() {
 	local plugin
 
@@ -86,15 +137,12 @@ opensync_doplugin() {
 	done
 }
 
+#****o* opensync.cygclass/src_compile (opensync)
+#  DEFINITION
 src_compile() {
-	case ${OPENSYNC_ABI} in
-		0)	cd ${S}
-			cygautoreconf
-			;;
-	esac
-
 	cd ${B}
 	opensync_plugin_compile
 }
+#****
 
 readonly -f opensync_plugin_compile opensync_doconfig opensync_doplugin
