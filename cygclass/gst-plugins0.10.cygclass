@@ -167,8 +167,8 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 esac
 
 #****f* gst-plugins0.10.cygclass/gst_plugins_autoreconf
-#  NAME
-#    gst_plugins_autoreconf -- Alias for gstreamer_autoreconf
+#  DESCRIPTION
+#    Alias for gstreamer_autoreconf.
 #****
 gst_plugins_autoreconf() {
 	gstreamer_autoreconf

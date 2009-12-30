@@ -58,7 +58,7 @@ if ! defined GIT_URI
 then
 #****o* gnome.org.cygclass/GIT_URI (gnome.org)
 #  NOTE
-#    git.cygclass should be inherit() last for this to be of use.
+#    git.cygclass should be inherit()ed last for this to be of use.
 #  DEFINITION
 GIT_URI="git://git.gnome.org/${ORIG_PN:-${PN}}"
 #****

@@ -40,6 +40,8 @@
 #    and functions for building Perl module packages.
 #  INHERITED BY
 #    gtk2-perl.cygclass
+#  REQUIRES
+#    perl
 #****
 
 check_prog_req perl

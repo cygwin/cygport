@@ -40,6 +40,8 @@
 #    OCaml bytecode executables, while behaving like an ordinary .exe, cannot be
 #    stripped.  Cygport will automatically detect these and will not strip them
 #    during the automatic postinstall phase.
+#  REQUIRES
+#    ocaml, ocaml-findlib
 #****
 
 check_prog_req ocaml

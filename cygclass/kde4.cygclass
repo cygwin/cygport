@@ -89,6 +89,8 @@ case "${PN}:${PV}" in
 		;;
 esac
 
+if ! defined SVN_URI
+then
 #****o* kde4.cygclass/SVN_URI (kde4)
 #  NOTE
 #    svn.cygclass should be inherit()ed last for this to be of use.
@@ -97,6 +99,7 @@ SVN_URI="svn://anonsvn.kde.org/home/kde"
 #****
 
 SVN_MODULE=${SVN_MODULE:-${ORIG_PN:-${PN}}}
+fi
 
 export QTDIR=${QT4_QTDIR}
 export QT_PLUGIN_PATH=${QT4_PLUGINSDIR}
@@ -111,6 +114,8 @@ export QT_PLUGIN_PATH=${QT4_PLUGINSDIR}
 #  NOTE
 #    Source subdirectories which are declared with macro_optional_add_subdirectory()
 #    in CMakeLists.txt can be disabled with '-DBUILD_foo=OFF' arguments.
+#  REQUIRES
+#    automoc4, cmake, libQtCore4-devel, libQtGui4-devel
 #****
 kde4_compile() {
 	local skip skipargs

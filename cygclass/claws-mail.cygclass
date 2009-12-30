@@ -37,6 +37,8 @@
 #    * PN should be set to claws-mail-<plugin_name>.
 #  INHERITS
 #    gnome2.cygclass
+#  REQUIRES
+#    claws-mail-devel
 #****
 
 inherit gnome2

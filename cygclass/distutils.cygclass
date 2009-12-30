@@ -36,6 +36,8 @@
 #    This cygclass handles the building of distutils-based packages.
 #  INHERITS
 #    python.cygclass
+#  REQUIRES
+#    python
 #****
 inherit python
 

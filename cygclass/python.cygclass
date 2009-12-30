@@ -43,6 +43,8 @@
 #    see python3.cygclass.
 #  INHERITED BY
 #    distutils.cygclass, pygtk.cygclass, rox.cygclass
+#  REQUIRES
+#    python
 #****
 
 check_prog_req python

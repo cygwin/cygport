@@ -78,14 +78,14 @@ GST_PLUGINDIR="/usr/lib/gstreamer-${PV_MAJ_MIN}"
 #  DESCRIPTION
 #    Updates the build system with the included autogen.sh script, which is
 #    shipped in each tarball, which makes sure that all necessary steps are taken.
-#    This requires all the tools used by cygautoreconf in order to update the
-#    build system components.
 #  WARNING
 #    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
 #    macros, or Makefile.am files will not take effect until their tools have been
 #    regenerated.  Also, Cygwin's libtool package often includes patches which
 #    are not yet available in the latest upstream release, so libraries may not
 #    be built optimally, or even correctly, without this step having been run.
+#  REQUIRES
+#    autoconf, automake, gettext-devel, libtool, pkg-config
 #  SEE ALSO
 #    cygautoreconf
 #****

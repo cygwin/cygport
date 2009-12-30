@@ -34,6 +34,8 @@
 #    and lua scripts.
 #
 #    This cygclass provides definitions used by packages depending on Lua.
+#  REQUIRES
+#    lua, pkg-config
 #****
 
 check_prog_req lua

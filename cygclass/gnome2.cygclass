@@ -46,10 +46,7 @@ inherit gnome.org
 #    cd $S
 #    gnome2_autoreconf
 #  DESCRIPTION
-#    Updates the build system with gnome-autogen.sh (from the gnome-common package).
-#    In addition to the tools used by cygautoreconf, gnome2_autoreconf may require
-#    any or all of gnome-doc-utils, gtk-doc, intltool, libglib2.0-devel, and
-#    pkg-config in order to update their build system components.
+#    Updates the build system with gnome-autogen.sh.
 #  WARNING
 #    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
 #    macros, or Makefile.am files will not take effect until their tools have been
@@ -57,6 +54,9 @@ inherit gnome.org
 #    are not yet available in the latest upstream release, so libraries may not
 #    be built optimally, or even correctly, without this step having been run.
 #    The same applies for some of the GNOME build tools as well.
+#  REQUIRES
+#    autoconf, automake, gettext-devel, gnome-common, gnome-doc-utils, gtk-doc,
+#    intltool, libglib2.0-devel, libtool, pkg-config.
 #  SEE ALSO
 #    cygautoreconf
 #****

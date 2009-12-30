@@ -32,6 +32,8 @@
 #    with both scripts (.m) and dynamic modules (.oct, but are ordinary DLLs).
 #
 #    This cygclass provides definitions for packages dependent on Octave.
+#  REQUIRES
+#    octave-devel
 #****
 
 check_prog_req mkoctfile octave-devel

@@ -40,6 +40,8 @@
 #    This cygclass sets a special SRC_URI for the tarball it creates.  If
 #    additional sources are required, be sure to _add_ to SRC_URI rather than
 #    outright setting it.
+#  REQUIRES
+#    monotone
 #****
 
 #****v* mtn.cygclass/MTN_URI

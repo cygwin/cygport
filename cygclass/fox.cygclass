@@ -26,6 +26,9 @@
 #****h* Cygclasses/fox.cygclass
 #  NAME
 #    fox.cygclass -- Build packages dependent on the FOX GUI toolkit
+#  SYNOPSIS
+#    FOX_VERSION="X.Y"
+#    inherit fox
 #  DESCRIPTION
 #    The FOX toolkit is a cross-platform, C++ GUI toolkit.  The API changes with
 #    each major.minor version, each of which is parallel-installable.  Packages
@@ -34,11 +37,14 @@
 #
 #    This cygclass selects the fox-config script for the desired version of the
 #    FOX toolkit.
+#  REQUIRES
+#    libFOX1.*-devel
 #****
 
 #****v* fox.cygclass/FOX_VERSION
 #  DESCRIPTION
-#    The desired major.minor branch of the FOX toolkit.  This variable is required.
+#    The desired major.minor branch of the FOX toolkit.  This variable must be
+#    set before inherit()ing the fox.cygclass.
 #  NOTE
 #    Even minor version numbers represent stable branches; versions 1.2, 1.4,
 #    and 1.6 are supported.  Unstable branches (with odd minor versions) are

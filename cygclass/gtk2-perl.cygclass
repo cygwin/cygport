@@ -41,6 +41,8 @@
 #    This cygclass builds both official and third-party Gtk2-Perl binding packages.
 #  INHERITS
 #    perl.cygclass
+#  REQUIRES
+#    perl-ExtUtils-Depends, perl-ExtUtils-PkgConfig
 #****
 
 inherit perl

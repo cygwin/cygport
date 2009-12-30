@@ -125,6 +125,8 @@ DIFF_EXCLUDES="aclocal.m4 configure config.hin db.jar libtool.ac lt*.ac"
 #    * sed -i -e 's/aix\*/aix*|cygwin*/g' dist/aclocal/tcl.ac
 #    * Modify/define MAKEFILE_TSOLINK (not needed with 4.5+)
 #    * Undefine __lock_* macros in lock/lock_region.c (not needed with 4.3+)
+#  REQUIRES
+#    autoconf, automake, libtool
 #****
 berkdb_autoreconf() {
 	check_prog_req libtoolize libtool

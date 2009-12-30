@@ -59,14 +59,15 @@ DIFF_EXCLUDES+=" Doxyfile MSVC_Net200*"
 #    cd $S
 #    gtkmm_autoreconf
 #  DESCRIPTION
-#    Updates the autotool build system with cygautoreconf.  The mm-common
-#    package is also required to provide GTKmm-specific aclocal macros.
+#    Updates the autotool build system with cygautoreconf.
 #  WARNING
 #    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
 #    macros, or Makefile.am files will not take effect until their tools have been
 #    regenerated.  Also, Cygwin's libtool package often includes patches which
 #    are not yet available in the latest upstream release, so libraries may not
 #    be built optimally, or even correctly, without this step having been run.
+#  REQUIRES
+#    autoconf, automake, libtool, mm-common, pkg-config
 #****
 gtkmm_autoreconf() {
 	# make sure mm-common is installed (for the aclocal macros)

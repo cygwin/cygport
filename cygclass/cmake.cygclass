@@ -57,6 +57,8 @@
 #      the package and creates numerous files.
 #    * If the top-level CMakeLists.txt is not in $S, see CYGCMAKE_SOURCE.
 #    * Packages configured with cygcmake use cygmake to compile.
+#  REQUIRES
+#    cmake
 #****
 cygcmake() {
 	local cmdir;

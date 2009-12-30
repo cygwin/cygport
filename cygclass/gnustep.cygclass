@@ -34,6 +34,8 @@
 #    with GNUmakefiles which use templates included in the gnustep-make package.
 #
 #    This cygclass builds packages which use the GNUstep framework and build system.
+#  REQUIRES
+#    gnustep-make
 #  SEE ALSO
 #    mirror_gnustep
 #****

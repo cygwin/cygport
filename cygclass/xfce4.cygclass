@@ -96,10 +96,7 @@ fi
 #    cd $S
 #    xfce4_autoreconf
 #  DESCRIPTION
-#    Updates the build system with xdt-autogen (from the xfce4-dev-tools package).
-#    In addition to the tools used by cygautoreconf, xfce4_autoreconf may require
-#    any or all of gtk-doc, intltool, libglib2.0-devel, and pkg-config in order
-#    to update their build system components.
+#    Updates the build system with xdt-autogen.
 #  WARNING
 #    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
 #    macros, or Makefile.am files will not take effect until their tools have been
@@ -107,6 +104,9 @@ fi
 #    are not yet available in the latest upstream release, so libraries may not
 #    be built optimally, or even correctly, without this step having been run.
 #    The same applies for some of the other build tools as well.
+#  REQUIRES
+#    autoconf, automake, gtk-doc, intltool, libglib2.0-devel, libtool,
+#    pkg-config, xfce4-dev-tools
 #  SEE ALSO
 #    cygautoreconf, gnome2_autoreconf
 #****

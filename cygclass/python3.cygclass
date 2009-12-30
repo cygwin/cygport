@@ -45,6 +45,8 @@
 #  NOTE
 #    python3.cygclass is for the 3.x versions of Python; for the 2.x versions,
 #    see python.cygclass.
+#  REQUIRES
+#    python3
 #****
 
 check_prog_req python3

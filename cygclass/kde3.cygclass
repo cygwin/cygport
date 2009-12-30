@@ -93,14 +93,15 @@ esac
 #    kde3_autoreconf
 #  DESCRIPTION
 #    Updates the build system with the special files included in each package's
-#    admin/ directory.  This requires all the tools used by cygautoreconf, with
-#    the addition of perl, in order to update their build system components.
+#    admin/ directory.
 #  WARNING
 #    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
 #    macros, or Makefile.am files will not take effect until their tools have been
 #    regenerated.  Also, Cygwin's libtool package often includes patches which
 #    are not yet available in the latest upstream release, so libraries may not
 #    be built optimally, or even correctly, without this step having been run.
+#  REQUIRES
+#    autoconf, automake, libtool, perl
 #  SEE ALSO
 #    cygautoreconf
 #****

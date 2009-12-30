@@ -38,6 +38,8 @@
 #    to be "aspell-<language_code>" and the hyphen in the canonical version number
 #    to be substituted with a point.  If the source tarball is named "aspell5-*"
 #    or "aspell6-*", ASPELL_COMPAT must be declared before inheriting.
+#  REQUIRES
+#    aspell
 #  SEE ALSO
 #    mirror_gnu
 #****
