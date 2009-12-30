@@ -115,7 +115,7 @@ gacinto() {
 	_gacinto_dir=${1};
 }
 
-#****f* mono.cygclass/gacinto
+#****f* mono.cygclass/dogac
 #  SYNOPSIS
 #    [gacinto SUBDIRECTORY]
 #    dogac ASSEMBLY [ASSEMBLY2] ...
