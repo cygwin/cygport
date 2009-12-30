@@ -59,11 +59,38 @@
 
 
 #****f* autotools.cygclass/cygautoreconf
-#  NAME
-#    cygautoreconf -- Regenerate Autotool files
 #  SYNOPSIS
 #    cd $S
 #    cygautoreconf
+#  DESCRIPTION
+#    Updates the autotool build system with autoreconf, which runs the tools
+#    from autoconf, automake, gettext-devel, and libtool to update their
+#    respective components.
+#  NOTE
+#    If, during cygautoreconf, you get a warning such as:
+#       Warning: ./configure.ac may require LT_OUTPUT macro
+#    then the package configure script is relying on libtool 1.5 behaviour where
+#    the libtool script is generated during AC_PROG_LIBTOOL, and can therefore
+#    be called anytime thereafter in the configure script.  Some packages do this
+#    either to read the libtool config, or to run compiling/linking tests with
+#    the libtool script.
+#
+#    However, with the current libtool 2.2, the libtool script is generated during
+#    the AC_OUTPUT phase at the end of configure, so these configure commands will
+#    not work as designed.  The simplest portable solution is to add the 
+#    following line after the AC_PROG_LIBTOOL call:
+#      m4_ifdef([LT_OUTPUT], [LT_OUTPUT])
+#    which means: if libtool 2.2 is in use, generate a libtool script early so
+#    that it can be used during configure; if libtool 1.5 is in use, this line has
+#    no effect.  Such a patch is suitable to be pushed upstream.
+#  WARNING
+#    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
+#    macros, or Makefile.am files will not take effect until their tools have been
+#    regenerated.  Also, Cygwin's libtool package often includes patches which
+#    are not yet available in the latest upstream release, so libraries may not
+#    be built optimally, or even correctly, without this step having been run.
+#  REQUIRES
+#    autoconf, automake, gettext-devel, libtool
 #****
 cygautoreconf() {
 	local d;
@@ -160,8 +187,6 @@ cygautoreconf() {
 	check_prog_req autoreconf autoconf
 
 #****v* cygautoreconf/WANT_AUTOCONF
-#  NAME
-#    WANT_AUTOCONF -- Specify autoconf version
 #  DESCRIPTION
 #    This variable controls the version of autoconf to be used.  Valid settings
 #    are "2.1" (for the 2.13 version) and "2.5" (the default, for the 2.5x/2.6x
@@ -169,8 +194,6 @@ cygautoreconf() {
 #****
 
 #****v* cygautoreconf/WANT_AUTOMAKE
-#  NAME
-#    WANT_AUTOMAKE -- Specify automake version
 #  DESCRIPTION
 #    This variable controls the version of automake to be used.  Valid settings
 #    are currently "1.4" through "1.11".  If undefined, the version used by
@@ -203,32 +226,30 @@ cygautoreconf() {
 		fi
 
 #****v* cygautoreconf/NO_ACLOCAL
-#  NAME
-#    NO_ACLOCAL -- Define to skip running aclocal during cygautoreconf
+#  DESCRIPTION
+#    Define this variable to skip running aclocal during cygautoreconf.
 #  WARNING
 #    This is strongly discouraged, and should only be used when a package uses
 #    its own aclocal macros which are not provided in the tarball *and* the
 #    package does not use libtool.
 #****
 #****v* cygautoreconf/NO_LIBTOOLIZE
-#  NAME
-#    NO_LIBTOOLIZE -- Define to skip running libtoolize during cygautoreconf
+#  DESCRIPTION
+#    Define this variable to skip running libtoolize during cygautoreconf.
 #  WARNING
 #    This is strongly discouraged.  Cygwin's libtool usually includes patches
 #    required for optimal results on Cygwin which are not yet available in
 #    even the most recent upstream releases.
 #****
 #****v* cygautoreconf/NO_AUTOCONF
-#  NAME
-#    NO_AUTOCONF -- Define to skip running autoconf during cygautoreconf
+#  DESCRIPTION
+#    Define this variable to skip running autoconf during cygautoreconf.
 #  WARNING
 #    This is strongly discouraged.  Running libtoolize, changes to aclocal macros,
 #    or changes to configure.ac/configure.in all require autoconf to be run for
 #    a working build.
 #****
 #****v* cygautoreconf/NO_AUTOHEADER
-#  NAME
-#    NO_AUTOHEADER -- Define to skip running autoheader during cygautoreconf
 #  DESCRIPTION
 #    Sometimes autoreconf thinks a package uses autoheader when in fact it does
 #    not, in which case cygautoreconf will fail during the autoheader stage.
@@ -236,15 +257,15 @@ cygautoreconf() {
 #    variable to skip the autoheader step.
 #****
 #****v* cygautoreconf/NO_AUTOMAKE
-#  NAME
-#    NO_AUTOMAKE -- Define to skip running automake during cygautoreconf
+#  DESCRIPTION
+#    Define this variable to skip running automake during cygautoreconf.
 #  WARNING
 #    This is strongly discouraged.  If aclocal and/or autoconf have been run,
 #    running automake is required for a working build.
 #****
 #****v* cygautoreconf/NO_AUTOPOINT
-#  NAME
-#    NO_AUTOPOINT -- Define to skip running autopoint during cygautoreconf
+#  DESCRIPTION
+#    Define this variable to skip running autopoint during cygautoreconf.
 #  WARNING
 #    This is strongly discouraged.  Cygwin's gettext package often has patches
 #    which are not yet available in even the latest official release, and earlier
@@ -261,8 +282,6 @@ cygautoreconf() {
 		done
 
 #****v* cygautoreconf/ACLOCAL_FLAGS
-#  NAME
-#    ACLOCAL_FLAGS -- Define additional flags to pass to aclocal
 #  SYNOPSIS
 #    ACLOCAL_FLAGS="-I m4"
 #  DESCRIPTION
@@ -310,8 +329,6 @@ cygautoreconf() {
 }
 
 #****f* autotools.cygclass/cygconf
-#  NAME
-#    cygconf -- Configure the package
 #  SYNOPSIS
 #    cd $B
 #    cygconf [CONFIGURE_FLAG] [CONFIGURE_FLAG] ...
@@ -340,8 +357,6 @@ cygconf() {
 	local f;
 
 #****v* cygconf/CYGCONF_SOURCE
-#  NAME
-#    CYGCONF_SOURCE -- Directory containing the configure script
 #  DESCRIPTION
 #    Set this variable to the directory containing the configure script.  This
 #    is only necessary when configure is not in $S and cygconf is not being run
@@ -379,8 +394,8 @@ cygconf() {
 	done
 
 #****v* cygconf/CYGCONF_ARGS
-#  NAME
-#    CYGCONF_ARGS -- Additional flags to pass to configure
+#  DESCRIPTION
+#    Additional flags to pass to configure, as a string.
 #  NOTES
 #    Flags in CYGCONF_ARGS follow, and therefore override, flags passed by default
 #    and as arguments to cygconf.
