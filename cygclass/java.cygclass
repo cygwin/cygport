@@ -43,39 +43,33 @@
 
 #****d* java.cygclass/JAR
 #  DESCRIPTION
-#    Full path to a 'jar' de/compression tool, provided by fastjar or gjar.
+#    Absolute path to a 'jar' de/compression tool, provided by fastjar or gjar.
 #****
 JAR=/usr/bin/jar
 
 #****d* java.cygclass/JAVA
 #  DESCRIPTION
-#    Full path to a Java interpreter, provided by jamvm or gij-4.
+#    Absolute path to a Java interpreter, provided by jamvm or gij-4.
 #****
 JAVA=/usr/bin/java
 
 #****d* java.cygclass/JAVAC
 #  DESCRIPTION
-#    Full path to a Java compiler, provided by javac or ecj. 
+#    Absolute path to a Java compiler, provided by javac or ecj. 
 #****
 JAVAC=/usr/bin/javac
 
 #****d* java.cygclass/JAVADOC
 #  DESCRIPTION
-#    Full path to a Java API documentation generator, provided by javadoc or gjdoc.
+#    Absolute path to a Java API documentation generator, provided by javadoc or gjdoc.
 #****
 JAVADOC=/usr/bin/javadoc
 
 #****d* java.cygclass/JAVAH
 #  DESCRIPTION
-#    Full path to a JNI header generator, provided by javah or gjavah. 
+#    Absolute path to a JNI header generator, provided by javah or gjavah. 
 #****
 JAVAH=/usr/bin/javah
-
-#****d* java.cygclass/GCJ
-#  DESCRIPTION
-#    Full path to the GNU Java compiler.
-#****
-GCJ=/usr/bin/gcj-4
 
 #****d* java.cygclass/JAVA_HOME
 #  DESCRIPTION
