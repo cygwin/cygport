@@ -3,7 +3,7 @@
 # java.cygclass - functions for creating GNU Classpath based Java packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,105 +23,321 @@
 #
 ################################################################################
 
+#****h* Cygclasses/java.cygclass
+#  NAME
+#    java.cygclass -- Build Java packages with GNU Classpath
+#  DESCRIPTION
+#    GNU Classpath provides an open-source implementation of a Java runtime
+#    which is mostly compatibly with JDK 1.5.  Driven by a compatible Java
+#    Virtual Machine, its runtime and tools together with the OpenJDK and Eclipse
+#    compiler tools provide a Java environment which can build and run a wide
+#    variety of Java programs.
+#
+#    This cygclass provides definitions and functions for building packages
+#    which use the GNU Classpath Java environment.
+#  INHERITED BY
+#    ant.cygclass
+#  REQUIRES
+#    gij/jamvm, ecj/jdk6-langtools/classpath-tools, fastjar, gcc4-java.
+#****
+
+#****d* java.cygclass/JAR
+#  DESCRIPTION
+#    Full path to a 'jar' de/compression tool, provided by fastjar or gjar.
+#****
+JAR=/usr/bin/jar
+
+#****d* java.cygclass/JAVA
+#  DESCRIPTION
+#    Full path to a Java interpreter, provided by jamvm or gij-4.
+#****
+JAVA=/usr/bin/java
+
+#****d* java.cygclass/JAVAC
+#  DESCRIPTION
+#    Full path to a Java compiler, provided by javac or ecj. 
+#****
+JAVAC=/usr/bin/javac
+
+#****d* java.cygclass/JAVADOC
+#  DESCRIPTION
+#    Full path to a Java API documentation generator, provided by javadoc or gjdoc.
+#****
+JAVADOC=/usr/bin/javadoc
+
+#****d* java.cygclass/JAVAH
+#  DESCRIPTION
+#    Full path to a JNI header generator, provided by javah or gjavah. 
+#****
+JAVAH=/usr/bin/javah
+
+#****d* java.cygclass/GCJ
+#  DESCRIPTION
+#    Full path to the GNU Java compiler.
+#****
+GCJ=/usr/bin/gcj-4
+
+#****d* java.cygclass/JAVA_HOME
+#  DESCRIPTION
+#    Prefix of the Java installation.
+#****
+JAVA_HOME=/usr
+
+#****d* java.cygclass/JAVA_DIR
+#  DESCRIPTION
+#    Installation path for Java .jar files.
+#****
+JAVA_DIR=/usr/share/java
+
+#****d* java.cygclass/JAVADOC_DIR
+#  DESCRIPTION
+#    Installation path for Javadoc API documentation.
+#****
+JAVADOC_DIR=/usr/share/javadoc
+
+#****v* java.cygclass/JAVA_CLASSPATH
+#  DESCRIPTION
+#    A colon-separated list of directories and .jar files to pass to Java's
+#    CLASSPATH environment variable.  Any .jar files which are listed by
+#    basename only are assumed to be installed in JAVA_DIR.
+#  NOTE
+#    The user CLASSPATH variable is ignored so as to prevent interference
+#    from a native Windows installation of Java.
+#****
+
 # prevent Win32 Java interference
 unset CLASSPATH
 
-JAR=/usr/bin/fastjar
-JAVA=/usr/bin/jamvm
-JAVAC=/usr/bin/jikes
-JAVADOC=/usr/bin/gjdoc
-# FIXME: gjavah doesn't work
-JAVAH=/usr/bin/gcjh
-GCJ=/usr/bin/gcj
+if defined JAVA_CLASSPATH
+then
+	for path in ${JAVA_CLASSPATH//:/ }
+	do
+		case $path in
+			*/*)	;;
+			*.jar)	path=${JAVA_DIR}/${path} ;;
+			*)		error "Unknown CLASSPATH component: $path" ;;
+		esac
+		if [ ! -e ${path} ]
+		then
+			warning "JAVA_CLASSPATH: ${path} not found"
+		fi
+		CLASSPATH+=${path}:
+	done
+	export CLASSPATH
+fi
 
-JAR_PATH=${JAR}
-JAVA_PATH=${JAVA}
-JAVAC_PATH=${JAVAC}
-JAVADOC_PATH=${JAVADOC}
-JAVAH_PATH=${JAVAH}
-GCJ_PATH=${GCJ}
+case ${PN} in
+	java-*)	ORIG_PN=${ORIG_PN:-${PN#java-}} ;;
+esac
 
-#GLIBJ_JAR=/usr/share/classpath/glibj.zip
+#****f* java.cygclass/cygjar
+#  SYNOPSIS
+#    cygjar OPTIONS JAR_FILE [MANIFEST_FILE] [-C DIRECTORY] [FILES] ...
+#  DESCRIPTION
+#    Runs the JAR command with the provided options, catching any errors if
+#    they occur.  Please see the JAR --help text for a complete list of options.
+#****
+cygjar() {
+	verbose ${JAR} ${@} || error "cygjar: command failed"
+}
 
-JAVA_HOME=/usr
-JAVA_DIR=/usr/share/java
-JAVADOC_DIR=${JAVADOC_DIR:-/usr/share/javadoc/${PN#java-}}
+#****f* java.cygclass/cygjava
+#  SYNOPSIS
+#    cygjava [-jar JAR_FILE] [-classpath CLASSPATH] [OPTIONS] CLASS [ARGUMENTS]
+#  DESCRIPTION
+#    Runs the JAVA command with the provided options, catching any errors if
+#    they occur.  Please see the JAVA -help text for a complete list of options.
+#****
+cygjava() {
+	verbose ${JAVA} ${@} || error "cygjava: execution failed"
+}
 
-CYGCONF_ARGS+=" JAVA=${JAVA} JAVAC=${JAVAC} JAVADOC=${JAVADOC} JAVAH=${JAVAH} JAR=${JAR}"
+#****f* java.cygclass/cygjavac
+#  SYNOPSIS
+#    cygjavac [-classpath CLASSPATH] [OPTIONS] SOURCE_FILES|DIRECTORIES
+#  DESCRIPTION
+#    Runs the JAVAC command with the provided options, catching any errors if
+#    they occur.  Please see the JAVAC -help text for a complete list of options.
+#****
+cygjavac() {
+	verbose ${JAVAC} ${@} || error "cygjavac: compile failed"
+	# warning/error messages may not end with a newline
+	echo
+}
 
+#****f* java.cygclass/cygjavadoc
+#  SYNOPSIS
+#    cygjavadoc [OPTIONS] [-d OUTPUT_PATH] PACKAGES
+#  DESCRIPTION
+#    Runs the JAVADOC command with the provided options, catching any errors if
+#    they occur.  Please see the JAVADOC -help text for a complete list of options.
+#****
+cygjavadoc() {
+	# TODO: add -link file://${JAVADOC_DIR}/classpath, make links relative
+	verbose ${JAVADOC} ${@} || error "cygjavadoc: generation failed"
+}
+
+#****f* java.cygclass/cygjavah
+#  SYNOPSIS
+#    cygjavah [-classpath CLASSPATH] [-d OUTPUT_PATH] [-jni] CLASSES
+#  DESCRIPTION
+#    Runs the JAVAH command with the provided options, catching any errors if
+#    they occur.  Please see the JAVAH -help text for a complete list of options.
+#****
+cygjavah() {
+	verbose ${JAVAH} ${@} || error "cygjavah: generation failed"
+}
+
+#****f* java.cygclass/cygjunit
+#  SYNOPSIS
+#    cygjunit [-classpath CLASSPATH] CLASSES
+#  DESCRIPTION
+#    Runs the JUnit tests defined in the given class(es).
+#****
+cygjunit() {
+	local junitcp=${JAVA_DIR}/junit.jar
+
+	case ${1} in
+		-classpath) junitcp+=:${2} ; shift 2 ;;
+	esac
+
+	for jtest in ${@}
+	do
+		echo $jtest:
+		${JAVA} -Djava.awt.headless=true -classpath ${CLASSPATH}:${junitcp}:. junit.textui.TestRunner $jtest
+	done
+}
+
+#****f* java.cygclass/dojar
+#  SYNOPSIS
+#    dojar JAR_FILES
+#  DESCRIPTION
+#    Installs the given .jar files into JAVA_DIR under $D.  If the name of the
+#    .jar includes a version number, an unversioned symlink is created alongside
+#    the .jar file.
+#****
 dojar() {
 	dodir ${JAVA_DIR}
 
 	for i
 	do
-		if [ -e ${i} ]
+		if [ ! -e ${i} ]
 		then
-			/bin/install -m0644 ${i} ${D}${JAVA_DIR} || error "dojava ${i} failed"
-		else
-			error "dojava: ${i}: file not found"
+			error "dojar: ${i}: file not found"
 		fi
+
+		/bin/install -m0644 ${i} ${D}${JAVA_DIR} || error "dojar ${i} failed"
+		ib=${i##*/}
+		case ${ib} in
+			*-[0-9]*.jar)
+				dosym ${ib} ${JAVA_DIR}/${ib%%-[0-9]*}.jar
+				;;
+		esac
 	done
 }
 
+#****f* java.cygclass/newjar
+#  SYNOPSIS
+#    newjar JAR_FILE NEW_JAR_FILE_NAME
+#  DESCRIPTION
+#    Installs the given .jar file into JAVA_DIR under $D, renaming it per the
+#    second argument.  If the new name of the .jar includes a version number,
+#    an unversioned symlink is created alongside the .jar file.
+#****
 newjar() {
 	if (( $# != 2 ))
 	then
-		error "newjava: requires exactly two arguments"
+		error "newjar: requires exactly two arguments"
 	fi
 
 	dodir ${JAVA_DIR}
 
-	for i
-	do
-		if [ -e ${i} ]
-		then
-			/bin/install -m0644 ${i} ${D}${JAVA_DIR}/${2} || error "newjava: install ${i} failed"
-		else
-			error "newjava: ${i}: file not found"
-		fi
-	done
+	if [ ! -e ${1} ]
+	then
+		error "newjar: ${1}: file not found"
+	fi
+
+	/bin/install -m0644 ${1} ${D}${JAVA_DIR}/${2} || error "newjar: install ${1} failed"
+	ib=${2##*/}
+	case ${ib} in
+		*-[0-9]*.jar)
+			dosym ${ib} ${JAVA_DIR}/${ib%%-[0-9]*}.jar
+			;;
+	esac
 }
 
+#****f* java.cygclass/dojavadoc
+#  SYNOPSIS
+#    dojavadoc DIRECTORY
+#  DESCRIPTION
+#    Installs the Javadoc documentation in the given directory into a subdirectory
+#    of JAVADOC_DIR based on the name of the package.
+#****
 dojavadoc() {
+	local pkgdocdir=${JAVADOC_DIR}/${PN#java-}
+
 	if (( $# != 1 ))
 	then
 		error "dojavadoc: requires exactly one argument"
 	fi
 
-	dodir ${JAVADOC_DIR}
-
-	for d
-	do
-		if [ -d ${d} ]
-		then
-			cp -r ${d}/* ${D}${JAVADOC_DIR} || error "dojavadoc ${d} failed"
-		else
-			error "dojavadoc: ${d}: file not found"
-		fi
-	done
-}
-
-java_wrapper() {
-	local jcommand
-	local jwrapper
-
-	if (( $# != 2 ))
+	if [ -d ${1} ]
 	then
-		error "java_wrapper requires exactly two arguments"
+		error "dojavadoc: ${1}: file not found"
 	fi
 
-	jwrapper="${1}"
-	jcommand="${2}"
+	dodir ${pkgdocdir}
+
+	cp -Lr ${1}/* ${D}${pkgdocdir}/ || error "dojavadoc ${1} failed"
+	# FIXME: make links to file://${JAVADOC_DIR}/ relative
+}
+
+#****f* java.cygclass/java_wrapper
+#  SYNOPSIS
+#    java_wrapper WRAPPER_NAME JAR_FILE [MAIN_CLASS]
+#  DESCRIPTION
+#    Creates a wrapper script for the given .jar file.  If the .jar file is
+#    installed into JAVA_DIR, its basename can be used instead of a path.
+#    If the jar file manifest defines a Main-Class, then the third argument
+#    (the class providing the main() function) can be omitted.
+#****
+java_wrapper() {
+	local jwrapper jar jmain jcmdopt
+
+	if (( $# < 2 ))
+	then
+		error "java_wrapper requires at least two arguments"
+	fi
+
+	jwrapper=${1}
+	jar=${2}
+	jmain=${3}
+
+	case ${jar} in
+		/*) ;;
+		*.jar)	jar=${JAVA_DIR}/${jar} ;;
+	esac
+
+	if defined jmain
+	then
+		jcmdopt="-classpath"
+		if defined JAVA_CLASSPATH
+		then
+			jar=${2}:${JAVA_CLASSPATH}
+		fi
+	else
+		if defined JAVA_CLASSPATH
+		then
+			jcmdopt="-classpath ${JAVA_CLASSPATH} -jar"
+		else
+			jcmdopt="-jar"
+		fi
+	fi
 
 	dodir /usr/bin
 
-	if [ -f ${D}/usr/bin/${jwrapper} ]
-	then
-		error "java_wrapper: /usr/bin/${jwrapper} in the way"
-	fi
-
-	echo -e "#!/bin/sh\nexec ${JAVA} ${jcommand} \"\$@\"" > ${D}/usr/bin/${jwrapper}
+	echo -e "#!/bin/sh\nexec ${JAVA} ${jcmdopt} ${jar} ${jmain} \"\$@\"" > ${D}/usr/bin/${jwrapper}
 	chmod +x ${D}/usr/bin/${jwrapper}
 }
 
-readonly -f dojar newjar dojavadoc java_wrapper
+readonly -f cygjar cygjava cygjavac cygjavadoc cygjavah dojar newjar dojavadoc java_wrapper
