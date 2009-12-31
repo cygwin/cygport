@@ -43,7 +43,7 @@
 #****
 FONTSDIR="/usr/share/fonts"
 
-#****f* font.cygclass/fontinto
+#****I* font.cygclass/fontinto
 #  SYNOPSIS
 #    fontinto SUBDIR
 #  DESCRIPTION
@@ -78,7 +78,7 @@ fontinto() {
 	export _fontinto_dir=${FONTSDIR}/${1}
 }
 
-#****f* font.cygclass/dofont
+#****I* font.cygclass/dofont
 #  SYNOPSIS
 #    dofont FONTFILE [FONTFILE] ...
 #  DESCRIPTION

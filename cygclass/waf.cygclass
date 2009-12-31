@@ -60,7 +60,7 @@ then
 	error "waf must be installed in order to build this package"
 fi
 
-#****f* waf.cygclass/waf_compile
+#****C* waf.cygclass/waf_compile
 #  SYNOPSIS
 #    waf_compile [OPTIONS]
 #  DESCRIPTION
@@ -90,7 +90,7 @@ waf_compile() {
 	${WAF} build ${WAF_BUILD_FLAGS} || error "waf build failed"
 }
 
-#****f* waf.cygclass/waf_test
+#****T* waf.cygclass/waf_test
 #  DESCRIPTION
 #    Runs the package's test suite with 'waf check'.  WAF_TEST_FLAGS can be
 #    defined to pass additional arguments to the check command.  Any arguments
@@ -110,7 +110,7 @@ waf_test() {
 	${WAF} check -k ${WAF_TEST_FLAGS} ${@} || true
 }
 
-#****f* waf.cygclass/waf_install
+#****I* waf.cygclass/waf_install
 #  DESCRIPTION
 #    Installs the package into $D with 'waf install'.  WAF_INSTALL_FLAGS can be
 #    defined to pass additional arguments to the install command.  Any arguments

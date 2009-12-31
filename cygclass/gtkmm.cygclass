@@ -54,7 +54,7 @@ HOMEPAGE="http://www.gtkmm.org/"
 # .rc files are removed for regeneration by configure
 DIFF_EXCLUDES+=" Doxyfile MSVC_Net200*"
 
-#****f* gtkmm.cygclass/gtkmm_autoreconf
+#****C* gtkmm.cygclass/gtkmm_autoreconf
 #  SYNOPSIS
 #    cd $S
 #    gtkmm_autoreconf
@@ -83,7 +83,7 @@ gtkmm_autoreconf() {
 	sed -i -e '/^SUBDIRS = .*/s/tests//' Makefile.in
 }
 
-#****f* gtkmm.cygclass/gtkmm_compile
+#****C* gtkmm.cygclass/gtkmm_compile
 #  SYNOPSIS
 #    cd $B
 #    gtkmm_compile [CONFIGURE_FLAGS]
@@ -98,7 +98,7 @@ gtkmm_compile() {
 	cygmake LDFLAGS="${LDFLAGS} -no-undefined"
 }
 
-#****f* gtkmm.cygclass/gtkmm_test
+#****T* gtkmm.cygclass/gtkmm_test
 #  SYNOPSIS
 #    cd $B
 #    gtkmm_test

@@ -65,10 +65,13 @@ source items:
 headertypes:
 	*  "Concepts" cygport_concepts
 	d  "Definitions" cygport_definitions
-	f  "Functions" cygport_functions
 	h  "Cygclasses" cygport_cygclasses
 	o  "Overloads" cygport_overloads
 	v  "Variables" cygport_variables
+	f  "General Functions" cygport_general_functions
+	C  "Compile Functions" cygport_compile_functions
+	T  "Testsuite Functions" cygport_testsuite_functions
+	I  "Install Functions" cygport_install_functions
 ignore files:
 	autom4te.cache
 	CYGWIN-PATCHES

@@ -53,7 +53,7 @@ HOMEPAGE="http://pypi.python.org/pypi/${ORIG_PN}"
 SRC_URI="http://pypi.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
 #****
 
-#****f* distutils.cygclass/distutils_compile
+#****C* distutils.cygclass/distutils_compile
 #  SYNOPSIS
 #    distutils_compile [OPTIONS]
 #  DESCRIPTION
@@ -74,7 +74,7 @@ distutils_test() {
 	:
 }
 
-#****f* distutils.cygclass/distutils_install
+#****I* distutils.cygclass/distutils_install
 #  SYNOPSIS
 #    distutils_install [OPTIONS]
 #  DESCRIPTION

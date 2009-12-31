@@ -170,7 +170,7 @@ MAKEOPTS+=" -j1"
 #****
 DEPS_PATH="${RUBY_SITEARCH}"
 
-#****f* ruby-gnome2.cygclass/ruby_gnome2_compile
+#****C* ruby-gnome2.cygclass/ruby_gnome2_compile
 #  SYNOPSIS
 #    cd $B
 #    ruby_gnome2_compile
@@ -196,7 +196,7 @@ ruby_gnome2_compile() {
 	done
 }
 
-#****f* ruby-gnome2.cygclass/ruby_gnome2_install
+#****I* ruby-gnome2.cygclass/ruby_gnome2_install
 #  SYNOPSIS
 #    cd $B
 #    ruby_gnome2_install

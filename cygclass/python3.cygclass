@@ -53,7 +53,7 @@ check_prog_req python3
 
 #****d* python3.cygclass/PYTHON3
 #  DESCRIPTION
-#    Full path to the Python3 interpreter.
+#    Absolute path to the Python3 interpreter.
 #****
 PYTHON3=/usr/bin/python3
 
@@ -89,7 +89,7 @@ PYTHON3_SITELIB=$(${PYTHON3} -c 'from distutils.sysconfig import * ; print(get_p
 #****
 LIBPYTHON3="-L${PYTHON3_LIB}/config -lpython${PYTHON3_VERSION}"
 
-#****f* python3.cygclass/python3into
+#****I* python3.cygclass/python3into
 #  SYNOPSIS
 #    python3into SUBDIRECTORY
 #  DESCRIPTION
@@ -109,7 +109,7 @@ python3into() {
 	export _python3into_dir=${1};
 }
 
-#****f* python3.cygclass/dopython3
+#****I* python3.cygclass/dopython3
 #  SYNOPSIS
 #    [python3into SUBDIRECTORY]
 #    dopython3 MODULE1 [MODULE2] ...
@@ -148,7 +148,7 @@ dopython3() {
 	done
 }
 
-#****f* python3.cygclass/python3_optimize
+#****I* python3.cygclass/python3_optimize
 #  SYNOPSIS
 #    python3_optimize [DIRECTORY1] [DIRECTORY2] ...
 #  DESCRIPTION

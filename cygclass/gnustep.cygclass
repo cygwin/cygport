@@ -65,12 +65,7 @@ SVN_URI="svn://svn.gna.org/svn/gnustep"
 
 SVN_MODULE=${ORIG_PN}
 
-#****if* gnustep.cygclass/__gnustep_dir
-#  SYNOPSIS
-#    __gnustep_dir DIRECTORY_TYPE
-#  DESCRIPTION
-#    Returns the full path to the given GNUstep directory type.
-#****
+# Returns the full path to the given GNUstep directory type.
 __gnustep_dir() {
 	if (( $# != 1 ))
 	then
@@ -112,7 +107,7 @@ gnustep_env() {
 	. ${mf}/GNUstep.sh
 }
 
-#****f* gnustep.cygclass/gnustep_compile
+#****C* gnustep.cygclass/gnustep_compile
 #  SYNOPSIS
 #    cd $B
 #    gnustep_compile [MAKEFILE_ARGUMENTS]
@@ -144,7 +139,7 @@ gnustep_compile() {
 	fi
 }
 
-#****f* gnustep.cygclass/gnustep_install
+#****I* gnustep.cygclass/gnustep_install
 #  SYNOPSIS
 #    cd $B
 #    gnustep_install [MAKEFILE_ARGUMENTS]

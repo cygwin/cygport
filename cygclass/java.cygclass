@@ -124,7 +124,7 @@ case ${PN} in
 	java-*)	ORIG_PN=${ORIG_PN:-${PN#java-}} ;;
 esac
 
-#****f* java.cygclass/cygjar
+#****C* java.cygclass/cygjar
 #  SYNOPSIS
 #    cygjar OPTIONS JAR_FILE [MANIFEST_FILE] [-C DIRECTORY] [FILES] ...
 #  DESCRIPTION
@@ -146,7 +146,7 @@ cygjava() {
 	verbose ${JAVA} ${@} || error "cygjava: execution failed"
 }
 
-#****f* java.cygclass/cygjavac
+#****C* java.cygclass/cygjavac
 #  SYNOPSIS
 #    cygjavac [-classpath CLASSPATH] [OPTIONS] SOURCE_FILES|DIRECTORIES
 #  DESCRIPTION
@@ -159,7 +159,7 @@ cygjavac() {
 	echo
 }
 
-#****f* java.cygclass/cygjavadoc
+#****C* java.cygclass/cygjavadoc
 #  SYNOPSIS
 #    cygjavadoc [OPTIONS] [-d OUTPUT_PATH] PACKAGES
 #  DESCRIPTION
@@ -171,7 +171,7 @@ cygjavadoc() {
 	verbose ${JAVADOC} ${@} || error "cygjavadoc: generation failed"
 }
 
-#****f* java.cygclass/cygjavah
+#****C* java.cygclass/cygjavah
 #  SYNOPSIS
 #    cygjavah [-classpath CLASSPATH] [-d OUTPUT_PATH] [-jni] CLASSES
 #  DESCRIPTION
@@ -182,7 +182,7 @@ cygjavah() {
 	verbose ${JAVAH} ${@} || error "cygjavah: generation failed"
 }
 
-#****f* java.cygclass/cygjunit
+#****T* java.cygclass/cygjunit
 #  SYNOPSIS
 #    cygjunit [-classpath CLASSPATH] CLASSES
 #  DESCRIPTION
@@ -202,7 +202,7 @@ cygjunit() {
 	done
 }
 
-#****f* java.cygclass/dojar
+#****I* java.cygclass/dojar
 #  SYNOPSIS
 #    dojar JAR_FILES
 #  DESCRIPTION
@@ -230,7 +230,7 @@ dojar() {
 	done
 }
 
-#****f* java.cygclass/newjar
+#****I* java.cygclass/newjar
 #  SYNOPSIS
 #    newjar JAR_FILE NEW_JAR_FILE_NAME
 #  DESCRIPTION
@@ -260,7 +260,7 @@ newjar() {
 	esac
 }
 
-#****f* java.cygclass/dojavadoc
+#****I* java.cygclass/dojavadoc
 #  SYNOPSIS
 #    dojavadoc DIRECTORY
 #  DESCRIPTION
@@ -286,7 +286,7 @@ dojavadoc() {
 	# FIXME: make links to file://${JAVADOC_DIR}/ relative
 }
 
-#****f* java.cygclass/java_wrapper
+#****I* java.cygclass/java_wrapper
 #  SYNOPSIS
 #    java_wrapper WRAPPER_NAME JAR_FILE [MAIN_CLASS]
 #  DESCRIPTION

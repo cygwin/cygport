@@ -102,7 +102,7 @@ RI_SITEDIR=/usr/share/ri/${RUBY_VERSION}/site
 #****
 LIBRUBY=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["LIBRUBYARG"]')
 
-#****f* ruby.cygclass/ruby_compile
+#****C* ruby.cygclass/ruby_compile
 #  SYNOPSIS
 #    cd $B
 #    ruby_compile
@@ -146,7 +146,7 @@ ruby_compile() {
 	fi
 }
 
-#****f* ruby.cygclass/ruby_install
+#****I* ruby.cygclass/ruby_install
 #  SYNOPSIS
 #    cd $B
 #    ruby_install
@@ -206,7 +206,7 @@ ruby_install() {
 	fi
 }
 
-#****f* ruby.cygclass/rubyinto
+#****I* ruby.cygclass/rubyinto
 #  SYNOPSIS
 #    rubyinto SUBDIRECTORY
 #  DESCRIPTION
@@ -226,7 +226,7 @@ rubyinto() {
 	export _rubyinto_dir=${1};
 }
 
-#****f* ruby.cygclass/doruby
+#****I* ruby.cygclass/doruby
 #  SYNOPSIS
 #    [rubyinto SUBDIRECTORY]
 #    doruby FILES

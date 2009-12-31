@@ -58,7 +58,7 @@
 #****
 
 
-#****f* autotools.cygclass/cygautoreconf
+#****C* autotools.cygclass/cygautoreconf
 #  SYNOPSIS
 #    cd $S
 #    cygautoreconf
@@ -328,7 +328,7 @@ cygautoreconf() {
 	done
 }
 
-#****f* autotools.cygclass/cygconf
+#****C* autotools.cygclass/cygconf
 #  SYNOPSIS
 #    cd $B
 #    cygconf [CONFIGURE_FLAG] [CONFIGURE_FLAG] ...

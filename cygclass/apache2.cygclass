@@ -212,7 +212,7 @@ APREQ2_LIBS="$(${APREQ2_CONFIG} --link-ld)"
 fi  #  check_prog apreq2-config  #
 
 
-#****f* apache2.cygclass/apache2_compile
+#****C* apache2.cygclass/apache2_compile
 #  NAME
 #    apache2_compile
 #  SYNOPSIS
@@ -242,7 +242,7 @@ apache2_compile() {
 		${APACHE_MOD_NAME}_la_LIBADD="${APACHE2_LIBS}"
 }
 
-#****f* apache2.cygclass/apache2_apxs_compile
+#****C* apache2.cygclass/apache2_apxs_compile
 #  NAME
 #    apache2_apxs_compile
 #  SYNOPSIS
@@ -269,7 +269,7 @@ apache2_apxs_compile() {
 		|| error "apxs compile failed"
 }
 
-#****f* apache2.cygclass/doapache2conf
+#****I* apache2.cygclass/doapache2conf
 #  NAME
 #    doapache2conf -- Install additional Apache configuration files
 #  SYNOPSIS
@@ -292,7 +292,7 @@ doapache2conf() {
 	done
 }
 
-#****f* apache2.cygclass/doapache2mod
+#****I* apache2.cygclass/doapache2mod
 #  NAME
 #    doapache2mod -- Install Apache DSOs.
 #  SYNOPSIS
@@ -332,7 +332,7 @@ doapache2mod() {
 	done
 }
 
-#****f* apache2.cygclass/apache2_postinst
+#****I* apache2.cygclass/apache2_postinst
 #  NAME
 #    apache2_postinst
 #  SYNOPSIS

@@ -104,7 +104,7 @@ fi
 export QTDIR=${QT4_QTDIR}
 export QT_PLUGIN_PATH=${QT4_PLUGINSDIR}
 
-#****f* kde4.cygclass/kde4_compile
+#****C* kde4.cygclass/kde4_compile
 #  SYNOPSIS
 #    kde4_compile [OPTIONS]
 #  DESCRIPTION
@@ -144,7 +144,7 @@ kde4_compile() {
 	cygmake
 }
 
-#****f* kde4.cygclass/kde4_install
+#****I* kde4.cygclass/kde4_install
 #  SYNOPSIS
 #    kde4_install [OPTIONS]
 #  DESCRIPTION

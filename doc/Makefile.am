@@ -23,7 +23,7 @@ if HAVE_ROBODOC
 
 htmldoc_DATA += manual.html manual.css
 
-manual.html: $(srcdir)/robodoc.rc $(wildcard $(top_srcdir)/cygclass/*.cygclass) $(wildcard $(top_srcdir)/lib/*.cygpart) $(top_srcdir)/bin/cygport.in $(top_srcdir)/data/mirrors 
+manual.html: $(srcdir)/robodoc.rc $(wildcard $(top_srcdir)/cygclass/*.cygclass) $(wildcard $(top_srcdir)/lib/*.cygpart) $(top_srcdir)/bin/cygport.in $(wildcard $(top_srcdir)/data/*)
 	$(AM_V_GEN)cd $(top_srcdir) && $(ROBODOC) --src . --doc $(abs_builddir)/manual --rc $(abs_srcdir)/robodoc.rc --html --singledoc
 
 manual.css: manual.html

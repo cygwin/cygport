@@ -37,7 +37,7 @@
 
 inherit qt4-qmake
 
-#****f* qt4-qconf.cygclass/cygqconf4
+#****C* qt4-qconf.cygclass/cygqconf4
 #  SYNOPSIS
 #    cygqconf4
 #  DESCRIPTION
@@ -53,7 +53,7 @@ cygqconf4() {
 	qconf || error "qconf failed"
 }
 
-#****f* qt4-qconf.cygclass/qt4_qconf_compile
+#****C* qt4-qconf.cygclass/qt4_qconf_compile
 #  SYNOPSIS
 #    cd $B
 #    qt4_qconf_compile [OPTIONS]

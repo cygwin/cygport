@@ -71,7 +71,7 @@ DIFF_EXCLUDES="common m4 po autoregen.sh stamp-h.in"
 GST_PLUGINDIR="/usr/lib/gstreamer-${PV_MAJ_MIN}"
 #****
 
-#****f* gstreamer.cygclass/gstreamer_autoreconf
+#****C* gstreamer.cygclass/gstreamer_autoreconf
 #  SYNOPSIS
 #    cd $S
 #    gstreamer_autoreconf

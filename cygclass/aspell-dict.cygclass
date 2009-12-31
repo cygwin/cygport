@@ -112,7 +112,7 @@ SRC_URI="mirror://gnu/aspell/dict/${ASPELL_LANG}/${ORIG_PN}-${ORIG_PV}.tar.bz2"
 
 SRC_DIR="${ORIG_PN}-${ORIG_PV}"
 
-#****f* aspell-dict.cygclass/aspell_dict_compile
+#****C* aspell-dict.cygclass/aspell_dict_compile
 #  NAME
 #    aspell_dict_compile -- Builds an Aspell dictionary
 #  SYNOPSIS
@@ -133,7 +133,7 @@ aspell_dict_compile() {
 	cygmake
 }
 
-#****f* aspell-dict.cygclass/doaspelldict
+#****I* aspell-dict.cygclass/doaspelldict
 #  NAME
 #    doaspelldict -- Manuall Aspell dictionary installation
 #  SYNOPSIS
@@ -167,7 +167,7 @@ doaspelldict() {
 	done
 }
 
-#****f* aspell-dict.cygclass/doaspelldata
+#****I* aspell-dict.cygclass/doaspelldata
 #  NAME
 #    doaspelldata -- Alias for doaspelldict.
 #****

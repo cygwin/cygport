@@ -48,7 +48,7 @@ check_prog_req perl
 
 #****d* perl.cygclass/PERL
 #  DESCRIPTION
-#    Full path to the Perl interpreter.
+#    Absolute path to the Perl interpreter.
 #****
 PERL=/usr/bin/perl
 
@@ -60,7 +60,7 @@ PERL_VERSION=$(${PERL} -MConfig -e 'print $Config{api_revision}.".".$Config{api_
 
 #****d* perl.cygclass/PERL_LIB
 #  DESCRIPTION
-#    Full path to the Perl arch-independent standard library.
+#    Absolute path to the Perl arch-independent standard library.
 #  NOTE
 #    Third-party packages must not be installed here; use PERL_VENDORLIB instead.
 #****
@@ -68,7 +68,7 @@ PERL_LIB=$(${PERL} -MConfig -e 'print $Config{privlib};')
 
 #****d* perl.cygclass/PERL_ARCHLIB
 #  DESCRIPTION
-#    Full path to the Perl arch-specific standard library.
+#    Absolute path to the Perl arch-specific standard library.
 #  NOTE
 #    Third-party packages must not be installed here; use PERL_VENDORARCH instead.
 #****
@@ -167,7 +167,7 @@ check_perl_module() {
 	return 0
 }
 
-#****f* perl.cygclass/perl_compile
+#****C* perl.cygclass/perl_compile
 #  SYNOPSIS
 #    cd $B
 #    perl_compile [OPTIONS]
@@ -190,7 +190,7 @@ perl_compile() {
 	fi
 }
 
-#****f* perl.cygclass/perl_test
+#****T* perl.cygclass/perl_test
 #  SYNOPSIS
 #    cd $B
 #    perl_test
@@ -210,7 +210,7 @@ perl_test() {
 	fi
 }
 
-#****f* perl.cygclass/perl_install
+#****I* perl.cygclass/perl_install
 #  SYNOPSIS
 #    cd $B
 #    perl_install
@@ -230,7 +230,7 @@ perl_install() {
 	fi
 }
 
-#****f* perl.cygclass/perl_postinst
+#****I* perl.cygclass/perl_postinst
 #  SYNOPSIS
 #    perl_postinst
 #  DESCRIPTION

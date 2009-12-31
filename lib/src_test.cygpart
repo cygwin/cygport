@@ -22,7 +22,7 @@
 #
 ################################################################################
 
-#****f* Testing/cygtest
+#****T* Testing/cygtest
 #  SYNOPSIS
 #    cd $B
 #    cygtest
@@ -46,10 +46,13 @@ cygtest() {
 	fi
 }
 
-#****o* Testing/src_test
+#****T* Testing/src_test
 #  DESCRIPTION
-#    The default src_test function, which may be overridden by cygclasses
-#    or in the .cygport file.
+#    This function is to be defined in the .cygport file, listing all steps
+#    necessary to run the package's test suite, if any.
+#
+#    The default src_test function is shown below. A few cygclasses provide
+#    their own src_test overrides.
 #  DEFINITION
 src_test() {
 	cd ${B}

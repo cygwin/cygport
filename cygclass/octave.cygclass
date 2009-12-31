@@ -40,19 +40,19 @@ check_prog_req mkoctfile octave-devel
 
 #****d* octave.cygclass/OCTAVE
 #  DESCRIPTION
-#    Full path to the Octave interpreter.
+#    Absolute path to the Octave interpreter.
 #****
 OCTAVE=/usr/bin/octave
 
 #****d* octave.cygclass/MKOCTFILE
 #  DESCRIPTION
-#    Full path to the Octave dynamic module (.oct) compiler/linker.
+#    Absolute path to the Octave dynamic module (.oct) compiler/linker.
 #****
 MKOCTFILE=/usr/bin/mkoctfile
 
 #****d* octave.cygclass/OCTAVE_CONFIG
 #  DESCRIPTION
-#    Full path to the Octave installation information script.
+#    Absolute path to the Octave installation information script.
 #****
 OCTAVE_CONFIG=/usr/bin/octave-config
 
@@ -88,7 +88,7 @@ OCTAVE_LIBS="-L${OCTAVE_LIBDIR} -loctave"
 
 #****d* octave.cygclass/OCTAVE_M_DIR
 #  DESCRIPTION
-#    Full path to the Octave standard library scripts (.m).
+#    Absolute path to the Octave standard library scripts (.m).
 #  NOTE
 #    Third-party packages must not be installed into this directory.
 #    OCTAVE_M_SITEDIR must be used instead.
@@ -97,7 +97,7 @@ OCTAVE_M_DIR=$(${OCTAVE_CONFIG} -p FCNFILEDIR)
 
 #****d* octave.cygclass/OCTAVE_OCTDIR
 #  DESCRIPTION
-#    Full path to the Octave standard library dynamic modules (.oct).
+#    Absolute path to the Octave standard library dynamic modules (.oct).
 #  NOTE
 #    Third-party packages must not be installed into this directory.
 #    OCTAVE_OCT_SITEDIR must be used instead.

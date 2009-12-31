@@ -50,7 +50,7 @@ SRC_URI="http://htmlhelp.googlecode.com/files/${ORIG_PN}-${PV}.tgz"
 
 SRC_DIR="."
 
-#****f* ebook.cygclass/ebook_install
+#****I* ebook.cygclass/ebook_install
 #  SYNOPSIS
 #    cd $S
 #    ebook_install

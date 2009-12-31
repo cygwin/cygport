@@ -68,7 +68,7 @@ _fox_find_config() {
 
 #****d* fox.cygclass/FOX_CONFIG
 #  DESCRIPTION
-#    Full path to the fox-config script for the given FOX_VERSION.  This definition
+#    Absolute path to the fox-config script for the given FOX_VERSION.  This definition
 #    is exported to the build environment.
 #****
 export FOX_CONFIG="$(_fox_find_config)"

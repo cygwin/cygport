@@ -48,49 +48,49 @@ check_prog_req ocaml
 
 #****d* ocaml.cygclass/OCAML
 #  DESCRIPTION
-#    Full path to the OCaml interactive toplevel (interpreter).
+#    Absolute path to the OCaml interactive toplevel (interpreter).
 #****
 OCAML=$(type -p ocaml)
 
 #****d* ocaml.cygclass/OCAMLC
 #  DESCRIPTION
-#    Full path to the OCaml byte compiler.
+#    Absolute path to the OCaml byte compiler.
 #****
 OCAMLC=$(type -p ocamlc.opt)
 
 #****d* ocaml.cygclass/OCAMLDOC
 #  DESCRIPTION
-#    Full path to the OCaml documentation generator.
+#    Absolute path to the OCaml documentation generator.
 #****
 OCAMLDOC=$(type -p ocamldoc.opt)
 
 #****d* ocaml.cygclass/OCAMLFIND
 #  DESCRIPTION
-#    Full path to the OCaml library package manager.
+#    Absolute path to the OCaml library package manager.
 #****
 OCAMLFIND=$(type -p ocamlfind)
 
 #****d* ocaml.cygclass/OCAMLLEX
 #  DESCRIPTION
-#    Full path to the OCaml lexer generator.
+#    Absolute path to the OCaml lexer generator.
 #****
 OCAMLLEX=$(type -p ocamllex.opt)
 
 #****d* ocaml.cygclass/OCAMLMKLIB
 #  DESCRIPTION
-#    Full path to the OCaml library linker.
+#    Absolute path to the OCaml library linker.
 #****
 OCAMLMKLIB=$(type -p ocamlmklib)
 
 #****d* ocaml.cygclass/OCAMLMKTOP
 #  DESCRIPTION
-#    Full path to the OCaml custom toplevel linker.
+#    Absolute path to the OCaml custom toplevel linker.
 #****
 OCAMLMKTOP=$(type -p ocamlmktop)
 
 #****d* ocaml.cygclass/OCAMLOPT
 #  DESCRIPTION
-#    Full path to the OCaml native-code compiler.
+#    Absolute path to the OCaml native-code compiler.
 #****
 OCAMLOPT=$(type -p ocamlopt.opt)
 
@@ -102,7 +102,7 @@ OCAML_LIBDIR=$(${OCAMLC} -where)
 
 #****d* ocaml.cygclass/OCAML_INCLUDEDIR
 #  DESCRIPTION
-#    Full path to the directory containing the OCaml C headers.
+#    Absolute path to the directory containing the OCaml C headers.
 #****
 OCAML_INCLUDEDIR=${OCAML_LIBDIR}/caml
 
@@ -124,7 +124,7 @@ OCAML_STUBDIR=${OCAML_LIBDIR}/stublibs
 #****
 LIBCAMLRUN="-L${OCAML_LIBDIR} -lcamlrun_shared"
 
-#****f* ocaml.cygclass/ocaml_install
+#****I* ocaml.cygclass/ocaml_install
 #  DESCRIPTION
 #    Defines some variables for OCAMLFIND before calling cyginstall.
 #****

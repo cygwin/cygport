@@ -107,7 +107,7 @@ case "${dtd_type}:${PV}" in
 	*)	error "docbook: unknown or unsupported DTD version: ${dtd_type} ${PV}" ;;
 esac
 
-#****f* docbook.cygclass/docbook_install
+#****I* docbook.cygclass/docbook_install
 #  NAME
 #    docbook_install
 #  SYNOPSIS
@@ -150,7 +150,7 @@ docbook_install() {
 	esac
 }
 
-#****f* docbook.cygclass/docbook_dsssl_postinst
+#****I* docbook.cygclass/docbook_dsssl_postinst
 #  NAME
 #    docbook_dsssl_postinst -- Register DSSSL catalog in SGML catalog
 #****
@@ -168,7 +168,7 @@ docbook_dsssl_postinst() {
 		_EOF
 }
 
-#****f* docbook.cygclass/docbook_sgml_postinst
+#****I* docbook.cygclass/docbook_sgml_postinst
 #  NAME
 #    docbook_sgml_postinst -- Register DTD in SGML catalog
 #  NOTE
@@ -197,7 +197,7 @@ docbook_sgml_postinst() {
 		_EOF
 }
 
-#****f* docbook.cygclass/docbook_xml_postinst
+#****I* docbook.cygclass/docbook_xml_postinst
 #  NAME
 #    docbook_xml_postinst -- Register XML DTD in XML catalog
 #****

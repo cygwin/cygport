@@ -77,7 +77,7 @@ fi  # ! defined CPAN_AUTHOR
 #****
 DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS:${PERL_VENDORARCH}/auto/Gnome2/GConf"
 
-#****f* gtk2-perl.cygclass/gtk2_perl_compile
+#****C* gtk2-perl.cygclass/gtk2_perl_compile
 #  DESCRIPTION
 #    Configures and compiles a Gtk2-Perl module package.
 #  HISTORY

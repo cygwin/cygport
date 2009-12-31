@@ -118,7 +118,7 @@ APACHE1_CFLAGS="-I${APACHE1_INCLUDEDIR} $(${APXS} -q CFLAGS)"
 APACHE1_LIBS="-lhttpd"
 
 
-#****f* apache1.cygclass/apache1_compile
+#****C* apache1.cygclass/apache1_compile
 #  NAME
 #    apache1_compile
 #  SYNOPSIS
@@ -147,7 +147,7 @@ apache1_compile() {
 		${APACHE_MOD_NAME}_la_LIBADD="${APACHE1_LIBS}"
 }
 
-#****f* apache1.cygclass/apache1_apxs_compile
+#****C* apache1.cygclass/apache1_apxs_compile
 #  NAME
 #    apache1_apxs_compile
 #  SYNOPSIS
@@ -174,7 +174,7 @@ apache1_apxs_compile() {
 		|| error "apxs compile failed"
 }
 
-#****f* apache1.cygclass/doapache1conf
+#****I* apache1.cygclass/doapache1conf
 #  NAME
 #    doapache1conf -- Install additional Apache configuration files
 #  SYNOPSIS
@@ -197,7 +197,7 @@ doapache1conf() {
 	done
 }
 
-#****f* apache1.cygclass/doapache1mod
+#****I* apache1.cygclass/doapache1mod
 #  NAME
 #    doapache1mod -- Install Apache DSOs.
 #  SYNOPSIS
@@ -237,7 +237,7 @@ doapache1mod() {
 	done
 }
 
-#****f* apache1.cygclass/apache1_postinst
+#****I* apache1.cygclass/apache1_postinst
 #  NAME
 #    apache1_postinst
 #  SYNOPSIS

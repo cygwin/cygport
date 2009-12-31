@@ -60,7 +60,7 @@ VIMRUNTIME=$(/usr/bin/vim -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIMRUNTI
 VIMFILES="${VIM}/vimfiles"
 
 
-#****f* vim.cygclass/viminto
+#****I* vim.cygclass/viminto
 #  SYNOPSIS
 #    viminto SUBDIRECTORY
 #  DESCRIPTION
@@ -94,7 +94,7 @@ viminto() {
 	export _viminto_dir=${1};
 }
 
-#****f* vim.cygclass/dovim
+#****I* vim.cygclass/dovim
 #  SYNOPSIS
 #    viminto SUBDIRECTORY
 #    dovim SCRIPT [SCRIPT2] ...
@@ -111,7 +111,7 @@ dovim() {
 	_insinto_dir=${_insinto_tmp}
 }
 
-#****f* vim.cygclass/newvim
+#****I* vim.cygclass/newvim
 #  SYNOPSIS
 #    viminto SUBDIRECTORY
 #    newvim SCRIPT_FILE NEW_SCRIPT_NAME

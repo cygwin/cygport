@@ -101,7 +101,7 @@ QT3_UIC=${QT3_BINDIR}/uic
 
 export PATH="${QT3_BINDIR}:${PATH}"
 
-#****f* qt3.cygclass/doqt3inc
+#****I* qt3.cygclass/doqt3inc
 #  SYNOPSIS
 #    doqt3inc HEADERS
 #  DESCRIPTION
@@ -112,7 +112,7 @@ doqt3inc() {
 	doins ${@}
 }
 
-#****f* qt3.cygclass/doqt3lib
+#****I* qt3.cygclass/doqt3lib
 #  SYNOPSIS
 #    doqt3lib LIBRARIES
 #  DESCRIPTION
@@ -123,7 +123,7 @@ doqt3lib() {
 	doins ${@}
 }
 
-#****f* qt3.cygclass/qt3pluginto
+#****I* qt3.cygclass/qt3pluginto
 #  SYNOPSIS
 #    qt3pluginto SUBDIRECTORY
 #  DESCRIPTION
@@ -144,7 +144,7 @@ qt3pluginto() {
 	__QT3_PLUGIN_SUBDIR=${1}
 }
 
-#****f* qt3.cygclass/doqt3plugin
+#****I* qt3.cygclass/doqt3plugin
 #  SYNOPSIS
 #    qt3pluginto SUBDIRECTORY
 #    doqt3plugin PLUGINS

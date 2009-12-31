@@ -25,7 +25,7 @@
 
 #****h* Cygclasses/opensync.cygclass
 #  NAME
-#    opensync.cygclass -- Build OpenSync 0.4x plugin packages
+#    opensync.cygclass -- Build OpenSync plugin packages
 #  DESCRIPTION
 #    OpenSync is a Personal Information Management (PIM) data syncronization
 #    framework which supports various PIM sources through plugins.
@@ -89,7 +89,7 @@ OPENSYNC_PLUGINDIR=$(pkg-config --variable=plugindir libopensync1)
 #****
 OPENSYNC_PYTHON_PLUGINDIR=${OPENSYNC_PLUGINDIR%/*}/python-plugins
 
-#****f* opensync.cygclass/opensync_plugin_compile
+#****C* opensync.cygclass/opensync_plugin_compile
 #  SYNOPSIS
 #    opensync_plugin_compile [OPTIONS]
 #  DESCRIPTION
@@ -106,14 +106,14 @@ opensync_plugin_compile() {
 	cygmake
 }
 
-#****f* opensync.cygclass/opensync_doconfig
+#****I* opensync.cygclass/opensync_doconfig
 #****
 opensync_doconfig() {
 	insinto ${OPENSYNC_CONFIGDIR}
 	doins ${@}
 }
 
-#****f* opensync.cygclass/opensync_doplugin
+#****I* opensync.cygclass/opensync_doplugin
 #  SYNOPSIS
 #    opensync_doplugin PLUGIN [PLUGIN2] ...
 #  DESCRIPTION

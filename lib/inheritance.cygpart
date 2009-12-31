@@ -49,7 +49,7 @@ inherit() {
 	done
 }
 
-#****f* Inheritance/inherited
+#****f* Syntax/inherited
 #  SYNOPSIS
 #    inherited CYGCLASS [CYGCLASS] ...
 #  DESCRIPTION

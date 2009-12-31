@@ -36,7 +36,7 @@
 
 #****d* emacs.cygclass/EMACS
 #  DESCRIPTION
-#    Full path to the emacs command.
+#    Absolute path to the emacs command.
 #****
 EMACS=/usr/bin/emacs
 
@@ -46,7 +46,7 @@ EMACS=/usr/bin/emacs
 #****
 EMACS_SITE=/usr/share/emacs/site-lisp
 
-#****f* emacs.cygclass/doemacs
+#****I* emacs.cygclass/doemacs
 #  SYNOPSIS
 #    doemacs FILE [FILE2] ...
 #  DESCRIPTION
@@ -68,7 +68,7 @@ doemacs() {
 	done
 }
 
-#****f* emacs.cygclass/emacs_compile
+#****I* emacs.cygclass/emacs_compile
 #  SYNOPSIS
 #    emacs_compile
 #  DESCRIPTION

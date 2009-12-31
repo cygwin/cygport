@@ -166,7 +166,7 @@ case ${GST_PLUGINS_SRC:-${gst_pn}} in
 		;;
 esac
 
-#****f* gst-plugins0.10.cygclass/gst_plugins_autoreconf
+#****C* gst-plugins0.10.cygclass/gst_plugins_autoreconf
 #  DESCRIPTION
 #    Alias for gstreamer_autoreconf.
 #****
@@ -199,7 +199,7 @@ gst_plugins_autoreconf() {
 	esac
 }
 
-#****f* gst-plugins0.10.cygclass/gst_plugins_compile
+#****C* gst-plugins0.10.cygclass/gst_plugins_compile
 #  NAME
 #    gst_plugins_compile -- Configure and build the plugins package
 #  DESCRIPTION
@@ -255,7 +255,7 @@ gst_plugins_compile() {
 	cygmake
 }
 
-#****f* gst-plugins0.10.cygclass/gst_plugins_install
+#****I* gst-plugins0.10.cygclass/gst_plugins_install
 #  NAME
 #    gst_plugins_install -- Alias for cyginstall
 #****

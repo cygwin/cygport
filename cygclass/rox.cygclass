@@ -59,20 +59,15 @@ HOMEPAGE="http://roscidus.com/desktop/"
 #****
 
 #****v* rox.cygclass/ROX_APP
-#  NAME
-#    ROX_APP -- AppDir name
 #  DESCRIPTION
-#    This variable is mandatory, and should be set to the name of the
-#    directory containing the AppRun script.  This name is usually
-#    capitalized.
-#
+#    The name of the directory containing the AppRun script.  This variable
+#    is required.
+#  NOTE
 #    Often this directory is the toplevel of the tarball, in which case
 #    SRC_DIR must be set to '.'.
 #****
 
 #****v* rox.cygclass/ROX_WRAPPER
-#  NAME
-#    ROX_WRAPPER -- wrapper script name
 #  DESCRIPTION
 #    Due to the DnD nature of the ROX desktop, most applications are not
 #    usable outside the filer.  For the exceptions (e.g. OroboROX window
@@ -82,12 +77,12 @@ HOMEPAGE="http://roscidus.com/desktop/"
 #    installed in /usr/bin.
 #****
 
-#****f* rox.cygclass/rox_autoreconf
-#  NAME
-#    rox_autoreconf -- Regenerate configure
+#****C* rox.cygclass/rox_autoreconf
 #  DESCRIPTION
 #    Runs autoconf, the only autotool which is generally used in ROX C
 #    packages, in order to pick up any patches to configure.{ac,in}.
+#  REQUIRES
+#    autoconf
 #****
 rox_autoreconf() {
 	if [ ! -e configure.in ]
@@ -99,12 +94,10 @@ rox_autoreconf() {
 	autoconf --force || error "autoconf failed"
 }
 
-#****f* rox.cygclass/rox_compile
-#  NAME
-#    rox_compile -- Compile a ROX C package
+#****C* rox.cygclass/rox_compile
 #  DESCRIPTION
 #    This function builds a ROX C package through the AppRun script.
-#
+#  NOTE
 #    Be aware that some AppRun scripts create the executable in a
 #    platform-specific subdir, named based on uname(1) output.  Because
 #    Cygwin's `uname -s` also contains the Windows version, applications
@@ -123,11 +116,9 @@ rox_compile() {
 	./AppRun --compile || error "compile failed"
 }
 
-#****f* rox.cygclass/rox_install
-#  NAME
-#    rox_install -- Installs a ROX AppDir
+#****I* rox.cygclass/rox_install
 #  DESCRIPTION
-#    This function copies the (possibly compiled) AppDir into ${D}/usr/lib/rox,
+#    Install the (possibly compiled) AppDir into ${D}/usr/lib/rox,
 #    removes extraneous files (e.g. sources), compiles Python modules, and
 #    creates the wrapper script if ROX_WRAPPER is defined.
 #****

@@ -27,7 +27,7 @@
 #  NAME
 #    ggz.cygclass -- Build GGZ Gaming Zone components
 #  DESCRIPTION
-#    The GGZ Gaming Zone is a framework for hosting and playing multi-player 
+#    The GGZ Gaming Zone is a framework for hosting and playing multi-player
 #    games over the Internet.  The project provides a server for self-hosting,
 #    client libraries, and client games.  The GNOME Games and KDE Games suites
 #    also provide games which can be used as GGZ clients.
@@ -60,7 +60,7 @@ GGZ_MODULES_DIR=/etc/ggz/modules
 export ac_cv_header_winsock_h=no
 export ac_cv_header_winsock2_h=no
 
-#****f* ggz.cygclass/ggz_postinst
+#****I* ggz.cygclass/ggz_postinst
 #  DESCRIPTION
 #    Creates postinstall and preremove scripts which de/register GGZ ModuleInfo
 #    description files with ggz-config.
@@ -87,7 +87,7 @@ ggz_postinst() {
 	done
 }
 
-#****f* ggz.cygclass/doggzmod
+#****I* ggz.cygclass/doggzmod
 #  SYNOPSIS
 #    doggzmod DESCRIPTION_FILE [DESCRIPTION_FILE] ...
 #  DESCRIPTION

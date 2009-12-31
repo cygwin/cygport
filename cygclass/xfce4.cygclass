@@ -91,7 +91,7 @@ then
 	GIT_URI="git://git.xfce.org/${uri_subdir}"
 fi
 
-#****f* xfce4.cygclass/xfce4_autoreconf
+#****C* xfce4.cygclass/xfce4_autoreconf
 #  SYNOPSIS
 #    cd $S
 #    xfce4_autoreconf
@@ -118,7 +118,7 @@ xfce4_autoreconf() {
 	NOCONFIGURE=1 xdt-autogen || error "xdt-autogen failed"
 }
 
-#****f* xfce4.cygclass/xfce4_compile
+#****C* xfce4.cygclass/xfce4_compile
 #  SYNOPSIS
 #    cd $B
 #    xfce4_compile [CONFIGURE_FLAGS]

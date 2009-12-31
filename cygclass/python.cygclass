@@ -51,7 +51,7 @@ check_prog_req python
 
 #****d* python.cygclass/PYTHON
 #  DESCRIPTION
-#    Full path to the Python interpreter.
+#    Absolute path to the Python interpreter.
 #****
 PYTHON=/usr/bin/python
 
@@ -87,7 +87,7 @@ PYTHON_SITELIB=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_pyt
 #****
 LIBPYTHON="-L${PYTHON_LIB}/config -lpython${PYTHON_VERSION}"
 
-#****f* python.cygclass/pythoninto
+#****I* python.cygclass/pythoninto
 #  SYNOPSIS
 #    pythoninto SUBDIRECTORY
 #  DESCRIPTION
@@ -107,7 +107,7 @@ pythoninto() {
 	export _pythoninto_dir=${1};
 }
 
-#****f* python.cygclass/dopython
+#****I* python.cygclass/dopython
 #  SYNOPSIS
 #    [pythoninto SUBDIRECTORY]
 #    dopython MODULE1 [MODULE2] ...
@@ -146,7 +146,7 @@ dopython() {
 	done
 }
 
-#****f* python.cygclass/python_optimize
+#****I* python.cygclass/python_optimize
 #  SYNOPSIS
 #    python_optimize [DIRECTORY1] [DIRECTORY2] ...
 #  DESCRIPTION

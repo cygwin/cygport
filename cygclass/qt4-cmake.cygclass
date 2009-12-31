@@ -36,7 +36,7 @@
 
 inherit cmake qt4
 
-#****f* qt4-cmake.cygclass/qt4_cmake_compile
+#****C* qt4-cmake.cygclass/qt4_cmake_compile
 #  SYNOPSIS
 #    cd $B
 #    qt4_cmake_compile [OPTIONS]

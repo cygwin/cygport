@@ -44,25 +44,25 @@
 
 #****d* mono.cygclass/MONO
 #  DESCRIPTION
-#    Full path to the Mono JIT interpreter.
+#    Absolute path to the Mono JIT interpreter.
 #****
 MONO=/usr/bin/mono
 
 #****d* mono.cygclass/MCS
 #  DESCRIPTION
-#    Full path to the Mono C# 1.0 compiler.
+#    Absolute path to the Mono C# 1.0 compiler.
 #****
 MCS=/usr/bin/mcs
 
 #****d* mono.cygclass/GMCS
 #  DESCRIPTION
-#    Full path to the Mono C# 2.0/3.0 compiler.
+#    Absolute path to the Mono C# 2.0/3.0 compiler.
 #****
 GMCS=/usr/bin/gmcs
 
 #****d* mono.cygclass/GACUTIL
 #  DESCRIPTION
-#    Full path to the Mono Global Assembly Cache tool.
+#    Absolute path to the Mono Global Assembly Cache tool.
 #****
 GACUTIL=/usr/bin/gacutil
 
@@ -94,7 +94,7 @@ then
 	SRC_DIR="${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}}"
 fi
 
-#****f* mono.cygclass/gacinto
+#****I* mono.cygclass/gacinto
 #  SYNOPSIS
 #    gacinto SUBDIRECTORY
 #  DESCRIPTION
@@ -115,7 +115,7 @@ gacinto() {
 	_gacinto_dir=${1};
 }
 
-#****f* mono.cygclass/dogac
+#****I* mono.cygclass/dogac
 #  SYNOPSIS
 #    [gacinto SUBDIRECTORY]
 #    dogac ASSEMBLY [ASSEMBLY2] ...
@@ -149,7 +149,7 @@ dogac() {
 	done
 }
 
-#****f* mono.cygclass/mono_create_policy
+#****I* mono.cygclass/mono_create_policy
 #  SYNOPSIS
 #    mono_create_policy ASSEMBLY_NAME "OLD_VERSIONS" NEW_VERSION STRONGNAME_KEY
 #  DESCRIPTION
@@ -157,7 +157,7 @@ dogac() {
 #    assembly dependencies on (usually) older versions to a new version which is
 #    still API-compatible.  Versions are in the form of major.minor.micro.patch;
 #    the old versions argument can be a range (x.y.z.a-x.y.z.a) or use wildcards
-#    (x.y.*).  This function is meant to be called during src_install().
+#    (x.y.*).
 #****
 mono_create_policy() {
 	local assembly=${1%.dll}
@@ -199,13 +199,12 @@ _EOF
 	popd # ${T}
 }
 
-#****f* mono.cygclass/mono_wrapper
+#****I* mono.cygclass/mono_wrapper
 #  SYNOPSIS
 #    mono_wrapper SCRIPT_NAME PATH_TO_ASSEMBLY
 #  DESCRIPTION
 #    Creates a wrapper script to launch the given assembly path (as it will be
-#    installed on the system) with Mono.  This function is meant to be called
-#    during src_install().
+#    installed on the system) with Mono.
 #****
 mono_wrapper() {
 	local massembly

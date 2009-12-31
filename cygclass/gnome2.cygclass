@@ -41,7 +41,7 @@
 
 inherit gnome.org
 
-#****f* gnome2.cygclass/gnome2_autoreconf
+#****C* gnome2.cygclass/gnome2_autoreconf
 #  SYNOPSIS
 #    cd $S
 #    gnome2_autoreconf
@@ -135,7 +135,7 @@ gnome2_autoreconf() {
 	gnome-autogen.sh || error "gnome2: autoreconf failed"
 }
 
-#****f* gnome2.cygclass/gnome2_compile
+#****C* gnome2.cygclass/gnome2_compile
 #  SYNOPSIS
 #    cd $B
 #    gnome2_compile [CONFIGURE_FLAGS]

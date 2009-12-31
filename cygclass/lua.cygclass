@@ -43,13 +43,13 @@ check_prog_req pkg-config
 
 #****d* lua.cygclass/LUA
 #  DESCRIPTION
-#    Full path to the Lua interpreter.
+#    Absolute path to the Lua interpreter.
 #****
 LUA=/usr/bin/lua
 
 #****d* lua.cygclass/LUAC
 #  DESCRIPTION
-#    Full path to the Lua bytecode compiler.
+#    Absolute path to the Lua bytecode compiler.
 #****
 LUAC=/usr/bin/luac
 

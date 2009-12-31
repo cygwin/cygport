@@ -40,7 +40,7 @@
 #    kde4.cygclass, opensync.cygclass, qt4-cmake.cygclass
 #****
 
-#****f* cmake.cygclass/cygcmake
+#****C* cmake.cygclass/cygcmake
 #  NAME
 #    cygcmake -- Configures a CMake-based package
 #  SYNOPSIS

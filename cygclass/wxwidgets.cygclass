@@ -132,7 +132,7 @@ _wx_find_config() {
 
 #****d* wxwidgets.cygclass/WX_CONFIG
 #  DESCRIPTION
-#    Full path to the wx-config script for the given WX_VERSION, WX_TOOLKIT, and
+#    Absolute path to the wx-config script for the given WX_VERSION, WX_TOOLKIT, and
 #    WX_CODESET.  This definition is exported to the build environment.
 #****
 export WX_CONFIG="$(_wx_find_config)"

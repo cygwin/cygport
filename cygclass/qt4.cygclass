@@ -111,7 +111,7 @@ export QMAKESPEC=cygwin-g++
 
 export PATH="${QT4_BINDIR}:${PATH}"
 
-#****f* qt4.cygclass/doqt4inc
+#****I* qt4.cygclass/doqt4inc
 #  SYNOPSIS
 #    doqt4inc HEADERS
 #  DESCRIPTION
@@ -122,7 +122,7 @@ doqt4inc() {
 	doins ${@}
 }
 
-#****f* qt4.cygclass/doqt4lib
+#****I* qt4.cygclass/doqt4lib
 #  SYNOPSIS
 #    doqt4lib LIBRARIES
 #  DESCRIPTION
@@ -133,7 +133,7 @@ doqt4lib() {
 	doins ${@}
 }
 
-#****f* qt4.cygclass/qt4pluginto
+#****I* qt4.cygclass/qt4pluginto
 #  SYNOPSIS
 #    qt4pluginto SUBDIRECTORY
 #  DESCRIPTION
@@ -156,7 +156,7 @@ qt4pluginto() {
 	export __QT4_PLUGIN_SUBDIR=${1}
 }
 
-#****f* qt4.cygclass/doqt4plugin
+#****I* qt4.cygclass/doqt4plugin
 #  SYNOPSIS
 #    qt4pluginto SUBDIRECTORY
 #    doqt4plugin PLUGINS

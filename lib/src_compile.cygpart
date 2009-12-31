@@ -22,7 +22,7 @@
 #
 ################################################################################
 
-#****f* Compiling/lndirs
+#****C* Compiling/lndirs
 #  SYNOPSIS
 #    lndirs [SOURCE_DIRECTORY [BUILD_DIRECTORY]]
 #  DESCRIPTION
@@ -67,5 +67,14 @@ lndirs() {
 cygmake() {
 	make ${MAKEOPTS} "${@}" || error "make failed"
 }
+
+#****C* Compiling/src_compile
+#  DESCRIPTION
+#    This function must be defined in the .cygport file, or in inherit()ed
+#    cygclasses, containing all steps necessary to configure and compile
+#    the package.
+#
+#    The default src_compile function is provided by autotools.cygclass.
+#****
 
 readonly -f lndirs cygmake

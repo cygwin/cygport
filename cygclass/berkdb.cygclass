@@ -113,7 +113,7 @@ fi
 
 DIFF_EXCLUDES="aclocal.m4 configure config.hin db.jar libtool.ac lt*.ac"
 
-#****f* berkdb.cygclass/berkdb_autoreconf
+#****C* berkdb.cygclass/berkdb_autoreconf
 #  NAME
 #    berkdb_autoreconf -- Regenerate build system files
 #  DESCRIPTION
@@ -144,7 +144,7 @@ berkdb_autoreconf() {
 	./s_config || error "s_config failed"
 }
 
-#****f* berkdb.cygclass/berkdb_compile
+#****C* berkdb.cygclass/berkdb_compile
 #  NAME
 #    berkdb_compile -- Configure and compile the Berkeley DB
 #  DESCRIPTION
@@ -191,7 +191,7 @@ berkdb_compile() {
 	cygmake ${objvar}="libdb-${SLOT}.la"
 }
 
-#****f* berkdb.cygclass/berkdb_install
+#****I* berkdb.cygclass/berkdb_install
 #  NAME
 #    berkdb_install -- Installs the Berkeley DB into $D
 #  DESCRIPTION
@@ -248,7 +248,7 @@ berkdb_install() {
 	fi
 }
 
-#****f* berkdb.cygclass/berkdb_postinst
+#****I* berkdb.cygclass/berkdb_postinst
 #  NAME
 #    berkdb_postinst -- Creates postinstall and preremove scripts
 #  DESCRIPTION

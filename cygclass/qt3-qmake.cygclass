@@ -36,7 +36,7 @@
 
 inherit qt3
 
-#****f* qt3-qmake.cygclass/cygqmake3
+#****C* qt3-qmake.cygclass/cygqmake3
 #  SYNOPSIS
 #    cd $B
 #    cygqmake3
@@ -60,7 +60,7 @@ cygqmake3() {
 	done
 }
 
-#****f* qt3-qmake.cygclass/qt3_qmake_compile
+#****C* qt3-qmake.cygclass/qt3_qmake_compile
 #  DEFINITION
 qt3_qmake_compile() {
 	cygqmake3
@@ -68,7 +68,7 @@ qt3_qmake_compile() {
 }
 #****
 
-#****f* qt3-qmake.cygclass/qt3_qmake_install
+#****I* qt3-qmake.cygclass/qt3_qmake_install
 #  SYNOPSIS
 #    cd $B
 #    qt3_qmake_install

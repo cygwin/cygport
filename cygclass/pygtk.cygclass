@@ -99,7 +99,7 @@ DESCRIPTION="Python ${pygtk_mod} bindings"
 HOMEPAGE="http://www.pygtk.org/"
 #****
 
-#****f* pygtk.cygclass/pygtk_compile
+#****C* pygtk.cygclass/pygtk_compile
 #  SYNOPSIS
 #    pygtk_compile [OPTIONS]
 #  DESCRIPTION

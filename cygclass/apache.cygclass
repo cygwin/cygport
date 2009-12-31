@@ -60,7 +60,7 @@ esac
 
 inherit apache${APACHE_MAJOR}
 
-#****f* apache.cygclass/apache_compile
+#****C* apache.cygclass/apache_compile
 #  NAME
 #    apache_compile -- Wrapper for apache1_compile/apache2_compile
 #****
@@ -68,7 +68,7 @@ apache_compile() {
 	apache${APACHE_MAJOR}_compile "$@"
 }
 
-#****f* apache.cygclass/apache_apxs_compile
+#****C* apache.cygclass/apache_apxs_compile
 #  NAME
 #    apache_apxs_compile -- Wrapper for apache1_apxs_compile/apache2_apxs_compile
 #****
@@ -80,7 +80,7 @@ apxs_compile() {
 	apache${APACHE_MAJOR}_apxs_compile "$@"
 }
 
-#****f* apache.cygclass/doapacheconf
+#****I* apache.cygclass/doapacheconf
 #  NAME
 #    doapacheconf -- Wrapper for doapache1conf/doapache2conf
 #****
@@ -88,7 +88,7 @@ doapacheconf() {
 	doapache${APACHE_MAJOR}conf "$@"
 }
 
-#****f* apache.cygclass/doapachemod
+#****I* apache.cygclass/doapachemod
 #  NAME
 #    doapachemod -- Wrapper for doapache1mod/doapache2mod
 #****
@@ -96,7 +96,7 @@ doapachemod() {
 	doapache${APACHE_MAJOR}mod "$@"
 }
 
-#****f* apache.cygclass/apache_postinst
+#****I* apache.cygclass/apache_postinst
 #  NAME
 #    apache_postinst -- Wrapper for apache1_postinst/apache2_postinst
 #****

@@ -123,14 +123,10 @@ verbose() {
 	return $?
 }
 
-#****if* Syntax/__stage
-#****
 __stage() {
 	echo -e "\e[1;39m>>> ${1} ${PF}\e[0;0m";
 }
 
-#****if* Syntax/__step
-#****
 __step() {
 	echo -e ">>> ${1}";
 }

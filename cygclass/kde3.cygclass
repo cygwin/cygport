@@ -87,7 +87,7 @@ case "${PN}:${PV}" in
 		;;
 esac
 
-#****f* kde3.cygclass/kde3_autoreconf
+#****C* kde3.cygclass/kde3_autoreconf
 #  SYNOPSIS
 #    cd $S
 #    kde3_autoreconf
@@ -132,7 +132,7 @@ kde3_autoreconf() {
 	make -f admin/Makefile.common || error "KDE autoreconf failed"
 }
 
-#****f* kde3.cygclass/kde3_compile
+#****C* kde3.cygclass/kde3_compile
 #  SYNOPSIS
 #    kde3_compile [OPTIONS]
 #  DESCRIPTION
@@ -182,7 +182,7 @@ kde3_compile() {
 	cygmake
 }
 
-#****f* kde3.cygclass/kde3_install
+#****I* kde3.cygclass/kde3_install
 #  SYNOPSIS
 #    kde3_install [OPTIONS]
 #  DESCRIPTION

@@ -44,31 +44,31 @@ check_prog_req php
 
 #****d* php.cygclass/PHP
 #  DESCRIPTION
-#    Full path to the PHP interpreter.
+#    Absolute path to the PHP interpreter.
 #****
 PHP=/usr/bin/php
 
 #****d* php.cygclass/PHP_CONFIG
 #  DESCRIPTION
-#    Full path to the PHP configuration script.
+#    Absolute path to the PHP configuration script.
 #****
 PHP_CONFIG=/usr/bin/php-config
 
 #****d* php.cygclass/PHPIZE
 #  DESCRIPTION
-#    Full path to the PHP extension buildsystem preparation script.
+#    Absolute path to the PHP extension buildsystem preparation script.
 #****
 PHPIZE=/usr/bin/phpize
 
 #****d* php.cygclass/PEAR
 #  DESCRIPTION
-#    Full path to the PHP script extension manager. 
+#    Absolute path to the PHP script extension manager. 
 #****
 PEAR=/usr/bin/pear
 
 #****d* php.cygclass/PECL
 #  DESCRIPTION
-#    Full path to the PHP C extension manager.
+#    Absolute path to the PHP C extension manager.
 #****
 PECL=/usr/bin/pecl
 
@@ -167,7 +167,7 @@ __php_is_binary() {
 	fi
 }
 
-#****f* php.cygclass/php_autoreconf
+#****C* php.cygclass/php_autoreconf
 #  SYNOPSIS
 #    lndirs
 #    cd $B
@@ -185,7 +185,7 @@ php_autoreconf() {
 	${PHPIZE} || error "phpize failed"
 }
 
-#****f* php.cygclass/php_compile
+#****C* php.cygclass/php_compile
 #  SYNOPSIS
 #    cd $B
 #    php_compile [OPTIONS]
@@ -206,7 +206,7 @@ php_compile() {
 	fi
 }
 
-#****f* php.cygclass/php_install
+#****I* php.cygclass/php_install
 #  SYNOPSIS
 #    cd $B
 #    php_install
@@ -231,7 +231,7 @@ php_install() {
 		|| error "${PEXX} install failed"
 }
 
-#****f* php.cygclass/php_postinst
+#****I* php.cygclass/php_postinst
 #  SYNOPSIS
 #    php_postinst
 #  DESCRIPTION
