@@ -1,6 +1,6 @@
 ################################################################################
 #
-# tcl.cygclass - functions for installing Tcl modules
+# tcl.cygclass - definitions for installing Tcl modules
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2007, 2008, 2009 Yaakov Selkowitz
@@ -23,14 +23,70 @@
 #
 ################################################################################
 
+#****h* Cygclasses/tcl.cygclass
+#  NAME
+#    tcl.cygclass -- Build packages which use the Tcl language and Tk toolkit.
+#  SYNOPSIS
+#    inherit tcl
+#  DESCRIPTION
+#    Tcl is a general-purpose scripting language used for a variety of purposes.
+#    It supports extensions written in Tcl or C.  Tk is both a Tcl extension and
+#    a GUI toolkit in its own right, which is used in turn by several other
+#    programming languages (including Perl, Python, R, and Ruby) as their
+#    default GUI library.
+#
+#    This cygclass provides definitions for Tcl extensions and packages embedding
+#    the Tcl language.
+#  REQUIRES
+#    tcl
+#****
+
 check_prog_req tclsh tcl
 
-_tclsh=/usr/bin/tclsh
-TCL_VERSION=$(echo "puts [info tclversion]" | ${_tclsh})
-TCLSH=${_tclsh}${TCL_VERSION}
-TCL_LIBDIR=$(echo "puts [info library]" | ${TCLSH})
+#****d* tcl.cygclass/TCLSH
+#  DESCRIPTION
+#    Absolute path to the Tcl interpreter.
+#****
+TCLSH=/usr/bin/tclsh
+
+#****d* tcl.cygclass/TCL_VERSION
+#  DESCRIPTION
+#    The major.minor version of the Tcl interpreter.
+#****
+TCL_VERSION=$(echo "puts [info tclversion]" | ${TCLSH})
+
+#****d* tcl.cygclass/TCL_INCLUDEDIR
+#  DESCRIPTION
+#    Location of the Tcl C library headers.
+#****
 TCL_INCLUDEDIR="/usr/include/tcl${TCL_VERSION}"
+
+#****d* tcl.cygclass/TCL_LIBDIR
+#  DESCRIPTION
+#    Location of the Tcl standard library.
+#****
+TCL_LIBDIR=$(echo "puts [info library]" | ${TCLSH})
+
+#****d* tcl.cygclass/TK_INCLUDEDIR
+#  DESCRIPTION
+#    Location of the Tk C library headers.
+#****
 TK_INCLUDEDIR=${TCL_INCLUDEDIR}
+
+#****d* tcl.cygclass/TK_LIBDIR
+#  DESCRIPTION
+#    Location of the Tk standard library.
+#****
 TK_LIBDIR=${TCL_LIBDIR/tcl/tk}
+
+#****d* tcl.cygclass/LIBTCL
+#  DESCRIPTION
+#    Link flags for the Tcl C library.
+#****
 LIBTCL="-ltcl${TCL_VERSION}"
-LIBTK="-ltk${TCL_VERSION}"
+
+#****d* tcl.cygclass/LIBTK
+#  DESCRIPTION
+#    Link flags for the Tk and Tcl C libraries.
+#****
+LIBTK="-ltk${TCL_VERSION} ${LIBTCL}"
