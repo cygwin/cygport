@@ -44,22 +44,22 @@ declare -r  _version=@VERSION@;
 if [ "xCYGPORT_BOOTSTRAP" != "x" ] && [ "x$top_srcdir" != "x" ]
 then
 	case ${top_srcdir} in
-		.*) declare -rx _prefix=$(pwd)/${top_srcdir} ;;
-		/*) declare -rx _prefix=${top_srcdir} ;;
+		.*) declare -r _prefix=$(pwd)/${top_srcdir} ;;
+		/*) declare -r _prefix=${top_srcdir} ;;
     esac
 
-	declare -r  _privlibdir=${_prefix}/lib;
-	declare -r  _privdatadir=${_prefix}/data;
-	declare -rx _privclassdir=${_prefix}/cygclass;
-	declare -r  _privdocdir=${_prefix};
-	declare -r  _sysconfdir=${_prefix}/data;
+	declare -r _privlibdir=${_prefix}/lib;
+	declare -r _privdatadir=${_prefix}/data;
+	declare -r _privclassdir=${_prefix}/cygclass;
+	declare -r _privdocdir=${_prefix};
+	declare -r _sysconfdir=${_prefix}/data;
 else
-	declare -rx _prefix=@pkglibdir@;
-	declare -r  _privlibdir=${_prefix};
-	declare -r  _privdatadir=@pkgdatadir@;
-	declare -rx _privclassdir=${_privdatadir}/cygclass;
-	declare -r  _privdocdir=@docdir@;
-	declare -r  _sysconfdir=@sysconfdir@;
+	declare -r _prefix=@pkglibdir@;
+	declare -r _privlibdir=${_prefix};
+	declare -r _privdatadir=@pkgdatadir@;
+	declare -r _privclassdir=${_privdatadir}/cygclass;
+	declare -r _privdocdir=@docdir@;
+	declare -r _sysconfdir=@sysconfdir@;
 fi
 
 declare -ar argv=(${0} ${@})
@@ -76,6 +76,14 @@ source ${_privlibdir}/syntax.cygpart
 # Command-line Help
 #
 ################################################################################
+
+#****** Cygport/Introduction
+#****
+
+#****** Cygport/Usage
+#  USAGE
+#    See href:cygport.1.html for command line options.
+#****
 
 ### import _show_help, _show_version
 source ${_privlibdir}/help.cygpart
@@ -112,6 +120,15 @@ fi
 #
 ################################################################################
 
+#****** Cygport/Configuration
+#****
+
+#****** Cygport/Format
+#****
+
+#****** Cygport/Checks
+#****
+
 ### import check_prog and friends
 source ${_privlibdir}/check_funcs.cygpart
 ###
@@ -134,6 +151,92 @@ unset _myprog;
 # Function definitions
 #
 ################################################################################
+
+#****** Cygport/Downloading
+#****
+
+#****** Cygport/Compiling
+#****
+
+#****** Cygport/Testing
+#****
+
+#****** Cygport/Installing
+#****
+
+#****** Cygport/Information
+#****
+
+#****** Cygport/Packaging
+#****
+
+#****** Cygport/Cygclasses
+#  DESCRIPTION
+#    * ant.cygclass
+#    * apache.cygclass
+#    * apache1.cygclass
+#    * apache2.cygclass
+#    * aspell-dict.cygclass
+#    * autotools.cygclass
+#    * berkdb.cygclass
+#    * bzr.cygclass
+#    * claws-mail.cygclass
+#    * cmake.cygclass
+#    * cross.cygclass
+#    * cvs.cygclass
+#    * distutils.cygclass
+#    * docbook.cygclass
+#    * ebook.cygclass
+#    * emacs.cygclass
+#    * font.cygclass
+#    * fossil.cygclass
+#    * fox.cygclass
+#    * ggz.cygclass
+#    * git.cygclass
+#    * gnome.org.cygclass
+#    * gnome2.cygclass
+#    * gnustep.cygclass
+#    * gst-plugins.cygclass
+#    * gst-plugins0.10.cygclass
+#    * gstreamer.cygclass
+#    * gtk2-perl.cygclass
+#    * gtkmm.cygclass
+#    * hg.cygclass
+#    * java.cygclass
+#    * kde3.cygclass
+#    * kde4.cygclass
+#    * lua.cygclass
+#    * mono.cygclass
+#    * mtn.cygclass
+#    * ocaml.cygclass
+#    * octave.cygclass
+#    * opensync.cygclass
+#    * perl.cygclass
+#    * php.cygclass
+#    * pygtk.cygclass
+#    * python.cygclass
+#    * python3.cygclass
+#    * qt3-qmake.cygclass
+#    * qt3.cygclass
+#    * qt4-cmake.cygclass
+#    * qt4-qconf.cygclass
+#    * qt4-qmake.cygclass
+#    * qt4.cygclass
+#    * R.cygclass
+#    * rox.cygclass
+#    * ruby-gnome2.cygclass
+#    * ruby.cygclass
+#    * svn.cygclass
+#    * tcl.cygclass
+#    * utils.cygclass
+#    * vim.cygclass
+#    * waf.cygclass
+#    * wxwidgets.cygclass
+#    * xfce4.cygclass
+#    * xorg.cygclass
+#  BUGS
+#    Why do the cygclasses get listed in reverse order?!?
+#****
 
 ### __config_get/set and friends
 source ${_privlibdir}/config_registry.cygpart
@@ -197,15 +300,49 @@ unset _autotools_CYGCLASS_
 ################################################################################
 
 # Values which can be overridden either system-wide or per package
+
+#****d* Compiling/CC
+#  DESCRIPTION
+#    The GCC C compiler.
+#****
 declare -x CC="gcc";
 declare -x CFLAGS="-O2 -pipe ";
 declare -x CPPFLAGS="";
+
+#****d* Compiling/CXX
+#  DESCRIPTION
+#    The GCC C++ compiler.
+#****
 declare -x CXX="g++";
 declare -x CXXFLAGS="${CFLAGS}";
-declare -x F77="g77";
+
+#****d* Compiling/F77
+#  DESCRIPTION
+#    The GCC Fortran 77 compiler.
+#  SEE ALSO
+#    FC
+#****
+declare -x F77="gfortran";
 declare -x FFLAGS="${CFLAGS}";
+
+#****d* Compiling/FC
+#  DESCRIPTION
+#    The GCC Fortran 95 compiler.
+#  SEE ALSO
+#    F77
+#****
+declare -x FC="gfortran";
+declare -x FCFLAGS="${CFLAGS}";
+
+#****d* Compiling/GCJ
+#  DESCRIPTION
+#    The GCC Java native-code compiler.
+#  SEE ALSO
+#    java.cygclass
+#****
 declare -x GCJ="gcj";
 declare -x GCJFLAGS="${CFLAGS}";
+
 declare -x LDFLAGS="";
 declare -x LIBS="";
 declare    MAKEOPTS="-j$(($(grep -c '^proc' /proc/cpuinfo) + 1)) ";
@@ -233,20 +370,20 @@ unset conf;
 ################################################################################
 
 # argv[1] may or may not include the .cygport extension
-             PF=${argv[1]##*/}
-declare -r   PF=${PF%.cygport}
+            PF=${argv[1]##*/}
+declare -r  PF=${PF%.cygport}
 # these must be defined now to be available in SRC_URI
-declare -rx  PN=$(echo ${PF} | sed -e 's/\-[^\-]*\-[^\-]*$//');
-             PV=$(echo ${PF} | sed -e "s/${PN}\-//" -e 's/\-[^\-]*$//');
-declare -rx  PR=${PF#${PN}-${PV}-};
-declare -rx  P=${PN}-${PV};
-declare -rx  PVR=${PV}-${PR};
-declare -arx PVP=(${PV//[-\._]/ });
-declare -rx  PV=(${PV} ${PVP[*]});
-declare -rx  PV_MAJ=${PV[1]};
-declare -rx  PV_MAJ_MIN="${PV[1]}.${PV[2]}";
+declare -r  PN=$(echo ${PF} | sed -e 's/\-[^\-]*\-[^\-]*$//');
+            PV=$(echo ${PF} | sed -e "s/${PN}\-//" -e 's/\-[^\-]*$//');
+declare -r  PR=${PF#${PN}-${PV}-};
+declare -r  P=${PN}-${PV};
+declare -r  PVR=${PV}-${PR};
+declare -ar PVP=(${PV//[-\._]/ });
+declare -r  PV=(${PV} ${PVP[*]});
+declare -r  PV_MAJ=${PV[1]};
+declare -r  PV_MAJ_MIN="${PV[1]}.${PV[2]}";
 
-declare -r   cygportfile=${PF}.cygport;
+declare -r  cygportfile=${PF}.cygport;
 
 _topdir=${argv[1]%/*};
 
@@ -285,6 +422,14 @@ do
 	export _CYGPORT_RESTRICT_${restrict//-/_}_=1
 done
 
+#****** Format/Globals
+#****
+
+#****v* Globals/DESCRIPTION
+#****
+
+#****v* Globals/HOMEPAGE
+#****
 
 ################################################################################
 #
@@ -309,10 +454,10 @@ else
 	declare -r S=${srcdir}/${SRC_DIR};
 fi
 
-declare -rx B="${workdir}/build";
-declare -rx D="${workdir}/inst";
-declare -rx T="${workdir}/temp";
-declare -rx C="${S}/CYGWIN-PATCHES";
+declare -r B="${workdir}/build";
+declare -r D="${workdir}/inst";
+declare -r T="${workdir}/temp";
+declare -r C="${S}/CYGWIN-PATCHES";
 
 declare -r compilelog="${logdir}/${PF}-compile.log";
 declare -r checklog="${logdir}/${PF}-check.log";
