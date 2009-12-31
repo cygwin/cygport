@@ -23,6 +23,23 @@
 #
 ################################################################################
 
+#****h* Cygclasses/pygtk.cygclass
+#  NAME
+#    pygtk.cygclass -- Build Python GTK+/GNOME bindings
+#  SYNOPSIS
+#    inherit pygtk
+#  DESCRIPTION
+#    The PyGTK project provides a series of bindings for the GTK+ and GNOME
+#    libraries.  APIs are defined in .defs files, from which C binding code
+#    is generated with PYGTK_CODEGEN.  These bindings allow full-featured
+#    GNOME programs to be written in the Python language, and are among one
+#    of the most commonly used GNOME language bindings.
+#
+#    This package provides definitions and functions for building PyGTK bindings.
+#  INHERITS
+#    gnome.org.cygclass, python.cygclass
+#****
+
 case ${PN#python-} in
 	${PN})
 		# for packages which provide pygtk bindings together with the C lib.
@@ -48,25 +65,54 @@ esac
 
 inherit gnome.org python
 
-DESCRIPTION="Python ${pygtk_mod} bindings"
-HOMEPAGE="http://www.pygtk.org/"
-
+#****d* pygtk.cygclass/PYGTK_INCLUDEDIR
+#  DESCRIPTION
+#    Directory containing PyGTK C headers.
+#****
 PYGTK_INCLUDEDIR="/usr/include/pygtk-2.0"
+
+#****d* pygtk.cygclass/PYGTK_LIBDIR
+#  DESCRIPTION
+#    Installation path for PyGTK bindings.
+#****
 PYGTK_LIBDIR="${PYTHON_SITELIB}/gtk-2.0"
+
+#****d* pygtk.cygclass/PYGTK_DATADIR
+#  DESCRIPTION
+#    Installation path for *.defs and *-arg-types.py API files.
+#****
 PYGTK_DATADIR="/usr/share/pygtk/2.0"
 
-# codegen was moved from pygtk to pygobject for GNOME 2.24. pygtk-codegen-2.0
-# is still provided for compatibility, which just calls pygobject-codegen-2.0.
+#****d* pygtk.cygclass/PYGTK_CODEGEN
+#  DESCRIPTION
+#    Absolute path to the PyGTK C code generator.
+#****
 if check_prog pygobject-codegen-2.0
 then
 	export PYGTK_CODEGEN="/usr/bin/pygobject-codegen-2.0"
 fi
 
+DESCRIPTION="Python ${pygtk_mod} bindings"
+
+#****o* pygtk.cygclass/HOMEPAGE (pygtk)
+#  DEFINITION
+HOMEPAGE="http://www.pygtk.org/"
+#****
+
+#****f* pygtk.cygclass/pygtk_compile
+#  SYNOPSIS
+#    pygtk_compile [OPTIONS]
+#  DESCRIPTION
+#    Configures the package with cygconf, passing any arguments it receives,
+#    then compiles the package with cygmake.
+#****
 pygtk_compile() {
 	cygconf --disable-static "${@}"
 	cygmake LIBS="-no-undefined ${LIBPYTHON}"
 }
 
+#****o* pygtk.cygclass/src_compile (pygtk)
+#  DEFINITION
 src_compile() {
 	cd ${S}
 	if [ -d m4 ]
@@ -77,5 +123,6 @@ src_compile() {
 	cd ${B}
 	pygtk_compile
 }
+#****
 
 readonly -f pygtk_compile
