@@ -23,23 +23,115 @@
 #
 ################################################################################
 
+#****h* Cygclasses/php.cygclass
+#  NAME
+#    php.cygclass -- Build extensions for the PHP programming language
+#  SYNOPSIS
+#    [PHP_CHANNEL="..."]
+#    inherit php
+#  DESCRIPTION
+#    PHP is a programming language most commonly used as an HTML preprocessor
+#    for creating dynamic web pages.  The interpreter comes in three forms, known
+#    as SAPIs: command-line, CGI, and Apache Web Server DSO.  Extensions written
+#    in either PHP or C can be installed to provide additional functionality.
+#
+#    This cygclass is meant for building PHP extension packages.
+#  REQUIRES
+#    php, php-PEAR
+#****
+
 check_prog_req php
 
+#****d* php.cygclass/PHP
+#  DESCRIPTION
+#    Full path to the PHP interpreter.
+#****
 PHP=/usr/bin/php
+
+#****d* php.cygclass/PHP_CONFIG
+#  DESCRIPTION
+#    Full path to the PHP configuration script.
+#****
 PHP_CONFIG=/usr/bin/php-config
+
+#****d* php.cygclass/PHPIZE
+#  DESCRIPTION
+#    Full path to the PHP extension buildsystem preparation script.
+#****
 PHPIZE=/usr/bin/phpize
-PECL=/usr/bin/pecl
+
+#****d* php.cygclass/PEAR
+#  DESCRIPTION
+#    Full path to the PHP script extension manager. 
+#****
 PEAR=/usr/bin/pear
 
+#****d* php.cygclass/PECL
+#  DESCRIPTION
+#    Full path to the PHP C extension manager.
+#****
+PECL=/usr/bin/pecl
+
+#****d* php.cygclass/PHP_VERSION
+#  DESCRIPTION
+#    Version of the PHP interpreter.
+#****
 PHP_VERSION=$(${PHP_CONFIG} --version)
-PHP_EXTENSION_DIR=$(${PHP_CONFIG} --extension-dir)
+
+#****d* php.cygclass/PHP_INI_DIR
+#  DESCRIPTION
+#    Path to the PHP configuration file.
+#****
 PHP_INI_DIR=/etc/php5
+
+#****d* php.cygclass/PHP_EXTENSION_DIR
+#  DESCRIPTION
+#    Installation directory for PHP C extensions.
+#****
+PHP_EXTENSION_DIR=$(${PHP_CONFIG} --extension-dir)
+
+#****d* php.cygclass/PHP_PEAR_DIR
+#  DESCRIPTION
+#    Installation directory for PHP script extensions.
+#****
 PHP_PEAR_DIR=/usr/share/pear
+
+#****d* php.cygclass/LIBPHP
+#  DESCRIPTION
+#    Link library for the PHP interpreter C library.
+#  NOTE
+#    This link library is Cygwin specific.  On ELF platforms, PHP modules are
+#    linked with undefined symbols, which are resolved at runtime by the SAPI
+#    in use.  Since the PE/COFF format used on Cygwin requires that all symbols
+#    be resolved at link time, a library is used which all SAPIs and extensions
+#    link against.
+#****
 LIBPHP="-lphp5lib"
+
+#****v* php.cygclass/PHP_CHANNEL
+#  DESCRIPTION
+#    Domain name of the PEAR/PECL server on which the PHP extension is hosted.
+#    The names 'pear' and 'pecl' can be used for 'pear.php.net' and 'pecl.php.net'
+#    respectively.  This variable must be defined before inherit()ing php.cygclass
+#    to have any effect.
+#
+#    A list of known channels is available at http://pear.php.net/channels/ .
+#****
+
+#****o* php.cygclass/HOMEPAGE (php)
+#  DESCRIPTION
+#    Web address for the PHP extension.  This variable is defined only if
+#    PHP_CHANNEL is 'pear' or 'pecl'.
+#****
+#****o* php.cygclass/SRC_URI (php)
+#  DESCRIPTION
+#    Download location for the PHP extension sources.  This variable is defined
+#    only if PHP_CHANNEL was defined before inherit()ing php.cygclass.
+#****
 
 case ${PN} in
 php-*)
-	ORIG_PN=${PN#php-}
+	ORIG_PN=${ORIG_PN:-${PN#php-}}
 	DESCRIPTION="PHP ${ORIG_PN} extension"
 	;;
 esac
@@ -66,7 +158,7 @@ case "${PHP_CHANNEL}" in
 	;;
 esac
 
-php_is_binary() {
+__php_is_binary() {
 	if [ -f ${S}/config.m4 ]
 	then
 		return 0
@@ -75,6 +167,15 @@ php_is_binary() {
 	fi
 }
 
+#****f* php.cygclass/php_autoreconf
+#  SYNOPSIS
+#    lndirs
+#    cd $B
+#    php_autoreconf
+#  DESCRIPTION
+#    Runs PHPIZE to prepare the PHP extension build system.  This function must
+#    be run from the directory containing config.m4.
+#****
 php_autoreconf() {
 	if [ ! -e config.m4 ]
 	then
@@ -84,9 +185,18 @@ php_autoreconf() {
 	${PHPIZE} || error "phpize failed"
 }
 
+#****f* php.cygclass/php_compile
+#  SYNOPSIS
+#    cd $B
+#    php_compile [OPTIONS]
+#  DESCRIPTION
+#    Configures the PHP extension with cygconf, then compiles it with cygmake.
+#    Arguments, if any, are passed as configure flags to cygconf.
+#****
 php_compile() {
-	if php_is_binary
+	if __php_is_binary
 	then
+		test -e configure && CYGCONF_SOURCE=$PWD
 		cygconf \
 			--disable-static \
 			--enable-${ORIG_PN}=shared --with-${ORIG_PN}=shared \
@@ -96,10 +206,17 @@ php_compile() {
 	fi
 }
 
+#****f* php.cygclass/php_install
+#  SYNOPSIS
+#    cd $B
+#    php_install
+#  DESCRIPTION
+#    Installs the PHP extension into $D.
+#****
 php_install() {
 	local PEXX
 
-	if php_is_binary
+	if __php_is_binary
 	then
 		cygmake -j1 install INSTALL_ROOT=${D}
 		PEXX=PECL
@@ -114,7 +231,17 @@ php_install() {
 		|| error "${PEXX} install failed"
 }
 
-
+#****f* php.cygclass/php_postinst
+#  SYNOPSIS
+#    php_postinst
+#  DESCRIPTION
+#    Performs the following steps:
+#    * If the package contains C extensions, creates configuration files which
+#      will cause the extensions to be loaded by PHP automatically.
+#    * If PHP_CHANNEL is other than 'pear' or 'pecl', a postinstall script is
+#      created to register the channel with the installed PHP.
+#    * Cleans up files which will collide with those already on the system.
+#****
 php_postinst() {
 	local x
 
@@ -156,23 +283,30 @@ php_postinst() {
 	rm -fr ${D}/tmp/pear
 }
 
+#****o* php.cygclass/src_compile (php)
+#  DESCRIPTION
+#    Copies $S into $B with lndirs, then, if the package is a PHP C extension,
+#    calls php_autoreconf and php_compile.
+#****
 src_compile() {
 	lndirs
 	ln -sf ${S}/../package.xml ${B}
 
-	if php_is_binary
+	if __php_is_binary
 	then
 		cd ${B}
 		php_autoreconf
-		CYGCONF_SOURCE=${B}
 		php_compile
 	fi
 }
 
+#****o* php.cygclass/src_install (php)
+#  DEFINITION
 src_install() {
 	cd ${B}
 	php_install
 	php_postinst
 }
+#****
 
-readonly -f php_is_binary php_autoreconf php_compile php_install php_postinst
+readonly -f __php_is_binary php_autoreconf php_compile php_install php_postinst
