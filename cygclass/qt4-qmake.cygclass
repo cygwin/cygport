@@ -23,31 +23,57 @@
 #
 ################################################################################
 
+#****h* Cygclasses/qt4-qmake.cygclass
+#  NAME
+#    qt4-qmake.cygclass -- Build Qt4-based packages with qmake
+#  SYNOPSIS
+#    inherit qt4-qmake
+#  DESCRIPTION
+#    This cygclass builds Qt4-based packages which use the qmake build system.
+#  INHERITS
+#    qt4.cygclass
+#  INHERITED BY
+#    qt4-qconf.cygclass
+#****
+
 inherit qt4
 
+#****f* qt4-qmake.cygclass/cygqmake4
+#  SYNOPSIS
+#    cd $B
+#    cygqmake4
+#  DESCRIPTION
+#    Generates Makefiles from the package's qmake project files.
+#****
 cygqmake4() {
-	local pro
-
 	if [ ! -x ${QT4_QMAKE} ]
 	then
 		error "libQtCore4-devel is required to build this package"
 	fi
 
-	for pro in $(find . -name '*.pro')
-	do
-		rm -f ${pro%/*}/Makefile
-
-		${QT4_QMAKE} -spec cygwin-g++ -o ${pro%/*}/Makefile ${CYGQMAKE4_ARGS} ${@} ${pro} \
-			|| error "qmake ${pro} failed"
-	done
+	${QT4_QMAKE} -spec cygwin-g++ -recursive ${CYGQMAKE4_ARGS} ${@} \
+			|| error "qmake failed"
 }
 
+#****f* qt4-qmake.cygclass/qt4_qmake_compile
+#  DEFINITION
 qt4_qmake_compile() {
 	cygqmake4
 	cygmake
 }
+#****
 
-# Warning: This won't work for some packages!!!
+#****f* qt4-qmake.cygclass/qt4_qmake_install
+#  SYNOPSIS
+#    cd $B
+#    qt4_qmake_install
+#  DESCRIPTION
+#    Installs the package into $D and fixes some common installation issues.
+#  WARNING
+#    Many qmake projects do not define correct install rules, if any at all.
+#    qt4_qmake_install is of no use in such cases; you must use manual
+#    installation commands instead.
+#****
 qt4_qmake_install() {
 	local dll pc
 
@@ -66,15 +92,21 @@ qt4_qmake_install() {
 	done
 }
 
+#****o* qt4-qmake.cygclass/src_compile (qt4-qmake)
+#  DEFINITION
 src_compile() {
 	lndirs
 	cd ${B}
 	qt4_qmake_compile
 }
+#****
 
+#****o* qt4-qmake.cygclass/src_install (qt4-qmake)
+#  DEFINITION
 src_install() {
 	cd ${B}
 	qt4_qmake_install
 }
+#****
 
 readonly -f cygqmake4 qt4_qmake_compile qt4_qmake_install

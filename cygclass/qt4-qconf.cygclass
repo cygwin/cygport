@@ -23,8 +23,26 @@
 #
 ################################################################################
 
+#****h* Cygclasses/qt4-qconf.cygclass
+#  NAME
+#    qt4-cmake.cygclass -- Build Qt4-based packages with QConf and qmake
+#  SYNOPSIS
+#    inherit qt4-qconf
+#  DESCRIPTION
+#    This cygclass builds Qt4-based packages which use the QConf configuration
+#    system together with qmake project files.
+#  INHERITS
+#    qt4.cygclass, qt4-qmake.cygclass
+#****
+
 inherit qt4-qmake
 
+#****f* qt4-qconf.cygclass/cygqconf4
+#  SYNOPSIS
+#    cygqconf4
+#  DESCRIPTION
+#    Generates a QConf configure script based on the .qc file in the same directory.
+#****
 cygqconf4() {
 	if ! find . -maxdepth 1 -name '*.qc'
 	then
@@ -35,6 +53,14 @@ cygqconf4() {
 	qconf || error "qconf failed"
 }
 
+#****f* qt4-qconf.cygclass/qt4_qconf_compile
+#  SYNOPSIS
+#    cd $B
+#    qt4_qconf_compile [OPTIONS]
+#  DESCRIPTION
+#    Runs the configure script, passing any options received, then calls cygmake
+#    to compile the package.
+#****
 qt4_qconf_compile() {
 	if [ ! -e configure ]
 	then
@@ -45,12 +71,14 @@ qt4_qconf_compile() {
 	cygmake
 }
 
-
+#****o* qt4-qconf.cygclass/src_compile (qt4-qconf)
+#  DEFINITION
 src_compile() {
 	lndirs
 	cd ${B}
 	cygqconf4
 	qt4_qconf_compile
 }
+#****
 
 readonly -f cygqconf4 qt4_qconf_compile

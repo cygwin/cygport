@@ -23,8 +23,26 @@
 #
 ################################################################################
 
+#****h* Cygclasses/qt3-qmake.cygclass
+#  NAME
+#    qt3-qmake.cygclass -- Build Qt3-based packages with qmake
+#  SYNOPSIS
+#    inherit qt3-qmake
+#  DESCRIPTION
+#    This cygclass builds Qt3-based packages which use the qmake build system.
+#  INHERITS
+#    qt3.cygclass
+#****
+
 inherit qt3
 
+#****f* qt3-qmake.cygclass/cygqmake3
+#  SYNOPSIS
+#    cd $B
+#    cygqmake3
+#  DESCRIPTION
+#    Generates Makefiles from the package's qmake project files.
+#****
 cygqmake3() {
 	local pro
 
@@ -42,12 +60,25 @@ cygqmake3() {
 	done
 }
 
+#****f* qt3-qmake.cygclass/qt3_qmake_compile
+#  DEFINITION
 qt3_qmake_compile() {
 	cygqmake3
 	cygmake
 }
+#****
 
-# Warning: This won't work for most packages!!!
+#****f* qt3-qmake.cygclass/qt3_qmake_install
+#  SYNOPSIS
+#    cd $B
+#    qt3_qmake_install
+#  DESCRIPTION
+#    Installs the package into $D and fixes some common installation issues.
+#  WARNING
+#    Many qmake projects do not define correct install rules, if any at all.
+#    qt3_qmake_install is of no use in such cases; you must use manual
+#    installation commands instead.
+#****
 qt3_qmake_install() {
 	local dll pc
 
@@ -66,15 +97,21 @@ qt3_qmake_install() {
 	done
 }
 
+#****o* qt3-qmake.cygclass/src_compile (qt3-qmake)
+#  DEFINITION
 src_compile() {
 	lndirs
 	cd ${B}
 	qt3_qmake_compile
 }
+#****
 
+#****o* qt3-qmake.cygclass/src_install (qt3-qmake)
+#  DEFINITION
 src_install() {
 	cd ${B}
 	qt3_qmake_install
 }
+#****
 
 readonly -f cygqmake3 qt3_qmake_compile qt3_qmake_install
