@@ -3,7 +3,7 @@
 # utils.cygclass - assortment of miscellaneous functions
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -23,12 +23,29 @@
 #
 ################################################################################
 
-# Checks for presence of headers in standard include path
-# Directories can be added to include path by prefacing -I<dir>
+#****h* Cygclasses/utils.cygclass
+#  NAME
+#    utils.cygclass -- Miscellaneous utility functions
+#  DESCRIPTION
+#    This cygclass contains miscellaneous functions.  Currently defined herein are:
+#    * check_header
+#    * check_lib
+#    * check_pkg_config
+#****
+
+#****f* Checks/check_header
+#  SYNOPSIS
+#    inherit utils
+#    check_header [-IDIRECTORY] [-IDIRECTORY2] ... HEADER [HEADER2] ...
+#  DESCRIPTION
+#    Checks for the presence of the given header(s).  Directories can be added
+#    to the default include path by prefixing them with the -I flag.  Returns
+#    TRUE if all libraries are found, else FALSE.
+#****
 check_header() {
 	local d
 	local h
-	local gcc_inc=$(gcc -print-search-dirs | grep '^install:' | cut -d ' ' -f 2)/include
+	local gcc_inc=$(${CC} -print-search-dirs | grep '^install:' | cut -d ' ' -f 2)/include
 
 	local inc_path="/usr/include /usr/include/w32api ${gcc_inc} ${gcc_inc}/c++"
 
@@ -54,12 +71,19 @@ check_header() {
 	return 0
 }
 
-# Checks for presence of link libraries in standard library path
-# Directories can be added to library path by prefacing -L<dir>
+#****f* Checks/check_lib
+#  SYNOPSIS
+#    inherit utils
+#    check_lib [-LDIRECTORY] [-LDIRECTORY2] ... LIBRARY [LIBRARY2] ...
+#  DESCRIPTION
+#    Checks for the presence of the given library(ies).  Directories can be added
+#    to the default library path by prefixing them with the -L flag.  Returns
+#    TRUE if all libraries are found, else FALSE.
+#****
 check_lib() {
 	local d
 	local l
-	local gcc_lib=$(gcc -print-search-dirs | grep '^install:' | cut -d ' ' -f 2)
+	local gcc_lib=$(${CC} -print-search-dirs | grep '^install:' | cut -d ' ' -f 2)
 
 	local lib_path="/usr/lib /usr/lib/w32api ${gcc_lib}"
 
@@ -85,10 +109,17 @@ check_lib() {
 	return 0
 }
 
-# Equivalent of PKG_CHECK_MODULES aclocal macro
-# e.g.: check_pkg_config GLADE "gtk+-2.0 >= 2.6.0 libglade-2.0"
-#       will use pkg-config to verify that those devel packages are
-#       present, and define GLADE_CFLAGS and GLADE_LIBS accordingly
+#****f* Checks/check_pkg_config
+#  SYNOPSIS
+#    inherit utils
+#    check_pkg_config NAME "PKG_CONFIG_SPEC"
+#  DESCRIPTION
+#    Checks for the presence of the given development packages with pkg-config.
+#    If given pkg-config spec is found, return TRUE and defines NAME_CFLAGS
+#    and NAME_LIBS.  If not found, returns FALSE.
+#  REQUIRES
+#    pkg-config
+#****
 check_pkg_config() {
 	local modname=${1};
 	shift;
