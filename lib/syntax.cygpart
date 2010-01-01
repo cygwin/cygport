@@ -86,7 +86,7 @@ error() {
 		*) local errorcode=$? ;;
 	esac
 
-	echo -e "\e[1;31m*** ERROR:\e[0;0m ${1:-no error message provided}" > /dev/stderr;
+	echo -e "\e[1;31m*** ERROR:\e[0;0m ${1:-no error message provided}" >&2;
 	exit ${errorcode};
 }
 
