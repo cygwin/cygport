@@ -496,11 +496,21 @@ __prepuac() {
 __prep_symlinks() {
 	local l l_src
 
-	echo "Checking for symlinks:"
+	echo "Fixing symlinks:"
 
 	for l in $(find ${D}/ -type l)
 	do
 		l_src=$(readlink ${l})
+
+		# avoid .exe suffix in symlinks
+		# http://cygwin.com/ml/cygwin-apps/2007-04/msg00065.html
+		case ${l} in
+			*.exe)
+				mv ${l} ${l%.exe};
+				l=${l%.exe};
+				;;
+		esac
+
 		case ${l_src} in
 			${D}/*)
 				echo "        ${l#${D}}";
