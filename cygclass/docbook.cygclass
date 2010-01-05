@@ -3,7 +3,7 @@
 # docbook.cygclass - functions for packaging DocBook SGML/XML and DSSSL/XSL
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -70,6 +70,8 @@ HOMEPAGE="http://www.oasis-open.org/docbook/"
 SRC_DIR=.
 
 #****o* docbook.cygclass/SRC_URI (docbook)
+#  DESCRIPTION
+#    Download location for the DocBook package.
 #****
 case "${dtd_type}:${PV}" in
 	sgml:3.[01]*|sgml:4.[01]*)
@@ -108,11 +110,11 @@ case "${dtd_type}:${PV}" in
 esac
 
 #****I* docbook.cygclass/docbook_install
-#  NAME
-#    docbook_install
 #  SYNOPSIS
-#    cd ${S}
+#    cd $S
 #    docbook_install
+#  DESCRIPTION
+#    Installs the DocBook package into $D.
 #****
 docbook_install() {
 	insinto ${DOCBOOK_DIR}
@@ -151,8 +153,9 @@ docbook_install() {
 }
 
 #****I* docbook.cygclass/docbook_dsssl_postinst
-#  NAME
-#    docbook_dsssl_postinst -- Register DSSSL catalog in SGML catalog
+#  DESCRIPTION
+#    Creates postinstall/preremove scripts to de/register the DSSSL stylesheets
+#    with the system SGML catalog.
 #****
 docbook_dsssl_postinst() {
 	dodir /etc/postinstall /etc/preremove
@@ -169,8 +172,9 @@ docbook_dsssl_postinst() {
 }
 
 #****I* docbook.cygclass/docbook_sgml_postinst
-#  NAME
-#    docbook_sgml_postinst -- Register DTD in SGML catalog
+#  DESCRIPTION
+#    Creates postinstall/preremove scripts to de/register the SGML/XML DTDs
+#    with the system SGML catalog.
 #  NOTE
 #    XML DTDs must also be registered in the SGML catalog.
 #****
@@ -179,7 +183,7 @@ docbook_sgml_postinst() {
 
 	case ${dtd_type} in
 		sgml)	cat_name="catalog" ;;
-		xml)	cat_name="docbook.cat" ;;
+		xml*)	cat_name="docbook.cat" ;;
 	esac
 
 	dodir /etc/postinstall /etc/preremove
@@ -198,8 +202,9 @@ docbook_sgml_postinst() {
 }
 
 #****I* docbook.cygclass/docbook_xml_postinst
-#  NAME
-#    docbook_xml_postinst -- Register XML DTD in XML catalog
+#  DESCRIPTION
+#    Creates postinstall/preremove scripts to de/register the XML DTDs or
+#    XSL stylesheets with the system XML catalog.
 #****
 docbook_xml_postinst() {
 	dodir /etc/postinstall /etc/preremove
@@ -224,7 +229,10 @@ src_compile() { :; }
 #****
 
 #****o* docbook.cygclass/src_install (docbook)
-#  DEFINITION
+#  DESCRIPTION
+#    Runs docbook_install followed by the appropriate combination of
+#    docbook_dsssl_postinst, docbook_sgml_postinst, and/or docbook_xml_postinst.
+#****
 src_install() {
 	cd ${S}
 	docbook_install
@@ -239,7 +247,6 @@ src_install() {
 		xml*|xsl*)	docbook_xml_postinst ;;
 	esac
 }
-#****
 
 readonly -f docbook_install docbook_dsssl_postinst docbook_sgml_postinst \
             docbook_xml_postinst
