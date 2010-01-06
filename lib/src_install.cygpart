@@ -2,7 +2,7 @@
 #
 # src_install.cygpart - cygport source installation functions
 #
-# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -22,26 +22,12 @@
 #
 ################################################################################
 
-#****d* Installing/D
-#  NAME
-#    D
-#  DESCRIPTION
-#    Represents the installation staging directory.  All installation and
-#    post-install steps occur in this directory, and this is where the
-#    binary packages are created.
-#****
-
-#****f* Installing/dodir
-#  NAME
-#    dodir -- Create installation directory
+#****I* Installing/dodir
 #  SYNOPSIS
-# dodir DIRECTORY [DIRECTORY] ...
-#  FUNCTION
-#    Creates one or more directories in the installation staging directory.
-#  NOTES
-#    Arguments to dodir should *not* be preceded by $D.
+#  dodir DIRECTORY [DIRECTORY] ...
+#  DESCRIPTION
+#  Creates the given directories under $D.
 #****
-# creates directory under install path
 dodir() {
 	local d;
 
@@ -54,9 +40,13 @@ dodir() {
 	done
 }
 
-#****f* Installing/keepdir
+#****I* Installing/keepdir
+#  SYNOPSIS
+#  keepdir DIRECTORY [DIRECTORY] ...
+#  DESCRIPTION
+#  Preserves the given empty directories under $D from being removed during
+#  automatic postinstall steps.  
 #****
-# prevents an otherwise empty directory from being automatically removed
 keepdir() {
 	for d
 	do
@@ -65,8 +55,6 @@ keepdir() {
 	done
 }
 
-#****if* Installing/__doinstall
-#****
 __doinstall() {
 	local mode=${1}
 	local file=${2}
@@ -97,7 +85,11 @@ __doinstall() {
 }
 
 
-#****f* Installing/dobin
+#****I* Installing/dobin
+#  SYNOPSIS
+#  dobin FILE [FILE] ...
+#  DESCRIPTION
+#  Installs the given file(s) to $D/usr/bin/ and makes them executable.
 #****
 dobin() {
 	dodir /usr/bin
@@ -108,7 +100,12 @@ dobin() {
 	done
 }
 
-#****f* Installing/newbin
+#****I* Installing/newbin
+#  SYNOPSIS
+#  newbin FILE NEW_NAME
+#  DESCRIPTION
+#  Installs the given file to $D/usr/bin/ with the given new name, and makes
+#  it executable.
 #****
 newbin() {
 	dodir /usr/bin
@@ -116,7 +113,13 @@ newbin() {
 }
 
 
-#****f* Installing/docinto
+#****I* Installing/docinto
+#  SYNOPSIS
+#  docinto [/]SUBDIRECTORY
+#  DESCRIPTION
+#  Sets the subdirectory into which dodoc and newdoc should install.
+#  If the subdirectory is prefixed by a slash, then dodoc and newdoc will use
+#  /usr/share/doc/SUBDIRECTORY/; if not, they will use /usr/share/doc/PN/SUBDIRECTORY/.
 #****
 docinto() {
 	if (( $# != 1 ))
@@ -127,7 +130,12 @@ docinto() {
 	_docinto_dir=${1};
 }
 
-#****f* Installing/dodoc
+#****I* Installing/dodoc
+#  SYNOPSIS
+#  dodoc FILE [FILE] ...
+#  DESCRIPTION
+#  Installs the given files into $D/usr/share/doc/PN/, or a subdirectory thereof
+#  specified by the previous call to docinto.
 #****
 dodoc() {
 	case "${_docinto_dir}" in
@@ -156,7 +164,12 @@ dodoc() {
 	done
 }
 
-#****f* Installing/newdoc
+#****I* Installing/newdoc
+#  SYNOPSIS
+#  newdoc FILE NEW_NAME
+#  DESCRIPTION
+#  Installs the given file into $D/usr/share/doc/PN/, or a subdirectory thereof
+#  specified by the previous call to docinto, with the given new name.
 #****
 newdoc() {
 	case "${_docinto_dir}" in
@@ -170,7 +183,11 @@ newdoc() {
 }
 
 
-#****f* Installing/exeinfo
+#****I* Installing/exeinto
+#  SYNOPSIS
+#  exeinto DIRECTORY
+#  DESCRIPTION
+#  Specifies the directory under $D into which doexe and newexe will install.
 #****
 exeinto() {
 	if (( $# != 1 ))
@@ -182,7 +199,12 @@ exeinto() {
 	_exeinto_dir=${1};
 }
 
-#****f* Installing/doexe
+#****I* Installing/doexe
+#  SYNOPSIS
+#  doexe FILE [FILE] ...
+#  DESCRIPTION
+#  Installs the given file(s) into the directory under $D specified by the
+#  preceding call to exeinto and makes them executable.
 #****
 doexe() {
 	if ! defined _exeinto_dir || [ ! -d ${D}${_exeinto_dir} ]
@@ -196,7 +218,12 @@ doexe() {
 	done
 }
 
-#****f* Installing/newexe
+#****I* Installing/newexe
+#  SYNOPSIS
+#  newexe FILE NEW_NAME
+#  DESCRIPTION
+#  Installs the given file into the directory under $D specified by the
+#  preceding call to exeinto, renaming it as indicated, and makes it executable.
 #****
 newexe() {
 	if ! defined _exeinto_dir || [ ! -d ${D}${_exeinto_dir} ]
@@ -208,7 +235,11 @@ newexe() {
 }
 
 
-#****f* Installing/insinto
+#****I* Installing/insinto
+#  SYNOPSIS
+#  insinto DIRECTORY
+#  DESCRIPTION
+#  Specifies the directory under $D into which doins and newins will install.
 #****
 insinto() {
 	if (( $# != 1 ))
@@ -220,7 +251,12 @@ insinto() {
 	_insinto_dir=${1};
 }
 
-#****f* Installing/doins
+#****I* Installing/doins
+#  SYNOPSIS
+#  doins FILE [FILE] ...
+#  DESCRIPTION
+#  Installs the given file(s) into the directory under $D specified by the
+#  preceding call to insinto.  Files are made not executable.
 #****
 doins() {
 	if ! defined _insinto_dir || [ ! -d ${D}${_insinto_dir} ]
@@ -234,7 +270,13 @@ doins() {
 	done
 }
 
-#****f* Installing/newins
+#****I* Installing/newins
+#  SYNOPSIS
+#  newins FILE NEW_NAME
+#  DESCRIPTION
+#  Installs the given file into the directory under $D specified by the
+#  preceding call to insinto, renaming it as indicated.  Files are made not
+#  executable.
 #****
 newins() {
 	if ! defined _insinto_dir || [ ! -d ${D}${_insinto_dir} ]
@@ -246,7 +288,17 @@ newins() {
 }
 
 
-#****f* Installing/doicon
+#****I* Installing/doicon
+#  SYNOPSIS
+#  doicon FILE [FILE] ...
+#  DESCRIPTION
+#  Installs the given image file(s) into the legacy icon directory under $D.
+#  NOTES
+#  * Supported icon formats are PNG, XPM, and SVG.
+#  * This location is intended for packages shipping a single icon.  If the
+#    same PNG icon is available in different sizes, with or without a
+#    corresponding SVG, then these icons should be installed into
+#    the Hicolor Icon Theme hierarchy.
 #****
 doicon() {
 	local _insinto_tmp=${_insinto_dir}
@@ -257,7 +309,14 @@ doicon() {
 	_insinto_dir=${_insinto_tmp}
 }
 
-#****f* Installing/newicon
+#****I* Installing/newicon
+#  SYNOPSIS
+#  newicon FILE NEW_NAME
+#  DESCRIPTION
+#  Installs the given image file into the legacy icon directory under $D,
+#  renaming it as indicated.
+#  NOTE
+#  Supported icon formats are PNG, XPM, and SVG.
 #****
 newicon() {
 	local _insinto_tmp=${_insinto_dir}
@@ -268,7 +327,13 @@ newicon() {
 	_insinto_dir=${_insinto_tmp}
 }
 
-#****f* Installing/dolib
+#****I* Installing/dolib
+#  SYNOPSIS
+#  dolib LIBRARY [LIBRARY] ...
+#  DESCRIPTION
+#  Installs the given libtool, static, or import libraries into $D/usr/lib/.
+#  NOTE
+#  Library DLLs must be installed with dobin.
 #****
 dolib() {
 	dodir /usr/lib
@@ -281,7 +346,13 @@ dolib() {
 	done
 }
 
-#****f* Installing/doman
+#****I* Installing/doman
+#  SYNOPSIS
+#  doman [[-l |--lang=]LANGUAGE] MANPAGE [MANPAGE] ...
+#  DESCRIPTION
+#  Installs the given manpage(s) into the appropriate subdirectory of
+#  $D/usr/share/man/.  Localized manpages can be installed by specifing
+#  the --lang (-l) argument, otherwise manpages are assumed to be in English.
 #****
 doman() {
 	local manroot=/usr/share/man
@@ -327,7 +398,14 @@ doman() {
 	done
 }
 
-#****f* Installing/newman
+#****I* Installing/newman
+#  SYNOPSIS
+#  newman [[-l |--lang=]LANGUAGE] MANPAGE NEW_NAME
+#  DESCRIPTION
+#  Installs the given manpage into the appropriate subdirectory of
+#  $D/usr/share/man/ with the given new name.  Localized manpages can be
+#  installed by specifing the --lang (-l) argument, otherwise manpages are
+#  assumed to be in English.
 #****
 newman() {
 	local manroot=/usr/share/man
@@ -366,7 +444,11 @@ newman() {
 	__doinstall 0644 ${1} ${mandir}/man${mansection} ${2} || error "doman ${1} failed"
 }
 
-#****f* Installing/domenu
+#****I* Installing/domenu
+#  SYNOPSIS
+#  domenu DESKTOP_MENU [DESKTOP_MENU] ...
+#  DESCRIPTION
+#  Installs the given desktop menu entries (.desktop).
 #****
 domenu() {
 	local _insinto_tmp=${_insinto_dir}
@@ -377,7 +459,11 @@ domenu() {
 	_insinto_dir=${_insinto_tmp}
 }
 
-#****f* Installing/newmenu
+#****I* Installing/newmenu
+#  SYNOPSIS
+#  newmenu DESKTOP_MENU NEW_NAME
+#  DESCRIPTION
+#  Installs the given desktop menu entry (.desktop) with the given new name.
 #****
 newmenu() {
 	local _insinto_tmp=${_insinto_dir}
@@ -388,7 +474,11 @@ newmenu() {
 	_insinto_dir=${_insinto_tmp}
 }
 
-#****f* Installing/dosbin
+#****I* Installing/dosbin
+#  SYNOPSIS
+#  dosbin FILE [FILE] ...
+#  DESCRIPTION
+#  Installs the given file(s) to $D/usr/sbin/ and makes them executable.
 #****
 dosbin() {
 	local _exeinto_tmp=${_exeinto_dir}
@@ -399,7 +489,12 @@ dosbin() {
 	_exeinto_dir=${_exeinto_tmp}
 }
 
-#****f* Installing/newsbin
+#****I* Installing/newsbin
+#  SYNOPSIS
+#  newsbin FILE NEW_NAME
+#  DESCRIPTION
+#  Installs the given file to $D/usr/sbin/ with the given new name, and makes
+#  it executable.
 #****
 newsbin() {
 	local _exeinto_tmp=${_exeinto_dir}
@@ -411,7 +506,17 @@ newsbin() {
 }
 
 
-#****f* Installing/dosym
+#****I* Installing/dosym
+#  SYNOPSIS
+#  dosym TARGET [TARGET] ... DESTINATION
+#  DESCRIPTION
+#  Creates symlinks from the given target(s) to the given destination.  The
+#  destination must be a directory if more than one target is given).  Both
+#  relative and absolute targets are supported; relative targets must be given
+#  in relation to the destination.
+#  NOTE
+#  The destination directory must exist under $D before dosym is called,
+#  therefore a preceding call to dodir may be necessary.
 #****
 dosym() {
 	local _argv=("dosym" ${@})
@@ -425,7 +530,7 @@ dosym() {
 	dest="${_argv[${_argc}]}"
 
 	# cd should allow for relative symlinks
-	# e.g. dosym ../../share/foo /usr/lib/
+	# e.g. dosym ../share/foo /usr/lib/
 	if [ -d ${D}${dest} ]
 	then
 		pushd ${D}${dest}
@@ -442,7 +547,20 @@ dosym() {
 }
 
 
-#****f* Installing/make_desktop_entry
+#****I* Installing/make_desktop_entry
+#  SYNOPSIS
+#  make_desktop_entry COMMAND NAME ICON CATEGORIES [COMMENT] [ADDITIONAL_FIELD]
+#  DESCRIPTION
+#  Creates a desktop menu entry for GUI applications as follows:
+#  * COMMAND: the command line.  May contain arguments, in which case the
+#    entire command must be quoted.
+#  * NAME: the application name to be shown in the menu.
+#  * ICON: the icon name, excluding the file extension.
+#  * CATEGORIES: a colon-separated list of categories and subcategories per
+#    |html the <a href="http://standards.freedesktop.org/menu-spec/latest/apa.html">Desktop Menu Specification</a>.
+#  * COMMENT: (optional) description of the program
+#  * ADDITIONAL_FIELD: (optional) an additional menu entry field, such as
+#    OnlyShowIn or MimeType.
 #****
 make_desktop_entry() {
 	if (( $# < 2 ))
@@ -467,7 +585,14 @@ make_desktop_entry() {
 	_EOF
 }
 
-#****f* Installing/make_etc_defaults
+#****I* Installing/make_etc_defaults
+#  SYNOPSIS
+#  make_etc_defaults FILE_PATH [FILE_PATH] ...
+#  DESCRIPTION
+#  Indicates that the given file(s) under $D are templates for system-configurable
+#  files.  make_etc_defaults moves these files to a special location, creates
+#  a postinstall script to install the file to the correct location if it doesn't
+#  already exist, and a preremove script which removes the file if still unchanged.
 #****
 make_etc_defaults() {
 	for etc in ${@}
@@ -501,13 +626,16 @@ make_etc_defaults() {
 	done
 }
 
-#****if* Installing/__prepinstalldirs
-#****
 __prepinstalldirs() {
 	rm -fr ${D}/*;
 }
 
-#****f* Installing/cyginstall
+#****I* Installing/cyginstall
+#  SYNOPSIS
+#  cyginstall [OPTIONS]
+#  DESCRIPTION
+#  Runs 'make install' (or 'make install/fast' in CMake packages) with the
+#  necessary arguments to install into $D, based on the value of USE_DESTDIR.
 #****
 cyginstall() {
 	if $(make -n -s install/fast &> /dev/null)
@@ -517,11 +645,17 @@ cyginstall() {
 		inst_target="install"
 	fi
 
+#****v* cyginstall/USE_DESTDIR
+#  DESCRIPTION
+#  Set to 1 (the default) if 'make install' supports the DESTDIR variable, or
+#  0 if not, in which case the value of prefix and the standard *dir variables
+#  will be overriden with $D-prefixed values.
+#****
 	case ${USE_DESTDIR:-1} in
-		1|[Yy]|[Yy][Ee][Ss])
+		1|[Yy]|[Yy][Ee][Ss]|[Oo][Nn]|[Tt][Rr][Uu][Ee])
 			make ${MAKEOPTS} ${inst_target} DESTDIR=${D} "${@}" || error "make install DESTDIR failed"
 			;;
-		0|[Nn]|[Nn][Oo])
+		0|[Nn]|[Nn][Oo]|[Oo][Ff][Ff]|[Ff][Aa][Ll][Ss][Ee])
 			make ${MAKEOPTS} install \
 				prefix=${D}/usr \
 				exec_prefix=${D}/usr \
@@ -544,7 +678,14 @@ cyginstall() {
 	esac
 }
 
-#****f* Installing/src_install
+#****I* Installing/src_install
+#  DESCRIPTION
+#  This function must be defined in the .cygport file, or in inherit()ed
+#  cygclasses, containing all steps necessary to install the package into
+#  $D and prepare it for packaging.
+#
+#  The default src_install function is shown below.  Several cygclasses
+#  provide their own src_install overrides.
 #  DEFINITION
 src_install() {
 	cd ${B}
