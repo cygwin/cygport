@@ -48,7 +48,7 @@ __show_help() {
 __show_version() {
 	cat <<-_EOF
 		cygport ${_version}
-		Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+		Copyright (C) 2010 Yaakov Selkowitz
 
 		This program comes with NO WARRANTY, to the extent permitted by law.
 
