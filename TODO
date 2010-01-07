@@ -1,21 +1,13 @@
-Priority changes for 0.9 (Cygwin 1.7):
+A wishlist of features to add in future releases, in no particular order:
 
-* Fix rcs tarball names to allow more than one at a time
-* cross: overhaul, support mingw (perhaps separate mingw.cygclass)
-* Debug and/or Verbose mode
 * Fix all FIXMEs
-
-
-The rest is a wishlist of features to add in future releases, in no
-particular order:
-
+* Debug and/or Verbose mode
 * Complete test suite
 * NLS
 * dolocale
 * dosed
 * Additional cygclasses:
 	- alternatives
-	- relocate: http://cygwin.com/ml/cygwin/2006-10/msg00743.html
 * Windows shortcuts for X11 programs
 	doico /path/to/pixmap.png [calls png(to|2)ico and doins]
 	make_win_shortcut Foo [run.exe foo.exe -wait --display=...]
@@ -23,4 +15,8 @@ particular order:
 * Split debug
 * If a dependency DLL's package was not found with "cygcheck -f"
   (e.g. it was installed manually), show the DLL path instead.
+* Fix rcs tarball names to allow more than one at a time
 * wrapper for Xfake when build expects an X server (e.g. perl-OpenGL)
+* cross: overhaul, support mingw (perhaps separate mingw.cygclass)
+
+

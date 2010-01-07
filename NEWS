@@ -1,3 +1,21 @@
+0.9.80:
+	* API documentation.
+	* SRC_URI supports .tar.lz archives.
+	* do* and new* install functions detect and correctly install libtool .la
+	  and .exe wrappers.
+	* Programs missing an .exe suffix are now stripped and suffixed.
+	* New mirror: savannah.
+	* New cygclasses: ant, python3, vim.
+	* Overhauled cygclasses: docbook, java, opensync, rox, xorg.
+	* Improved Mono support:
+		- A strongname key is included for packages without their own.
+		- Added function for creating policy assemblies.
+		- Mono assemblies are packaged non-executable to avoid interference
+		  from Windows .Net Framework.
+		- Mono assembly dependencies are now listed during 'cygport deps'.
+	* gtkmm.cygclass: Adapt for mm-common build system.
+	* gst-plugins0.10.cygclass: Update for latest releases.
+
 0.9.9:
 	* Default LDFLAGS is empty; binutils now auto-imports by default.
 	* gnustep.cygclass: NEW for building GNUstep packages.
