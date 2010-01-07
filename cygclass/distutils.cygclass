@@ -88,7 +88,7 @@ distutils_install() {
 		error "No Python Distutils module detected"
 	fi
 
-	${PYTHON} setup.py install -O0 --root=${D} "${@}" || error "setup.py install failed"
+	${PYTHON} setup.py "${@}" install -O0 --root=${D} || error "setup.py install failed"
 
 	# only zope.interface should provide zope.__init__ because
 	# (almost) all other zope modules depend on it
