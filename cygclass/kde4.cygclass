@@ -24,20 +24,18 @@
 ################################################################################
 
 #****h* Cygclasses/kde4.cygclass
-#  NAME
-#    kde4.cygclass -- Build KDE 4.x packages
 #  SYNOPSIS
-#    inherit kde4
+#  inherit kde4
 #  DESCRIPTION
-#    The KDE project provides a full-featured X desktop with a wide variety
-#    of applications, built on a library stack all based on the Qt C++ libraries.
-#    Most packages are written in C++ and are built with CMake.
+#  The KDE project provides a full-featured X desktop with a wide variety
+#  of applications, built on a library stack all based on the Qt C++ libraries.
+#  Most packages are written in C++ and are built with CMake.
 #
-#    This cygclass manages the building of most KDE4-based packages.
+#  This cygclass manages the building of most KDE4-based packages.
 #  NOTE
-#    This is only for KDE 4.x packages; for KDE 3.x, use kde3.cygclass instead.
+#  This is only for KDE 4.x packages; for KDE 3.x, use kde3.cygclass instead.
 #  INHERITS
-#    cmake.cygclass, qt4.cygclass
+#  cmake.cygclass, qt4.cygclass
 #****
 
 inherit cmake qt4
@@ -49,9 +47,9 @@ HOMEPAGE="http://www.kde.org/"
 
 #****o* kde4.cygclass/SRC_URI (kde4)
 #  DESCRIPTION
-#    Download location for the release tarball.
+#  Download location for the release tarball.
 #  SEE ALSO
-#    mirror_kde
+#  mirror_kde
 #****
 case "${PN}:${PV}" in
 	automoc4:0.9.8[89])
@@ -59,9 +57,6 @@ case "${PN}:${PV}" in
 		;;
 	amarok:2.*)
 		SRC_URI="mirror://kde/stable/${PN}/${PV}/src/${P}.tar.bz2"
-		;;
-	kdevplatform:0.9.94|kdevelop:3.9.94)
-		SRC_URI="mirror://kde/unstable/kdevelop/3.${PV[2]}.${PV[3]}/${P}.tar.bz2"
 		;;
 	kdevplatform:0.9.*|kdevelop:3.9.*)
 		SRC_URI="mirror://kde/unstable/kdevelop/3.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
@@ -93,7 +88,7 @@ if ! defined SVN_URI
 then
 #****o* kde4.cygclass/SVN_URI (kde4)
 #  NOTE
-#    svn.cygclass should be inherit()ed last for this to be of use.
+#  svn.cygclass should be inherit()ed last for this to be of use.
 #  DEFINITION
 SVN_URI="svn://anonsvn.kde.org/home/kde"
 #****
@@ -106,16 +101,16 @@ export QT_PLUGIN_PATH=${QT4_PLUGINSDIR}
 
 #****C* kde4.cygclass/kde4_compile
 #  SYNOPSIS
-#    kde4_compile [OPTIONS]
+#  kde4_compile [OPTIONS]
 #  DESCRIPTION
-#    Runs cygcmake to configure the package with several Cygwin- and KDE-specific
-#    options, then runs cygmake to compile.  Options, in the form of
-#    -DVARIABLE=VALUE, are passed on to cygcmake.
+#  Runs cygcmake to configure the package with several Cygwin- and KDE-specific
+#  options, then runs cygmake to compile.  Options, in the form of -DVARIABLE=VALUE,
+#  are passed on to cygcmake.
 #  NOTE
-#    Source subdirectories which are declared with macro_optional_add_subdirectory()
-#    in CMakeLists.txt can be disabled with '-DBUILD_foo=OFF' arguments.
+#  Source subdirectories which are declared with macro_optional_add_subdirectory()
+#  in CMakeLists.txt can be disabled with '-DBUILD_foo=OFF' arguments.
 #  REQUIRES
-#    automoc4, cmake, libQtCore4-devel, libQtGui4-devel
+#  automoc4, cmake, libQtCore4-devel, libQtGui4-devel
 #****
 kde4_compile() {
 	local skip skipargs
@@ -146,13 +141,13 @@ kde4_compile() {
 
 #****I* kde4.cygclass/kde4_install
 #  SYNOPSIS
-#    kde4_install [OPTIONS]
+#  kde4_install [OPTIONS]
 #  DESCRIPTION
-#    Installs a KDE4 package with cyginstall into $D with some additional steps:
-#    * Import libraries for libkdeinit4_* libraries are removed, as they are never used.
-#    * README docs for subpackages in PKG_NAMES are installed into their own
-#      subdirectories of /usr/share/doc/ under $D.
-#    Options, if any, are passed on to cyginstall.
+#  Installs a KDE4 package with cyginstall into $D with some additional steps:
+#  * Import libraries for libkdeinit4_* libraries are removed, as they are never used.
+#  * README docs for subpackages in PKG_NAMES are installed into their own
+#    subdirectories of /usr/share/doc/ under $D.
+#  Options, if any, are passed on to cyginstall.
 #****
 kde4_install() {
 	local doc kdepkg

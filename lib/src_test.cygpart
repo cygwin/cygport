@@ -24,10 +24,10 @@
 
 #****T* Testing/cygtest
 #  SYNOPSIS
-#    cd $B
-#    cygtest
+#  cd $B
+#  cygtest
 #  DESCRIPTION
-#    Runs the package testsuite with 'make check' or 'make test'.
+#  Runs the package testsuite with 'make check' or 'make test'.
 #****
 cygtest() {
 	if [ -e Makefile -o -e GNUmakefile -o -e makefile ]
@@ -48,11 +48,11 @@ cygtest() {
 
 #****T* Testing/src_test
 #  DESCRIPTION
-#    This function is to be defined in the .cygport file, listing all steps
-#    necessary to run the package's test suite, if any.
+#  This function is to be defined in the .cygport file, listing all steps
+#  necessary to run the package's test suite, if any.
 #
-#    The default src_test function is shown below. A few cygclasses provide
-#    their own src_test overrides.
+#  The default src_test function is shown below. A few cygclasses provide
+#  their own src_test overrides.
 #  DEFINITION
 src_test() {
 	cd ${B}

@@ -24,25 +24,23 @@
 ################################################################################
 
 #****h* Cygclasses/gtk2-perl.cygclass
-#  NAME
-#    gtk2-perl.cygclass -- Build GTK+/GNOME Perl bindings
 #  SYNOPSIS
-#    [CPAN_AUTHOR=username]
-#    inherit gtk2-perl
+#  [CPAN_AUTHOR=username]
+#  inherit gtk2-perl
 #  DESCRIPTION
-#    The Gtk2-Perl project provides Perl bindings for the GLib, GTK+, and GNOME
-#    libraries, allowing full-fledged GNOME programs to be written in the Perl
-#    programming language.  Source packages are based on the ExtUtils::MakeMaker
-#    system with some additions to handle the unique requirements of inter-module
-#    dependencies and POD generation from XS.  Several third-party modules are
-#    also available on CPAN which use the same system to bind libraries not yet
-#    covered by the Gtk2-Perl project.
+#  The Gtk2-Perl project provides Perl bindings for the GLib, GTK+, and GNOME
+#  libraries, allowing full-fledged GNOME programs to be written in the Perl
+#  programming language.  Source packages are based on the ExtUtils::MakeMaker
+#  system with some additions to handle the unique requirements of inter-module
+#  dependencies and POD generation from XS.  Several third-party modules are
+#  also available on CPAN which use the same system to bind libraries not yet
+#  covered by the Gtk2-Perl project.
 #
-#    This cygclass builds both official and third-party Gtk2-Perl binding packages.
+#  This cygclass builds both official and third-party Gtk2-Perl binding packages.
 #  INHERITS
-#    perl.cygclass
+#  perl.cygclass
 #  REQUIRES
-#    perl-ExtUtils-Depends, perl-ExtUtils-PkgConfig
+#  perl-ExtUtils-Depends, perl-ExtUtils-PkgConfig
 #****
 
 inherit perl
@@ -52,17 +50,17 @@ then
 
 #****o* gtk2-perl.cygclass/HOMEPAGE (gtk2-perl)
 #  DESCRIPTION
-#    Homepage of the Gtk2-Perl project.
+#  Homepage of the Gtk2-Perl project.
 #  NOTE
-#    If CPAN_AUTHOR is defined, the value set by perl.cygclass is used instead.
+#  If CPAN_AUTHOR is defined, the value set by perl.cygclass is used instead.
 #****
 	HOMEPAGE="http://gtk2-perl.sourceforge.net/"
 
 #****o* gtk2-perl.cygclass/SRC_URI (gtk2-perl)
 #  DESCRIPTION
-#    Download location of the release tarball from the Gtk2-Perl project.
+#  Download location of the release tarball from the Gtk2-Perl project.
 #  NOTE
-#    If CPAN_AUTHOR is defined, the value set by perl.cygclass is used instead.
+#  If CPAN_AUTHOR is defined, the value set by perl.cygclass is used instead.
 #****
 	SRC_URI="mirror://sourceforge/gtk2-perl/${ORIG_PN}-${PV}.tar.gz"
 
@@ -70,30 +68,30 @@ fi  # ! defined CPAN_AUTHOR
 
 #****o* gtk2-perl.cygclass/DEPS_PATH (gtk2-perl)
 #  DESCRIPTION
-#    Gtk2-Perl modules are unique that they are not only linked against the C
-#    libraries which they bind, but also expose an API to bindings higher up in
-#    the stack which link against them as well.  Therefore, DEPS_PATH is set to
-#    catch these inter-module link dependencies.
+#  Gtk2-Perl modules are unique that they are not only linked against the C
+#  libraries which they bind, but also expose an API to bindings higher up in
+#  the stack which link against them as well.  Therefore, DEPS_PATH is set to
+#  catch these inter-module link dependencies.
 #****
 DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS:${PERL_VENDORARCH}/auto/Gnome2/GConf"
 
 #****C* gtk2-perl.cygclass/gtk2_perl_compile
 #  DESCRIPTION
-#    Configures and compiles a Gtk2-Perl module package.
+#  Configures and compiles a Gtk2-Perl module package.
 #  HISTORY
-#    Gtk2-Perl's build system originally posed some challenges on Cygwin:
-#    * Inter-module linking.  ExtUtils-Depends did not support this for quite
-#      some time, so the necessary link libraries had to be specially added.
-#    * POD manpages.  On other *NIX systems, POD manpages are generated from
-#      hand-written POD files and include '::' in their filename, which was
-#      illegal on Cygwin until 1.7, so perl and man are patched to substitute
-#      '::' with '.'.  Gtk2-Perl uses its own system to first build POD files
-#      from XS, then build manpages from those, so the 's/::/./g' substitution
-#      was not available and intervention was required to create the manpages.
-#      Since Cygwin 1.7, however, technically this would no longer necessary, as
-#      filenames can include ':', but man still makes the substitution.
-#    Therefore, this function passes the build off to perl_compile, then renames
-#    the manpages afterwards so that man can find them.
+#  Gtk2-Perl's build system originally posed some challenges on Cygwin:
+#  * Inter-module linking.  ExtUtils-Depends did not support this for quite
+#    some time, so the necessary link libraries had to be specially added.
+#  * POD manpages.  On other *NIX systems, POD manpages are generated from
+#    hand-written POD files and include '::' in their filename, which was
+#    illegal on Cygwin until 1.7, so perl and man are patched to substitute
+#    '::' with '.'.  Gtk2-Perl uses its own system to first build POD files
+#    from XS, then build manpages from those, so the 's/::/./g' substitution
+#    was not available and intervention was required to create the manpages.
+#    Since Cygwin 1.7, however, technically this would no longer necessary, as
+#    filenames can include ':', but man still makes the substitution.
+#  Therefore, this function passes the build off to perl_compile, then renames
+#  the manpages afterwards so that man can find them.
 #****
 gtk2_perl_compile() {
 	perl_compile

@@ -24,24 +24,22 @@
 ################################################################################
 
 #****h* Cygclasses/qt3-qmake.cygclass
-#  NAME
-#    qt3-qmake.cygclass -- Build Qt3-based packages with qmake
 #  SYNOPSIS
-#    inherit qt3-qmake
+#  inherit qt3-qmake
 #  DESCRIPTION
-#    This cygclass builds Qt3-based packages which use the qmake build system.
+#  This cygclass builds Qt3-based packages which use the qmake build system.
 #  INHERITS
-#    qt3.cygclass
+#  qt3.cygclass
 #****
 
 inherit qt3
 
 #****C* qt3-qmake.cygclass/cygqmake3
 #  SYNOPSIS
-#    cd $B
-#    cygqmake3
+#  cd $B
+#  cygqmake3
 #  DESCRIPTION
-#    Generates Makefiles from the package's qmake project files.
+#  Generates Makefiles from the package's qmake project files.
 #****
 cygqmake3() {
 	local pro
@@ -70,14 +68,14 @@ qt3_qmake_compile() {
 
 #****I* qt3-qmake.cygclass/qt3_qmake_install
 #  SYNOPSIS
-#    cd $B
-#    qt3_qmake_install
+#  cd $B
+#  qt3_qmake_install
 #  DESCRIPTION
-#    Installs the package into $D and fixes some common installation issues.
+#  Installs the package into $D and fixes some common installation issues.
 #  WARNING
-#    Many qmake projects do not define correct install rules, if any at all.
-#    qt3_qmake_install is of no use in such cases; you must use manual
-#    installation commands instead.
+#  Many qmake projects do not define correct install rules, if any at all.
+#  qt3_qmake_install is of no use in such cases; you must use manual
+#  installation commands instead.
 #****
 qt3_qmake_install() {
 	local dll pc

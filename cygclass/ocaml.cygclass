@@ -24,109 +24,107 @@
 ################################################################################
 
 #****h* Cygclasses/ocaml.cygclass
-#  NAME
-#    ocaml.cygclass -- Build packages which use the OCaml programming language.
 #  SYNOPSIS
-#    inherit ocaml
+#  inherit ocaml
 #  DESCRIPTION
-#    Objective Caml is an object-oriented dialect of the ML programming language.
-#    Individual scripts can be run as with interpreted languages, but most commonly
-#    code is compiled into bytecode and/or stand-alone native code.  A number of
-#    extension libraries are available in addition to the standard library.
+#  Objective Caml is an object-oriented dialect of the ML programming language.
+#  Individual scripts can be run as with interpreted languages, but most commonly
+#  code is compiled into bytecode and/or stand-alone native code.  A number of
+#  extension libraries are available in addition to the standard library.
 #
-#    This cygclass provides definitions for OCaml-based packages, and an install
-#    function for OCaml library packages which use OCAMLFIND.
+#  This cygclass provides definitions for OCaml-based packages, and an install
+#  function for OCaml library packages which use OCAMLFIND.
 #  NOTE
-#    OCaml bytecode executables, while behaving like an ordinary .exe, cannot be
-#    stripped.  Cygport will automatically detect these and will not strip them
-#    during the automatic postinstall phase.
+#  OCaml bytecode executables, while behaving like an ordinary .exe, cannot be
+#  stripped.  Cygport will automatically detect these and will not strip them
+#  during the automatic postinstall phase.
 #  REQUIRES
-#    ocaml, ocaml-findlib
+#  ocaml, ocaml-findlib
 #****
 
 check_prog_req ocaml
 
 #****d* ocaml.cygclass/OCAML
 #  DESCRIPTION
-#    Absolute path to the OCaml interactive toplevel (interpreter).
+#  Absolute path to the OCaml interactive toplevel (interpreter).
 #****
 OCAML=$(type -p ocaml)
 
 #****d* ocaml.cygclass/OCAMLC
 #  DESCRIPTION
-#    Absolute path to the OCaml byte compiler.
+#  Absolute path to the OCaml byte compiler.
 #****
 OCAMLC=$(type -p ocamlc.opt)
 
 #****d* ocaml.cygclass/OCAMLDOC
 #  DESCRIPTION
-#    Absolute path to the OCaml documentation generator.
+#  Absolute path to the OCaml documentation generator.
 #****
 OCAMLDOC=$(type -p ocamldoc.opt)
 
 #****d* ocaml.cygclass/OCAMLFIND
 #  DESCRIPTION
-#    Absolute path to the OCaml library package manager.
+#  Absolute path to the OCaml library package manager.
 #****
 OCAMLFIND=$(type -p ocamlfind)
 
 #****d* ocaml.cygclass/OCAMLLEX
 #  DESCRIPTION
-#    Absolute path to the OCaml lexer generator.
+#  Absolute path to the OCaml lexer generator.
 #****
 OCAMLLEX=$(type -p ocamllex.opt)
 
 #****d* ocaml.cygclass/OCAMLMKLIB
 #  DESCRIPTION
-#    Absolute path to the OCaml library linker.
+#  Absolute path to the OCaml library linker.
 #****
 OCAMLMKLIB=$(type -p ocamlmklib)
 
 #****d* ocaml.cygclass/OCAMLMKTOP
 #  DESCRIPTION
-#    Absolute path to the OCaml custom toplevel linker.
+#  Absolute path to the OCaml custom toplevel linker.
 #****
 OCAMLMKTOP=$(type -p ocamlmktop)
 
 #****d* ocaml.cygclass/OCAMLOPT
 #  DESCRIPTION
-#    Absolute path to the OCaml native-code compiler.
+#  Absolute path to the OCaml native-code compiler.
 #****
 OCAMLOPT=$(type -p ocamlopt.opt)
 
 #****d* ocaml.cygclass/OCAML_LIBDIR
 #  DESCRIPTION
-#    Installation path for OCaml included libraries.
+#  Installation path for OCaml included libraries.
 #****
 OCAML_LIBDIR=$(${OCAMLC} -where)
 
 #****d* ocaml.cygclass/OCAML_INCLUDEDIR
 #  DESCRIPTION
-#    Absolute path to the directory containing the OCaml C headers.
+#  Absolute path to the directory containing the OCaml C headers.
 #****
 OCAML_INCLUDEDIR=${OCAML_LIBDIR}/caml
 
 #****d* ocaml.cygclass/OCAML_SITEDIR
 #  DESCRIPTION
-#    Installation path for OCaml third-party libraries.
+#  Installation path for OCaml third-party libraries.
 #****
 OCAML_SITEDIR=${OCAML_LIBDIR}
 
 #****d* ocaml.cygclass/OCAML_STUBDIR
 #  DESCRIPTION
-#    Installation path for OCaml C stub libraries.
+#  Installation path for OCaml C stub libraries.
 #****
 OCAML_STUBDIR=${OCAML_LIBDIR}/stublibs
 
 #****d* ocaml.cygclass/LIBCAMLRUN
 #  DESCRIPTION
-#    Link flags for the OCaml shared C library.
+#  Link flags for the OCaml shared C library.
 #****
 LIBCAMLRUN="-L${OCAML_LIBDIR} -lcamlrun_shared"
 
 #****I* ocaml.cygclass/ocaml_install
 #  DESCRIPTION
-#    Defines some variables for OCAMLFIND before calling cyginstall.
+#  Defines some variables for OCAMLFIND before calling cyginstall.
 #****
 ocaml_install() {
 	dodir ${OCAML_STUBDIR}

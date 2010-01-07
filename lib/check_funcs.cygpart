@@ -24,10 +24,10 @@
 
 #****f* Checks/check_prog
 #  SYNOPSIS
-#    check_prog PROGRAM [PROGRAM2] ...
+#  check_prog PROGRAM [PROGRAM2] ...
 #  DESCRIPTION
-#    Checks for the presence of the given program(s) in PATH.  Returns TRUE
-#    if all programs are present, else FALSE.
+#  Checks for the presence of the given program(s) in PATH.  Returns TRUE
+#  if all programs are present, else FALSE.
 #****
 check_prog() {
 	local _prog;
@@ -45,12 +45,12 @@ check_prog() {
 
 #****f* Checks/check_prog_req
 #  SYNOPSIS
-#    check_prog_req PROGRAM [PACKAGE]
+#  check_prog_req PROGRAM [PACKAGE]
 #  DESCRIPTION
-#    Check that the given required program is present in PATH.  If not, call
-#    error() indicating which package contains the program that needs to be
-#    installed.  If only the program name is given, the package is assumed
-#    to be eponymous.
+#  Check that the given required program is present in PATH.  If not, call
+#  error() indicating which package contains the program that needs to be
+#  installed.  If only the program name is given, the package is assumed
+#  to be eponymous.
 #****
 check_prog_req() {
 	local prog=${1};

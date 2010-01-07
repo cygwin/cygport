@@ -24,14 +24,12 @@
 ################################################################################
 
 #****h* Cygclasses/ebook.cygclass
-#  NAME
-#    ebook.cygclass -- Creates packages from HTML Help ebooks
 #  DESCRIPTION
-#    The HTML Help Books project converts manuals for the toolchain and other
-#    common tools into several formats.
+#  The HTML Help Books project converts manuals for the toolchain and other
+#  common tools into several formats.
 #
-#    This cygclass creates packages from the HTML format documentation which
-#    can then be viewed in DevHelp (GNOME's API documentation browser).
+#  This cygclass creates packages from the HTML format documentation which
+#  can then be viewed in DevHelp (GNOME's API documentation browser).
 #****
 
 ORIG_PN="${PN#ebook-}"
@@ -52,12 +50,11 @@ SRC_DIR="."
 
 #****I* ebook.cygclass/ebook_install
 #  SYNOPSIS
-#    cd $S
-#    ebook_install
+#  ebook_install
 #  DESCRIPTION
-#    Installs the documentation into DevHelp's books directory under $D.
+#  Installs the documentation into DevHelp's books directory under $D.
 #  NOTE
-#    Must be run from the directory containing the 'book.devhelp' file.
+#  Must be run from the directory containing the 'book.devhelp' file.
 #****
 ebook_install() {
 	if [ ! -e book.devhelp ]
@@ -72,7 +69,7 @@ ebook_install() {
 
 #****o* ebook.cygclass/src_compile (ebook)
 #  DESCRIPTION
-#    There is nothing to build, so this is empty.
+#  There is nothing to build, so this is empty.
 #****
 src_compile() { :; }
 

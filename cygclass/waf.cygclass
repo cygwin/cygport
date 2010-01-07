@@ -24,34 +24,32 @@
 ################################################################################
 
 #****h* Cygclasses/waf.cygclass
-#  NAME
-#    waf.cygclass -- Build packages using the Waf build system
 #  SYNOPSIS
-#    inherit waf
+#  inherit waf
 #  DESCRIPTION
-#    Waf is a general-purpose build system written in Python used by XMMS, a
-#    few GTK+ programs, and some other projects.  The build system is defined
-#    by a 'wscript' file in the top source directory and 'wscript_build' files
-#    in subdirectories, both of which are also written in Python.
+#  Waf is a general-purpose build system written in Python used by XMMS, a
+#  few GTK+ programs, and some other projects.  The build system is defined
+#  by a 'wscript' file in the top source directory and 'wscript_build' files
+#  in subdirectories, both of which are also written in Python.
 #
-#    Waf is designed to create a completely self-sufficient package, with the
-#    waf command and library shipped together with the sources.  The issue with
-#    that is only a recent, patched version of Waf will correctly build libraries
-#    on Cygwin.  Therefore, this cygclass uses a system-installed waf command
-#    to drive the build instead.
+#  Waf is designed to create a completely self-sufficient package, with the
+#  waf command and library shipped together with the sources.  The issue with
+#  that is only a recent, patched version of Waf will correctly build libraries
+#  on Cygwin.  Therefore, this cygclass uses a system-installed waf command
+#  to drive the build instead.
 #  NOTE
-#    Packages which ship with very old versions of Waf may not be compatible
-#    with the current Waf API.  In that case, you will need to patch 'wscript'
-#    and/or 'wscript_build' for the current API.  A link to the Waf Book and
-#    API documentation can be found on the
-#    |html <a href="http://code.google.com/p/waf/">Waf project page</a>.
+#  Packages which ship with very old versions of Waf may not be compatible
+#  with the current Waf API.  In that case, you will need to patch 'wscript'
+#  and/or 'wscript_build' for the current API.  A link to the Waf Book and
+#  API documentation can be found on the
+#  |html <a href="http://code.google.com/p/waf/">Waf project page</a>.
 #  REQUIRES
-#    python, waf
+#  python, waf
 #****
 
 #****d* waf.cygclass/WAF
 #  DESCRIPTION
-#    Absolute path to the Waf command.
+#  Absolute path to the Waf command.
 #****
 WAF="/usr/bin/waf"
 
@@ -62,14 +60,14 @@ fi
 
 #****C* waf.cygclass/waf_compile
 #  SYNOPSIS
-#    waf_compile [OPTIONS]
+#  waf_compile [OPTIONS]
 #  DESCRIPTION
-#    Runs 'waf configure' to configure the package, followed by 'waf build' to
-#    compile it.  WAF_CONFIGURE_FLAGS and WAF_BUILD_FLAGS can be defined to pass
-#    additional arguments to the configure and build commands, respectively.
-#    Any arguments to waf_compile are passed as configure flags to the 'waf
-#    configure' command.  waf_compile must be run from the directory containing
-#    'wscript'.
+#  Runs 'waf configure' to configure the package, followed by 'waf build' to
+#  compile it.  WAF_CONFIGURE_FLAGS and WAF_BUILD_FLAGS can be defined to pass
+#  additional arguments to the configure and build commands, respectively.
+#  Any arguments to waf_compile are passed as configure flags to the 'waf
+#  configure' command.  waf_compile must be run from the directory containing
+#  'wscript'.
 #****
 waf_compile() {
 	if [ ! -e wscript ]
@@ -79,23 +77,23 @@ waf_compile() {
 
 #****v* waf_compile/WAF_CONFIGURE_FLAGS
 #  DESCRIPTION
-#    String containing additional arguments to pass to 'waf configure'.
+#  String containing additional arguments to pass to 'waf configure'.
 #****
 	${WAF} configure --prefix=/usr ${WAF_CONFIGURE_FLAGS} ${@} || error "waf configure failed"
 
 #****v* waf_compile/WAF_BUILD_FLAGS
 #  DESCRIPTION
-#    String containing additional arguments to pass to 'waf build'.
+#  String containing additional arguments to pass to 'waf build'.
 #****
 	${WAF} build ${WAF_BUILD_FLAGS} || error "waf build failed"
 }
 
 #****T* waf.cygclass/waf_test
 #  DESCRIPTION
-#    Runs the package's test suite with 'waf check'.  WAF_TEST_FLAGS can be
-#    defined to pass additional arguments to the check command.  Any arguments
-#    to waf_test are passed as well. waf_test must be run from the directory
-#    containing 'wscript'.
+#  Runs the package's test suite with 'waf check'.  WAF_TEST_FLAGS can be
+#  defined to pass additional arguments to the check command.  Any arguments
+#  to waf_test are passed as well. waf_test must be run from the directory
+#  containing 'wscript'.
 #****
 waf_test() {
 	if [ ! -e wscript ]
@@ -105,17 +103,17 @@ waf_test() {
 
 #****v* waf_test/WAF_TEST_FLAGS
 #  DESCRIPTION
-#    String containing additional arguments to pass to 'waf check'.
+#  String containing additional arguments to pass to 'waf check'.
 #****
 	${WAF} check -k ${WAF_TEST_FLAGS} ${@} || true
 }
 
 #****I* waf.cygclass/waf_install
 #  DESCRIPTION
-#    Installs the package into $D with 'waf install'.  WAF_INSTALL_FLAGS can be
-#    defined to pass additional arguments to the install command.  Any arguments
-#    to waf_install are passed as well. waf_install must be run from the directory
-#    containing 'wscript'.
+#  Installs the package into $D with 'waf install'.  WAF_INSTALL_FLAGS can be
+#  defined to pass additional arguments to the install command.  Any arguments
+#  to waf_install are passed as well. waf_install must be run from the directory
+#  containing 'wscript'.
 #****
 waf_install() {
 	if [ ! -e wscript ]
@@ -125,7 +123,7 @@ waf_install() {
 
 #****v* waf_install/WAF_INSTALL_FLAGS
 #  DESCRIPTION
-#    String containing additional arguments to pass to 'waf install'.
+#  String containing additional arguments to pass to 'waf install'.
 #****
 	${WAF} install --destdir=${D} ${WAF_INSTALL_FLAGS} ${@} || error "waf install failed"
 }

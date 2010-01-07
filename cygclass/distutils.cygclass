@@ -24,41 +24,41 @@
 ################################################################################
 
 #****h* Cygclasses/distutils.cygclass
-#  NAME
-#    distutils.cygclass -- Build Python packages with distutils
 #  DESCRIPTION
-#    Distutils is the most common method for building and installing Python
-#    libraries and programs.  The build is defined by a setup.py file in the
-#    top source directory, which controls the installation of files and the
-#    building of C Python extensions.  Many such packages are hosted on the
-#    Python Package Index (PyPI, previously known as Cheeseshop).
+#  Distutils is the most common method for building and installing Python
+#  libraries and programs.  The build is defined by a setup.py file in the
+#  top source directory, which controls the installation of files and the
+#  building of C Python extensions.  Many such packages are hosted on the
+#  Python Package Index (PyPI, previously known as Cheeseshop).
 #
-#    This cygclass handles the building of distutils-based packages.
+#  This cygclass handles the building of distutils-based packages.
 #  INHERITS
-#    python.cygclass
+#  python.cygclass
 #  REQUIRES
-#    python
+#  python
 #****
 inherit python
 
 ORIG_PN=${ORIG_PN:-${PN#python-}}
 
 #****o* distutils.cygclass/HOMEPAGE (distutils)
-#  DEFINITION
-HOMEPAGE="http://pypi.python.org/pypi/${ORIG_PN}"
+#  DESCRIPTION
+#  Default homepage of the Python module on the Python Package Index.
 #****
+HOMEPAGE="http://pypi.python.org/pypi/${ORIG_PN}"
 
 #****o* distutils.cygclass/SRC_URI (distutils)
-#  DEFINITION
-SRC_URI="http://pypi.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
+#  DESCRIPTION
+#  Download location of the Python module on the Python Package Index.
 #****
+SRC_URI="http://pypi.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
 
 #****C* distutils.cygclass/distutils_compile
 #  SYNOPSIS
-#    distutils_compile [OPTIONS]
+#  distutils_compile [OPTIONS]
 #  DESCRIPTION
-#    Runs the setup.py 'config' and 'build' commands.  All arguments are passed
-#    to the setup.py 'build' command.
+#  Runs the setup.py 'config' and 'build' commands.  All arguments are passed
+#  to the setup.py 'build' command.
 #****
 distutils_compile() {
 	if [ ! -e setup.py ]
@@ -76,11 +76,11 @@ distutils_test() {
 
 #****I* distutils.cygclass/distutils_install
 #  SYNOPSIS
-#    distutils_install [OPTIONS]
+#  distutils_install [OPTIONS]
 #  DESCRIPTION
-#    Runs the setup.py 'install' phase, setting the root argument to install
-#    into $D, followed by python_optimize.  All arguments are passed to the
-#    setup.py 'install' command.
+#  Runs the setup.py 'install' phase, setting the root argument to install
+#  into $D, followed by python_optimize.  All arguments are passed to the
+#  setup.py 'install' command.
 #****
 distutils_install() {
 	if [ ! -e setup.py ]

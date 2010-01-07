@@ -24,96 +24,94 @@
 ################################################################################
 
 #****h* Cygclasses/ruby.cygclass
-#  NAME
-#    ruby.cygclass -- Build packages using the Ruby programming language
 #  SYNOPSIS
-#    inherit ruby
+#  inherit ruby
 #  DESCRIPTION
-#    Ruby is a general-purpose, object oriented scripting language.  Originally
-#    developed in Japan and quite popular there, it has a relatively smaller but
-#    growing user base in the English-speaking world.  The Ruby interpreter
-#    supports extensions written in Ruby or C/C++.
+#  Ruby is a general-purpose, object oriented scripting language.  Originally
+#  developed in Japan and quite popular there, it has a relatively smaller but
+#  growing user base in the English-speaking world.  The Ruby interpreter
+#  supports extensions written in Ruby or C/C++.
 #
-#    This cygclass is primarily meant for building Ruby extension modules.
+#  This cygclass is primarily meant for building Ruby extension modules.
 #  NOTE
-#    Ruby C modules use the .so extension on all platforms, including Cygwin
-#    where .dll is the norm.  The standard Ruby build systems will do this
-#    correctly, but modules build with other build systems will usually need
-#    a patch to force the use of the .so extension.  For instance, with
-#    |html <a href="http://www.gnu.org/software/libtool/manual/html_node/Link-mode.html">automake and libtool</a>:
-#      foo_la_LDFLAGS = -module -avoid-version -no-undefined -shrext '.so'
-#    |html or with <a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#prop_tgt:SUFFIX">CMake</a>:
-#      set_target_properties(foo PROPERTIES PREFIX "" SUFFIX ".so")
+#  Ruby C modules use the .so extension on all platforms, including Cygwin
+#  where .dll is the norm.  The standard Ruby build systems will do this
+#  correctly, but modules build with other build systems will usually need
+#  a patch to force the use of the .so extension.  For instance, with
+#  |html <a href="http://www.gnu.org/software/libtool/manual/html_node/Link-mode.html">automake and libtool</a>:
+#    foo_la_LDFLAGS = -module -avoid-version -no-undefined -shrext '.so'
+#  |html or with <a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#prop_tgt:SUFFIX">CMake</a>:
+#    set_target_properties(foo PROPERTIES PREFIX "" SUFFIX ".so")
 #  INHERITED BY
-#    ruby-gnome2.cygclass
+#  ruby-gnome2.cygclass
 #****
 
 check_prog_req ruby
 
 #****d* ruby.cygclass/RUBY
 #  DESCRIPTION
-#    Absolute path to the Ruby interpreter.
+#  Absolute path to the Ruby interpreter.
 #****
 RUBY=/usr/bin/ruby
 
 #****d* ruby.cygclass/RUBY_VERSION
 #  DESCRIPTION
-#    The major.minor version of the Ruby interpreter.
+#  The major.minor version of the Ruby interpreter.
 #****
 RUBY_VERSION=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["ruby_version"]')
 
 #****d* ruby.cygclass/RUBY_LIB
 #  DESCRIPTION
-#    Path containing the Ruby standard library.
+#  Path containing the Ruby standard library.
 #  NOTE
-#    Never install third-party extensions into RUBY_LIB; use RUBY_SITELIB instead.
+#  Never install third-party extensions into RUBY_LIB; use RUBY_SITELIB instead.
 #****
 RUBY_LIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 
 #****d* ruby.cygclass/RUBY_ARCH
 #  DESCRIPTION
-#    Path containing the Ruby standard C extensions.
+#  Path containing the Ruby standard C extensions.
 #  NOTE
-#    Never install third-party extensions into RUBY_ARCH; use RUBY_SITEARCH instead.
+#  Never install third-party extensions into RUBY_ARCH; use RUBY_SITEARCH instead.
 #****
 RUBY_ARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["archdir"]')
 
 #****d* ruby.cygclass/RUBY_SITELIB
 #  DESCRIPTION
-#    Installation path for third-party Ruby libraries.
+#  Installation path for third-party Ruby libraries.
 #****
 RUBY_SITELIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitelibdir"]')
 
 #****d* ruby.cygclass/RUBY_SITEARCH
 #  DESCRIPTION
-#    Installation path for third-party Ruby C extensions.
+#  Installation path for third-party Ruby C extensions.
 #****
 RUBY_SITEARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitearchdir"]')
 
 #****d* ruby.cygclass/RI_SITEDIR
 #  DESCRIPTION
-#    Installation path for RI docs for third-party Ruby extensions.
+#  Installation path for RI docs for third-party Ruby extensions.
 #****
 RI_SITEDIR=/usr/share/ri/${RUBY_VERSION}/site
 
 #****d* ruby.cygclass/LIBRUBY
 #  DESCRIPTION
-#    Link flags for the Ruby C library.
+#  Link flags for the Ruby C library.
 #****
 LIBRUBY=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["LIBRUBYARG"]')
 
 #****C* ruby.cygclass/ruby_compile
 #  SYNOPSIS
-#    cd $B
-#    ruby_compile
+#  cd $B
+#  ruby_compile
 #  DESCRIPTION
-#    Configures and builds a Ruby extension using one of the supported build
-#    systems:
-#    * install.rb: executes 'config' and 'setup' commands
-#    * setup.rb: executes 'config' and 'setup' commands
-#    * extconf.rb: generates a Makefile, then runs cygmake
-#    * Rakefile: runs the 'rake' command
-#    If RDOC_SOURCE is defined, RI docs are then generated.
+#  Configures and builds a Ruby extension using one of the supported build
+#  systems:
+#  * install.rb: executes 'config' and 'setup' commands
+#  * setup.rb: executes 'config' and 'setup' commands
+#  * extconf.rb: generates a Makefile, then runs cygmake
+#  * Rakefile: runs the 'rake' command
+#  If RDOC_SOURCE is defined, RI docs are then generated.
 #****
 ruby_compile() {
 	if [ -e install.rb ]
@@ -138,7 +136,7 @@ ruby_compile() {
 
 #****v* ruby_compile/RDOC_SOURCE
 #  DESCRIPTION
-#    Relative path to the Ruby source files containing RDoc documentation.
+#  Relative path to the Ruby source files containing RDoc documentation.
 #****
 	if defined RDOC_SOURCE
 	then
@@ -148,16 +146,16 @@ ruby_compile() {
 
 #****I* ruby.cygclass/ruby_install
 #  SYNOPSIS
-#    cd $B
-#    ruby_install
+#  cd $B
+#  ruby_install
 #  DESCRIPTION
-#    Installs a Ruby extension into $D using one of the supported build systems:
-#    * install.rb: executes 'config' and 'install' commands
-#    * setup.rb: executes 'config' and 'install' commands
-#    * extconf.rb: runs cyginstall
-#    * Rakefile: runs 'rake install'
-#    If RDOC_SOURCE is defined, the RI docs generated in ruby_compile are
-#    also installed into RI_SITEDIR.
+#  Installs a Ruby extension into $D using one of the supported build systems:
+#  * install.rb: executes 'config' and 'install' commands
+#  * setup.rb: executes 'config' and 'install' commands
+#  * extconf.rb: runs cyginstall
+#  * Rakefile: runs 'rake install'
+#  If RDOC_SOURCE is defined, the RI docs generated in ruby_compile are
+#  also installed into RI_SITEDIR.
 #****
 ruby_install() {
 	if [ -f Makefile ]
@@ -181,10 +179,10 @@ ruby_install() {
 
 #****v* ruby_install/RDOC_MODULE
 #  DESCRIPTION
-#    A whitespace-separated list of classes or namespaces whose RI docs
-#    should be installed.  If RDOC_SOURCE is defined but RDOC_MODULE is
-#    not, all generated documentation will be installed; this is often
-#    undesirable, as private classes may also be documented.
+#  A whitespace-separated list of classes or namespaces whose RI docs
+#  should be installed.  If RDOC_SOURCE is defined but RDOC_MODULE is
+#  not, all generated documentation will be installed; this is often
+#  undesirable, as private classes may also be documented.
 #****
 
 	if [ -d .rdoc ]
@@ -208,10 +206,10 @@ ruby_install() {
 
 #****I* ruby.cygclass/rubyinto
 #  SYNOPSIS
-#    rubyinto SUBDIRECTORY
+#  rubyinto SUBDIRECTORY
 #  DESCRIPTION
-#    Subdirectory of RUBY_SITELIB or RUBY_SITEARCH that doruby should install.
-#    This is usually unnecessary.
+#  Subdirectory of RUBY_SITELIB or RUBY_SITEARCH that doruby should install.
+#  This is usually unnecessary.
 #****
 rubyinto() {
 	if (( $# != 1 ))
@@ -228,11 +226,11 @@ rubyinto() {
 
 #****I* ruby.cygclass/doruby
 #  SYNOPSIS
-#    [rubyinto SUBDIRECTORY]
-#    doruby FILES
+#  [rubyinto SUBDIRECTORY]
+#  doruby FILES
 #  DESCRIPTION
-#    Installs Ruby extensions into RUBY_SITELIB or RUBY_SITEARCH, or the
-#    subdirectory thereof based on a previous call to rubyinto.
+#  Installs Ruby extensions into RUBY_SITELIB or RUBY_SITEARCH, or the
+#  subdirectory thereof based on a previous call to rubyinto.
 #****
 doruby() {
 	local rbdir

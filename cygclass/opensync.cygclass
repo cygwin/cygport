@@ -24,18 +24,18 @@
 ################################################################################
 
 #****h* Cygclasses/opensync.cygclass
-#  NAME
-#    opensync.cygclass -- Build OpenSync plugin packages
+#  SYNOPSIS
+#  inherit opensync
 #  DESCRIPTION
-#    OpenSync is a Personal Information Management (PIM) data syncronization
-#    framework which supports various PIM sources through plugins.
+#  OpenSync is a Personal Information Management (PIM) data syncronization
+#  framework which supports various PIM sources through plugins.
 #
-#    This cygclass builds plugins for the new OpenSync 0.4x series, beginning
-#    with 0.39.  Previous versions are no longer supported.
+#  This cygclass builds plugins for the new OpenSync 0.4x series, beginning
+#  with 0.39.  Previous versions are no longer supported.
 #  INHERITS
-#    cmake.cygclass
+#  cmake.cygclass
 #  REQUIRES
-#    cmake, libopensync-devel, pkg-config
+#  cmake, libopensync-devel, pkg-config
 #****
 
 inherit cmake
@@ -51,7 +51,7 @@ HOMEPAGE="http://www.opensync.org/wiki/"
 
 #****o* opensync.cygclass/SRC_URI (opensync)
 #  DESCRIPTION
-#    Download location for the OpenSync plugin source package.
+#  Download location for the OpenSync plugin source package.
 #****
 SRC_URI="http://www.opensync.org/download/releases/${PV}/libopensync-plugin-${OPENSYNC_PLUGIN}-${PV}.tar.bz2"
 
@@ -67,34 +67,34 @@ check_prog_req pkg-config
 
 #****d* opensync.cygclass/OPENSYNC_VERSION
 #  DESCRIPTION
-#    Version of the currently installed OpenSync library.
+#  Version of the currently installed OpenSync library.
 #****
 OPENSYNC_VERSION=$(pkg-config --modversion libopensync1)
 
 #****d* opensync.cygclass/OPENSYNC_CONFIGDIR
 #  DESCRIPTION
-#    Installation directory for OpenSync default configuration files.
+#  Installation directory for OpenSync default configuration files.
 #****
 OPENSYNC_CONFIGDIR=$(pkg-config --variable=configdir libopensync1)
 
 #****d* opensync.cygclass/OPENSYNC_PLUGINDIR
 #  DESCRIPTION
-#    Installation directory for OpenSync C/C++ plugins.
+#  Installation directory for OpenSync C/C++ plugins.
 #****
 OPENSYNC_PLUGINDIR=$(pkg-config --variable=plugindir libopensync1)
 
 #****d* opensync.cygclass/OPENSYNC_PYTHON_PLUGINDIR
 #  DESCRIPTION
-#    Installation directory for OpenSync Python plugins.
+#  Installation directory for OpenSync Python plugins.
 #****
 OPENSYNC_PYTHON_PLUGINDIR=${OPENSYNC_PLUGINDIR%/*}/python-plugins
 
 #****C* opensync.cygclass/opensync_plugin_compile
 #  SYNOPSIS
-#    opensync_plugin_compile [OPTIONS]
+#  opensync_plugin_compile [OPTIONS]
 #  DESCRIPTION
-#    Configures and compiles the OpenSync plugin package.  Options, if any, are
-#    passed as flags to cygcmake.
+#  Configures and compiles the OpenSync plugin package.  Options, if any, are
+#  passed as flags to cygcmake.
 #****
 opensync_plugin_compile() {
 	if [ ${PV} != ${OPENSYNC_VERSION} ]
@@ -107,6 +107,10 @@ opensync_plugin_compile() {
 }
 
 #****I* opensync.cygclass/opensync_doconfig
+#  SYNOPSIS
+#  opensync_doconfig FILE [FILE2] ...
+#  DESCRIPTION
+#  Installs OpenSync configuration files into OPENSYNC_CONFIGDIR.
 #****
 opensync_doconfig() {
 	insinto ${OPENSYNC_CONFIGDIR}
@@ -115,9 +119,9 @@ opensync_doconfig() {
 
 #****I* opensync.cygclass/opensync_doplugin
 #  SYNOPSIS
-#    opensync_doplugin PLUGIN [PLUGIN2] ...
+#  opensync_doplugin PLUGIN [PLUGIN2] ...
 #  DESCRIPTION
-#    Installs OpenSync plugins into OPENSYNC_PLUGINDIR or OPENSYNC_PYTHON_PLUGINDIR.
+#  Installs OpenSync plugins into OPENSYNC_PLUGINDIR or OPENSYNC_PYTHON_PLUGINDIR.
 #****
 opensync_doplugin() {
 	local plugin

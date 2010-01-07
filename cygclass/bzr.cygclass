@@ -24,25 +24,23 @@
 ################################################################################
 
 #****h* Cygclasses/bzr.cygclass
-#  NAME
-#    bzr.cygclass -- Create packages from Bazaar VCS checkouts
 #  SYNOPSIS
-#    BZR_URI="..."
-#    [BZR_REV="..."]
-#    inherit bzr
+#  BZR_URI="..."
+#  [BZR_REV="..."]
+#  inherit bzr
 #  DESCRIPTION
-#    Developed by Canonical Ltd., the company behind Ubuntu Linux,
-#    |html <a href="http://bazaar.canonical.com/">Bazaar</a> is a distributed
-#    version control system which is most commonly used by software hosted on
-#    |html <a href="http://launchpad.net/projects">Launchpad</a>.
+#  Developed by Canonical Ltd., the company behind Ubuntu Linux,
+#  |html <a href="http://bazaar.canonical.com/">Bazaar</a> is a distributed
+#  version control system which is most commonly used by software hosted on
+#  |html <a href="http://launchpad.net/projects">Launchpad</a>.
 #
-#    This cygclass creates source tarballs from Bazaar checkouts.
+#  This cygclass creates source tarballs from Bazaar checkouts.
 #  NOTES
-#    This cygclass sets a special SRC_URI for the tarball it creates.  If
-#    additional sources are required, be sure to _add_ to SRC_URI rather than
-#    outright setting it.
+#  This cygclass sets a special SRC_URI for the tarball it creates.  If
+#  additional sources are required, be sure to _add_ to SRC_URI rather than
+#  outright setting it.
 #  REQUIRES
-#    bzr
+#  bzr
 #****
 
 # is this truly needed?
@@ -59,13 +57,13 @@ bzr_fetch() {
 	check_prog_req bzr
 
 #****v* bzr.cygclass/BZR_URI
-#  NAME
-#    BZR_URI -- URI of upstream Bazaar repository/branch
+#  DESCRIPTION
+#  URI of upstream Bazaar repository/branch
 #  NOTES
-#    This variable is required when inherit()ing bzr.
+#  This variable is required when inherit()ing bzr.
 #
-#    Software hosted on Launchpad will have a special URI beginning with "lp:";
-#    see `bzr help launchpad' for details.
+#  Software hosted on Launchpad will have a special URI beginning with "lp:";
+#  see `bzr help launchpad' for details.
 #****
 	if ! defined BZR_URI
 	then
@@ -73,13 +71,13 @@ bzr_fetch() {
 	fi
 
 #****v* bzr.cygclass/BZR_REV
-#  NAME
-#    BZR_REV -- Specific revision to checkout
+#  DESCRIPTION
+#  Specific revision to checkout
 #  NOTES
-#    This variable is optional.  If unset, the latest revision for the branch
-#    specified in BZR_URI will be fetched.
+#  This variable is optional.  If unset, the latest revision for the branch
+#  specified in BZR_URI will be fetched.
 #
-#    See `bzr help revisionspec' for possible forms of revision identifiers.
+#  See `bzr help revisionspec' for possible forms of revision identifiers.
 #****
 	if defined BZR_REV
 	then

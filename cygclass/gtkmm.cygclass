@@ -24,16 +24,16 @@
 ################################################################################
 
 #****h* Cygclasses/gtkmm.cygclass
-#  NAME
-#    gtkmm.cygclass -- Build GTKmm C++ bindings
+#  SYNOPSIS
+#  inherit gtkmm
 #  DESCRIPTION
-#    The GTKmm project provides C++ bindings for most of the GNOME library
-#    stack.  Packages are autotools-based with some custom aclocal macros and
-#    Makefile segments.  Doxygen API documentation is included in most packages.
+#  The GTKmm project provides C++ bindings for most of the GNOME library
+#  stack.  Packages are autotools-based with some custom aclocal macros and
+#  Makefile segments.  Doxygen API documentation is included in most packages.
 #
-#    This cygclass builds the GTKmm binding packages.
+#  This cygclass builds the GTKmm binding packages.
 #  INHERITS
-#    autotools.cygclass, gnome.org.cygclass
+#  autotools.cygclass, gnome.org.cygclass
 #****
 
 ORIG_PN=${ORIG_PN:-${PN/[0-9]*/}}
@@ -56,18 +56,18 @@ DIFF_EXCLUDES+=" Doxyfile MSVC_Net200*"
 
 #****C* gtkmm.cygclass/gtkmm_autoreconf
 #  SYNOPSIS
-#    cd $S
-#    gtkmm_autoreconf
+#  cd $S
+#  gtkmm_autoreconf
 #  DESCRIPTION
-#    Updates the autotool build system with cygautoreconf.
+#  Updates the autotool build system with cygautoreconf.
 #  WARNING
-#    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
-#    macros, or Makefile.am files will not take effect until their tools have been
-#    regenerated.  Also, Cygwin's libtool package often includes patches which
-#    are not yet available in the latest upstream release, so libraries may not
-#    be built optimally, or even correctly, without this step having been run.
+#  Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
+#  macros, or Makefile.am files will not take effect until their tools have been
+#  regenerated.  Also, Cygwin's libtool package often includes patches which
+#  are not yet available in the latest upstream release, so libraries may not
+#  be built optimally, or even correctly, without this step having been run.
 #  REQUIRES
-#    autoconf, automake, libtool, mm-common, pkg-config
+#  autoconf, automake, libtool, mm-common, pkg-config
 #****
 gtkmm_autoreconf() {
 	# make sure mm-common is installed (for the aclocal macros)
@@ -85,13 +85,13 @@ gtkmm_autoreconf() {
 
 #****C* gtkmm.cygclass/gtkmm_compile
 #  SYNOPSIS
-#    cd $B
-#    gtkmm_compile [CONFIGURE_FLAGS]
+#  cd $B
+#  gtkmm_compile [CONFIGURE_FLAGS]
 #  DESCRIPTION
-#    Calls cygconf with the following options, followed by cygmake:
-#    * --disable-demos --disable-examples: not installed
-#    * --disable-static: since GNOME packages are also so built
-#    All arguments to gtkmm_compile are passed to cygconf as configure flags.
+#  Calls cygconf with the following options, followed by cygmake:
+#  * --disable-demos --disable-examples: not installed
+#  * --disable-static: since GNOME packages are also so built
+#  All arguments to gtkmm_compile are passed to cygconf as configure flags.
 #****
 gtkmm_compile() {
 	cygconf --disable-static --disable-demos --disable-examples ${@}
@@ -100,12 +100,12 @@ gtkmm_compile() {
 
 #****T* gtkmm.cygclass/gtkmm_test
 #  SYNOPSIS
-#    cd $B
-#    gtkmm_test
+#  cd $B
+#  gtkmm_test
 #  DESCRIPTION
-#    Runs the test programs with "make check".
+#  Runs the test programs with "make check".
 #  NOTE
-#    Not all GTKmm bindings include tests.
+#  Not all GTKmm bindings include tests.
 #****
 gtkmm_test() {
 	if [ -d tests ]

@@ -24,18 +24,16 @@
 ################################################################################
 
 #****h* Cygclasses/lua.cygclass
-#  NAME
-#    lua.cygclass -- Build packages which use the Lua programming language
 #  SYNOPSIS
-#    inherit lua
+#  inherit lua
 #  DESCRIPTION
-#    Lua is a lightweight programming language commonly used for embedded scripting
-#    support in a variety of programs.  It is extensible through C/C++ modules
-#    and lua scripts.
+#  Lua is a lightweight programming language commonly used for embedded scripting
+#  support in a variety of programs.  It is extensible through C/C++ modules
+#  and lua scripts.
 #
-#    This cygclass provides definitions used by packages depending on Lua.
+#  This cygclass provides definitions used by packages depending on Lua.
 #  REQUIRES
-#    lua, pkg-config
+#  lua, pkg-config
 #****
 
 check_prog_req lua
@@ -43,19 +41,19 @@ check_prog_req pkg-config
 
 #****d* lua.cygclass/LUA
 #  DESCRIPTION
-#    Absolute path to the Lua interpreter.
+#  Absolute path to the Lua interpreter.
 #****
 LUA=/usr/bin/lua
 
 #****d* lua.cygclass/LUAC
 #  DESCRIPTION
-#    Absolute path to the Lua bytecode compiler.
+#  Absolute path to the Lua bytecode compiler.
 #****
 LUAC=/usr/bin/luac
 
 #****d* lua.cygclass/LUA_VERSION
 #  DESCRIPTION
-#    The major.minor version of the Lua interpreter.
+#  The major.minor version of the Lua interpreter.
 #****
 LUA_VERSION=$(pkg-config --variable=V lua)
 
@@ -64,30 +62,30 @@ LUA_VERSION_NUM=${LUA_VERSION//./0}
 
 #****d* lua.cygclass/LUA_INCLUDEDIR
 #  DESCRIPTION
-#    Path containing the Lua C library headers.
+#  Path containing the Lua C library headers.
 #****
 LUA_INCLUDEDIR=$(pkg-config --variable=INSTALL_INC lua)
 
 #****d* lua.cygclass/LUA_LIBDIR
 #  DESCRIPTION
-#    Installation path for Lua C modules.
+#  Installation path for Lua C modules.
 #****
 LUA_LIBDIR=$(pkg-config --variable=INSTALL_CMOD lua)
 
 #****d* lua.cygclass/LUA_SCRIPTDIR
 #  DESCRIPTION
-#    Installation path for Lua script modules.
+#  Installation path for Lua script modules.
 #****
 LUA_SCRIPTDIR=$(pkg-config --variable=INSTALL_LMOD lua)
 
 #****d* lua.cygclass/LUA_CFLAGS
 #  DESCRIPTION
-#    Compile flags for the Lua C library.
+#  Compile flags for the Lua C library.
 #****
 LUA_CFLAGS=$(pkg-config --cflags lua)
 
 #****d* lua.cygclass/LUA_LIBS
 #  DESCRIPTION
-#    Link flags for the Lua C library.
+#  Link flags for the Lua C library.
 #****
 LUA_LIBS=$(pkg-config --libs lua)

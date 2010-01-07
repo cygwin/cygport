@@ -24,19 +24,17 @@
 ################################################################################
 
 #****h* Cygclasses/xfce4.cygclass
-#  NAME
-#    xfce4.cygclass -- Build Xfce 4.x packages
 #  SYNOPSIS
-#    inherit xfce4
+#  inherit xfce4
 #  DESCRIPTION
-#    Xfce is a desktop environment for X which is lighter and faster than GNOME
-#    or KDE but has more features than most lightweight DEs.  The project provides
-#    desktop components and some basic applications which are built on a few
-#    libraries which are based on GLib and GTK+.
+#  Xfce is a desktop environment for X which is lighter and faster than GNOME
+#  or KDE but has more features than most lightweight DEs.  The project provides
+#  desktop components and some basic applications which are built on a few
+#  libraries which are based on GLib and GTK+.
 #
-#    This cygclass handles the building of Xfce 4.x packages.
+#  This cygclass handles the building of Xfce 4.x packages.
 #  INHERITS
-#    autotools.cygclass
+#  autotools.cygclass
 #****
 
 #****o* xfce4.cygclass/HOMEPAGE (xfce4)
@@ -48,13 +46,13 @@ ORIG_PN=${ORIG_PN:-${PN}}
 
 #****o* xfce4.cygclass/SRC_URI (xfce4)
 #  DESCRIPTION
-#    Download location of the release tarball.
+#  Download location of the release tarball.
 #****
 #****o* xfce4.cygclass/GIT_URI (xfce4)
 #  DESCRIPTION
-#    Git repository for the package.
+#  Git repository for the package.
 #  NOTE
-#    git.cygclass should be inherit()ed last for this to be of use.
+#  git.cygclass should be inherit()ed last for this to be of use.
 #****
 if ! defined SRC_URI   ######## remove ifndef ???
 then
@@ -93,22 +91,22 @@ fi
 
 #****C* xfce4.cygclass/xfce4_autoreconf
 #  SYNOPSIS
-#    cd $S
-#    xfce4_autoreconf
+#  cd $S
+#  xfce4_autoreconf
 #  DESCRIPTION
-#    Updates the build system with xdt-autogen.
+#  Updates the build system with xdt-autogen.
 #  WARNING
-#    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
-#    macros, or Makefile.am files will not take effect until their tools have been
-#    regenerated.  Also, Cygwin's libtool package often includes patches which
-#    are not yet available in the latest upstream release, so libraries may not
-#    be built optimally, or even correctly, without this step having been run.
-#    The same applies for some of the other build tools as well.
+#  Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
+#  macros, or Makefile.am files will not take effect until their tools have been
+#  regenerated.  Also, Cygwin's libtool package often includes patches which
+#  are not yet available in the latest upstream release, so libraries may not
+#  be built optimally, or even correctly, without this step having been run.
+#  The same applies for some of the other build tools as well.
 #  REQUIRES
-#    autoconf, automake, gtk-doc, intltool, libglib2.0-devel, libtool,
-#    pkg-config, xfce4-dev-tools
+#  autoconf, automake, gtk-doc, intltool, libglib2.0-devel, libtool,
+#  pkg-config, xfce4-dev-tools
 #  SEE ALSO
-#    cygautoreconf, gnome2_autoreconf
+#  cygautoreconf, gnome2_autoreconf
 #****
 xfce4_autoreconf() {
 	check_prog_req xdt-autogen xfce4-dev-tools
@@ -120,17 +118,17 @@ xfce4_autoreconf() {
 
 #****C* xfce4.cygclass/xfce4_compile
 #  SYNOPSIS
-#    cd $B
-#    xfce4_compile [CONFIGURE_FLAGS]
+#  cd $B
+#  xfce4_compile [CONFIGURE_FLAGS]
 #  DESCRIPTION
-#    Calls cygconf with the following options, followed by cygmake:
-#    * --sbindir=/usr/lib/xfce4: sbin_PROGRAMS are really libexec_PROGRAMS
-#    * --disable-static: Xfce4 packages use plugins extensively, so static
-#      libraries are of little value
-#    * --disable-visibility: Cygwin does not support ELF visibility attributes
-#    All arguments to xfce4_compile are passed to cygconf as configure flags.
+#  Calls cygconf with the following options, followed by cygmake:
+#  * --sbindir=/usr/lib/xfce4: sbin_PROGRAMS are really libexec_PROGRAMS
+#  * --disable-static: Xfce4 packages use plugins extensively, so static
+#    libraries are of little value
+#  * --disable-visibility: Cygwin does not support ELF visibility attributes
+#  All arguments to xfce4_compile are passed to cygconf as configure flags.
 #  NOTE
-#    Some packages require --libexecdir=/usr/lib/xfce4 as well.
+#  Some packages require --libexecdir=/usr/lib/xfce4 as well.
 #****
 xfce4_compile() {
 	cygconf \

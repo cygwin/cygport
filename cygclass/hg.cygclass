@@ -24,29 +24,28 @@
 ################################################################################
 
 #****h* Cygclasses/hg.cygclass
-#  NAME
-#    hg.cygclass -- Create packages from Mercurial checkouts
 #  SYNOPSIS
-#    HG_URI="..."
-#    [HG_REV="..."]
-#    inherit hg
+#  HG_URI="..."
+#  [HG_REV="..."]
+#  inherit hg
 #  DESCRIPTION
-#    Mercurial is a distributed version control system.  Originally developed
-#    around the same time and for a similar reason as Git, it is used by a number
-#    of projects, including Mozilla, OpenOffice.org, and OpenJDK.
+#  Mercurial is a distributed version control system.  Originally developed
+#  around the same time and for a similar reason as Git, it is used by a number
+#  of projects, including Mozilla, OpenOffice.org, and OpenJDK.
 #
-#    This cygclass creates source tarballs from Mercurial checkouts.
+#  This cygclass creates source tarballs from Mercurial checkouts.
 #  NOTE
-#    This cygclass sets a special SRC_URI for the tarball it creates.  If
-#    additional sources are required, be sure to _add_ to SRC_URI rather than
-#    outright setting it.
+#  This cygclass sets a special SRC_URI for the tarball it creates.  If
+#  additional sources are required, be sure to _add_ to SRC_URI rather than
+#  outright setting it.
 #  REQUIRES
-#    mercurial
+#  mercurial
 #****
 
 #****v* hg.cygclass/HG_URI
-#    Address of Mercurial repository from which to clone.  Must be defined before
-#    inherit()ing hg.cygclass.
+#  DESCRIPTION
+#  Address of Mercurial repository from which to clone.  Must be defined before
+#  inherit()ing hg.cygclass.
 #****
 if ! defined HG_URI
 then
@@ -67,10 +66,10 @@ hg_fetch() {
 
 #****v* hg.cygclass/HG_REV
 #  DESCRIPTION
-#    Specific revision to clone, either the changeset ID in the form of a SHA1
-#    hash (a 40-digit hexadecimal) or an abbreviation thereof (the first 7
-#    hexadecimal digits are usually sufficent), OR the sequential integer
-#    revision number.  If undefined, the latest revision is cloned.
+#  Specific revision to clone, either the changeset ID in the form of a SHA1
+#  hash (a 40-digit hexadecimal) or an abbreviation thereof (the first 7
+#  hexadecimal digits are usually sufficent), OR the sequential integer
+#  revision number.  If undefined, the latest revision is cloned.
 #****
 	if defined HG_REV
 	then

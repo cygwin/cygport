@@ -24,25 +24,23 @@
 ################################################################################
 
 #****h* Cygclasses/gst-plugins0.10.cygclass
-#  NAME
-#    gst-plugins0.10.cygclass -- Build GStreamer 0.10 Plugins
 #  SYNOPSIS
-#    GST_PLUGINS_EXT=...
-#    inherit gst-plugins0.10
+#  GST_PLUGINS_EXT=...
+#  inherit gst-plugins0.10
 #  DESCRIPTION
-#    For an introduction to GStreamer, see gstreamer.cygclass.
+#  For an introduction to GStreamer, see gstreamer.cygclass.
 #
-#    GStreamer ships most of their plugins in four bundles (base, good, bad,
-#    and ugly), each of which contain a number of plugins, some with external
-#    dependencies and some without.  There also exist several packages which
-#    contain a single plugin or a very few related plugins.
+#  GStreamer ships most of their plugins in four bundles (base, good, bad,
+#  and ugly), each of which contain a number of plugins, some with external
+#  dependencies and some without.  There also exist several packages which
+#  contain a single plugin or a very few related plugins.
 #
-#    This Cygclass handles GStreamer's unique build system requirements, as
-#    well as the de/selection of plugins with external dependencies.
+#  This Cygclass handles GStreamer's unique build system requirements, as
+#  well as the de/selection of plugins with external dependencies.
 #  INHERITS
-#    autotools.cygclass, gstreamer.cygclass
+#  autotools.cygclass, gstreamer.cygclass
 #  INHERITED BY
-#    gst-plugins.cygclass
+#  gst-plugins.cygclass
 #****
 
 gst_pn=${PN#gstreamer[0-9]*-plugins-}
@@ -60,19 +58,17 @@ ORIG_PN=gst-plugins-${gst_pn}
 #****
 
 #****v* gst-plugins0.10.cygclass/GST_PLUGINS_EXT
-#  NAME
-#    GST_PLUGINS_EXT -- String list of plugins with external dependencies
 #  DESCRIPTION
-#    This variable controls which plugins with external dependencies will be
-#    built.  It must be defined as a string, with plugins indicated by their
-#    configure argument.  Those plugins included in the source package which
-#    are not listed here will be forcefully disabled.
+#  This variable controls which plugins with external dependencies will be
+#  built.  It must be defined as a string, with plugins indicated by their
+#  configure argument.  Those plugins included in the source package which
+#  are not listed here will be forcefully disabled.
 #
-#    Because the name of the plugin often corresponds to its configure argument
-#    (e.g. ogg -> libgstogg.la), these plugins can easily be packaged separately
-#    with a 'for' loop with this variable as the iterator collection.
+#  Because the name of the plugin often corresponds to its configure argument
+#  (e.g. ogg -> libgstogg.la), these plugins can easily be packaged separately
+#  with a 'for' loop with this variable as the iterator collection.
 #  USAGE
-#    This variable must be defined _before_ inheriting this cygclass.
+#  This variable must be defined _before_ inheriting this cygclass.
 #****
 
 case ${gst_pn} in
@@ -168,7 +164,7 @@ esac
 
 #****C* gst-plugins0.10.cygclass/gst_plugins_autoreconf
 #  DESCRIPTION
-#    Alias for gstreamer_autoreconf.
+#  Alias for gstreamer_autoreconf.
 #****
 gst_plugins_autoreconf() {
 	gstreamer_autoreconf
@@ -200,16 +196,14 @@ gst_plugins_autoreconf() {
 }
 
 #****C* gst-plugins0.10.cygclass/gst_plugins_compile
-#  NAME
-#    gst_plugins_compile -- Configure and build the plugins package
 #  DESCRIPTION
-#    First, cygconf is called with several GStreamer-specific arguments which
-#    apply to all plugin packages, as well as the necessary arguments to enable
-#    or disable plugins with external dependencies, per the value of GST_PLUGINS_EXT.
-#    Then cygmake is called to build the package.
+#  First, cygconf is called with several GStreamer-specific arguments which
+#  apply to all plugin packages, as well as the necessary arguments to enable
+#  or disable plugins with external dependencies, per the value of GST_PLUGINS_EXT.
+#  Then cygmake is called to build the package.
 #
-#    gst_plugins_compile optionally accepts additional configure flags as 
-#    arguments, which are passed to cygconf.
+#  gst_plugins_compile optionally accepts additional configure flags as 
+#  arguments, which are passed to cygconf.
 #****
 gst_plugins_compile() {
 	local plugin gst_conf
@@ -256,8 +250,8 @@ gst_plugins_compile() {
 }
 
 #****I* gst-plugins0.10.cygclass/gst_plugins_install
-#  NAME
-#    gst_plugins_install -- Alias for cyginstall
+#  DESCRIPTION
+#  Alias for cyginstall.
 #****
 gst_plugins_install() {
 	if [ "x${GST_PLUGINS_DIR}" != "x." ]

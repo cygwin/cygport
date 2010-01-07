@@ -24,23 +24,21 @@
 ################################################################################
 
 #****h* Cygclasses/fossil.cygclass
-#  NAME
-#    fossil.cygclass -- Create packages from Fossil checkouts
 #  SYNOPSIS
-#    FOSSIL_URI="..."
-#    [FOSSIL_REV="..."]
-#    inherit fossil
+#  FOSSIL_URI="..."
+#  [FOSSIL_REV="..."]
+#  inherit fossil
 #  DESCRIPTION
-#    Fossil is a distributed version control system which includes an integrated
-#    bug tracking system and wiki.  It is used by the SQLite project.
+#  Fossil is a distributed version control system which includes an integrated
+#  bug tracking system and wiki.  It is used by the SQLite project.
 #
-#    This cygclass creates source tarballs from Fossil checkouts.
+#  This cygclass creates source tarballs from Fossil checkouts.
 #  NOTE
-#    This cygclass sets a special SRC_URI for the tarball it creates.  If
-#    additional sources are required, be sure to _add_ to SRC_URI rather than
-#    outright setting it.
+#  This cygclass sets a special SRC_URI for the tarball it creates.  If
+#  additional sources are required, be sure to _add_ to SRC_URI rather than
+#  outright setting it.
 #  REQUIRES
-#    fossil
+#  fossil
 #****
 
 # is this truly necessary?
@@ -56,7 +54,7 @@ fossil_fetch() {
 
 #****v* fossil.cygclass/FOSSIL_URI
 #  DESCRIPTION
-#    Address of Fossil repository from which to clone.
+#  Address of Fossil repository from which to clone.
 #****
 	if ! defined FOSSIL_URI
 	then
@@ -79,11 +77,11 @@ fossil_fetch() {
 
 #****v* fossil.cygclass/FOSSIL_REV
 #  DESCRIPTION
-#    This optional variable can be one of:
-#    * A specific revision tag, in the form of a SHA1 hash (a 40-digit hexadecimal)
-#      or an abbreviation thereof (typically the first 10 hexadecimal digits).
-#    * A branch name, in which case the latest revision of that branch will be used.
-#    If unset, the latest revision of the 'trunk' branch will be used.
+#  This optional variable can be one of:
+#  * A specific revision tag, in the form of a SHA1 hash (a 40-digit hexadecimal)
+#    or an abbreviation thereof (typically the first 10 hexadecimal digits).
+#  * A branch name, in which case the latest revision of that branch will be used.
+#  If unset, the latest revision of the 'trunk' branch will be used.
 #****
 	if defined FOSSIL_REV
 	then

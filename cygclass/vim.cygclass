@@ -24,62 +24,60 @@
 ################################################################################
 
 #****h* Cygclasses/vim.cygclass
-#  NAME
-#    vim.cygclass -- Helper functions for installing Vim scripts
 #  DESCRIPTION
-#    Vim is a text editor which is extensible through scripts written in its
-#    own Vimscript language.
+#  Vim is a text editor which is extensible through scripts written in its
+#  own Vimscript language.
 #
-#    This cygclass includes functions for installing Vim scripts.
+#  This cygclass includes functions for installing Vim scripts.
 #  REQUIRES
-#    vim
+#  vim
 #****
 
 check_prog_req vim
 
 #****d* vim.cygclass/VIM
 #  DESCRIPTION
-#    Root data directory for the Vim editor.
+#  Root data directory for the Vim editor.
 #  NOTE
-#    This is NOT the path to the Vim editor.
+#  This is NOT the path to the Vim editor.
 #****
 VIM=$(/usr/bin/vim -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIM|quit' | tr -d '\015')
 
 #****d* vim.cygclass/VIMRUNTIME
 #  DESCRIPTION
-#    Directory containing scripts shipped with the Vim editor.
+#  Directory containing scripts shipped with the Vim editor.
 #  NOTE
-#    Third-party Vim scripts should not be installed here; use VIMFILES instead.
+#  Third-party Vim scripts should not be installed here; use VIMFILES instead.
 #****
 VIMRUNTIME=$(/usr/bin/vim -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIMRUNTIME|quit' | tr -d '\015')
 
 #****d* vim.cygclass/VIMFILES
 #  DESCRIPTION
-#    Installation path for third-party Vim scripts.
+#  Installation path for third-party Vim scripts.
 #****
 VIMFILES="${VIM}/vimfiles"
 
 
 #****I* vim.cygclass/viminto
 #  SYNOPSIS
-#    viminto SUBDIRECTORY
+#  viminto SUBDIRECTORY
 #  DESCRIPTION
-#    Subdirectory into which dovim and newvim should install.  Subdirectories
-#    supported by Vim are:
-#    * autoload: automatically loaded functions
-#    * colors: color scheme scripts
-#    * compiler: compiler scripts
-#    * doc: documentation
-#    * ftplugin: filetype plugins
-#    * indent: indentation scripts
-#    * keymap: key mapping scripts
-#    * lang: translations
-#    * plugin: automatically loaded plugins
-#    * print: print encodings
-#    * spell: spell checking dictionaries
-#    * syntax: syntax highlighting scripts
-#    A subdirectory may also be prefixed by "after/" if the scripts to be
-#    installed are meant to override those included in Vim.
+#  Subdirectory into which dovim and newvim should install.  Subdirectories
+#  supported by Vim are:
+#  * autoload: automatically loaded functions
+#  * colors: color scheme scripts
+#  * compiler: compiler scripts
+#  * doc: documentation
+#  * ftplugin: filetype plugins
+#  * indent: indentation scripts
+#  * keymap: key mapping scripts
+#  * lang: translations
+#  * plugin: automatically loaded plugins
+#  * print: print encodings
+#  * spell: spell checking dictionaries
+#  * syntax: syntax highlighting scripts
+#  A subdirectory may also be prefixed by "after/" if the scripts to be
+#  installed are meant to override those included in Vim.
 #****
 viminto() {
 	if (( $# != 1 ))
@@ -96,11 +94,11 @@ viminto() {
 
 #****I* vim.cygclass/dovim
 #  SYNOPSIS
-#    viminto SUBDIRECTORY
-#    dovim SCRIPT [SCRIPT2] ...
+#  viminto SUBDIRECTORY
+#  dovim SCRIPT [SCRIPT2] ...
 #  DESCRIPTION
-#    Installs the given Vim script(s) into the subdirectory of VIMFILES declared
-#    by the preceding call to viminto.
+#  Installs the given Vim script(s) into the subdirectory of VIMFILES declared
+#  by the preceding call to viminto.
 #****
 dovim() {
 	local _insinto_tmp=${_insinto_dir}
@@ -113,12 +111,12 @@ dovim() {
 
 #****I* vim.cygclass/newvim
 #  SYNOPSIS
-#    viminto SUBDIRECTORY
-#    newvim SCRIPT_FILE NEW_SCRIPT_NAME
+#  viminto SUBDIRECTORY
+#  newvim SCRIPT_FILE NEW_SCRIPT_NAME
 #  DESCRIPTION
-#    Installs the given Vim script into the subdirectory of VIMFILES declared
-#    by the preceding call to viminto, renaming it as indicated by the second
-#    argument.
+#  Installs the given Vim script into the subdirectory of VIMFILES declared
+#  by the preceding call to viminto, renaming it as indicated by the second
+#  argument.
 #****
 newvim() {
 	local _insinto_tmp=${_insinto_dir}

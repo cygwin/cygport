@@ -24,16 +24,14 @@
 ################################################################################
 
 #****h* Cygclasses/ggz.cygclass
-#  NAME
-#    ggz.cygclass -- Build GGZ Gaming Zone components
 #  DESCRIPTION
-#    The GGZ Gaming Zone is a framework for hosting and playing multi-player
-#    games over the Internet.  The project provides a server for self-hosting,
-#    client libraries, and client games.  The GNOME Games and KDE Games suites
-#    also provide games which can be used as GGZ clients.
+#  The GGZ Gaming Zone is a framework for hosting and playing multi-player
+#  games over the Internet.  The project provides a server for self-hosting,
+#  client libraries, and client games.  The GNOME Games and KDE Games suites
+#  also provide games which can be used as GGZ clients.
 #
-#    This cygclass is used for building GGZ upstream components and provides
-#    functions for installing third-party clients.
+#  This cygclass is used for building GGZ upstream components and provides
+#  functions for installing third-party clients.
 #****
 
 #****o* ggz.cygclass/DESCRIPTION (ggz)
@@ -53,7 +51,7 @@ SRC_URI="http://ftp.ggzgamingzone.org/pub/ggz/${PV}/${P}.tar.gz "
 
 #****d* ggz.cygclass/GGZ_MODULES_DIR
 #  DESCRIPTION
-#    The directory where GGZ ModuleInfo description files are installed.
+#  The directory where GGZ ModuleInfo description files are installed.
 #****
 GGZ_MODULES_DIR=/etc/ggz/modules
 
@@ -62,8 +60,8 @@ export ac_cv_header_winsock2_h=no
 
 #****I* ggz.cygclass/ggz_postinst
 #  DESCRIPTION
-#    Creates postinstall and preremove scripts which de/register GGZ ModuleInfo
-#    description files with ggz-config.
+#  Creates postinstall and preremove scripts which de/register GGZ ModuleInfo
+#  description files with ggz-config.
 #****
 ggz_postinst() {
 	rm -f ${D}/etc/ggz.modules
@@ -89,12 +87,12 @@ ggz_postinst() {
 
 #****I* ggz.cygclass/doggzmod
 #  SYNOPSIS
-#    doggzmod DESCRIPTION_FILE [DESCRIPTION_FILE] ...
+#  doggzmod DESCRIPTION_FILE [DESCRIPTION_FILE] ...
 #  DESCRIPTION
-#    Installs the given GGZ ModuleInfo description file(s) into GGZ_MODULES_DIR.
-#    As such files are often generically named (e.g. "module.dsc"), files are
-#    automatically renamed to reflect the name of the program specified in their
-#    CommandLine attribute.
+#  Installs the given GGZ ModuleInfo description file(s) into GGZ_MODULES_DIR.
+#  As such files are often generically named (e.g. "module.dsc"), files are
+#  automatically renamed to reflect the name of the program specified in their
+#  CommandLine attribute.
 #****
 doggzmod() {
 	local cl

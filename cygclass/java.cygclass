@@ -24,79 +24,79 @@
 ################################################################################
 
 #****h* Cygclasses/java.cygclass
-#  NAME
-#    java.cygclass -- Build Java packages with GNU Classpath
+#  SYNOPSIS
+#  inherit java
 #  DESCRIPTION
-#    GNU Classpath provides an open-source implementation of a Java runtime
-#    which is mostly compatibly with JDK 1.5.  Driven by a compatible Java
-#    Virtual Machine, its runtime and tools together with the OpenJDK and Eclipse
-#    compiler tools provide a Java environment which can build and run a wide
-#    variety of Java programs.
+#  GNU Classpath provides an open-source implementation of a Java runtime
+#  which is mostly compatibly with JDK 1.5.  Driven by a compatible Java
+#  Virtual Machine, its runtime and tools together with the OpenJDK and Eclipse
+#  compiler tools provide a Java environment which can build and run a wide
+#  variety of Java programs.
 #
-#    This cygclass provides definitions and functions for building packages
-#    which use the GNU Classpath Java environment.
+#  This cygclass provides definitions and functions for building packages
+#  which use the GNU Classpath Java environment.
 #  INHERITED BY
-#    ant.cygclass
+#  ant.cygclass
 #  REQUIRES
-#    gij/jamvm, ecj/jdk6-langtools/classpath-tools, fastjar, gcc4-java.
+#  gij/jamvm, ecj/jdk6-langtools/classpath-tools, fastjar, gcc4-java.
 #****
 
 #****d* java.cygclass/JAR
 #  DESCRIPTION
-#    Absolute path to a 'jar' de/compression tool, provided by fastjar or gjar.
+#  Absolute path to a 'jar' de/compression tool, provided by fastjar or gjar.
 #****
 JAR=/usr/bin/jar
 
 #****d* java.cygclass/JAVA
 #  DESCRIPTION
-#    Absolute path to a Java interpreter, provided by jamvm or gij-4.
+#  Absolute path to a Java interpreter, provided by jamvm or gij-4.
 #****
 JAVA=/usr/bin/java
 
 #****d* java.cygclass/JAVAC
 #  DESCRIPTION
-#    Absolute path to a Java compiler, provided by javac or ecj. 
+#  Absolute path to a Java compiler, provided by javac or ecj. 
 #****
 JAVAC=/usr/bin/javac
 
 #****d* java.cygclass/JAVADOC
 #  DESCRIPTION
-#    Absolute path to a Java API documentation generator, provided by javadoc or gjdoc.
+#  Absolute path to a Java API documentation generator, provided by javadoc or gjdoc.
 #****
 JAVADOC=/usr/bin/javadoc
 
 #****d* java.cygclass/JAVAH
 #  DESCRIPTION
-#    Absolute path to a JNI header generator, provided by javah or gjavah. 
+#  Absolute path to a JNI header generator, provided by javah or gjavah. 
 #****
 JAVAH=/usr/bin/javah
 
 #****d* java.cygclass/JAVA_HOME
 #  DESCRIPTION
-#    Prefix of the Java installation.
+#  Prefix of the Java installation.
 #****
 JAVA_HOME=/usr
 
 #****d* java.cygclass/JAVA_DIR
 #  DESCRIPTION
-#    Installation path for Java .jar files.
+#  Installation path for Java .jar files.
 #****
 JAVA_DIR=/usr/share/java
 
 #****d* java.cygclass/JAVADOC_DIR
 #  DESCRIPTION
-#    Installation path for Javadoc API documentation.
+#  Installation path for Javadoc API documentation.
 #****
 JAVADOC_DIR=/usr/share/javadoc
 
 #****v* java.cygclass/JAVA_CLASSPATH
 #  DESCRIPTION
-#    A colon-separated list of directories and .jar files to pass to Java's
-#    CLASSPATH environment variable.  Any .jar files which are listed by
-#    basename only are assumed to be installed in JAVA_DIR.
+#  A colon-separated list of directories and .jar files to pass to Java's
+#  CLASSPATH environment variable.  Any .jar files which are listed by
+#  basename only are assumed to be installed in JAVA_DIR.
 #  NOTE
-#    The user CLASSPATH variable is ignored so as to prevent interference
-#    from a native Windows installation of Java.
+#  The user CLASSPATH variable is ignored so as to prevent interference
+#  from a native Windows installation of Java.
 #****
 
 # prevent Win32 Java interference
@@ -126,10 +126,10 @@ esac
 
 #****C* java.cygclass/cygjar
 #  SYNOPSIS
-#    cygjar OPTIONS JAR_FILE [MANIFEST_FILE] [-C DIRECTORY] [FILES] ...
+#  cygjar OPTIONS JAR_FILE [MANIFEST_FILE] [-C DIRECTORY] [FILES] ...
 #  DESCRIPTION
-#    Runs the JAR command with the provided options, catching any errors if
-#    they occur.  Please see the JAR --help text for a complete list of options.
+#  Runs the JAR command with the provided options, catching any errors if
+#  they occur.  Please see the JAR --help text for a complete list of options.
 #****
 cygjar() {
 	verbose ${JAR} ${@} || error "cygjar: command failed"
@@ -137,10 +137,10 @@ cygjar() {
 
 #****f* java.cygclass/cygjava
 #  SYNOPSIS
-#    cygjava [-jar JAR_FILE] [-classpath CLASSPATH] [OPTIONS] CLASS [ARGUMENTS]
+#  cygjava [-jar JAR_FILE] [-classpath CLASSPATH] [OPTIONS] CLASS [ARGUMENTS]
 #  DESCRIPTION
-#    Runs the JAVA command with the provided options, catching any errors if
-#    they occur.  Please see the JAVA -help text for a complete list of options.
+#  Runs the JAVA command with the provided options, catching any errors if
+#  they occur.  Please see the JAVA -help text for a complete list of options.
 #****
 cygjava() {
 	verbose ${JAVA} ${@} || error "cygjava: execution failed"
@@ -148,10 +148,10 @@ cygjava() {
 
 #****C* java.cygclass/cygjavac
 #  SYNOPSIS
-#    cygjavac [-classpath CLASSPATH] [OPTIONS] SOURCE_FILES|DIRECTORIES
+#  cygjavac [-classpath CLASSPATH] [OPTIONS] SOURCE_FILES|DIRECTORIES
 #  DESCRIPTION
-#    Runs the JAVAC command with the provided options, catching any errors if
-#    they occur.  Please see the JAVAC -help text for a complete list of options.
+#  Runs the JAVAC command with the provided options, catching any errors if
+#  they occur.  Please see the JAVAC -help text for a complete list of options.
 #****
 cygjavac() {
 	verbose ${JAVAC} ${@} || error "cygjavac: compile failed"
@@ -161,10 +161,10 @@ cygjavac() {
 
 #****C* java.cygclass/cygjavadoc
 #  SYNOPSIS
-#    cygjavadoc [OPTIONS] [-d OUTPUT_PATH] PACKAGES
+#  cygjavadoc [OPTIONS] [-d OUTPUT_PATH] PACKAGES
 #  DESCRIPTION
-#    Runs the JAVADOC command with the provided options, catching any errors if
-#    they occur.  Please see the JAVADOC -help text for a complete list of options.
+#  Runs the JAVADOC command with the provided options, catching any errors if
+#  they occur.  Please see the JAVADOC -help text for a complete list of options.
 #****
 cygjavadoc() {
 	# TODO: add -link file://${JAVADOC_DIR}/classpath, make links relative
@@ -173,10 +173,10 @@ cygjavadoc() {
 
 #****C* java.cygclass/cygjavah
 #  SYNOPSIS
-#    cygjavah [-classpath CLASSPATH] [-d OUTPUT_PATH] [-jni] CLASSES
+#  cygjavah [-classpath CLASSPATH] [-d OUTPUT_PATH] [-jni] CLASSES
 #  DESCRIPTION
-#    Runs the JAVAH command with the provided options, catching any errors if
-#    they occur.  Please see the JAVAH -help text for a complete list of options.
+#  Runs the JAVAH command with the provided options, catching any errors if
+#  they occur.  Please see the JAVAH -help text for a complete list of options.
 #****
 cygjavah() {
 	verbose ${JAVAH} ${@} || error "cygjavah: generation failed"
@@ -184,9 +184,9 @@ cygjavah() {
 
 #****T* java.cygclass/cygjunit
 #  SYNOPSIS
-#    cygjunit [-classpath CLASSPATH] CLASSES
+#  cygjunit [-classpath CLASSPATH] CLASSES
 #  DESCRIPTION
-#    Runs the JUnit tests defined in the given class(es).
+#  Runs the JUnit tests defined in the given class(es).
 #****
 cygjunit() {
 	local junitcp=${JAVA_DIR}/junit.jar
@@ -204,11 +204,11 @@ cygjunit() {
 
 #****I* java.cygclass/dojar
 #  SYNOPSIS
-#    dojar JAR_FILES
+#  dojar JAR_FILES
 #  DESCRIPTION
-#    Installs the given .jar files into JAVA_DIR under $D.  If the name of the
-#    .jar includes a version number, an unversioned symlink is created alongside
-#    the .jar file.
+#  Installs the given .jar files into JAVA_DIR under $D.  If the name of the
+#  .jar includes a version number, an unversioned symlink is created alongside
+#  the .jar file.
 #****
 dojar() {
 	dodir ${JAVA_DIR}
@@ -232,11 +232,11 @@ dojar() {
 
 #****I* java.cygclass/newjar
 #  SYNOPSIS
-#    newjar JAR_FILE NEW_JAR_FILE_NAME
+#  newjar JAR_FILE NEW_JAR_FILE_NAME
 #  DESCRIPTION
-#    Installs the given .jar file into JAVA_DIR under $D, renaming it per the
-#    second argument.  If the new name of the .jar includes a version number,
-#    an unversioned symlink is created alongside the .jar file.
+#  Installs the given .jar file into JAVA_DIR under $D, renaming it per the
+#  second argument.  If the new name of the .jar includes a version number,
+#  an unversioned symlink is created alongside the .jar file.
 #****
 newjar() {
 	if (( $# != 2 ))
@@ -262,10 +262,10 @@ newjar() {
 
 #****I* java.cygclass/dojavadoc
 #  SYNOPSIS
-#    dojavadoc DIRECTORY
+#  dojavadoc DIRECTORY
 #  DESCRIPTION
-#    Installs the Javadoc documentation in the given directory into a subdirectory
-#    of JAVADOC_DIR based on the name of the package.
+#  Installs the Javadoc documentation in the given directory into a subdirectory
+#  of JAVADOC_DIR based on the name of the package.
 #****
 dojavadoc() {
 	local pkgdocdir=${JAVADOC_DIR}/${PN#java-}
@@ -288,12 +288,12 @@ dojavadoc() {
 
 #****I* java.cygclass/java_wrapper
 #  SYNOPSIS
-#    java_wrapper WRAPPER_NAME JAR_FILE [MAIN_CLASS]
+#  java_wrapper WRAPPER_NAME JAR_FILE [MAIN_CLASS]
 #  DESCRIPTION
-#    Creates a wrapper script for the given .jar file.  If the .jar file is
-#    installed into JAVA_DIR, its basename can be used instead of a path.
-#    If the jar file manifest defines a Main-Class, then the third argument
-#    (the class providing the main() function) can be omitted.
+#  Creates a wrapper script for the given .jar file.  If the .jar file is
+#  installed into JAVA_DIR, its basename can be used instead of a path.
+#  If the jar file manifest defines a Main-Class, then the third argument
+#  (the class providing the main() function) can be omitted.
 #****
 java_wrapper() {
 	local jwrapper jar jmain jcmdopt

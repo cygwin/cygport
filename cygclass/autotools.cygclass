@@ -24,73 +24,71 @@
 ################################################################################
 
 #****h* Cygclasses/autotools.cygclass
-#  NAME
-#    autotools.cygclass -- Build Autotool-based packages
 #  DESCRIPTION
-#    GNU Autotools (comprising of Gettext, Autoconf, Automake, and Libtool)
-#    comprise the build system of many source packages of all types.
+#  GNU Autotools (comprising of Gettext, Autoconf, Automake, and Libtool)
+#  comprise the build system of many source packages of all types.
 #
-#    This Cygclass provides the functions necessary to configure and build
-#    autotool-based packages.  Since these are so widespread, this is the
-#    assumed build system if no other is specified, and provides the default
-#    src_compile accordingly.
+#  This Cygclass provides the functions necessary to configure and build
+#  autotool-based packages.  Since these are so widespread, this is the
+#  assumed build system if no other is specified, and provides the default
+#  src_compile accordingly.
 #  NOTES
-#    These functions were previously part of cygport itself, but were moved
-#    out for easier maintainability.  For backwards compatibility, this
-#    cygclass is automatically inherit()ed, so these functions are always
-#    available as before.
+#  These functions were previously part of cygport itself, but were moved
+#  out for easier maintainability.  For backwards compatibility, this
+#  cygclass is automatically inherit()ed, so these functions are always
+#  available as before.
 #
-#    Normally, a cygclass can only be inherited once.  Even though this
-#    is auto-inherit()ed, it can still be manually inherit()ed once more if desired.
-#    In most cases this is unnecessary, but it can be useful if you inherit
-#    other cygclasses but still want the default src_compile().  For example:
-#      inherit perl autotools
-#    provides all the PERL_* definitions and perl_*() functions, but will build
-#    with cygconf/cygmake by default instead of with perl's ExtUtils::MakeMaker
-#    or Module::Build.
+#  Normally, a cygclass can only be inherited once.  Even though this
+#  is auto-inherit()ed, it can still be manually inherit()ed once more if desired.
+#  In most cases this is unnecessary, but it can be useful if you inherit
+#  other cygclasses but still want the default src_compile().  For example:
+#    inherit perl autotools
+#  provides all the PERL_* definitions and perl_*() functions, but will build
+#  with cygconf/cygmake by default instead of with perl's ExtUtils::MakeMaker
+#  or Module::Build.
 #  INHERITED BY
-#    No Cygclass actually inherit()s autotools.cygclass for the reasons stated above,
-#    but the functions defined herein are used by a number of Cygclasses:
+#  No Cygclass actually inherit()s autotools.cygclass for the reasons stated above,
+#  but the functions defined herein are used by a number of Cygclasses:
 #
-#    apache1.cygclass, apache2.cygclass, berkdb.cygclass, ggz.cygclass, gnome2.cygclass,
-#    gnustep.cygclass, gst-plugins0.10.cygclass, gtkmm.cygclass, kde3.cygclass,
-#    opensync.cygclass, php.cygclass, pygtk.cygclass, xfce4.cygclass, xorg.cygclass
+#  apache1.cygclass, apache2.cygclass, berkdb.cygclass, ggz.cygclass, gnome2.cygclass,
+#  gnustep.cygclass, gst-plugins0.10.cygclass, gtkmm.cygclass, kde3.cygclass,
+#  opensync.cygclass, php.cygclass, pygtk.cygclass, xfce4.cygclass, xorg.cygclass
 #****
 
 
 #****C* autotools.cygclass/cygautoreconf
 #  SYNOPSIS
-#    cd $S
-#    cygautoreconf
+#  cygautoreconf
 #  DESCRIPTION
-#    Updates the autotool build system with autoreconf, which runs the tools
-#    from autoconf, automake, gettext-devel, and libtool to update their
-#    respective components.
+#  Updates the autotool build system with autoreconf, which runs the tools
+#  from autoconf, automake, gettext-devel, and libtool to update their
+#  respective components.  Must be run in the directory containing the top-level
+#  configure.ac or configure.in (usually $S).
 #  NOTE
-#    If, during cygautoreconf, you get a warning such as:
-#       Warning: ./configure.ac may require LT_OUTPUT macro
-#    then the package configure script is relying on libtool 1.5 behaviour where
-#    the libtool script is generated during AC_PROG_LIBTOOL, and can therefore
-#    be called anytime thereafter in the configure script.  Some packages do this
-#    either to read the libtool config, or to run compiling/linking tests with
-#    the libtool script.
+#  If, during cygautoreconf, you get a warning such as:
+#     Warning: ./configure.ac may require LT_OUTPUT macro
+#  then the package configure script is relying on libtool 1.5 behaviour where
+#  the libtool script is generated during AC_PROG_LIBTOOL, and can therefore
+#  be called anytime thereafter in the configure script.  Some packages do this
+#  either to read the libtool config, or to run compiling/linking tests with
+#  the libtool script.
 #
-#    However, with the current libtool 2.2, the libtool script is generated during
-#    the AC_OUTPUT phase at the end of configure, so these configure commands will
-#    not work as designed.  The simplest portable solution is to add the 
-#    following line after the AC_PROG_LIBTOOL call:
-#      m4_ifdef([LT_OUTPUT], [LT_OUTPUT])
-#    which means: if libtool 2.2 is in use, generate a libtool script early so
-#    that it can be used during configure; if libtool 1.5 is in use, this line has
-#    no effect.  Such a patch is suitable to be pushed upstream.
+#  However, with the current libtool 2.2, the libtool script is generated during
+#  the AC_OUTPUT phase at the end of configure, so these configure commands will
+#  not work as designed.  The simplest portable solution is to add the 
+#  following line after the AC_PROG_LIBTOOL call:
+#    m4_ifdef([LT_OUTPUT], [LT_OUTPUT])
+#  which means: if libtool 2.2 is in use, generate a libtool script early so
+#  that it can be used during configure; if libtool 1.5 is in use, this line has
+#  no effect.  Such a patch is suitable to be pushed upstream.
 #  WARNING
-#    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
-#    macros, or Makefile.am files will not take effect until their tools have been
-#    regenerated.  Also, Cygwin's libtool package often includes patches which
-#    are not yet available in the latest upstream release, so libraries may not
-#    be built optimally, or even correctly, without this step having been run.
+#  Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
+#  macros, or Makefile.am files will not take effect until their tools have been
+#  regenerated.  Also, Cygwin's libtool package often includes patches which
+#  are not yet available in the latest upstream release, so libraries may not
+#  be built optimally, or even correctly, without this step having been run.
 #  REQUIRES
-#    autoconf, automake, gettext-devel, libtool
+#  autoconf, automake, gettext-devel, libtool
 #****
 cygautoreconf() {
 	local d;
@@ -188,17 +186,17 @@ cygautoreconf() {
 
 #****v* cygautoreconf/WANT_AUTOCONF
 #  DESCRIPTION
-#    This variable controls the version of autoconf to be used.  Valid settings
-#    are "2.1" (for the 2.13 version) and "2.5" (the default, for the 2.5x/2.6x
-#    series).
+#  This variable controls the version of autoconf to be used.  Valid settings
+#  are "2.1" (for the 2.13 version) and "2.5" (the default, for the 2.5x/2.6x
+#  series).
 #****
 
 #****v* cygautoreconf/WANT_AUTOMAKE
 #  DESCRIPTION
-#    This variable controls the version of automake to be used.  Valid settings
-#    are currently "1.4" through "1.11".  If undefined, the version used by
-#    the preexisting automake files will be used; if nonexistant (e.g. a VCS
-#    checkout), the newest available automake will be used.
+#  This variable controls the version of automake to be used.  Valid settings
+#  are currently "1.4" through "1.11".  If undefined, the version used by
+#  the preexisting automake files will be used; if nonexistant (e.g. a VCS
+#  checkout), the newest available automake will be used.
 #****
 	export WANT_AUTOCONF;
 	export WANT_AUTOMAKE;
@@ -227,49 +225,49 @@ cygautoreconf() {
 
 #****v* cygautoreconf/NO_ACLOCAL
 #  DESCRIPTION
-#    Define this variable to skip running aclocal during cygautoreconf.
+#  Define this variable to skip running aclocal during cygautoreconf.
 #  WARNING
-#    This is strongly discouraged, and should only be used when a package uses
-#    its own aclocal macros which are not provided in the tarball *and* the
-#    package does not use libtool.
+#  This is strongly discouraged, and should only be used when a package uses
+#  its own aclocal macros which are not provided in the tarball *and* the
+#  package does not use libtool.
 #****
 #****v* cygautoreconf/NO_LIBTOOLIZE
 #  DESCRIPTION
-#    Define this variable to skip running libtoolize during cygautoreconf.
+#  Define this variable to skip running libtoolize during cygautoreconf.
 #  WARNING
-#    This is strongly discouraged.  Cygwin's libtool usually includes patches
-#    required for optimal results on Cygwin which are not yet available in
-#    even the most recent upstream releases.
+#  This is strongly discouraged.  Cygwin's libtool usually includes patches
+#  required for optimal results on Cygwin which are not yet available in
+#  even the most recent upstream releases.
 #****
 #****v* cygautoreconf/NO_AUTOCONF
 #  DESCRIPTION
-#    Define this variable to skip running autoconf during cygautoreconf.
+#  Define this variable to skip running autoconf during cygautoreconf.
 #  WARNING
-#    This is strongly discouraged.  Running libtoolize, changes to aclocal macros,
-#    or changes to configure.ac/configure.in all require autoconf to be run for
-#    a working build.
+#  This is strongly discouraged.  Running libtoolize, changes to aclocal macros,
+#  or changes to configure.ac/configure.in all require autoconf to be run for
+#  a working build.
 #****
 #****v* cygautoreconf/NO_AUTOHEADER
 #  DESCRIPTION
-#    Sometimes autoreconf thinks a package uses autoheader when in fact it does
-#    not, in which case cygautoreconf will fail during the autoheader stage.
-#    In such cases, provided you have not patched any AC_DEFINEs, set this
-#    variable to skip the autoheader step.
+#  Sometimes autoreconf thinks a package uses autoheader when in fact it does
+#  not, in which case cygautoreconf will fail during the autoheader stage.
+#  In such cases, provided you have not patched any AC_DEFINEs, set this
+#  variable to skip the autoheader step.
 #****
 #****v* cygautoreconf/NO_AUTOMAKE
 #  DESCRIPTION
-#    Define this variable to skip running automake during cygautoreconf.
+#  Define this variable to skip running automake during cygautoreconf.
 #  WARNING
-#    This is strongly discouraged.  If aclocal and/or autoconf have been run,
-#    running automake is required for a working build.
+#  This is strongly discouraged.  If aclocal and/or autoconf have been run,
+#  running automake is required for a working build.
 #****
 #****v* cygautoreconf/NO_AUTOPOINT
 #  DESCRIPTION
-#    Define this variable to skip running autopoint during cygautoreconf.
+#  Define this variable to skip running autopoint during cygautoreconf.
 #  WARNING
-#    This is strongly discouraged.  Cygwin's gettext package often has patches
-#    which are not yet available in even the latest official release, and earlier
-#    versions of gettext are incompatible with the current libtool.
+#  This is strongly discouraged.  Cygwin's gettext package often has patches
+#  which are not yet available in even the latest official release, and earlier
+#  versions of gettext are incompatible with the current libtool.
 #****
 
 		for tool in ACLOCAL LIBTOOLIZE AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
@@ -282,11 +280,11 @@ cygautoreconf() {
 		done
 
 #****v* cygautoreconf/ACLOCAL_FLAGS
-#  SYNOPSIS
-#    ACLOCAL_FLAGS="-I m4"
 #  DESCRIPTION
-#    Set this variable when a package ships with its own aclocal macros but
-#    their directory is not included when running aclocal during cygautoreconf.
+#  Set this variable when a package ships with its own aclocal macros but
+#  their directory is not included when running aclocal during cygautoreconf.
+#  If needed, usually in the form "-I DIR" (where DIR is the relative subdirectory
+#  containing the aclocal macros, often m4/).
 #****
 		if defined ACLOCAL_FLAGS
 		then
@@ -330,23 +328,22 @@ cygautoreconf() {
 
 #****C* autotools.cygclass/cygconf
 #  SYNOPSIS
-#    cd $B
-#    cygconf [CONFIGURE_FLAG] [CONFIGURE_FLAG] ...
+#  cygconf [CONFIGURE_FLAG] [CONFIGURE_FLAG] ...
 #  DESCRIPTION
-#    Runs the configure script for the package.  cygconf passes configure the flags
-#    necessary to install the package into the /usr prefix and according to the
-#    |html <a href="http://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
-#    |html <a href="http://cygwin.com/setup.html#package_contents">Cygwin package guidelines</a>.
-#    In addition, all arguments to cygconf are passed to configure, followed by
-#    CYGCONF_ARGS, if set.
+#  Runs the configure script for the package.  cygconf passes configure the flags
+#  necessary to install the package into the /usr prefix and according to the
+#  |html <a href="http://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
+#  |html <a href="http://cygwin.com/setup.html#package_contents">Cygwin package guidelines</a>.
+#  In addition, all arguments to cygconf are passed to configure, followed by
+#  CYGCONF_ARGS, if set.
 #  NOTES
-#    * cygconf should be run in or under $B, as it defines the build directory of
-#      the package and creates numerous files.
-#    * If the configure script is not in $S, see CYGCONF_SOURCE.
-#    * cygconf is intended for configure scripts generated by, or compatible with,
-#      autoconf.  Packages with handwritten configure scripts may not accept all
-#      the flags used by cygconf, in which case a direct call to the configure 
-#      script is in order.
+#  * cygconf should be run in or under $B, as it defines the build directory of
+#    the package and creates numerous files.
+#  * If the configure script is not in $S, see CYGCONF_SOURCE.
+#  * cygconf is intended for configure scripts generated by, or compatible with,
+#    autoconf.  Packages with handwritten configure scripts may not accept all
+#    the flags used by cygconf, in which case a direct call to the configure 
+#    script is in order.
 #****
 cygconf() {
 	local ac_config_files;
@@ -358,11 +355,11 @@ cygconf() {
 
 #****v* cygconf/CYGCONF_SOURCE
 #  DESCRIPTION
-#    Set this variable to the directory containing the configure script.  This
-#    is only necessary when configure is not in $S and cygconf is not being run
-#    in the same subdirectory of $B which under $S contains configure.  (IOW if
-#    the configure script is in $S/unix and cygconf is run from $B/unix, setting
-#    CYGCONF_SOURCE would not be necessary.)
+#  Set this variable to the directory containing the configure script.  This
+#  is only necessary when configure is not in $S and cygconf is not being run
+#  in the same subdirectory of $B which under $S contains configure.  (IOW if
+#  the configure script is in $S/unix and cygconf is run from $B/unix, setting
+#  CYGCONF_SOURCE would not be necessary.)
 #****
 	if defined CYGCONF_SOURCE && [ -x ${CYGCONF_SOURCE}/configure ]
 	then
@@ -395,10 +392,10 @@ cygconf() {
 
 #****v* cygconf/CYGCONF_ARGS
 #  DESCRIPTION
-#    Additional flags to pass to configure, as a string.
+#  Additional flags to pass to configure, as a string.
 #  NOTES
-#    Flags in CYGCONF_ARGS follow, and therefore override, flags passed by default
-#    and as arguments to cygconf.
+#  Flags in CYGCONF_ARGS follow, and therefore override, flags passed by default
+#  and as arguments to cygconf.
 #****
 	# Set default configure arguments
 	confargs="--prefix=/usr --exec-prefix=/usr --bindir=/usr/bin \

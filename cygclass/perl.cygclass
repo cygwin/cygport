@@ -24,65 +24,63 @@
 ################################################################################
 
 #****h* Cygclasses/perl.cygclass
-#  NAME
-#    perl.cygclass -- Build packages which use the Perl programming language
 #  SYNOPSIS
-#    [CPAN_AUTHOR="username"]
-#    inherit perl
+#  [CPAN_AUTHOR="username"]
+#  inherit perl
 #  DESCRIPTION
-#    Perl is an interpreted programming language used in a variety of software,
-#    particularly text processing, network programming, system administration,
-#    and CGI scripting.  It is easily extendible with modules written in Perl
-#    and/or C/C++.  Thousands of such modules are centrally hosted on the
-#    Comprehensive Perl Archive Network (CPAN).
+#  Perl is an interpreted programming language used in a variety of software,
+#  particularly text processing, network programming, system administration,
+#  and CGI scripting.  It is easily extendible with modules written in Perl
+#  and/or C/C++.  Thousands of such modules are centrally hosted on the
+#  Comprehensive Perl Archive Network (CPAN).
 #
-#    This cygclass provides definitions for building Perl dependent packages,
-#    and functions for building Perl module packages.
+#  This cygclass provides definitions for building Perl dependent packages,
+#  and functions for building Perl module packages.
 #  INHERITED BY
-#    gtk2-perl.cygclass
+#  gtk2-perl.cygclass
 #  REQUIRES
-#    perl
+#  perl
 #****
 
 check_prog_req perl
 
 #****d* perl.cygclass/PERL
 #  DESCRIPTION
-#    Absolute path to the Perl interpreter.
+#  Absolute path to the Perl interpreter.
 #****
 PERL=/usr/bin/perl
 
 #****d* perl.cygclass/PERL_VERSION
 #  DESCRIPTION
-#    The major.minor version of the Perl interpreter.
+#  The major.minor version of the Perl interpreter.
 #****
 PERL_VERSION=$(${PERL} -MConfig -e 'print $Config{api_revision}.".".$Config{api_version};')
 
 #****d* perl.cygclass/PERL_LIB
 #  DESCRIPTION
-#    Absolute path to the Perl arch-independent standard library.
+#  Absolute path to the Perl arch-independent standard library.
 #  NOTE
-#    Third-party packages must not be installed here; use PERL_VENDORLIB instead.
+#  Third-party packages must not be installed here; use PERL_VENDORLIB instead.
 #****
 PERL_LIB=$(${PERL} -MConfig -e 'print $Config{privlib};')
 
 #****d* perl.cygclass/PERL_ARCHLIB
 #  DESCRIPTION
-#    Absolute path to the Perl arch-specific standard library.
+#  Absolute path to the Perl arch-specific standard library.
 #  NOTE
-#    Third-party packages must not be installed here; use PERL_VENDORARCH instead.
+#  Third-party packages must not be installed here; use PERL_VENDORARCH instead.
 #****
 PERL_ARCHLIB=$(${PERL} -MConfig -e 'print $Config{archlib};')
 
 #****d* perl.cygclass/PERL_VENDORLIB
 #  DESCRIPTION
-#    Installation path for third-party arch-independent Perl modules.
+#  Installation path for third-party arch-independent Perl modules.
 #****
 PERL_VENDORLIB=$(${PERL} -MConfig -e 'print $Config{vendorlib};')
 
 #****d* perl.cygclass/PERL_VENDORARCH
 #  DESCRIPTION
-#    Installation path for third-party arch-specific Perl modules.
+#  Installation path for third-party arch-specific Perl modules.
 #****
 PERL_VENDORARCH=$(${PERL} -MConfig -e 'print $Config{vendorarch};')
 
@@ -91,7 +89,7 @@ PERL_SITELIB=$(${PERL} -MConfig -e 'print $Config{sitelib};')
 
 #****d* perl.cygclass/LIBPERL
 #  DESCRIPTION
-#    Link flags for the Perl C library.
+#  Link flags for the Perl C library.
 #****
 LIBPERL="-L${PERL_ARCHLIB}/CORE -lperl"
 
@@ -101,9 +99,9 @@ esac
 
 #****v* perl.cygclass/CPAN_AUTHOR
 #  DESCRIPTION
-#    The CPAN username of the Perl module's author.  This variable must be set
-#    before inherit()ing perl.cygclass to have any effect.  If set, the package
-#    HOMEPAGE and SRC_URI are set to their usual locations on CPAN.
+#  The CPAN username of the Perl module's author.  This variable must be set
+#  before inherit()ing perl.cygclass to have any effect.  If set, the package
+#  HOMEPAGE and SRC_URI are set to their usual locations on CPAN.
 #****
 
 #****o* perl.cygclass/DESCRIPTION (perl)
@@ -118,21 +116,21 @@ then
 
 #****o* perl.cygclass/HOMEPAGE (perl)
 #  DESCRIPTION
-#    Web address for the Perl module on CPAN.
+#  Web address for the Perl module on CPAN.
 #  NOTE
-#    This variable is set only if CPAN_AUTHOR is defined before inherit()ing
-#    perl.cygclass.
+#  This variable is set only if CPAN_AUTHOR is defined before inherit()ing
+#  perl.cygclass.
 #****
 	HOMEPAGE="http://search.cpan.org/~${cpan_author_web}/${ORIG_PN}/"
 
 #****o* perl.cygclass/SRC_URI (perl)
 #  DESCRIPTION
-#    Download location for the Perl module on CPAN.
+#  Download location for the Perl module on CPAN.
 #  NOTE
-#    This variable is set only if CPAN_AUTHOR is defined before inherit()ing
-#    perl.cygclass.
+#  This variable is set only if CPAN_AUTHOR is defined before inherit()ing
+#  perl.cygclass.
 #  SEE ALSO
-#    mirror_cpan
+#  mirror_cpan
 #****
 	SRC_URI="mirror://cpan/authors/id/${cpan_author_ftp:0:1}/${cpan_author_ftp:0:2}/${cpan_author_ftp}/${ORIG_PN}-${PV}.${CPAN_TARBALL_SUFFIX:-tar.gz}"
 
@@ -140,13 +138,13 @@ fi
 
 #****f* perl.cygclass/check_perl_module
 #  SYNOPSIS
-#    check_perl_module MODULE [MODULE2] ...
+#  check_perl_module MODULE [MODULE2] ...
 #  DESCRIPTION
-#    Checks the presence of the given Perl module(s).  If all given module(s)
-#    are present, returns TRUE, else FALSE.
+#  Checks the presence of the given Perl module(s).  If all given module(s)
+#  are present, returns TRUE, else FALSE.
 #  NOTE
-#    check_perl_module does not distinguish how the given module(s) were
-#    installed, whether they are from a Cygwin package or manually from CPAN.
+#  check_perl_module does not distinguish how the given module(s) were
+#  installed, whether they are from a Cygwin package or manually from CPAN.
 #****
 check_perl_module() {
 	local mod
@@ -169,11 +167,11 @@ check_perl_module() {
 
 #****C* perl.cygclass/perl_compile
 #  SYNOPSIS
-#    cd $B
-#    perl_compile [OPTIONS]
+#  cd $B
+#  perl_compile [OPTIONS]
 #  DESCRIPTION
-#    Configures and builds a Perl module package.  Options, if any, are passed 
-#    during the configure phase.
+#  Configures and builds a Perl module package.  Options, if any, are passed 
+#  during the configure phase.
 #****
 perl_compile() {
 	if [ -e Build.PL ]
@@ -192,10 +190,10 @@ perl_compile() {
 
 #****T* perl.cygclass/perl_test
 #  SYNOPSIS
-#    cd $B
-#    perl_test
+#  cd $B
+#  perl_test
 #  DESCRIPTION
-#    Runs the test suite for the Perl module.
+#  Runs the test suite for the Perl module.
 #****
 perl_test() {
 	if [ -f Build ]
@@ -212,10 +210,10 @@ perl_test() {
 
 #****I* perl.cygclass/perl_install
 #  SYNOPSIS
-#    cd $B
-#    perl_install
+#  cd $B
+#  perl_install
 #  DESCRIPTION
-#    Installs the Perl module into $D.
+#  Installs the Perl module into $D.
 #****
 perl_install() {
 	if [ -f Build ]
@@ -232,13 +230,13 @@ perl_install() {
 
 #****I* perl.cygclass/perl_postinst
 #  SYNOPSIS
-#    perl_postinst
+#  perl_postinst
 #  DESCRIPTION
-#    Runs the following postinstall steps:
-#    * Deletes the perllocal.pod file, as this file is owned by perl itself;
-#    * Removes the $D prefix from the .packlist file, if created.
-#    If a src_compile other than the one provided in this cygclass is used,
-#    this function must be run manually after installing files to $D.
+#  Runs the following postinstall steps:
+#  * Deletes the perllocal.pod file, as this file is owned by perl itself;
+#  * Removes the $D prefix from the .packlist file, if created.
+#  If a src_compile other than the one provided in this cygclass is used,
+#  this function must be run manually after installing files to $D.
 #****
 perl_postinst() {
 	# Previously this was appended to the system perllocal.pod via

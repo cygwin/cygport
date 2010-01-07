@@ -24,23 +24,21 @@
 ################################################################################
 
 #****h* Cygclasses/utils.cygclass
-#  NAME
-#    utils.cygclass -- Miscellaneous utility functions
 #  DESCRIPTION
-#    This cygclass contains miscellaneous functions.  Currently defined herein are:
-#    * check_header
-#    * check_lib
-#    * check_pkg_config
+#  This cygclass contains miscellaneous functions.  Currently defined herein are:
+#  * check_header
+#  * check_lib
+#  * check_pkg_config
 #****
 
 #****f* Checks/check_header
 #  SYNOPSIS
-#    inherit utils
-#    check_header [-IDIRECTORY] [-IDIRECTORY2] ... HEADER [HEADER2] ...
+#  inherit utils
+#  check_header [-IDIRECTORY] [-IDIRECTORY2] ... HEADER [HEADER2] ...
 #  DESCRIPTION
-#    Checks for the presence of the given header(s).  Directories can be added
-#    to the default include path by prefixing them with the -I flag.  Returns
-#    TRUE if all libraries are found, else FALSE.
+#  Checks for the presence of the given header(s).  Directories can be added
+#  to the default include path by prefixing them with the -I flag.  Returns
+#  TRUE if all libraries are found, else FALSE.
 #****
 check_header() {
 	local d
@@ -73,12 +71,12 @@ check_header() {
 
 #****f* Checks/check_lib
 #  SYNOPSIS
-#    inherit utils
-#    check_lib [-LDIRECTORY] [-LDIRECTORY2] ... LIBRARY [LIBRARY2] ...
+#  inherit utils
+#  check_lib [-LDIRECTORY] [-LDIRECTORY2] ... LIBRARY [LIBRARY2] ...
 #  DESCRIPTION
-#    Checks for the presence of the given library(ies).  Directories can be added
-#    to the default library path by prefixing them with the -L flag.  Returns
-#    TRUE if all libraries are found, else FALSE.
+#  Checks for the presence of the given library(ies).  Directories can be added
+#  to the default library path by prefixing them with the -L flag.  Returns
+#  TRUE if all libraries are found, else FALSE.
 #****
 check_lib() {
 	local d
@@ -111,14 +109,14 @@ check_lib() {
 
 #****f* Checks/check_pkg_config
 #  SYNOPSIS
-#    inherit utils
-#    check_pkg_config NAME "PKG_CONFIG_SPEC"
+#  inherit utils
+#  check_pkg_config NAME "PKG_CONFIG_SPEC"
 #  DESCRIPTION
-#    Checks for the presence of the given development packages with pkg-config.
-#    If given pkg-config spec is found, return TRUE and defines NAME_CFLAGS
-#    and NAME_LIBS.  If not found, returns FALSE.
+#  Checks for the presence of the given development packages with pkg-config.
+#  If given pkg-config spec is found, return TRUE and defines NAME_CFLAGS
+#  and NAME_LIBS.  If not found, returns FALSE.
 #  REQUIRES
-#    pkg-config
+#  pkg-config
 #****
 check_pkg_config() {
 	local modname=${1};

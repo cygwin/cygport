@@ -24,25 +24,23 @@
 ################################################################################
 
 #****h* Cygclasses/cvs.cygclass
-#  NAME
-#    cvs.cygclass -- Create packages from CVS checkouts
 #  SYNOPSIS
-#    CVS_URI="..."
-#    [CVS_BRANCH="..."]
-#    [CVS_DATE="..."]
-#    inherit cvs
+#  CVS_URI="..."
+#  [CVS_BRANCH="..."]
+#  [CVS_DATE="..."]
+#  inherit cvs
 #  DESCRIPTION
-#    CVS is a centralized version control system.  It was the first widely-used
-#    VCS for open-source software, but many projects have since moved to Subversion
-#    or one of the distributed VCSs.
+#  CVS is a centralized version control system.  It was the first widely-used
+#  VCS for open-source software, but many projects have since moved to Subversion
+#  or one of the distributed VCSs.
 #
-#    This cygclass creates source tarballs from CVS checkouts.
+#  This cygclass creates source tarballs from CVS checkouts.
 #  NOTE
-#    This cygclass sets a special SRC_URI for the tarball it creates.  If
-#    additional sources are required, be sure to _add_ to SRC_URI rather than
-#    outright setting it.
+#  This cygclass sets a special SRC_URI for the tarball it creates.  If
+#  additional sources are required, be sure to _add_ to SRC_URI rather than
+#  outright setting it.
 #  REQUIRES
-#    cvs
+#  cvs
 #****
 
 # is this truly necessary?
@@ -61,8 +59,8 @@ cvs_fetch() {
 
 #****v* cvs.cygclass/CVS_URI
 #  DESCRIPTION
-#    Address of CVS repository, usually in the form:
-#      :pserver:anonymous@<server_uri>:/remote/path/to/repository
+#  Address of CVS repository, usually in the form:
+#    :pserver:anonymous@<server_uri>:/remote/path/to/repository
 #****
 	if ! defined CVS_URI
 	then
@@ -71,7 +69,7 @@ cvs_fetch() {
 
 #****v* cvs.cygclass/CVS_BRANCH
 #  DESCRIPTION
-#    Specific revision or tag to checkout.
+#  Specific revision or tag to checkout.
 #****
 	if defined CVS_BRANCH
 	then
@@ -80,12 +78,12 @@ cvs_fetch() {
 
 #****v* cvs.cygclass/CVS_DATE
 #  DESCRIPTION
-#    Specific revision date to checkout.  Preferred form is YYYY-MM-DD [HH:MM],
-#    where the time is optional; the hyphens in the date can be omitted.
+#  Specific revision date to checkout.  Preferred form is YYYY-MM-DD [HH:MM],
+#  where the time is optional; the hyphens in the date can be omitted.
 #  NOTE
-#    If a date is specified without a time, then the time 00:00 is implied,
-#    which will exclude all revisions made on the given date.  Use the
-#    following day in CVS_DATE instead.
+#  If a date is specified without a time, then the time 00:00 is implied,
+#  which will exclude all revisions made on the given date.  Use the
+#  following day in CVS_DATE instead.
 #****
 	if defined CVS_DATE
 	then

@@ -24,24 +24,22 @@
 ################################################################################
 
 #****h* Cygclasses/gnome.org.cygclass
-#  NAME
-#    gnome.org.cygclass
 #  SYNOPSIS
-#    inherit gnome.org
+#  inherit gnome.org
 #  DESCRIPTION
-#    This cygclass is to be used for packages which are part of GNOME
-#    or which are hosted on GNOME FTP or Git servers.
+#  This cygclass is to be used for packages which are part of GNOME
+#  or which are hosted on GNOME FTP or Git servers.
 #
-#    In most cases, you do not need to directly inherit this cygclass;
-#    most GNOME packages will anyway use one of the cygclasses listed below
-#    which already inherit this cygclass.
+#  In most cases, you do not need to directly inherit this cygclass;
+#  most GNOME packages will anyway use one of the cygclasses listed below
+#  which already inherit this cygclass.
 #
-#    If PN does not match the name of the original source tarball, 
-#    define ORIG_PN before inherit()ing.
+#  If PN does not match the name of the original source tarball, 
+#  define ORIG_PN before inherit()ing.
 #  INHERITED BY
-#    gnome2.cygclass, gtkmm.cygclass, pygtk.cygclass
+#  gnome2.cygclass, gtkmm.cygclass, pygtk.cygclass
 #  SEE ALSO
-#    mirror_gnome
+#  mirror_gnome
 #****
 
 #****o* gnome.org.cygclass/HOMEPAGE (gnome.org)
@@ -58,7 +56,7 @@ if ! defined GIT_URI
 then
 #****o* gnome.org.cygclass/GIT_URI (gnome.org)
 #  NOTE
-#    git.cygclass should be inherit()ed last for this to be of use.
+#  git.cygclass should be inherit()ed last for this to be of use.
 #  DEFINITION
 GIT_URI="git://git.gnome.org/${ORIG_PN:-${PN}}"
 #****

@@ -24,19 +24,17 @@
 ################################################################################
 
 #****h* Cygclasses/docbook.cygclass
-#  NAME
-#    docbook.cygclass -- Install DocBook DTDs and stylesheets
 #  SYNOPSIS
-#    inherit docbook
+#  inherit docbook
 #  DESCRIPTION
-#    DocBook is a schema for SGML and XML documents meant for formatting
-#    documents and books, and is sometimes used for software documentation.
-#    It is generally processed through the (Open)Jade parser, either
-#    directly or through the jw/docbook2* wrappers.
+#  DocBook is a schema for SGML and XML documents meant for formatting
+#  documents and books, and is sometimes used for software documentation.
+#  It is generally processed through the (Open)Jade parser, either
+#  directly or through the jw/docbook2* wrappers.
 #
-#    This cygclass handles downloading, installation and registration of
-#    DocBook SGML, XML, and Simplified XML DTDs, as well as the DSSSL and
-#    XSL stylesheets.
+#  This cygclass handles downloading, installation and registration of
+#  DocBook SGML, XML, and Simplified XML DTDs, as well as the DSSSL and
+#  XSL stylesheets.
 #****
 
 my_pn=${PN%%[0-9]*}
@@ -71,7 +69,7 @@ SRC_DIR=.
 
 #****o* docbook.cygclass/SRC_URI (docbook)
 #  DESCRIPTION
-#    Download location for the DocBook package.
+#  Download location for the DocBook package.
 #****
 case "${dtd_type}:${PV}" in
 	sgml:3.[01]*|sgml:4.[01]*)
@@ -111,10 +109,10 @@ esac
 
 #****I* docbook.cygclass/docbook_install
 #  SYNOPSIS
-#    cd $S
-#    docbook_install
+#  cd $S
+#  docbook_install
 #  DESCRIPTION
-#    Installs the DocBook package into $D.
+#  Installs the DocBook package into $D.
 #****
 docbook_install() {
 	insinto ${DOCBOOK_DIR}
@@ -154,8 +152,8 @@ docbook_install() {
 
 #****I* docbook.cygclass/docbook_dsssl_postinst
 #  DESCRIPTION
-#    Creates postinstall/preremove scripts to de/register the DSSSL stylesheets
-#    with the system SGML catalog.
+#  Creates postinstall/preremove scripts to de/register the DSSSL stylesheets
+#  with the system SGML catalog.
 #****
 docbook_dsssl_postinst() {
 	dodir /etc/postinstall /etc/preremove
@@ -173,10 +171,10 @@ docbook_dsssl_postinst() {
 
 #****I* docbook.cygclass/docbook_sgml_postinst
 #  DESCRIPTION
-#    Creates postinstall/preremove scripts to de/register the SGML/XML DTDs
-#    with the system SGML catalog.
+#  Creates postinstall/preremove scripts to de/register the SGML/XML DTDs
+#  with the system SGML catalog.
 #  NOTE
-#    XML DTDs must also be registered in the SGML catalog.
+#  XML DTDs must also be registered in the SGML catalog.
 #****
 docbook_sgml_postinst() {
 	local cat_name
@@ -203,8 +201,8 @@ docbook_sgml_postinst() {
 
 #****I* docbook.cygclass/docbook_xml_postinst
 #  DESCRIPTION
-#    Creates postinstall/preremove scripts to de/register the XML DTDs or
-#    XSL stylesheets with the system XML catalog.
+#  Creates postinstall/preremove scripts to de/register the XML DTDs or
+#  XSL stylesheets with the system XML catalog.
 #****
 docbook_xml_postinst() {
 	dodir /etc/postinstall /etc/preremove
@@ -230,8 +228,8 @@ src_compile() { :; }
 
 #****o* docbook.cygclass/src_install (docbook)
 #  DESCRIPTION
-#    Runs docbook_install followed by the appropriate combination of
-#    docbook_dsssl_postinst, docbook_sgml_postinst, and/or docbook_xml_postinst.
+#  Runs docbook_install followed by the appropriate combination of
+#  docbook_dsssl_postinst, docbook_sgml_postinst, and/or docbook_xml_postinst.
 #****
 src_install() {
 	cd ${S}

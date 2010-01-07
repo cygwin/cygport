@@ -3,7 +3,7 @@
 #
 # cygport - Cygwin packaging application
 #
-# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -82,7 +82,7 @@ source ${_privlibdir}/syntax.cygpart
 
 #****** Cygport/Usage
 #  USAGE
-#    See href:cygport.1.html for command line options.
+#  See href:cygport.1.html for command line options.
 #****
 
 ### import _show_help, _show_version
@@ -162,6 +162,13 @@ unset _myprog;
 #****
 
 #****** Cygport/Installing
+#  NOTE
+#  In the context of cygport, "installing" always means into the DESTDIR $D.
+#  However, the syntax of the convenience functions is as if one were
+#  installing to the system.
+#****
+
+#****** Cygport/Postinstall
 #****
 
 #****** Cygport/Information
@@ -172,70 +179,69 @@ unset _myprog;
 
 #****** Cygport/Cygclasses
 #  DESCRIPTION
-#    * ant.cygclass
-#    * apache.cygclass
-#    * apache1.cygclass
-#    * apache2.cygclass
-#    * aspell-dict.cygclass
-#    * autotools.cygclass
-#    * berkdb.cygclass
-#    * bzr.cygclass
-#    * claws-mail.cygclass
-#    * cmake.cygclass
-#    * cross.cygclass
-#    * cvs.cygclass
-#    * distutils.cygclass
-#    * docbook.cygclass
-#    * ebook.cygclass
-#    * emacs.cygclass
-#    * font.cygclass
-#    * fossil.cygclass
-#    * fox.cygclass
-#    * ggz.cygclass
-#    * git.cygclass
-#    * gnome.org.cygclass
-#    * gnome2.cygclass
-#    * gnustep.cygclass
-#    * gst-plugins.cygclass
-#    * gst-plugins0.10.cygclass
-#    * gstreamer.cygclass
-#    * gtk2-perl.cygclass
-#    * gtkmm.cygclass
-#    * hg.cygclass
-#    * java.cygclass
-#    * kde3.cygclass
-#    * kde4.cygclass
-#    * lua.cygclass
-#    * mono.cygclass
-#    * mtn.cygclass
-#    * ocaml.cygclass
-#    * octave.cygclass
-#    * opensync.cygclass
-#    * perl.cygclass
-#    * php.cygclass
-#    * pygtk.cygclass
-#    * python.cygclass
-#    * python3.cygclass
-#    * qt3-qmake.cygclass
-#    * qt3.cygclass
-#    * qt4-cmake.cygclass
-#    * qt4-qconf.cygclass
-#    * qt4-qmake.cygclass
-#    * qt4.cygclass
-#    * R.cygclass
-#    * rox.cygclass
-#    * ruby-gnome2.cygclass
-#    * ruby.cygclass
-#    * svn.cygclass
-#    * tcl.cygclass
-#    * utils.cygclass
-#    * vim.cygclass
-#    * waf.cygclass
-#    * wxwidgets.cygclass
-#    * xfce4.cygclass
-#    * xorg.cygclass
+#  * ant.cygclass
+#  * apache.cygclass
+#  * apache1.cygclass
+#  * apache2.cygclass
+#  * aspell-dict.cygclass
+#  * autotools.cygclass
+#  * berkdb.cygclass
+#  * bzr.cygclass
+#  * claws-mail.cygclass
+#  * cmake.cygclass
+#  * cvs.cygclass
+#  * distutils.cygclass
+#  * docbook.cygclass
+#  * ebook.cygclass
+#  * emacs.cygclass
+#  * font.cygclass
+#  * fossil.cygclass
+#  * fox.cygclass
+#  * ggz.cygclass
+#  * git.cygclass
+#  * gnome.org.cygclass
+#  * gnome2.cygclass
+#  * gnustep.cygclass
+#  * gst-plugins.cygclass
+#  * gst-plugins0.10.cygclass
+#  * gstreamer.cygclass
+#  * gtk2-perl.cygclass
+#  * gtkmm.cygclass
+#  * hg.cygclass
+#  * java.cygclass
+#  * kde3.cygclass
+#  * kde4.cygclass
+#  * lua.cygclass
+#  * mono.cygclass
+#  * mtn.cygclass
+#  * ocaml.cygclass
+#  * octave.cygclass
+#  * opensync.cygclass
+#  * perl.cygclass
+#  * php.cygclass
+#  * pygtk.cygclass
+#  * python.cygclass
+#  * python3.cygclass
+#  * qt3-qmake.cygclass
+#  * qt3.cygclass
+#  * qt4-cmake.cygclass
+#  * qt4-qconf.cygclass
+#  * qt4-qmake.cygclass
+#  * qt4.cygclass
+#  * R.cygclass
+#  * rox.cygclass
+#  * ruby-gnome2.cygclass
+#  * ruby.cygclass
+#  * svn.cygclass
+#  * tcl.cygclass
+#  * utils.cygclass
+#  * vim.cygclass
+#  * waf.cygclass
+#  * wxwidgets.cygclass
+#  * xfce4.cygclass
+#  * xorg.cygclass
 #  BUGS
-#    Why do the cygclasses get listed in reverse order?!?
+#  Why do the cygclasses get listed in reverse order?!?
 #****
 
 ### __config_get/set and friends
@@ -303,7 +309,7 @@ unset _autotools_CYGCLASS_
 
 #****d* Compiling/CC
 #  DESCRIPTION
-#    The GCC C compiler.
+#  The GCC C compiler.
 #****
 declare -x CC="gcc";
 declare -x CFLAGS="-O2 -pipe ";
@@ -311,34 +317,34 @@ declare -x CPPFLAGS="";
 
 #****d* Compiling/CXX
 #  DESCRIPTION
-#    The GCC C++ compiler.
+#  The GCC C++ compiler.
 #****
 declare -x CXX="g++";
 declare -x CXXFLAGS="${CFLAGS}";
 
 #****d* Compiling/F77
 #  DESCRIPTION
-#    The GCC Fortran 77 compiler.
+#  The GCC Fortran 77 compiler.
 #  SEE ALSO
-#    FC
+#  FC
 #****
 declare -x F77="gfortran";
 declare -x FFLAGS="${CFLAGS}";
 
 #****d* Compiling/FC
 #  DESCRIPTION
-#    The GCC Fortran 95 compiler.
+#  The GCC Fortran 95 compiler.
 #  SEE ALSO
-#    F77
+#  F77
 #****
 declare -x FC="gfortran";
 declare -x FCFLAGS="${CFLAGS}";
 
 #****d* Compiling/GCJ
 #  DESCRIPTION
-#    The GCC Java native-code compiler.
+#  The GCC Java native-code compiler.
 #  SEE ALSO
-#    java.cygclass
+#  java.cygclass
 #****
 declare -x GCJ="gcj";
 declare -x GCJFLAGS="${CFLAGS}";
@@ -368,6 +374,41 @@ unset conf;
 # Import the .cygport file
 #
 ################################################################################
+
+#****** Format/Globals
+#****
+
+#****d* Globals/P
+#  DESCRIPTION
+#  The package name and version, equivalent to PN-PV.
+#****
+#****d* Globals/PN
+#  DESCRIPTION
+#  The Cygwin (primary) package name.  Generally, this is the same as the
+#  upstream package name, but need not be.  A common reason for deviating from
+#  the upstream name is to append a version "slot" where multiple versions of
+#  a package are completely parallel installable (e.g. gtk1.2 and gtk2.0, both
+#  from gtk+).  In this case, define ORIG_PN to the upstream package name.
+#****
+#****d* Globals/PV
+#  DESCRIPTION
+#  The upstream package version number.  PV must begin with a digit 0-9, and
+#  subsequent characters can be a digit, letter, dot, or underscore.
+#****
+#****d* Globals/PR
+#  DESCRIPTION
+#  The Cygwin package release number, e.g. the "1" in foo-2.3.4-1.  The first
+#  release of a new version is usually 1, and is incremented if subsequent
+#  releases are made of the same version.  PR must be an integer.
+#****
+#****d* Globals/PVR
+#  DESCRIPTION
+#  The package version and release, equivalent to PV-PR.
+#****
+#****d* Globals/PF
+#  DESCRIPTION
+#  The full package descriptor, equivalent to PN-PV-PR.
+#****
 
 # argv[1] may or may not include the .cygport extension
             PF=${argv[1]##*/}
@@ -417,18 +458,18 @@ then
 	fi
 fi
 
+
+#****v* Globals/RESTRICT
+#****
 for restrict in ${RESTRICT}
 do
 	export _CYGPORT_RESTRICT_${restrict//-/_}_=1
 done
 
-#****** Format/Globals
+#****v* Information/DESCRIPTION
 #****
 
-#****v* Globals/DESCRIPTION
-#****
-
-#****v* Globals/HOMEPAGE
+#****v* Information/HOMEPAGE
 #****
 
 ################################################################################
@@ -453,6 +494,30 @@ then
 else
 	declare -r S=${srcdir}/${SRC_DIR};
 fi
+
+#****d* Globals/S
+#  The source directory.  Build tool regeneration (e.g. cygautoreconf) occurs
+#  in this directory, but other build steps should occur in B.
+#****
+
+#****d* Globals/B
+#  DESCRIPTION
+#  The build directory.  All configuring and compiling steps should occur in
+#  this directory.
+#****
+
+#****d* Globals/C
+#  DESCRIPTION
+#  The CYGWIN-PATCHES directory where Cygwin READMEs, setup.hint files,
+#  custom postinstall scripts, and other Cygwin-specific files are placed
+#  before packaging.
+#****
+
+#****d* Globals/D
+#  DESCRIPTION
+#  The installation staging directory.  All installation and postinstall steps
+#  occur in or into this directory.
+#****
 
 declare -r B="${workdir}/build";
 declare -r D="${workdir}/inst";

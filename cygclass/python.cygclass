@@ -24,75 +24,73 @@
 ################################################################################
 
 #****h* Cygclasses/python.cygclass
-#  NAME
-#    python.cygclass -- Build packages which use the Python programming language
 #  SYNOPSIS
-#    inherit python
+#  inherit python
 #  DESCRIPTION
-#    Python is a general-purpose, interpreted programming language used in a
-#    wide variety of software.  It comes with a large standard library, and is
-#    easily extendible with modules written in Python and/or C/C++.  Programs
-#    can also embed a Python interpreter for use with their own extensions.
+#  Python is a general-purpose, interpreted programming language used in a
+#  wide variety of software.  It comes with a large standard library, and is
+#  easily extendible with modules written in Python and/or C/C++.  Programs
+#  can also embed a Python interpreter for use with their own extensions.
 #
-#    This cygclass provides definitions and some install helpers which can be used
-#    by any Python-based package.  Python modules and programs are built in a
-#    number of ways, so this cygclass does not provide any build functions.  The
-#    two most common build systems for Python packages are Distutils and autotools.
+#  This cygclass provides definitions and some install helpers which can be used
+#  by any Python-based package.  Python modules and programs are built in a
+#  number of ways, so this cygclass does not provide any build functions.  The
+#  two most common build systems for Python packages are Distutils and autotools.
 #  NOTE
-#    python.cygclass is for the 2.x versions of Python; for the 3.x versions,
-#    see python3.cygclass.
+#  python.cygclass is for the 2.x versions of Python; for the 3.x versions,
+#  see python3.cygclass.
 #  INHERITED BY
-#    distutils.cygclass, pygtk.cygclass, rox.cygclass
+#  distutils.cygclass, pygtk.cygclass, rox.cygclass
 #  REQUIRES
-#    python
+#  python
 #****
 
 check_prog_req python
 
 #****d* python.cygclass/PYTHON
 #  DESCRIPTION
-#    Absolute path to the Python interpreter.
+#  Absolute path to the Python interpreter.
 #****
 PYTHON=/usr/bin/python
 
 #****d* python.cygclass/PYTHON_VERSION
 #  DESCRIPTION
-#    The major.minor version of the current Python interpreter.
+#  The major.minor version of the current Python interpreter.
 #****
 PYTHON_VERSION=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_version();')
 
 #****d* python.cygclass/PYTHON_INCLUDEDIR
 #  DESCRIPTION
-#    Path containing the Python C library headers.
+#  Path containing the Python C library headers.
 #****
 PYTHON_INCLUDEDIR=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_inc();')
 
 #****d* python.cygclass/PYTHON_LIB
 #  DESCRIPTION
-#    Path containing the Python standard library.
+#  Path containing the Python standard library.
 #  NOTE
-#    Never install third-party extensions into PYTHON_LIB; use PYTHON_SITELIB instead.
+#  Never install third-party extensions into PYTHON_LIB; use PYTHON_SITELIB instead.
 #****
 PYTHON_LIB=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_lib(0,1);')
 
 #****d* python.cygclass/PYTHON_SITELIB
 #  DESCRIPTION
-#    Installation path for all Python extension modules.
+#  Installation path for all Python extension modules.
 #****
 PYTHON_SITELIB=$(${PYTHON} -c 'from distutils.sysconfig import * ; print get_python_lib(0,0);')
 
 #****d* python.cygclass/LIBPYTHON
 #  DESCRIPTION
-#    Link flags for the Python C library.  This definition must be properly quoted.
+#  Link flags for the Python C library.  This definition must be properly quoted.
 #****
 LIBPYTHON="-L${PYTHON_LIB}/config -lpython${PYTHON_VERSION}"
 
 #****I* python.cygclass/pythoninto
 #  SYNOPSIS
-#    pythoninto SUBDIRECTORY
+#  pythoninto SUBDIRECTORY
 #  DESCRIPTION
-#    Subdirectory of PYTHON_SITELIB into which dopython should install.  This is
-#    usually unnecessary.
+#  Subdirectory of PYTHON_SITELIB into which dopython should install.  This is
+#  usually unnecessary.
 #****
 pythoninto() {
 	if (( $# != 1 ))
@@ -109,11 +107,11 @@ pythoninto() {
 
 #****I* python.cygclass/dopython
 #  SYNOPSIS
-#    [pythoninto SUBDIRECTORY]
-#    dopython MODULE1 [MODULE2] ...
+#  [pythoninto SUBDIRECTORY]
+#  dopython MODULE1 [MODULE2] ...
 #  DESCRIPTION
-#    Installs the given Python module(s) (.py or .dll) into PYTHON_SITELIB under $D,
-#    or a subdirectory thereof if pythoninto was previously called.
+#  Installs the given Python module(s) (.py or .dll) into PYTHON_SITELIB under $D,
+#  or a subdirectory thereof if pythoninto was previously called.
 #****
 dopython() {
 	local pydir
@@ -148,17 +146,17 @@ dopython() {
 
 #****I* python.cygclass/python_optimize
 #  SYNOPSIS
-#    python_optimize [DIRECTORY1] [DIRECTORY2] ...
+#  python_optimize [DIRECTORY1] [DIRECTORY2] ...
 #  DESCRIPTION
-#    Bytecode-compile all Python modules found in the given directories under $D.
-#    If no directories are specified, PYTHON_SITELIB under $D is assumed.
+#  Bytecode-compile all Python modules found in the given directories under $D.
+#  If no directories are specified, PYTHON_SITELIB under $D is assumed.
 #  NOTE
-#    Python modules installed with distutils_install are automatically compiled,
-#    as are those installed by automake-based packages *if* they have been declared
-#    as _PYTHON files (in which case a py-compile script will be present in $S).
-#    Some automake-based packages mistakenly declare these as _DATA instead, in
-#    which case either the Makefile.am must be patched or this function called
-#    after cyginstall.
+#  Python modules installed with distutils_install are automatically compiled,
+#  as are those installed by automake-based packages *if* they have been declared
+#  as _PYTHON files (in which case a py-compile script will be present in $S).
+#  Some automake-based packages mistakenly declare these as _DATA instead, in
+#  which case either the Makefile.am must be patched or this function called
+#  after cyginstall.
 #****
 python_optimize() {
 	local pyd

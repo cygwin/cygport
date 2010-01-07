@@ -24,20 +24,18 @@
 ################################################################################
 
 #****h* Cygclasses/gnustep.cygclass
-#  NAME
-#    gnustep.cygclass -- Build GNUstep packages
 #  DESCRIPTION
-#    GNUstep is an open-source implementation of the NeXT/OpenStep and Apple's
-#    Cocoa API frameworks, written in Objective-C.  A number of additional
-#    libraries (known as Frameworks) and programs, both console and GUI are
-#    available, including some ported from Mac OS X.  GNUstep packages are built
-#    with GNUmakefiles which use templates included in the gnustep-make package.
+#  GNUstep is an open-source implementation of the NeXT/OpenStep and Apple's
+#  Cocoa API frameworks, written in Objective-C.  A number of additional
+#  libraries (known as Frameworks) and programs, both console and GUI are
+#  available, including some ported from Mac OS X.  GNUstep packages are built
+#  with GNUmakefiles which use templates included in the gnustep-make package.
 #
-#    This cygclass builds packages which use the GNUstep framework and build system.
+#  This cygclass builds packages which use the GNUstep framework and build system.
 #  REQUIRES
-#    gnustep-make
+#  gnustep-make
 #  SEE ALSO
-#    mirror_gnustep
+#  mirror_gnustep
 #****
 
 check_prog_req gnustep-config gnustep-make
@@ -59,6 +57,8 @@ HOMEPAGE="http://www.gnustep.org/"
 #****
 
 #****o* gnustep.cygclass/SVN_URI (gnustep)
+#  NOTE
+#  svn.cygclass must be inherit()ed last for this to have any effect.
 #  DEFINITION
 SVN_URI="svn://svn.gna.org/svn/gnustep"
 #****
@@ -98,8 +98,8 @@ __gnustep_dir() {
 
 #****f* gnustep.cygclass/gnustep_env
 #  DESCRIPTION
-#    Loads the GNUstep environment variables.  This must be run before calling
-#    gnustep_compile or gnustep_install.
+#  Loads the GNUstep environment variables.  This must be run before calling
+#  gnustep_compile or gnustep_install.
 #****
 gnustep_env() {
 	local mf=$(gnustep-config --variable=GNUSTEP_MAKEFILES)
@@ -109,16 +109,16 @@ gnustep_env() {
 
 #****C* gnustep.cygclass/gnustep_compile
 #  SYNOPSIS
-#    cd $B
-#    gnustep_compile [MAKEFILE_ARGUMENTS]
+#  cd $B
+#  gnustep_compile [MAKEFILE_ARGUMENTS]
 #  DESCRIPTION
-#    Builds a GNUstep package with the following steps:
-#    - cygconf, if a configure script is present (usually not).
-#    - cygmake
-#    - cygmake in the Documentation directory, if present.
-#    Arguments to gnustep_compile are passed to both cygmake calls.
+#  Builds a GNUstep package with the following steps:
+#  - cygconf, if a configure script is present (usually not).
+#  - cygmake
+#  - cygmake in the Documentation directory, if present.
+#  Arguments to gnustep_compile are passed to both cygmake calls.
 #  NOTE
-#    gnustep_env must be called before gnustep_compile.
+#  gnustep_env must be called before gnustep_compile.
 #****
 gnustep_compile() {
 	if ! defined GNUSTEP_HOST
@@ -141,13 +141,13 @@ gnustep_compile() {
 
 #****I* gnustep.cygclass/gnustep_install
 #  SYNOPSIS
-#    cd $B
-#    gnustep_install [MAKEFILE_ARGUMENTS]
+#  cd $B
+#  gnustep_install [MAKEFILE_ARGUMENTS]
 #  DESCRIPTION
-#    Installs a GNUstep package under $D.  Arguments to gnustep_install are
-#    passed to cyginstall.
+#  Installs a GNUstep package under $D.  Arguments to gnustep_install are
+#  passed to cyginstall.
 #  NOTE
-#    gnustep_env must be called before gnustep_install.
+#  gnustep_env must be called before gnustep_install.
 #****
 gnustep_install() {
 	if ! defined GNUSTEP_HOST
@@ -165,9 +165,9 @@ gnustep_install() {
 
 #****f* gnustep.cygclass/gnustep_pkg_apps
 #  SYNOPSIS
-#    gnustep_pkg_apps APP_NAME [APP_NAME] ...
+#  gnustep_pkg_apps APP_NAME [APP_NAME] ...
 #  DESCRIPTION
-#    Create a binary subpackage $APP_NAME.app containing the given application(s).
+#  Create a binary subpackage $APP_NAME.app containing the given application(s).
 #****
 gnustep_pkg_apps() {
 	local a an
@@ -183,10 +183,10 @@ gnustep_pkg_apps() {
 
 #****f* gnustep.cygclass/gnustep_pkg_frameworks
 #  SYNOPSIS
-#    gnustep_pkg_frameworks FRAMEWORK_NAME:VERSION [FRAMEWORK_NAME:VERSION] ...
+#  gnustep_pkg_frameworks FRAMEWORK_NAME:VERSION [FRAMEWORK_NAME:VERSION] ...
 #  DESCRIPTION
-#    Create binary subpackages lib$FRAMEWORK_NAME$VERSION and lib$FRAMEWORK_NAME-devel
-#    containing the runtime and development components of the given frameworks(s).
+#  Create binary subpackages lib$FRAMEWORK_NAME$VERSION and lib$FRAMEWORK_NAME-devel
+#  containing the runtime and development components of the given frameworks(s).
 #****
 gnustep_pkg_frameworks() {
 	local fd fn fv f_v _v

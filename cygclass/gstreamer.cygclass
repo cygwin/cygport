@@ -24,22 +24,20 @@
 ################################################################################
 
 #****h* Cygclasses/gstreamer.cygclass
-#  NAME
-#    gstreamer.cygclass -- Base functions for GStreamer packages.
 #  SYNOPSIS
-#    inherit gstreamer
+#  inherit gstreamer
 #  DESCRIPTION
-#    GStreamer is a modular multimedia framework, using plugins to support
-#    a wide variety of audio and video formats, effects, and input/output.
-#    Being based on GObject it is heavily used within GNOME, but it also sees
-#    some use as a backend for Qt4 Phonon.
+#  GStreamer is a modular multimedia framework, using plugins to support
+#  a wide variety of audio and video formats, effects, and input/output.
+#  Being based on GObject it is heavily used within GNOME, but it also sees
+#  some use as a backend for Qt4 Phonon.
 #
-#    GStreamer components include the core libraries and command-line tools,
-#    several sets of plugins, and Python bindings.  This cygclass defines
-#    variables and functions which are common to all GStreamer components,
-#    and is also the basis of the versions of gst-plugins.cygclass.
+#  GStreamer components include the core libraries and command-line tools,
+#  several sets of plugins, and Python bindings.  This cygclass defines
+#  variables and functions which are common to all GStreamer components,
+#  and is also the basis of the versions of gst-plugins.cygclass.
 #  INHERITED BY
-#    gst-plugins0.10.cygclass
+#  gst-plugins0.10.cygclass
 #****
 
 case ${PN} in
@@ -60,6 +58,8 @@ SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz
 #****
 
 #****o* gstreamer.cygclass/GIT_URI (gstreamer)
+#  NOTE
+#  git.cygclass must be inherit()ed last for this to have any effect.
 #  DEFINITION
 GIT_URI="git://anongit.freedesktop.org/git/gstreamer/${ORIG_PN}"
 #****
@@ -67,27 +67,28 @@ GIT_URI="git://anongit.freedesktop.org/git/gstreamer/${ORIG_PN}"
 DIFF_EXCLUDES="common m4 po autoregen.sh stamp-h.in"
 
 #****d* gstreamer.cygclass/GST_PLUGINDIR
-#  DEFINITION
-GST_PLUGINDIR="/usr/lib/gstreamer-${PV_MAJ_MIN}"
+#  DESCRIPTION
+#  Installation path for GStreamer plugins.
 #****
+GST_PLUGINDIR="/usr/lib/gstreamer-${PV_MAJ_MIN}"
 
 #****C* gstreamer.cygclass/gstreamer_autoreconf
 #  SYNOPSIS
-#    cd $S
-#    gstreamer_autoreconf
+#  cd $S
+#  gstreamer_autoreconf
 #  DESCRIPTION
-#    Updates the build system with the included autogen.sh script, which is
-#    shipped in each tarball, which makes sure that all necessary steps are taken.
+#  Updates the build system with the included autogen.sh script, which is
+#  shipped in each tarball, which makes sure that all necessary steps are taken.
 #  WARNING
-#    Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
-#    macros, or Makefile.am files will not take effect until their tools have been
-#    regenerated.  Also, Cygwin's libtool package often includes patches which
-#    are not yet available in the latest upstream release, so libraries may not
-#    be built optimally, or even correctly, without this step having been run.
+#  Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
+#  macros, or Makefile.am files will not take effect until their tools have been
+#  regenerated.  Also, Cygwin's libtool package often includes patches which
+#  are not yet available in the latest upstream release, so libraries may not
+#  be built optimally, or even correctly, without this step having been run.
 #  REQUIRES
-#    autoconf, automake, gettext-devel, libtool, pkg-config
+#  autoconf, automake, gettext-devel, libtool, pkg-config
 #  SEE ALSO
-#    cygautoreconf
+#  cygautoreconf
 #****
 gstreamer_autoreconf() {
 	# gstreamer packages require a custom autogen.sh

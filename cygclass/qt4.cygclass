@@ -24,86 +24,84 @@
 ################################################################################
 
 #****h* Cygclasses/qt4.cygclass
-#  NAME
-#    qt4.cygclass -- Build packages which use the Qt 4.x GUI toolkit
 #  SYNOPSIS
-#    inherit qt4
+#  inherit qt4
 #  DESCRIPTION
-#    Qt is a C++ cross-platform application framework for writing desktop GUI
-#    applications.  Qt is the underlying toolkit used by the KDE desktop
-#    environment.
+#  Qt is a C++ cross-platform application framework for writing desktop GUI
+#  applications.  Qt is the underlying toolkit used by the KDE desktop
+#  environment.
 #
-#    This cygclass provides definitions and install functions which can be used
-#    by all Qt4-based packages, regardless of the build system being used.
+#  This cygclass provides definitions and install functions which can be used
+#  by all Qt4-based packages, regardless of the build system being used.
 #  NOTES
-#    * Packages based on the deprecated 3.x version of Qt must use qt3.cygclass.
+#  * Packages based on the deprecated 3.x version of Qt must use qt3.cygclass.
 #  INHERITED BY
-#    kde4.cygclass, qt4-cmake.cygclass, qt4-qconf.cygclass, qt4-qmake.cygclass
+#  kde4.cygclass, qt4-cmake.cygclass, qt4-qconf.cygclass, qt4-qmake.cygclass
 #****
 
 #****d* qt4.cygclass/QT4_QTDIR
 #  DESCRIPTION
-#    Root directory for the Qt4 installation.
+#  Root directory for the Qt4 installation.
 #****
 QT4_QTDIR=/usr/lib/qt4
 
 #****d* qt4.cygclass/QT4_BINDIR
 #  DESCRIPTION
-#    Directory containing the Qt4 build tools.
+#  Directory containing the Qt4 build tools.
 #****
 QT4_BINDIR=${QT4_QTDIR}/bin
 
 #****d* qt4.cygclass/QT4_INCLUDEDIR
 #  DESCRIPTION
-#    Directory containing the Qt4 library headers.
+#  Directory containing the Qt4 library headers.
 #****
 QT4_INCLUDEDIR=/usr/include/qt4
 
 #****d* qt4.cygclass/QT4_LIBDIR
 #  DESCRIPTION
-#    Directory containing the Qt4 link libraries.
+#  Directory containing the Qt4 link libraries.
 #****
 QT4_LIBDIR=${QT4_QTDIR}/lib
 
 #****d* qt4.cygclass/QT4_PLUGINSDIR
 #  DESCRIPTION
-#    Installation path for Qt4 plugins.
+#  Installation path for Qt4 plugins.
 #****
 QT4_PLUGINSDIR=${QT4_QTDIR}/plugins
 
 #****d* qt4.cygclass/QT4_DATADIR
 #  DESCRIPTION
-#    Directory containing Qt4 makespecs, documentation, and translation data.
+#  Directory containing Qt4 makespecs, documentation, and translation data.
 #****
 QT4_DATADIR=/usr/share/qt4
 
 #****d* qt4.cygclass/QT4_QMAKE
 #  DESCRIPTION
-#    Absolute path to the Qt4 project and Makefile generator
+#  Absolute path to the Qt4 project and Makefile generator
 #****
 QT4_QMAKE=${QT4_BINDIR}/qmake
 
 #****d* qt4.cygclass/QT4_MOC
 #  DESCRIPTION
-#    Absolute path to the Qt4 Meta-Object Compiler
+#  Absolute path to the Qt4 Meta-Object Compiler
 #****
 QT4_MOC=${QT4_BINDIR}/moc
 
 #****d* qt4.cygclass/QT4_RCC
 #  DESCRIPTION
-#    Absolute path to the Qt4 resource compiler
+#  Absolute path to the Qt4 resource compiler
 #****
 QT4_RCC=${QT4_BINDIR}/rcc
 
 #****d* qt4.cygclass/QT4_UIC
 #  DESCRIPTION
-#    Absolute path to the Qt4 User Interface Compiler
+#  Absolute path to the Qt4 User Interface Compiler
 #****
 QT4_UIC=${QT4_BINDIR}/uic
 
 #****d* qt4.cygclass/QT4_UIC3
 #  DESCRIPTION
-#    Absolute path to the Qt4 Qt3Support User Interface Compiler
+#  Absolute path to the Qt4 Qt3Support User Interface Compiler
 #****
 QT4_UIC3=${QT4_BINDIR}/uic3
 
@@ -113,9 +111,9 @@ export PATH="${QT4_BINDIR}:${PATH}"
 
 #****I* qt4.cygclass/doqt4inc
 #  SYNOPSIS
-#    doqt4inc HEADERS
+#  doqt4inc HEADERS
 #  DESCRIPTION
-#    Installs headers into QT4_INCLUDEDIR under $D.
+#  Installs headers into QT4_INCLUDEDIR under $D.
 #****
 doqt4inc() {
 	insinto ${QT4_INCLUDEDIR}
@@ -124,9 +122,9 @@ doqt4inc() {
 
 #****I* qt4.cygclass/doqt4lib
 #  SYNOPSIS
-#    doqt4lib LIBRARIES
+#  doqt4lib LIBRARIES
 #  DESCRIPTION
-#    Installs link libraries into QT4_LIBDIR under $D.
+#  Installs link libraries into QT4_LIBDIR under $D.
 #****
 doqt4lib() {
 	insinto ${QT4_LIBDIR}
@@ -135,17 +133,17 @@ doqt4lib() {
 
 #****I* qt4.cygclass/qt4pluginto
 #  SYNOPSIS
-#    qt4pluginto SUBDIRECTORY
+#  qt4pluginto SUBDIRECTORY
 #  DESCRIPTION
-#    Sets the subdirectory of QT4_PLUGINDIR in which doqt4plugin should install.
-#    Supported subdirectores include:
-#    * crypto: Qt Cryptographic Architecture backends
-#    * designer: Qt Designer widgets
-#    * imageformats: image format handlers
-#    * phonon_backend: Phonon multimedia backends
-#    * script: QtScript engines
-#    * sqldrivers: SQL datbase backends
-#    * styles: GUI style engines
+#  Sets the subdirectory of QT4_PLUGINDIR in which doqt4plugin should install.
+#  Supported subdirectores include:
+#  * crypto: Qt Cryptographic Architecture backends
+#  * designer: Qt Designer widgets
+#  * imageformats: image format handlers
+#  * phonon_backend: Phonon multimedia backends
+#  * script: QtScript engines
+#  * sqldrivers: SQL datbase backends
+#  * styles: GUI style engines
 #****
 qt4pluginto() {
 	if [ -z "${1}" -o -n "${2}" ]
@@ -158,11 +156,11 @@ qt4pluginto() {
 
 #****I* qt4.cygclass/doqt4plugin
 #  SYNOPSIS
-#    qt4pluginto SUBDIRECTORY
-#    doqt4plugin PLUGINS
+#  qt4pluginto SUBDIRECTORY
+#  doqt4plugin PLUGINS
 #  DESCRIPTION
-#    Installs the given plugins into the subdirectory of QT4_PLUGINDIR passed
-#    to the previous call to qt4pluginto.
+#  Installs the given plugins into the subdirectory of QT4_PLUGINDIR passed
+#  to the previous call to qt4pluginto.
 #****
 doqt4plugin() {
 	if ! defined __QT4_PLUGIN_SUBDIR

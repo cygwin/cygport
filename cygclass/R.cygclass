@@ -24,33 +24,31 @@
 ################################################################################
 
 #****h* Cygclasses/R.cygclass
-#  NAME
-#    R.cygclass -- Build CRAN modules and packages based on R
 #  SYNOPSIS
-#    inherit R
+#  inherit R
 #  DESCRIPTION
-#    R is a GNU implementation of S, a language and environment for statistical
-#    computing and graphics.
+#  R is a GNU implementation of S, a language and environment for statistical
+#  computing and graphics.
 #
-#    The primary purpose of R.cygclass is for creating Cygwin packages from
-#    |html <a href="http://cran.r-project.org/web/packages/">CRAN packages</a>,
-#    the R equivalent of Perl's CPAN.  CRAN package builds are driven by R itself.
+#  The primary purpose of R.cygclass is for creating Cygwin packages from
+#  |html <a href="http://cran.r-project.org/web/packages/">CRAN packages</a>,
+#  the R equivalent of Perl's CPAN.  CRAN package builds are driven by R itself.
 #
-#    Most CRAN packages build OOTB, but creating a Cygwin package may be helpful
-#    if a patch is required or if the build requirements are substantial (e.g.
-#    RGtk2, the GTK+ bindings which are used in several GUIs).  When using R.cygclass
-#    to build a CRAN package, PN should be prefixed with "R-" and a hyphen in
-#    the CRAN version substituted with an underscore (so as not to conflict with
-#    the Cygwin package release number).  In most such cases, the R.cygclass 
-#    src_compile and src_install should suffice.
+#  Most CRAN packages build OOTB, but creating a Cygwin package may be helpful
+#  if a patch is required or if the build requirements are substantial (e.g.
+#  RGtk2, the GTK+ bindings which are used in several GUIs).  When using R.cygclass
+#  to build a CRAN package, PN should be prefixed with "R-" and a hyphen in
+#  the CRAN version substituted with an underscore (so as not to conflict with
+#  the Cygwin package release number).  In most such cases, the R.cygclass 
+#  src_compile and src_install should suffice.
 #
-#    Alternatively, the definitions in this cygclass can be used to help build
-#    an R-dependent package which does not use CRAN, e.g. 
-#    |html <a href="http://cygwin-ports.svn.sourceforge.net/viewvc/cygwin-ports/ports/trunk/science/rkward/">rkward</a>.
+#  Alternatively, the definitions in this cygclass can be used to help build
+#  an R-dependent package which does not use CRAN, e.g. 
+#  |html <a href="http://cygwin-ports.svn.sourceforge.net/viewvc/cygwin-ports/ports/trunk/science/rkward/">rkward</a>.
 #  REQUIRES
-#    pkg-config, R
+#  pkg-config, R
 #  SEE ALSO
-#    mirror_cran
+#  mirror_cran
 #****
 
 check_prog_req R
@@ -58,37 +56,37 @@ check_prog_req pkg-config
 
 #****d* R.cygclass/R
 #  DESCRIPTION
-#    Absolute path to the R interpreter.
+#  Absolute path to the R interpreter.
 #****
 R=/usr/bin/R
 
 #****d* R.cygclass/R_CFLAGS
 #  DESCRIPTION
-#    Compile flags for the libR C library.
+#  Compile flags for the libR C library.
 #****
 R_CFLAGS="$(${R} CMD config CFLAGS) $(pkg-config --cflags libR)"
 
 #****d* R.cygclass/R_LIBS
 #  DESCRIPTION
-#    Link flags for the libR C library.
+#  Link flags for the libR C library.
 #****
 R_LIBS="$(pkg-config --libs libR)"
 
 #****d* R.cygclass/R_HOME
 #  DESCRIPTION
-#    Absolute path to the R main directory.
+#  Absolute path to the R main directory.
 #****
 R_HOME=$(${R} RHOME)
 
 #****d* R.cygclass/R_INCLUDEDIR
 #  DESCRIPTION
-#    Absolute path to the directory containing libR C library headers.
+#  Absolute path to the directory containing libR C library headers.
 #****
 R_INCLUDEDIR=${R_HOME}/include
 
 #****d* R.cygclass/R_SITELIB
 #  DESCRIPTION
-#    Installation path for third-party R modules.
+#  Installation path for third-party R modules.
 #****
 R_SITELIB=${R_HOME}/site-library
 
@@ -102,13 +100,13 @@ DESCRIPTION="R ${ORIG_PN} package"
 
 #****o* R.cygclass/HOMEPAGE (R)
 #  DESCRIPTION
-#    Web address for the R module on CRAN.
+#  Web address for the R module on CRAN.
 #****
 HOMEPAGE="mirror://cran/web/packages/${ORIG_PN}/"
 
 #****o* R.cygclass/SRC_URI (R)
 #  DESCRIPTION
-#    Download location for the R module on CRAN.
+#  Download location for the R module on CRAN.
 #****
 SRC_URI="mirror://cran/src/contrib/${ORIG_PN}_${PV/_/-}.tar.gz"
 
@@ -118,11 +116,11 @@ esac
 
 #****f* R.cygclass/check_R_package
 #  SYNOPSIS
-#     check_R_package PACKAGE [PACKAGE2] ...
+#   check_R_package PACKAGE [PACKAGE2] ...
 #  DESCRIPTION
-#    Checks the presence of a CRAN package on the system, regardless of how it
-#    was installed. Useful for conditional compiles or for error catching.
-#    Return TRUE if all packages were found, else FALSE.
+#  Checks the presence of a CRAN package on the system, regardless of how it
+#  was installed. Useful for conditional compiles or for error catching.
+#  Return TRUE if all packages were found, else FALSE.
 #****
 check_R_package() {
 	local p t
@@ -152,12 +150,12 @@ check_R_package() {
 
 #****C* R.cygclass/R_compile
 #  SYNOPSIS
-#    cd $B
-#    R_compile
+#  cd $B
+#  R_compile
 #  DESCRIPTION
-#    Configures and compiles an R module packages.  Due to the nature of
-#    CRAN packages, the package is not compiled in B, but is compiled and
-#    "installed" into a temporary directory.
+#  Configures and compiles an R module packages.  Due to the nature of
+#  CRAN packages, the package is not compiled in B, but is compiled and
+#  "installed" into a temporary directory.
 #****
 R_compile() {
 	mkdir -p ${T}/inst
@@ -166,10 +164,10 @@ R_compile() {
 
 #****I* R.cygclass/R_install
 #  SYNOPSIS
-#    R_install
+#  R_install
 #  DESCRIPTION
-#    Installs the R module into $D.  Due to the nature of CRAN packages, all
-#    this does is copy from the temporary directory used in R_compile.
+#  Installs the R module into $D.  Due to the nature of CRAN packages, all
+#  this does is copy from the temporary directory used in R_compile.
 #****
 R_install() {
 	[ -d ${T}/inst/${ORIG_PN} ] || error "cannot find built package"

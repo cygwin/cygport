@@ -24,35 +24,28 @@
 ################################################################################
 
 #****h* Cygclasses/claws-mail.cygclass
-#  NAME
-#    claws-mail.cygclass
 #  SYNOPSIS
-#    inherit claws-mail
+#  inherit claws-mail
 #  DESCRIPTION
-#    Claws Mail is an email client for GTK+ which has support for plugins.
+#  Claws Mail is an email client for GTK+ which has support for plugins.
 #
-#    This cygclass sets several variables for building Claws Mail plugin
-#    packages.  The build process is handled through gnome2.cygclass.
-#  NOTES
-#    * PN should be set to claws-mail-<plugin_name>.
+#  This cygclass sets several variables for building Claws Mail plugin
+#  packages.  The build process is handled through gnome2.cygclass.
+#  NOTE
+#  PN should be set to claws-mail-<plugin_name>.
 #  INHERITS
-#    gnome2.cygclass
+#  gnome2.cygclass
 #  REQUIRES
-#    claws-mail-devel
+#  claws-mail-devel
 #****
 
 inherit gnome2
 
-#****d* claws-mail.cygclass/CLAWS_MAIL_PLUGIN
-#****
 CLAWS_MAIL_PLUGIN=${PN#claws-mail-}
 
 ORIG_PN=${ORIG_PN:-${CLAWS_MAIL_PLUGIN}}
 
-#****o* claws-mail.cygclass/DESCRIPTION (claws-mail)
-#  DEFINITION
 DESCRIPTION="Claws Mail ${CLAWS_MAIL_PLUGIN} plugin"
-#****
 
 #****o* claws-mail.cygclass/HOMEPAGE (claws-mail)
 #  DEFINITION

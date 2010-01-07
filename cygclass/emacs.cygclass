@@ -24,35 +24,33 @@
 ################################################################################
 
 #****h* Cygclasses/emacs.cygclass
-#  NAME
-#    emacs.cygclass -- Helper functions for installing Emacs Lisp files
 #  DESCRIPTION
-#    Emacs is a programmers' text editor which is extensible through libraries
-#    written in its own Lisp dialect, which is also bytecode compilable.
+#  Emacs is a programmers' text editor which is extensible through libraries
+#  written in its own Lisp dialect, which is also bytecode compilable.
 #
-#    This cygclass includes helper functions for installing and compiling
-#    Emacs Lisp (.el) libraries.
+#  This cygclass includes helper functions for installing and compiling
+#  Emacs Lisp (.el) libraries.
 #****
 
 #****d* emacs.cygclass/EMACS
 #  DESCRIPTION
-#    Absolute path to the emacs command.
+#  Absolute path to the emacs command.
 #****
 EMACS=/usr/bin/emacs
 
 #****d* emacs.cygclass/EMACS_SITE
 #  DESCRIPTION
-#    Path of Emacs' site-lisp directory, where third-party libraries are installed.
+#  Path of Emacs' site-lisp directory, where third-party libraries are installed.
 #****
 EMACS_SITE=/usr/share/emacs/site-lisp
 
 #****I* emacs.cygclass/doemacs
 #  SYNOPSIS
-#    doemacs FILE [FILE2] ...
+#  doemacs FILE [FILE2] ...
 #  DESCRIPTION
-#    Installs one or more Emacs Lisp libraries into EMACS_SITE (under $D).
+#  Installs one or more Emacs Lisp libraries into EMACS_SITE (under $D).
 #  NOTE
-#    emacs_compile must be run separately.
+#  emacs_compile must be run separately.
 #****
 doemacs() {
 	dodir ${EMACS_SITE}
@@ -70,10 +68,10 @@ doemacs() {
 
 #****I* emacs.cygclass/emacs_compile
 #  SYNOPSIS
-#    emacs_compile
+#  emacs_compile
 #  DESCRIPTION
-#    Bytecode-compiles all Emacs Lisp libraries installed by the package,
-#    provided that emacs is installed.
+#  Bytecode-compiles all Emacs Lisp libraries installed by the package,
+#  provided that emacs is installed.
 #****
 emacs_compile() {
 	if check_prog emacs

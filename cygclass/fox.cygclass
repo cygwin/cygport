@@ -24,31 +24,29 @@
 ################################################################################
 
 #****h* Cygclasses/fox.cygclass
-#  NAME
-#    fox.cygclass -- Build packages dependent on the FOX GUI toolkit
 #  SYNOPSIS
-#    FOX_VERSION="X.Y"
-#    inherit fox
+#  FOX_VERSION="X.Y"
+#  inherit fox
 #  DESCRIPTION
-#    The FOX toolkit is a cross-platform, C++ GUI toolkit.  The API changes with
-#    each major.minor version, each of which is parallel-installable.  Packages
-#    which depend on the FOX toolkit will only build against one or two branches
-#    at any given time.
+#  The FOX toolkit is a cross-platform, C++ GUI toolkit.  The API changes with
+#  each major.minor version, each of which is parallel-installable.  Packages
+#  which depend on the FOX toolkit will only build against one or two branches
+#  at any given time.
 #
-#    This cygclass selects the fox-config script for the desired version of the
-#    FOX toolkit.
+#  This cygclass selects the fox-config script for the desired version of the
+#  FOX toolkit.
 #  REQUIRES
-#    libFOX1.*-devel
+#  libFOX1.*-devel
 #****
 
 #****v* fox.cygclass/FOX_VERSION
 #  DESCRIPTION
-#    The desired major.minor branch of the FOX toolkit.  This variable must be
-#    set before inherit()ing the fox.cygclass.
+#  The desired major.minor branch of the FOX toolkit.  This variable must be
+#  set before inherit()ing the fox.cygclass.
 #  NOTE
-#    Even minor version numbers represent stable branches; versions 1.2, 1.4,
-#    and 1.6 are supported.  Unstable branches (with odd minor versions) are
-#    currently not supported.
+#  Even minor version numbers represent stable branches; versions 1.2, 1.4,
+#  and 1.6 are supported.  Unstable branches (with odd minor versions) are
+#  currently not supported.
 #****
 
 _fox_find_config() {
@@ -68,15 +66,15 @@ _fox_find_config() {
 
 #****d* fox.cygclass/FOX_CONFIG
 #  DESCRIPTION
-#    Absolute path to the fox-config script for the given FOX_VERSION.  This definition
-#    is exported to the build environment.
+#  Absolute path to the fox-config script for the given FOX_VERSION.  This definition
+#  is exported to the build environment.
 #****
 export FOX_CONFIG="$(_fox_find_config)"
 
 #****f* fox.cygclass/fox-config
 #  DESCRIPTION
-#    Wrapper function for calling FOX_CONFIG.  This function is exported to the
-#    build environment.
+#  Wrapper function for calling FOX_CONFIG.  This function is exported to the
+#  build environment.
 #****
 fox-config() {
 	${FOX_CONFIG} ${@}

@@ -24,28 +24,26 @@
 ################################################################################
 
 #****h* Cygclasses/xorg.cygclass
-#  NAME
-#    xorg.cygclass -- Build X.Org component packages
 #  SYNOPSIS
-#    inherit xorg
+#  inherit xorg
 #  DESCRIPTION
-#    X.Org provides the reference implementation of the X11 protocol. Since
-#    X11R7.0, packages have been released in a "modular" format, with the server
-#    and each library, application, set of headers, and font shipping in it's
-#    own autotools-based tarball.
+#  X.Org provides the reference implementation of the X11 protocol. Since
+#  X11R7.0, packages have been released in a "modular" format, with the server
+#  and each library, application, set of headers, and font shipping in it's
+#  own autotools-based tarball.
 #
-#    This cygclass defines the variables necessary to download X.Org packages,
-#    either as tarballs (default) or from Git (if git.cygclass is inherit()ed
-#    afterwards).
+#  This cygclass defines the variables necessary to download X.Org packages,
+#  either as tarballs (default) or from Git (if git.cygclass is inherit()ed
+#  afterwards).
 #  HISTORY
-#    Previous versions of Cygwin and X11 required some additional build steps:
-#    * Cygwin 1.5 did not have proper locale support, so -DX_LOCALE was added to
-#      CPPFLAGS to force usage of X11's own locale implementation instead.
-#    * Each font package had to be told where to install its fonts during configure.
-#    As of X11R7.5 for Cygwin 1.7, neither of these are necessary, so xorg.cygclass
-#    relies solely on the build functions provided by autotools.cygclass.
+#  Previous versions of Cygwin and X11 required some additional build steps:
+#  * Cygwin 1.5 did not have proper locale support, so -DX_LOCALE was added to
+#    CPPFLAGS to force usage of X11's own locale implementation instead.
+#  * Each font package had to be told where to install its fonts during configure.
+#  As of X11R7.5 for Cygwin 1.7, neither of these are necessary, so xorg.cygclass
+#  relies solely on the build functions provided by autotools.cygclass.
 #  INHERITS
-#    autotools.cygclass
+#  autotools.cygclass
 #****
 
 case ${PN} in
@@ -133,14 +131,14 @@ HOMEPAGE="http://xorg.freedesktop.org/"
 
 #****o* xorg.cygclass/SRC_URI (xorg)
 #  DESCRIPTION
-#    Download location of the release tarball.
+#  Download location of the release tarball.
 #****
 SRC_URI="http://xorg.freedesktop.org/releases/individual/${xorg_cat}/${ORIG_PN}-${PV}.tar.bz2"
 
 #****o* xorg.cygclass/GIT_URI (xorg)
 #  DESCRIPTION
-#    Git repository for the package.
+#  Git repository for the package.
 #  NOTE
-#    git.cygclass should be inherit()ed last for this to be of use.
+#  git.cygclass should be inherit()ed last for this to be of use.
 #****
 GIT_URI="git://anongit.freedesktop.org/git/${xorg_git}"

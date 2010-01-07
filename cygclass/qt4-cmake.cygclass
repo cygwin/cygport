@@ -24,26 +24,24 @@
 ################################################################################
 
 #****h* Cygclasses/qt4-cmake.cygclass
-#  NAME
-#    qt4-cmake.cygclass -- Build Qt4-based packages with CMake
 #  SYNOPSIS
-#    inherit qt4-cmake
+#  inherit qt4-cmake
 #  DESCRIPTION
-#    This cygclass builds Qt4-based packages which use the CMake build system.
+#  This cygclass builds Qt4-based packages which use the CMake build system.
 #  INHERITS
-#    cmake.cygclass, qt4.cygclass
+#  cmake.cygclass, qt4.cygclass
 #****
 
 inherit cmake qt4
 
 #****C* qt4-cmake.cygclass/qt4_cmake_compile
 #  SYNOPSIS
-#    cd $B
-#    qt4_cmake_compile [OPTIONS]
+#  cd $B
+#  qt4_cmake_compile [OPTIONS]
 #  DESCRIPTION
-#    Calls cygcmake with options to tell CMake where the Qt4 development tools
-#    are found, followed by cmake to compile the package.  Options, in the form
-#    of -DVARIABLE=VALUE, are passed on to cygcmake.
+#  Calls cygcmake with options to tell CMake where the Qt4 development tools
+#  are found, followed by cmake to compile the package.  Options, in the form
+#  of -DVARIABLE=VALUE, are passed on to cygcmake.
 #****
 qt4_cmake_compile() {
 	cygcmake \

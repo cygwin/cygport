@@ -24,15 +24,15 @@
 
 #****** Format/Syntax
 #  DESCRIPTION
-#    This section includes functions which provide some syntactical sugar.
-#    These functions can be used anywhere.
+#  This section includes functions which provide some syntactical sugar.
+#  These functions can be used anywhere.
 #****
 
 #****f* Syntax/defined
 #  SYNOPSIS
-#    if defined VARIABLE_NAME; then [...]; fi
+#  if defined VARIABLE_NAME; then [...]; fi
 #  DESCRIPTION
-#    Tests if the given variable name is defined.  Returns TRUE if so, else FALSE.
+#  Tests if the given variable name is defined.  Returns TRUE if so, else FALSE.
 #****
 defined() {
 	if (( $# != 1 ))
@@ -50,9 +50,9 @@ defined() {
 
 #****f* Syntax/pushd
 #  SYNOPSIS
-#    pushd DIRECTORY
+#  pushd DIRECTORY
 #  DESCRIPTION
-#    A silent wrapper for the bash pushd directory stack builtin.
+#  A silent wrapper for the bash pushd directory stack builtin.
 #****
 pushd() {
 	builtin pushd ${@} > /dev/null
@@ -60,9 +60,9 @@ pushd() {
 
 #****f* Syntax/popd
 #  SYNOPSIS
-#    popd
+#  popd
 #  DESCRIPTION
-#    A silent wrapper for the bash popd directory stack builtin.
+#  A silent wrapper for the bash popd directory stack builtin.
 #****
 popd() {
 	builtin popd ${@} > /dev/null
@@ -70,15 +70,15 @@ popd() {
 
 #****** Format/Messages
 #  DESCRIPTION
-#    This section includes functions which provide output to the user.
-#    These functions may be used anywhere.
+#  This section includes functions which provide output to the user.
+#  These functions may be used anywhere.
 #****
 
 #****f* Messages/error
 #  SYNOPSIS
-#    error MESSAGE
+#  error MESSAGE
 #  DESCRIPTION
-#    Declares a fatal error.  The given message is displayed, then cygport exits.
+#  Declares a fatal error.  The given message is displayed, then cygport exits.
 #****
 error() {
 	case $? in
@@ -92,9 +92,9 @@ error() {
 
 #****f* Messages/warning
 #  SYNOPSIS
-#    warning MESSAGE
+#  warning MESSAGE
 #  DESCRIPTION
-#    Displays a warning message before continuing.
+#  Displays a warning message before continuing.
 #****
 warning() {
 	echo -e "\e[1;33m*** Warning:\e[0;0m ${1}";
@@ -102,9 +102,9 @@ warning() {
 
 #****f* Messages/inform
 #  SYNOPSIS
-#    inform MESSAGE
+#  inform MESSAGE
 #  DESCRIPTION
-#    Displays an informational message.
+#  Displays an informational message.
 #****
 inform() {
 	echo -e "\e[1;32m*** Info:\e[0;0m ${1}";
@@ -112,10 +112,10 @@ inform() {
 
 #****f* Messages/verbose
 #  SYNOPSIS
-#    verbose COMMAND
+#  verbose COMMAND
 #  DESCRIPTION
-#    Echoes the given command before executing it.  Returns the exit code of
-#    the given command.
+#  Echoes the given command before executing it.  Returns the exit code of
+#  the given command.
 #****
 verbose() {
 	echo "${@}"

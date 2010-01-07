@@ -24,24 +24,22 @@
 ################################################################################
 
 #****h* Cygclasses/rox.cygclass
-#  NAME
-#    rox.cygclass -- Builds ROX Desktop components
 #  SYNOPSIS
-#    inherit rox
+#  inherit rox
 #  DESCRIPTION
-#    The ROX Desktop is based on RISC OS.  The desktop revolves around
-#    the file manager and drag-and-drop is used instead of Open/Save file
-#    dialogs.
+#  The ROX Desktop is based on RISC OS.  The desktop revolves around
+#  the file manager and drag-and-drop is used instead of Open/Save file
+#  dialogs.
 #
-#    ROX applications are standalone application directories (AppDirs) which
-#    can be run from anywhere without installation.  Most applications are
-#    written in Python with ROX-Lib2 and some are written in C with ROX-CLib;
-#    either way, GTK+ is used as the underlying toolkit.
+#  ROX applications are standalone application directories (AppDirs) which
+#  can be run from anywhere without installation.  Most applications are
+#  written in Python with ROX-Lib2 and some are written in C with ROX-CLib;
+#  either way, GTK+ is used as the underlying toolkit.
 #
-#    This cygclass handles the building and installing of ROX packages.
-#    AppDirs are installed under /usr/lib/rox.
+#  This cygclass handles the building and installing of ROX packages.
+#  AppDirs are installed under /usr/lib/rox.
 #  INHERITS
-#    python.cygclass
+#  python.cygclass
 #****
 
 inherit python
@@ -60,29 +58,29 @@ HOMEPAGE="http://roscidus.com/desktop/"
 
 #****v* rox.cygclass/ROX_APP
 #  DESCRIPTION
-#    The name of the directory containing the AppRun script.  This variable
-#    is required.
+#  The name of the directory containing the AppRun script.  This variable
+#  is required.
 #  NOTE
-#    Often this directory is the toplevel of the tarball, in which case
-#    SRC_DIR must be set to '.'.
+#  Often this directory is the toplevel of the tarball, in which case
+#  SRC_DIR must be set to '.'.
 #****
 
 #****v* rox.cygclass/ROX_WRAPPER
 #  DESCRIPTION
-#    Due to the DnD nature of the ROX desktop, most applications are not
-#    usable outside the filer.  For the exceptions (e.g. OroboROX window
-#    manager) or for the filer (rox) and session manager (rox-session) which
-#    need to be launched from the command line (or in .xinitrc), define
-#    ROX_WRAPPER to the name of the wrapper script.  This wrapper will be
-#    installed in /usr/bin.
+#  Due to the DnD nature of the ROX desktop, most applications are not
+#  usable outside the filer.  For the exceptions (e.g. OroboROX window
+#  manager) or for the filer (rox) and session manager (rox-session) which
+#  need to be launched from the command line (or in .xinitrc), define
+#  ROX_WRAPPER to the name of the wrapper script.  This wrapper will be
+#  installed in /usr/bin.
 #****
 
 #****C* rox.cygclass/rox_autoreconf
 #  DESCRIPTION
-#    Runs autoconf, the only autotool which is generally used in ROX C
-#    packages, in order to pick up any patches to configure.{ac,in}.
+#  Runs autoconf, the only autotool which is generally used in ROX C
+#  packages, in order to pick up any patches to configure.{ac,in}.
 #  REQUIRES
-#    autoconf
+#  autoconf
 #****
 rox_autoreconf() {
 	if [ ! -e configure.in ]
@@ -96,16 +94,16 @@ rox_autoreconf() {
 
 #****C* rox.cygclass/rox_compile
 #  DESCRIPTION
-#    This function builds a ROX C package through the AppRun script.
+#  This function builds a ROX C package through the AppRun script.
 #  NOTE
-#    Be aware that some AppRun scripts create the executable in a
-#    platform-specific subdir, named based on uname(1) output.  Because
-#    Cygwin's `uname -s` also contains the Windows version, applications
-#    compiled on one computer will not be found on another if their underlying
-#    Windows versions differ.  To avoid this, add the following line near the
-#    top of AppRun (and AppletRun, if it exists):
-#      export PLATFORM="CYGWIN-ix86"
-#    This will allow the application to run on all Cygwin installations.
+#  Be aware that some AppRun scripts create the executable in a
+#  platform-specific subdir, named based on uname(1) output.  Because
+#  Cygwin's `uname -s` also contains the Windows version, applications
+#  compiled on one computer will not be found on another if their underlying
+#  Windows versions differ.  To avoid this, add the following line near the
+#  top of AppRun (and AppletRun, if it exists):
+#    export PLATFORM="CYGWIN-ix86"
+#  This will allow the application to run on all Cygwin installations.
 #****
 rox_compile() {
 	if [ ! -e AppRun ]
@@ -118,9 +116,9 @@ rox_compile() {
 
 #****I* rox.cygclass/rox_install
 #  DESCRIPTION
-#    Install the (possibly compiled) AppDir into ${D}/usr/lib/rox,
-#    removes extraneous files (e.g. sources), compiles Python modules, and
-#    creates the wrapper script if ROX_WRAPPER is defined.
+#  Install the (possibly compiled) AppDir into ${D}/usr/lib/rox,
+#  removes extraneous files (e.g. sources), compiles Python modules, and
+#  creates the wrapper script if ROX_WRAPPER is defined.
 #****
 rox_install() {
 	local icoext

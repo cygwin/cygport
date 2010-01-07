@@ -24,53 +24,53 @@
 ################################################################################
 
 #****h* Cygclasses/mono.cygclass
-#  NAME
-#    mono.cygclass -- Build Mono components and .NET assemblies
+#  SYNOPSIS
+#  inherit mono
 #  DESCRIPTION
-#    Mono is an open-source implementation of the C# compiler, Common
-#    Language Runtime (the Windows version of which is known as the .NET
-#    Framework), and related tools.  The most common FOSS usage of Mono is
-#    Gtk#, a group of bindings for the GTK+ and GNOME libraries which is used
-#    by several GNOME applications written in C#.  There are also a number of
-#    other programming languages implemented on the CLR, some unique (such as
-#    Boo, Cobra, Nemerle, and VB.NET) and some previously existing (such as
-#    Java/IKVM, Lua2IL, and mPHP).
+#  Mono is an open-source implementation of the C# compiler, Common
+#  Language Runtime (the Windows version of which is known as the .NET
+#  Framework), and related tools.  The most common FOSS usage of Mono is
+#  Gtk#, a group of bindings for the GTK+ and GNOME libraries which is used
+#  by several GNOME applications written in C#.  There are also a number of
+#  other programming languages implemented on the CLR, some unique (such as
+#  Boo, Cobra, Nemerle, and VB.NET) and some previously existing (such as
+#  Java/IKVM, Lua2IL, and mPHP).
 #
-#    This cygclass sets definitions for downloading and building Mono components,
-#    and provides functions for installing CLR assemblies and programs.
+#  This cygclass sets definitions for downloading and building Mono components,
+#  and provides functions for installing CLR assemblies and programs.
 #  REQUIRES
-#    mono
+#  mono
 #****
 
 #****d* mono.cygclass/MONO
 #  DESCRIPTION
-#    Absolute path to the Mono JIT interpreter.
+#  Absolute path to the Mono JIT interpreter.
 #****
 MONO=/usr/bin/mono
 
 #****d* mono.cygclass/MCS
 #  DESCRIPTION
-#    Absolute path to the Mono C# 1.0 compiler.
+#  Absolute path to the Mono C# 1.0 compiler.
 #****
 MCS=/usr/bin/mcs
 
 #****d* mono.cygclass/GMCS
 #  DESCRIPTION
-#    Absolute path to the Mono C# 2.0/3.0 compiler.
+#  Absolute path to the Mono C# 2.0/3.0 compiler.
 #****
 GMCS=/usr/bin/gmcs
 
 #****d* mono.cygclass/GACUTIL
 #  DESCRIPTION
-#    Absolute path to the Mono Global Assembly Cache tool.
+#  Absolute path to the Mono Global Assembly Cache tool.
 #****
 GACUTIL=/usr/bin/gacutil
 
 #****d* mono.cygclass/MONO_SNK
 #  DESCRIPTION
-#    Path to a strongname key that can be used to sign assemblies for installation
-#    into the GAC which do not ship with their own key.  This key should only
-#    be used if an upstream key is not available.
+#  Path to a strongname key that can be used to sign assemblies for installation
+#  into the GAC which do not ship with their own key.  This key should only
+#  be used if an upstream key is not available.
 #****
 MONO_SNK=${_privdatadir}/mono.snk
 
@@ -81,11 +81,11 @@ HOMEPAGE="http://www.mono-project.com/"
 
 #****o* mono.cygclass/SRC_URI (mono)
 #  DESCRIPTION
-#    Download location for sources from the Mono project.
+#  Download location for sources from the Mono project.
 #****
 #****o* mono.cygclass/SVN_URI (mono)
 #  DESCRIPTION
-#    Location of Subversion repository for Mono projects.
+#  Location of Subversion repository for Mono projects.
 #****
 if ! defined SVN_URI
 then
@@ -96,11 +96,11 @@ fi
 
 #****I* mono.cygclass/gacinto
 #  SYNOPSIS
-#    gacinto SUBDIRECTORY
+#  gacinto SUBDIRECTORY
 #  DESCRIPTION
-#    Package name to use when installing assemblies into the GAC with dogac.
-#    Symlinks to the assemblies installed with dogac will be created in
-#    /usr/lib/mono/SUBDIRECTORY.
+#  Package name to use when installing assemblies into the GAC with dogac.
+#  Symlinks to the assemblies installed with dogac will be created in
+#  /usr/lib/mono/SUBDIRECTORY.
 #****
 gacinto() {
 	if (( $# != 1 ))
@@ -117,16 +117,16 @@ gacinto() {
 
 #****I* mono.cygclass/dogac
 #  SYNOPSIS
-#    [gacinto SUBDIRECTORY]
-#    dogac ASSEMBLY [ASSEMBLY2] ...
+#  [gacinto SUBDIRECTORY]
+#  dogac ASSEMBLY [ASSEMBLY2] ...
 #  DESCRIPTION
-#    Installs the given assembly libraries into the GAC under $D, using the
-#    package name from the previous call to gacinto.
+#  Installs the given assembly libraries into the GAC under $D, using the
+#  package name from the previous call to gacinto.
 #  NOTE
-#    Assemblies must be strongname signed in order to be installed into the
-#    GAC.  If an assembly is meant for general consumption but a strongname
-#    key is not available from upstream, MONO_SNK can be used to sign the
-#    assembly.
+#  Assemblies must be strongname signed in order to be installed into the
+#  GAC.  If an assembly is meant for general consumption but a strongname
+#  key is not available from upstream, MONO_SNK can be used to sign the
+#  assembly.
 #****
 dogac() {
 	local gacdll gacpkg
@@ -151,13 +151,13 @@ dogac() {
 
 #****I* mono.cygclass/mono_create_policy
 #  SYNOPSIS
-#    mono_create_policy ASSEMBLY_NAME "OLD_VERSIONS" NEW_VERSION STRONGNAME_KEY
+#  mono_create_policy ASSEMBLY_NAME "OLD_VERSIONS" NEW_VERSION STRONGNAME_KEY
 #  DESCRIPTION
-#    Creates a policy file within the GAC.  Policy files are used to redirect
-#    assembly dependencies on (usually) older versions to a new version which is
-#    still API-compatible.  Versions are in the form of major.minor.micro.patch;
-#    the old versions argument can be a range (x.y.z.a-x.y.z.a) or use wildcards
-#    (x.y.*).
+#  Creates a policy file within the GAC.  Policy files are used to redirect
+#  assembly dependencies on (usually) older versions to a new version which is
+#  still API-compatible.  Versions are in the form of major.minor.micro.patch;
+#  the old versions argument can be a range (x.y.z.a-x.y.z.a) or use wildcards
+#  (x.y.*).
 #****
 mono_create_policy() {
 	local assembly=${1%.dll}
@@ -201,10 +201,10 @@ _EOF
 
 #****I* mono.cygclass/mono_wrapper
 #  SYNOPSIS
-#    mono_wrapper SCRIPT_NAME PATH_TO_ASSEMBLY
+#  mono_wrapper SCRIPT_NAME PATH_TO_ASSEMBLY
 #  DESCRIPTION
-#    Creates a wrapper script to launch the given assembly path (as it will be
-#    installed on the system) with Mono.
+#  Creates a wrapper script to launch the given assembly path (as it will be
+#  installed on the system) with Mono.
 #****
 mono_wrapper() {
 	local massembly

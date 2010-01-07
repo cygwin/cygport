@@ -24,9 +24,9 @@
 
 #****f* Syntax/inherit
 #  SYNOPSIS
-#    inherit CYGCLASS [CYGCLASS] ...
+#  inherit CYGCLASS [CYGCLASS] ...
 #  DESCRIPTION
-#    Imports the given Cygclass(es) (without the .cygclass suffix) into the build.
+#  Imports the given Cygclass(es) (without the .cygclass suffix) into the build.
 #****
 inherit() {
 	local class;
@@ -51,11 +51,11 @@ inherit() {
 
 #****f* Syntax/inherited
 #  SYNOPSIS
-#    inherited CYGCLASS [CYGCLASS] ...
+#  inherited CYGCLASS [CYGCLASS] ...
 #  DESCRIPTION
-#    Check whether the given Cygclass(es) (without the .cygclass suffix) have
-#    already been inherit()ed.  Returns TRUE if all given Cygclasses have been
-#    inherit()ed, otherwise FALSE.
+#  Check whether the given Cygclass(es) (without the .cygclass suffix) have
+#  already been inherit()ed.  Returns TRUE if all given Cygclasses have been
+#  inherit()ed, otherwise FALSE.
 #****
 inherited() {
 	local class;

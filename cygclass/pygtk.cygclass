@@ -24,20 +24,18 @@
 ################################################################################
 
 #****h* Cygclasses/pygtk.cygclass
-#  NAME
-#    pygtk.cygclass -- Build Python GTK+/GNOME bindings
 #  SYNOPSIS
-#    inherit pygtk
+#  inherit pygtk
 #  DESCRIPTION
-#    The PyGTK project provides a series of bindings for the GTK+ and GNOME
-#    libraries.  APIs are defined in .defs files, from which C binding code
-#    is generated with PYGTK_CODEGEN.  These bindings allow full-featured
-#    GNOME programs to be written in the Python language, and are among one
-#    of the most commonly used GNOME language bindings.
+#  The PyGTK project provides a series of bindings for the GTK+ and GNOME
+#  libraries.  APIs are defined in .defs files, from which C binding code
+#  is generated with PYGTK_CODEGEN.  These bindings allow full-featured
+#  GNOME programs to be written in the Python language, and are among one
+#  of the most commonly used GNOME language bindings.
 #
-#    This package provides definitions and functions for building PyGTK bindings.
+#  This package provides definitions and functions for building PyGTK bindings.
 #  INHERITS
-#    gnome.org.cygclass, python.cygclass
+#  gnome.org.cygclass, python.cygclass
 #****
 
 case ${PN#python-} in
@@ -67,25 +65,25 @@ inherit gnome.org python
 
 #****d* pygtk.cygclass/PYGTK_INCLUDEDIR
 #  DESCRIPTION
-#    Directory containing PyGTK C headers.
+#  Directory containing PyGTK C headers.
 #****
 PYGTK_INCLUDEDIR="/usr/include/pygtk-2.0"
 
 #****d* pygtk.cygclass/PYGTK_LIBDIR
 #  DESCRIPTION
-#    Installation path for PyGTK bindings.
+#  Installation path for PyGTK bindings.
 #****
 PYGTK_LIBDIR="${PYTHON_SITELIB}/gtk-2.0"
 
 #****d* pygtk.cygclass/PYGTK_DATADIR
 #  DESCRIPTION
-#    Installation path for *.defs and *-arg-types.py API files.
+#  Installation path for *.defs and *-arg-types.py API files.
 #****
 PYGTK_DATADIR="/usr/share/pygtk/2.0"
 
 #****d* pygtk.cygclass/PYGTK_CODEGEN
 #  DESCRIPTION
-#    Absolute path to the PyGTK C code generator.
+#  Absolute path to the PyGTK C code generator.
 #****
 if check_prog pygobject-codegen-2.0
 then
@@ -101,10 +99,10 @@ HOMEPAGE="http://www.pygtk.org/"
 
 #****C* pygtk.cygclass/pygtk_compile
 #  SYNOPSIS
-#    pygtk_compile [OPTIONS]
+#  pygtk_compile [OPTIONS]
 #  DESCRIPTION
-#    Configures the package with cygconf, passing any arguments it receives,
-#    then compiles the package with cygmake.
+#  Configures the package with cygconf, passing any arguments it receives,
+#  then compiles the package with cygmake.
 #****
 pygtk_compile() {
 	cygconf --disable-static "${@}"
