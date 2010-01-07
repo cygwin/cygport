@@ -1,5 +1,4 @@
-htmldocdir = $(docdir)/html
-htmldoc_DATA =
+doc_DATA =
 
 if HAVE_HELP2MAN
 
@@ -11,7 +10,7 @@ cygport.1: $(top_builddir)/bin/cygport
 
 if HAVE_GROFF
 
-htmldoc_DATA += cygport.1.html
+doc_DATA += cygport.1.html
 
 cygport.1.html: cygport.1
 	$(AM_V_GEN)$(GROFF) -t -mandoc -Thtml $< > $@
@@ -21,7 +20,7 @@ endif HAVE_HELP2MAN
 
 if HAVE_ROBODOC
 
-htmldoc_DATA += manual.html manual.css
+doc_DATA += manual.html manual.css
 
 manual.html: $(srcdir)/robodoc.rc $(wildcard $(top_srcdir)/cygclass/*.cygclass) $(wildcard $(top_srcdir)/lib/*.cygpart) $(top_srcdir)/bin/cygport.in $(wildcard $(top_srcdir)/data/*)
 	$(AM_V_GEN)cd $(top_srcdir) && $(ROBODOC) --src . --doc $(abs_builddir)/manual --rc $(abs_srcdir)/robodoc.rc --html --singledoc
@@ -30,6 +29,6 @@ manual.css: manual.html
 
 endif HAVE_ROBODOC
 
-CLEANFILES = $(man_MANS) $(htmldoc_DATA)
+CLEANFILES = $(man_MANS) $(doc_DATA)
 
 EXTRA_DIST = robodoc.rc
