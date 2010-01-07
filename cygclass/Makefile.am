@@ -1,6 +1,7 @@
 cygclassdir = $(pkgdatadir)/cygclass
 
 dist_cygclass_DATA = 			\
+	ant.cygclass				\
 	apache.cygclass				\
 	apache1.cygclass			\
 	apache2.cygclass			\

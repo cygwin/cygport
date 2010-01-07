@@ -1,0 +1,180 @@
+################################################################################
+#
+# ant.cygclass - functions for building Java packages with Ant
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2009, 2010 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+# $Id$
+#
+################################################################################
+
+#****h* Cygclasses/ant.cygclass
+#  SYNOPSIS
+#  inherit ant
+#  DESCRIPTION
+#  Apache Ant is a build system written in Java and used in many Java projects.
+#  The build is controlled by a single XML file, named 'build.xml' by default,
+#  which specifies the targets to be built, the commands to build them, and the
+#  options which may be given to control the build.
+#
+#  Ant includes support for a number of commands (called tasks), including
+#  compiling and executing Java code, generating documentation, downloading
+#  files, de/compressing archives, and running testsuites.  Third-party Ant
+#  tasks also exist to support additional commands.
+#
+#  This cygclass builds packages which use the Ant build system.
+#  INHERITS
+#  java.cygclass
+#  REQUIRES
+#  ant
+#****
+
+inherit java
+
+check_prog_req ant
+
+#****d* ant.cygclass/ANT
+#  DESCRIPTION
+#  Absolute path to the Ant build tool.
+#****
+ANT=/usr/bin/ant
+
+#****d* ant.cygclass/ANT_HOME
+#  DESCRIPTION
+#  Root datadir for the Ant build tool.  This definition is exported to the
+#  build environment.
+#****
+export ANT_HOME=/usr/share/ant
+
+#****v* ant.cygclass/ANT_BUILD_XML
+#  DESCRIPTION
+#  Name or relative path of the Ant build file.  This need only be defined
+#  if it is not build.xml (the default).
+#****
+
+#****C* ant.cygclass/cygant
+#  SYNOPSIS
+#  cygant [OPTIONS]
+#  DESCRIPTION
+#  Runs Ant with the given options, if any.
+#****
+cygant() {
+	local fileargs task taskpath
+
+	if [ ! -e ${ANT_BUILD_XML:-build.xml} ]
+	then
+		error "Ant build.xml file not found"
+	fi
+
+	for task in ${ANT_TASKS}
+	do
+		case ${task} in
+			oro|regexp)	taskpath+=${JAVA_DIR}/jakarta-${task}.jar: ;;
+			*)		taskpath+=${JAVA_DIR}/${task}.jar: ;;
+		esac
+	done
+	taskpath+=${JAVA_DIR}/xercesImpl.jar:${JAVA_DIR}/xml-apis.jar:${CLASSPATH}
+
+	if defined ANT_BUILD_XML
+	then
+		fileargs="-f ${ANT_BUILD_XML}"
+	fi
+
+	JAVACMD=${JAVA} \
+	/usr/bin/ant -lib ${taskpath} ${fileargs} ${@} || error "ant build failed"
+}
+
+#****I* ant.cygclass/doanttask
+#  SYNOPSIS
+#  doanttask JAR_FILE [JAR_FILE] ...
+#  DESCRIPTION
+#  Installs the given .jar file(s) into the Ant task directory.  
+#****
+doanttask() {
+	local _insinto_tmp=${_insinto_dir}
+
+	insinto ${ANT_HOME}/lib
+	doins ${@}
+
+	_insinto_dir=${_insinto_tmp}
+}
+
+#****v* ant.cygclass/ANT_BUILD_ARGS
+#  DESCRIPTION
+#  Arguments to pass to the Ant build command if this src_compile is used.
+#****
+#****v* ant.cygclass/ANT_BUILD_TARGETS
+#  DESCRIPTION
+#  Target(s) to be built during the Ant build command if this src_compile is used.  
+#****
+
+#****o* ant.cygclass/src_compile (ant)
+#  DEFINITION
+src_compile() {
+	lndirs
+	cd ${B}
+	cygant ${ANT_BUILD_ARGS} ${ANT_BUILD_TARGETS}
+}
+#****
+
+#****v* ant.cygclass/ANT_TEST_TARGETS
+#  DESCRIPTION
+#  Target(s) to be built to run the testsuite if this src_test is used.  
+#****
+
+#****o* ant.cygclass/src_test (ant)
+#  DEFINITION
+src_test() {
+	cd ${B}
+	ANT_TASKS="${ANT_TASKS} junit" cygant ${ANT_TEST_TARGETS:-test}
+}
+#****
+
+#****v* ant.cygclass/ANT_INSTALL_JARS
+#  DESCRIPTION
+#  Relative (of $B) paths of .jar files to be installed if this src_install is used.
+#****
+#****v* ant.cygclass/ANT_INSTALL_JAVADOC
+#  DESCRIPTION
+#  Relative (of $B) paths of javadoc directories to be installed if this src_install is used.
+#****
+#****v* ant.cygclass/ANT_INSTALL_TASKS
+#  DESCRIPTION
+#  Relative (of $B) paths of Ant task .jar files to be installed if this src_install is used.
+#****
+
+#****o* ant.cygclass/src_install (ant)
+#  DEFINITION
+src_install() {
+	cd ${B}
+	if defined ANT_INSTALL_JARS
+	then
+		dojar ${ANT_INSTALL_JARS}
+	fi
+	if defined ANT_INSTALL_JAVADOC
+	then
+		dojavadoc ${ANT_INSTALL_JAVADOC}
+	fi
+	if defined ANT_INSTALL_TASKS
+	then
+		doanttask ${ANT_INSTALL_TASKS}
+	fi
+}
+#****
+
+readonly -f cygant doanttask
