@@ -275,7 +275,7 @@ dojavadoc() {
 		error "dojavadoc: requires exactly one argument"
 	fi
 
-	if [ -d ${1} ]
+	if [ ! -d ${1} ]
 	then
 		error "dojavadoc: ${1}: file not found"
 	fi
