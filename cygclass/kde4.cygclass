@@ -49,6 +49,12 @@ HOMEPAGE="http://www.kde.org/"
 #  SEE ALSO
 #  mirror_kde
 #****
+if defined KDE4_EXTRAGEAR_VERSION
+then
+	HOMEPAGE="http://extragear.kde.org/apps/${PN}/"
+	SRC_URI="mirror://kde/stable/${KDE4_EXTRAGEAR_VERSION}/src/extragear/${P}-kde${KDE4_EXTRAGEAR_VERSION}.tar.bz2"
+	SRC_DIR="${P}-kde${KDE4_EXTRAGEAR_VERSION}"
+else
 case "${PN}:${PV}" in
 	automoc4:0.9.8[89])
 		SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.bz2"
@@ -81,6 +87,7 @@ case "${PN}:${PV}" in
 		SRC_URI="mirror://kde/stable/${PV}/src/${P}.tar.bz2"
 		;;
 esac
+fi	# !KDE4_EXTRAGEAR_VERSION
 
 if ! defined SVN_URI
 then
