@@ -447,11 +447,11 @@ Cygwin binary and source packages of cygport are available as part of
 the Cygwin distribution, under the 'Devel' category.  Installing cygport 
 with setup.exe will automatically install all mandatory dependencies.
 
-cygport is hosted on Subversion.  Those interested in helping with cygport
-development, or testing the newest features should use SVN trunk.
-Instructions for browsing and retrieving sources from SVN are available at:
+cygport is hosted on Git.  Those interested in helping with cygport
+development, or testing the newest features should use branch 'master'.
+Instructions for browsing and retrieving sources from Git are available at:
 
-    http://sourceforge.net/svn/?group_id=99645
+    http://sourceforge.net/projects/cygwin-ports/develop
 
 
 8. SUPPORT
