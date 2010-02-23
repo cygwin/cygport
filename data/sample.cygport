@@ -1,5 +1,3 @@
-# $Id$
-
 DESCRIPTION="Next-generation Cygwin packaging application"
 HOMEPAGE="http://sourceware.org/cygwinports/"
 SRC_URI="mirror://sourceforge/cygwin-ports/${P}.tar.bz2"

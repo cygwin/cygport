@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# $Id$
-
 set -e
 
 export CYGPORT_BOOTSTRAP=1

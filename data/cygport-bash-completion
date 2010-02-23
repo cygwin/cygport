@@ -1,6 +1,4 @@
 # -*- sh -*- cygport completion by Reini Urban <rurban@x-ray.at>
-#
-# $Id$
 
 _cygport()
 {
