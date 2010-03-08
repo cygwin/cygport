@@ -3,7 +3,7 @@
 # gst-plugins0.10.cygclass - functions for building GStreamer 0.10 Plugins
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -46,13 +46,7 @@ gst_pn=${PN#gstreamer[0-9]*-plugins-}
 # defaults
 ORIG_PN=gst-plugins-${gst_pn}
 
-#****iv* gst-plugins0.10.cygclass/GST_PLUGINS_SRC
-#****
-
 #****iv* gst-plugins0.10.cygclass/GST_PLUGINS_MODULE
-#****
-
-#****iv* gst-plugins0.10.cygclass/GST_PLUGINS_DIR
 #****
 
 #****v* gst-plugins0.10.cygclass/GST_PLUGINS_EXT
@@ -71,7 +65,6 @@ ORIG_PN=gst-plugins-${gst_pn}
 
 case ${gst_pn} in
 	base|good|bad|ugly|farsight)
-		GST_PLUGINS_DIR=.
 		for plugin in ${GST_PLUGINS_EXT}
 		do
 			case ${plugin} in
@@ -83,33 +76,15 @@ case ${gst_pn} in
 		done
 		unset plugin
 		;;
-	opengl|oss|oss4|ximage|ximagesrc|xvimage)
-		GST_PLUGINS_DIR=${GST_PLUGINS_DIR:-sys/${gst_pn}}
-		GST_PLUGINS_MODULE=${GST_PLUGINS_MODULE:-${gst_pn}}
-		ORIG_PN=gst-plugins-${GST_PLUGINS_SRC}
-		;;
 	ffmpeg)
-		GST_PLUGINS_DIR=.
 		ORIG_PN=gst-ffmpeg
 		;;
-	gl)
-		GST_PLUGINS_DIR=.
-		ORIG_PN=gst-plugins-gl
-		;;
 	gnonlin)
-		GST_PLUGINS_DIR=.
 		ORIG_PN=gnonlin
 		;;
 	fluendo-*)
-		GST_PLUGINS_DIR=.
 		ORIG_PN=gst-${gst_pn}
 		SRC_URI="http://core.fluendo.com/gstreamer/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
-		;;
-	*)
-		# single plugin from base/core/good/bad/ugly
-		GST_PLUGINS_DIR=${GST_PLUGINS_DIR:-ext/${gst_pn}}
-		GST_PLUGINS_MODULE=${GST_PLUGINS_MODULE:-${gst_pn}}
-		ORIG_PN=gst-plugins-${GST_PLUGINS_SRC}
 		;;
 esac
 
@@ -120,7 +95,7 @@ inherit gstreamer
 DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
 #****
 
-case ${GST_PLUGINS_SRC:-${gst_pn}} in
+case ${gst_pn} in
 	base)
 		# cdparanoia requires a patch to use libcdio_paranoia
 		my_gst_plugins="cdparanoia gnome_vfs gio libvisual ogg pango
@@ -166,31 +141,6 @@ esac
 #****
 gst_plugins_autoreconf() {
 	gstreamer_autoreconf
-
-	case ${gst_pn} in
-		base|good|bad|ugly|farsight|ffmpeg|fluendo-*|gl|gnonlin)
-			;;
-		*)
-			# Remove generation of any other Makefiles except the plugin's Makefile
-			local makefiles="Makefile ${GST_PLUGINS_DIR%/*}/Makefile ${GST_PLUGINS_DIR}/Makefile"
-			sed -i \
-				-e "s:ac_config_files=.*:ac_config_files='${makefiles}':" \
-				${S}/configure
-
-			if [ "x${GST_PLUGINS_SRC}" = "xbase" ]
-			then
-				sed \
-					-e "s:\$(top_builddir)/gst-libs/gst/audio/libgstaudio:/usr/lib/libgstaudio:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces:/usr/lib/libgstinterfaces:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/netbuffer/libgstnetbuffer:/usr/lib/libgstnetbuffer:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/riff/libgstriff:/usr/lib/libgstriff:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/rtp/libgstrtp:/usr/lib/libgstrtp:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/tag/libgsttag:/usr/lib/libgsttag:g" \
-					-e "s:\$(top_builddir)/gst-libs/gst/video/libgstvideo:/usr/lib/libgstvideo:g" \
-					-i ${S}/${GST_PLUGINS_DIR}/Makefile.in
-			fi
-			;;
-	esac
 }
 
 #****C* gst-plugins0.10.cygclass/gst_plugins_compile
@@ -235,15 +185,6 @@ gst_plugins_compile() {
 		ac_cv_header_winsock2_h=no \
 		${gst_conf} "${@}"
 
-	if [ "x${GST_PLUGINS_DIR}" != "x." ]
-	then
-		if [ ! -d ${GST_PLUGINS_DIR} ]
-		then
-			error "GST_PLUGINS_DIR must be set to the plugin subdirectory"
-		fi
-	fi
-
-	cd ${GST_PLUGINS_DIR}
 	cygmake
 }
 
@@ -252,15 +193,6 @@ gst_plugins_compile() {
 #  Alias for cyginstall.
 #****
 gst_plugins_install() {
-	if [ "x${GST_PLUGINS_DIR}" != "x." ]
-	then
-		if [ ! -d ${GST_PLUGINS_DIR} ]
-		then
-			error "GST_PLUGINS_DIR must be set to the plugin subdirectory"
-		fi
-	fi
-
-	cd ${GST_PLUGINS_DIR}
 	cyginstall
 }
 
