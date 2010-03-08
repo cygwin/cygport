@@ -3,7 +3,7 @@
 # wxwidgets.cygclass - functions for building wxWidgets-dependent packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -132,6 +132,27 @@ _wx_find_config() {
 #  WX_CODESET.  This definition is exported to the build environment.
 #****
 export WX_CONFIG="$(_wx_find_config)"
+
+#****d* wxwidgets.cygclass/WX_CFLAGS
+#  DESCRIPTION
+#  Compile flags for the specified version/toolkit/codeset of wxWidgets.  This
+#  is equivalent to `$WX_CONFIG --cflags`.
+#****
+WX_CFLAGS="$(${WX_CONFIG} --cflags)"
+
+#****d* wxwidgets.cygclass/WX_LIBS
+#  DESCRIPTION
+#  Link flags for the specified version/toolkit/codeset of wxWidgets.  This
+#  is equivalent to `$WX_CONFIG --libs`.
+#  NOTE
+#  This will contain the standard, non-"contrib" link libraries shipped with
+#  wxWidgets.  If you need to link against one of the "contrib" libraries, you
+#  need to call `$WX_CONFIG --libs library1,library2,...`.  In this form,
+#  WX_CONFIG will automatically add 'base', but not 'core', which almost all
+#  wxWidgets GUI applications will need.  Third-party link library flags cannot
+#  be determined by WX_CONFIG and will need to be added manually.
+#****
+WX_LIBS="$(${WX_CONFIG} --libs)"
 
 #****f* wxwidgets.cygclass/wx-config
 #  DESCRIPTION
