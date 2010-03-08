@@ -16,3 +16,7 @@ cygport.1.html
 cygport-*.tar.bz2
 manual.css
 manual.html
+
+patches
+*.orig
+*.rej
