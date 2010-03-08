@@ -1,3 +1,12 @@
+0.9.81:
+	* Transition repository from SF.net Subversion to Git.
+	* fox.cygclass: Added FOX_CFLAGS and FOX_LIBS.
+	* gst-plugins0.10.cygclass: Remove support for building single plugins
+	  from base/good/bad/ugly tarballs.
+	* java.cygclass: Fix typo in dojavadoc.
+	* kde4.cygclass: Define SRC_URI for Extragear with KDE4_EXTRAGEAR_VERSION.
+	* wxwidgets.cygclass: Added WX_CFLAGS and WX_LIBS.
+
 0.9.80:
 	* API documentation.
 	* SRC_URI supports .tar.lz archives.
