@@ -3,7 +3,7 @@
 # fox.cygclass - functions for building FOX-toolkit-dependent packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -68,6 +68,20 @@ _fox_find_config() {
 #  is exported to the build environment.
 #****
 export FOX_CONFIG="$(_fox_find_config)"
+
+#****d* fox.cygclass/FOX_CFLAGS
+#  DESCRIPTION
+#  Compile flags for the specified version of the FOX toolkit.  This
+#  is equivalent to `$FOX_CONFIG --cflags`.
+#****
+FOX_CFLAGS="$(${FOX_CONFIG} --cflags)"
+
+#****d* fox.cygclass/FOX_LIBS
+#  DESCRIPTION
+#  Link flags for the specified version of the FOX toolkit.  This
+#  is equivalent to `$FOX_CONFIG --libs`.
+#****
+FOX_LIBS="$(${FOX_CONFIG} --libs)"
 
 #****f* fox.cygclass/fox-config
 #  DESCRIPTION
