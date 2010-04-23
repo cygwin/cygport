@@ -20,6 +20,10 @@
 #
 ################################################################################
 
+__cpio_gz_extract() {
+	gzip -dc ${1} | cpio -midu --quiet;
+}
+
 __srpm_extract() {
 	local rpmpath=${1};
 	local rpmfile=${1##*/};
@@ -78,6 +82,14 @@ unpack() {
 			*.bz2)
 				unpack_cmd="bunzip2 -c";
 				unpack_out="${unpack_file_name%.bz2}";
+				;;
+			*.cpio.gz)
+				if check_prog bsdtar
+				then
+					unpack_cmd="bsdtar zxf";
+				else
+					unpack_cmd="__cpio_gz_extract";
+				fi
 				;;
 			*.gz)
 				unpack_cmd="gunzip -c";
