@@ -1,3 +1,6 @@
+0.9.82:
+	* SRC_URI supports .cpio.gz archives.
+
 0.9.81:
 	* Transition repository from SF.net Subversion to Git.
 	* fox.cygclass: Added FOX_CFLAGS and FOX_LIBS.
