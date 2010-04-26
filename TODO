@@ -18,5 +18,7 @@ A wishlist of features to add in future releases, in no particular order:
 * Fix rcs tarball names to allow more than one at a time
 * wrapper for Xfake when build expects an X server (e.g. perl-OpenGL)
 * cross: overhaul, support mingw (perhaps separate mingw.cygclass)
+* Enable building packages *from* cross environment:
+  http://cygwin.com/ml/cygwin/2010-04/msg00920.html
 
 
