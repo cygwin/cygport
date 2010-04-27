@@ -31,6 +31,7 @@ __show_help() {
 		  download     download upstream sources from Internet
 		  prep         create working directory, unpack sources and apply patches
 		  compile      run all compilation steps
+		  test         run the package's test suite, if one exists
 		  install      install into a DESTDIR, and run post-installation steps
 		  package      create binary and source packages
 		  finish       delete the working directory
