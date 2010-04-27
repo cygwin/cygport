@@ -1,3 +1,7 @@
+0.9.83:
+	* The 'test' command is now documented in --help and in the manpage.
+	* Fixed regexes for Cygwin 1.7.2.
+
 0.9.82:
 	* SRC_URI supports .cpio.gz archives.
 
