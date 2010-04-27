@@ -53,7 +53,7 @@ __pkg_binpkg() {
 	do
 		__step "${pkg_name[${n}]}-${PVR}.tar.bz2";
 
-		pkg_contents_var=${pkg_name[${n}]//[+-\.]/_}_CONTENTS;
+		pkg_contents_var=${pkg_name[${n}]//[-+\.]/_}_CONTENTS;
 
 		if defined ${pkg_contents_var}
 		then
