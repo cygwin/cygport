@@ -313,14 +313,14 @@ java_wrapper() {
 	if defined jmain
 	then
 		jcmdopt="-classpath"
-		if defined JAVA_CLASSPATH
+		if defined CLASSPATH
 		then
-			jar=${2}:${JAVA_CLASSPATH}
+			jar=${jar}:${CLASSPATH}
 		fi
 	else
-		if defined JAVA_CLASSPATH
+		if defined CLASSPATH
 		then
-			jcmdopt="-classpath ${JAVA_CLASSPATH} -jar"
+			jcmdopt="-classpath ${CLASSPATH} -jar"
 		else
 			jcmdopt="-jar"
 		fi
