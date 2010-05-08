@@ -286,20 +286,32 @@ dojavadoc() {
 
 #****I* java.cygclass/java_wrapper
 #  SYNOPSIS
-#  java_wrapper WRAPPER_NAME JAR_FILE [MAIN_CLASS]
+#  java_wrapper [JAVA_OPTIONS] WRAPPER_NAME JAR_FILE [MAIN_CLASS]
 #  DESCRIPTION
 #  Creates a wrapper script for the given .jar file.  If the .jar file is
 #  installed into JAVA_DIR, its basename can be used instead of a path.
 #  If the jar file manifest defines a Main-Class, then the third argument
 #  (the class providing the main() function) can be omitted.
+#
+#  Options to be passed to the JAVA runtime (rather than the Java
+#  program) can be added before the wrapper name.  These arguments must
+#  begin with a hyphen.
 #****
 java_wrapper() {
-	local jwrapper jar jmain jcmdopt
+	local jargs jwrapper jar jmain jcmdopt
 
 	if (( $# < 2 ))
 	then
 		error "java_wrapper requires at least two arguments"
 	fi
+
+	while true
+	do
+		case ${1} in
+			-*)	jargs+="${1} " ; shift ;;
+			*)	break ;;
+		esac
+	done
 
 	jwrapper=${1}
 	jar=${2}
@@ -328,7 +340,7 @@ java_wrapper() {
 
 	dodir /usr/bin
 
-	echo -e "#!/bin/sh\nexec ${JAVA} ${jcmdopt} ${jar} ${jmain} \"\$@\"" > ${D}/usr/bin/${jwrapper}
+	echo -e "#!/bin/sh\nexec ${JAVA} ${jargs} ${jcmdopt} ${jar} ${jmain} \"\$@\"" > ${D}/usr/bin/${jwrapper}
 	chmod +x ${D}/usr/bin/${jwrapper}
 }
 
