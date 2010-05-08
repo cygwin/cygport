@@ -108,14 +108,9 @@ provides commonly-used build-time functions for the package .cygport
 files, which contain only the compiling, testing, and installation
 instructions.
 
-In addition, cygport includes a two-fold modularization:
-
-1) Many helper functions have been separated into their own scripts
-   located in their own directory, making both them and the main cygport
-   script easier to maintain.
-   
-2) Support for various build systems is provided through separate
-   cygclasses, which are 'inherit'ed by the package .cygport as necessary.
+In addition, cygport is modularized.  Support for various build systems
+is provided through separate cygclasses, which are 'inherit'ed by the
+package .cygport as necessary.
    
 The public functions and syntax (those used by a package .cygport) are
 closer to those of Portage then of the g-b-s (it is extremely unlikely,
@@ -177,7 +172,8 @@ The standard arguments --help or --version may also be passed to cygport.
 4. CREATING A CYGPORT PACKAGE
 
 See the data/sample.cygport file, included in the Cygwin package in
-${prefix}/share/cygport, for an example.
+${prefix}/share/cygport, for a simple example.  Many more examples
+are available in the Cygwin Ports repository[5].
 
 The .cygport file name must be in the form PKGNAME-VERSION-RELEASE.cygport, 
 where PKGNAME is the Cygwin package name (which need not be the same as 
@@ -226,7 +222,7 @@ following arguments to configure:
     --sysconfdir=/etc
     --localstatedir=/var
 
-    (autoconf-2.13 or 2.5x)          (autoconf-2.6x)
+    (autoconf-2.13)                  (autoconf-2.6x)
     --datadir=/usr/share             --datarootdir=/usr/share
     --infodir=/usr/share/info        --docdir=/usr/share/doc/${P}
     --mandir=/usr/share/man
@@ -248,7 +244,7 @@ arguments.
 
 The 'cygmake' command calls make(1) and passes it ${MAKEOPTS} and any
 arguments it receives. By default, MAKEOPTS is defined to '-j2' --
-despite what it says on the Cygwin website[5], parallel make works just
+despite what it says on the Cygwin website[6], parallel make works just
 as well on Cygwin as it does on Linux.  Some packages, however, use make
 rules that break parallel jobs, in which case you can do one of the
 following:
@@ -450,9 +446,18 @@ with setup.exe will automatically install all mandatory dependencies.
 
 cygport is hosted on Git.  Those interested in helping with cygport
 development, or testing the newest features should use branch 'master'.
-Instructions for browsing and retrieving sources from Git are available at:
+The sources can be browsed through Gitweb at:
 
-    http://sourceforge.net/projects/cygwin-ports/develop
+	http://cygwin-ports.git.sourceforge.net/
+
+Patches for cygport should be created through 'git format-patch' and 
+based on the 'master' branch.  The source repository can be cloned from:
+
+	git://cygwin-ports.git.sourceforge.net/gitroot/cygwin-ports/cygport
+
+To build cygport from git, run ./autogen.sh, then make. The following 
+Cygwin packages are required: autoconf, automake, coreutils, groff, 
+help2man, robodoc, sed.
 
 
 8. SUPPORT
@@ -466,4 +471,5 @@ Discussion on cygport should occur on the Cygwin Ports discussion list
 [2] http://cygwin.com/setup.html#package_contents
 [3] http://gentoo-wiki.com/HOWTO_Gentoo_on_Cygwin
 [4] http://www.cygwin.com/ml/cygwin-apps/2006-03/msg00000.html
-[5] http://cygwin.com/faq/faq.programming.html#faq.programming.make-execvp
+[5] http://cygwin-ports.svn.sourceforge.net/viewvc/cygwin-ports/ports/trunk/
+[6] http://cygwin.com/faq/faq.programming.html#faq.programming.make-execvp
