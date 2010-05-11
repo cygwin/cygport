@@ -59,6 +59,13 @@ ANT=/usr/bin/ant
 #****
 export ANT_HOME=/usr/share/ant
 
+#****v* ant.cygclass/ANT_OPTS
+#  DESCRIPTION
+#  Options for the Ant build tool to pass to the Java runtime, e.g. -Xmx.
+#  This definition is exported to the build environment.
+#****
+export ANT_OPTS
+
 #****v* ant.cygclass/ANT_BUILD_XML
 #  DESCRIPTION
 #  Name or relative path of the Ant build file.  This need only be defined
