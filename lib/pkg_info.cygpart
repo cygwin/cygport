@@ -78,7 +78,7 @@ __list_deps() {
 			| sort -u); do \
 			if ! test -f ./$x ; then echo /$x ; fi ; done)
 		netimps=$(find . \( -name '*.dll.config' -o -name '*.exe.config' \) \
-			| xargs -r grep -h target= | sed -e 's|.*target="*\([^ "]*\).*|\1|g' \
+			| xargs -r grep -h 'target=.*\.dll' | sed -e 's|.*target="*\([^ "]*\.dll\).*|\1|g' \
 			| sort -u | xargs -r which || true)
 	fi
 	echo $nativelibs $netlibs $netimps | sort -u | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
