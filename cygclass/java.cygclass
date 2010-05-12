@@ -87,6 +87,26 @@ JAVA_DIR=/usr/share/java
 #****
 JAVADOC_DIR=/usr/share/javadoc
 
+__java_fixup_cp() {
+	local inpath outpath
+
+	for inpath in ${1//:/ }
+	do
+		case $inpath in
+			*/*)	;;
+			*.jar)	inpath=${JAVA_DIR}/${inpath} ;;
+			*)		;;
+		esac
+		if [ ! -e ${inpath} ] && [ ! -e ${D}${inpath} ]
+		then
+			warning "CLASSPATH: ${inpath} not found"
+		fi
+		outpath+=${inpath}:
+	done
+
+	echo -n ${outpath%:}
+}
+
 #****v* java.cygclass/JAVA_CLASSPATH
 #  DESCRIPTION
 #  A colon-separated list of directories and .jar files to pass to Java's
@@ -102,20 +122,7 @@ unset CLASSPATH
 
 if defined JAVA_CLASSPATH
 then
-	for path in ${JAVA_CLASSPATH//:/ }
-	do
-		case $path in
-			*/*)	;;
-			*.jar)	path=${JAVA_DIR}/${path} ;;
-			*)		error "Unknown CLASSPATH component: $path" ;;
-		esac
-		if [ ! -e ${path} ]
-		then
-			warning "JAVA_CLASSPATH: ${path} not found"
-		fi
-		CLASSPATH+=${path}:
-	done
-	export CLASSPATH
+	export CLASSPATH=$(__java_fixup_cp ${JAVA_CLASSPATH})
 fi
 
 case ${PN} in
@@ -342,13 +349,8 @@ java_wrapper() {
 	done
 
 	jwrapper=${1}
-	jar=${2}
+	jar=$(__java_fixup_cp ${2})
 	jmain=${3}
-
-	case ${jar} in
-		/*) ;;
-		*.jar)	jar=${JAVA_DIR}/${jar} ;;
-	esac
 
 	if defined jmain
 	then
@@ -372,5 +374,5 @@ java_wrapper() {
 	chmod +x ${D}/usr/bin/${jwrapper}
 }
 
-readonly -f cygjar cygjava cygjavac cygjavadoc cygjavah \
+readonly -f __java_fixup_cp cygjar cygjava cygjavac cygjavadoc cygjavah \
             dojar newjar dojavadoc newjavadoc java_wrapper
