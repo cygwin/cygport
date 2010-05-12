@@ -152,21 +152,31 @@ src_test() {
 
 #****v* ant.cygclass/ANT_INSTALL_JARS
 #  DESCRIPTION
-#  Relative (of $B) paths of .jar files to be installed if this src_install is used.
+#  Relative paths of .jar files to be installed by ant_install.
 #****
 #****v* ant.cygclass/ANT_INSTALL_JAVADOC
 #  DESCRIPTION
-#  Relative (of $B) paths of javadoc directories to be installed if this src_install is used.
+#  Relative paths of javadoc directories to be installed by ant_install.
 #****
 #****v* ant.cygclass/ANT_INSTALL_TASKS
 #  DESCRIPTION
-#  Relative (of $B) paths of Ant task .jar files to be installed if this src_install is used.
+#  Relative paths of Ant task .jar files to be installed by ant_install.
 #****
 
-#****o* ant.cygclass/src_install (ant)
-#  DEFINITION
-src_install() {
-	cd ${B}
+#****I* ant.cygclass/ant_install
+#  SYNOPSIS
+#  ant_install
+#  DESCRIPTION
+#  Installs the files and directories specified by ANT_INSTALL_JARS,
+#  ANT_INSTALL_JAVADOC, and/or ANT_INSTALL_TASKS, at least one of which
+#  must be defined.
+#****
+ant_install() {
+	if ! defined ANT_INSTALL_JARS && ! defined ANT_INSTALL_JAVADOC && ! defined ANT_INSTALL_TASKS
+	then
+		error "ant_install: ANT_INSTALL_* all undefined; nothing to install"
+	fi
+
 	if defined ANT_INSTALL_JARS
 	then
 		dojar ${ANT_INSTALL_JARS}
@@ -180,6 +190,13 @@ src_install() {
 		doanttask ${ANT_INSTALL_TASKS}
 	fi
 }
+
+#****o* ant.cygclass/src_install (ant)
+#  DEFINITION
+src_install() {
+	cd ${B}
+	ant_install
+}
 #****
 
-readonly -f cygant doanttask
+readonly -f cygant doanttask ant_install
