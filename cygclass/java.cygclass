@@ -354,23 +354,19 @@ java_wrapper() {
 
 	if defined jmain
 	then
-		jcmdopt="-classpath"
-		if defined CLASSPATH
-		then
-			jar=${jar}:${CLASSPATH}
-		fi
+		jcmdopt="-classpath ${jar}:${CLASSPATH}:\$CLASSPATH:."
 	else
 		if defined CLASSPATH
 		then
-			jcmdopt="-classpath ${CLASSPATH} -jar"
+			jcmdopt="-classpath ${CLASSPATH}:\$CLASSPATH:. -jar ${jar}"
 		else
-			jcmdopt="-jar"
+			jcmdopt="-jar ${jar}"
 		fi
 	fi
 
 	dodir /usr/bin
 
-	echo -e "#!/bin/sh\nexec ${JAVA} ${jargs} ${jcmdopt} ${jar} ${jmain} \"\$@\"" > ${D}/usr/bin/${jwrapper}
+	echo -e "#!/bin/sh\nexec ${JAVA} ${jargs} ${jcmdopt} ${jmain} \"\$@\"" > ${D}/usr/bin/${jwrapper}
 	chmod +x ${D}/usr/bin/${jwrapper}
 }
 
