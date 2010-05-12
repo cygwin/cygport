@@ -284,6 +284,34 @@ dojavadoc() {
 	# FIXME: make links to file://${JAVADOC_DIR}/ relative
 }
 
+
+#****I* java.cygclass/newjavadoc
+#  SYNOPSIS
+#  newjavadoc DIRECTORY DESTINATION_SUBDIR
+#  DESCRIPTION
+#  Installs the Javadoc documentation in the given directory into a subdirectory
+#  of JAVADOC_DIR based on DESTINATION_SUBDIR.  This is useful if a package
+#  builds more than one set of Javadocs.
+#****
+newjavadoc() {
+	local pkgdocdir=${JAVADOC_DIR}/${2}
+
+	if (( $# != 2 ))
+	then
+		error "newjavadoc: requires exactly two arguments"
+	fi
+
+	if [ ! -d ${1} ]
+	then
+		error "newjavadoc: ${1}: file not found"
+	fi
+
+	dodir ${pkgdocdir}
+
+	cp -Lr ${1}/* ${D}${pkgdocdir}/ || error "newjavadoc ${1} failed"
+	# FIXME: make links to file://${JAVADOC_DIR}/ relative
+}
+
 #****I* java.cygclass/java_wrapper
 #  SYNOPSIS
 #  java_wrapper [JAVA_OPTIONS] WRAPPER_NAME JAR_FILE [MAIN_CLASS]
@@ -344,4 +372,5 @@ java_wrapper() {
 	chmod +x ${D}/usr/bin/${jwrapper}
 }
 
-readonly -f cygjar cygjava cygjavac cygjavadoc cygjavah dojar newjar dojavadoc java_wrapper
+readonly -f cygjar cygjava cygjavac cygjavadoc cygjavah \
+            dojar newjar dojavadoc newjavadoc java_wrapper
