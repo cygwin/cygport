@@ -285,6 +285,11 @@ dojavadoc() {
 		error "dojavadoc: ${1}: file not found"
 	fi
 
+	if [ ! -e ${1}/package-list ]
+	then
+		error "dojavadoc: ${1}: no package-list, not a javadoc directory"
+	fi
+
 	dodir ${pkgdocdir}
 
 	cp -Lr ${1}/* ${D}${pkgdocdir}/ || error "dojavadoc ${1} failed"
@@ -311,6 +316,11 @@ newjavadoc() {
 	if [ ! -d ${1} ]
 	then
 		error "newjavadoc: ${1}: file not found"
+	fi
+
+	if [ ! -e ${1}/package-list ]
+	then
+		error "newjavadoc: ${1}: no package-list, not a javadoc directory"
 	fi
 
 	dodir ${pkgdocdir}
