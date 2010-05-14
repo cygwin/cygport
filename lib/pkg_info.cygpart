@@ -87,4 +87,28 @@ __list_deps() {
 	PATH="${os_path}"
 }
 
-readonly -f __list_files __list_deps __show_info
+__show_web() {
+	local mybrowser mywww
+
+	if defined HOMEPAGE
+	then
+		mywww=${HOMEPAGE}
+	else
+		warning "HOMEPAGE undefined, searching Google for ${ORIG_PN:-${PN}}"
+		mywww="http://www.google.com/search?q=${ORIG_PN:-${PN}}"
+	fi
+
+	if defined BROWSER
+	then
+		mybrowser="${BROWSER}"
+	elif check_prog xdg-open
+	then
+		mybrowser="xdg-open"
+	else
+		mybrowser="cygstart"
+	fi
+
+	${mybrowser} ${mywww} &>/dev/null &
+}
+
+readonly -f __list_files __list_deps __show_info __show_web
