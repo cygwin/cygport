@@ -168,7 +168,7 @@ check_perl_module() {
 #  cd $B
 #  perl_compile [OPTIONS]
 #  DESCRIPTION
-#  Configures and builds a Perl module package.  Options, if any, are passed 
+#  Configures and builds a Perl module package.  Options, if any, are passed
 #  during the configure phase.
 #****
 perl_compile() {

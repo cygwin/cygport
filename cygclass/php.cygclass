@@ -58,7 +58,7 @@ PHPIZE=/usr/bin/phpize
 
 #****d* php.cygclass/PEAR
 #  DESCRIPTION
-#  Absolute path to the PHP script extension manager. 
+#  Absolute path to the PHP script extension manager.
 #****
 PEAR=/usr/bin/pear
 

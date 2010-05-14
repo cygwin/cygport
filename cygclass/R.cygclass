@@ -37,11 +37,11 @@
 #  RGtk2, the GTK+ bindings which are used in several GUIs).  When using R.cygclass
 #  to build a CRAN package, PN should be prefixed with "R-" and a hyphen in
 #  the CRAN version substituted with an underscore (so as not to conflict with
-#  the Cygwin package release number).  In most such cases, the R.cygclass 
+#  the Cygwin package release number).  In most such cases, the R.cygclass
 #  src_compile and src_install should suffice.
 #
 #  Alternatively, the definitions in this cygclass can be used to help build
-#  an R-dependent package which does not use CRAN, e.g. 
+#  an R-dependent package which does not use CRAN, e.g.
 #  |html <a href="http://cygwin-ports.svn.sourceforge.net/viewvc/cygwin-ports/ports/trunk/science/rkward/">rkward</a>.
 #  REQUIRES
 #  pkg-config, R

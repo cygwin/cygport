@@ -53,7 +53,7 @@ JAVA=/usr/bin/java
 
 #****d* java.cygclass/JAVAC
 #  DESCRIPTION
-#  Absolute path to a Java compiler, provided by javac or ecj. 
+#  Absolute path to a Java compiler, provided by javac or ecj.
 #****
 JAVAC=/usr/bin/javac
 
@@ -65,7 +65,7 @@ JAVADOC=/usr/bin/javadoc
 
 #****d* java.cygclass/JAVAH
 #  DESCRIPTION
-#  Absolute path to a JNI header generator, provided by javah or gjavah. 
+#  Absolute path to a JNI header generator, provided by javah or gjavah.
 #****
 JAVAH=/usr/bin/javah
 

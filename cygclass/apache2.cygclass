@@ -115,12 +115,12 @@ esac
 
 #****d* apache2.cygclass/APR_CONFIG
 #  DESCRIPTION
-#  Path to matching APR_VERSION-specific apr-config script 
+#  Path to matching APR_VERSION-specific apr-config script
 #****
 
 #****d* apache2.cygclass/APU_CONFIG
 #  DESCRIPTION
-#  Path to matching APR_VERSION-specific apu-config script 
+#  Path to matching APR_VERSION-specific apu-config script
 #****
 
 case ${APR_VERSION} in

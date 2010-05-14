@@ -37,7 +37,7 @@
 #  variables listed below (as a string containing one or more mirror sites)
 #  in their cygport.conf.
 #  HINT
-#  Custom per-package "mirrors" can also be defined in a .cygport file.  This 
+#  Custom per-package "mirrors" can also be defined in a .cygport file.  This
 #  can be useful if SRC_URI or PATCH_URI contain a large number of long URIs.
 #  NOTE
 #  Mirror providers change frequently.  If you define your own default mirror,
@@ -1113,7 +1113,7 @@ mirror_gentoo="
 #  GNOME FTP
 #  SYNOPSIS
 #  SRC_URI="mirror://gnome/sources/${PN}/${PV}/${P}.tar.bz2"
-#  DEFAULT MIRROR 
+#  DEFAULT MIRROR
 #  http://ftp.gnome.org/pub/gnome
 #  MIRROR LIST
 #  http://ftp.gnome.org/pub/GNOME/MIRRORS

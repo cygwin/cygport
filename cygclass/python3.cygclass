@@ -30,7 +30,7 @@
 #  easily extendible with modules written in Python and/or C/C++.  Programs
 #  can also embed a Python interpreter for use with their own extensions.
 #
-#  The new 3.x versions of Python are incompatible with the widely used 2.x 
+#  The new 3.x versions of Python are incompatible with the widely used 2.x
 #  versions, so they are designed to be installed in parallel as separate
 #  interpreters.
 #

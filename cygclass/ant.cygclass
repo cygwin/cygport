@@ -108,7 +108,7 @@ cygant() {
 #  SYNOPSIS
 #  doanttask JAR_FILE [JAR_FILE] ...
 #  DESCRIPTION
-#  Installs the given .jar file(s) into the Ant task directory.  
+#  Installs the given .jar file(s) into the Ant task directory.
 #****
 doanttask() {
 	local _insinto_tmp=${_insinto_dir}
@@ -125,7 +125,7 @@ doanttask() {
 #****
 #****v* ant.cygclass/ANT_BUILD_TARGETS
 #  DESCRIPTION
-#  Target(s) to be built during the Ant build command if this src_compile is used.  
+#  Target(s) to be built during the Ant build command if this src_compile is used.
 #****
 
 #****o* ant.cygclass/src_compile (ant)
@@ -139,7 +139,7 @@ src_compile() {
 
 #****v* ant.cygclass/ANT_TEST_TARGETS
 #  DESCRIPTION
-#  Target(s) to be built to run the testsuite if this src_test is used.  
+#  Target(s) to be built to run the testsuite if this src_test is used.
 #****
 
 #****o* ant.cygclass/src_test (ant)

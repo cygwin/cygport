@@ -9,7 +9,7 @@ rm -f ${PACKAGE}-${VERSION}-1-src.tar.bz2 ${PACKAGE}-${VERSION}-1.tar.bz2
 if [ -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.bz2 ]
 then
 	# running under make distcheck
-	# make dist during make distcheck won't work because all files in 
+	# make dist during make distcheck won't work because all files in
 	# DISTDIR are read-only
 	cp -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.bz2 .
 else

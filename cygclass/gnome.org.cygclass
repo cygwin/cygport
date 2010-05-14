@@ -32,7 +32,7 @@
 #  most GNOME packages will anyway use one of the cygclasses listed below
 #  which already inherit this cygclass.
 #
-#  If PN does not match the name of the original source tarball, 
+#  If PN does not match the name of the original source tarball,
 #  define ORIG_PN before inherit()ing.
 #  INHERITED BY
 #  gnome2.cygclass, gtkmm.cygclass, pygtk.cygclass

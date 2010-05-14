@@ -311,7 +311,7 @@ __prepetc() {
 	fi
 
 	# Freedesktop.org Shared Mime Info
-	if [ -d ${D}/usr/share/applications -o -d ${D}/usr/share/mime ] 
+	if [ -d ${D}/usr/share/applications -o -d ${D}/usr/share/mime ]
 	then
 		__prep_freedesktop_mime || error "Shared Mime Info postinstall failed"
 	fi

@@ -150,7 +150,7 @@ gst_plugins_autoreconf() {
 #  or disable plugins with external dependencies, per the value of GST_PLUGINS_EXT.
 #  Then cygmake is called to build the package.
 #
-#  gst_plugins_compile optionally accepts additional configure flags as 
+#  gst_plugins_compile optionally accepts additional configure flags as
 #  arguments, which are passed to cygconf.
 #****
 gst_plugins_compile() {
