@@ -1,3 +1,13 @@
+0.9.84:
+	* deps: Search only for DLLs in mono dllmaps
+	* homepage: new command for displaying HOMEPAGE in browser
+	* ant.cygclass: accept ANT_OPTS, new ant_install function
+	* distutils.cygclass: zope/__init__.py now handled by setuptools
+	* java.cygclass: add newjavadoc function
+	  Let java_wrapper accept arguments to be passed to JRE
+	  java_wrappers now respect CLASSPATH env variable
+	* kde4.cygclass: update SRC_URIs
+
 0.9.83:
 	* The 'test' command is now documented in --help and in the manpage.
 	* Fixed regexes for Cygwin 1.7.2.
