@@ -52,40 +52,37 @@ ORIG_PN=${ORIG_PN:-${PN}}
 #  NOTE
 #  git.cygclass should be inherit()ed last for this to be of use.
 #****
-if ! defined SRC_URI   ######## remove ifndef ???
-then
-	case ${ORIG_PN} in
-		gtk-xfce-engine|libxfce4menu|libxfce4util|libxfcegui4\
-		|xfce-utils|xfce4-appfinder|xfce4-dev-tools|xfce4-panel\
-		|xfce4-session|xfce4-settings|xfconf|xfdesktop|xfwm4)
-			uri_subdir="xfce/${ORIG_PN}"
-			;;
-		Thunar)
-			uri_subdir="xfce/thunar"
-			;;
-		Terminal)
-			uri_subdir="apps/terminal"
-			;;
-		xfce4-icon-theme|xfwm4-themes)
-			uri_subdir="art/${ORIG_PN}"
-			;;
-		xfce4-vala)
-			uri_subdir="bindings/${ORIG_PN}"
-			;;
-		thunar-*-plugin)
-			uri_subdir="thunar-plugins/${ORIG_PN}"
-			;;
-		*-plugin)
-			uri_subdir="panel-plugins/${ORIG_PN}"
-			;;
-		*)
-			uri_subdir="apps/${ORIG_PN}"
-			;;
-	esac
+case ${ORIG_PN} in
+	exo|gtk-xfce-engine|libxfce4menu|libxfce4ui|libxfce4util|libxfcegui4\
+	|xfce-utils|xfce4-appfinder|xfce4-dev-tools|xfce4-panel\
+	|xfce4-session|xfce4-settings|xfconf|xfdesktop|xfwm4)
+		uri_subdir="xfce/${ORIG_PN}"
+		;;
+	Thunar)
+		uri_subdir="xfce/thunar"
+		;;
+	Terminal)
+		uri_subdir="apps/terminal"
+		;;
+	xfce4-icon-theme|xfwm4-themes)
+		uri_subdir="art/${ORIG_PN}"
+		;;
+	xfce4-vala)
+		uri_subdir="bindings/${ORIG_PN}"
+		;;
+	thunar-*-plugin)
+		uri_subdir="thunar-plugins/${ORIG_PN}"
+		;;
+	*-plugin)
+		uri_subdir="panel-plugins/${ORIG_PN}"
+		;;
+	*)
+		uri_subdir="apps/${ORIG_PN}"
+		;;
+esac
 
-	SRC_URI="mirror://xfce/src/${uri_subdir}/${PV[1]}.${PV[2]}/${ORIG_PN}-${PV}.tar.bz2"
-	GIT_URI="git://git.xfce.org/${uri_subdir}"
-fi
+SRC_URI="mirror://xfce/src/${uri_subdir}/${PV[1]}.${PV[2]}/${ORIG_PN}-${PV}.tar.bz2"
+GIT_URI="git://git.xfce.org/${uri_subdir}"
 
 #****C* xfce4.cygclass/xfce4_autoreconf
 #  SYNOPSIS
