@@ -25,7 +25,7 @@
 #  SYNOPSIS
 #  inherit waf
 #  DESCRIPTION
-#  Waf is a general-purpose build system written in Python used by XMMS, a
+#  Waf is a general-purpose build system written in Python used by XMMS2, a
 #  few GTK+ programs, and some other projects.  The build system is defined
 #  by a 'wscript' file in the top source directory and 'wscript_build' files
 #  in subdirectories, both of which are also written in Python.
