@@ -95,7 +95,7 @@ error() {
 #  Displays a warning message before continuing.
 #****
 warning() {
-	echo -e "\e[1;33m*** Warning:\e[0;0m ${1}";
+	echo -e "\e[1;33m*** Warning:\e[0;0m ${1}" >&2;
 }
 
 #****f* Messages/inform
