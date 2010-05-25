@@ -1687,16 +1687,14 @@ mirror_vim="
 #  SYNOPSIS
 #  SRC_URI="mirror://xfce/src/xfce-${XFCE_VERSION}/src/${P}.tar.bz2"
 #  DEFAULT MIRROR
-#  http://www.xfce.org/archive
+#  http://mocha.xfce.org/archive
 #  MIRROR LIST
 #  http://www.xfce.org/download/
 #  SEE ALSO
 #  xfce4.cygclass
 #****
 mirror_xfce="
-	http://www.xfce.org/archive
 	http://mocha.xfce.org/archive
-	http://www.us.xfce.org/archive
 	http://www.ca-us.xfce.org/archive
 	http://www.de.xfce.org/archive
 	http://www.p0llux.be/xfce
