@@ -108,7 +108,14 @@ xfce4_autoreconf() {
 
 	__config_set with_glib_gettext 1
 
-	NOCONFIGURE=1 xdt-autogen || error "xdt-autogen failed"
+	export WANT_AUTOMAKE
+
+	NOCONFIGURE=1 \
+	XDT_PROG_ACLOCAL=aclocal \
+	XDT_PROG_AUTOCONF=autoconf \
+	XDT_PROG_AUTOHEADER=autoheader \
+	XDT_PROG_AUTOMAKE=automake \
+	xdt-autogen || error "xdt-autogen failed"
 }
 
 #****C* xfce4.cygclass/xfce4_compile
