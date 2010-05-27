@@ -67,8 +67,7 @@ __list_deps() {
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
 	nativelibs=$(find . -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
 		-exec objdump -p '{}' + | grep "DLL Name:" | sort -u | \
-		cut -d ' ' -f 3 | sed -e '/^[A-Z32]*\.[Dd][Ll][Ll]$/d' -e '/^mscoree\.dll$/d' | \
-		xargs -r which || true)
+		cut -d ' ' -f 3 | xargs -r which || true)
 	if check_prog monodis
 	then
 		netlibs=$(for x in $(monodis --assemblyref $(find . -type f -perm 644 \( -name '*.exe' -o -name '*.dll' \) ) 2>/dev/null \
