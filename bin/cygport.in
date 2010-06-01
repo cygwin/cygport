@@ -567,6 +567,7 @@ fi
 
 declare -i arg_n=2
 
+# When adding commands here, also add them to cygport-bash-completion
 while (( arg_n < argc ))
 do
 	case ${argv[${arg_n}]} in
