@@ -532,9 +532,11 @@ __prep_symlinks() {
 
 __prep_libtool_modules() {
 	local ltlibs ltlibdir ltlibname ltversion
-	local dlname library_names old_library inherited_linker_flags \
+	local dlname origdlname library_names old_library inherited_linker_flags \
 	      dependency_libs weak_library_names current age revision \
 		  installed shouldnotlink dlopen dlpreopen libdir
+
+	pushd ${D}
 
 	ltlibs="$(find * -name '*.la')"
 
@@ -570,9 +572,24 @@ __prep_libtool_modules() {
 			fi
 		done
 
-		# Only a -module should be "fixed" in this way
 		if [ "x${shouldnotlink}" != "xyes" ]
 		then
+			origdlname=${dlname}
+			while [ $(realpath ${ltlibdir}/${dlname%/bin/*}) != ${D}/usr ]
+			do
+				dlname=../${dlname}
+			done
+			if [ ${dlname} != ${origdlname} ]
+			then
+				pushd ${ltlibdir}
+				mkdir -p ${dlname%/*}
+				mv ${origdlname} ${dlname}
+				popd
+				echo "        ${lib_la}"
+				sed -i -e "s|^\(dlname=\).*|\1'${dlname}'|" ${lib_la}
+			fi
+
+			# The rest only applies if shouldnotlink=yes (-module)
 			continue
 		fi
 
@@ -643,6 +660,8 @@ __prep_libtool_modules() {
 			libdir='${libdir}'
 			_EOF
 	done
+
+	popd
 }
 
 __src_postinst() {
@@ -653,9 +672,9 @@ __src_postinst() {
 	__prepinfo;
 	__prepvargames;
 	__prep_empty_dirs;
+	__prep_libtool_modules;
 	__prepstrip;
 	__prepuac;
-	__prep_libtool_modules;
 }
 
 readonly -f __prep_fonts_dir __prep_freedesktop_mime __prep_gconf_schemas \
