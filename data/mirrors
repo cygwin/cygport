@@ -1594,22 +1594,28 @@ mirror_sourceforge="
 "   # mirror_sourceforge
 
 
-#****d* Mirrors/mirror_trolltech
+#****d* Mirrors/mirror_qt
 #  DESCRIPTION
 #  Qt, QtCreator, and QtJambi downloads
 #  SYNOPSIS
-#  SRC_URI="mirror://trolltech/qt/${ORIG_PN}-${PV}.tar.bz2"
+#  SRC_URI="mirror://qt/qt/source/${ORIG_PN}-${PV}.tar.bz2"
 #  DEFAULT MIRROR
-#  ftp://ftp.trolltech.com
+#  http://download.qt.nokia.com/
 #  MIRROR LIST
-#  ftp://ftp.trolltech.com/mirrors
+#  ftp://ftp.qt.nokia.com/mirrors
 #****
-mirror_trolltech="
-	ftp://ftp.trolltech.com
-	http://ftp.silug.org/mirrors/ftp.trolltech.com
-	ftp://ftp.silug.org/mirrors/ftp.trolltech.com
-	ftp://ftp.qtopia.org.cn/mirror/ftp.trolltech.com
-"   # mirror_trolltech
+mirror_qt="
+	http://download.qt.nokia.com
+	ftp://ftp.qt.nokia.com
+"   # mirror_qt
+
+
+#****d* Mirrors/mirror_trolltech
+#  NOTE
+#  This mirror is deprecated and remains only for backwards compatibility.
+#  New code should use mirror_qt.
+#****
+mirror_trolltech="${mirror_qt}"
 
 
 #****d* Mirrors/mirror_vim
