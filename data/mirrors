@@ -3,7 +3,7 @@
 # mirrors - default list for mirror:// URI resolution
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -1463,6 +1463,160 @@ mirror_mplayer="
 	ftp://ftp5.mplayerhq.hu/MPlayer
 	ftp://ftp.fu-berlin.de/unix/X11/multimedia/MPlayer
 "	# mirror_mplayer
+
+
+#****d* Mirrors/mirror_mysql
+#  DESCRIPTION
+#  MySQL server and connector downloads
+#  SYNOPSIS
+#  SRC_URI="mirror://mysql/Downloads/MySQL-5.1/${P}.tar.gz"
+#  DEFAULT MIRROR
+#  http://mirrors.dotsrc.org/mysql
+#  MIRROR LIST
+#  http://www.mysql.com/downloads/mirrors.html
+#****
+#  grep '^  <td><a' mirrors.html | sed -e 's|.*href="\(.*\)">.*|\t\1|g' -e 's|/$||g'
+#  List primary mirrors first
+mirror_mysql="
+	http://mirrors.dotsrc.org/mysql
+	ftp://mirrors.dotsrc.org/mysql
+	http://ftp.gwdg.de/pub/misc/mysql
+	ftp://ftp.gwdg.de/pub/misc/mysql
+	http://www.mirrorservice.org/sites/ftp.mysql.com
+	ftp://ftp.mirrorservice.org/sites/ftp.mysql.com
+	http://mysql.oss.eznetsols.org
+	ftp://ftp.oss.eznetsols.org/mysql
+
+	http://gd.tuwien.ac.at/db/mysql
+	ftp://gd.tuwien.ac.at/db/mysql
+	http://mysql.mirror.kangaroot.net
+	ftp://mysql.mirror.kangaroot.net/pub/mysql
+	http://mysql.easynet.be
+	ftp://ftp.easynet.be/mysql
+	http://mysql.skynet.be
+	ftp://ftp.mysql.skynet.be/pub/ftp.mysql.com
+	http://mysql.blic.net
+	http://mysql.online.bg
+	ftp://mysql.online.bg
+	http://mysql.linux.cz
+	ftp://ftp.fi.muni.cz/pub/mysql
+	http://mysql.sh.cvut.cz
+	ftp://mysql.sh.cvut.cz/mysql
+	http://mysql.borsen.dk
+	http://mir2.ovh.net/ftp.mysql.com
+	ftp://mir1.ovh.net/ftp.mysql.com
+	http://mirrors.ircam.fr/pub/mysql
+	ftp://mirrors.ircam.fr/pub/mysql
+	http://artfiles.org/mysql
+	http://sunsite.informatik.rwth-aachen.de/mysql
+	ftp://sunsite.informatik.rwth-aachen.de/pub/mirror/www.mysql.com
+	http://mysql.speedbone.de
+	ftp://ftp.fu-berlin.de/unix/databases/mysql
+	http://ftp.ntua.gr/pub/databases/mysql
+	ftp://ftp.ntua.gr/pub/databases/mysql
+	http://mysql.mirrors.crysys.hit.bme.hu
+	ftp://ftp.crysys.hu/pub/mysql
+	http://mysql.rhnet.is
+	ftp://ftp.rhnet.is/pub/mysql
+	http://ftp.heanet.ie/mirrors/www.mysql.com
+	ftp://ftp.heanet.ie/mirrors/www.mysql.com
+	http://na.mirror.garr.it/mirrors/MySQL
+	ftp://na.mirror.garr.it/mirrors/MySQL
+	http://it.mysql.contactlab.it
+	http://mysql.bst.lt
+	http://mysql.mirrors.webazilla.nl
+	http://mirror.leaseweb.com/mysql
+	ftp://mirror.leaseweb.com/mysql
+	http://mysql.mirror.easycolocate.nl
+	ftp://mysql.mirror.easycolocate.nl
+	http://mirror.hostfuss.com/mysql
+	ftp://mirror.hostfuss.com/mysql
+	http://mysql.proserve.nl
+	ftp://mysql.proserve.nl/pub/mysql/Downloads
+	http://sunsite.icm.edu.pl/mysql
+	ftp://sunsite.icm.edu.pl/pub/unix/mysql
+	http://mysql.nfsi.pt
+	ftp://ftp.nfsi.pt/pub/mysql
+	http://mirrors.xservers.ro/mysql
+	http://mysql.phphosts.org
+	http://mirrors.paknet.org/mysql
+	http://ftp.arnes.si/mysql
+	ftp://ftp.arnes.si/packages/mysql
+	http://mysql.rediris.es
+	ftp://ftp.rediris.es/mirror/mysql
+	http://mysql.dataphone.se
+	ftp://mirror2.dataphone.se/pub/mysql
+	http://ftp.sunet.se/pub/unix/databases/relational/mysql
+	ftp://ftp.sunet.se/pub/unix/databases/relational/mysql
+	http://mirror.switch.ch/ftp/mirror/mysql
+	ftp://mirror.switch.ch/mirror/mysql
+	ftp://ftp.solnet.ch/mirror/mysql
+	http://ftp.itu.edu.tr/Mirror/Mysql
+	ftp://ftp.itu.edu.tr/Mirror/Mysql
+	http://mysql.infocom.ua
+	http://mysql.eukhost.com
+	http://mirrors.ukfast.co.uk/sites/ftp.mysql.com
+	ftp://mirrors.ukfast.co.uk/ftp.mysql.com
+	http://mirrors.dedipower.com/www.mysql.com
+	http://mysql.mirror.rafal.ca
+	ftp://mysql.mirror.rafal.ca/pub/mysql
+	http://mysql.mirror.iweb.ca
+	ftp://mysql.mirror.iweb.ca
+	http://mirror.csclub.uwaterloo.ca/mysql
+	ftp://mirror.csclub.uwaterloo.ca/mysql
+	http://mysql.llarian.net
+	ftp://mysql.llarian.net/pub/mysql
+	http://opensource.become.com/mysql
+	http://mirror.services.wisc.edu/mysql
+	ftp://mirror.services.wisc.edu/mirrors/mysql
+	ftp://mirror.anl.gov/pub/mysql
+	http://www.technocation.org/mirror/mysql
+	http://mysql.mirrors.hoobly.com
+	http://mysql.cce.usp.br
+	ftp://mysql.cce.usp.br/mysql
+	http://linorg.usp.br/mysql
+	ftp://linorg.usp.br/mysql
+	http://mirrors.ucr.ac.cr/MySQL
+	ftp://mirrors.ucr.ac.cr/MySQL
+	http://mysql.azc.uam.mx
+	ftp://mysql.azc.uam.mx/mirrors/mysql
+	http://mysql.mirrors.adc.am
+	http://mysql.mirrors.arminco.com
+	http://mysql.mivzakim.net
+	http://mysql.spd.co.il
+	http://mirror.mirimar.net/mysql
+	http://ftp.iij.ad.jp/pub/db/mysql
+	ftp://ftp.iij.ad.jp/pub/db/mysql
+	http://ftp.jaist.ac.jp/pub/mysql
+	ftp://ftp.jaist.ac.jp/pub/mysql
+	http://mirror.pakistani.org/mysql
+	ftp://mirror.pakistani.org/pub/mysql
+	http://mirror.pscigrid.gov.ph/mysql
+	ftp://mirror.pscigrid.gov.ph/mysql
+	http://mysql.byungsoo.net
+	ftp://mysql.byungsoo.net/pub/mysql
+	http://mirror.khlug.org/mysql
+	ftp://mirror.khlug.org/mysql
+	http://mysql.isu.edu.tw
+	http://mysql.stu.edu.tw
+	ftp://ftp.stu.edu.tw/pub/Unix/Database/Mysql
+	http://mysql.ntu.edu.tw
+	ftp://ftp.ntu.edu.tw/pub/MySQL
+	http://mysql.cs.pu.edu.tw
+	ftp://ftp.cs.pu.edu.tw/Unix/mysql
+	http://mysql.mirror.tw
+	ftp://ftp.mirror.tw/pub/mysql
+	http://mysql.cdpa.nsysu.edu.tw
+	ftp://mysql.cdpa.nsysu.edu.tw/Unix/Database/MySQL
+	http://mysql.thaiweb.net
+	http://mirror-fpt-telecom.fpt.net/mysql
+	ftp://mirror-fpt-telecom.fpt.net/mysql
+	http://mysql.mirror.ac.za
+	ftp://mysql.mirror.ac.za
+	http://mysql.mirrors.ilisys.com.au
+	http://mysql.inspire.net.nz
+	ftp://mysql.inspire.net.nz/mysql
+"	# mirror_mysql
 
 
 #****d* Mirrors/mirror_portage
