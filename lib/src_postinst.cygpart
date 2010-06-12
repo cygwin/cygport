@@ -462,6 +462,14 @@ __prepstrip() {
 			continue
 		fi
 
+		# check for .exe from non-automake Makefile which install(1) didn't fix
+		# strip(1) used to take care of this, but not anymore
+		case ${exe##*/} in
+			*.*) ;;
+			*)	mv ${exe} ${exe}.exe
+				exe+=.exe ;;
+		esac
+
 		echo "        ${exe}";
 		chmod 0755 ${exe};
 		strip ${exe};
