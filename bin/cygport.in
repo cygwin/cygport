@@ -29,6 +29,9 @@ set -e;
 #
 ################################################################################
 
+# for regexes, sort, etc.
+export LC_COLLATE=C
+
 # Make sure we are on 1.7 before proceeding
 case $(uname -r) in
 	1.7.*)	;;
