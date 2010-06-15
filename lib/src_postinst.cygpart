@@ -679,10 +679,10 @@ __src_postinst() {
 	__prepman;
 	__prepinfo;
 	__prepvargames;
-	__prep_empty_dirs;
 	__prep_libtool_modules;
 	__prepstrip;
 	__prepuac;
+	__prep_empty_dirs;
 }
 
 readonly -f __prep_fonts_dir __prep_freedesktop_mime __prep_gconf_schemas \
