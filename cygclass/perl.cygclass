@@ -209,18 +209,19 @@ perl_test() {
 #****I* perl.cygclass/perl_install
 #  SYNOPSIS
 #  cd $B
-#  perl_install
+#  perl_install [OPTIONS]
 #  DESCRIPTION
-#  Installs the Perl module into $D.
+#  Installs the Perl module into $D.  Options, if any, are passed to the
+#  install command.
 #****
 perl_install() {
 	if [ -f Build ]
 	then
 		check_perl_module Module::Build || error "perl-Module-Build is required"
-		${PERL} Build install destdir=${D} || error "Module::Build install failed"
+		${PERL} Build install destdir=${D} ${@} || error "Module::Build install failed"
 	elif [ -f Makefile ]
 	then
-		cyginstall
+		cyginstall ${@}
 	else
 		error "No Perl module detected"
 	fi
