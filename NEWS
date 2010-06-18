@@ -1,3 +1,13 @@
+0.9.85:
+	* Warnings are redirected to stderr.
+	* More fixes for regexes and sorts
+	* Deep non-module libtool DLLs are moved into /usr/bin during postinstall
+	* Extension-less EXEs are renamed with .exe extension
+	* mirrors: add mysql, qt (replaces trolltech); update xfce4
+	* gst-plugins0.10: oss4 moved into -good, added vp8 to -bad
+	* perl: accept arguments to perl_install
+	* xfce4: Use autotool wrappers; always provide SRC_URI
+
 0.9.84:
 	* deps: Search only for DLLs in mono dllmaps
 	* homepage: new command for displaying HOMEPAGE in browser
