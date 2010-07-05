@@ -582,6 +582,11 @@ __prep_libtool_modules() {
 
 		if [ "x${shouldnotlink}" != "xyes" ]
 		then
+			if [ "x${dlname}" = "x" ]
+			then
+				continue
+			fi
+
 			origdlname=${dlname}
 			while [ $(realpath ${ltlibdir}/${dlname%/bin/*}) != ${D}/usr ]
 			do
