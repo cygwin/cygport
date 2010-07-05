@@ -547,7 +547,7 @@ dosym() {
 
 #****I* Installing/make_desktop_entry
 #  SYNOPSIS
-#  make_desktop_entry COMMAND NAME ICON CATEGORIES [COMMENT] [ADDITIONAL_FIELD]
+#  make_desktop_entry COMMAND NAME ICON CATEGORIES [COMMENT] [ADDITIONAL_FIELDS]
 #  DESCRIPTION
 #  Creates a desktop menu entry for GUI applications as follows:
 #  * COMMAND: the command line.  May contain arguments, in which case the
@@ -557,8 +557,8 @@ dosym() {
 #  * CATEGORIES: a colon-separated list of categories and subcategories per
 #    |html the <a href="http://standards.freedesktop.org/menu-spec/latest/apa.html">Desktop Menu Specification</a>.
 #  * COMMENT: (optional) description of the program
-#  * ADDITIONAL_FIELD: (optional) an additional menu entry field, such as
-#    OnlyShowIn or MimeType.
+#  * ADDITIONAL_FIELDS: (optional) up to four additional menu entry fields per
+#    |html the <a href="http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys">Desktop Entry Specification</a>.
 #****
 make_desktop_entry() {
 	if (( $# < 2 ))
@@ -580,6 +580,9 @@ make_desktop_entry() {
 		Icon=${3}
 		Categories=${4};
 		${6}
+		${7}
+		${8}
+		${9}
 	_EOF
 }
 
