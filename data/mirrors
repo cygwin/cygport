@@ -906,6 +906,46 @@ mirror_debian="
 "	# mirror_debian
 
 
+#****d* Mirrors/mirror_gcc
+#  DESCRIPTION
+#  GCC releases and snapshots
+#  SYNOPSIS
+#  SRC_URI="mirror://gcc/releases/gcc-${PV}/gcc-core-${PV}.tar.bz2"
+#  DEFAULT MIRROR
+#  ftp://gcc.gnu.org/pub/gcc/
+#  MIRROR LIST
+#  http://gcc.gnu.org/mirrors.html
+#  SEE ALSO
+#  mirror_gnu
+#****
+# grep '^<li>' mirrors.html | sed -e 's|.*<a href="\([^"]*\).*|\1|g' -e 's|/$||g'
+mirror_gcc="
+	ftp://gcc.gnu.org/pub/gcc/
+
+	ftp://gd.tuwien.ac.at/gnu/gcc
+	http://gcc.igor.onlinedirect.bg
+	http://gcc.parentinginformed.com
+	http://gcc-ca.internet.bs
+	ftp://linuxforum.net/ftp.gcc.gnu.org
+	ftp://ftp.lip6.fr/pub/gcc
+	ftp://ftp.irisa.fr/pub/mirrors/gcc.gnu.org/gcc
+	ftp://ftp.uvsq.fr/pub/gcc
+	ftp://ftp.fu-berlin.de/unix/languages/gcc
+	ftp://ftp.gwdg.de/pub/misc/gcc
+	ftp://ftp.mpi-sb.mpg.de/pub/gnu/mirror/gcc.gnu.org/pub/gcc
+	http://gcc.cybermirror.org
+	ftp://ftp.ntua.gr/pub/gnu/gcc
+	http://robotlab.itk.ppke.hu/gcc
+	ftp://ftp.dti.ad.jp/pub/lang/gcc
+	ftp://ring.etl.go.jp/pub/lang/egcs
+	ftp://ftp.nluug.nl/mirror/languages/gcc
+	http://gcc.fyxm.net
+	ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc
+	http://gcc-uk.internet.bs
+	http://mirror-fpt-telecom.fpt.net/gcc
+"	# mirror_gcc
+
+
 #****d* Mirrors/mirror_gentoo
 #  DESCRIPTION
 #  Gentoo Linux distfiles
