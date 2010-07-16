@@ -170,9 +170,15 @@ gst_plugins_compile() {
 		gst_conf+=" --enable-${plugin}"
 	done
 
+	if __cross_compiling
+	then
+		gst_conf+=" --disable-gtk-doc"
+	else
+		gst_conf+=" --enable-gtk-doc"
+	fi
+
 	cygconf \
 		--enable-experimental \
-		--enable-gtk-doc \
 		--disable-examples \
 		--disable-schemas-install \
 		--disable-static \
