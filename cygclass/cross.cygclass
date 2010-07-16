@@ -1,9 +1,9 @@
 ################################################################################
 #
-# cross.cygclass - for building and using cross-compilers
+# cross.cygclass - for building cross-compiled packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2008 Yaakov Selkowitz
+# Copyright (C) 2006, 2008, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -21,76 +21,124 @@
 #
 ################################################################################
 
-# cross.cygclass allows for the creation and use of cross-compilers.
-# PN should be prefixed with a valid one- or two-part OS prefix as recognized
-# by libtool's config.sub, e.g.:
+#****h* Cygclasses/cross.cygclass
+#  SYNOPSIS
+#  CROSS_HOST="..."
+#  inherit cross
+#  DESCRIPTION
+#  This cygclass assists in "cross-compiling", where the code being built will
+#  run on a different platform (the "host" system) then the one on which it was
+#  built (and, in most cases, NOT on the build system), but can be used on the
+#  build system to cross-compile other software which depends on it.
 #
-#    ======== PN =======    ==== TRIPLET ====  == ORIG_PN ==
-#    mingw32-binutils    -> i386-pc-mingw32    binutils
-#    djgpp-gcc           -> i586-pc-msdosdjgpp gcc
-#    i686-linux-binutils -> i686-pc-linux-gnu  binutils
-#
-# If ORIG_PN is 'binutils' or 'gcc', a Cygwin-hosted cross-compiler will be
-# built; otherwise, the package will be cross-compiled to the specified host.
-#
-# This very likely needs much more work.  So far it's been used for
-# ports/sys/i686-linux-binutils.
-#
+#  Supported build systems for cross-compiling are autotools, cmake, and custom
+#  Makefiles.
+#  SEE ALSO
+#  toolchain.cygclass, canadian-cross.cygclass
+#****
 
-# FIXME: remove when adding support for crossing to Cygwin
-CROSS_BUILD=i686-pc-cygwin
+#****v* cross.cygclass/CROSS_HOST
+#  DESCRIPTION
+#  The CPU-VENDOR-OS triplet describing the system for which you are cross-compiling,
+#  for example 'i686-pc-linux-gnu' or 'x86_64-w64-mingw32'.
+#  NOTES
+#  * CROSS_HOST must be defined before inherit()ing cross.cygclass.
+#  * CROSS_HOST will be canonicalized upon calling "inherit cross".  That means
+#    if set to 'amd64-linux', it will be changed into 'x86_64-pc-linux-gnu'.
+#    Therefore it is important continue using $CROSS_HOST as a variable instead
+#    of writing its initial value.
+#****
+if ! defined CROSS_HOST
+then
+	error "CROSS_HOST must be defined before 'inherit cross'"
+fi
 
-cross_config_sub() {
-	# cygport requires libtool anyway, so this need not be verified (?)
-	/usr/share/libtool/config/config.sub ${@} 2> /dev/null
-}
+__cross_canonicalize_host() {
+	local _tmp_host
 
-__cross_test_target() {
-	local cross_n=4		# max length of host, e.g. i686-pc-linux-gnu
-	local try_target
+	_tmp_host=$(/usr/share/libtool/config/config.sub ${CROSS_HOST} 2> /dev/null)
 
-	while (( cross_n >= 1 ))
-	do
-		try_target=$(echo ${1} | cut -d '-' -f 1-${cross_n--})
-
-		if cross_config_sub ${try_target}
-		then
-			CROSS_TARGET=$(cross_config_sub ${try_target})
-			ORIG_PN=${ORIG_PN:-${PN#${try_target}-}}
-			break
-		else
-			let cross_n-=1
-		fi
-	done
-
-	case ${CROSS_TARGET} in
-		*-*-none|'') error "Unknown or invalid host declared"
+	case x${_tmp_host} in
+		*-*-none|x) error "Unknown or invalid CROSS_HOST declared: ${CROSS_HOST}" ;;
 	esac
+
+	CROSS_HOST=${_tmp_host}
+	CHOST=${_tmp_host}
+	CTARGET=${_tmp_host}
 }
 
-__cross_test_target ${PN}
 
-case ${ORIG_PN} in
-	binutils|gcc)
-		CROSS_HOST="${CROSS_BUILD}"
-		inform "Building cross-compiler for ${CROSS_TARGET}"
-		;;
-	*)
-		CROSS_HOST="${CROSS_TARGET}"
-		inform "Cross-compiling to ${CROSS_TARGET}"
-esac
+# set CHOST and CTARGET
+__cross_canonicalize_host
 
-CYGCONF_ARGS+=" --build=${CROSS_BUILD} --host=${CROSS_HOST} --target=${CROSS_TARGET}"
+#****d* cross.cygclass/CROSS_SYSROOT
+#  DESCRIPTION
+#  GCC cross-compilers provide the concept of a sysroot: a directory which
+#  acts as the virtual root of the target filesystem, resulting in
+#  CROSS_SYSROOT/$prefix/include and CROSS_SYSROOT/$prefix/lib being in the
+#  default search paths without requiring -I or -L flags.
+#
+#  This means that software natively compiled for the host system can be unpacked
+#  into the sysroot without needing to mangle paths.  This is especially
+#  useful when bootstrapping a new toolchain; e.g. for Linux, one can just download
+#  glibc and kernel headers packages from a Linux distro, unpack them into the
+#  CROSS_SYSROOT, and use those to build a cross-GCC for the first time.
+#****
+CROSS_SYSROOT="/usr/${CHOST}/sys-root"
 
-# FIXME: CROSS_F77, CROSS_GCJ
-CROSS_CC="${CROSS_HOST}-gcc"
-CROSS_CXX="${CROSS_HOST}-g++"
-PKG_CONFIG_LIBDIR="/usr/${CROSS_HOST}/lib/pkgconfig"
+#****o* cross.cygclass/CC (cross)
+#  DESCRIPTION
+#  The GCC C cross-compiler for the CROSS_HOST.
+#****
+CC="${CHOST}-gcc"
 
-docrossbin() {
-	local crossbindir=/usr/${CROSS_TARGET}/bin
+#****o* cross.cygclass/CXX (cross)
+#  DESCRIPTION
+#  The GCC C++ cross-compiler for the CROSS_HOST.
+#****
+CXX="${CHOST}-g++"
 
-	dodir ${crossbindir}
+#****o* cross.cygclass/F77 (cross)
+#  DESCRIPTION
+#  The GCC Fortran 77 cross-compiler for the CROSS_HOST.
+#****
+F77="${CHOST}-gfortran"
+
+#****o* cross.cygclass/FC (cross)
+#  DESCRIPTION
+#  The GCC Fortran 95 cross-compiler for the CROSS_HOST.
+#****
+FC="${CHOST}-gfortran"
+
+#****o* cross.cygclass/GCJ (cross)
+#  DESCRIPTION
+#  The GCC Java cross-compiler for the CROSS_HOST.
+#****
+GCJ="${CHOST}-gcj"
+
+if ! check_prog ${CHOST}-gcc || ! check_prog ${CHOST}-objdump
+then
+	error "This package requires ${CHOST} binutils and gcc"
+fi
+
+export PKG_CONFIG_LIBDIR="${CROSS_SYSROOT}/$(__host_prefix)/lib/pkgconfig:/usr/share/pkgconfig"
+export PKG_CONFIG_SYSROOT_DIR=${CROSS_SYSROOT}
+
+#****I* cross.cygclass/doelflib
+#  SYNOPSIS
+#  doelflib libfoo.so.X.Y.Z [...]
+#  DESCRIPTION
+#  Installs the given ELF libraries into the CROSS_SYSROOT libdir and creates
+#  the symlinks for the SONAME (usually .so.X) and the link library (.so).
+#  NOTE
+#  Only the real library file should be passed to doelflib, not the symlinks
+#  usually created in the build directory.
+#****
+doelflib() {
+	local clibdir="${CROSS_SYSROOT}/$(__host_prefix)/lib"
+	local soname sonames
+
+	dodir ${clibdir}
 
 	for i
 	do
@@ -99,24 +147,32 @@ docrossbin() {
 			error "file ${i} does not exist"
 		fi
 
-		/bin/install -m0755 ${i} ${D}${crossbindir} || error "docrossbin ${i} failed"
-	done
-}
+		case ${i##*/} in
+		*.so*)	;;
+		*)	error "doelflib: ${i}: not an ELF shared object" ;;
+		esac
 
-docrosslib() {
-	local crosslibdir=/usr/${CROSS_TARGET}/lib
+		soname=$(${CHOST}-objdump -p ${i} | grep ' SONAME ' | sed -e 's| *SONAME *\([^ ]*\).*|\1|g')
 
-	dodir ${crosslibdir}
-
-	for i
-	do
-		if [ ! -e ${i} ]
+		# try to catch mistaken "doelflib libfoo.so*"
+		if echo "${sonames}" | grep -q ${soname}
 		then
-			error "file ${i} does not exist"
+			error "SONAME ${soname} has already been installed"
+		else
+			sonames+=" ${soname} "
 		fi
 
-		/bin/install -m0644 ${i} ${D}${crosslibdir} || error "docrosslib ${i} failed"
+		__doinstall 0755 ${i} ${clibdir} || error "doelflib ${i} failed"
+
+		if test ${i##*/} != ${soname}
+		then
+			dosym ${i##*/} ${clibdir}/${soname}
+		fi
+		if test ${soname%.so*}.so != ${soname}
+		then
+			dosym ${i##*/} ${clibdir}/${soname%.so*}.so
+		fi
 	done
 }
 
-readonly -f cross_config_sub __cross_test_target docrossbin docrosslib
+readonly -f __cross_canonicalize_host doelflib

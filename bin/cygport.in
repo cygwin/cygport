@@ -183,6 +183,7 @@ unset _myprog;
 #  * bzr.cygclass
 #  * claws-mail.cygclass
 #  * cmake.cygclass
+#  * cross.cygclass
 #  * cvs.cygclass
 #  * distutils.cygclass
 #  * docbook.cygclass
