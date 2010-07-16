@@ -77,13 +77,13 @@ ignore files:
 	Makefile.in
 	README
 	cygport
-	cygport-0.9.*
+	cygport-*.*.*
 	doc
 	html
 	man
 	patches
 	tmp
-	.svn
+	.git
 	*.css
 	*.html
 	*.rc
