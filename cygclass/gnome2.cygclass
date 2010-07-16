@@ -138,7 +138,7 @@ gnome2_autoreconf() {
 #  gnome2_compile [CONFIGURE_FLAGS]
 #  DESCRIPTION
 #  Calls cygconf with the following options, followed by cygmake:
-#  * --enable-gtk-doc: create and install API documentation
+#  * --enable-gtk-doc: create and install API docs (native builds only)
 #  * --disable-schemas-install: GConf schemas are still installed, but are
 #    registered with postinstall and preremove scripts
 #  * --disable-scrollkeeper: Scrollkeeper is obsolete
@@ -147,8 +147,17 @@ gnome2_autoreconf() {
 #  All arguments to gnome2_compile are passed to cygconf as configure flags.
 #****
 gnome2_compile() {
+	local gtk_doc
+
+	if __cross_compiling
+	then
+		gtk_doc="--disable-gtk-doc"
+	else
+		gtk_doc="--enable-gtk-doc"
+	fi
+
 	cygconf \
-		--enable-gtk-doc \
+		${gtk_doc} \
 		--disable-schemas-install \
 		--disable-scrollkeeper \
 		--disable-static \
