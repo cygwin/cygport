@@ -9,6 +9,7 @@ dist_cygclass_DATA = 			\
 	autotools.cygclass			\
 	berkdb.cygclass				\
 	bzr.cygclass				\
+	canadian-cross.cygclass		\
 	claws-mail.cygclass			\
 	cmake.cygclass				\
 	cross.cygclass				\

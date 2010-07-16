@@ -1,0 +1,87 @@
+################################################################################
+#
+# canadian-cross.cygclass - for building Canadian cross-compilers
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2010 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/canadian-cross.cygclass
+#  SYNOPSIS
+#  CANADIAN_CROSS_HOST="..."
+#  CANADIAN_CROSS_TARGET="..."
+#  inherit canadian-cross
+#  DESCRIPTION
+#  This cygclass handles "Canadian cross-compiling", which means cross-compiling
+#  a cross-compiler.  The resulting compiler will run on another system (the "host")
+#  and will cross-compile code for a system other than that on which it runs
+#  (the "target"), which may be either the original "build" system (Cygwin) or a
+#  third system.
+#
+#  While software built with this cygclass will only be suitable for use on
+#  another system, and not within Cygwin itself (and therefore falls outside of
+#  the usual realm of cygport), this is provided with the hope that this will
+#  make it easier to build cross-compilers from within Cygwin.
+#  INHERITS
+#  cross.cygclass, toolchain.cygclass
+#****
+
+#****v* canadian-cross.cygclass/CANADIAN_CROSS_HOST
+#  DESCRIPTION
+#  The CPU-VENDOR-OS triplet describing the platform on which the compiler will
+#  run (the "host" system), for example 'i686-pc-linux-gnu' or 'x86_64-w64-mingw32'.
+#  NOTES
+#  * CANADIAN_CROSS_HOST must be defined before inherit()ing canadian-cross.cygclass.
+#  * CANADIAN_CROSS_HOST will be canonicalized upon calling "inherit canadian-cross".
+#    That means if set to 'amd64-linux', it will be changed into 'x86_64-pc-linux-gnu'.
+#    Therefore it is important continue using $CANADIAN_CROSS_HOST as a variable
+#    instead of writing its initial value.
+#****
+if ! defined CANADIAN_CROSS_HOST
+then
+	error "CANADIAN_CROSS_HOST must be defined before 'inherit canadian-cross'"
+fi
+
+#****v* canadian-cross.cygclass/CANADIAN_CROSS_TARGET
+#  DESCRIPTION
+#  The CPU-VENDOR-OS triplet describing the platform for which the cross-compiler
+#  will build (the "target" system), for example 'i686-pc-linux-gnu' or 'x86_64-w64-mingw32'.
+#  NOTES
+#  * CANADIAN_CROSS_TARGET must be defined before inherit()ing canadian-cross.cygclass.
+#  * CANADIAN_CROSS_TARGET will be canonicalized upon calling "inherit canadian-cross".
+#    That means if set to 'amd64-linux', it will be changed into 'x86_64-pc-linux-gnu'.
+#    Therefore it is important continue using $CANADIAN_CROSS_TARGET as a variable
+#    instead of writing its initial value.
+#****
+if ! defined CANADIAN_CROSS_TARGET
+then
+	error "CANADIAN_CROSS_TARGET must be defined before 'inherit canadian-cross'"
+fi
+
+# Yep, this is it.  So what's the big deal, you ask?  For one, getting the order
+# right; otherwise cross will overwrite the CTARGET set by toolchain.  Secondly,
+# it looks cleaner with everything in one namespace, hopefully avoiding confusion.
+
+CROSS_HOST=${CANADIAN_CROSS_HOST}
+TOOLCHAIN_TARGET=${CANADIAN_CROSS_TARGET}
+inherit cross toolchain
+
+# This makes it easier to "package" for installation on the host system;
+# OTOH someone might think these are meant to be dropped in the Cygwin root
+# since they will be in the standard prefix.
+unset CROSS_SYSROOT
