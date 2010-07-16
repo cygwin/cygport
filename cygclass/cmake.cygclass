@@ -36,12 +36,54 @@
 #  kde4.cygclass, opensync.cygclass, qt4-cmake.cygclass
 #****
 
+__cmake_system() {
+	local cmsys
+
+	# FIXME: do binutils/gcc really support all these?
+	case ${CHOST} in
+	*-ibm-aix*)       cmsys="AIX" ;;
+	*-*-beos*)        cmsys="BeOS" ;;
+	*-*-bsdi*)        cmsys="BSDOS" ;;
+	*-ibm-cnk*)       cmsys="BlueGeneL" ;;
+	*-cray-unicos*)   cmsys="Catamount" ;;
+	*-*-cygwin*)      cmsys="CYGWIN" ;;
+	*-*-darwin*)      cmsys="Darwin" ;;
+	*-*-dragonfly*)   cmsys="DragonFly" ;;
+	*-*-freebsd*)     cmsys="FreeBSD" ;;
+	*-*-haiku*)       cmsys="Haiku" ;;
+	*-*-hpux*)        cmsys="HP-UX" ;;
+	*-*-irix6*)       cmsys="IRIX64" ;;
+	*-*-irix*)        cmsys="IRIX" ;;
+	*-*-kfreebsd*)    cmsys="kFreeBSD" ;;
+	*-*-linux*)       cmsys="Linux" ;;
+	*-ncr-sysv*)      cmsys="MP-RAS" ;;
+	*-*-netbsd*)      cmsys="NetBSD" ;;
+	*-*-openbsd*)     cmsys="OpenBSD" ;;
+	*-dec-vms*)       cmsys="OpenVMS" ;;
+	*-*-osf*)         cmsys="OSF1" ;;
+	*-*-nto-qnx*)     cmsys="QNX" ;;
+	*-*-riscos*)      cmsys="RISCos" ;;
+	*-*-sco*)         cmsys="SCO_SV" ;;
+	*-sni-sysv*)      cmsys="SINIX" ;;
+	*-*-solaris*)     cmsys="SunOS" ;;
+	*-*-ultrix*)      cmsys="ULTRIX" ;;
+	*-*-sysv4.2uw*)   cmsys="UnixWare" ;;
+	*-*-mingw*)       cmsys="Windows" ;;
+	*-*-xenix*)       cmsys="Xenix" ;;
+	# must be last to avoid false positives from *-*-KERNEL-gnu
+	*-*-gnu*)         cmsys="GNU" ;;
+	*)	error "Host ${CHOST} is not supported by CMake" ;;
+	esac
+
+	echo -n ${cmsys}
+}
+
 #****C* cmake.cygclass/cygcmake
 #  SYNOPSIS
 #  cygcmake [OPTIONS]
 #  DESCRIPTION
 #  Runs cmake to configure the package.  cygcmake passes cmake the flags
-#  necessary to install the package into the /usr prefix and according to the
+#  necessary to install the package into the standard prefix and according to the
 #  |html <a href="http://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
 #  |html <a href="http://cygwin.com/setup.html#package_contents">Cygwin package guidelines</a>.
 #  In addition, all arguments to cygcmake are passed to cmake, followed by
@@ -55,7 +97,7 @@
 #  cmake
 #****
 cygcmake() {
-	local cmdir;
+	local cmdir crossargs;
 
 	check_prog_req cmake;
 
@@ -81,6 +123,16 @@ cygcmake() {
 		error "cygcmake: cmake directory not found";
 	fi
 
+	if __cross_compiling
+	then
+		crossargs="-DCMAKE_SYSTEM_NAME=$(__cmake_system)
+			-DCMAKE_FIND_ROOT_PATH=${CROSS_SYSROOT}
+			-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY
+			-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY"
+	else
+		crossargs=
+	fi
+
 #****v* cygcmake/CYGCMAKE_ARGS
 #  DESCRIPTION
 #  Additional flags to pass to cmake during cygcmake.
@@ -93,12 +145,15 @@ cygcmake() {
 		${cmdir} \
 		-DCMAKE_BINARY_DIR=. \
 		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_C_COMPILER=${CC} \
 		-DCMAKE_C_FLAGS="${CFLAGS}" \
+		-DCMAKE_CXX_COMPILER=${CXX} \
 		-DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
 		-DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
 		-DCMAKE_MODULE_LINKER_FLAGS="${LDFLAGS}" \
 		-DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}" \
-		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_PREFIX=$(__host_prefix) \
+		${crossargs} \
 		"${@}" \
 		${CYGCMAKE_ARGS} \
 		|| error "cmake failed"
@@ -113,4 +168,4 @@ src_compile() {
 }
 #****
 
-readonly -f cygcmake
+readonly -f __cmake_system cygcmake
