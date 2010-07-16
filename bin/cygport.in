@@ -229,6 +229,7 @@ unset _myprog;
 #  * ruby.cygclass
 #  * svn.cygclass
 #  * tcl.cygclass
+#  * toolchain.cygclass
 #  * utils.cygclass
 #  * vim.cygclass
 #  * waf.cygclass

@@ -1,0 +1,122 @@
+################################################################################
+#
+# toolchain.cygclass - for building and using toolchains
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2010 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/toolchain.cygclass
+#  SYNOPSIS
+#  TOOLCHAIN_TARGET="..."
+#  inherit toolchain
+#  DESCRIPTION
+#  The GNU toolchain, consisting of Binutils, the GCC compilers, and the GDB
+#  debugger, are used to build code in C and related languages into an executable
+#  or library, either for the system on which it runs (a "native" compiler) or
+#  for another system (a "cross" compiler).
+#
+#  This cygclass assists in building both native- and cross-compilers which will
+#  run on Cygwin.
+#  INHERITS
+#  autotools.cygclass
+#  SEE ALSO
+#  cross.cygclass, canadian-cross.cygclass
+#****
+
+#****v* toolchain.cygclass/TOOLCHAIN_TARGET
+#  DESCRIPTION
+#  The CPU-VENDOR-OS triplet describing the compiler's "target" system, e.g.
+#  'i686-pc-mingw32' or 'x86_64-pc-linux-gnu'.
+#  NOTES
+#  * TOOLCHAIN_TARGET must be defined before inherit()ing toolchain.cygclass.
+#  * TOOLCHAIN_TARGET will be canonicalized upon calling "inherit toolchain".
+#    That means if set to 'amd64-linux', it will be changed into 'x86_64-pc-linux-gnu'.
+#    Therefore it is important to continue using $TOOLCHAIN_TARGET as a variable
+#    instead of writing out its initial value.
+#****
+if ! defined TOOLCHAIN_TARGET
+then
+	error "TOOLCHAIN_TARGET must be defined before 'inherit toolchain'"
+fi
+
+__tc_canonicalize_target() {
+	local _tmp_target
+
+	_tmp_target=$(/usr/share/libtool/config/config.sub ${TOOLCHAIN_TARGET} 2> /dev/null)
+
+	case x${_tmp_target} in
+		*-*-none|x) error "Unknown or invalid TOOLCHAIN_TARGET declared: ${TOOLCHAIN_TARGET}" ;;
+	esac
+
+	TOOLCHAIN_TARGET=${_tmp_target}
+	CTARGET=${_tmp_target}
+}
+
+__tc_canonicalize_target
+
+#****d* toolchain.cygclass/TOOLCHAIN_SYSROOT
+#  DESCRIPTION
+#  GCC cross-compilers provide the concept of a sysroot: a directory which
+#  acts as the virtual root of the target filesystem, resulting in
+#  TOOLCHAIN_SYSROOT/$prefix/include and TOOLCHAIN_SYSROOT/$prefix/lib being in
+#  the default search paths without requiring -I or -L flags.
+#
+#  This means that software natively compiled for the host system can be unpacked
+#  into the sysroot without needing to mangle paths.  This is especially
+#  useful when bootstrapping a new toolchain; e.g. for Linux, one can just download
+#  glibc and kernel headers packages from a Linux distro, unpack them into the
+#  TOOLCHAIN_SYSROOT, and use those to build a cross-GCC for the first time.
+#****
+if test ${CTARGET} != ${CHOST}
+then
+	TOOLCHAIN_SYSROOT="/usr/${CTARGET}/sys-root"
+fi
+
+#****C* toolchain.cygclass/toolchain_compile
+#  SYNOPSIS
+#  toolchain_compile [CONFIGURE_ARGS]
+#  DESCRIPTION
+#  Configures the toolchain package with the necessary options for the given
+#  TOOLCHAIN_TARGET, then runs cygmake to build.
+#****
+toolchain_compile() {
+	local sysroot
+
+	if test ${CTARGET} != ${CHOST}
+	then
+		sysroot="--with-sysroot=${TOOLCHAIN_SYSROOT} --with-build-sysroot=${TOOLCHAIN_SYSROOT}"
+	fi
+
+	cygconf ${sysroot} ${@}
+	cygmake
+}
+
+#****o* toolchain.cygclass/src_compile (toolchain)
+#  NOTE
+#  An autoreconf stage is not run by default, because GNU toolchain packages
+#  require specific versions of the autotools which do not match the latest
+#  versions in the distribution.  They also do not recurse with AC_CONFIG_SUBDIRS.
+#  DEFINITION
+src_compile() {
+	cd ${B}
+	toolchain_compile
+}
+#****
+
+readonly -f __tc_canonicalize_target toolchain_compile

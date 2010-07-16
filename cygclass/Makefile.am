@@ -57,6 +57,7 @@ dist_cygclass_DATA = 			\
 	ruby-gnome2.cygclass		\
 	svn.cygclass				\
 	tcl.cygclass				\
+	toolchain.cygclass			\
 	utils.cygclass				\
 	vim.cygclass				\
 	waf.cygclass				\
