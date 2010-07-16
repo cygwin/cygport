@@ -129,4 +129,33 @@ __step() {
 	echo -e ">>> ${1}";
 }
 
-readonly -f defined pushd popd error warning inform verbose __stage __step
+__cross_compiling() {
+	return $(test ${CBUILD} != ${CHOST} || test ${CHOST} != ${CTARGET})
+}
+
+__host_prefix() {
+	local prefix
+
+	# FIXME: certainly other exceptions exist?
+	case ${CHOST} in
+		*-*-mingw*)       prefix=/mingw ;;
+		*)                prefix=/usr ;;
+	esac
+
+	echo -n ${prefix}
+}
+
+__target_prefix() {
+	local prefix
+
+	# FIXME: certainly other exceptions exist?
+	case ${CTARGET} in
+		*-*-mingw*)       prefix=/mingw ;;
+		*)                prefix=/usr ;;
+	esac
+
+	echo -n ${prefix}
+}
+
+readonly -f defined pushd popd error warning inform verbose __stage __step \
+	__cross_compiling __host_prefix __target_prefix
