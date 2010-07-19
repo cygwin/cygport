@@ -433,15 +433,20 @@ __prepstrip() {
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
-	all_exes=$(find * -type f -a \( -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \))
+	all_exes=$(find * -type f -a \( -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.so.*' -o -name '*.oct' -o -name '*.cmxs' \))
 	# could be .exe from non-automake Makefile which install(1) didn't fix
 	all_exes+=" "$(find * -type f -executable ! -name '*.*')
 
 	for exe in ${all_exes}
 	do
-		# assure this is actually a PE-COFF object
-		if ! objdump -f ${exe} &>/dev/null
+		# assure this is actually a binary object
+		if objdump -f ${exe} &>/dev/null
 		then
+			strip="/usr/bin/strip"
+		elif __cross_compiling && ${CTARGET}-objdump -f ${exe} &>/dev/null
+		then
+			strip="/usr/bin/${CTARGET}-strip"
+		else
 			continue
 		fi
 
@@ -464,15 +469,19 @@ __prepstrip() {
 
 		# check for .exe from non-automake Makefile which install(1) didn't fix
 		# strip(1) used to take care of this, but not anymore
-		case ${exe##*/} in
-			*.*) ;;
-			*)	mv ${exe} ${exe}.exe
-				exe+=.exe ;;
+		case ${CHOST} in
+		*-*-cygwin*|*-*-mingw*)
+			case ${exe##*/} in
+				*.*) ;;
+				*)	mv ${exe} ${exe}.exe
+					exe+=.exe ;;
+			esac
+			;;
 		esac
 
 		echo "        ${exe}";
 		chmod 0755 ${exe};
-		strip ${exe};
+		${strip} ${exe};
 	done
 }
 
