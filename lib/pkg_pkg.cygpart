@@ -139,56 +139,50 @@ __pkg_diff() {
 	local exclude;
 
 	default_excludes="CYGWIN-PATCHES aclocal.m4~ aclocal.m4t autom4te.cache
-		config.cache config.log config.status config.h *config.h.in
-		*SlackBuild* *.egg-info *.jpg *.png *.qm *.svgz *.tif
+		config.cache config.log config.status
+		*SlackBuild* *.egg-info *.dll *.exe *.o *.jpg *.png *.qm *.svgz *.tif
 		*.class *.jlc *.pyc *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
 
-	case ${PN} in
-		# gcc[34]: uses a forked libtool to support boostrapping
-		automake*|gcc[34]|libtool) ;;
-		*)	default_excludes+=" COPYING INSTALL compile config-ml.in \
-				config.guess config.sub depcomp elisp-comp install-sh \
-				libtool.m4 ltoptions.m4 ltsugar.m4 ltversion.m4 lt~obsolete.m4 \
-				ltmain.sh mdate-sh missing mkinstalldirs py-compile \
-				symlink-tree texinfo.tex ylwrap" ;;
-	esac
-
-	case ${PN} in
-		gettext) ;;
-		*)	if __config_equals with_gnu_gettext 1
-			then
-				default_excludes+=" intl"
-				default_excludes+=" $(tar ztf /usr/share/gettext/archive.tar.gz | grep -Ev '(/$|/intl/)' | sed -e 's|.*/\([^/]*\),v|\1|g' | grep -v 'Makefile.in$' )"
-			fi
-			if __config_equals with_glib_gettext 1
-			then
-				default_excludes+=" config.rpath Makefile.in.in"
-			fi
-			;;
-	esac
-
-	# exclude aclocal.m4 if generated from aclocal
-	if [ -f ${S}/aclocal.m4 ]
+	if __config_equals with_aclocal 1
 	then
-		if $(head -n 1 ${S}/aclocal.m4 | grep -q 'generated.* by aclocal')
-		then
-			default_excludes+=" aclocal.m4";
-		fi
+		default_excludes+=" aclocal.m4";
 	fi
 
-	# exclude Makefile.in only if using automake
-	for mf in Makefile GNUmakefile makefile
-	do
-		if [ -f ${S}/${mf}.am ]
-		then
-			default_excludes+=" ${mf}.in";
-		fi
-	done
-
-	# exclude configure only if using autoconf
-	if [ -f ${S}/configure.in -o -f ${S}/configure.ac ]
+	if __config_equals with_autoconf 1
 	then
-		default_excludes+=" configure";
+		default_excludes+=" configure"
+	fi
+
+	if __config_equals with_autoheader 1
+	then
+		# FIXME: get real header names from AC_CONFIG_HEADER
+		default_excludes+=" config.h *.h.in"
+	fi
+
+	if __config_equals with_automake 1
+	then
+		default_excludes+=" COPYING INSTALL compile config-ml.in \
+			config.guess config.sub depcomp elisp-comp install-sh \
+			mdate-sh missing mkinstalldirs py-compile \
+			symlink-tree texinfo.tex ylwrap \
+			Makefile.in GNUMakefile.in makefile.in"
+	fi
+
+	if __config_equals with_libtool 1
+	then
+		default_excludes+=" libtool.m4 ltoptions.m4 ltsugar.m4 ltversion.m4
+			lt~obsolete.m4 ltmain.sh"
+	fi
+
+	if __config_equals with_gnu_gettext 1 && [ ${PN} != "gettext" ]
+	then
+		default_excludes+=" intl"
+		default_excludes+=" $(tar ztf /usr/share/gettext/archive.tar.gz | grep -Ev '(/$|/intl/)' | sed -e 's|.*/\([^/]*\),v|\1|g' | grep -v 'Makefile.in$' )"
+	fi
+
+	if __config_equals with_glib_gettext 1
+	then
+		default_excludes+=" config.rpath Makefile.in.in"
 	fi
 
 	# gtk-doc

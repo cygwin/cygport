@@ -3,7 +3,7 @@
 # kde3.cygclass - functions for building KDE 3.x packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -115,6 +115,12 @@ kde3_autoreconf() {
 	fi
 
 	find . -name '*.ui' -exec touch '{}' +
+
+	__config_set with_aclocal 1
+	__config_set with_autoconf 1
+	__config_set with_autoheader 1
+	__config_set with_automake 1
+	__config_set with_libtool 1
 
 	# libtoolize
 	check_prog_req libtoolize libtool

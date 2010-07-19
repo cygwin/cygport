@@ -109,7 +109,7 @@ then
 	export tcl_${PN//./_}_CONTENTS="${TCL_LIBDIR#/}"
 fi
 
-DIFF_EXCLUDES="aclocal.m4 configure config.hin db.jar libtool.ac lt*.ac"
+DIFF_EXCLUDES="config.hin db.jar libtool.ac lt*.ac"
 
 #****C* berkdb.cygclass/berkdb_autoreconf
 #  DESCRIPTION
@@ -128,6 +128,10 @@ berkdb_autoreconf() {
 	check_prog_req libtoolize libtool
 
 	[ -f s_config ] && [ -d aclocal ] || error "not in dist/ directory"
+
+	__config_set with_aclocal 1
+	__config_set with_autoconf 1
+	__config_set with_libtool 1
 
 	ac_macrodir=aclocal libtoolize --copy --force --install || error "berkdb: libtoolize failed"
 

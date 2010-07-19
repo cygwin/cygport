@@ -3,7 +3,7 @@
 # xfce4.cygclass - functions for building Xfce 4 packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -106,6 +106,11 @@ GIT_URI="git://git.xfce.org/${uri_subdir}"
 xfce4_autoreconf() {
 	check_prog_req xdt-autogen xfce4-dev-tools
 
+	__config_set with_aclocal 1
+	__config_set with_autoconf 1
+	__config_set with_autoheader 1
+	__config_set with_automake 1
+	__config_set with_libtool 1
 	__config_set with_glib_gettext 1
 
 	export WANT_AUTOMAKE

@@ -3,7 +3,7 @@
 # php.cygclass - functions for building PHP (PECL and PEAR) extensions
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -177,6 +177,12 @@ php_autoreconf() {
 	then
 		error "config.m4 not found"
 	fi
+
+	__config_set with_aclocal 1
+	__config_set with_autoconf 1
+	__config_set with_autoheader 1
+	__config_set with_automake 1
+	__config_set with_libtool 1
 
 	${PHPIZE} || error "phpize failed"
 }
