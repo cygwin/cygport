@@ -328,6 +328,7 @@ __pkg_srcpkg() {
 __pkg_dist() {
 	local -i n;
 	local -a pkg_hint;
+	local distsubdir;
 
 	rm -fr ${distdir}/*;
 
@@ -336,12 +337,6 @@ __pkg_dist() {
 	mkdir -p ${distdir}/${PN};
 
 	cp ${top}/${PF}-src.tar.bz2 ${distdir}/${PN};
-
-	# sources with split binaries do NOT require a corresponding empty binary
-	if (( $(du -b ${top}/${PF}.tar.bz2 | cut -f 1) > 46 ))
-	then
-		cp ${top}/${PF}.tar.bz2 ${distdir}/${PN};
-	fi
 
 	if (( pkg_count > 1 ))
 	then
@@ -355,23 +350,21 @@ __pkg_dist() {
 		error "Different number of packages defined in PKG_NAMES and PKG_HINTS";
 	fi
 
-	if [ -f ${C}/${pkg_hint[0]%.hint}.hint ]
-	then
-		cp ${C}/${pkg_hint[0]%.hint}.hint ${distdir}/${PN}/setup.hint;
-	else
-		warning "${pkg_hint[0]%.hint}.hint is missing";
-	fi
-
-	n=1;
+	n=0;
 	while defined pkg_name[${n}]
 	do
-		mkdir -p ${distdir}/${PN}/${pkg_name[${n}]};
+		case ${pkg_name[${n}]} in
+			${PN})  distsubdir="" ;;
+			*)      distsubdir=${pkg_name[${n}]} ;;
+		esac
 
-		cp ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${distdir}/${PN}/${pkg_name[${n}]};
+		mkdir -p ${distdir}/${PN}/${distsubdir};
+
+		cp ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${distdir}/${PN}/${distsubdir};
 
 		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
 		then
-			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${pkg_name[${n}]}/setup.hint;
+			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/setup.hint;
 		else
 			warning "${pkg_hint[${n}]%.hint}.hint is missing";
 		fi

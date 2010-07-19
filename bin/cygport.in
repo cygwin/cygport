@@ -573,11 +573,6 @@ declare -r src_patchfile=${PF}.src.patch;
 declare -ar pkg_name=(${PKG_NAMES:-${PN}});
 declare -r  pkg_count=${#pkg_name[*]};
 
-if [ "x${pkg_name[0]}" != "x${PN}" ]
-then
-	error "When defining PKG_NAMES, the first package should be ${PN}.";
-fi
-
 ################################################################################
 #
 # Command processing
