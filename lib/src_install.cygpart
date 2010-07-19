@@ -385,6 +385,26 @@ dolib() {
 	done
 }
 
+#****I* Installing/newlib
+#  SYNOPSIS
+#  newlib LIBRARY NEW_NAME
+#  DESCRIPTION
+#  Installs the given static or import library into the standard libdir, renaming
+#  it as indicated.
+#  NOTES
+#  * Library DLLs must be installed with dobin.
+#  * Libtool libraries must be installed with dolib.
+#****
+newlib() {
+	local _libdir=${CROSS_SYSROOT}$(__host_prefix)/lib
+
+	dodir ${_libdir}
+	case ${i} in
+		*.la)  error "newlib ${1}: libtool libraries cannot be renamed" ;;
+		*)     __doinstall 0644 ${1} ${_libdir} ${2} || error "newlib ${1} failed" ;;
+	esac
+}
+
 #****I* Installing/doman
 #  SYNOPSIS
 #  doman [[-l |--lang=]LANGUAGE] MANPAGE [MANPAGE] ...
