@@ -1,0 +1,68 @@
+#! /bin/sh
+###############################################################################
+#
+# sysrootize - retarballs binary package under cross-compiler sysroot
+#
+# Copyright (C) 2010 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+set -e
+
+if (( $# < 2 ))
+then
+	echo "sysrootize: No packages specified" >&2
+	exit 1
+fi
+
+case $1 in
+	*/*|*.tar.*) echo "sysrootize: First argument must be a host triplet" >&2 ; exit 2 ;;
+esac
+
+host=$(/usr/share/libtool/config/config.sub $1 2> /dev/null || true)
+
+if test x"$host" = x
+then
+	echo "sysrootize: unknown host: $1" >&2
+	exit 3
+fi
+
+shift
+
+for tar in $@
+do
+	echo -n "${tar##*/}: "
+
+	if [ ! -f $tar ]
+	then
+		echo "ERROR: file not found"
+		continue
+	fi
+
+	case $tar in
+		*.tar.*) ;;
+		*) echo "ERROR: unsupported format" ; continue ;;
+	esac
+
+	t=$(mktemp -d)
+	mkdir -p $t/usr/$host/sys-root
+	tar axf $tar -C $t/usr/$host/sys-root
+	tar acf ${tar%/*}/$host-${tar##*/} -C $t usr/
+	rm -fr $t
+
+	echo "Success"
+done
