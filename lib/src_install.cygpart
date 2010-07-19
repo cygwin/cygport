@@ -639,6 +639,8 @@ __prepinstalldirs() {
 #  necessary arguments to install into $D, based on the value of USE_DESTDIR.
 #****
 cyginstall() {
+	local inst_target prefix
+
 	if $(make -n -s install/fast &> /dev/null)
 	then
 		inst_target="install/fast"
@@ -654,22 +656,23 @@ cyginstall() {
 #****
 	case ${USE_DESTDIR:-1} in
 		1|[Yy]|[Yy][Ee][Ss]|[Oo][Nn]|[Tt][Rr][Uu][Ee])
-			make ${MAKEOPTS} ${inst_target} DESTDIR=${D} "${@}" || error "make install DESTDIR failed"
+			make ${MAKEOPTS} ${inst_target} DESTDIR=${D}${CROSS_SYSROOT} "${@}" || error "make install DESTDIR failed"
 			;;
 		0|[Nn]|[Nn][Oo]|[Oo][Ff][Ff]|[Ff][Aa][Ll][Ss][Ee])
+			prefix=$(__host_prefix)
 			make ${MAKEOPTS} install \
-				prefix=${D}/usr \
-				exec_prefix=${D}/usr \
-				bindir=${D}/usr/bin/ \
-				includedir=${D}/usr/include \
-				libdir=${D}/usr/lib \
-				sbindir=${D}/usr/sbin \
-				libexecdir=${D}/usr/lib \
-				datadir=${D}/usr/share \
-				infodir=${D}/usr/share/info \
-				mandir=${D}/usr/share/man \
-				localstatedir=${D}/var \
-				sysconfdir=${D}/etc \
+				prefix=${D}${CROSS_SYSROOT}${prefix} \
+				exec_prefix=${D}${CROSS_SYSROOT}${prefix} \
+				bindir=${D}${CROSS_SYSROOT}${prefix}/bin/ \
+				includedir=${D}${CROSS_SYSROOT}${prefix}/include \
+				libdir=${D}${CROSS_SYSROOT}${prefix}/lib \
+				sbindir=${D}${CROSS_SYSROOT}${prefix}/sbin \
+				libexecdir=${D}${CROSS_SYSROOT}${prefix}/lib \
+				datadir=${D}${CROSS_SYSROOT}${prefix}/share \
+				infodir=${D}${CROSS_SYSROOT}${prefix}/share/info \
+				mandir=${D}${CROSS_SYSROOT}${prefix}/share/man \
+				localstatedir=${D}${CROSS_SYSROOT}${prefix%/usr}/var \
+				sysconfdir=${D}${CROSS_SYSROOT}${prefix%/usr}/etc \
 				"${@}" \
 				|| error "make install No-DESTDIR failed"
 			;;
