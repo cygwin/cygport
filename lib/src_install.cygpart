@@ -327,6 +327,42 @@ newicon() {
 	__doinstall 0644 ${1} ${_icondir} ${2} || error "newicon ${1} failed"
 }
 
+#****I* Installing/includeinto
+#  SYNOPSIS
+#  includeinto SUBDIRECTORY
+#  DESCRIPTION
+#  Sets the subdirectory of the standard includedir into which doinclude should install.
+#****
+includeinto() {
+	if (( $# != 1 ))
+	then
+		error "includeinto accepts exactly one argument";
+	fi
+
+	case ${1} in
+		/*)	error "includeinto: argument must be a subdirectory" ;;
+	esac
+
+	_includeinto_dir=${1};
+}
+
+#****I* Installing/doinclude
+#  SYNOPSIS
+#  doinclude HEADER [HEADER] ...
+#  DESCRIPTION
+#  Installs the given headers into the standard includedir, or the subdirectory thereof
+#  specified by a previous call to includeinto.
+#****
+doinclude() {
+	local _includedir=${CROSS_SYSROOT}$(__host_prefix)/include/${_includeinto_dir}
+
+	dodir ${_includedir}
+	for i
+	do
+		__doinstall 0644 ${i} ${_includedir} || error "doinclude ${i} failed"
+	done
+}
+
 #****I* Installing/dolib
 #  SYNOPSIS
 #  dolib LIBRARY [LIBRARY] ...
