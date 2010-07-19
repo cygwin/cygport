@@ -2,7 +2,7 @@
 #
 # src_postinst.cygpart - cygport source post-installation functions
 #
-# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -246,6 +246,12 @@ __prepetc() {
 	local -i n;
 	local s;
 
+	if inherited cross
+	then
+		# postinst/prerm does not apply to cross-compiles
+		return
+	fi
+
 	for s in postinstall preremove
 	do
 		if [ -f ${C}/${s}.sh -a -f ${C}/${PN}.${s} ]
@@ -337,11 +343,11 @@ __prepman() {
 		rm -fr ${D}/usr/man/
 	fi
 
-	if [ -d ${D}/usr/share/man ]
+	if [ -d ${D}${CROSS_SYSROOT}$(__host_prefix)/share/man ]
 	then
 		echo "Compressing man pages:";
 
-		for manlink in $(find ${D}/usr/share/man -type l)
+		for manlink in $(find ${D}${CROSS_SYSROOT}$(__host_prefix)/share/man -type l)
 		do
 			manref=$(readlink ${manlink})
 			manref=${manref##*/};
@@ -349,7 +355,7 @@ __prepman() {
 			echo ".so ${manref%.gz}" > ${manlink%.gz};
 		done
 
-		for manpage in $(find ${D}/usr/share/man -type f ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma')
+		for manpage in $(find ${D}${CROSS_SYSROOT}$(__host_prefix)/share/man -type f ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma')
 		do
 			echo "        ${manpage##*/}";
 			gzip -q ${manpage};
@@ -369,13 +375,13 @@ __prepinfo() {
 		rm -fr ${D}/usr/info/
 	fi
 
-	if [ -d ${D}/usr/share/info ]
+	if [ -d ${D}${CROSS_SYSROOT}$(__host_prefix)/share/info ]
 	then
-		rm -f ${D}/usr/share/info/dir
+		rm -f ${D}${CROSS_SYSROOT}$(__host_prefix)/share/info/dir
 
 		echo "Compressing info pages:";
 
-		for infopage in $(find ${D}/usr/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2')
+		for infopage in $(find ${D}${CROSS_SYSROOT}$(__host_prefix)/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2')
 		do
 			echo "        ${infopage##*/}";
 			gzip -q ${infopage};
@@ -385,6 +391,12 @@ __prepinfo() {
 
 __prepvargames() {
 	local f;
+
+	if inherited cross
+	then
+		# postinst/prerm does not apply to cross-compiles
+		return
+	fi
 
 	if [ -d ${D}/var/games ]
 	then
@@ -487,6 +499,12 @@ __prepstrip() {
 
 __prepuac() {
 	local exe exename;
+
+	# only Windows-hosted binaries need to deal with UAC
+	case ${CHOST} in
+		*-*-cygwin*|*-*-mingw*) ;;
+		*)	return ;;
+	esac
 
 	cd ${D};
 
