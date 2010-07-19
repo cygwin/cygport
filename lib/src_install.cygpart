@@ -519,6 +519,7 @@ newsbin() {
 dosym() {
 	local _argv=("dosym" ${@})
 	local _argc=$#
+	local ln_s
 
 	if ((_argc < 2))
 	then
@@ -539,7 +540,13 @@ dosym() {
 		error "dosym: ${dest%/*} is not a directory"
 	fi
 
-	ln -sf ${_argv[*]:1:$((_argc - 1))} ${D}${dest} || error "dosym failed"
+	case ${CHOST} in
+	*-*-mingw*|*-*-msdos*)
+		ln_s="cp" ;;
+	*)	ln_s="ln -s" ;;
+	esac
+
+	${ln_s} -f ${_argv[*]:1:$((_argc - 1))} ${D}${dest} || error "dosym failed"
 
 	popd
 }
