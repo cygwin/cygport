@@ -39,7 +39,7 @@ __list_files() {
 
 __list_deps() {
 	local d
-	local nativelibs netlibs netimps
+	local nativelibs netlibs netimps tclibs tcgcclibdir
 	local os_path="${PATH}"
 
 	pushd ${D}
@@ -58,16 +58,53 @@ __list_deps() {
 	for d in ${DEPS_PATH//:/ }
 	do
 		PATH+="${D}${d}:${d}:"
+		if inherited cross
+		then
+			PATH+="${D}${CROSS_SYSROOT}${d}:${CROSS_SYSROOT}${d}:"
+		fi
 	done
 
 	export PATH+="${D}/usr/bin:${os_path}";
 
+	if __cross_compiling && check_prog ${CTARGET}-gcc
+	then
+		tcgcclibdir=$(dirname $(${CTARGET}-gcc --print-file-name=libgcc.a))
+		PATH+=":${D}${tcgcclibdir#${D}}:${tcgcclibdir#${D}}"
+
+		# FIXME: thoroughout this section, CTARGET to get libgcc et. al. deps,
+		#        or CHOST to get canadian-cross deps
+		case ${CTARGET} in
+		${CBUILD%%-*}-*-mingw*)
+			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:/usr/${CTARGET}/sys-root/$(__target_prefix)/bin"
+			# native binutils handles both cygwin and mingw binaries
+			;;
+		*-*-cygwin*|*-*-mingw*)
+			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:/usr/${CTARGET}/sys-root/$(__target_prefix)/bin"
+			tclibs=$(find . -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
+				-exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
+				cut -d ' ' -f 3 | xargs -r which || true)
+			;;
+		*-*-msdosdjgpp*)
+			# no shared library support, hence no dependencies
+			;;
+		# FIXME: any other non-ELF systems?
+		*)	# ELF system; libc in /lib, other libs in /usr/lib
+			PATH+=":${D}/usr/${CTARGET}/sys-root/lib:/usr/${CTARGET}/sys-root/lib"
+			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:/usr/${CTARGET}/sys-root/$(__target_prefix)/lib"
+			tclibs=$(find . -type f -executable -exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | \
+				grep ' NEEDED ' | sort -u | sed -e 's| *NEEDED *\([^ ]*\).*|\1|g' | \
+				sort -u | xargs -r which || true )
+			;;
+		esac
+	fi
+
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
-	nativelibs=$(find . -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
-		-exec objdump -p '{}' + | grep "DLL Name:" | sort -u | \
+	nativelibs=$(find . -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
+		-exec objdump -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
 		cut -d ' ' -f 3 | xargs -r which || true)
+
 	if check_prog monodis
 	then
 		netlibs=$(for x in $(monodis --assemblyref $(find . -type f -perm 644 \( -name '*.exe' -o -name '*.dll' \) ) 2>/dev/null \
@@ -80,7 +117,8 @@ __list_deps() {
 			| xargs -r grep -h 'target=.*\.dll' | sed -e 's|.*target="*\([^ "]*\.dll\).*|\1|g' \
 			| sort -u | xargs -r which || true)
 	fi
-	echo $nativelibs $netlibs $netimps | sort -u | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
+
+	echo $nativelibs $tclibs $netlibs $netimps | sort -u | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
 	popd
 
 	PATH="${os_path}"
