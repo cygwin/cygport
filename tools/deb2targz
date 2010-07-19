@@ -1,0 +1,69 @@
+#! /bin/bash
+###############################################################################
+#
+# deb2targz - converts Debian binary packages into tarballs
+#
+# Copyright (C) 2010 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+set -e
+
+if (( $# < 1 ))
+then
+	echo "$0: No packages specified" > /dev/stderr
+	exit 1
+fi
+
+if ! hash ar &> /dev/null
+then
+	echo "$0: ar not found, install binutils" > /dev/stderr
+	exit 2
+fi
+
+for deb in $(realpath $@)
+do
+	echo -n "$deb: "
+
+	if [ ! -f $deb ]
+	then
+		echo "ERROR: file not found"
+		continue
+	fi
+
+	case "$(file -b $deb)" in
+		Debian*) ;;
+		*)	echo "ERROR: not a Debian package"
+			continue ;;
+	esac
+
+	t=$(mktemp -d)
+
+	# .debs are 'ar' archives containing three files: debian-binary (text
+	# file containing package format version), control.tar.gz (small amount
+	# of data, including debian/control used by package manager), and
+	# data.tar.gz, the actual file contents.  We need only the latter.
+
+	pushd $t > /dev/null
+	ar x $deb data.tar.gz
+	mv data.tar.gz ${deb%.deb}.tar.gz
+	popd > /dev/null
+
+	rm -fr $t
+
+	echo "Success"
+done
