@@ -50,7 +50,8 @@
 #
 #  apache1.cygclass, apache2.cygclass, berkdb.cygclass, ggz.cygclass, gnome2.cygclass,
 #  gnustep.cygclass, gst-plugins0.10.cygclass, gtkmm.cygclass, kde3.cygclass,
-#  opensync.cygclass, php.cygclass, pygtk.cygclass, xfce4.cygclass, xorg.cygclass
+#  opensync.cygclass, php.cygclass, pygtk.cygclass, toolchain.cygclass, xfce4.cygclass,
+#  xorg.cygclass
 #****
 
 
@@ -371,6 +372,7 @@ cygconf() {
 	local confdir;
 	local configure;
 	local f;
+	local prefix;
 
 #****v* cygconf/CYGCONF_SOURCE
 #  DESCRIPTION
@@ -409,31 +411,43 @@ cygconf() {
 		fi
 	done
 
-#****v* cygconf/CYGCONF_ARGS
-#  DESCRIPTION
-#  Additional flags to pass to configure, as a string.
-#  NOTES
-#  Flags in CYGCONF_ARGS follow, and therefore override, flags passed by default
-#  and as arguments to cygconf.
-#****
+	prefix=$(__host_prefix)
+
 	# Set default configure arguments
-	confargs="--prefix=/usr --exec-prefix=/usr --bindir=/usr/bin \
-			  --sbindir=/usr/sbin --libexecdir=/usr/lib \
-			  --datadir=/usr/share --localstatedir=/var --sysconfdir=/etc"
+	confargs="--prefix=${prefix} --exec-prefix=${prefix} --bindir=${prefix}/bin \
+			  --sbindir=${prefix}/sbin --libexecdir=${prefix}/lib \
+			  --datadir=${prefix}/share --localstatedir=${prefix%/usr}/var \
+			  --sysconfdir=${prefix%/usr}/etc"
 
 	case "x$(grep -m 1 'GNU Autoconf' ${configure} | cut -d ' ' -f 6)" in
 		x2.6[0-9]*)
-			confargs+=" --datarootdir=/usr/share --docdir=/usr/share/doc/${PN}"
+			confargs+=" --datarootdir=${prefix}/share --docdir=${prefix}/share/doc/${PN}"
 			;;
 		*)
-			confargs+=" --infodir=/usr/share/info --mandir=/usr/share/man"
+			confargs+=" --infodir=${prefix}/share/info --mandir=${prefix}/share/man"
 			;;
 	esac
+
+	if __cross_compiling
+	then
+		confargs+=" --build=${CBUILD} --host=${CHOST} --target=${CTARGET}"
+	fi
 
 	# AC_HAVE_MMAP fails despite a working mmap, so we force this to yes
 	# (see http://www.cygwin.com/ml/cygwin/2004-09/msg00741.html
 	# and following thread for details)
-	export ac_cv_func_mmap_fixed_mapped=yes;
+	case ${CHOST} in
+	*-*-cygwin*)
+		export ac_cv_func_mmap_fixed_mapped=yes ;;
+	esac
+
+#****v* cygconf/CYGCONF_ARGS
+#  DESCRIPTION
+#  Additional flags to pass to configure, as a string.
+#  NOTE
+#  Flags in CYGCONF_ARGS follow, and therefore override, flags passed by default
+#  and as arguments to cygconf.
+#****
 
 	verbose ${configure} \
 		--srcdir="${confdir}" ${confargs} "${@}" ${CYGCONF_ARGS} \
