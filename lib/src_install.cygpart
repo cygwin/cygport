@@ -532,6 +532,22 @@ newmenu() {
 	__doinstall 0644 ${1} ${_menudir} ${2} || error "newmenu ${1} failed"
 }
 
+#****I* Installing/dopkgconfig
+#  SYNOPSIS
+#  dopkgconfig PC_FILE [PC_FILE] ...
+#  DESCRIPTION
+#  Installs the given pkg-config metadata files.
+#****
+dopkgconfig() {
+	local _pcdir=${CROSS_SYSROOT}$(__host_prefix)/lib/pkgconfig
+
+	dodir ${_pcdir}
+	for i
+	do
+		__doinstall 0644 ${i} ${_pcdir} || error "dopkgconfig ${i} failed"
+	done
+}
+
 #****I* Installing/dosbin
 #  SYNOPSIS
 #  dosbin FILE [FILE] ...
