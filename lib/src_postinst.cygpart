@@ -519,14 +519,19 @@ __prep_symlinks() {
 
 		# avoid .exe suffix in symlinks
 		# http://cygwin.com/ml/cygwin-apps/2007-04/msg00065.html
-		case ${l} in
-			*.exe)
+		case ${CHOST}:${l} in
+			*-*-cygwin*:*.exe)
 				mv ${l} ${l%.exe};
 				l=${l%.exe};
 				;;
 		esac
 
 		case ${l_src} in
+			${l%/*}/${l_src##*/})
+				echo "        ${l#${D}}";
+				rm -f ${l};
+				dosym ${l_src##*/} ${l#${D}};
+				;;
 			${D}/*)
 				echo "        ${l#${D}}";
 				rm -f ${l};
@@ -541,7 +546,33 @@ __prep_symlinks() {
 				if [ ! -e ${D}${l_src} ] && [ ! -e ${l_src} ]
 				then
 					warning "symlink ${l#${D}} points to nonexistant ${l_src}";
+					continue
 				fi
+
+				# Some systems do not support symlinks
+				case ${CHOST} in
+				*-*-mingw*|*-*-msdos*)
+					echo "        ${l#${D}}";
+					rm -f ${l};
+					cp -LR ${l_src} ${l};
+					;;
+				esac
+				;;
+			*)
+				if [ ! -e ${l%/*}/${l_src} ]
+				then
+					warning "symlink ${l#${D}} points to nonexistant ${l_src}";
+					continue
+				fi
+
+				# Some systems do not support symlinks
+				case ${CHOST} in
+				*-*-mingw*|*-*-msdos*)
+					echo "        ${l#${D}}";
+					rm -f ${l};
+					cp -LR ${l%/*}/${l_src} ${l};
+					;;
+				esac
 				;;
 		esac
 	done
