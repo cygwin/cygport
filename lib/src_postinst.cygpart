@@ -583,9 +583,16 @@ __prep_libtool_modules() {
 		# check that all library members were installed
 		for l in dlname library_names old_library
 		do
-			if defined ${l} && [ ! -f ${ltlibdir}/${!l} ]
+			if defined ${l}
 			then
-				error "${!l} was not installed"
+				# on ELF platforms, there are multiple library_names
+				for il in ${!l}
+				do
+					if [ ! -f ${ltlibdir}/${il} ]
+					then
+						error "${il} was not installed"
+					fi
+				done
 			fi
 		done
 
@@ -593,23 +600,37 @@ __prep_libtool_modules() {
 		then
 			if [ "x${dlname}" = "x" ]
 			then
+				# static-only library, hopefully for good reason...
 				continue
 			fi
 
-			origdlname=${dlname}
-			while [ $(realpath ${ltlibdir}/${dlname%/bin/*}) != ${D}/usr ]
-			do
-				dlname=../${dlname}
-			done
-			if [ ${dlname} != ${origdlname} ]
-			then
-				pushd ${ltlibdir}
-				mkdir -p ${dlname%/*}
-				mv ${origdlname} ${dlname}
-				popd
-				echo "        ${lib_la}"
-				sed -i -e "s|^\(dlname=\).*|\1'${dlname}'|" ${lib_la}
-			fi
+			# would otherwise be CHOST, but gcc ships $target libraries
+			case ${CTARGET} in
+			*-*-cygwin*|*-*-mingw*)
+				if test ${CTARGET} != ${CHOST} # cross-compiler, use sysroot
+				then
+					dodir /usr/${CTARGET}/sys-root/$(__target_prefix)/bin
+					mv ${ltlibdir}/${dlname} ${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin/
+				else
+					origdlname=${dlname}
+
+					while [ $(realpath ${ltlibdir}/${dlname%/bin/*}) != ${D}${CROSS_SYSROOT}$(__host_prefix) ]
+					do
+						dlname=../${dlname}
+					done
+
+					if [ ${dlname} != ${origdlname} ]
+					then
+						pushd ${ltlibdir}
+						mkdir -p ${dlname%/*}
+						mv ${origdlname} ${dlname}
+						popd
+						echo "        ${lib_la}"
+						sed -i -e "s|^\(dlname=\).*|\1'${dlname}'|" ${lib_la}
+					fi
+				fi
+				;;
+			esac
 
 			# The rest only applies if shouldnotlink=yes (-module)
 			continue
