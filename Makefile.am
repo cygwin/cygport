@@ -1,4 +1,4 @@
-SUBDIRS = bin lib cygclass data doc tests .
+SUBDIRS = bin lib cygclass data doc tests tools .
 
 noinst_DATA = AUTHORS COPYING NEWS README TODO
 

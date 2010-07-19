@@ -28,6 +28,7 @@ cygclass/Makefile
 data/Makefile
 doc/Makefile
 tests/Makefile
+tools/Makefile
 ])
 
 AC_OUTPUT
