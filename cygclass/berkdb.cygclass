@@ -3,7 +3,7 @@
 # berkdb.cygclass - functions for building the Berkeley DB
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -161,7 +161,7 @@ berkdb_compile() {
 
 	if inherited tcl
 	then
-		use_tcl="--enable-tcl --with-tcl=${TCL_LIBDIR} --enable-test"
+		use_tcl="--enable-tcl --with-tcl=/usr/lib --enable-test"
 	else
 		use_tcl="--disable-tcl --disable-test"
 	fi
