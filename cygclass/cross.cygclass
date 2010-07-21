@@ -56,7 +56,7 @@ fi
 __cross_canonicalize_host() {
 	local _tmp_host
 
-	_tmp_host=$(/usr/share/libtool/config/config.sub ${CROSS_HOST} 2> /dev/null)
+	_tmp_host=$(${_privdatadir}/config.sub ${CROSS_HOST} 2> /dev/null)
 
 	case x${_tmp_host} in
 		*-*-none|x) error "Unknown or invalid CROSS_HOST declared: ${CROSS_HOST}" ;;

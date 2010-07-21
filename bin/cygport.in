@@ -365,7 +365,7 @@ done
 unset conf;
 
 # system triplets
-declare    CBUILD=$(/usr/share/libtool/config/config.guess)
+declare    CBUILD=$(${_privdatadir}/config.guess)
 declare    CHOST="i686-pc-cygwin";
 declare    CTARGET=${CHOST};
 declare    CROSS_HOST="";

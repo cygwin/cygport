@@ -33,6 +33,7 @@ case $1 in
 	*/*|*.tar.*) echo "sysrootize: First argument must be a host triplet" >&2 ; exit 2 ;;
 esac
 
+# FIXME: assumes libtool-2.2 installed in /usr
 host=$(/usr/share/libtool/config/config.sub $1 2> /dev/null || true)
 
 if test x"$host" = x

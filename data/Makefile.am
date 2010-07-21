@@ -5,8 +5,16 @@ dist_pkgdata_DATA = \
 	sample.cygport	\
 	uac-manifest.in
 
+dist_pkgdata_SCRIPTS =	\
+	config.guess		\
+	config.sub
+
 bashcompletiondir = /etc/bash_completion.d
 dist_bashcompletion_DATA = cygport-bash-completion
+
+config.%:
+	$(WGET) http://git.savannah.gnu.org/cgit/config.git/plain/$@
+	chmod +x $@
 
 install-data-local:
 	if ! test -f $(DESTDIR)$(sysconfdir)/cygport.conf ; then \
@@ -15,3 +23,5 @@ install-data-local:
 	fi
 
 EXTRA_DIST = cygport.conf
+
+MAINTAINERCLEANFILES = config.guess config.sub
