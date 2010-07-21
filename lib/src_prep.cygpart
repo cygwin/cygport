@@ -191,7 +191,7 @@ cygpatch() {
 
 		if [ ! -e ${patchfile_path} ]
 		then
-			inform "patch ${patchfile_name} not found";
+			error "patch ${patchfile_name} not found";
 			continue;
 		fi
 
@@ -363,9 +363,14 @@ __src_prep() {
 
 	cd ${S};
 
-	if [ -f ${top}/${cygwin_patchfile} -o -f ${top}/${src_patchfile} ]
+	if [ -f ${top}/${cygwin_patchfile} ]
 	then
-		cygpatch ${top}/${cygwin_patchfile} ${top}/${src_patchfile};
+		cygpatch ${top}/${cygwin_patchfile};
+	fi
+
+	if [ -f ${top}/${src_patchfile} ]
+	then
+		cygpatch ${top}/${src_patchfile};
 	fi
 }
 
