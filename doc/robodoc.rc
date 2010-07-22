@@ -85,9 +85,11 @@ ignore files:
 	tmp
 	.git
 	*.css
+	*.diff
 	*.html
 	*.rc
 	*.orig
+	*.patch
 	*.refs
 	*.rej
 	*.stderr
