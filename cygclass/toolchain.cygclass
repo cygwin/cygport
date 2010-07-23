@@ -88,6 +88,18 @@ then
 	TOOLCHAIN_SYSROOT="/usr/${CTARGET}/sys-root"
 fi
 
+# A normal cross-compiler uses the stage1 xgcc to cross-compile
+# libgcc/libstdc++/etc.  However, in a "Canadian cross" scenario,
+# the stage1 compiler will not run on the build system, as it is itself
+# cross-compiled, so you also need a $target toolchain to build
+# libgcc and friends instead.  Of course, if $target is the same
+# as the build system (a "crossback"), then the question is moot.
+if test ${CHOST} != ${CBUILD} && test ${CTARGET} != ${CBUILD} \
+   && (! check_prog ${CTARGET}-gcc || ! check_prog ${CTARGET}-objdump)
+then
+	error "This package requires ${CTARGET} binutils and gcc"
+fi
+
 #****C* toolchain.cygclass/toolchain_compile
 #  SYNOPSIS
 #  toolchain_compile [CONFIGURE_ARGS]
