@@ -129,6 +129,21 @@ __step() {
 	echo -e ">>> ${1}";
 }
 
+__log_init() {
+	local log=${1}
+	rm -f ${log}
+
+	echo -e cygport ${_version} '\n' >> ${log}
+
+	for var in PF S B D C T CBUILD CHOST CTARGET CC CFLAGS CPPFLAGS CXX CXXFLAGS \
+	           F77 FFLAGS FC FCFLAGS GCJ GCJFLAGS LDFLAGS LIBS MAKEOPTS
+	do
+		echo ${var} = ${!var} >> ${log}
+	done
+
+	echo -e '\n' >> ${log}
+}
+
 __cross_compiling() {
 	return $(test ${CBUILD} != ${CHOST} || test ${CHOST} != ${CTARGET})
 }
@@ -165,4 +180,4 @@ __target_prefix() {
 }
 
 readonly -f defined pushd popd error warning inform verbose __stage __step \
-	__cross_compiling __host_prefix __target_prefix
+	__log_init __cross_compiling __host_prefix __target_prefix

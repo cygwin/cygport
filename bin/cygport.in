@@ -596,17 +596,20 @@ do
 			;;
 		compile|build|make)
 			__stage Compiling;
-			src_compile 2>&1 | tee ${compilelog};
+			__log_init ${compilelog};
+			src_compile 2>&1 | tee -a ${compilelog};
 			_status=$?;
 			;;
 		check|test)
 			__stage Testing;
-			src_test 2>&1 | tee ${checklog};
+			__log_init ${checklog};
+			src_test 2>&1 | tee -a ${checklog};
 			_status=$?;
 			;;
 		inst*)
 			__stage Installing;
-			(__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee ${installlog};
+			__log_init ${installlog};
+			(__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog};
 			_status=$?;
 			;;
 		postinst*)
@@ -631,7 +634,8 @@ do
 			;;
 		package|pkg)
 			__stage Packaging;
-			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee ${pkglog};
+			__log_init ${pkglog};
+			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog};
 			_status=$?;
 			;;
 		diff|mkdiff|mkpatch)
@@ -644,16 +648,22 @@ do
 			;;
 		almostall)
 			__stage Preparing && __src_prep && \
-			__stage Compiling && src_compile 2>&1 | tee ${compilelog} && \
-			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee ${installlog} && \
-			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee ${pkglog}
+			__log_init ${compilelog} && \
+			__stage Compiling && src_compile 2>&1 | tee -a ${compilelog} && \
+			__log_init ${installlog} && \
+			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
+			__log_init ${pkglog} && \
+			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog}
 			_status=$?;
 			;;
 		all)
 			__stage Preparing && __src_prep && \
-			__stage Compiling && src_compile 2>&1 | tee ${compilelog} && \
-			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee ${installlog} && \
-			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee ${pkglog} && \
+			__log_init ${compilelog} && \
+			__stage Compiling && src_compile 2>&1 | tee -a ${compilelog} && \
+			__log_init ${installlog} && \
+			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
+			__log_init ${pkglog} && \
+			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog} && \
 			__finish;
 			_status=$?;
 			;;
