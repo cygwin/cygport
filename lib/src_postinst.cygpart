@@ -343,11 +343,11 @@ __prepman() {
 		rm -fr ${D}/usr/man/
 	fi
 
-	if [ -d ${D}${CROSS_SYSROOT}$(__host_prefix)/share/man ]
+	if [ -d ${D}$(__host_prefix)/share/man ]
 	then
 		echo "Compressing man pages:";
 
-		for manlink in $(find ${D}${CROSS_SYSROOT}$(__host_prefix)/share/man -type l)
+		for manlink in $(find ${D}$(__host_prefix)/share/man -type l)
 		do
 			manref=$(readlink ${manlink})
 			manref=${manref##*/};
@@ -355,7 +355,7 @@ __prepman() {
 			echo ".so ${manref%.gz}" > ${manlink%.gz};
 		done
 
-		for manpage in $(find ${D}${CROSS_SYSROOT}$(__host_prefix)/share/man -type f ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma')
+		for manpage in $(find ${D}$(__host_prefix)/share/man -type f ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma')
 		do
 			echo "        ${manpage##*/}";
 			gzip -q ${manpage};
@@ -375,13 +375,13 @@ __prepinfo() {
 		rm -fr ${D}/usr/info/
 	fi
 
-	if [ -d ${D}${CROSS_SYSROOT}$(__host_prefix)/share/info ]
+	if [ -d ${D}$(__host_prefix)/share/info ]
 	then
-		rm -f ${D}${CROSS_SYSROOT}$(__host_prefix)/share/info/dir
+		rm -f ${D}$(__host_prefix)/share/info/dir
 
 		echo "Compressing info pages:";
 
-		for infopage in $(find ${D}${CROSS_SYSROOT}$(__host_prefix)/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2')
+		for infopage in $(find ${D}$(__host_prefix)/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2')
 		do
 			echo "        ${infopage##*/}";
 			gzip -q ${infopage};
@@ -663,7 +663,7 @@ __prep_libtool_modules() {
 				else
 					origdlname=${dlname}
 
-					while [ $(realpath ${ltlibdir}/${dlname%/bin/*}) != ${D}${CROSS_SYSROOT}$(__host_prefix) ]
+					while [ $(realpath ${ltlibdir}/${dlname%/bin/*}) != ${D}$(__host_prefix) ]
 					do
 						dlname=../${dlname}
 					done

@@ -90,7 +90,7 @@ __doinstall() {
 #  Installs the given file(s) to the standard bindir and makes them executable.
 #****
 dobin() {
-	local _bindir=${CROSS_SYSROOT}$(__host_prefix)/bin
+	local _bindir=$(__host_prefix)/bin
 
 	dodir ${_bindir}
 	for i
@@ -107,7 +107,7 @@ dobin() {
 #  it executable.
 #****
 newbin() {
-	local _bindir=${CROSS_SYSROOT}$(__host_prefix)/bin
+	local _bindir=$(__host_prefix)/bin
 
 	dodir ${_bindir}
 	__doinstall 0755 ${1} ${_bindir} ${2} || error "newbin ${1} failed"
@@ -302,7 +302,7 @@ newins() {
 #    the Hicolor Icon Theme hierarchy.
 #****
 doicon() {
-	local _icondir=${CROSS_SYSROOT}$(__host_prefix)/share/pixmaps
+	local _icondir=$(__host_prefix)/share/pixmaps
 
 	dodir ${_icondir}
 	for i
@@ -321,7 +321,7 @@ doicon() {
 #  Supported icon formats are PNG, XPM, and SVG.
 #****
 newicon() {
-	local _icondir=${CROSS_SYSROOT}$(__host_prefix)/share/pixmaps
+	local _icondir=$(__host_prefix)/share/pixmaps
 
 	dodir ${_icondir}
 	__doinstall 0644 ${1} ${_icondir} ${2} || error "newicon ${1} failed"
@@ -354,7 +354,7 @@ includeinto() {
 #  specified by a previous call to includeinto.
 #****
 doinclude() {
-	local _includedir=${CROSS_SYSROOT}$(__host_prefix)/include/${_includeinto_dir}
+	local _includedir=$(__host_prefix)/include/${_includeinto_dir}
 
 	dodir ${_includedir}
 	for i
@@ -373,7 +373,7 @@ doinclude() {
 #  * Cross-compiled ELF Shared Objects must be installed with doelflib.
 #****
 dolib() {
-	local _libdir=${CROSS_SYSROOT}$(__host_prefix)/lib
+	local _libdir=$(__host_prefix)/lib
 
 	dodir ${_libdir}
 	for i
@@ -396,7 +396,7 @@ dolib() {
 #  * Libtool libraries must be installed with dolib.
 #****
 newlib() {
-	local _libdir=${CROSS_SYSROOT}$(__host_prefix)/lib
+	local _libdir=$(__host_prefix)/lib
 
 	dodir ${_libdir}
 	case ${i} in
@@ -414,7 +414,7 @@ newlib() {
 #  the --lang (-l) argument, otherwise manpages are assumed to be in English.
 #****
 doman() {
-	local manroot=${CROSS_SYSROOT}$(__host_prefix)/share/man
+	local manroot=$(__host_prefix)/share/man
 	local mandir=${manroot}
 
 	for i
@@ -467,7 +467,7 @@ doman() {
 #  assumed to be in English.
 #****
 newman() {
-	local manroot=${CROSS_SYSROOT}$(__host_prefix)/share/man
+	local manroot=$(__host_prefix)/share/man
 	local mandir=${manroot}
 
 	case ${1} in
@@ -510,7 +510,7 @@ newman() {
 #  Installs the given desktop menu entries (.desktop).
 #****
 domenu() {
-	local _menudir=${CROSS_SYSROOT}$(__host_prefix)/share/applications
+	local _menudir=$(__host_prefix)/share/applications
 
 	dodir ${_menudir}
 	for i
@@ -526,7 +526,7 @@ domenu() {
 #  Installs the given desktop menu entry (.desktop) with the given new name.
 #****
 newmenu() {
-	local _menudir=${CROSS_SYSROOT}$(__host_prefix)/share/applications
+	local _menudir=$(__host_prefix)/share/applications
 
 	dodir ${_menudir}
 	__doinstall 0644 ${1} ${_menudir} ${2} || error "newmenu ${1} failed"
@@ -539,7 +539,7 @@ newmenu() {
 #  Installs the given pkg-config metadata files.
 #****
 dopkgconfig() {
-	local _pcdir=${CROSS_SYSROOT}$(__host_prefix)/lib/pkgconfig
+	local _pcdir=$(__host_prefix)/lib/pkgconfig
 
 	dodir ${_pcdir}
 	for i
@@ -555,7 +555,7 @@ dopkgconfig() {
 #  Installs the given file(s) to the standard sbindir and makes them executable.
 #****
 dosbin() {
-	local _sbindir=${CROSS_SYSROOT}$(__host_prefix)/sbin
+	local _sbindir=$(__host_prefix)/sbin
 
 	dodir ${_sbindir}
 	for i
@@ -572,7 +572,7 @@ dosbin() {
 #  it executable.
 #****
 newsbin() {
-	local _sbindir=${CROSS_SYSROOT}$(__host_prefix)/sbin
+	local _sbindir=$(__host_prefix)/sbin
 
 	dodir ${_sbindir}
 	__doinstall 0755 ${1} ${_sbindir} ${2} || error "newsbin ${1} failed"
@@ -648,9 +648,9 @@ make_desktop_entry() {
 		error "make_desktop_entry requires a minimum of two arguments"
 	fi
 
-	dodir ${CROSS_SYSROOT}$(__host_prefix)/share/applications
+	dodir $(__host_prefix)/share/applications
 
-	cat > ${D}${CROSS_SYSROOT}$(__host_prefix)/share/applications/${1%% *}.desktop <<-_EOF
+	cat > ${D}$(__host_prefix)/share/applications/${1%% *}.desktop <<-_EOF
 		[Desktop Entry]
 		Encoding=UTF-8
 		Version=1.0
@@ -744,23 +744,23 @@ cyginstall() {
 #****
 	case ${USE_DESTDIR:-1} in
 		1|[Yy]|[Yy][Ee][Ss]|[Oo][Nn]|[Tt][Rr][Uu][Ee])
-			make ${MAKEOPTS} ${inst_target} DESTDIR=${D}${CROSS_SYSROOT} "${@}" || error "make install DESTDIR failed"
+			make ${MAKEOPTS} ${inst_target} DESTDIR=${D} "${@}" || error "make install DESTDIR failed"
 			;;
 		0|[Nn]|[Nn][Oo]|[Oo][Ff][Ff]|[Ff][Aa][Ll][Ss][Ee])
 			prefix=$(__host_prefix)
 			make ${MAKEOPTS} install \
-				prefix=${D}${CROSS_SYSROOT}${prefix} \
-				exec_prefix=${D}${CROSS_SYSROOT}${prefix} \
-				bindir=${D}${CROSS_SYSROOT}${prefix}/bin/ \
-				includedir=${D}${CROSS_SYSROOT}${prefix}/include \
-				libdir=${D}${CROSS_SYSROOT}${prefix}/lib \
-				sbindir=${D}${CROSS_SYSROOT}${prefix}/sbin \
-				libexecdir=${D}${CROSS_SYSROOT}${prefix}/lib \
-				datadir=${D}${CROSS_SYSROOT}${prefix}/share \
-				infodir=${D}${CROSS_SYSROOT}${prefix}/share/info \
-				mandir=${D}${CROSS_SYSROOT}${prefix}/share/man \
-				localstatedir=${D}${CROSS_SYSROOT}${prefix%/usr}/var \
-				sysconfdir=${D}${CROSS_SYSROOT}${prefix%/usr}/etc \
+				prefix=${D}${prefix} \
+				exec_prefix=${D}${prefix} \
+				bindir=${D}${prefix}/bin/ \
+				includedir=${D}${prefix}/include \
+				libdir=${D}${prefix}/lib \
+				sbindir=${D}${prefix}/sbin \
+				libexecdir=${D}${prefix}/lib \
+				datadir=${D}${prefix}/share \
+				infodir=${D}${prefix}/share/info \
+				mandir=${D}${prefix}/share/man \
+				localstatedir=${D}${prefix%/usr}/var \
+				sysconfdir=${D}${prefix%/usr}/etc \
 				"${@}" \
 				|| error "make install No-DESTDIR failed"
 			;;

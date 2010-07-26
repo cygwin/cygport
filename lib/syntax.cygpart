@@ -134,12 +134,19 @@ __cross_compiling() {
 }
 
 __host_prefix() {
-	local prefix
+	local prefix sysroot
+
+	if inherited cross
+	then
+		sysroot=${CROSS_SYSROOT}
+	else
+		sysroot=
+	fi
 
 	# FIXME: certainly other exceptions exist?
 	case ${CHOST} in
-		*-*-mingw*)       prefix=/mingw ;;
-		*)                prefix=/usr ;;
+		*-*-mingw*)       prefix=${sysroot}/mingw ;;
+		*)                prefix=${sysroot}/usr ;;
 	esac
 
 	echo -n ${prefix}

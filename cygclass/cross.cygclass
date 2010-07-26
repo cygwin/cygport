@@ -78,11 +78,17 @@ __cross_canonicalize_host
 #  CROSS_SYSROOT/$prefix/include and CROSS_SYSROOT/$prefix/lib being in the
 #  default search paths without requiring -I or -L flags.
 #
-#  This means that software natively compiled for the host system can be unpacked
-#  into the sysroot without needing to mangle paths.  This is especially
-#  useful when bootstrapping a new toolchain; e.g. for Linux, one can just download
-#  glibc and kernel headers packages from a Linux distro, unpack them into the
-#  CROSS_SYSROOT, and use those to build a cross-GCC for the first time.
+#  This means that software natively compiled for the host system can be
+#  unpacked into the sysroot and used for cross-compiling.  This is
+#  especially useful when bootstrapping a new toolchain; e.g. for Linux, one
+#  can just download glibc and kernel headers packages from a Linux distro,
+#  unpack them into the CROSS_SYSROOT, and use those to build a cross-GCC
+#  for the first time.
+#
+#  If you do use natively-compiled host packages under the sysroot, you must
+#  fix paths in all *-config scripts, .la libtool libraries, and .pc
+#  pkg-config files so they do not erroneously point to Cygwin-native
+#  headers and libraries.
 #****
 CROSS_SYSROOT="/usr/${CHOST}/sys-root"
 
@@ -132,8 +138,7 @@ then
 	error "This package requires ${CHOST} binutils and gcc"
 fi
 
-export PKG_CONFIG_LIBDIR="${CROSS_SYSROOT}/$(__host_prefix)/lib/pkgconfig:/usr/share/pkgconfig"
-export PKG_CONFIG_SYSROOT_DIR=${CROSS_SYSROOT}
+export PKG_CONFIG_LIBDIR="$(__host_prefix)/lib/pkgconfig:/usr/share/pkgconfig"
 
 #****I* cross.cygclass/doelflib
 #  SYNOPSIS
@@ -146,7 +151,7 @@ export PKG_CONFIG_SYSROOT_DIR=${CROSS_SYSROOT}
 #  usually created in the build directory.
 #****
 doelflib() {
-	local clibdir="${CROSS_SYSROOT}/$(__host_prefix)/lib"
+	local clibdir="$(__host_prefix)/lib"
 	local soname sonames
 
 	dodir ${clibdir}
