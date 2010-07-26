@@ -92,6 +92,30 @@ __cross_canonicalize_host
 #****
 CROSS_SYSROOT="/usr/${CHOST}/sys-root"
 
+#****d* cross.cygclass/CROSS_SYSROOT_BINDIR
+#  DESCRIPTION
+#  The $prefix/bin directory under the sysroot.  This definition is meant to
+#  be used in configure or cmake arguments to avoid dealing with different
+#  prefixes on various systems.
+#****
+CROSS_SYSROOT_BINDIR="$(__host_prefix)/bin"
+
+#****d* cross.cygclass/CROSS_SYSROOT_INCLUDEDIR
+#  DESCRIPTION
+#  The $prefix/include directory under the sysroot.  This definition is
+#  meant to be used in configure or cmake arguments to avoid dealing with
+#  different prefixes on various systems.
+#****
+CROSS_SYSROOT_INCLUDEDIR="$(__host_prefix)/include"
+
+#****d* cross.cygclass/CROSS_SYSROOT_LIBDIR
+#  DESCRIPTION
+#  The $prefix/lib directory under the sysroot.  This definition is meant to
+#  be used in configure or cmake arguments to avoid dealing with different
+#  prefixes on various systems.
+#****
+CROSS_SYSROOT_LIBDIR="$(__host_prefix)/lib"
+
 #****o* cross.cygclass/CC (cross)
 #  DESCRIPTION
 #  The GCC C cross-compiler for the CROSS_HOST.
