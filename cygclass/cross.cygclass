@@ -116,6 +116,17 @@ FC="${CHOST}-gfortran"
 #****
 GCJ="${CHOST}-gcj"
 
+case ${CHOST} in
+*-pc-mingw*)
+	# mingw.org packages are built to be compatible with MSVC-compiled software
+	CFLAGS="${CFLAGS} -mms-bitfields"
+	CXXFLAGS="${CXXFLAGS} -mms-bitfields"
+	F77FLAGS="${F77FLAGS} -mms-bitfields"
+	FCFLAGS="${FCFLAGS} -mms-bitfields"
+	GCJFLAGS="${GCJFLAGS} -mms-bitfields"
+	;;
+esac
+
 if ! check_prog ${CHOST}-gcc || ! check_prog ${CHOST}-objdump
 then
 	error "This package requires ${CHOST} binutils and gcc"
