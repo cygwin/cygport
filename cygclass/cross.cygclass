@@ -32,7 +32,12 @@
 #  build system to cross-compile other software which depends on it.
 #
 #  Supported build systems for cross-compiling are autotools, cmake, and custom
-#  Makefiles.
+#  Makefiles.  When using cross.cygclass, cygconf and cygcmake automatically
+#  use the necessary arguments for cross-compiling, and cyginstall and most of
+#  the do* and new* installation functions install into the sysroot instead of
+#  the native root.  Note that those installation functions which accept an
+#  absolute path (dodir, exeinto, insinto, dosym) make no assumptions about
+#  the sysroot.
 #  SEE ALSO
 #  toolchain.cygclass, canadian-cross.cygclass
 #****
@@ -92,29 +97,45 @@ __cross_canonicalize_host
 #****
 CROSS_SYSROOT="/usr/${CHOST}/sys-root"
 
-#****d* cross.cygclass/CROSS_SYSROOT_BINDIR
+#****d* cross.cygclass/CROSS_PREFIX
+#  DESCRIPTION
+#  The $prefix directory under the sysroot.  This definition is meant to
+#  be used in configure or cmake arguments to avoid dealing with different
+#  prefixes on various systems.
+#****
+CROSS_PREFIX="$(__host_prefix)"
+
+#****d* cross.cygclass/CROSS_BINDIR
 #  DESCRIPTION
 #  The $prefix/bin directory under the sysroot.  This definition is meant to
 #  be used in configure or cmake arguments to avoid dealing with different
 #  prefixes on various systems.
 #****
-CROSS_SYSROOT_BINDIR="$(__host_prefix)/bin"
+CROSS_BINDIR="$(__host_prefix)/bin"
 
-#****d* cross.cygclass/CROSS_SYSROOT_INCLUDEDIR
+#****d* cross.cygclass/CROSS_INCLUDEDIR
 #  DESCRIPTION
 #  The $prefix/include directory under the sysroot.  This definition is
 #  meant to be used in configure or cmake arguments to avoid dealing with
 #  different prefixes on various systems.
 #****
-CROSS_SYSROOT_INCLUDEDIR="$(__host_prefix)/include"
+CROSS_INCLUDEDIR="$(__host_prefix)/include"
 
-#****d* cross.cygclass/CROSS_SYSROOT_LIBDIR
+#****d* cross.cygclass/CROSS_LIBDIR
 #  DESCRIPTION
 #  The $prefix/lib directory under the sysroot.  This definition is meant to
 #  be used in configure or cmake arguments to avoid dealing with different
 #  prefixes on various systems.
 #****
-CROSS_SYSROOT_LIBDIR="$(__host_prefix)/lib"
+CROSS_LIBDIR="$(__host_prefix)/lib"
+
+#****d* cross.cygclass/CROSS_DATADIR
+#  DESCRIPTION
+#  The $prefix/share directory under the sysroot.  This definition is meant to
+#  be used in configure or cmake arguments to avoid dealing with different
+#  prefixes on various systems.
+#****
+CROSS_DATADIR="$(__host_prefix)/share"
 
 #****o* cross.cygclass/CC (cross)
 #  DESCRIPTION
