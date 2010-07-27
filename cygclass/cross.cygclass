@@ -38,8 +38,6 @@
 #  the native root.  Note that those installation functions which accept an
 #  absolute path (dodir, exeinto, insinto, dosym) make no assumptions about
 #  the sysroot.
-#  SEE ALSO
-#  toolchain.cygclass, canadian-cross.cygclass
 #****
 
 #****v* cross.cygclass/CROSS_HOST

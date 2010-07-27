@@ -36,7 +36,7 @@
 #  INHERITS
 #  autotools.cygclass
 #  SEE ALSO
-#  cross.cygclass, canadian-cross.cygclass
+#  cross.cygclass
 #****
 
 #****v* toolchain.cygclass/TOOLCHAIN_TARGET
