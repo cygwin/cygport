@@ -3,7 +3,7 @@
 # xorg.cygclass - functions for building X.Org components
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://cygwinports.dotsrc.org/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -51,7 +51,7 @@ case ${PN} in
 	*)  ORIG_PN=${ORIG_PN:-${PN}} ;;
 esac
 
-case ${PN} in
+case ${ORIG_PN} in
 	xbitmaps)
 		xorg_cat="data"
 		xorg_git="xorg/data/bitmaps"
@@ -62,15 +62,15 @@ case ${PN} in
 		;;
 	xkeyboard-config)
 		xorg_cat="data"
-		xorg_git=${PN}
+		xorg_git="xkeyboard-config"
 		;;
 
 	xorg-docs|xorg-sgml-doctools)
 		xorg_cat="doc"
-		xorg_git=xorg/doc/${PN}
+		xorg_git=xorg/doc/${ORIG_PN}
 		;;
 
-	font-*)
+	font-*|encodings)
 		xorg_cat="font"
 		xorg_git=xorg/font/${ORIG_PN#font-}
 		;;
@@ -81,7 +81,7 @@ case ${PN} in
 		;;
 	pixman)
 		xorg_cat="lib"
-		xorg_git=${PN}
+		xorg_git="pixman"
 		;;
 	xtrans)
 		xorg_cat="lib"
@@ -90,18 +90,18 @@ case ${PN} in
 
 	*proto)
 		xorg_cat="proto"
-		xorg_git=xorg/proto/${PN}
+		xorg_git=xorg/proto/${ORIG_PN}
 		;;
 
 	gccmakedep|imake|lndir|makedepend)
 		xorg_cat="util"
-		xorg_git=xorg/util/${PN}
+		xorg_git=xorg/util/${ORIG_PN}
 		;;
 	xorg-cf-files)
 		xorg_cat="util"
 		xorg_git="xorg/util/cf"
 		;;
-	xorg-util-macros)
+	util-macros)
 		xorg_cat="util"
 		xorg_git="xorg/util/macros"
 		;;
@@ -113,7 +113,7 @@ case ${PN} in
 
 	*)
 		xorg_cat="app"
-		xorg_git=xorg/app/${PN}
+		xorg_git=xorg/app/${ORIG_PN}
 		;;
 esac
 
