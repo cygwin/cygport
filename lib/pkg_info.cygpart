@@ -84,6 +84,11 @@ __list_deps() {
 				-exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
 				cut -d ' ' -f 3 | xargs -r which || true)
 			;;
+		*-*-darwin*)
+			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:/usr/${CTARGET}/sys-root/$(__target_prefix)/lib"
+			tclibs=$(find . -type f -executable -exec ${CTARGET}-otool -L '{}' + 2>/dev/null | \
+				sed -e '1d;s|^\t\([^ ]*\).*|\1|g' | sort -u | xargs -r which || true )
+			;;
 		*-*-msdosdjgpp*)
 			# no shared library support, hence no dependencies
 			;;
