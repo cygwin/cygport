@@ -27,20 +27,30 @@ __cpio_gz_extract() {
 
 __srpm_extract() {
 	local rpmpath=${1};
-	local rpmfile=${1##*/};
+	local rpmfile=${rpmpath##*/};
 	local cpiofile=${rpmfile%.rpm}.cpio;
-	local cpiopath=${T}/${cpiofile};
-	local srcfile;
+	local tarfile=${rpmfile%.rpm}.tar;
+	local srcfile srcfiles;
 
-	check_prog_req rpm2cpio rpm;
-	check_prog_req cpio;
-
-	rpm2cpio ${rpmpath} > ${cpiopath};
 	pushd ${T}
-	cpio -i --quiet < ${cpiofile};
+
+	if check_prog rpm2tar
+	then
+		rpm2tar ${rpmpath};
+		tar xf ${tarfile};
+		srcfiles="$(tar tf ${tarfile})";
+	elif check_prog rpm2cpio cpio
+	then
+		rpm2cpio ${rpmpath} > ${cpiofile};
+		cpio -i --quiet < ${cpiofile};
+		srcfiles="$(cpio -t --quiet < ${cpiofile})";
+	else
+		error "${rpmfile} requires rpm2targz or rpm to unpack";
+	fi
+
 	popd
 
-	for srcfile in $(cpio -t --quiet < ${cpiopath})
+	for srcfile in ${srcfiles##./}
 	do
 		unpack ${T}/${srcfile};
 	done
