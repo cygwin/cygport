@@ -41,8 +41,8 @@ inherit() {
 
 		if ! defined _${classname//[-\.]/_}_CYGCLASS_
 		then
-			source ${_privclassdir}/${classname}.cygclass || error "inherit ${classname} failed"
 			export _${classname//[-\.]/_}_CYGCLASS_=1
+			source ${_privclassdir}/${classname}.cygclass || error "inherit ${classname} failed"
 		fi
 	done
 }
