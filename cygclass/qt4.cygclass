@@ -103,7 +103,35 @@ QT4_UIC=${QT4_BINDIR}/uic
 #****
 QT4_UIC3=${QT4_BINDIR}/uic3
 
-export QMAKESPEC=cygwin-g++
+__qt4_qmakespec() {
+	local spec
+
+	# FIXME: -64 varieties, qws/*
+	case ${CHOST} in
+	*-ibm-aix*)        spec="aix-g++" ;;
+	*-*-cygwin*)       spec="cygwin-g++" ;;
+	*-*-darwin*)       spec="darwin-g++" ;;
+	*-*-freebsd*)      spec="freebsd-g++" ;;
+	*-*-hpux)          spec="hpux-g++" ;;
+	*-*-irix)          spec="irix-g++" ;;
+	*-*-linux*)        spec="linux-g++" ;;
+	*-*-lynxos*)       spec="lynxos-g++" ;;
+	*-*-netbsd*)       spec="netbsd-g++" ;;
+	*-*-openbsd*)      spec="openbsd-g++" ;;
+	*-*-sco*)          spec="sco-g++" ;;
+	*-*-solaris*)      spec="solaris-g++" ;;
+	*-*-osf*)          spec="tru64-g++" ;;
+	*-*-sysv4.2uw*)    spec="unixware-g++" ;;
+	*-*-mingw*)        spec="win32-g++" ;;
+	# must be last to avoid false positives from *-*-KERNEL-gnu
+	*-*-gnu*)          spec="hurd-g++" ;;
+	*)	error "Host ${CHOST} is not supported by Qt4" ;;
+	esac
+
+	echo -n ${spec}
+}
+
+export QMAKESPEC=$(__qt4_qmakespec)
 
 export PATH="${QT4_BINDIR}:${PATH}"
 
@@ -170,4 +198,4 @@ doqt4plugin() {
 	doexe ${@}
 }
 
-readonly -f doqt4inc doqt4lib qt4pluginto doqt4plugin
+readonly -f __qt4_qmakespec doqt4inc doqt4lib qt4pluginto doqt4plugin

@@ -42,12 +42,24 @@ inherit qt4
 #  Generates Makefiles from the package's qmake project files.
 #****
 cygqmake4() {
+	local args
+
 	if [ ! -x ${QT4_QMAKE} ]
 	then
 		error "libQtCore4-devel is required to build this package"
 	fi
 
-	${QT4_QMAKE} -spec cygwin-g++ -recursive ${CYGQMAKE4_ARGS} ${@} \
+	if inherited cross
+	then
+		args="QMAKE_CC=${CC} QMAKE_LINK_CC=${CC} QMAKE_CXX=${CXX} QMAKE_LINK=${CXX}"
+		args+=" QMAKE_INCDIR_QT=${CROSS_INCLUDEDIR} QMAKE_LIBDIR_QT=${CROSS_LIBDIR}"
+		args+=" QMAKE_MOC=${QT4_MOC} QMAKE_UIC=${QT4_UIC} QMAKE_RCC=${QT4_RCC}"
+		args+=" QMAKE_OBJCOPY=${CHOST}-objcopy QMAKE_RANLIB=${CHOST}-ranlib QMAKE_STRIP=${CHOST}-strip"
+	else
+		args=
+	fi
+
+	${QT4_QMAKE} -spec ${QMAKESPEC} ${args} -recursive ${CYGQMAKE4_ARGS} ${@} \
 			|| error "qmake failed"
 }
 

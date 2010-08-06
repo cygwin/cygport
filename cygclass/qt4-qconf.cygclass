@@ -58,12 +58,21 @@ cygqconf4() {
 #  to compile the package.
 #****
 qt4_qconf_compile() {
+	local qtdir
+
 	if [ ! -e configure ]
 	then
 		error "qt4_qconf_compile: could not find configure file"
 	fi
 
-	./configure --prefix=/usr --qtdir=${QT4_QTDIR} ${@} || error "qconf configure failed"
+	if inherited cross
+	then
+		qtdir=${CROSS_PREFIX}
+	else
+		qtdir=${QT4_QTDIR}
+	fi
+
+	./configure --prefix=$(__host_prefix) --qtdir=${qtdir} ${@} || error "qconf configure failed"
 	cygmake
 }
 

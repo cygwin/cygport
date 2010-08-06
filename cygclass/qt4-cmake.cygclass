@@ -42,16 +42,27 @@ inherit cmake qt4
 #  of -DVARIABLE=VALUE, are passed on to cygcmake.
 #****
 qt4_cmake_compile() {
+	local qtdirs
+
+	if inherited cross
+	then
+		qtdirs="-DQT_INCLUDE_DIR=${CROSS_INCLUDEDIR} \
+		        -DQT_LIBRARY_DIR=${CROSS_LIBDIR} \
+		        -DQT_PLUGINS_DIR=${CROSS_LIBDIR}/qt4/plugins"
+	else
+		qtdirs="-DQT_INCLUDE_DIR=${QT4_INCLUDEDIR} \
+		        -DQT_LIBRARY_DIR=${QT4_LIBDIR} \
+		        -DQT_PLUGINS_DIR=${QT4_PLUGINSDIR}"
+	fi
+
 	cygcmake \
 		-DAUTOMOC4_EXECUTABLE=/usr/bin/automoc4 \
 		-DQT_MOC_EXECUTABLE=${QT4_MOC} \
-		-DQT_INCLUDE_DIR=${QT4_INCLUDEDIR} \
-		-DQT_LIBRARY_DIR=${QT4_LIBDIR} \
-		-DQT_PLUGINS_DIR=${QT4_PLUGINSDIR} \
 		-DQT_QMAKE_EXECUTABLE=${QT4_QMAKE} \
 		-DQT_RCC_EXECUTABLE=${QT4_RCC} \
 		-DQT_UIC_EXECUTABLE=${QT4_UIC} \
 		-DQT_UIC3_EXECUTABLE=${QT4_UIC3} \
+		${qtdirs} \
 		"${@}"
 
 	cygmake
