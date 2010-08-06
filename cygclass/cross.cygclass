@@ -181,7 +181,16 @@ then
 	error "This package requires ${CHOST} binutils and gcc"
 fi
 
-export PKG_CONFIG_LIBDIR="$(__host_prefix)/lib/pkgconfig:/usr/share/pkgconfig"
+# PKG_PROG_PKG_CONFIG looks for $host-pkg-config, but pkg-config is not
+# a "tool" that is built for each target like binutils or gcc.  Instead,
+# we set PKG_CONFIG_LIBDIR appropriately.
+# The PKG_CONFIG override silences a bogus warning during configure:
+# configure: WARNING: using cross tools not prefixed with host triplet
+if check_prog pkg-config
+then
+	export PKG_CONFIG="/usr/bin/pkg-config"
+	export PKG_CONFIG_LIBDIR="$(__host_prefix)/lib/pkgconfig:/usr/share/pkgconfig"
+fi
 
 #****I* cross.cygclass/doelflib
 #  SYNOPSIS
