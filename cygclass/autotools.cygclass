@@ -145,7 +145,7 @@ cygautoreconf() {
 				unset ac_config_files;
 			fi
 
-			if [ -f ${d}/aclocal.m4 ] && $(head -n 1 ${d}/aclocal.m4 | grep -q 'generated.* by aclocal')
+			if [ ! -f ${d}/aclocal.m4 ] || $(head -n 1 ${d}/aclocal.m4 | grep -q 'generated.* by aclocal')
 			then
 				__config_set with_aclocal 1
 			fi
