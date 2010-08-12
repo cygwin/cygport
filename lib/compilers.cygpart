@@ -108,6 +108,36 @@ declare -x GCJ="gcj";
 #****
 declare -x GCJFLAGS="${CFLAGS}";
 
+#****d* Compiling/OBJC
+#  DESCRIPTION
+#  The GCC Objective C compiler.
+#****
+declare -x OBJC="${CC}";
+
+#****v* Compiling/OBJCFLAGS
+#  DESCRIPTION
+#  Flags passed to OBJC when compiling Objective C code.  Individual packages
+#  may append or override this value if they will not build correctly without it.
+#  DEFAULT VALUE
+#  -g -O2 -pipe
+#****
+declare -x OBJCFLAGS="${CFLAGS}";
+
+#****d* Compiling/OBJCXX
+#  DESCRIPTION
+#  The GCC Objective C++ compiler.
+#****
+declare -x OBJCXX="${CXX}";
+
+#****v* Compiling/OBJCXXFLAGS
+#  DESCRIPTION
+#  Flags passed to OBJCXX when compiling Objective C++ code.  Individual packages
+#  may append or override this value if they will not build correctly without it.
+#  DEFAULT VALUE
+#  -g -O2 -pipe
+#****
+declare -x OBJCXXFLAGS="${CFLAGS}";
+
 #****v* Compiling/LDFLAGS
 #  DESCRIPTION
 #  Flags passed to the linker.  Individual packages may append
@@ -136,4 +166,6 @@ then
 	F77=${CHOST}-gfortran
 	FC=${CHOST}-gfortran
 	GCJ=${CHOST}-gcj
+	OBJC=${CHOST}-gcc
+	OBJCXX=${CHOST}-g++
 fi

@@ -135,35 +135,13 @@ CROSS_LIBDIR="$(__host_prefix)/lib"
 #****
 CROSS_DATADIR="$(__host_prefix)/share"
 
-#****o* cross.cygclass/CC (cross)
-#  DESCRIPTION
-#  The GCC C cross-compiler for the CROSS_HOST.
-#****
 CC="${CHOST}-gcc"
-
-#****o* cross.cygclass/CXX (cross)
-#  DESCRIPTION
-#  The GCC C++ cross-compiler for the CROSS_HOST.
-#****
 CXX="${CHOST}-g++"
-
-#****o* cross.cygclass/F77 (cross)
-#  DESCRIPTION
-#  The GCC Fortran 77 cross-compiler for the CROSS_HOST.
-#****
 F77="${CHOST}-gfortran"
-
-#****o* cross.cygclass/FC (cross)
-#  DESCRIPTION
-#  The GCC Fortran 95 cross-compiler for the CROSS_HOST.
-#****
 FC="${CHOST}-gfortran"
-
-#****o* cross.cygclass/GCJ (cross)
-#  DESCRIPTION
-#  The GCC Java cross-compiler for the CROSS_HOST.
-#****
 GCJ="${CHOST}-gcj"
+OBJC="${CHOST}-gcc"
+OBJCXX="${CHOST}-g++"
 
 case ${CHOST} in
 *-pc-mingw*)
@@ -173,6 +151,8 @@ case ${CHOST} in
 	F77FLAGS="${F77FLAGS} -mms-bitfields"
 	FCFLAGS="${FCFLAGS} -mms-bitfields"
 	GCJFLAGS="${GCJFLAGS} -mms-bitfields"
+	OBJCFLAGS="${OBJCFLAGS} -mms-bitfields"
+	OBJCXXFLAGS="${OBJCXXFLAGS} -mms-bitfields"
 	;;
 esac
 

@@ -136,7 +136,8 @@ __log_init() {
 	echo -e cygport ${_version} '\n' >> ${log}
 
 	for var in PF S B D C T CBUILD CHOST CTARGET CC CFLAGS CPPFLAGS CXX CXXFLAGS \
-	           F77 FFLAGS FC FCFLAGS GCJ GCJFLAGS LDFLAGS LIBS MAKEOPTS
+	           F77 FFLAGS FC FCFLAGS GCJ GCJFLAGS OBJC OBJCFLAGS OBJCXX OBJCXXFLAGS \
+	           LDFLAGS LIBS MAKEOPTS
 	do
 		echo ${var} = ${!var} >> ${log}
 	done
