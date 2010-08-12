@@ -465,4 +465,7 @@ src_compile() {
 }
 #****
 
-readonly -f cygautoreconf cygconf
+if ! defined _autotools_CYGCLASS_stage1_
+then
+	readonly -f cygautoreconf cygconf
+fi

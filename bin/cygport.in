@@ -291,8 +291,9 @@ source ${_privlibdir}/pkg_cleanup.cygpart
 # Auto-inherit autotools for backwards compatibility. But we
 # want to allow it to be inherited one more time in order to
 # reset src_compile() when other cygclasses override it.
+_autotools_CYGCLASS_stage1_=1
 inherit autotools;
-unset _autotools_CYGCLASS_
+unset _autotools_CYGCLASS_ _autotools_CYGCLASS_stage1_
 
 
 ################################################################################
