@@ -1,5 +1,6 @@
 dist_pkglib_DATA = \
 	check_funcs.cygpart			\
+	compilers.cygpart			\
 	config_registry.cygpart		\
 	help.cygpart				\
 	inheritance.cygpart			\

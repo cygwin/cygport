@@ -1,0 +1,139 @@
+################################################################################
+#
+# compilers.cygpart - cygport compiler settings
+#
+# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****d* Compiling/CC
+#  DESCRIPTION
+#  The GCC C compiler.
+#****
+declare -x CC="gcc";
+
+#****v* Compiling/CFLAGS
+#  DESCRIPTION
+#  Flags passed to CC when compiling C code.  Individual packages may append
+#  or override this value if they will not build correctly without it.
+#  DEFAULT VALUE
+#  -O2 -pipe
+#****
+declare -x CFLAGS="-O2 -pipe ";
+
+#****v* Compiling/CPPFLAGS
+#  DESCRIPTION
+#  Flags passed to the preprocessor.  Individual packages may append
+#  or override this value if they will not build correctly without it.
+#****
+declare -x CPPFLAGS="";
+
+#****d* Compiling/CXX
+#  DESCRIPTION
+#  The GCC C++ compiler.
+#****
+declare -x CXX="g++";
+
+#****v* Compiling/CXXFLAGS
+#  DESCRIPTION
+#  Flags passed to CXX when compiling C++ code.  Individual packages may append
+#  or override this value if they will not build correctly without it.
+#  DEFAULT VALUE
+#  -O2 -pipe
+#****
+declare -x CXXFLAGS="${CFLAGS}";
+
+#****d* Compiling/F77
+#  DESCRIPTION
+#  The GCC Fortran 77 compiler.
+#  SEE ALSO
+#  FC
+#****
+declare -x F77="gfortran";
+
+#****v* Compiling/FFLAGS
+#  DESCRIPTION
+#  Flags passed to F77 when compiling Fortran 77 code.  Individual packages may
+#  append or override this value if they will not build correctly without it.
+#  DEFAULT VALUE
+#  -O2 -pipe
+#****
+declare -x FFLAGS="${CFLAGS}";
+
+#****d* Compiling/FC
+#  DESCRIPTION
+#  The GCC Fortran 95 compiler.
+#  SEE ALSO
+#  F77
+#****
+declare -x FC="gfortran";
+
+#****v* Compiling/FCFLAGS
+#  DESCRIPTION
+#  Flags passed to FC when compiling Fortran 95 code.  Individual packages may
+#  append or override this value if they will not build correctly without it.
+#  DEFAULT VALUE
+#  -O2 -pipe
+#****
+declare -x FCFLAGS="${CFLAGS}";
+
+#****d* Compiling/GCJ
+#  DESCRIPTION
+#  The GCC Java native-code compiler.
+#  SEE ALSO
+#  java.cygclass
+#****
+declare -x GCJ="gcj";
+
+#****v* Compiling/GCJFLAGS
+#  DESCRIPTION
+#  Flags passed to GCJ when native-compiling Java code.  Individual packages may
+#  append or override this value if they will not build correctly without it.
+#  DEFAULT VALUE
+#  -O2 -pipe
+#****
+declare -x GCJFLAGS="${CFLAGS}";
+
+#****v* Compiling/LDFLAGS
+#  DESCRIPTION
+#  Flags passed to the linker.  Individual packages may append
+#  or override this value if they will not build correctly without it.
+#****
+declare -x LDFLAGS="";
+
+declare -x LIBS="";
+
+# system triplets
+declare    CBUILD=$(${_privdatadir}/config.guess)
+declare    CHOST="i686-pc-cygwin";
+declare    CTARGET=${CHOST};
+declare    CROSS_HOST="";
+declare    CROSS_SYSROOT="";
+declare    TOOLCHAIN_TARGET="";
+
+if [ ${CBUILD} != ${CHOST} ]
+then
+	warning "You are attempting to use cygport from a non-Cygwin host."
+	warning "This configuration has NOT been tested and may not work."
+	warning "Please send the results of your attempt to the mailing list."
+
+	CC=${CHOST}-gcc
+	CXX=${CHOST}-g++
+	F77=${CHOST}-gfortran
+	FC=${CHOST}-gfortran
+	GCJ=${CHOST}-gcj
+fi

@@ -303,51 +303,6 @@ unset _autotools_CYGCLASS_
 
 # Values which can be overridden either system-wide or per package
 
-#****d* Compiling/CC
-#  DESCRIPTION
-#  The GCC C compiler.
-#****
-declare -x CC="gcc";
-declare -x CFLAGS="-O2 -pipe ";
-declare -x CPPFLAGS="";
-
-#****d* Compiling/CXX
-#  DESCRIPTION
-#  The GCC C++ compiler.
-#****
-declare -x CXX="g++";
-declare -x CXXFLAGS="${CFLAGS}";
-
-#****d* Compiling/F77
-#  DESCRIPTION
-#  The GCC Fortran 77 compiler.
-#  SEE ALSO
-#  FC
-#****
-declare -x F77="gfortran";
-declare -x FFLAGS="${CFLAGS}";
-
-#****d* Compiling/FC
-#  DESCRIPTION
-#  The GCC Fortran 95 compiler.
-#  SEE ALSO
-#  F77
-#****
-declare -x FC="gfortran";
-declare -x FCFLAGS="${CFLAGS}";
-
-#****d* Compiling/GCJ
-#  DESCRIPTION
-#  The GCC Java native-code compiler.
-#  SEE ALSO
-#  java.cygclass
-#****
-declare -x GCJ="gcj";
-declare -x GCJFLAGS="${CFLAGS}";
-
-# documented in cygport.conf
-declare -x LDFLAGS="";
-declare -x LIBS="";
 declare    MAKEOPTS="-j$(($(grep -c '^proc' /proc/cpuinfo) + 1)) ";
 
 # load configuration
@@ -363,26 +318,9 @@ do
 done
 unset conf;
 
-# system triplets
-declare    CBUILD=$(${_privdatadir}/config.guess)
-declare    CHOST="i686-pc-cygwin";
-declare    CTARGET=${CHOST};
-declare    CROSS_HOST="";
-declare    CROSS_SYSROOT="";
-declare    TOOLCHAIN_TARGET="";
-
-if [ ${CBUILD} != ${CHOST} ]
-then
-	warning "You are attempting to use cygport from a non-Cygwin host."
-	warning "This configuration has NOT been tested and may not work."
-	warning "Please send the results of your attempt to the mailing list."
-
-	CC=${CHOST}-gcc
-	CXX=${CHOST}-g++
-	F77=${CHOST}-gfortran
-	FC=${CHOST}-gfortran
-	GCJ=${CHOST}-gcj
-fi
+### CC/CXX, CFLAGS/CXXFLAGS, etc.
+source ${_privlibdir}/compilers.cygpart
+###
 
 
 ################################################################################
