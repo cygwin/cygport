@@ -31,8 +31,7 @@
 #  to allow package maintainers both the ability to choose their favourite
 #  mirrors and use an abbreviated URI for common sites.
 #
-#  The default mirrors are usually the central download site or a redirector;
-#  other mirrors will be tried if downloading from the default mirror fails.
+#  The default mirrors are usually the central download site or a redirector.
 #  Users can select their favourite mirrors by redefining the mirror_*
 #  variables listed below (as a string containing one or more mirror sites)
 #  in their cygport.conf.
@@ -59,287 +58,7 @@
 # grep -h '^  <TD ALIGN="RIGHT"><A HREF=' index.html \
 # | sed -e 's#<TD ALIGN="RIGHT"><A HREF="\(.*\)/">.*#\1#g' \
 # | cut -d '"' -f 1 | sed -e 's#^  #\t#g' -e 's#/$##g'
-mirror_apache="
-	http://www.apache.org/dist
-	http://www.eu.apache.org/dist
-	http://apache.mesi.com.ar
-	http://apache.xmundo.com.ar
-	http://apache.localhost.net.ar
-	http://apache.dattatec.com
-	http://apache.ipv4networks.com
-	http://apache.wnpower.com
-	http://apache.planetmirror.com.au/dist
-	ftp://mirror.pacific.net.au/apache-dist
-	http://apache.mirror.pacific.net.au
-	http://apache.ausgamers.com
-	ftp://ftp.planetmirror.com/pub/apache/dist
-	ftp://gd.tuwien.ac.at/pub/infosys/servers/http/apache/dist
-	http://gd.tuwien.ac.at/infosys/servers/http/apache/dist
-	http://mirror.deri.at/apache
-	http://apache.4any.org
-	http://www.securehost.com/mirror/apache
-	ftp://apache.belnet.be/mirrors/ftp.apache.org
-	http://apache.belnet.be
-	http://apache.scarlet.be
-	ftp://ftp.scarlet.be/pub/apache
-	http://apache.blic.net
-	ftp://ftp.pop-mg.com.br/pub/apache
-	http://mirrors.uol.com.br/pub/apache
-	ftp://ftp.pucpr.br/apache
-	http://ftp.pucpr.br/apache
-	http://ftp.unicamp.br/pub/apache
-	http://apache.online.bg
-	ftp://ftp.uni-sofia.bg/apache
-	http://apache.cbox.biz
-	http://apache.skknet.net
-	http://gulus.USherbrooke.ca/pub/appl/apache
-	ftp://apache.mirror.rafal.ca/pub/apache
-	http://apache.mirror.rafal.ca
-	ftp://apache.sunsite.ualberta.ca/pub/apache
-	http://apache.sunsite.ualberta.ca
-	ftp://apache.mirrors.northco.net
-	http://apache.mirrors.northco.net
-	http://apache.freeby.pctools.cl
-	http://mirror.vmmatrix.net/apache
-	http://apache.justdn.org
-	http://apache.uniandes.edu.co
-	http://apache.ucr.ac.cr
-	http://ftp.carnet.hr/misc/apache
-	http://ftp.sh.cvut.cz/MIRRORS/apache
-	http://mirror.styx.cz/apache
-	http://tomcat.edu.brock.dk/apache
-	ftp://apache-mirror.dkuug.dk/pub/apache
-	http://apache-mirror.dkuug.dk
-	http://mirrors.dotsrc.org/apache
-	http://apache.zone-h.org
-	http://apache.fi
-	http://apache.fastorama.com/dist
-	ftp://ftp.fastorama.com/mirrors/ftp.apache.org/dist
-	http://apache.multidist.com
-	http://apache.cict.fr
-	http://apache.crihan.fr/dist
-	ftp://ftp.inria.fr/pub/Apache
-	ftp://mir1.ovh.net/ftp.apache.org/dist
-	http://mir2.ovh.net/ftp.apache.org/dist
-	http://ox.mysoft.ge/apache
-	http://apache.lauf-forum.at
-	http://www.internet.bs/apache.org
-	ftp://ftp.apache.de/mirrors/dev.apache.org/dist
-	http://www.apache.de/dist
-	http://apache.autinity.de
-	http://apache.easy-webs.de
-	ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/ftp.apache.org/dist
-	ftp://ftp.fu-berlin.de/unix/www/apache
-	http://www.ftp.apache.mirroarrr.de
-	http://apache.mirroring.de
-	ftp://ftp.plusline.de/pub/ftp.apache.org
-	http://ftp.plusline.de/ftp.apache.org
-	http://mirror.serversupportforum.de/apache
-	http://apache.speedbone.de
-	ftp://ftp.uni-erlangen.de/pub/mirrors/apache
-	http://ftp.uni-erlangen.de/pub/mirrors/apache
-	http://apache.eu.lucid.dk
-	http://apache.imsam.info
-	http://apache.mirror.iphh.net
-	http://www.artfiles.org/apache.org
-	http://apache.linux-mirror.org
-	http://mirrorspace.org/apache
-	http://netmirror.org/mirror/apache.org
-	ftp://ftp.physics.auth.gr/pub/mirrors/apache
-	http://ftp.physics.auth.gr/pub/mirrors/apache
-	http://apache.forthnet.gr
-	ftp://ftp.forthnet.gr/pub/www/apache
-	http://apache.ntua.gr/dist
-	ftp://ftp.ntua.gr/pub/www/Apache/dist
-	http://apache.otenet.gr/dist
-	ftp://ftp.uoi.gr/mirror/apache
-	http://mirror.worria.com/apache
-	http://www.zentek-international.com/mirrors/apache
-	http://apache.netsolutions.com.hk
-	http://apache.hkmirror.org
-	ftp://ftp.hkmirror.org/pub/apache
-	ftp://crysys.hit.bme.hu/pub/apache/dist
-	http://apache.mirrors.crysys.hit.bme.hu/dist
-	ftp://xenia.sote.hu/pub/mirrors/www.apache.org
-	http://xenia.sote.hu/ftp/mirrors/www.apache.org
-	http://apache.webhelyek.hu
-	http://apache.rhnet.is/dist
-	ftp://ftp.rhnet.is/pub/apache
-	http://apache.cbn.net.id
-	http://apache.the.net.id
-	ftp://ftp.esat.net/mirrors/ftp.apache.org
-	http://apache.mirrors.esat.net
-	http://apache.oss-mirror.org
-	http://www.initworld.com/apache
-	http://apache.fresh.co.il
-	http://off.co.il/apache
-	http://apache.spd.co.il
-	ftp://mirror.inter.net.il/mirrors/apache
-	http://mirror.inter.net.il/mirrors/apache
-	http://mirror.mirimar.net/apache
-	ftp://mirror.nohup.it/apache
-	http://mirror.nohup.it/apache
-	http://apache.panu.it
-	http://mirror.tomato.it/apache
-	ftp://cis.uniroma2.it/unix/packages/APACHE
-	http://apache.fis.uniroma2.it
-	http://apache.markoer.org
-	http://mirrors.publicshout.org/apache
-	ftp://ftp.meisei-u.ac.jp/pub/www/apache/dist
-	http://www.meisei-u.ac.jp/mirror/apache/dist
-	ftp://ftp.kddilabs.jp/infosystems/apache
-	http://ftp.kddilabs.jp/infosystems/apache
-	http://ftp.kaist.ac.kr/pub/Apache
-	http://mirror.apache.or.kr
-	ftp://byungsoo.net/pub/apache
-	http://ftp.apache-kr.org
-	http://apache.linux.edu.lv
-	http://apache.lie-comtel.li
-	http://apache.root.lu
-	http://mirrors.webcraftsolutions.com/apache
-	http://apache.leakage.org
-	http://www.sinacatri.gob.mx/apache
-	http://apache.namibia.na
-	ftp://apache.essentkabel.com/apache
-	http://apache.essentkabel.com
-	http://dist.apache.easynet.nl
-	ftp://apache.mirror.nedlinux.nl/pub/mirror/apache
-	http://apache.mirror.nedlinux.nl/dist
-	http://apache.nedmirror.nl
-	ftp://apache.proserve.nl/pub/apache
-	http://apache.proserve.nl
-	http://apache.surfnet.nl
-	http://apache.mirror.transip.nl
-	http://mirror.tuxor.nl/apache
-	http://apache.cs.uu.nl/dist
-	ftp://ftp.cs.uu.nl/mirror/apache.org/dist
-	http://apache.mirrors.webazilla.nl
-	http://mirror.dinpris.com/apache
-	http://www.powertech.no/apache/dist
-	http://www.opensourcecommunity.ph/apache
-	ftp://sunsite.icm.edu.pl/pub/www/apache/dist
-	http://sunsite.icm.edu.pl/pub/www/apache/dist
-	http://apache.forall.pl
-	ftp://ftp.task.gda.pl/pub/www/apache/dist
-	http://www.apache.net.pl
-	ftp://ftp.tpnet.pl/d1/apache
-	http://ftp.tpnet.pl/vol/d1/apache
-	ftp://apache.telepac.pt/pub/apache
-	http://apache.telepac.pt
-	ftp://neacm.fe.up.pt/pub/apache
-	http://neacm.fe.up.pt/pub/apache
-	http://apache.iasi.roedu.net
-	ftp://ftp.iasi.roedu.net/pub/mirrors/apache.org
-	ftp://ftp.b.astral.ro/pub/mirrors/ftp.apache.org
-	ftp://mirrors.evolva.ro/apache.org/apache-dist
-	http://mirrors.evolva.ro/apache.org/apache-dist
-	http://mirrors.fibernet.ro/Apache
-	http://apache.hostingromania.ro
-	http://apache.idilis.ro
-	ftp://ftp.idilis.ro/linux/http/apache
-	http://apache.rediska.ru
-	ftp://apache.rinet.ru/pub/mirror/apache.org/dist
-	http://apache.rinet.ru/dist
-	http://www.sai.msu.su/apache/dist
-	http://apache.oss.eznetsols.org
-	http://apache.tuke.sk
-	ftp://mirrors.tuke.sk/apache
-	http://mirrors.bevc.net/apache
-	http://apache.siol.net/dist
-	http://www.apache.si
-	http://www.buy.si/apache
-	ftp://ftp.saix.net/pub/apache/dist
-	http://ftp.saix.net/pub/apache/dist
-	http://apache.is.co.za/dist
-	ftp://ftp.is.co.za/Apache/dist
-	http://mirrors.hostalia.com/apache
-	http://apache.rediris.es
-	ftp://ftp.chl.chalmers.se/pub/apache
-	http://apache.dataphone.se
-	ftp://mirror2.dataphone.se/pub/apache
-	ftp://ftp.solace.mh.se/pub/mirrors/www.apache.org
-	http://ftp.solace.mh.se/pub/mirrors/www.apache.org
-	http://apache.archive.sunet.se/dist
-	ftp://ftp.sunet.se/pub/www/servers/apache/dist
-	ftp://mirror.switch.ch/mirror/apache/dist
-	http://mirror.switch.ch/mirror/apache/dist
-	http://apache.mirror.testserver.li
-	ftp://apache.cdpa.nsysu.edu.tw/Unix/Web/apache
-	http://apache.cdpa.nsysu.edu.tw
-	http://apache.ntu.edu.tw
-	http://apache.stu.edu.tw
-	ftp://ftp.stu.edu.tw/Unix/Web/apache
-	http://ftp.mirror.tw/pub/apache
-	http://apache.progen.com.tr/dist
-	http://godel.cs.bilgi.edu.tr/mirror/apache
-	http://apache.bilkent.edu.tr/dist
-	http://apache.dnepr.net
-	http://apache.infocom.ua
-	http://apache.net.ua
-	ftp://mirrors.dedipower.com/ftp.apache.org
-	http://mirrors.dedipower.com/ftp.apache.org
-	http://apache.mirror.positive-internet.com
-	ftp://ftp.gbnet.net/pub/apache/dist
-	ftp://ftp.mirrorservice.org/sites/ftp.apache.org
-	http://www.mirrorservice.org/sites/ftp.apache.org
-	ftp://ftp.mirror.ac.uk/sites/ftp.apache.org
-	http://www.mirror.ac.uk/mirror/ftp.apache.org
-	http://mirror.public-internet.co.uk/apache
-	http://apache.rmplc.co.uk
-	ftp://mirrors.rmplc.co.uk/pub/apache
-	http://mirror.candidhosting.com/pub/apache
-	http://mirrors.combose.com/apache
-	http://apache.edgescape.com
-	http://apache.forbigweb.com
-	http://apache.gr-linux.com
-	http://apache.mirrors.hoobly.com
-	http://apache.hoxt.com
-	http://www.ip97.com/apache.org
-	http://apache.mirror99.com
-	http://www.mirrorgeek.com/apache.org
-	http://download.nextag.com/apache
-	ftp://apache.mirrors.pair.com
-	http://apache.mirrors.pair.com
-	http://apache.seekmeup.com
-	http://www.signal42.com/mirrors/apache
-	http://apache.tradebit.com/pub
-	http://www.uniontransit.com/apache
-	http://apache.mirrors.versehost.com
-	http://www.wmwweb.com/apache
-	http://apache.ziply.com
-	http://apache.us.lucid.dk
-	http://mirror.cc.columbia.edu/pub/software/apache
-	ftp://mirror.sg.depaul.edu/pub/apache
-	http://linux.cs.lewisu.edu/apache
-	http://www.eng.lsu.edu/mirrors/apache
-	ftp://ftp.ccs.neu.edu/net/mirrors/Apache/dist
-	http://mirrors.ccs.neu.edu/Apache/dist
-	http://apache.oregonstate.edu
-	ftp://ftp.oregonstate.edu/pub/apache
-	ftp://apache.cs.utah.edu/pub/apache.org
-	http://apache.cs.utah.edu
-	ftp://ftp.wayne.edu/apache
-	http://ftp.wayne.edu/apache
-	http://apache.downlod.in
-	http://mirrors.24-7-solutions.net/pub/apache
-	http://www.axint.net/apache
-	http://apache.mirrormax.net
-	http://mirror.olnevhost.net/pub/apache
-	ftp://apache.mirrors.redwire.net/pub/apache
-	http://apache.mirrors.redwire.net
-	http://www.reverse.net/pub/apache
-	http://mirrors.sirium.net/pub/apache
-	ftp://apache.mirrors.tds.net/pub/apache.org
-	http://apache.mirrors.tds.net
-	http://apache.bw-ds.org
-	http://www.devlib.org/apache
-	http://government-grants.org/mirrors/apache.org
-	ftp://www.ibiblio.org/pub/mirrors/apache
-	http://www.ibiblio.org/pub/mirrors/apache
-	http://mirrors.isc.org/pub/apache
-	http://apache.openmirrors.org
-	http://apache2.openmirrors.org
-"	# mirror_apache
+mirror_apache+=" http://www.apache.org/dist"
 
 
 #****d* Mirrors/mirror_berlios
@@ -353,7 +72,7 @@ mirror_apache="
 #  http://developer.berlios.de/mirrors/
 #****
 # The FTP server listed is not for project releases
-mirror_berlios="
+mirror_berlios+="
 	http://download.berlios.de
 	http://download2.berlios.de
 "	# mirror_berlios
@@ -373,406 +92,7 @@ mirror_berlios="
 #****
 # cat SITES.html | egrep '^ *<A HREF=.*(CPAN|cpan).*(ht|f)tp:' | \
 #   sed -e 's! *<A HREF="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
-mirror_cpan="
-	http://search.cpan.org/CPAN
-
-	http://ftp.rucus.ru.ac.za/pub/perl/CPAN
-	ftp://ftp.rucus.ru.ac.za/pub/perl/CPAN
-	ftp://ftp.is.co.za/programming/perl/CPAN
-	ftp://ftp.saix.net/pub/CPAN
-	http://cpan.linuxforum.net
-	http://mirrors.dayouit.com/CPAN
-	ftp://mirrors.hknet.com/CPAN
-	http://mirror.vmmatrix.net/CPAN
-	http://ftp.cuhk.edu.hk/pub/packages/perl/CPAN
-	ftp://ftp.cuhk.edu.hk/pub/packages/perl/CPAN
-	http://www.archive.hk/cpan
-	http://mirror.gnowledge.org/cpan
-	http://komo.vlsm.org/CPAN
-	ftp://komo.vlsm.org/CPAN
-	http://cpan.shatel.ir
-	http://mirror.mirimar.net/cpan
-	http://cpan.initworld.com
-	ftp://ftp.u-aizu.ac.jp/pub/CPAN
-	ftp://ftp.kddilabs.jp/CPAN
-	ftp://ftp.jaist.ac.jp/pub/lang/perl/CPAN
-	http://ftp.cpan.jp
-	ftp://ftp.ring.gr.jp/pub/lang/perl/CPAN
-	http://ftp.yz.yamagata-u.ac.jp/pub/lang/cpan
-	ftp://ftp.yz.yamagata-u.ac.jp/pub/lang/cpan
-	http://cpan.MyBSD.org.my
-	http://cpan.bieffe.org
-	http://www.opensourcecommunity.ph/CPAN
-	http://mirror.kr.FreeBSD.org/CPAN
-	ftp://ftp.kr.FreeBSD.org/pub/CPAN
-	http://ftp.uos.ac.kr/CPAN
-	ftp://ftp.uos.ac.kr/CPAN
-	http://cpan.tomsk.ru
-	ftp://cpan.tomsk.ru
-	ftp://ftp.isu.net.sa/pub/CPAN
-	http://mirror.averse.net/pub/CPAN
-	ftp://mirror.averse.net/pub/CPAN
-	http://cpan.mirror.intermedia.com.sg
-	http://cpan.oss.eznetsols.org
-	ftp://ftp.oss.eznetsols.org/cpan
-	ftp://ftp.nctu.edu.tw/UNIX/perl/CPAN
-	http://cpan.cdpa.nsysu.edu.tw
-	ftp://cpan.cdpa.nsysu.edu.tw/Unix/Lang/CPAN
-	http://ftp.isu.edu.tw/pub/CPAN
-	ftp://ftp.isu.edu.tw/pub/CPAN
-	http://cpan.stu.edu.tw
-	ftp://ftp.stu.edu.tw/CPAN
-	http://ftp.stu.edu.tw/CPAN
-	ftp://ftp.stu.edu.tw/pub/CPAN
-	http://cpan.cs.pu.edu.tw
-	ftp://cpan.cs.pu.edu.tw/pub/CPAN
-	http://ftp.tku.edu.tw/pub/CPAN
-	ftp://ftp.tku.edu.tw/pub/CPAN
-	http://cpan.cgu.edu.tw
-	ftp://ftp.cgu.edu.tw/Mirror/CPAN
-	ftp://ftp.loxinfo.co.th/pub/cpan
-	http://cpan.ulak.net.tr
-	ftp://ftp.ulak.net.tr/pub/CPAN
-	http://ftp.ucr.ac.cr/Unix/CPAN
-	http://cpan.inode.at
-	ftp://cpan.inode.at
-	http://cpan.serveroffice.at
-	http://gd.tuwien.ac.at/languages/perl/CPAN
-	ftp://gd.tuwien.ac.at/pub/CPAN
-	http://ftp.belnet.be/packages/cpan
-	ftp://ftp.belnet.be/packages/cpan
-	http://ftp.easynet.be/pub/CPAN
-	ftp://ftp.easynet.be/pub/CPAN
-	http://cpan.mirrors.skynet.be
-	ftp://cpan.mirrors.skynet.be/pub/CPAN
-	ftp://ftp.kulnet.kuleuven.ac.be/pub/mirror/CPAN
-	http://cpan.scarlet.be
-	ftp://ftp.scarlet.be/pub/cpan
-	http://cpan.blic.net
-	http://cpan.cbox.biz
-	ftp://cpan.cbox.biz/cpan
-	http://cpan.online.bg
-	ftp://cpan.online.bg/cpan
-	http://ftp.uni-sofia.bg/cpan
-	ftp://ftp.uni-sofia.bg/cpan
-	http://ftp.linux.hr/pub/CPAN
-	ftp://ftp.linux.hr/pub/CPAN
-	http://dl.iskon.hr/pub/CPAN
-	ftp://dl.iskon.hr/pub/CPAN
-	ftp://ftp.fi.muni.cz/pub/CPAN
-	http://archive.cpan.cz
-	http://mirrors.dotsrc.org/cpan
-	ftp://mirrors.dotsrc.org/cpan
-	http://cpan.cybercity.dk
-	http://www.cpan.dk
-	http://mirror.uni-c.dk/pub/CPAN
-	ftp://ftp.ut.ee/pub/languages/perl/CPAN
-	ftp://ftp.funet.fi/pub/languages/perl/CPAN
-	http://mirror.eunet.fi/CPAN
-	http://cpan.enstimac.fr
-	ftp://ftp.inria.fr/pub/CPAN
-	ftp://ftp.erasme.org/pub/CPAN
-	http://ftp.u-paris10.fr/perl/CPAN
-	ftp://ftp.u-paris10.fr/perl/CPAN
-	http://cpan.mirrors.easynet.fr
-	ftp://cpan.mirrors.easynet.fr/pub/ftp.cpan.org
-	http://cpan.univ-paris.com
-	ftp://ftp.club-internet.fr/pub/perl/CPAN
-	ftp://ftp.oleane.net/pub/CPAN
-	ftp://ftp.pasteur.fr/pub/computing/CPAN
-	http://mir2.ovh.net/ftp.cpan.org
-	ftp://mir1.ovh.net/ftp.cpan.org
-	http://cpan.numericable.fr
-	ftp://cpan.numericable.fr/CPAN
-	http://ftp.crihan.fr/mirrors/ftp.cpan.org
-	ftp://ftp.crihan.fr/mirrors/ftp.cpan.org
-	http://ftp.u-strasbg.fr/CPAN
-	ftp://ftp.u-strasbg.fr/CPAN
-	ftp://cpan.cict.fr/pub/CPAN
-	ftp://ftp.cs.tu-berlin.de/pub/lang/perl/CPAN
-	http://www.cpan.mirroarrr.de
-	ftp://ftp.rub.de/pub/CPAN
-	http://www.planet-elektronik.de/CPAN
-	ftp://ftp.freenet.de/pub/ftp.cpan.org/pub/CPAN
-	http://dl.ambiweb.de/mirrors/ftp.cpan.org
-	http://ftp.uni-erlangen.de/pub/CPAN
-	ftp://ftp.uni-erlangen.de/pub/source/CPAN
-	ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/CPAN
-	http://netmirror.org/mirror/CPAN
-	ftp://netmirror.org/CPAN
-	http://www.mirrorspace.org/cpan
-	http://pandemonium.tiscali.de/pub/CPAN
-	ftp://pandemonium.tiscali.de/pub/CPAN
-	http://ftp.gwdg.de/pub/languages/perl/CPAN
-	ftp://ftp.gwdg.de/pub/languages/perl/CPAN
-	http://cpan.mirror.iphh.net
-	ftp://cpan.mirror.iphh.net/pub/CPAN
-	http://cpan.mirroring.de
-	http://cpan.interprovide.de
-	http://cpan.provocation.net
-	ftp://cpan.provocation.net
-	http://cpan.linux-mirror.org
-	http://ftp.cw.net/pub/CPAN
-	ftp://ftp.cw.net/pub/CPAN
-	ftp://ftp.leo.org/pub/CPAN
-	http://www.chemmedia.de/mirrors/CPAN
-	http://www.couol.com/cpan
-	http://cpan.noris.de
-	ftp://cpan.noris.de/pub/CPAN
-	ftp://ftp.mpi-sb.mpg.de/pub/perl/CPAN
-	ftp://ftp.gmd.de/mirrors/CPAN
-	ftp://ftp.forthnet.gr/pub/languages/perl/CPAN
-	http://ftp.kfki.hu/packages/perl/CPAN
-	ftp://ftp.kfki.hu/pub/packages/perl/CPAN
-	http://ftp.rhnet.is/pub/CPAN
-	ftp://ftp.rhnet.is/pub/CPAN
-	http://cpan.oss-mirror.org
-	http://ftp.esat.net/pub/languages/perl/CPAN
-	ftp://ftp.esat.net/pub/languages/perl/CPAN
-	http://ftp.heanet.ie/mirrors/ftp.perl.org/pub/CPAN
-	ftp://ftp.heanet.ie/mirrors/ftp.perl.org/pub/CPAN
-	http://bo.mirror.garr.it/mirrors/CPAN
-	ftp://bo.mirror.garr.it/mirrors/CPAN
-	http://cpan.panu.it
-	ftp://cis.uniRoma2.it/CPAN
-	ftp://ftp.edisontel.it/pub/CPAN_Mirror
-	http://cpan.flashnet.it
-	ftp://ftp.flashnet.it/pub/CPAN
-	http://mirror.lugroma.org/CPAN
-	ftp://ftp.lugroma.org/mirrors/CPAN
-	http://kvin.lv/pub/CPAN
-	http://ftp.litnet.lt/pub/CPAN
-	ftp://ftp.litnet.lt/pub/CPAN
-	http://cpan.waldonet.net.mt
-	http://ftp.lug.md/pub/mirrors/ftp.cpan.org
-	ftp://ftp.lug.md/pub/mirrors/ftp.cpan.org
-	ftp://ftp.quicknet.nl/pub/CPAN
-	http://cpan.fluoline.net
-	http://cpan.mirror.rokscom.nl
-	http://cpan.wanadoo.nl
-	ftp://cpan.wanadoo.nl/pub/CPAN
-	ftp://download.ip2.net/pub/mirror/CPAN
-	ftp://download.xs4all.nl/pub/mirror/CPAN
-	ftp://ftp.nl.uu.net/pub/CPAN
-	ftp://ftp.nluug.nl/pub/languages/perl/CPAN
-	http://gnu.kookel.org/ftp/CPAN
-	ftp://gnu.kookel.org/ftp/CPAN
-	ftp://mirror.vuurwerk.nl/pub/CPAN
-	http://cpan.osmirror.nl
-	ftp://ftp.osmirror.nl/pub/cpan
-	ftp://ftp.cpan.nl/pub/CPAN
-	http://ftp.easynet.nl/mirror/CPAN
-	ftp://ftp.easynet.nl/mirror/CPAN
-	http://archive.cs.uu.nl/mirror/CPAN
-	ftp://ftp.cs.uu.nl/mirror/CPAN
-	ftp://ftp.uninett.no/pub/languages/perl/CPAN
-	ftp://ftp.uit.no/pub/languages/perl/cpan
-	http://mirror.icis.pcz.pl/CPAN
-	ftp://mirror.icis.pcz.pl/CPAN
-	ftp://ftp.mega.net.pl/CPAN
-	ftp://sunsite.icm.edu.pl/pub/CPAN
-	ftp://perl.di.uminho.pt/pub/CPAN
-	http://cpan.dei.uc.pt
-	ftp://ftp.dei.uc.pt/pub/CPAN
-	ftp://ftp.nfsi.pt/pub/CPAN
-	http://ftp.linux.pt/pub/mirrors/CPAN
-	ftp://ftp.linux.pt/pub/mirrors/CPAN
-	http://cpan.interacesso.pt
-	ftp://cpan.interacesso.pt/pub/cpan
-	http://cpan.ip.pt
-	ftp://cpan.ip.pt/pub/cpan
-	http://cpan.telepac.pt
-	ftp://ftp.telepac.pt/pub/cpan
-	http://cpan.dcc.fc.up.pt
-	http://neacm.fe.up.pt/pub/CPAN
-	ftp://neacm.fe.up.pt/pub/CPAN
-	http://ftp.casaafacerilor.ro/mirrors/CPAN
-	ftp://ftp.casaafacerilor.ro/mirrors/CPAN
-	ftp://ftp.kappa.ro/pub/mirrors/ftp.perl.org/pub/CPAN
-	ftp://ftp.lug.ro/CPAN
-	ftp://ftp.roedu.net/pub/CPAN
-	http://mirrors.evolva.ro/CPAN
-	ftp://mirrors.evolva.ro/CPAN
-	ftp://ftp.dntis.ro/pub/cpan
-	ftp://ftp.iasi.roedu.net/pub/mirrors/ftp.cpan.org
-	ftp://ftp.ambra.ro/pub/CPAN
-	ftp://ftp.chg.ru/pub/lang/perl/CPAN
-	http://cpan.makeperl.org
-	ftp://cpan.makeperl.org/pub/CPAN
-	http://cpan.rinet.ru
-	ftp://cpan.rinet.ru/pub/mirror/CPAN
-	ftp://ftp.aha.ru/pub/CPAN
-	ftp://ftp.corbina.ru/pub/CPAN
-	http://cpan.sai.msu.ru
-	ftp://ftp.sai.msu.su/pub/lang/perl/CPAN
-	http://ftp.spbu.ru/CPAN
-	ftp://ftp.spbu.ru/CPAN
-	ftp://ftp.cvt.stuba.sk/pub/CPAN
-	http://www.klevze.si/cpan
-	ftp://ftp.arnes.si/software/perl/CPAN
-	http://www.wsection.com/cpan
-	http://cpan.imasd.elmundo.es
-	ftp://ftp.rediris.es/mirror/CPAN
-	http://ftp.du.se/CPAN
-	ftp://ftp.du.se/pub/CPAN
-	http://ftp.port80.se/pub/CPAN
-	ftp://ftp.port80.se/pub/CPAN
-	ftp://ftp.sunet.se/pub/lang/perl/CPAN
-	http://cpan.mirror.fr
-	http://cpan.mirror.solnet.ch
-	ftp://ftp.solnet.ch/mirror/CPAN
-	ftp://ftp.k-informatik.ch/pub/CPAN
-	http://mirror.switch.ch/ftp/mirror/CPAN
-	ftp://mirror.switch.ch/mirror/CPAN
-	http://cpan.org.ua
-	http://no-more.kiev.ua/CPAN
-	ftp://no-more.kiev.ua/pub/CPAN
-	http://cpan.gafol.net
-	ftp://ftp.gafol.net/pub/cpan
-	http://www.mirror.ac.uk/mirror/ftp.funet.fi/pub/languages/perl/CPAN
-	ftp://ftp.mirror.ac.uk/sites/ftp.funet.fi/pub/languages/perl/CPAN
-	http://www.mirrorservice.org/sites/ftp.funet.fi/pub/languages/perl/CPAN
-	ftp://ftp.mirrorservice.org/sites/ftp.funet.fi/pub/languages/perl/CPAN
-	http://cpan.mirror.anlx.net
-	ftp://ftp.mirror.anlx.net/CPAN
-	http://cpan.teleglobe.net
-	ftp://cpan.teleglobe.net/pub/CPAN
-	http://cpan.etla.org
-	ftp://cpan.etla.org/pub/CPAN
-	ftp://ftp.demon.co.uk/pub/CPAN
-	http://cpan.m.flirble.org
-	ftp://ftp.flirble.org/pub/CPAN
-	ftp://ftp.plig.org/pub/CPAN
-	http://hurricane.hinasu.net/CPAN
-	ftp://hurricane.hinasu.net/pub/CPAN
-	http://www.securehost.com/mirror/CPAN
-	http://cpan.arcticnetwork.ca
-	ftp://mirror.arcticnetwork.ca/pub/CPAN
-	http://cpan.sunsite.ualberta.ca
-	ftp://cpan.sunsite.ualberta.ca/pub/CPAN
-	http://theoryx5.uwinnipeg.ca/pub/CPAN
-	ftp://theoryx5.uwinnipeg.ca/pub/CPAN
-	http://CPAN.mirror.rafal.ca
-	ftp://CPAN.mirror.rafal.ca/pub/CPAN
-	ftp://ftp.nrc.ca/pub/CPAN
-	http://ftp.yi.org/CPAN
-	ftp://ftp.yi.org/CPAN
-	http://www.msg.com.mx/CPAN
-	ftp://ftp.msg.com.mx/pub/CPAN
-	http://www.stathy.com/CPAN
-	ftp://www.stathy.com/CPAN
-	http://ftp.wayne.edu/cpan
-	ftp://ftp.wayne.edu/cpan
-	http://mirrors.24-7-solutions.net/pub/CPAN
-	ftp://mirrors.24-7-solutions.net/pub/CPAN
-	http://cpan.mirror.qualispace.com
-	http://cpan.glines.org/CPAN
-	ftp://cpan.glines.org/pub/CPAN
-	http://mirror.hiwaay.net/CPAN
-	ftp://mirror.hiwaay.net/CPAN
-	http://cpan.binarycompass.org
-	http://www.mednor.net/ftp/pub/mirrors/CPAN
-	ftp://ftp.mednor.net/pub/mirrors/CPAN
-	http://mirrors.gossamer-threads.com/CPAN
-	http://mirrors.kernel.org/cpan
-	ftp://mirrors.kernel.org/pub/CPAN
-	http://cpan.mirrors.redwire.net
-	ftp://cpan.mirrors.redwire.net/pub/CPAN
-	http://cpan-sj.viaverio.com
-	ftp://cpan-sj.viaverio.com/pub/CPAN
-	http://www.perl.com/CPAN
-	http://www.uberlan.net/CPAN
-	http://www.cs.colorado.edu/mirrors/CPAN
-	ftp://www.cs.colorado.edu/mirrors/CPAN
-	ftp://ftp.dc.aleron.net/pub/CPAN
-	ftp://ftp.cise.ufl.edu/pub/mirrors/CPAN
-	http://cpan-2.mirrors.nks.net
-	http://cpan.hoxt.com
-	http://cpan.mirrors.nks.net
-	http://mirror.candidhosting.com/pub/CPAN
-	ftp://mirror.candidhosting.com/pub/CPAN
-	http://cpan.mirrors.hoobly.com
-	http://cpan.uchicago.edu/pub/CPAN
-	ftp://cpan.uchicago.edu/pub/CPAN
-	ftp://mirror.sg.depaul.edu/pub/CPAN
-	http://linux.cs.lewisu.edu/pub/CPAN
-	ftp://ftp.uwsg.iu.edu/pub/perl/CPAN
-	http://cpan.netnitco.net
-	ftp://cpan.netnitco.net/pub/mirrors/CPAN
-	http://archive.progeny.com/CPAN
-	ftp://archive.progeny.com/CPAN
-	http://fx.saintjoe.edu/pub/CPAN
-	ftp://ftp.saintjoe.edu/pub/CPAN
-	http://csociety-ftp.ecn.purdue.edu/pub/CPAN
-	ftp://csociety-ftp.ecn.purdue.edu/pub/CPAN
-	http://cpan.groovis.net
-	ftp://ftp.ccs.neu.edu/net/mirrors/ftp.funet.fi/pub/languages/perl/CPAN
-	ftp://cpan.cse.msu.edu
-	http://cpan.calvin.edu/pub/CPAN
-	ftp://cpan.calvin.edu/pub/CPAN
-	http://cpan.teleglobe.net
-	ftp://cpan.teleglobe.net/pub/CPAN
-	http://mirror.datapipe.net/CPAN
-	ftp://mirror.datapipe.net/pub/CPAN
-	http://cpan.belfry.net
-	http://cpan.erlbaum.net
-	ftp://cpan.erlbaum.net/CPAN
-	http://www.ibiblio.org/pub/mirrors/CPAN
-	ftp://mirrors.ibiblio.org/pub/mirrors/CPAN
-	ftp://ftp.ncsu.edu/pub/mirror/CPAN
-	http://mirrors.jtlnet.com/CPAN
-	ftp://mirrors.jtlnet.com/CPAN
-	http://ftp.osuosl.org/pub/CPAN
-	ftp://ftp.osuosl.org/pub/CPAN
-	http://ftp.epix.net/CPAN
-	http://mirrors.phenominet.com/pub/CPAN
-	ftp://mirrors.phenominet.com/pub/CPAN
-	http://cpan.pair.com
-	ftp://cpan.pair.com/pub/CPAN
-	ftp://carroll.cac.psu.edu/pub/CPAN
-	ftp://ftp.sunsite.utk.edu/pub/CPAN
-	http://mirror.uta.edu/CPAN
-	http://cpan.mirrorgeek.com
-	http://mirror.hyperian.net/CPAN
-	http://httpupdate.cpanel.net/pub/CPAN
-	http://cpan.cs.utah.edu
-	ftp://cpan.cs.utah.edu/pub/CPAN
-	ftp://mirror.xmission.com/CPAN
-	http://cpan-du.viaverio.com
-	ftp://cpan-du.viaverio.com/pub/CPAN
-	http://cpan.llarian.net
-	ftp://cpan.llarian.net/pub/CPAN
-	ftp://ftp-mirror.internap.com/pub/CPAN
-	http://cpan.mirrors.tds.net
-	ftp://cpan.mirrors.tds.net/pub/CPAN
-	http://mirror.sit.wisc.edu/pub/CPAN
-	ftp://mirror.sit.wisc.edu/pub/CPAN
-	http://cpan.hostrack.net
-	ftp://cpan.hostrack.net/pub/CPAN
-	http://cpan.mirrors.ilisys.com.au
-	ftp://ftp.auckland.ac.nz/pub/perl/CPAN
-	http://cpan.inspire.net.nz
-	ftp://cpan.inspire.net.nz/cpan
-	http://cpan.catalyst.net.nz/CPAN
-	ftp://cpan.catalyst.net.nz/pub/CPAN
-	http://aniani.ifa.hawaii.edu/CPAN
-	ftp://aniani.ifa.hawaii.edu/CPAN
-	ftp://mirrors.bannerlandia.com.ar/mirrors/CPAN
-	http://cpan.localhost.net.ar
-	ftp://mirrors.localhost.net.ar/pub/mirrors/CPAN
-	ftp://cpan.pop-mg.com.br/pub/CPAN
-	http://ftp.pucpr.br/CPAN
-	ftp://ftp.pucpr.br/CPAN
-	http://cpan.giga.com.br
-	ftp://cpan.giga.com.br
-	http://mirrors.uol.com.br/pub/cpan
-	http://cpan.netglobalis.net
-	ftp://cpan.netglobalis.net/pub/CPAN
-	ftp://ftp.telmexchile.cl/Linux/Perl/CPAN
-	http://mirrors.csol.org/CPAN
-	http://cpan.dcc.uchile.cl
-	ftp://cpan.dcc.uchile.cl/pub/lang/cpan
-"   # mirror_cpan
+mirror_cpan+=" http://search.cpan.org/CPAN"
 
 
 #****d* Mirrors/mirror_cran
@@ -789,61 +109,7 @@ mirror_cpan="
 #****
 # grep -P '^http.*\n</a>' mirrors.html \
 #   | sed -e '/<\/a>/d' -e 's#^#\t#g' -e 's#/$##g'
-mirror_cran="
-	http://cran.r-project.org
-
-	http://cran.cnr.Berkeley.edu
-	http://cran.stat.ucla.edu
-	http://cran.ssds.ucdavis.edu
-	http://rh-mirror.linux.iastate.edu/CRAN
-	http://www.stathy.com/cran
-	http://www.biometrics.mtu.edu/CRAN
-	http://cran.wustl.edu
-	http://www.ibiblio.org/pub/languages/R/CRAN
-	http://cran.mirrors.hoobly.com
-	http://lib.stat.cmu.edu/R/CRAN
-	http://cran.hostingzero.com
-	http://cran.fhcrc.org
-	http://cran.stat.sfu.ca
-	http://probability.ca/cran
-	http://mirror.cricyt.edu.ar/r
-	http://cran.au.r-project.org
-	http://cran.ms.unimelb.edu.au
-	http://cran.at.r-project.org
-	http://cran.br.r-project.org
-	http://www.insecta.ufv.br/CRAN
-	http://cran.fiocruz.br
-	http://www.vps.fmvz.usp.br/CRAN
-	http://dirichlet.mat.puc.cl
-	http://trapananda.homelinux.org/r-project
-	http://june.irb.hr/r
-	http://cran.biokontakt.cz
-	http://cran.dk.r-project.org
-	http://cran.fr.r-project.org
-	http://cran.univ-lyon1.fr
-	http://umfragen.sowi.uni-mainz.de/CRAN
-	http://cran.basemirror.de
-	http://ftp.heanet.ie/mirrors/cran.r-project.org
-	http://microarrays.unife.it/CRAN
-	http://rm.mirror.garr.it/mirrors/CRAN
-	http://cran.stat.unipd.it
-	http://dssm.unipa.it/CRAN
-	http://cran.md.tsukuba.ac.jp
-	http://bibs.snu.ac.kr/R
-	http://cran.dsmirror.nl
-	http://cran-mirror.cs.uu.nl
-	http://cran.ii.uib.no
-	http://novum.am.lublin.pl/CRAN
-	http://r.meteo.uni.wroc.pl
-	http://www.wsection.com/cran
-	http://cran.za.r-project.org
-	http://ftp.sunet.se/pub/lang/CRAN
-	http://cran.ch.r-project.org
-	http://cran.cs.pu.edu.tw
-	http://cran.csie.ntu.edu.tw
-	http://cran.uk.r-project.org
-	http://www.sourcekeg.co.uk/cran
-"	# mirror_cran
+mirror_cran+=" http://cran.r-project.org"
 
 
 #****d* Mirrors/mirror_debian
@@ -857,53 +123,7 @@ mirror_cran="
 #  http://www.debian.org/mirror/list
 #****
 # grep '^  <td><a href' list  | sed -e 's#.*"\(.*\)/".*#\t\1#g'
-mirror_debian="
-	http://ftp.debian.org/debian
-
-	http://ftp.au.debian.org/debian
-	http://ftp.wa.au.debian.org/debian
-	http://ftp.at.debian.org/debian
-	http://ftp.be.debian.org/debian
-	http://ftp.br.debian.org/debian
-	http://ftp.bg.debian.org/debian
-	http://ftp.ca.debian.org/debian
-	http://ftp.cl.debian.org/debian
-	http://ftp.hr.debian.org/debian
-	http://ftp.cz.debian.org/debian
-	http://ftp.dk.debian.org/debian
-	http://ftp.ee.debian.org/debian
-	http://ftp.fi.debian.org/debian
-	http://ftp.fr.debian.org/debian
-	http://ftp2.fr.debian.org/debian
-	http://ftp.de.debian.org/debian
-	http://ftp2.de.debian.org/debian
-	http://ftp.uk.debian.org/debian
-	http://ftp.gr.debian.org/debian
-	http://ftp.hk.debian.org/debian
-	http://ftp.hu.debian.org/debian
-	http://ftp.is.debian.org/debian
-	http://ftp.ie.debian.org/debian
-	http://ftp.it.debian.org/debian
-	http://ftp.jp.debian.org/debian
-	http://ftp2.jp.debian.org/debian
-	http://ftp.kr.debian.org/debian
-	http://ftp.mx.debian.org/debian
-	http://ftp.nl.debian.org/debian
-	http://ftp.nz.debian.org/debian
-	http://ftp.no.debian.org/debian
-	http://ftp.pl.debian.org/debian
-	http://ftp.pt.debian.org/debian
-	http://ftp.ro.debian.org/debian
-	http://ftp.ru.debian.org/debian
-	http://ftp.sk.debian.org/debian
-	http://ftp.si.debian.org/debian
-	http://ftp.es.debian.org/debian
-	http://ftp.se.debian.org/debian
-	http://ftp.ch.debian.org/debian
-	http://ftp.tw.debian.org/debian
-	http://ftp.tr.debian.org/debian
-	http://ftp.us.debian.org/debian
-"	# mirror_debian
+mirror_debian+=" http://ftp.debian.org/debian"
 
 
 #****d* Mirrors/mirror_gcc
@@ -919,31 +139,7 @@ mirror_debian="
 #  mirror_gnu
 #****
 # grep '^<li>' mirrors.html | sed -e 's|.*<a href="\([^"]*\).*|\1|g' -e 's|/$||g'
-mirror_gcc="
-	ftp://gcc.gnu.org/pub/gcc/
-
-	ftp://gd.tuwien.ac.at/gnu/gcc
-	http://gcc.igor.onlinedirect.bg
-	http://gcc.parentinginformed.com
-	http://gcc-ca.internet.bs
-	ftp://linuxforum.net/ftp.gcc.gnu.org
-	ftp://ftp.lip6.fr/pub/gcc
-	ftp://ftp.irisa.fr/pub/mirrors/gcc.gnu.org/gcc
-	ftp://ftp.uvsq.fr/pub/gcc
-	ftp://ftp.fu-berlin.de/unix/languages/gcc
-	ftp://ftp.gwdg.de/pub/misc/gcc
-	ftp://ftp.mpi-sb.mpg.de/pub/gnu/mirror/gcc.gnu.org/pub/gcc
-	http://gcc.cybermirror.org
-	ftp://ftp.ntua.gr/pub/gnu/gcc
-	http://robotlab.itk.ppke.hu/gcc
-	ftp://ftp.dti.ad.jp/pub/lang/gcc
-	ftp://ring.etl.go.jp/pub/lang/egcs
-	ftp://ftp.nluug.nl/mirror/languages/gcc
-	http://gcc.fyxm.net
-	ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc
-	http://gcc-uk.internet.bs
-	http://mirror-fpt-telecom.fpt.net/gcc
-"	# mirror_gcc
+mirror_gcc+=" ftp://gcc.gnu.org/pub/gcc"
 
 
 #****d* Mirrors/mirror_gentoo
@@ -960,192 +156,7 @@ mirror_gcc="
 #****
 # egrep '^<a href="(ht|f)tp:.*</a><br>$' mirrors.xml | \
 #	sed -e 's#<a href="\(.*\)".*</a>.*#\t\1#' -e 's#/$##' -e 's#$#/distfiles#'
-mirror_gentoo="
-	http://gentoo.osuosl.org/distfiles
-	http://adelie.polymtl.ca/distfiles
-	ftp://gentoo.arcticnetwork.ca/pub/gentoo/distfiles
-	http://gentoo.arcticnetwork.ca/distfiles
-	ftp://mirrors.tera-byte.com/pub/gentoo/distfiles
-	http://gentoo.mirrors.tera-byte.com/distfiles
-	ftp://distro.ibiblio.org/pub/linux/distributions/gentoo/distfiles
-	http://distro.ibiblio.org/pub/linux/distributions/gentoo/distfiles
-	ftp://ftp.gtlib.gatech.edu/pub/gentoo/distfiles
-	http://www.gtlib.gatech.edu/pub/gentoo/distfiles
-	ftp://mirror.iawnet.sandia.gov/pub/gentoo/distfiles
-	ftp://ftp.ussg.iu.edu/pub/linux/gentoo/distfiles
-	ftp://ftp.ucsb.edu/pub/mirrors/linux/gentoo/distfiles
-	http://ftp.ucsb.edu/pub/mirrors/linux/gentoo/distfiles
-	http://gentoo.chem.wisc.edu/gentoo/distfiles
-	ftp://gentoo.chem.wisc.edu/gentoo/distfiles
-	http://cudlug.cudenver.edu/gentoo/distfiles
-	http://gentoo.mirrors.tds.net/gentoo/distfiles
-	ftp://gentoo.mirrors.tds.net/gentoo/distfiles
-	http://gentoo.netnitco.net/distfiles
-	ftp://gentoo.netnitco.net/pub/mirrors/gentoo/source/distfiles
-	http://mirror.espri.arizona.edu/gentoo/distfiles
-	http://mirrors.acm.cs.rpi.edu/gentoo/distfiles
-	ftp://ftp.ndlug.nd.edu/pub/gentoo/distfiles
-	http://open-systems.ufl.edu/mirrors/gentoo/distfiles
-	http://gentoo.llarian.net/distfiles
-	ftp://gentoo.llarian.net/pub/gentoo/distfiles
-	http://gentoo.binarycompass.org/distfiles
-	http://mirror.datapipe.net/gentoo/distfiles
-	ftp://mirror.datapipe.net/gentoo/distfiles
-	http://prometheus.cs.wmich.edu/gentoo/distfiles
-	http://modzer0.cs.uaf.edu/public/gentoo/distfiles
-	http://mirror.usu.edu/mirrors/gentoo/distfiles
-	ftp://mirror.usu.edu/mirrors/gentoo/distfiles
-	ftp://lug.mtu.edu/gentoo/distfiles
-	http://mirror.phy.olemiss.edu/mirror/gentoo/distfiles
-	ftp://mirror.mcs.anl.gov/pub/gentoo/distfiles
-	http://gentoo.mirrors.easynews.com/linux/gentoo/distfiles
-	http://gentoo.cites.uiuc.edu/pub/gentoo/distfiles
-	ftp://gentoo.cites.uiuc.edu/pub/gentoo/distfiles
-	ftp://ftp.wwc.edu/pub/mirrors/ftp.gentoo.org/distfiles
-	http://mirror.utdlug.org/linux/distributions/gentoo/distfiles
-	ftp://mirror.utdlug.org/linux/distributions/gentoo/distfiles
-	http://gentoo.localhost.net.ar/distfiles
-	ftp://mirrors.localhost.net.ar/pub/mirrors/gentoo/distfiles
-	http://www.las.ic.unicamp.br/pub/gentoo/distfiles
-	ftp://ftp.las.ic.unicamp.br/pub/gentoo/distfiles
-	http://gentoo.inode.at/distfiles
-	ftp://gentoo.inode.at/source/distfiles
-	http://gd.tuwien.ac.at/opsys/linux/gentoo/distfiles
-	ftp://gd.tuwien.ac.at/opsys/linux/gentoo/distfiles
-	http://ftp.belnet.be/mirror/rsync.gentoo.org/gentoo/distfiles
-	ftp://ftp.belnet.be/mirror/rsync.gentoo.org/gentoo/distfiles
-	http://mirrors.ludost.net/gentoo/distfiles
-	ftp://mirrors.ludost.net/gentoo/distfiles
-	http://mirror.bih.net.ba/gentoo/distfiles
-	ftp://mirror.bih.net.ba/gentoo/distfiles
-	ftp://ftp.sh.cvut.cz/MIRRORS/gentoo/gentoo/distfiles
-	http://gentoo.supp.name/distfiles
-	http://mirror.uni-c.dk/pub/gentoo/distfiles
-	http://ftp.linux.ee/pub/gentoo/distfiles/distfiles
-	ftp://ftp.linux.ee/pub/gentoo/distfiles/distfiles
-	http://trumpetti.atm.tut.fi/gentoo/distfiles
-	ftp://trumpetti.atm.tut.fi/gentoo/distfiles
-	http://ftp.public.fix.fi/gentoo/distfiles
-	ftp://ftp.public.fix.fi/gentoo/distfiles
-	http://gentoo.modulix.net/gentoo/distfiles
-	http://ftp.club-internet.fr/pub/mirrors/gentoo/distfiles
-	ftp://gentoo.imj.fr/pub/gentoo/distfiles
-	ftp://ftp.free.fr/mirrors/ftp.gentoo.org/distfiles
-	ftp://ftp.tu-clausthal.de/pub/linux/gentoo/distfiles
-	ftp://sunsite.informatik.rwth-aachen.de/pub/Linux/gentoo/distfiles
-	http://linux.rz.ruhr-uni-bochum.de/download/gentoo-mirror/distfiles
-	ftp://linux.rz.ruhr-uni-bochum.de/gentoo-mirror/distfiles
-	http://ftp.uni-erlangen.de/pub/mirrors/gentoo/distfiles
-	ftp://ftp.uni-erlangen.de/pub/mirrors/gentoo/distfiles
-	http://ftp6.uni-erlangen.de/pub/mirrors/gentoo/distfiles
-	ftp://ftp6.uni-erlangen.de/pub/mirrors/gentoo/distfiles
-	ftp://ftp.join.uni-muenster.de/pub/linux/distributions/gentoo/distfiles
-	ftp://ftp.wh2.tu-dresden.de/pub/mirrors/gentoo/distfiles
-	ftp://ftp.join.uni-muenster.de/pub/linux/distributions/gentoo/distfiles
-	ftp://ftp6.uni-muenster.de/pub/linux/distributions/gentoo/distfiles
-	ftp://ftp.ipv6.uni-muenster.de/pub/linux/distributions/gentoo/distfiles
-	http://mirrors.sec.informatik.tu-darmstadt.de/gentoo/distfiles
-	http://ftp-stud.fht-esslingen.de/pub/Mirrors/gentoo/distfiles
-	ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/gentoo/distfiles
-	ftp://ftp.gentoo.mesh-solutions.com/gentoo/distfiles
-	http://pandemonium.tiscali.de/pub/gentoo/distfiles
-	ftp://pandemonium.tiscali.de/pub/gentoo/distfiles
-	http://gentoo.intergenia.de/distfiles
-	http://gentoo.mneisen.org/distfiles
-	ftp://ftp.mneisen.org/gentoo/distfiles
-	ftp://files.gentoo.org/distfiles
-	http://files.gentoo.org/distfiles
-	ftp://ftp.ntua.gr/pub/linux/gentoo/distfiles
-	http://ftp.ntua.gr/pub/linux/gentoo/distfiles
-	ftp://ftp.uoi.gr/mirror/OS/gentoo/distfiles
-	http://ftp.uoi.gr/mirror/OS/gentoo/distfiles
-	http://ftp.physics.auth.gr/pub/mirrors/gentoo/distfiles
-	ftp://ftp.physics.auth.gr/pub/mirrors/gentoo/distfiles
-	http://gentoo.inf.elte.hu/distfiles
-	ftp://gentoo.inf.elte.hu/distfiles
-	ftp://ftp.nyx.hu/gentoo/distfiles
-	http://ftp.rhnet.is/pub/gentoo/distfiles
-	ftp://ftp.rhnet.is/pub/gentoo/distfiles
-	http://ftp.heanet.ie/pub/gentoo/distfiles
-	ftp://ftp.heanet.ie/pub/gentoo/distfiles
-	http://www.die.unipd.it/pub/Linux/distributions/gentoo-sources/distfiles
-	ftp://ftp.unina.it/pub/linux/distributions/gentoo/distfiles
-	http://ftp.snt.utwente.nl/pub/os/linux/gentoo/distfiles
-	ftp://ftp.snt.utwente.nl/pub/os/linux/gentoo/distfiles
-	http://ftp.snt.ipv6.utwente.nl/pub/os/linux/gentoo/distfiles
-	ftp://ftp.snt.ipv6.utwente.nl/pub/os/linux/gentoo/distfiles
-	ftp://mirror.scarlet-internet.nl/pub/gentoo/distfiles
-	http://gentoo.tiscali.nl/distfiles
-	ftp://gentoo.tiscali.nl/pub/mirror/gentoo/distfiles
-	http://mirror.gentoo.no/distfiles
-	http://darkstar.ist.utl.pt/gentoo/distfiles
-	ftp://darkstar.ist.utl.pt/pub/gentoo/distfiles
-	ftp://ftp.rnl.ist.utl.pt/pub/gentoo/distfiles
-	http://cesium.di.uminho.pt/pub/gentoo/distfiles
-	ftp://cesium.di.uminho.pt/pub/gentoo/distfiles
-	http://src.gentoo.pl/distfiles
-	http://gentoo.prz.rzeszow.pl/distfiles
-	http://gentoo.zie.pg.gda.pl/distfiles
-	http://gentoo.po.opole.pl/distfiles
-	ftp://gentoo.po.opole.pl/distfiles
-	ftp://mirror.icis.pcz.pl/gentoo/distfiles
-	ftp://ftp.lug.ro/gentoo/distfiles
-	http://ftp.lug.ro/gentoo/distfiles
-	http://ftp.roedu.net/pub/mirrors/gentoo.org/distfiles
-	ftp://ftp.roedu.net/pub/mirrors/gentoo.org/distfiles
-	ftp://ftp.romnet.org/gentoo/distfiles
-	http://ftp.romnet.org/gentoo/distfiles
-	http://mirrors.evolva.ro/gentoo/distfiles
-	ftp://mirrors.evolva.ro/gentoo/distfiles
-	http://gentoo.ynet.sk/pub/distfiles
-	http://linuv.uv.es/mirror/gentoo/distfiles
-	ftp://ftp.du.se/pub/os/gentoo/distfiles
-	http://ftp.du.se/pub/os/gentoo/distfiles
-	http://ds.thn.htu.se/linux/gentoo/distfiles
-	http://mirror.switch.ch/ftp/mirror/gentoo/distfiles
-	ftp://mirror.switch.ch/mirror/gentoo/distfiles
-	ftp://ftp.solnet.ch/mirror/Gentoo/distfiles
-	http://gentoo.mirror.solnet.ch/distfiles
-	http://ftp.ankara.edu.tr/gentoo/distfiles
-	ftp://ftp.ankara.edu.tr/gentoo/distfiles
-	http://gentoo.blueyonder.co.uk/distfiles
-	ftp://mirrors.blueyonder.co.uk/mirrors/gentoo/distfiles
-	http://www.mirrorservice.org/sites/www.ibiblio.org/gentoo/distfiles
-	ftp://ftp.mirrorservice.org/sites/www.ibiblio.org/gentoo/distfiles
-	http://mirror.etf.bg.ac.yu/gentoo/distfiles
-	http://public.planetmirror.com/pub/gentoo/distfiles
-	ftp://ftp.planetmirror.com/pub/gentoo/distfiles
-	http://mirror.pacific.net.au/linux/Gentoo/distfiles
-	ftp://mirror.pacific.net.au/linux/Gentoo/distfiles
-	http://mirror.isp.net.au/ftp/pub/gentoo/distfiles
-	ftp://mirror.isp.net.au/pub/gentoo/distfiles
-	ftp://ftp.swin.edu.au/gentoo/distfiles
-	http://ftp.swin.edu.au/gentoo/distfiles
-	http://mirror.gentoo.gr.jp/distfiles
-	http://gentoo.gg3.net/distfiles
-	ftp://gg3.net/pub/linux/gentoo/distfiles
-	ftp://ftp.ecc.u-tokyo.ac.jp/GENTOO/distfiles
-	http://gentoo.channelx.biz/distfiles
-	http://ftp.jaist.ac.jp/pub/Linux/Gentoo/distfiles
-	ftp://ftp.jaist.ac.jp/pub/Linux/Gentoo/distfiles
-	http://fido.online.kz/gentoo/distfiles
-	ftp://fido.online.kz/gentoo/pub/distfiles
-	http://ftp.gentoo.or.kr/distfiles
-	http://gentoo.kems.net/distfiles
-	ftp://gentoo.kems.net/mirrors/gentoo/distfiles
-	http://mirrors.64hosting.com/pub/mirrors/gentoo/distfiles
-	ftp://mirrors.64hosting.com/pub/mirrors/gentoo/distfiles
-	http://ftp.isu.edu.tw/pub/Linux/Gentoo/distfiles
-	ftp://ftp.isu.edu.tw/pub/Linux/Gentoo/distfiles
-	http://ftp.twaren.net/Linux/Gentoo/distfiles
-	ftp://ftp.twaren.net/Linux/Gentoo/distfiles
-	http://ftp.ncnu.edu.tw/Linux/Gentoo/distfiles
-	ftp://ftp.ncnu.edu.tw/Linux/Gentoo/distfiles
-	http://cdot.senecac.on.ca/software/gentoo/distfiles
-	http://securehost.com/mirror/gentoo/distfiles
-	http://mirror.averse.net/pub/gentoo/distfiles
-	ftp://mirror.averse.net/pub/gentoo/distfiles
-"	# mirror_gentoo
+mirror_gentoo+=" http://gentoo.osuosl.org/distfiles"
 
 
 #****d* Mirrors/mirror_gnome
@@ -1161,33 +172,10 @@ mirror_gentoo="
 #  gnome.org.cygclass
 #****
 # cat MIRRORS | grep 'tp:' | sed -e 's!/$!!g'
-mirror_gnome="
+mirror_gnome+="
+	http://download.gnome.org
 	http://ftp.gnome.org/pub/gnome
 	ftp://ftp.gnome.org/pub/gnome
-
-	ftp://ftp.cse.buffalo.edu/pub/Gnome
-	http://ftp.rpmfind.net/linux/gnome.org
-	ftp://ftp.ussg.iu.edu/pub/gnome
-	http://archive.progeny.com/GNOME
-	http://mirror.clarkson.edu/pub/gnome
-	http://planetmirror.com/pub/gnome
-	http://mirror.aarnet.edu.au/pub/GNOME
-	ftp://mirror.pacific.net.au/linux/GNOME
-	http://www.download-ftp-center.com/mirrors/gnome.org
-	http://ftp.unina.it/pub/linux/GNOME
-	http://fr.rpmfind.net/linux/gnome.org
-	http://fr2.rpmfind.net/linux/gnome.org
-	http://ftp.acc.umu.se/pub/GNOME
-	http://ftp.belnet.be/mirror/ftp.gnome.org
-	ftp://ftp.dataplus.se/pub/GNOME
-	ftp://ftp.dit.upm.es/pub/GNOME
-	http://ftp.linux.org.uk/mirrors/ftp.gnome.org
-	ftp://ftp.no.gnome.org/pub/GNOME
-	http://www.mirror.ac.uk/sites/ftp.gnome.org/pub/GNOME
-	ftp://ftp.isu.edu.tw/pub/Unix/Desktop/GNOME
-	http://www.zentek-international.com/mirrors/gnome
-	ftp://ftp.nara.wide.ad.jp/pub/X11/GNOME
-	http://ftp.nara.wide.ad.jp/pub/X11/GNOME
 "   # mirror_gnome
 
 
@@ -1203,154 +191,9 @@ mirror_gnome="
 #****
 # cat ftp.html | grep '<li><a' | \
 #   sed -e 's!.*<li><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
-mirror_gnu="
+mirror_gnu+="
 	http://ftpmirror.gnu.org
-
 	ftp://ftp.gnu.org/gnu
-	ftp://mirrors.kernel.org/gnu
-	http://mirrors.kernel.org/gnu
-	ftp://gatekeeper.dec.com/pub/GNU
-	ftp://ftp.keystealth.org/pub/gnu
-	ftp://mirrors.usc.edu/pub/gnu
-	http://mirrors.usc.edu/pub/gnu
-	http://www.mirrormonster.com/gnuftp
-	ftp://cudlug.cudenver.edu/pub/mirrors/ftp.gnu.org
-	ftp://ftp.cise.ufl.edu/pub/mirrors/GNU
-	ftp://uiarchive.cso.uiuc.edu/pub/ftp/ftp.gnu.org/gnu
-	ftp://gnu.cs.lewisu.edu/gnu
-	http://ftp.gnu.mirrors.hoobly.com
-	ftp://ftp.in-span.net/pub/mirrors/ftp.gnu.org
-	ftp://gnu.ms.uky.edu/pub/mirrors/gnu
-	ftp://ftp.algx.net/pub/gnu
-	http://ftp.algx.net/pub/gnu
-	ftp://aeneas.mit.edu/pub/gnu
-	ftp://ftp.egr.msu.edu/pub/gnu
-	http://ftp.egr.msu.edu/pub/gnu
-	ftp://ftp.wayne.edu/pub/gnu
-	http://ftp.wayne.edu/pub/gnu
-	ftp://wuarchive.wustl.edu/mirrors/gnu
-	http://wuarchive.wustl.edu/mirrors/gnu
-	ftp://gnu.teleglobe.net/ftp.gnu.org
-	ftp://ftp.cs.columbia.edu/archives/gnu/prep
-	ftp://ftp.ece.cornell.edu/pub/mirrors/gnu
-	ftp://ftp.ibiblio.org/pub/mirrors/gnu
-	ftp://ftp.cse.ohio-state.edu/mirror/gnu
-	ftp://ftp.club.cc.cmu.edu/gnu
-	http://ftp.club.cc.cmu.edu/pub/gnu
-	ftp://ftp.sunsite.utk.edu/pub/gnu/ftp
-	ftp://thales.memphis.edu/pub/gnu
-	ftp://gnu.wwc.edu
-	ftp://ftp.twtelecom.net/pub/GNU
-	ftp://ftp.sun.ac.za/pub/mirrorsites/ftp.gnu.org
-	ftp://ftp.unicamp.br/pub/gnu
-	ftp://master.softaplic.com.br/pub/gnu
-	ftp://ftp.matrix.com.br/pub/gnu
-	ftp://ftp.pucpr.br/gnu
-	ftp://ftp.linorg.usp.br/gnu
-	ftp://ftp.cs.ubc.ca/pub/gnu
-	ftp://cs.ubishops.ca/pub/ftp.gnu.org
-	ftp://ftp.inf.utfsm.cl/pub/gnu
-	ftp://sunsite.ulatina.ac.cr/Mirrors/GNU
-	ftp://www.gnu.unam.mx/pub/gnu/software
-	ftp://gnu.cem.itesm.mx/pub/mirrors/gnu.org
-	ftp://ftp.azc.uam.mx/mirrors/gnu
-	http://ftp.azc.uam.mx/mirrors/gnu
-	ftp://mirror.aarnet.edu.au/pub/gnu
-	ftp://gnu.mirror.pacific.net.au/gnu
-	ftp://ftp.cs.cuhk.edu.hk/pub/gnu/gnu
-	ftp://sunsite.ust.hk/pub/gnu
-	ftp://ftp.gnupilgrims.org/pub/gnu
-	ftp://www.imtech.res.in/mirror/gnuftp
-	ftp://kambing.vlsm.org/gnu
-	http://kambing.vlsm.org/gnu
-	ftp://ftp.cs.huji.ac.il/mirror/GNU
-	ftp://tron.um.u-tokyo.ac.jp/pub/GNU
-	ftp://core.ring.gr.jp/pub/GNU
-	ftp://ftp.ring.gr.jp/pub/GNU
-	ftp://mirrors.hbi.co.jp/gnu
-	ftp://ftp.cs.titech.ac.jp/pub/gnu
-	ftp://ftpmirror.hanyang.ac.kr/GNU
-	ftp://ftp.linux.sarang.net/mirror/gnu/gnu
-	ftp://ftp.xgate.co.kr/pub/mirror/gnu
-	ftp://ftp://gnu.xinicks.com
-	ftp://ftp.kaist.ac.kr/gnu
-	ftp://ftp.isu.net.sa/pub/gnu
-	ftp://ftp.nctu.edu.tw/UNIX/gnu
-	ftp://coda.nctu.edu.tw/UNIX/gnu
-	ftp://ftp1.sinica.edu.tw/pub3/GNU/gnu
-	ftp://gnu.cdpa.nsysu.edu.tw/gnu
-	ftp://ftp.nectec.or.th/pub/mirrors/gnu
-	ftp://ftp.gnu.vbs.at
-	ftp://ftp.univie.ac.at/packages/gnu
-	ftp://gd.tuwien.ac.at/gnu/gnusrc
-	http://gd.tuwien.ac.at/gnu/gnusrc
-	ftp://ftp.belnet.be/mirror/ftp.gnu.org
-	http://ftp.belnet.be/mirror/ftp.gnu.org
-	ftp://gnu.blic.net/pub/gnu
-	ftp://ftp.fi.muni.cz/pub/gnu
-	ftp://ftp.dkuug.dk/pub/gnu
-	ftp://sunsite.dk/mirrors/gnu
-	http://mirrors.sunsite.dk/gnu
-	ftp://ftp.funet.fi/pub/gnu/prep
-	ftp://ftp.irisa.fr/pub/gnu
-	ftp://ftp.cs.univ-paris8.fr/mirrors/ftp.gnu.org
-	ftp://ftp.cs.tu-berlin.de/pub/gnu
-	ftp://ftp.leo.org/pub/comp/os/unix/gnu
-	ftp://ftp.informatik.rwth-aachen.de/pub/gnu
-	ftp://ftp.de.uu.net/pub/gnu
-	ftp://ftp.freenet.de/pub/mirrors.ibiblio.org/pub/mirrors/gnu/ftp/gnu
-	ftp://ftp.cs.uni-bonn.de/pub/gnu
-	ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/ftp.gnu.org
-	http://ftp-stud.fht-esslingen.de/pub/Mirrors/ftp.gnu.org
-	ftp://ftp.stw-bonn.de/pub/mirror/ftp.gnu.org
-	ftp://ftp.math.uni-bremen.de/pub/gnu
-	http://gnu.mirrorspace.org
-	ftp://ftp.forthnet.gr/pub/gnu
-	ftp://ftp.ntua.gr/pub/gnu
-	ftp://ftp.duth.gr/pub/gnu
-	ftp://ftp.physics.auth.gr/pub/gnu
-	ftp://ftp.esat.net/pub/gnu
-	ftp://ftp.heanet.ie/mirrors/ftp.gnu.org
-	http://ftp.heanet.ie/mirrors/ftp.gnu.org
-	ftp://ftp.lugroma2.org/pub/gnu
-	ftp://ftp.gnu.inetcosmos.org/pub/gnu
-	ftp://ftp.digitaltrust.it/pub/gnu
-	ftp://ftp://rm.mirror.garr.it/mirrors/gnuftp
-	http://rm.mirror.garr.it/mirrors/gnuftp
-	ftp://ftp.nluug.nl/pub/gnu
-	ftp://ftp.mirror.nl/pub/mirror/gnu
-	ftp://ftp.nl.uu.net/pub/gnu
-	ftp://mirror.widexs.nl/pub/gnu
-	ftp://ftp.easynet.nl/mirror/GNU
-	http://ftp.easynet.nl/mirror/GNU
-	ftp://ftp.win.tue.nl/pub/gnu
-	ftp://gnu.mirror.vuurwerk.net/pub/GNU
-	ftp://gnu.kookel.org/pub/ftp.gnu.org
-	ftp://ftp.uninett.no/pub/gnu
-	ftp://ftp.task.gda.pl/pub/gnu
-	ftp://sunsite.icm.edu.pl/pub/gnu
-	ftp://ftp.man.poznan.pl/pub/gnu
-	ftp://ftp.ist.utl.pt/pub/GNU/gnu
-	ftp://ftp.telepac.pt/pub/gnu
-	http://ftp.roedu.net/mirrors/gnu.org
-	ftp://ftp.chg.ru/pub/gnu
-	ftp://gnuftp.axitel.ru
-	ftp://ftp.arnes.si/software/gnu
-	ftp://ftp.etsimo.uniovi.es/pub/gnu
-	ftp://ftp.rediris.es/pub/gnu
-	ftp://ftp.chl.chalmers.se/pub/gnu
-	ftp://ftp.isy.liu.se/pub/gnu
-	ftp://ftp.luth.se/pub/unix/gnu
-	ftp://ftp.stacken.kth.se/pub/gnu
-	ftp://ftp.sunet.se/pub/gnu
-	ftp://sunsite.cnlab-switch.ch/mirror/gnu
-	ftp://ftp.ulak.net.tr/gnu
-	ftp://ftp.gnu.org.ua
-	ftp://ftp.mcc.ac.uk/pub/gnu
-	ftp://ftp.mirror.ac.uk/sites/ftp.gnu.org/gnu
-	ftp://ftp.warwick.ac.uk/pub/gnu
-	ftp://ftp.hands.com/ftp.gnu.org
-	ftp://gnu.teleglobe.net/ftp.gnu.org
 "   # mirror_gnu
 
 
@@ -1366,7 +209,7 @@ mirror_gnu="
 #  SEE ALSO
 #  gnustep.cygclass
 #****
-mirror_gnustep="
+mirror_gnustep+="
 	http://ftp.gnustep.org/pub/gnustep
 	ftp://ftp.gnustep.org/pub/gnustep
 "	# mirror_gnustep
@@ -1386,98 +229,7 @@ mirror_gnustep="
 #****
 # cat ftp.php | grep '<dd><a' | \
 #   sed -e 's!.*<dd><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
-mirror_kde="
-	ftp://ftp.kde.org/pub/kde
-	http://kde.mirrors.hoobly.com
-	http://mirrors.isc.org/pub/kde
-	ftp://ftp.oregonstate.edu/pub/kde
-	ftp://ftp.gtlib.cc.gatech.edu/pub/kde
-	ftp://kde.mirrors.tds.net/pub/kde
-	ftp://gd.tuwien.ac.at/kde
-	ftp://ftp.solnet.ch/mirror/KDE
-	ftp://ftp.kde.org/pub/kde
-	ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/ftp.kde.org/pub/kde
-	ftp://mirrors.dotsrc.org/kde
-	ftp://ftp.du.se/pub/mirrors/kde
-	ftp://ftp.scarlet.be/pub/kde
-	ftp://ftp.rediris.es/mirror/kde/ftp.kde.org/pub/kde
-	ftp://ftp.caliu.info/pub/mirrors/kde
-	ftp://ftp.eu.uu.net/pub/kde
-	ftp://ftp.tiscali.nl/pub/mirrors/kde
-	ftp://ftp.na.kde.org/pub/kde
-	http://kde.gnusoft.net
-	http://kde.mirrors.hoobly.com
-	http://mirrors.isc.org/pub/kde
-	ftp://carroll.aset.psu.edu/pub/kde
-	ftp://ftp.oregonstate.edu/pub/kde
-	ftp://chernabog.cc.vt.edu/pub/projects/kde
-	ftp://ftp.gtlib.cc.gatech.edu/pub/kde
-	ftp://ftp.ussg.iu.edu/pub/kde
-	ftp://ibiblio.org/pub/mirrors/kde
-	ftp://kde.mirrors.tds.net/pub/kde
-	http://mirror.cc.columbia.edu/pub/software/kde
-	ftp://ftp.planetmirror.com/pub/kde
-	http://public.planetmirror.com/pub/kde
-	ftp://ftp.kddlabs.co.jp/pub/X11/kde
-	ftp://ftp.ring.gr.jp/pub/X/kde
-	ftp://ftp.yz.yamagata-u.ac.jp/pub/X11/wm/kde
-	ftp://ring.asahi-net.or.jp/pub/X/kde
-	ftp://sunsite.sut.ac.jp/pub/archives/linux/kde
-	ftp://ftp.sayclub.com/pub/X/KDE
-	ftp://ftp.nectec.or.th/pub/linux-softwares/KDE
-	ftp://linux.cis.nctu.edu.tw/X/wm/kde
-	ftp://gd.tuwien.ac.at/kde
-	ftp://ftp.solnet.ch/mirror/KDE
-	ftp://ftp.fi.muni.cz/pub/kde
-	ftp://ftp.fh-dortmund.de/pub/mirrors/kde
-	ftp://ftp.fu-berlin.de/pub/unix/X11/gui/kde
-	ftp://ftp.informatik.hu-berlin.de/pub/Mirrors/ftp.kde.org
-	ftp://ftp.informatik.uni-hamburg.de/pub/soft/X/contrib/kde
-	ftp://ftp.kde.org/pub/kde
-	ftp://ftp.rz.uni-wuerzburg.de/pub/unix/kde
-	ftp://ftp.tu-chemnitz.de/pub/X11/kde
-	ftp://sunsite.informatik.rwth-aachen.de/pub/Linux/kde
-	ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/ftp.kde.org/pub/kde
-	ftp://ftp.gwdg.de/pub/x11/kde
-	ftp://ftp.pbone.net/mirror/ftp.kde.org/pub/kde
-	ftp://ftp.tuniv.szczecin.pl/pub/kde
-	ftp://sunsite.icm.edu.pl/pub/unix/kde
-	ftp://kde.paralax.org/kde
-	ftp://ftp.iasi.roedu.net/pub/mirrors/ftp.kde.org
-	http://mirrors.evolva.ro/kdeftp
-	ftp://ftp.cronyx.ru/pub/mirror/kde
-	ftp://ftp.chg.ru/pub/kde
-	ftp://ftp.xcp.kiev.ua/ftp.kde.org
-	ftp://mirrors.dotsrc.org/kde
-	ftp://ftp.estpak.ee/pub/kde
-	ftp://ftp.rhnet.is/pub/kde
-	ftp://ftp.funet.fi/pub/mirrors/ftp.kde.org/pub/kde
-	ftp://ftp.no.kde.org/pub/kde
-	ftp://ftp.dataplus.se/pub/linux/kde
-	ftp://ftp.du.se/pub/mirrors/kde
-	ftp://ftp.sunet.se/pub/kde
-	ftp://ftp.duth.gr/pub/kde
-	ftp://ftp.hol.gr/pub/mirror/kde
-	ftp://ftp.ntua.gr/pub/X11/kde
-	ftp://ftp.unina.it/pub/Linux/kde
-	ftp://mi.mirror.garr.it/pub/mirrors/KDE
-	ftp://ftp.kde.org.yu/kde
-	ftp://ftp.belnet.be/packages/kde
-	ftp://ftp.scarlet.be/pub/kde
-	ftp://ftp.rediris.es/mirror/kde/ftp.kde.org/pub/kde
-	ftp://ftp.caliu.info/pub/mirrors/kde
-	ftp://ftp.lip6.fr/pub/X11/kde
-	ftp://ftp.uvsq.fr/pub/X11/kde
-	http://www-ftp.lip6.fr/pub/X11/kde
-	ftp://fr2.rpmfind.net/linux/KDE
-	ftp://ftp.esat.net/mirrors/ftp.kde.org/pub/kde
-	ftp://ftp.heanet.ie/mirrors/ftp.kde.org
-	ftp://ftp.eu.uu.net/pub/kde
-	ftp://ftp.tiscali.nl/pub/mirrors/kde
-	ftp://ftp.mirrorservice.org/sites/ftp.kde.org/pub/kde
-	http://www.mirrorservice.org/sites/ftp.kde.org/pub/kde
-	ftp://ftp.mirror.ac.uk/sites/ftp.kde.org/pub/kde
-"   # mirror_kde
+mirror_kde+=" ftp://ftp.kde.org/pub/kde"
 
 
 #****d* Mirrors/mirror_mplayer
@@ -1492,17 +244,7 @@ mirror_kde="
 #  NOTE
 #  MPlayer releases are often outdated; using a SVN checkout is recommended.
 #****
-mirror_mplayer="
-	http://www1.mplayerhq.hu/MPlayer
-	http://www2.mplayerhq.hu/MPlayer
-	http://www3.mplayerhq.hu/MPlayer
-	http://www5.mplayerhq.hu/MPlayer
-	http://www6.mplayerhq.hu/MPlayer
-	ftp://ftp1.mplayerhq.hu/MPlayer
-	ftp://ftp2.mplayerhq.hu/MPlayer
-	ftp://ftp5.mplayerhq.hu/MPlayer
-	ftp://ftp.fu-berlin.de/unix/X11/multimedia/MPlayer
-"	# mirror_mplayer
+mirror_mplayer+=" http://www1.mplayerhq.hu/MPlayer"
 
 
 #****d* Mirrors/mirror_mysql
@@ -1517,7 +259,7 @@ mirror_mplayer="
 #****
 #  grep '^  <td><a' mirrors.html | sed -e 's|.*href="\(.*\)">.*|\t\1|g' -e 's|/$||g'
 #  List primary mirrors first
-mirror_mysql="
+mirror_mysql+="
 	http://mirrors.dotsrc.org/mysql
 	ftp://mirrors.dotsrc.org/mysql
 	http://ftp.gwdg.de/pub/misc/mysql
@@ -1526,136 +268,6 @@ mirror_mysql="
 	ftp://ftp.mirrorservice.org/sites/ftp.mysql.com
 	http://mysql.oss.eznetsols.org
 	ftp://ftp.oss.eznetsols.org/mysql
-
-	http://gd.tuwien.ac.at/db/mysql
-	ftp://gd.tuwien.ac.at/db/mysql
-	http://mysql.mirror.kangaroot.net
-	ftp://mysql.mirror.kangaroot.net/pub/mysql
-	http://mysql.easynet.be
-	ftp://ftp.easynet.be/mysql
-	http://mysql.skynet.be
-	ftp://ftp.mysql.skynet.be/pub/ftp.mysql.com
-	http://mysql.blic.net
-	http://mysql.online.bg
-	ftp://mysql.online.bg
-	http://mysql.linux.cz
-	ftp://ftp.fi.muni.cz/pub/mysql
-	http://mysql.sh.cvut.cz
-	ftp://mysql.sh.cvut.cz/mysql
-	http://mysql.borsen.dk
-	http://mir2.ovh.net/ftp.mysql.com
-	ftp://mir1.ovh.net/ftp.mysql.com
-	http://mirrors.ircam.fr/pub/mysql
-	ftp://mirrors.ircam.fr/pub/mysql
-	http://artfiles.org/mysql
-	http://sunsite.informatik.rwth-aachen.de/mysql
-	ftp://sunsite.informatik.rwth-aachen.de/pub/mirror/www.mysql.com
-	http://mysql.speedbone.de
-	ftp://ftp.fu-berlin.de/unix/databases/mysql
-	http://ftp.ntua.gr/pub/databases/mysql
-	ftp://ftp.ntua.gr/pub/databases/mysql
-	http://mysql.mirrors.crysys.hit.bme.hu
-	ftp://ftp.crysys.hu/pub/mysql
-	http://mysql.rhnet.is
-	ftp://ftp.rhnet.is/pub/mysql
-	http://ftp.heanet.ie/mirrors/www.mysql.com
-	ftp://ftp.heanet.ie/mirrors/www.mysql.com
-	http://na.mirror.garr.it/mirrors/MySQL
-	ftp://na.mirror.garr.it/mirrors/MySQL
-	http://it.mysql.contactlab.it
-	http://mysql.bst.lt
-	http://mysql.mirrors.webazilla.nl
-	http://mirror.leaseweb.com/mysql
-	ftp://mirror.leaseweb.com/mysql
-	http://mysql.mirror.easycolocate.nl
-	ftp://mysql.mirror.easycolocate.nl
-	http://mirror.hostfuss.com/mysql
-	ftp://mirror.hostfuss.com/mysql
-	http://mysql.proserve.nl
-	ftp://mysql.proserve.nl/pub/mysql/Downloads
-	http://sunsite.icm.edu.pl/mysql
-	ftp://sunsite.icm.edu.pl/pub/unix/mysql
-	http://mysql.nfsi.pt
-	ftp://ftp.nfsi.pt/pub/mysql
-	http://mirrors.xservers.ro/mysql
-	http://mysql.phphosts.org
-	http://mirrors.paknet.org/mysql
-	http://ftp.arnes.si/mysql
-	ftp://ftp.arnes.si/packages/mysql
-	http://mysql.rediris.es
-	ftp://ftp.rediris.es/mirror/mysql
-	http://mysql.dataphone.se
-	ftp://mirror2.dataphone.se/pub/mysql
-	http://ftp.sunet.se/pub/unix/databases/relational/mysql
-	ftp://ftp.sunet.se/pub/unix/databases/relational/mysql
-	http://mirror.switch.ch/ftp/mirror/mysql
-	ftp://mirror.switch.ch/mirror/mysql
-	ftp://ftp.solnet.ch/mirror/mysql
-	http://ftp.itu.edu.tr/Mirror/Mysql
-	ftp://ftp.itu.edu.tr/Mirror/Mysql
-	http://mysql.infocom.ua
-	http://mysql.eukhost.com
-	http://mirrors.ukfast.co.uk/sites/ftp.mysql.com
-	ftp://mirrors.ukfast.co.uk/ftp.mysql.com
-	http://mirrors.dedipower.com/www.mysql.com
-	http://mysql.mirror.rafal.ca
-	ftp://mysql.mirror.rafal.ca/pub/mysql
-	http://mysql.mirror.iweb.ca
-	ftp://mysql.mirror.iweb.ca
-	http://mirror.csclub.uwaterloo.ca/mysql
-	ftp://mirror.csclub.uwaterloo.ca/mysql
-	http://mysql.llarian.net
-	ftp://mysql.llarian.net/pub/mysql
-	http://opensource.become.com/mysql
-	http://mirror.services.wisc.edu/mysql
-	ftp://mirror.services.wisc.edu/mirrors/mysql
-	ftp://mirror.anl.gov/pub/mysql
-	http://www.technocation.org/mirror/mysql
-	http://mysql.mirrors.hoobly.com
-	http://mysql.cce.usp.br
-	ftp://mysql.cce.usp.br/mysql
-	http://linorg.usp.br/mysql
-	ftp://linorg.usp.br/mysql
-	http://mirrors.ucr.ac.cr/MySQL
-	ftp://mirrors.ucr.ac.cr/MySQL
-	http://mysql.azc.uam.mx
-	ftp://mysql.azc.uam.mx/mirrors/mysql
-	http://mysql.mirrors.adc.am
-	http://mysql.mirrors.arminco.com
-	http://mysql.mivzakim.net
-	http://mysql.spd.co.il
-	http://mirror.mirimar.net/mysql
-	http://ftp.iij.ad.jp/pub/db/mysql
-	ftp://ftp.iij.ad.jp/pub/db/mysql
-	http://ftp.jaist.ac.jp/pub/mysql
-	ftp://ftp.jaist.ac.jp/pub/mysql
-	http://mirror.pakistani.org/mysql
-	ftp://mirror.pakistani.org/pub/mysql
-	http://mirror.pscigrid.gov.ph/mysql
-	ftp://mirror.pscigrid.gov.ph/mysql
-	http://mysql.byungsoo.net
-	ftp://mysql.byungsoo.net/pub/mysql
-	http://mirror.khlug.org/mysql
-	ftp://mirror.khlug.org/mysql
-	http://mysql.isu.edu.tw
-	http://mysql.stu.edu.tw
-	ftp://ftp.stu.edu.tw/pub/Unix/Database/Mysql
-	http://mysql.ntu.edu.tw
-	ftp://ftp.ntu.edu.tw/pub/MySQL
-	http://mysql.cs.pu.edu.tw
-	ftp://ftp.cs.pu.edu.tw/Unix/mysql
-	http://mysql.mirror.tw
-	ftp://ftp.mirror.tw/pub/mysql
-	http://mysql.cdpa.nsysu.edu.tw
-	ftp://mysql.cdpa.nsysu.edu.tw/Unix/Database/MySQL
-	http://mysql.thaiweb.net
-	http://mirror-fpt-telecom.fpt.net/mysql
-	ftp://mirror-fpt-telecom.fpt.net/mysql
-	http://mysql.mirror.ac.za
-	ftp://mysql.mirror.ac.za
-	http://mysql.mirrors.ilisys.com.au
-	http://mysql.inspire.net.nz
-	ftp://mysql.inspire.net.nz/mysql
 "	# mirror_mysql
 
 
@@ -1671,9 +283,7 @@ mirror_mysql="
 #  SEE ALSO
 #  mirror_gentoo
 #****
-mirror_portage="
-	http://sources.gentoo.org/viewcvs.py/*checkout*/gentoo-x86
-"	# mirror_portage
+mirror_portage+=" http://sources.gentoo.org/viewcvs.py/*checkout*/gentoo-x86"
 
 
 #****d* Mirrors/mirror_rubyforge
@@ -1682,20 +292,13 @@ mirror_portage="
 #  SYNOPSIS
 #  SRC_URI="mirror://rubyforge/projectname/${ORIG_PN}-${PV}.tar.gz"
 #  DEFAULT MIRROR
-#  http://rubyforge-files.ruby-forum.com
+#  http://files.rubyforge.vm.bytemark.co.uk
 #  MIRROR LIST
-#  http://rubyforge.org/credits/
+#  http://api.rubyforge.org/
 #  SEE ALSO
 #  ruby.cygclass
 #****
-mirror_rubyforge="
-	http://rubyforge-files.ruby-forum.com
-	http://files.rubyforge.mmmultiworks.com
-	http://files.ruby.inoack.com
-	http://rubyforge.iasi.roedu.net/files
-	http://rubyforge.rubyuser.de
-	http://files.rubyforge.vm.bytemark.co.uk
-"	# mirror_rubyforge
+mirror_rubyforge+=" http://files.rubyforge.vm.bytemark.co.uk"
 
 
 #****d* Mirrors/mirror_savannah
@@ -1709,37 +312,7 @@ mirror_rubyforge="
 #  http://download.savannah.nongnu.org/releases-noredirect/00_MIRRORS.txt
 #****
 #  sed -e 's|.* \(.*\)/|\t\1|g' 00_MIRRORS.txt
-mirror_savannah="
-	http://download.savannah.nongnu.org/releases
-
-	http://mirror.cinquix.com/pub/savannah
-	ftp://mirror.cinquix.com/pub/savannah
-	http://mirror.csclub.uwaterloo.ca/nongnu
-	ftp://mirror.csclub.uwaterloo.ca/nongnu
-	http://mirror.dknss.com/nongnu
-	http://mirror.sourceshare.org/savannah
-	http://mirrors.openfountain.cl/savannah
-	http://mirrors.zerg.biz/nongnu
-	http://www.very-clever.com/download/nongnu
-	http://nongnu.mirror.ironie.org/releases
-	http://mirror.its.uidaho.edu/pub/savannah
-	ftp://ftp.ironie.org/savannah.nongnu.org/releases
-	http://ftp.cc.uoc.gr/mirrors/nongnu.org
-	ftp://ftp.cc.uoc.gr/mirrors/nongnu.org
-	http://ftp.twaren.net/Unix/NonGNU
-	ftp://ftp.twaren.net/Unix/NonGNU
-	http://download.savannah.nongnu.org/releases-noredirect
-	http://nongnu.askapache.com
-	http://savannah.c3sl.ufpr.br
-	ftp://savannah.c3sl.ufpr.br/savannah-nongnu
-	http://savannah.inetbridge.net
-	http://mirror.lihnidos.org/GNU/savannah
-	http://mirrors.linhub.com/savannah
-	http://mirrors.aixtools.net/sv
-	http://ftp.tpnet.pl/vol/d12savannah
-	ftp://ftp.tpnet.pl/d12/savannah
-	http://mirror.vocabbuilder.net/savannah
-"
+mirror_savannah+=" http://download.savannah.nongnu.org/releases"
 
 
 #****d* Mirrors/mirror_sourceforge
@@ -1752,40 +325,7 @@ mirror_savannah="
 #  MIRROR LIST
 #  https://sourceforge.net/apps/trac/sourceforge/wiki/Mirrors
 #****
-mirror_sourceforge="
-	http://downloads.sourceforge.net
-	http://osdn.dl.sourceforge.net
-	http://biznetnetworks.dl.sourceforge.net
-	http://belnet.dl.sourceforge.net
-	http://dfn.dl.sourceforge.net
-	http://easynews.dl.sourceforge.net
-	http://fastbull.dl.sourceforge.net
-	http://freefr.dl.sourceforge.net
-	http://garr.dl.sourceforge.net
-	http://heanet.dl.sourceforge.net
-	http://hivelocity.dl.sourceforge.net
-	http://internap.dl.sourceforge.net
-	http://internode.dl.sourceforge.net
-	http://iweb.dl.sourceforge.net
-	http://jaist.dl.sourceforge.net
-	http://kent.dl.sourceforge.net
-	http://mesh.dl.sourceforge.net
-	http://nchc.dl.sourceforge.net
-	http://ncu.dl.sourceforge.net
-	http://nfsi.dl.sourceforge.net
-	http://ovh.dl.sourceforge.net
-	http://puzzle.dl.sourceforge.net
-	http://softlayer.dl.sourceforge.net
-	http://sunet.dl.sourceforge.net
-	http://superb-east.dl.sourceforge.net
-	http://superb-west.dl.sourceforge.net
-	http://surfnet.dl.sourceforge.net
-	http://switch.dl.sourceforge.net
-	http://transact.dl.sourceforge.net
-	http://ufpr.dl.sourceforge.net
-	http://voxel.dl.sourceforge.net
-	http://waix.dl.sourceforge.net
-"   # mirror_sourceforge
+mirror_sourceforge+=" http://downloads.sourceforge.net"
 
 
 #****d* Mirrors/mirror_qt
@@ -1798,10 +338,7 @@ mirror_sourceforge="
 #  MIRROR LIST
 #  ftp://ftp.qt.nokia.com/mirrors
 #****
-mirror_qt="
-	http://download.qt.nokia.com
-	ftp://ftp.qt.nokia.com
-"   # mirror_qt
+mirror_qt+=" http://download.qt.nokia.com"
 
 
 #****d* Mirrors/mirror_trolltech
@@ -1809,7 +346,7 @@ mirror_qt="
 #  This mirror is deprecated and remains only for backwards compatibility.
 #  New code should use mirror_qt.
 #****
-mirror_trolltech="${mirror_qt}"
+mirror_trolltech+=" ${mirror_qt}"
 
 
 #****d* Mirrors/mirror_vim
@@ -1824,61 +361,7 @@ mirror_trolltech="${mirror_qt}"
 #****
 # cat mirrors.php | egrep '^  <a href="(ht|f)tp:' | \
 #	sed -e 's#  <a.*>\(.*\)</a>.*#\t\1#' -e 's#/$##'
-mirror_vim="
-	http://ftp.vim.org/pub/vim
-	ftp://ftp.vim.org/pub/vim
-	ftp://ftp.home.vim.org/pub/vim
-	ftp://ftp.us.vim.org/pub/vim
-	ftp://ftp2.us.vim.org/pub/vim
-	ftp://ftp3.us.vim.org/pub/mirrors/ftp.vim.org/vim
-	ftp://ftp4.us.vim.org/pub/vim
-	ftp://ftp9.us.vim.org/pub/vim
-	ftp://ftp.ca.vim.org/pub/vim
-	ftp://ftp.nl.vim.org/pub/vim
-	ftp://ftp2.nl.vim.org/pub/vim
-	ftp://ftp.de.vim.org
-	ftp://ftp3.de.vim.org/pub/vim
-	ftp://ftp.uk.vim.org/pub/vim
-	ftp://ftp2.uk.vim.org/pub/vim
-	ftp://ftp.ie.vim.org/pub/vim
-	ftp://ftp.fr.vim.org/pub/vim
-	ftp://ftp2.fr.vim.org/pub/Mirrors/vim
-	ftp://miroir-francais.fr/pub/vim
-	ftp://ftp.at.vim.org/pub/vim
-	ftp://ftp.dk.vim.org/pub/vim
-	ftp://ftp.se.vim.org/pub/mirrors/vim
-	ftp://ftp.es.vim.org/pub/vim
-	ftp://ftp.pt.vim.org/pub/vim
-	ftp://ftp.is.vim.org/pub/vim
-	ftp://ftp.il.vim.org/pub/vim
-	ftp://ftp.ro.vim.org/pub/vim
-	ftp://ftp.cz.vim.org/pub/vim
-	ftp://ftp.sk.vim.org/pub/vim
-	ftp://ftp.sg.vim.org/pub/vim
-	ftp://ftp.tw.vim.org/vim
-	ftp://ftp2.tw.vim.org/pub/vim
-	ftp://ftp.jp.vim.org/pub/vim
-	ftp://ftp.kr.vim.org/pub/vim
-	ftp://ftp2.kr.vim.org/pub/vim
-	http://www2.nl.vim.org
-	http://shattered.teched.net/vim-ftp-mirror
-	http://mirrors.24-7-solutions.net/pub/vim
-	http://ftp.tw.vim.org/pub/vim
-	http://ftp2.tw.vim.org/pub/vim
-	http://ftp.es.vim.org/pub/vim
-	http://www.pt.vim.org/pub/vim
-	http://pangora.org/vim.org/pub/vim
-	http://ftp.ie.vim.org/pub/vim
-	http://vim.miroir-francais.fr
-	http://ftp.il.vim.org/pub/vim
-	http://ftp.ru.vim.org/pub/vim
-	http://ftp.cz.vim.org/pub/vim
-	http://ftp2.sk.vim.org/pub/vim
-	http://zloba.ath.cx/pub/vim
-	http://ftp2.uk.vim.org/pub/vim
-	http://vim.mirror.fr
-	http://ftp2.kr.vim.org/pub/vim
-"	# mirror_vim
+mirror_vim+=" http://ftp.vim.org/pub/vim"
 
 
 #****d* Mirrors/mirror_xfce
@@ -1887,15 +370,10 @@ mirror_vim="
 #  SYNOPSIS
 #  SRC_URI="mirror://xfce/src/xfce-${XFCE_VERSION}/src/${P}.tar.bz2"
 #  DEFAULT MIRROR
-#  http://mocha.xfce.org/archive
+#  http://www.xfce.org/archive
 #  MIRROR LIST
 #  http://www.xfce.org/download/
 #  SEE ALSO
 #  xfce4.cygclass
 #****
-mirror_xfce="
-	http://mocha.xfce.org/archive
-	http://www.ca-us.xfce.org/archive
-	http://www.de.xfce.org/archive
-	http://www.p0llux.be/xfce
-"	# mirror_xfce
+mirror_xfce+=" http://www.xfce.org/archive"
