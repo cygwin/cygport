@@ -450,7 +450,7 @@ cygconf() {
 #****
 
 	verbose ${configure} \
-		--srcdir="${confdir}" ${confargs} "${@}" ${CYGCONF_ARGS} \
+		--srcdir="${confdir}" -C ${confargs} "${@}" ${CYGCONF_ARGS} \
 		|| error "configure failed"
 }
 
