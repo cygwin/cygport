@@ -306,7 +306,7 @@ __pkg_srcpkg() {
 
 	cd ${spkgdir};
 
-	if defined SIG && [ "x${SIG}" != "x0" ]
+	if __arg_bool SIG
 	then
 		if check_prog gpg
 		then

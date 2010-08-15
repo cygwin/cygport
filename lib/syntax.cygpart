@@ -145,6 +145,28 @@ __log_init() {
 	echo -e '\n' >> ${log}
 }
 
+#****** Syntax/boolean
+#  DESCRIPTION
+#  A boolean variable is true if set to one of '1', 'on', 'true', or 'yes',
+#  and false if set to one of '0', 'off', 'false', or 'no'.  These values
+#  are case-insensitive.
+#****
+__arg_bool() {
+	local ret
+	local var=${1}
+
+	case ${!var:-${2}} in
+		1|[Yy]|[Yy][Ee][Ss]|[Oo][Nn]|[Tt][Rr][Uu][Ee]) # yes | on | true
+			ret=0 ;;
+		0|[Nn]|[Nn][Oo]|[Oo][Ff][Ff]|[Ff][Aa][Ll][Ss][Ee]) # no | off | false
+			ret=1 ;;
+		'')	ret=1 ;;	# unset, assume false
+		*)	error "${var}: unknown value: ${!var}" ;;
+	esac
+
+	return ${ret}
+}
+
 __cross_compiling() {
 	return $(test ${CBUILD} != ${CHOST} || test ${CHOST} != ${CTARGET})
 }

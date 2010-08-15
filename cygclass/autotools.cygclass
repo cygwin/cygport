@@ -236,7 +236,8 @@ cygautoreconf() {
 
 #****v* cygautoreconf/NO_ACLOCAL
 #  DESCRIPTION
-#  Define this variable to skip running aclocal during cygautoreconf.
+#  Define this variable to a boolean true value to skip running aclocal
+#  during cygautoreconf.
 #  WARNING
 #  This is strongly discouraged, and should only be used when a package uses
 #  its own aclocal macros which are not provided in the tarball *and* the
@@ -244,7 +245,8 @@ cygautoreconf() {
 #****
 #****v* cygautoreconf/NO_LIBTOOLIZE
 #  DESCRIPTION
-#  Define this variable to skip running libtoolize during cygautoreconf.
+#  Define this variable to a boolean true value to skip running libtoolize
+#  during cygautoreconf.
 #  WARNING
 #  This is strongly discouraged.  Cygwin's libtool usually includes patches
 #  required for optimal results on Cygwin which are not yet available in
@@ -252,7 +254,8 @@ cygautoreconf() {
 #****
 #****v* cygautoreconf/NO_AUTOCONF
 #  DESCRIPTION
-#  Define this variable to skip running autoconf during cygautoreconf.
+#  Define this variable to a boolean true value to skip running autoconf
+#  during cygautoreconf.
 #  WARNING
 #  This is strongly discouraged.  Running libtoolize, changes to aclocal macros,
 #  or changes to configure.ac/configure.in all require autoconf to be run for
@@ -263,18 +266,20 @@ cygautoreconf() {
 #  Sometimes autoreconf thinks a package uses autoheader when in fact it does
 #  not, in which case cygautoreconf will fail during the autoheader stage.
 #  In such cases, provided you have not patched any AC_DEFINEs, set this
-#  variable to skip the autoheader step.
+#  variable to a boolean true value to skip the autoheader step.
 #****
 #****v* cygautoreconf/NO_AUTOMAKE
 #  DESCRIPTION
-#  Define this variable to skip running automake during cygautoreconf.
+#  Define this variable to a boolean true value to skip running automake
+#  during cygautoreconf.
 #  WARNING
 #  This is strongly discouraged.  If aclocal and/or autoconf have been run,
 #  running automake is required for a working build.
 #****
 #****v* cygautoreconf/NO_AUTOPOINT
 #  DESCRIPTION
-#  Define this variable to skip running autopoint during cygautoreconf.
+#  Define this variable to a boolean true value to skip running autopoint
+#  during cygautoreconf.
 #  WARNING
 #  This is strongly discouraged.  Cygwin's gettext package often has patches
 #  which are not yet available in even the latest official release, and earlier
@@ -283,7 +288,7 @@ cygautoreconf() {
 
 		for tool in ACLOCAL LIBTOOLIZE AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
 		do
-			if defined NO_${tool}
+			if __arg_bool NO_${tool}
 			then
 				declare ${tool}=true
 				__config_set with_$(echo ${tool} | tr '[:upper:]' '[:lower:]') 0

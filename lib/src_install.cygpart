@@ -742,32 +742,27 @@ cyginstall() {
 #  0 if not, in which case the value of prefix and the standard *dir variables
 #  will be overriden with $D-prefixed values.
 #****
-	case ${USE_DESTDIR:-1} in
-		1|[Yy]|[Yy][Ee][Ss]|[Oo][Nn]|[Tt][Rr][Uu][Ee])
-			make ${MAKEOPTS} ${inst_target} DESTDIR=${D} "${@}" || error "make install DESTDIR failed"
-			;;
-		0|[Nn]|[Nn][Oo]|[Oo][Ff][Ff]|[Ff][Aa][Ll][Ss][Ee])
-			prefix=$(__host_prefix)
-			make ${MAKEOPTS} install \
-				prefix=${D}${prefix} \
-				exec_prefix=${D}${prefix} \
-				bindir=${D}${prefix}/bin/ \
-				includedir=${D}${prefix}/include \
-				libdir=${D}${prefix}/lib \
-				sbindir=${D}${prefix}/sbin \
-				libexecdir=${D}${prefix}/lib \
-				datadir=${D}${prefix}/share \
-				infodir=${D}${prefix}/share/info \
-				mandir=${D}${prefix}/share/man \
-				localstatedir=${D}${prefix%/usr}/var \
-				sysconfdir=${D}${prefix%/usr}/etc \
-				"${@}" \
-				|| error "make install No-DESTDIR failed"
-			;;
-		*)
-			error "USE_DESTDIR should be set to either 0 or 1 (default).";
-			;;
-	esac
+	if __arg_bool USE_DESTDIR true
+	then
+		make ${MAKEOPTS} ${inst_target} DESTDIR=${D} "${@}" || error "make install DESTDIR failed"
+	else
+		prefix=$(__host_prefix)
+		make ${MAKEOPTS} install \
+			prefix=${D}${prefix} \
+			exec_prefix=${D}${prefix} \
+			bindir=${D}${prefix}/bin/ \
+			includedir=${D}${prefix}/include \
+			libdir=${D}${prefix}/lib \
+			sbindir=${D}${prefix}/sbin \
+			libexecdir=${D}${prefix}/lib \
+			datadir=${D}${prefix}/share \
+			infodir=${D}${prefix}/share/info \
+			mandir=${D}${prefix}/share/man \
+			localstatedir=${D}${prefix%/usr}/var \
+			sysconfdir=${D}${prefix%/usr}/etc \
+			"${@}" \
+			|| error "make install No-DESTDIR failed"
+	fi
 }
 
 #****I* Installing/src_install
