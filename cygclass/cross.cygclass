@@ -223,4 +223,48 @@ doelflib() {
 	done
 }
 
-readonly -f __cross_canonicalize_host doelflib
+#****I* cross.cygclass/cross_sysrootize
+#  SYNOPSIS
+#  cross_sysrootize FILE [FILE] ...
+#  DESCRIPTION
+#  Adds CROSS_SYSROOT to all paths in given text file(s).  Paths should
+#  be specified as if on the system, without a leading $D.
+#****
+cross_sysrootize(){
+	local f
+	local prefix=$(__target_prefix)
+
+	for f in ${@}
+	do
+		if [ ! -e ${D}${f#${D}} ]
+		then
+			error "cross_sysrootize: $f: file not found"
+		fi
+
+		# the [^t] should catch paths already containing the sysroot
+		sed -i -e "s|\([^t]\)${prefix}|\1${CROSS_PREFIX}|g" ${D}${f#${D}} || error "$FUNCNAME: $f: sed failed"
+	done
+}
+
+#****I* cross.cygclass/cross_desysrootize
+#  SYNOPSIS
+#  cross_desysrootize FILE [FILE] ...
+#  DESCRIPTION
+#  Removes CROSS_SYSROOT from all paths in given text file(s).  Paths should
+#  be specified as if on the system, without a leading $D.
+#****
+cross_desysrootize(){
+	local f
+
+	for f in ${@}
+	do
+		if [ ! -e ${D}${f#${D}} ]
+		then
+			error "cross_desysrootize: $f: file not found"
+		fi
+
+		sed -i -e "s|${CROSS_SYSROOT}||g" ${D}${f#${D}} || error "$FUNCNAME: $f: sed failed"
+	done
+}
+
+readonly -f __cross_canonicalize_host doelflib cross_sysrootize cross_desysrootize
