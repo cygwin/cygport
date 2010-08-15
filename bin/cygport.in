@@ -142,6 +142,30 @@ unset _myprog;
 
 ################################################################################
 #
+# Import user settings
+#
+################################################################################
+
+# Values which can be overridden either system-wide or per package
+
+declare    MAKEOPTS="-j$(($(grep -c '^proc' /proc/cpuinfo) + 1)) ";
+
+# load configuration
+for conf in ${_sysconfdir}/cygport.conf \
+			"${HOME}/.cygportrc" \
+			"${HOME}/.cygport.conf" \
+			"${HOME}/.cygport/cygport.conf"
+do
+	if [ -e "${conf}" ]
+	then
+		source "${conf}" || error "could not read ${conf}"
+	fi
+done
+unset conf;
+
+
+################################################################################
+#
 # Function definitions
 #
 ################################################################################
@@ -260,6 +284,10 @@ source ${_privdatadir}/mirrors
 source ${_privlibdir}/src_prep.cygpart
 ###
 
+### CC/CXX, CFLAGS/CXXFLAGS, etc.
+source ${_privlibdir}/compilers.cygpart
+###
+
 ### lndirs, cygmake
 source ${_privlibdir}/src_compile.cygpart
 ###
@@ -294,34 +322,6 @@ source ${_privlibdir}/pkg_cleanup.cygpart
 _autotools_CYGCLASS_stage1_=1
 inherit autotools;
 unset _autotools_CYGCLASS_ _autotools_CYGCLASS_stage1_
-
-
-################################################################################
-#
-# Import user settings
-#
-################################################################################
-
-# Values which can be overridden either system-wide or per package
-
-declare    MAKEOPTS="-j$(($(grep -c '^proc' /proc/cpuinfo) + 1)) ";
-
-# load configuration
-for conf in ${_sysconfdir}/cygport.conf \
-			"${HOME}/.cygportrc" \
-			"${HOME}/.cygport.conf" \
-			"${HOME}/.cygport/cygport.conf"
-do
-	if [ -e "${conf}" ]
-	then
-		source "${conf}" || error "could not read ${conf}"
-	fi
-done
-unset conf;
-
-### CC/CXX, CFLAGS/CXXFLAGS, etc.
-source ${_privlibdir}/compilers.cygpart
-###
 
 
 ################################################################################
