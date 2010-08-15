@@ -35,8 +35,10 @@ then
 	exit 2
 fi
 
-for deb in $(realpath $@)
+for deb in $@
 do
+	deb=$(readlink -f $deb)
+
 	echo -n "$deb: "
 
 	if [ ! -f $deb ]
