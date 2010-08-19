@@ -376,6 +376,7 @@ cygconf() {
 	local confargs;
 	local confdir;
 	local configure;
+	local confver;
 	local f;
 	local prefix;
 
@@ -401,6 +402,7 @@ cygconf() {
 	fi
 
 	configure="${confdir}/configure"
+	confver=$(grep -m 1 'GNU Autoconf' ${configure} | cut -d ' ' -f 6)
 
 	# AC_CONFIG_FILES should not be dist'ed, but it sometimes happens anyway
 	eval $(grep -h '^ac_config_files=' ${configure})
@@ -424,13 +426,17 @@ cygconf() {
 			  --datadir=${prefix}/share --localstatedir=${prefix%/usr}/var \
 			  --sysconfdir=${prefix%/usr}/etc"
 
-	case "x$(grep -m 1 'GNU Autoconf' ${configure} | cut -d ' ' -f 6)" in
+	case "x${confver}" in
 		x2.6[0-9]*)
 			confargs+=" --datarootdir=${prefix}/share --docdir=${prefix}/share/doc/${PN}"
 			;;
 		*)
 			confargs+=" --infodir=${prefix}/share/info --mandir=${prefix}/share/man"
 			;;
+	esac
+
+	case "x${confver}" in
+		x2.[5-9]*)	confargs+=" -C" ;;
 	esac
 
 	if __cross_compiling
@@ -455,7 +461,7 @@ cygconf() {
 #****
 
 	verbose ${configure} \
-		--srcdir="${confdir}" -C ${confargs} "${@}" ${CYGCONF_ARGS} \
+		--srcdir="${confdir}" ${confargs} "${@}" ${CYGCONF_ARGS} \
 		|| error "configure failed"
 }
 
