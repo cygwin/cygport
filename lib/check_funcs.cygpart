@@ -2,7 +2,7 @@
 #
 # check_funcs.cygpart - cygport check_prog* and sanity check functions
 #
-# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -58,6 +58,58 @@ check_prog_req() {
 	then
 		error "${pkg} is required to build this package";
 	fi
+
+	return 0;
+}
+
+#****f* Checks/check_tool
+#  SYNOPSIS
+#  check_tool TOOL [TOOL] ...
+#  DESCRIPTION
+#  Checks for the presence of the given host compiler tool(s) in PATH.
+#  Returns TRUE if all tools are present, else FALSE.
+#****
+check_tool() {
+	local _prog;
+
+	for _prog
+	do
+		if ! hash ${CHOST}-${_prog} &> /dev/null
+		then
+			if [ ${CHOST} = ${CBUILD} ] && hash ${_prog} &> /dev/null
+			then
+				:
+			else
+				return 1;
+			fi
+		fi
+	done
+
+	return 0;
+}
+
+#****f* Checks/check_target_tool
+#  SYNOPSIS
+#  check_target_tool TOOL [TOOL] ...
+#  DESCRIPTION
+#  Checks for the presence of the given target compiler tool(s) in PATH.
+#  Returns TRUE if all tools are present, else FALSE.
+#****
+check_target_tool() {
+	local _prog;
+
+	for _prog
+	do
+		if ! hash ${CTARGET}-${_prog} &> /dev/null
+		then
+			if [ ${CTARGET} = ${CBUILD} ] && hash ${_prog} &> /dev/null
+			then
+				:
+			else
+				return 1;
+			fi
+		fi
+	done
 
 	return 0;
 }

@@ -156,7 +156,7 @@ case ${CHOST} in
 	;;
 esac
 
-if ! check_prog ${CHOST}-gcc || ! check_prog ${CHOST}-objdump
+if ! check_tool gcc || ! check_tool objdump
 then
 	error "This package requires ${CHOST} binutils and gcc"
 fi
