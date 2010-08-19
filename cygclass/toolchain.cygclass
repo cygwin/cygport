@@ -55,20 +55,8 @@ then
 	error "TOOLCHAIN_TARGET must be defined before 'inherit toolchain'"
 fi
 
-__tc_canonicalize_target() {
-	local _tmp_target
-
-	_tmp_target=$(${_privdatadir}/config.sub ${TOOLCHAIN_TARGET} 2> /dev/null)
-
-	case x${_tmp_target} in
-		*-*-none|x) error "Unknown or invalid TOOLCHAIN_TARGET declared: ${TOOLCHAIN_TARGET}" ;;
-	esac
-
-	TOOLCHAIN_TARGET=${_tmp_target}
-	CTARGET=${_tmp_target}
-}
-
-__tc_canonicalize_target
+CTARGET=$(__canonicalize_triplet ${TOOLCHAIN_TARGET})
+TOOLCHAIN_TARGET=${CTARGET}
 
 #****d* toolchain.cygclass/TOOLCHAIN_SYSROOT
 #  DESCRIPTION
@@ -131,4 +119,4 @@ src_compile() {
 }
 #****
 
-readonly -f __tc_canonicalize_target toolchain_compile
+readonly -f toolchain_compile

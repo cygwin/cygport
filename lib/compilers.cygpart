@@ -148,7 +148,7 @@ declare -x LDFLAGS="";
 declare -x LIBS="";
 
 # system triplets
-declare    CBUILD=$(${_privdatadir}/config.guess)
+declare    CBUILD=$(__canonicalize_triplet $(${_privdatadir}/config.guess))
 declare    CHOST="i686-pc-cygwin";
 declare    CTARGET=${CHOST};
 declare    CROSS_HOST="";

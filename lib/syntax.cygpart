@@ -2,7 +2,7 @@
 #
 # syntax.cygpart - cygport syntax enhancement functions
 #
-# Copyright (C) 2006, 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -167,6 +167,26 @@ __arg_bool() {
 	return ${ret}
 }
 
+__canonicalize_triplet() {
+	local triplet
+
+	if ! triplet=$(${_privdatadir}/config.sub ${1} 2> /dev/null)
+	then
+		error "Unknown or invalid system triplet: ${1}"
+	fi
+
+	case ${triplet} in
+		*-unknown-none)
+			triplet=${triplet%-unknown-none} ;;
+		*-unknown-*)
+			triplet=${triplet/-unknown-/-} ;;
+		*-none)
+			triplet=${triplet%-none} ;;
+	esac
+
+	echo -n ${triplet}
+}
+
 __cross_compiling() {
 	return $(test ${CBUILD} != ${CHOST} || test ${CHOST} != ${CTARGET})
 }
@@ -203,4 +223,4 @@ __target_prefix() {
 }
 
 readonly -f defined pushd popd error warning inform verbose __stage __step \
-	__log_init __cross_compiling __host_prefix __target_prefix
+	__log_init __canonicalize_triplet __cross_compiling __host_prefix __target_prefix

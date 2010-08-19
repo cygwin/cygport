@@ -56,23 +56,10 @@ then
 	error "CROSS_HOST must be defined before 'inherit cross'"
 fi
 
-__cross_canonicalize_host() {
-	local _tmp_host
+CHOST=$(__canonicalize_triplet ${CROSS_HOST})
+CTARGET=${CHOST}
+CROSS_HOST=${CHOST}
 
-	_tmp_host=$(${_privdatadir}/config.sub ${CROSS_HOST} 2> /dev/null)
-
-	case x${_tmp_host} in
-		*-*-none|x) error "Unknown or invalid CROSS_HOST declared: ${CROSS_HOST}" ;;
-	esac
-
-	CROSS_HOST=${_tmp_host}
-	CHOST=${_tmp_host}
-	CTARGET=${_tmp_host}
-}
-
-
-# set CHOST and CTARGET
-__cross_canonicalize_host
 
 #****d* cross.cygclass/CROSS_SYSROOT
 #  DESCRIPTION
@@ -267,4 +254,4 @@ cross_desysrootize(){
 	done
 }
 
-readonly -f __cross_canonicalize_host doelflib cross_sysrootize cross_desysrootize
+readonly -f doelflib cross_sysrootize cross_desysrootize
