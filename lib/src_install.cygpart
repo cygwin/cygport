@@ -626,6 +626,24 @@ dosym() {
 	popd
 }
 
+#****I* Installing/dotool
+#  SYNOPSIS
+#  dotool FILE [FILE] ...
+#  DESCRIPTION
+#  Installs the given compiler tool(s) into the target-specific bindir
+#  and a target-prefixed version into the native bindir.
+#****
+dotool() {
+	local _bindir=/usr/bin
+	local _tooldir=/usr/${CTARGET}/bin
+
+	dodir ${_bindir} ${_tooldir}
+	for i
+	do
+		__doinstall 0755 ${i} ${_tooldir} || error "dotool ${i} failed"
+		__doinstall 0755 ${i} ${_bindir} ${CTARGET}-${i##*/} || error "dotool ${i} failed"
+	done
+}
 
 #****I* Installing/make_desktop_entry
 #  SYNOPSIS
