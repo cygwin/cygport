@@ -328,6 +328,19 @@ mirror_savannah+=" http://download.savannah.nongnu.org/releases"
 mirror_sourceforge+=" http://downloads.sourceforge.net"
 
 
+#****d* Mirrors/mirror_sourceware
+#  DESCRIPTION
+#  Sourceware.org (aka sources.redhat.com) hosting
+#  SYNOPSIS
+#  SRC_URI="mirror://sourceware/projectname/${P}.tar.bz2"
+#  DEFAULT MIRROR
+#  ftp://ftp.sourceware.org/pub (frequently unavailable)
+#  MIRROR LIST
+#  http://sourceware.org/mirrors.html
+#****
+mirror_sourceware+=" ftp://ftp.sourceware.org/pub"
+
+
 #****d* Mirrors/mirror_qt
 #  DESCRIPTION
 #  Qt, QtCreator, and QtJambi downloads
