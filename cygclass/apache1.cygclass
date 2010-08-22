@@ -253,7 +253,7 @@ apache1_postinst() {
 			esac
 		fi
 
-		if ! objdump -p ${mod} 2> /dev/null | grep -q "\] ${sym}_module$"
+		if ! ${OBJDUMP} -p ${mod} 2> /dev/null | grep -q "\] ${sym}_module$"
 		then
 			error "Cannot determine module symbol name for ${mod##*/}"
 		fi

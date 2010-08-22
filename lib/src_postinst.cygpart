@@ -452,9 +452,9 @@ __prepstrip() {
 	for exe in ${all_exes}
 	do
 		# assure this is actually a binary object
-		if objdump -f ${exe} &>/dev/null
+		if ${OBJDUMP} -f ${exe} &>/dev/null
 		then
-			strip="/usr/bin/strip"
+			strip=${STRIP}
 		elif __cross_compiling && ${CTARGET}-objdump -f ${exe} &>/dev/null
 		then
 			strip="/usr/bin/${CTARGET}-strip"
@@ -472,7 +472,7 @@ __prepstrip() {
 
 		# Mono assemblies must not be stripped, but remove .mdb debug symbols,
 		# and make them non-executable so they're not launched by MS .NET
-		if objdump -p ${exe} 2>&1 | grep -q "DLL Name: mscoree.dll"
+		if ${OBJDUMP} -p ${exe} 2>&1 | grep -q "DLL Name: mscoree.dll"
 		then
 			chmod 0644 ${exe}
 			rm -f ${exe}.mdb

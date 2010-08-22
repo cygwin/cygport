@@ -129,6 +129,8 @@ FC="${CHOST}-gfortran"
 GCJ="${CHOST}-gcj"
 OBJC="${CHOST}-gcc"
 OBJCXX="${CHOST}-g++"
+OBJDUMP="${CHOST}-objdump"
+STRIP="${CHOST}-strip"
 
 case ${CHOST} in
 *-pc-mingw*)

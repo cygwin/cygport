@@ -147,6 +147,9 @@ declare -x LDFLAGS="";
 
 declare -x LIBS="";
 
+OBJDUMP="objdump"
+STRIP="strip"
+
 # system triplets
 declare    CBUILD=$(__canonicalize_triplet $(${_privdatadir}/config.guess))
 declare    CHOST="i686-pc-cygwin";
@@ -168,4 +171,6 @@ then
 	GCJ=${CHOST}-gcj
 	OBJC=${CHOST}-gcc
 	OBJCXX=${CHOST}-g++
+	OBJDUMP=${CHOST}-objdump
+	STRIP=${CHOST}-strip
 fi

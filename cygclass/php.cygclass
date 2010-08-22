@@ -254,7 +254,7 @@ php_postinst() {
 		for x in ${D}${PHP_EXTENSION_DIR}/*.dll
 		do
 			xf=${x##*/}
-			if $(objdump -p ${x} | grep -q zend_startup_module)
+			if $(${OBJDUMP} -p ${x} | grep -q zend_startup_module)
 			then
 				echo "zend_extension = ${PHP_EXTENSION_DIR}/${xf}" >> ${D}${PHP_INI_DIR}/conf.d/${xf%.dll}.ini
 			else
