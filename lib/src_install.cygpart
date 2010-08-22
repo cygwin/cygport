@@ -690,10 +690,11 @@ make_desktop_entry() {
 #  SYNOPSIS
 #  make_etc_defaults FILE_PATH [FILE_PATH] ...
 #  DESCRIPTION
-#  Indicates that the given file(s) under $D are templates for system-configurable
-#  files.  make_etc_defaults moves these files to a special location, creates
-#  a postinstall script to install the file to the correct location if it doesn't
-#  already exist, and a preremove script which removes the file if still unchanged.
+#  Indicates that the given file(s) or directory/ies under $D contain templates
+#  for system-configurable files.  make_etc_defaults moves these files/directories
+#  to a special location, creates a postinstall script to install each file to
+#  the correct location if it doesn't already exist, and a preremove script which
+#  removes the file if still unchanged.
 #****
 make_etc_defaults() {
 	if inherited cross
@@ -704,9 +705,20 @@ make_etc_defaults() {
 
 	for etc in ${@}
 	do
-		if [ ! -f ${D}${etc} ]
+		if [ ! -e ${D}${etc} ]
 		then
 			error "file ${etc} does not exist"
+		fi
+
+		# if passed a directory, then process all files therein
+		if [ -d ${D}${etc} ]
+		then
+			for f in $(find ${D}${etc} -type f)
+			do
+				make_etc_defaults ${f#${D}}
+			done
+
+			continue
 		fi
 
 		dodir /etc/defaults${etc%/*}
