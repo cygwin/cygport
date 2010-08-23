@@ -452,10 +452,10 @@ __prepstrip() {
 	for exe in ${all_exes}
 	do
 		# assure this is actually a binary object
-		if ${OBJDUMP} -f ${exe} &>/dev/null
+		if size -f ${exe} &>/dev/null
 		then
 			strip=${STRIP}
-		elif __cross_compiling && ${CTARGET}-objdump -f ${exe} &>/dev/null
+		elif __cross_compiling && ${CTARGET}-size -f ${exe} &>/dev/null
 		then
 			strip="/usr/bin/${CTARGET}-strip"
 		else

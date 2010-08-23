@@ -145,7 +145,7 @@ case ${CHOST} in
 	;;
 esac
 
-if ! check_tool gcc || ! check_tool objdump
+if ! check_tool gcc || ! check_tool strip
 then
 	error "This package requires ${CHOST} binutils and gcc"
 fi

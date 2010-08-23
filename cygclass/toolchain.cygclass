@@ -83,7 +83,7 @@ fi
 # libgcc and friends instead.  Of course, if $target is the same
 # as the build system (a "crossback"), then the question is moot.
 if test ${CHOST} != ${CBUILD} && test ${CTARGET} != ${CBUILD} \
-   && (! check_target_tool gcc || ! check_target_tool objdump)
+   && (! check_target_tool gcc || ! check_target_tool strip)
 then
 	error "This package requires ${CTARGET} binutils and gcc"
 fi
