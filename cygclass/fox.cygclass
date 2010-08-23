@@ -60,6 +60,8 @@ _fox_find_config() {
 	then
 		error "libFOX${FOX_VERSION}-devel is not installed"
 	fi
+
+	echo -n ${fox_config}
 }
 
 #****d* fox.cygclass/FOX_CONFIG
