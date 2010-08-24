@@ -139,7 +139,7 @@ xfce4_autoreconf() {
 #****
 xfce4_compile() {
 	cygconf \
-		--sbindir=/usr/lib/xfce4 \
+		--sbindir=$(__host_prefix)/lib/xfce4 \
 		--disable-static \
 		--disable-visibility \
 		"${@}"
