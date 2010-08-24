@@ -17,3 +17,4 @@ A wishlist of features to add in future releases, in no particular order:
   (e.g. it was installed manually), show the DLL path instead.
 * Fix rcs tarball names to allow more than one at a time
 * wrapper for Xfake when build expects an X server (e.g. perl-OpenGL)
+* GNUstep menu/icon files

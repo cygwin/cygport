@@ -1,3 +1,18 @@
+0.10.0:
+	* Added support for building and using cross-compilers.
+	* Experimental support for running cygport on non-Cygwin hosts.
+	* Improved rules for exclusions of autotool-generated files from diffs.
+	* New check functions: check_tool, check_target_tool.
+	* New install functions: includeinto/doinclude, dopkgconfig, dotool, newlib.
+	* New mirrors: gcc, sourceware.
+	* make_desktop_entry: accepts up to four additional fields.
+	* make_etc_defaults: accepts a directory.
+	* autotools.cygclass: added cross-compiling support.
+	* cmake.cygclass: added cross-compiling support.
+	* cross.cygclass: completely overhauled.
+	* qt4*.cygclass: added preliminary cross-compiling support.
+	* toolchain.cygclass: NEW for building both native- and cross- binutils/gcc/gdb.
+
 0.9.85:
 	* Warnings are redirected to stderr.
 	* More fixes for regexes and sorts
