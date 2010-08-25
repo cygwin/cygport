@@ -43,7 +43,7 @@ check_header() {
 	local h
 	local gcc_inc=$(${CC} -print-search-dirs | grep '^install:' | cut -d ' ' -f 2)/include
 
-	local inc_path="/usr/include /usr/include/w32api ${gcc_inc} ${gcc_inc}/c++"
+	local inc_path="${gcc_inc} ${gcc_inc}/c++ /usr/${CHOST}/include $(__host_prefix)/include"
 
 	for h
 	do
@@ -79,9 +79,15 @@ check_header() {
 check_lib() {
 	local d
 	local l
-	local gcc_lib=$(${CC} -print-search-dirs | grep '^install:' | cut -d ' ' -f 2)
+	local shlibext
+	local lib_path=$(${CC} -print-search-dirs | grep '^libraries:' | sed -e 's|libraries: =||' -e 's|:| |g' | xargs -n1 readlink -e)
 
-	local lib_path="/usr/lib /usr/lib/w32api ${gcc_lib}"
+	case ${CHOST} in
+		*-cygwin*|*-mingw*)	shlibext=dll.a ;;
+		*-darwin*)	shlibext=dylib ;;
+		*-hpux*)	shlibext=sl ;;
+		*)		shlibext=so ;;
+	esac
 
 	for l
 	do
@@ -93,7 +99,7 @@ check_lib() {
 
 		for d in ${lib_path}
 		do
-			if [ -e ${d}/lib${l}.dll.a -o -e ${d}/lib${l}.a -o -e ${d}/cyg${l}.dll ]
+			if [ -e ${d}/lib${l}.a -o -e ${d}/lib${l}.${shlibext} ]
 			then
 				continue 2
 			fi
