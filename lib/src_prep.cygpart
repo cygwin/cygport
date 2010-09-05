@@ -25,6 +25,19 @@ __cpio_gz_extract() {
 	gzip -dc ${1} | cpio -midu --quiet;
 }
 
+__gem_extract() {
+	local gem=${1}
+	local gemfile=${gem##*/}
+	local gemsubdir=${gemfile%.gem}
+
+	# .gem's are tarballs containing two files: data.tar.gz and manifest.gz
+	# both the .gem and data.tar.gz are packed without file timestamps
+	tar xmf ${gem} data.tar.gz
+	mkdir -p ${gemsubdir}
+	tar zxmf data.tar.gz -C ${gemsubdir}
+	rm -f data.tar.gz
+}
+
 __srpm_extract() {
 	local rpmpath=${1};
 	local rpmfile=${rpmpath##*/};
@@ -107,8 +120,7 @@ unpack() {
 				unpack_out="${unpack_file_name%.gz}";
 				;;
 			*.gem)
-				check_prog_req gem rubygems;
-				unpack_cmd="gem unpack";
+				unpack_cmd="__gem_extract";
 				;;
 			*.rar)
 				check_prog_req unrar;
@@ -384,4 +396,5 @@ __src_prep() {
 	fi
 }
 
-readonly -f __srpm_extract unpack __gpg_verify __mkdirs cygpatch __src_prep
+readonly -f __cpio_gz_extract __gem_extract __srpm_extract unpack \
+            __gpg_verify __mkdirs cygpatch __src_prep
