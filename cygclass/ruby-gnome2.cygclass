@@ -143,13 +143,13 @@ rc*|'')
 esac
 
 # WARNING: CAIRO_PATH is supposed to be the ruby-cairo builddir, not
-# the installed RUBY_SITEARCH, so this will create a bogus -L flag no
+# the installed RUBY_VENDORARCH, so this will create a bogus -L flag no
 # matter what.  We compensate by correctly defining LOCAL_LIBS below.
 #
 # However, be sure that all extconf.rb have_func() calls come BEFORE any
 # add_depend_package() calls, otherwise the tests will give false negatives
 # due to linker errors (e.g. unable to find -lruby-cairo).
-export CAIRO_PATH="${RUBY_SITEARCH}"
+export CAIRO_PATH="${RUBY_VENDORARCH}"
 
 #****o* ruby-gnome2.cygclass/MAKEOPTS (ruby-gnome2)
 #  DESCRIPTION
@@ -164,7 +164,7 @@ MAKEOPTS+=" -j1"
 #  the stack which link against them as well.  Therefore, DEPS_PATH is set to
 #  catch these inter-module link dependencies.
 #****
-DEPS_PATH="${RUBY_SITEARCH}"
+DEPS_PATH="${RUBY_VENDORARCH}"
 
 #****C* ruby-gnome2.cygclass/ruby_gnome2_compile
 #  SYNOPSIS
@@ -177,9 +177,9 @@ DEPS_PATH="${RUBY_SITEARCH}"
 ruby_gnome2_compile() {
 	local d
 
-	${RUBY} extconf.rb ${rbg2_dir} || error "extconf.rb failed"
+	${RUBY} extconf.rb --vendor ${rbg2_dir} || error "extconf.rb failed"
 
-	cygmake LOCAL_LIBS="-L${RUBY_SITEARCH}"
+	cygmake LOCAL_LIBS="-L${RUBY_VENDORARCH}"
 
 	for d in ${rbg2_dir}
 	do
@@ -213,7 +213,7 @@ ruby_gnome2_install() {
 
 		case ${mod} in
 			cairo|glib2|atk|pango|gtk2|libart2)
-				insinto ${RUBY_SITEARCH}
+				insinto ${RUBY_VENDORARCH}
 				doins $(find ${d}/ -name '*.so' | sed -e 's|\(.*\)/\(.*\)\.so|\1/libruby-\2.a|')
 				;;
 		esac
