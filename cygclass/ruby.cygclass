@@ -62,7 +62,7 @@ RUBY_VERSION=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["ruby_version"]')
 #  DESCRIPTION
 #  Path containing the Ruby standard library.
 #  NOTE
-#  Never install third-party extensions into RUBY_LIB; use RUBY_SITELIB instead.
+#  Never install third-party extensions into RUBY_LIB; use RUBY_VENDORLIB instead.
 #****
 RUBY_LIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 
@@ -70,21 +70,25 @@ RUBY_LIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 #  DESCRIPTION
 #  Path containing the Ruby standard C extensions.
 #  NOTE
-#  Never install third-party extensions into RUBY_ARCH; use RUBY_SITEARCH instead.
+#  Never install third-party extensions into RUBY_ARCH; use RUBY_VENDORARCH instead.
 #****
 RUBY_ARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["archdir"]')
 
-#****d* ruby.cygclass/RUBY_SITELIB
+# deprecated; use RUBY_VENDOR{LIB,ARCH} instead
+RUBY_SITELIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitelibdir"]')
+RUBY_SITEARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitearchdir"]')
+
+#****d* ruby.cygclass/RUBY_VENDORLIB
 #  DESCRIPTION
 #  Installation path for third-party Ruby libraries.
 #****
-RUBY_SITELIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitelibdir"]')
+RUBY_VENDORLIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["vendorlibdir"]')
 
-#****d* ruby.cygclass/RUBY_SITEARCH
+#****d* ruby.cygclass/RUBY_VENDORARCH
 #  DESCRIPTION
 #  Installation path for third-party Ruby C extensions.
 #****
-RUBY_SITEARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitearchdir"]')
+RUBY_VENDORARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["vendorarchdir"]')
 
 #****d* ruby.cygclass/RI_SITEDIR
 #  DESCRIPTION
@@ -206,7 +210,7 @@ ruby_install() {
 #  SYNOPSIS
 #  rubyinto SUBDIRECTORY
 #  DESCRIPTION
-#  Subdirectory of RUBY_SITELIB or RUBY_SITEARCH that doruby should install.
+#  Subdirectory of RUBY_VENDORLIB or RUBY_VENDORARCH that doruby should install.
 #  This is usually unnecessary.
 #****
 rubyinto() {
@@ -227,7 +231,7 @@ rubyinto() {
 #  [rubyinto SUBDIRECTORY]
 #  doruby FILES
 #  DESCRIPTION
-#  Installs Ruby extensions into RUBY_SITELIB or RUBY_SITEARCH, or the
+#  Installs Ruby extensions into RUBY_VENDORLIB or RUBY_VENDORARCH, or the
 #  subdirectory thereof based on a previous call to rubyinto.
 #****
 doruby() {
@@ -237,11 +241,11 @@ doruby() {
 
 	if defined _rubyinto_dir
 	then
-		rbdir=${RUBY_SITELIB}/${_rubyinto_dir}
-		sodir=${RUBY_SITEARCH}/${_rubyinto_dir}
+		rbdir=${RUBY_VENDORLIB}/${_rubyinto_dir}
+		sodir=${RUBY_VENDORARCH}/${_rubyinto_dir}
 	else
-		rbdir=${RUBY_SITELIB}
-		sodir=${RUBY_SITEARCH}
+		rbdir=${RUBY_VENDORLIB}
+		sodir=${RUBY_VENDORARCH}
 	fi
 
 	dodir ${rbdir} ${sodir}
