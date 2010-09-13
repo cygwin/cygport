@@ -165,7 +165,7 @@ __pkg_diff() {
 			config.guess config.sub depcomp elisp-comp install-sh \
 			mdate-sh missing mkinstalldirs py-compile \
 			symlink-tree texinfo.tex ylwrap \
-			Makefile.in GNUMakefile.in makefile.in"
+			Makefile.in GNUmakefile.in makefile.in"
 	fi
 
 	if __config_equals with_libtool 1
