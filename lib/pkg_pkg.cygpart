@@ -225,7 +225,7 @@ __pkg_diff() {
 
 	for exclude in ${default_excludes}
 	do
-		diff_excludes_x+=" -x ${exclude}";
+		diff_excludes_x+=" -x '${exclude}'";
 	done
 
 	case ${DIFF_EXCLUDES} in
@@ -235,7 +235,7 @@ __pkg_diff() {
 		*)
 			for exclude in ${DIFF_EXCLUDES}
 			do
-				diff_excludes_x+=" -x ${exclude}";
+				diff_excludes_x+=" -x '${exclude}'";
 			done
 			;;
 	esac
