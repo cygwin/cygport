@@ -223,6 +223,10 @@ __pkg_diff() {
 		fi
 	fi
 
+	# cd now so that wildcards aren't mistakenly expanded to match files in
+	# user's directory
+	cd ${workdir};
+
 	for exclude in ${default_excludes}
 	do
 		diff_excludes_x+=" -x ${exclude}";
@@ -239,8 +243,6 @@ __pkg_diff() {
 			done
 			;;
 	esac
-
-	cd ${workdir};
 
 	# diff exits >0 when targets differ, hence catch exception with true
 	if [ "${SRC_DIR}" = "." ]
