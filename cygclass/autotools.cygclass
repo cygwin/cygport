@@ -388,9 +388,14 @@ cygconf() {
 #  the configure script is in $S/unix and cygconf is run from $B/unix, setting
 #  CYGCONF_SOURCE would not be necessary.)
 #****
-	if defined CYGCONF_SOURCE && [ -x ${CYGCONF_SOURCE}/configure ]
+	if defined CYGCONF_SOURCE
 	then
-		confdir=${CYGCONF_SOURCE};
+		if [ -x ${CYGCONF_SOURCE}/configure ]
+		then
+			confdir=${CYGCONF_SOURCE};
+		else
+			error "CYGCONF_SOURCE defined but no configure script found"
+		fi
 	elif [ -x ${PWD/${B}/${S}}/configure ]
 	then
 		confdir=${PWD/${B}/${S}};
