@@ -87,7 +87,7 @@ qt4_qmake_install() {
 
 	make install INSTALL_ROOT=${D} || error "make install failed"
 
-	for dll in $(find ${D}${QT4_LIBDIR} -name '*.dll' 2> /dev/null)
+	for dll in $(find ${D}/usr/lib/ ${D}${QT4_LIBDIR} -maxdepth 1 -name '*.dll' 2> /dev/null)
 	do
 		dodir /usr/bin
 		mv ${dll} ${D}/usr/bin/
