@@ -69,7 +69,6 @@ case ${gst_pn} in
 		do
 			case ${plugin} in
 				mad) GST_PLUGINS_MODULE+=" id3tag mad" ;;
-				resindvd) GST_PLUGINS_MODULE+=" dvdnav" ;;
 				ximage|ximagesrc) GST_PLUGINS_MODULE+=" x xshm" ;;
 				*) GST_PLUGINS_MODULE+=" ${plugin}" ;;
 			esac
