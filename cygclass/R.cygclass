@@ -100,7 +100,7 @@ DESCRIPTION="R ${ORIG_PN} package"
 #  DESCRIPTION
 #  Web address for the R module on CRAN.
 #****
-HOMEPAGE="mirror://cran/web/packages/${ORIG_PN}/"
+HOMEPAGE="http://cran.r-project.org/web/packages/${ORIG_PN}/"
 
 #****o* R.cygclass/SRC_URI (R)
 #  DESCRIPTION
