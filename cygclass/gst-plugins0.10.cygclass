@@ -81,6 +81,9 @@ case ${gst_pn} in
 	gnonlin)
 		ORIG_PN=gnonlin
 		;;
+	openmax)
+		ORIG_PN="gst-openmax"
+		;;
 	fluendo-*)
 		ORIG_PN=gst-${gst_pn}
 		SRC_URI="http://core.fluendo.com/gstreamer/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
