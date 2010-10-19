@@ -1,3 +1,13 @@
+0.10.1:
+	* More fixes for cross-compiling scenarios.
+	* More refinements for automatic exclusion rules.
+	* Source .gem's no longer require rubygems to unpack.
+	* autotools.cygclass: error if CYGCONF_SOURCE is specified but incorrect.
+	* gst-plugins0.10.cygclass: adapt to openmax and resindvd plugins.
+	* qt4-qmake.cygclass: DLLs in /usr/lib are moved to /usr/bin.
+	* ruby.cygclass: install into vendor_ruby.
+	* ruby-gnome2.cygclass: install into vendor_ruby.
+
 0.10.0:
 	* Added support for building and using cross-compilers.
 	* Experimental support for running cygport on non-Cygwin hosts.
