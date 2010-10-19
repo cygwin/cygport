@@ -463,12 +463,12 @@ __prepstrip() {
 		fi
 
 		# OCaml bytecode must not be stripped
-		# this test generates false positives with the ocaml core and
-		# compilers, but should otherwise be accurate
-		if grep -q 'Caml1999X008' ${exe}
-		then
-			continue
-		fi
+		# Magic number is at end of file:
+		# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=256900#74
+		# http://cygwin.com/ml/cygwin-apps/2010-10/msg00057.html
+		case $(tail -c 12 ${exe}) in
+			Caml1999X0[0-9][0-9])  continue ;;
+		esac
 
 		# Mono assemblies must not be stripped, but remove .mdb debug symbols,
 		# and make them non-executable so they're not launched by MS .NET
