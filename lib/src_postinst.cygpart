@@ -58,6 +58,7 @@ __prep_freedesktop_mime() {
 	then
 		if [ -n "$(grep -lr MimeType ${D}/usr/share/applications)" ]
 		then
+			rm -f ${D}/usr/share/applications/mimeinfo.cache
 			_already_updated_mime_db=1
 			dodir /etc/postinstall
 			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
