@@ -111,7 +111,7 @@ LIBRUBY=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["LIBRUBYARG"]')
 #  systems:
 #  * install.rb: executes 'config' and 'setup' commands
 #  * setup.rb: executes 'config' and 'setup' commands
-#  * extconf.rb: generates a Makefile, then runs cygmake
+#  * extconf.rb: calls ruby_ext_compile
 #  * Rakefile: runs the 'rake' command
 #  If RDOC_SOURCE is defined, RI docs are then generated.
 #****
@@ -126,8 +126,7 @@ ruby_compile() {
 		${RUBY} setup.rb setup || error "setup.rb setup failed"
 	elif [ -e extconf.rb ]
 	then
-		${RUBY} extconf.rb ${@} || error "extconf.rb failed"
-		cygmake
+		ruby_ext_compile ${@}
 	elif [ -e Rakefile -o -e rakefile ]
 	then
 		check_prog_req rake
@@ -144,6 +143,23 @@ ruby_compile() {
 	then
 		rdoc -U --ri --op ${B}/.rdoc ${RDOC_SOURCE}
 	fi
+}
+
+#****C* ruby.cygclass/ruby_ext_compile
+#  SYNOPSIS
+#  ruby_ext_compile [CONFIGURE_OPTIONS]
+#  DESCRIPTION
+#  Runs extconf.rb to configure the build and generate a Makefile,
+#  followed by cygmake to compile.
+#****
+ruby_ext_compile() {
+	if [ ! -e extconf.rb ]
+	then
+		error "ruby_ext_compile: extconf.rb not found"
+	fi
+
+	${RUBY} extconf.rb --vendor ${@} || error "extconf.rb configure failed"
+	cygmake
 }
 
 #****I* ruby.cygclass/ruby_install
@@ -291,4 +307,4 @@ src_install() {
 }
 #****
 
-readonly -f ruby_compile ruby_install rubyinto doruby
+readonly -f ruby_compile ruby_ext_compile ruby_install rubyinto doruby
