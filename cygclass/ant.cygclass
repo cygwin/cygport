@@ -137,6 +137,10 @@ src_compile() {
 }
 #****
 
+#****v* ant.cygclass/ANT_TEST_ARGS
+#  DESCRIPTION
+#  Arguments to pass to Ant during testing if this src_test is used.
+#****
 #****v* ant.cygclass/ANT_TEST_TARGETS
 #  DESCRIPTION
 #  Target(s) to be built to run the testsuite if this src_test is used.
@@ -146,7 +150,7 @@ src_compile() {
 #  DEFINITION
 src_test() {
 	cd ${B}
-	ANT_TASKS="${ANT_TASKS} junit" cygant ${ANT_TEST_TARGETS:-test}
+	ANT_TASKS="${ANT_TASKS} junit" cygant ${ANT_TEST_ARGS} ${ANT_TEST_TARGETS:-test}
 }
 #****
 
