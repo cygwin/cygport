@@ -75,7 +75,7 @@ DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VEN
 
 #****C* gtk2-perl.cygclass/gtk2_perl_compile
 #  DESCRIPTION
-#  Configures and compiles a Gtk2-Perl module package.
+#  An alias for perl_compile.
 #  HISTORY
 #  Gtk2-Perl's build system originally posed some challenges on Cygwin:
 #  * Inter-module linking.  ExtUtils-Depends did not support this for quite
@@ -88,29 +88,12 @@ DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VEN
 #    was not available and intervention was required to create the manpages.
 #    Since Cygwin 1.7, however, technically this would no longer necessary, as
 #    filenames can include ':', but man still makes the substitution.
-#  Therefore, this function passes the build off to perl_compile, then renames
-#  the manpages afterwards so that man can find them.
+#  Therefore, this function no longer serves a purpose. Now, the manpages
+#  are built and installed with '::' as on other platforms, but are renamed
+#  during postinstall so that man can find them.
 #****
 gtk2_perl_compile() {
-	perl_compile
-
-	# Since prior to 1.7, files could not ordinarly contain ':',
-	# man and perl were patched to substitute '.' for '::'.
-	# However, gtk2-perl always created with '::', and with 1.7
-	# it works OOTB, but man is still patched and hence won't find these.
-	for man3pm in $(find blib/man3/ -name '*::*.3pm')
-	do
-		mv ${man3pm} ${man3pm//::/.}
-	done
+	perl_compile ${@}
 }
-
-#****o* gtk2-perl.cygclass/src_compile (gtk2-perl)
-#  DEFINITION
-src_compile() {
-	lndirs
-	cd ${B}
-	gtk2_perl_compile
-}
-#****
 
 readonly -f gtk2_perl_compile
