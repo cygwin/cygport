@@ -166,6 +166,13 @@ src_test() {
 #  DESCRIPTION
 #  Relative paths of Ant task .jar files to be installed by ant_install.
 #****
+#****v* ant.cygclass/ANT_INSTALL_WRAPPERS
+#  SYNOPSIS
+#  ANT_INSTALL_WRAPPERS="name1,name1.jar[,main.class1] name2,name2.jar[,main.class2] ..."
+#  DESCRIPTION
+#  Comma-delineated set of arguments to pass to java_wrapper.  Multiple
+#  wrappers can be created by separating the argument sets with spaces.
+#****
 
 #****I* ant.cygclass/ant_install
 #  SYNOPSIS
@@ -176,6 +183,8 @@ src_test() {
 #  must be defined.
 #****
 ant_install() {
+	local wrap
+
 	if ! defined ANT_INSTALL_JARS && ! defined ANT_INSTALL_JAVADOC && ! defined ANT_INSTALL_TASKS
 	then
 		error "ant_install: ANT_INSTALL_* all undefined; nothing to install"
@@ -193,6 +202,11 @@ ant_install() {
 	then
 		doanttask ${ANT_INSTALL_TASKS}
 	fi
+
+	for wrap in ${ANT_INSTALL_WRAPPERS}
+	do
+		java_wrapper ${wrap//,/ }
+	done
 }
 
 #****o* ant.cygclass/src_install (ant)
