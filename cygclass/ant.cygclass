@@ -93,7 +93,7 @@ cygant() {
 			*)		taskpath+=${JAVA_DIR}/${task}.jar: ;;
 		esac
 	done
-	taskpath+=${JAVA_DIR}/xercesImpl.jar:${JAVA_DIR}/xml-apis.jar:${CLASSPATH}
+	taskpath+=${JAVA_DIR}/xalan.jar:${JAVA_DIR}/xercesImpl.jar:${JAVA_DIR}/xml-apis.jar:${CLASSPATH}
 
 	if defined ANT_BUILD_XML
 	then
