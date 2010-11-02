@@ -343,7 +343,7 @@ newjavadoc() {
 #  begin with a hyphen.
 #****
 java_wrapper() {
-	local jargs jwrapper jar jmain jcmdopt
+	local jargs jwrapper jar jarmain jmain jcmdopt
 
 	if (( $# < 2 ))
 	then
@@ -362,16 +362,30 @@ java_wrapper() {
 	jar=$(__java_fixup_cp ${2})
 	jmain=${3}
 
-	if defined jmain
+	if ! defined jmain
 	then
-		jcmdopt="-classpath ${jar}:${CLASSPATH}:\$CLASSPATH:."
-	else
-		if defined CLASSPATH
+		case ${jar} in
+		*:*)  error "java_wrapper: a Main-Class must be specified with multiple Jars" ;;
+		esac
+
+		check_prog_req unzip
+		jarmain=$(unzip -c ${D}${jar} META-INF/MANIFEST.MF 2>/dev/null | grep ^Main-Class: | cut -d' ' -f2-)
+		jmain=${jarmain}
+
+		if ! defined jarmain
 		then
-			jcmdopt="-classpath ${CLASSPATH}:\$CLASSPATH:. -jar ${jar}"
-		else
-			jcmdopt="-jar ${jar}"
+			error "java_wrapper: ${jar##*/} does not contain a Main-Class"
 		fi
+	fi
+
+	# Per java(1): "[-jar] When you use this option, the JAR file is the source
+	# of all user classes, and other user class path settings are ignored."
+	if defined jarmain && ! defined CLASSPATH
+	then
+		jcmdopt="-jar ${jar}"
+		jmain=
+	else
+		jcmdopt="-classpath ${jar}:${CLASSPATH}:\$CLASSPATH:."
 	fi
 
 	dodir /usr/bin
