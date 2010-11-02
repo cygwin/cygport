@@ -88,6 +88,10 @@ case ${ORIG_PN} in
 		xorg_git="xorg/lib/libxtrans"
 		;;
 
+	xproxymanagementprotocol)
+		xorg_cat="proto"
+		xorg_git="xorg/proto/pmproto"
+		;;
 	*proto)
 		xorg_cat="proto"
 		xorg_git=xorg/proto/${ORIG_PN}
