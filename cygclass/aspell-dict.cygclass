@@ -3,7 +3,7 @@
 # aspell-dict.cygclass - functions for building Aspell dictionaries
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008, 2009 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009, 2010 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -74,11 +74,11 @@ ASPELL_DICTDIR=$(aspell dump config dict-dir)
 #****
 ASPELL_LANG="${PN#aspell-}"
 
-iso_639=/usr/share/iso-codes/iso_639.tab
+iso_639=/usr/share/xml/iso-codes/iso_639.xml
 
 if [ -f ${iso_639} ]
 then
-	ASPELL_LANG_FULL=$(grep -P "\t${ASPELL_LANG}\t" ${iso_639} | cut -f 4)
+	ASPELL_LANG_FULL=$(sed -e ':a;N;$!ba;s|\n\t\t| |g' ${iso_639} | grep \"${ASPELL_LANG}\" | sed -e 's|.* name="\([^"]*\).*|\1|')
 fi
 
 unset iso_639
