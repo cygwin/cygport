@@ -333,7 +333,7 @@ __prepetc() {
 }
 
 __prepman() {
-	local manpage;
+	local man manlink manpage;
 
 	if [ -d ${D}/usr/man ]
 	then
@@ -347,6 +347,16 @@ __prepman() {
 	if [ -d ${D}$(__host_prefix)/share/man ]
 	then
 		echo "Compressing man pages:";
+
+		# Since prior to 1.7, files could not ordinarly contain ':', man
+		# and perl were patched to substitute '.' for '::'. However,
+		# sometimes (e.g. gtk2-perl) man pages created with '::', and
+		# with 1.7 it works OOTB, but man is still patched and hence
+		# won't find these.
+		for man in $(find ${D}$(__host_prefix)/share/man -name '*::*')
+		do
+			mv ${man} ${man//::/.}
+		done
 
 		for manlink in $(find ${D}$(__host_prefix)/share/man -type l)
 		do
