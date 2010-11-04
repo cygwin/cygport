@@ -210,6 +210,7 @@ unset conf;
 #  * cross.cygclass
 #  * cvs.cygclass
 #  * distutils.cygclass
+#  * distutils-multi.cygclass
 #  * docbook.cygclass
 #  * ebook.cygclass
 #  * emacs.cygclass

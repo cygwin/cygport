@@ -1,0 +1,81 @@
+################################################################################
+#
+# distutils-multi.cygclass - for building modules for both Python 2.x and 3.x 
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2010 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/distutils-multi.cygclass
+#  SYNOPSIS
+#  inherit distutils-multi
+#  DESCRIPTION
+#  This cygclass provides a shortcut for building a module for both Python2 and
+#  Python3 from one source package.  While not required, this saves the time involved
+#  with maintaining separate builds for each, and also saves bandwidth by avoiding
+#  the duplicate source tarball.
+#
+#  Sources built in this fashion should be divided into two binary packages, one
+#  for each Python version, as so:
+#    PKG_NAMES="python-foo python3-foo"
+#    python_foo_CONTENTS="usr/bin/ ${PYTHON_SITELIB#/} usr/share/doc/"
+#    python3_foo_CONTENTS=${PYTHON3_SITELIB#/}
+#  NOTES
+#  * Some modules include scripts which are installed into /usr/bin.  With very
+#    few exceptions, these scripts are unversioned; this cygclass installs in such
+#    a way that they will use the Python2 interpreter, and therefore should be
+#    packaged with the 2.x module.
+#  * Not all Python module sources are compatible with 2.x and 3.x simultaneously.
+#    Those that are not may have a separate source tarball for each version, which
+#    should be treated as completely separate packages.
+#  INHERITS
+#  python-distutils.cygclass, python3-distutils.cygclass.
+#****
+
+inherit python-distutils python3-distutils
+
+#****o* distutils-multi.cygclass/src_compile (distutils-multi)
+#  DESCRIPTION
+#  Creates separate build trees for each version of Python and runs the distutils
+#  build steps for each.
+#****
+src_compile() {
+    mkdir -p ${B}/py2
+    cd ${B}/py2
+    lndirs ${S}
+    python_distutils_compile
+
+    mkdir -p ${B}/py3
+    cd ${B}/py3
+    lndirs ${S}
+    python3_distutils_compile
+}
+
+#****o* distutils-multi.cygclass/src_install (distutils-multi)
+#  DESCRIPTION
+#  Runs the distutils install steps for each version of Python.  The distro
+#  default version of Python (currently 2.x) is run last so that unversioned
+#  scripts use the default version.
+#****
+src_install() {
+    cd ${B}/py3
+    python3_distutils_install
+
+    cd ${B}/py2
+    python_distutils_install
+}

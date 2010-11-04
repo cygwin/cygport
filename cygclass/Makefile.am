@@ -14,6 +14,7 @@ dist_cygclass_DATA = 			\
 	cross.cygclass				\
 	cvs.cygclass				\
 	distutils.cygclass			\
+	distutils-multi.cygclass	\
 	docbook.cygclass			\
 	ebook.cygclass				\
 	emacs.cygclass				\
