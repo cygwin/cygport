@@ -241,6 +241,7 @@ unset conf;
 #  * pygtk.cygclass
 #  * python.cygclass
 #  * python3.cygclass
+#  * python3-distutils.cygclass
 #  * qt3-qmake.cygclass
 #  * qt3.cygclass
 #  * qt4-cmake.cygclass
