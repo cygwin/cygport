@@ -83,6 +83,9 @@ case "${PN}:${PV}" in
 	kdevplatform:1.*|kdevelop:4.*|kdevelop-*:1.*)
 		SRC_URI="mirror://kde/stable/kdevelop/4.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
 		;;
+	kdepim:4.4.[6-9]|kdepim-runtime:4.4.[6-9])
+		SRC_URI="mirror://kde/stable/kdepim-${PV}/src/${P}.tar.bz2"
+		;;
 	koffice:2.*.[789]?)
 		SRC_URI="mirror://kde/unstable/koffice-${PV}/${P}.tar.bz2"
 		;;
