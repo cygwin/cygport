@@ -113,7 +113,7 @@ __pkg_pkgcheck() {
 	if ! diff -U 0 ${tmp2} ${tmp1} > /dev/null
 	then
 		# detect duplicates and/or missing files
-		diff -U 0 ${tmp2} ${tmp1} | grep -E -v '^@' > ${T}/pkgcheck.diff
+		diff -U 0 ${tmp2} ${tmp1} | grep -E -v '^(@|\+etc/postinstall/)' > ${T}/pkgcheck.diff
 
 		if grep -E '^-[^\-]' ${T}/pkgcheck.diff > /dev/null
 		then
