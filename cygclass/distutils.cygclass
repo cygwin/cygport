@@ -1,0 +1,80 @@
+################################################################################
+#
+# distutils.cygclass - wrapper for versioned python*-distutils cygclasses
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2007, 2008, 2009, 2010 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/distutils.cygclass
+#  SYNOPSIS
+#  inherit distutils
+#  DESCRIPTION
+#  Compatibility wrapper for python-distutils.cygclass or python3-distutils.cygclass.
+#  INHERITS
+#  python-distutils.cygclass in most scenarios, OR python3-distutils.cygclass,
+#  if PN begins with "python3-*" or python3.cygclass has already been inherit()ed.
+#  WARNING
+#  distutils.cygclass cannot be used with both python and python3.  If you wish
+#  to build a module for both versions from the same source simultaneously, use
+#  distutils-multi.cygclass.
+#****
+
+case ${PN} in
+	python-*)
+		_pysuffix=
+		;;
+	python3-*)
+		_pysuffix=3
+		;;
+	*)	if inherited python && ! inherited python3
+		then
+			_pysuffix=
+		elif inherited python3 && ! inherited python
+		then
+			_pysuffix=3
+		elif inherited python && inherited python3
+		then
+			warning "Both python.cygclass and python3.cygclass have been inherited!"
+			warning "Perhaps you want to use distutils-multi.cygclass instead?"
+			error "distutils.cygclass: incompatible use of both python and python3"
+		else
+			inform "Defaulting to Python 2.x ..."
+			_pysuffix=
+		fi
+esac
+
+inherit python${_pysuffix}-distutils
+
+#****C* distutils.cygclass/distutils_compile
+#  DESCRIPTION
+#  Wrapper for python_distutils_compile/python3_distutils_compile
+#****
+distutils_compile() {
+	python${_pysuffix}_distutils_compile "$@"
+}
+
+#****I* distutils.cygclass/distutils_install
+#  DESCRIPTION
+#  Wrapper for python_distutils_install/python3_distutils_install
+#****
+distutils_install() {
+	python${_pysuffix}_distutils_install
+}
+
+readonly -f distutils_compile distutils_install
