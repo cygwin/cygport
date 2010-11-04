@@ -44,6 +44,7 @@ dist_cygclass_DATA = 			\
 	php.cygclass				\
 	pygtk.cygclass				\
 	python.cygclass				\
+	python-distutils.cygclass	\
 	python3.cygclass			\
 	python3-distutils.cygclass	\
 	qt3.cygclass				\

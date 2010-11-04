@@ -1,6 +1,6 @@
 ################################################################################
 #
-# distutils.cygclass - functions for building Distutils Python modules
+# python-distutils.cygclass - for building Python 2.x modules with Distutils
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/distutils.cygclass
+#****h* Cygclasses/python-distutils.cygclass
 #  DESCRIPTION
 #  Distutils is the most common method for building and installing Python
 #  libraries and programs.  The build is defined by a setup.py file in the
@@ -29,7 +29,7 @@
 #  building of C Python extensions.  Many such packages are hosted on the
 #  Python Package Index (PyPI, previously known as Cheeseshop).
 #
-#  This cygclass handles the building of distutils-based packages.
+#  This cygclass handles the building of Python 2.x distutils-based packages.
 #  INHERITS
 #  python.cygclass
 #  REQUIRES
@@ -39,26 +39,26 @@ inherit python
 
 ORIG_PN=${ORIG_PN:-${PN#python-}}
 
-#****o* distutils.cygclass/HOMEPAGE (distutils)
+#****o* python-distutils.cygclass/HOMEPAGE (python-distutils)
 #  DESCRIPTION
 #  Default homepage of the Python module on the Python Package Index.
 #****
 HOMEPAGE="http://pypi.python.org/pypi/${ORIG_PN}"
 
-#****o* distutils.cygclass/SRC_URI (distutils)
+#****o* python-distutils.cygclass/SRC_URI (python-distutils)
 #  DESCRIPTION
 #  Download location of the Python module on the Python Package Index.
 #****
 SRC_URI="http://pypi.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
 
-#****C* distutils.cygclass/distutils_compile
+#****C* python-distutils.cygclass/python_distutils_compile
 #  SYNOPSIS
-#  distutils_compile [OPTIONS]
+#  python_distutils_compile [OPTIONS]
 #  DESCRIPTION
 #  Runs the setup.py 'config' and 'build' commands.  All arguments are passed
 #  to the setup.py 'build' command.
 #****
-distutils_compile() {
+python_distutils_compile() {
 	if [ ! -e setup.py ]
 	then
 		error "No Python Distutils module detected"
@@ -68,19 +68,15 @@ distutils_compile() {
 	${PYTHON} setup.py build "${@}" || error "setup.py build failed"
 }
 
-distutils_test() {
-	:
-}
-
-#****I* distutils.cygclass/distutils_install
+#****I* python-distutils.cygclass/python_distutils_install
 #  SYNOPSIS
-#  distutils_install [OPTIONS]
+#  python_distutils_install [OPTIONS]
 #  DESCRIPTION
 #  Runs the setup.py 'install' phase, setting the root argument to install
 #  into $D, followed by python_optimize.  All arguments are passed to the
 #  setup.py 'install' command.
 #****
-distutils_install() {
+python_distutils_install() {
 	if [ ! -e setup.py ]
 	then
 		error "No Python Distutils module detected"
@@ -94,25 +90,21 @@ distutils_install() {
 	fi
 }
 
-#****o* distutils.cygclass/src_compile (distutils)
+#****o* python-distutils.cygclass/src_compile (python-distutils)
 #  DEFINITION
 src_compile() {
 	lndirs
 	cd ${B}
-	distutils_compile
+	python_distutils_compile
 }
 #****
 
-src_test() {
-	distutils_test
-}
-
-#****o* distutils.cygclass/src_install (distutils)
+#****o* python-distutils.cygclass/src_install (python-distutils)
 #  DEFINITION
 src_install() {
 	cd ${B}
-	distutils_install
+	python_distutils_install
 }
 #****
 
-readonly -f distutils_compile distutils_test distutils_install
+readonly -f python_distutils_compile python_distutils_install
