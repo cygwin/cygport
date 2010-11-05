@@ -121,6 +121,17 @@ __prep_gconf_schemas() {
 	echo >> ${D}/etc/preremove/${PN}.sh
 }
 
+__prep_gio_modules() {
+	dodir /etc/postinstall
+	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+		if [ -x /usr/bin/gio-querymodules ]
+		then
+		    /usr/bin/gio-querymodules /usr/lib/gio/modules
+		fi
+
+		_EOF
+}
+
 __prep_gtk2_modules() {
 	# necessary for postinstalling gtk2 itself
 	export PKG_CONFIG_PATH="${B}:${PKG_CONFIG_PATH}"
@@ -297,6 +308,12 @@ __prepetc() {
 	if [ -d ${D}/usr/share/fonts ]
 	then
 		__prep_fonts_dir || error "Fonts postinstall failed"
+	fi
+
+	# GIO modules
+	if [ -d ${D}/usr/lib/gio/modules ]
+	then
+		__prep_gio_modules || error "GIO modules postinstall failed"
 	fi
 
 	# GTK+ 2.x modules
@@ -781,6 +798,6 @@ __src_postinst() {
 }
 
 readonly -f __prep_fonts_dir __prep_freedesktop_mime __prep_gconf_schemas \
-            __prep_gtk2_modules __prep_gtk_icon_theme \
+            __prep_gio_modules __prep_gtk2_modules __prep_gtk_icon_theme \
             __prepdoc __prepetc __prepman __prepinfo __prepvargames __prep_empty_dirs \
             __prepstrip __prepuac __prep_symlinks __prep_libtool_modules __src_postinst
