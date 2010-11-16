@@ -189,7 +189,7 @@ kde4_install() {
 
 	cyginstall "${@}"
 
-	rm -f ${D}/usr/lib/kde4/lib/libkdeinit4_*
+	rm -f ${D}/usr/lib/libkdeinit4_* ${D}/usr/lib/kde4/lib/libkdeinit4_*
 
 	for kdepkg in ${PKG_NAMES:-${PN}}
 	do
