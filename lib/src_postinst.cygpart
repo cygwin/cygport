@@ -121,6 +121,14 @@ __prep_gconf_schemas() {
 	echo >> ${D}/etc/preremove/${PN}.sh
 }
 
+__prep_gsettings_schemas() {
+	dodir /etc/postinstall
+	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+		/usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas
+
+	_EOF
+}
+
 __prep_gio_modules() {
 	dodir /etc/postinstall
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
@@ -386,6 +394,12 @@ __prepetc() {
 	if [ -d ${D}/etc/gconf/schemas ] && ! defined _CYGPORT_RESTRICT_postinst_gconf_
 	then
 		__prep_gconf_schemas || error "GConf schemas postinstall failed"
+	fi
+
+	# GSettings schemas
+	if [ -d ${D}/usr/share/glib-2.0/schemas ]
+	then
+		__prep_gsettings_schemas || error "GSettings schemas postinstall failed"
 	fi
 
 	# Freedesktop.org Shared Mime Info
@@ -852,7 +866,7 @@ __src_postinst() {
 }
 
 readonly -f __prep_fonts_dir __prep_freedesktop_mime __prep_gconf_schemas \
-            __prep_gio_modules __prep_gdk_pixbuf_modules __prep_gtk2_modules \
-            __prep_gtk3_modules __prep_gtk_icon_theme \
+            __prep_gsettings_schemas __prep_gio_modules __prep_gdk_pixbuf_modules \
+            __prep_gtk2_modules __prep_gtk3_modules __prep_gtk_icon_theme \
             __prepdoc __prepetc __prepman __prepinfo __prepvargames __prep_empty_dirs \
             __prepstrip __prepuac __prep_symlinks __prep_libtool_modules __src_postinst
