@@ -1,3 +1,15 @@
+0.10.2:
+	* All manpages with double-colon are renamed for man(1) compatibility.
+	* New and updated postinstall steps for GNOME 2.32 and GTK+ 3.0.
+	* Postinstall scripts can be included in multiple subpackages.
+	* ant.cygclass: accepts ANT_TEST_ARGS and ANT_INSTALL_WRAPPERS.
+	* distutils.cygclass: wrapper for python-distutils or python3-distutils.
+	* distutils-multi.cygclass: NEW for simultaneous Py2 and Py3 modules.
+	* kde4.cygclass: updated SRC_URI for kdepim 4.4 releases.
+	* python-distutils.cygclass: renamed, for Python 2.x only.
+	* python3-distutils.cygclass: NEW for Python 3.x only.
+	* xorg.cygclass: fixed URIs for xproxymanagementprotocol.
+
 0.10.1:
 	* More fixes for cross-compiling scenarios.
 	* More refinements for automatic exclusion rules.
