@@ -30,7 +30,7 @@
 #  bindings.
 #
 #  This cygclass does all the work involved in building and packaging versions
-#  3.x and 4.x of the Berkeley DB.  Older versions are not supported.
+#  3.x, 4.x, and 5.x of the Berkeley DB.  Older versions are not supported.
 #
 #  The C++ bindings are always enabled, but the Java and Tcl bindings will
 #  only be enabled if their respective cygclasses are inherited _before_
@@ -40,7 +40,7 @@
 #****
 
 case ${PV_MAJ_MIN} in
-	3.*|4.*)	SLOT="${PV_MAJ_MIN}" ;;
+	3.*|4.*|5.*)	SLOT="${PV_MAJ_MIN}" ;;
 	*)			error "berkdb: accepts only versions 3.x or 4.x" ;;
 esac
 
@@ -93,7 +93,7 @@ fi
 #****
 PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc"
 export ${PN//./_}_CONTENTS="--exclude=html usr/bin/db${SLOT}_*.exe usr/share/doc/"
-export lib${PN//./_}_CONTENTS="usr/bin/cygdb-${SLOT}.dll usr/bin/cygdb_cxx-${SLOT}.dll"
+export lib${PN//./_}_CONTENTS="--exclude=*java* usr/bin/*-${SLOT}.dll"
 export lib${PN//./_}_devel_CONTENTS="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib*"
 export ${PN//./_}_doc_CONTENTS="usr/share/doc/${PN}/html/"
 
@@ -154,7 +154,11 @@ berkdb_autoreconf() {
 #  that the java-dbX.Y and tcl-dbX.Y packages must depend on libdbX.Y.
 #****
 berkdb_compile() {
-	local use_java use_tcl
+	local use_java use_sql use_tcl
+
+	case ${PV} in
+		5.*)  use_sql="--enable-sql" ;;
+	esac
 
 	if inherited java
 	then
@@ -177,13 +181,13 @@ berkdb_compile() {
 		--enable-compat185 \
 		--enable-cxx \
 		--enable-dynamic \
-		${use_java} ${use_tcl}
+		${use_sql} ${use_java} ${use_tcl}
 
 	cygmake libdb-${SLOT}.la
 
 	case ${SLOT} in
 		3.[0-2]) objvar=OBJS ;;
-		3.*|4.*) objvar=C_OBJS ;;
+		3.*|4.*|5.*) objvar=C_OBJS ;;
 	esac
 
 	cygmake ${objvar}="libdb-${SLOT}.la"
@@ -196,11 +200,6 @@ berkdb_compile() {
 #****
 berkdb_install() {
 	case ${SLOT} in
-		4.[3-9])
-			USE_DESTDIR=1 cyginstall \
-				docdir=/usr/share/doc/${PN}/html \
-				emode=755 fmode=644
-			;;
 		4.[012])
 			USE_DESTDIR=0 cyginstall \
 				includedir=${D}/usr/include/db${SLOT} \
@@ -213,6 +212,11 @@ berkdb_install() {
 				docdir=${D}/usr/share/doc/${PN}/html \
 				emode=755 fmode=644 \
 				chmod=true ln=true strip=true
+			;;
+		4.*|5.*)
+			USE_DESTDIR=1 cyginstall \
+				docdir=/usr/share/doc/${PN}/html \
+				emode=755 fmode=644
 			;;
 	esac
 
