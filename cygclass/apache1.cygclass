@@ -35,6 +35,11 @@
 #  "apache-" prefix before the canonical package name.  Because there is no
 #  consistent DSO source buildsystem, src_compile and src_install must be
 #  defined yourself.
+#  WARNING
+#  Apache httpd 1.x has been EOL'd upstream.  It is strongly recommended
+#  that all users upgrade to the latest stable 2.x release.  Therefore,
+#  no new modules should be built for 1.x, as the distro apache package
+#  may be subject to removal in the near future.
 #  REQUIRES
 #  apache
 #  SEE ALSO
@@ -270,5 +275,5 @@ apache1_postinst() {
 	done
 }
 
-readonly -f apache1_compile apache1_apxs_compile apxs1_compile doapache1conf \
+readonly -f apache1_compile apache1_apxs_compile doapache1conf \
             doapache1mod apache1_postinst
