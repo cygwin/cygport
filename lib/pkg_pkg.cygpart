@@ -161,10 +161,8 @@ __pkg_diff() {
 
 	if __config_equals with_automake 1
 	then
-		default_excludes+=" COPYING INSTALL compile config-ml.in \
-			config.guess config.sub depcomp elisp-comp install-sh \
-			mdate-sh missing mkinstalldirs py-compile \
-			symlink-tree texinfo.tex ylwrap \
+		default_excludes+=" COPYING INSTALL config-ml.in elisp-comp
+			mdate-sh mkinstalldirs py-compile symlink-tree texinfo.tex ylwrap
 			Makefile.in GNUmakefile.in makefile.in"
 	fi
 
@@ -172,6 +170,11 @@ __pkg_diff() {
 	then
 		default_excludes+=" libtool.m4 ltoptions.m4 ltsugar.m4 ltversion.m4
 			lt~obsolete.m4 ltmain.sh"
+	fi
+
+	if __config_equals with_libtool 1 || __config_equals with_automake 1
+	then
+		default_excludes+=" compile config.guess config.sub depcomp install-sh missing"
 	fi
 
 	if __config_equals with_gnu_gettext 1 && [ ${PN} != "gettext" ]
