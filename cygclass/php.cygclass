@@ -226,7 +226,7 @@ php_install() {
 		PEXX=PEAR
 	fi
 
-	# unfortunately this won't register the binary extension
+	# FIXME: this won't register the binary extension file location
 	${!PEXX} install \
 		--force --loose --nobuild --nodeps --offline --packagingroot=${D} \
 		./package.xml \
@@ -292,7 +292,13 @@ php_postinst() {
 #****
 src_compile() {
 	lndirs
-	ln -sf ${S}/../package.xml ${B}
+	# http://pear.php.net/news/package.xml.1.0.php
+	if [ -f ${S}/../package2.xml ]
+	then
+		ln -sf ${S}/../package2.xml ${B}/package.xml
+	else
+		ln -sf ${S}/../package.xml ${B}/package.xml
+	fi
 
 	if __php_is_binary
 	then
