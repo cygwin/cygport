@@ -106,10 +106,9 @@ LIBPHP=$(${PHP_CONFIG} --libs)
 
 #****v* php.cygclass/PHP_CHANNEL
 #  DESCRIPTION
-#  Domain name of the PEAR/PECL server on which the PHP extension is hosted.
-#  The names 'pear' and 'pecl' can be used for 'pear.php.net' and 'pecl.php.net'
-#  respectively.  This variable must be defined before inherit()ing php.cygclass
-#  to have any effect.
+#  Domain name, or well-known alias, of the PEAR/PECL server on which the PHP
+#  extension is hosted. This variable must be defined before inherit()ing
+#  php.cygclass to have any effect.
 #
 #  A list of known channels is available at http://pear.php.net/channels/ .
 #****
@@ -117,7 +116,7 @@ LIBPHP=$(${PHP_CONFIG} --libs)
 #****o* php.cygclass/HOMEPAGE (php)
 #  DESCRIPTION
 #  Web address for the PHP extension.  This variable is defined only if
-#  PHP_CHANNEL is 'pear' or 'pecl'.
+#  PHP_CHANNEL was defined before inherit()ing php.cygclass.
 #****
 #****o* php.cygclass/SRC_URI (php)
 #  DESCRIPTION
@@ -132,13 +131,55 @@ php-*)
 	;;
 esac
 
+__php_channel_fixup() {
+	local channel
+
+	if ! defined PHP_CHANNEL
+	then
+		return
+	fi
+
+	case $(echo ${PHP_CHANNEL} | tr [:upper:] [:lower:]) in
+		11abacus)	channel="pear.11abacus.com" ;;
+		agavi)		channel="pear.agavi.org" ;;
+		crisscott)	channel="pear.crisscott.com" ;;
+		domain51)	channel="pear.domain51.com" ;;
+		ezc)		channel="components.ez.no" ;;
+		funkatron)	channel="funkatron.pearfarm.org" ;;
+		horde)		channel="pear.horde.org" ;;
+		pat)		channel="pear.php-tools.net" ;;
+		pdepend)	channel="pear.pdepend.org" ;;
+		pear)		channel="pear.php.net" ;;
+		pecl)		channel="pecl.php.net" ;;
+		phing)		channel="pear.phing.info" ;;
+		phpdocs)	channel="doc.php.net" ;;
+		phpmd)		channel="pear.phpmd.org" ;;
+		phpuc)		channel="pear.phpundercontrol.org" ;;
+		phpunit)	channel="pear.phpunit.de" ;;
+		piece)		channel="pear.piece-framework.com" ;;
+		pirum)		channel="pear.pirum-project.org" ;;
+		sikz)		channel="pear.si.kz" ;;
+		smarty)		channel="pear-smarty.googlecode.com/svn" ;;
+		solar)		channel="solarphp.com" ;;
+		symfony)	channel="pear.symfony-project.com" ;;
+		timj)		channel="pear.timj.co.uk" ;;
+		zend)		channel="zend.googlecode.com/svn" ;;
+		*.*)		channel=${PHP_CHANNEL} ;;
+		*)			error "php: unknown channel: ${PHP_CHANNEL}" ;;
+	esac
+
+	echo -n ${channel}
+}
+
+PHP_CHANNEL=$(__php_channel_fixup)
+
 case "${PHP_CHANNEL}" in
 '') ;;
-[Pp][Ee][Aa][Rr]|pear.php.net)
+pear.php.net)
 	HOMEPAGE="http://pear.php.net/package/${ORIG_PN}/"
 	SRC_URI="http://download.pear.php.net/package/${ORIG_PN}-${PV}.tgz"
 	;;
-[Pp][Ee][Cc][Ll]|pecl.php.net)
+pecl.php.net)
 	HOMEPAGE="http://pecl.php.net/package/${ORIG_PN}/"
 	SRC_URI="http://pecl.php.net/get/${ORIG_PN}-${PV}.tgz"
 	;;
@@ -147,9 +188,10 @@ case "${PHP_CHANNEL}" in
 	then
 		if ! $(${PEAR} channel-discover ${PHP_CHANNEL} &> /dev/null)
 		then
-			error "php: unknown channel: ${PHP_CHANNEL}"
+			error "php: channel not found: ${PHP_CHANNEL}"
 		fi
 	fi
+	HOMEPAGE="http://${PHP_CHANNEL%%/*}"
 	SRC_URI="http://${PHP_CHANNEL}/get/${ORIG_PN}-${PV}.tgz"
 	;;
 esac
@@ -263,9 +305,8 @@ php_postinst() {
 		done
 	fi
 
-	case ${PHP_CHANNEL} in
-	[Pp][Ee][Aa][Rr]|pear.php.net) ;;
-	[Pp][Ee][Cc][Ll]|pecl.php.net) ;;
+	case "${PHP_CHANNEL}" in
+	pear.php.net|pecl.php.net) ;;
 	'') ;;
 	*)	dodir /etc/postinstall
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
