@@ -102,7 +102,7 @@ PHP_PEAR_DIR=/usr/share/pear
 #  be resolved at link time, a library is used which all SAPIs and extensions
 #  link against.
 #****
-LIBPHP="-lphp5lib"
+LIBPHP=$(${PHP_CONFIG} --libs)
 
 #****v* php.cygclass/PHP_CHANNEL
 #  DESCRIPTION
