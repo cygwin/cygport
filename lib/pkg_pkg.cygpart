@@ -343,11 +343,11 @@ __pkg_dist() {
 
 	cp ${top}/${PF}-src.tar.bz2 ${distdir}/${PN};
 
-	if (( pkg_count > 1 ))
+	if (( pkg_count == 1 )) && [ ${pkg_name[0]} = ${PN} ]
 	then
-		pkg_hint=(${PKG_HINTS:-${PKG_NAMES}})
-	else
 		pkg_hint=(${PKG_HINTS:-setup})
+	else
+		pkg_hint=(${PKG_HINTS:-${PKG_NAMES}})
 	fi
 
 	if (( pkg_count != ${#pkg_hint[*]} ))
