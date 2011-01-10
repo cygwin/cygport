@@ -1,0 +1,133 @@
+################################################################################
+#
+# nant.cygclass - functions for building .NET packages with NAnt
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2011 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/nant.cygclass
+#  SYNOPSIS
+#  inherit nant
+#  DESCRIPTION
+#  NAnt is a build system written in .NET and used in some .NET projects.
+#  The build is controlled by a single XML file, named '*.build' by default,
+#  which specifies the targets to be built, the commands to build them, and the
+#  options which may be given to control the build.
+#
+#  NAnt includes support for a number of commands (called tasks), including
+#  compiling and executing .NET code, generating documentation, downloading
+#  files, de/compressing archives, and running testsuites.  Third-party NAnt
+#  tasks also exist to support additional commands.
+#
+#  This cygclass builds packages which use the NAnt build system.
+#  INHERITS
+#  mono.cygclass
+#  REQUIRES
+#  nant
+#****
+
+inherit mono
+
+check_prog_req nant
+
+#****d* nant.cygclass/NANT
+#  DESCRIPTION
+#  Absolute path to the NAnt build tool.
+#****
+NANT=/usr/bin/nant
+
+#****v* nant.cygclass/NANT_BUILD_FILE
+#  DESCRIPTION
+#  Name or relative path of the NAnt build file.  This need only be defined
+#  if it is not '*.build' (the default).
+#****
+
+#****C* nant.cygclass/cygnant
+#  SYNOPSIS
+#  cygnant [OPTIONS]
+#  DESCRIPTION
+#  Runs NAnt with the given options, if any.
+#****
+cygnant() {
+	local fileargs task taskpath
+
+	if ! find . -maxdepth 1 -name "${NANT_BUILD_FILE:*.build}"
+	then
+		error "NAnt *.build file not found"
+	fi
+
+	if defined NANT_BUILD_FILE
+	then
+		fileargs="-buildfile:${NANT_BUILD_FILE}"
+	fi
+
+	/usr/bin/nant ${fileargs} ${@} || error "nant build failed"
+}
+
+#****I* nant.cygclass/donanttask
+#  SYNOPSIS
+#  donanttask ASSEMBLY [ASSEMBLY] ...
+#  DESCRIPTION
+#  Installs the given assembly file(s) into the NAnt task directory.
+#****
+donanttask() {
+	local _insinto_tmp=${_insinto_dir}
+
+	insinto /usr/share/NAnt/bin/tasks
+	doins ${@}
+
+	_insinto_dir=${_insinto_tmp}
+}
+
+#****v* nant.cygclass/NANT_BUILD_ARGS
+#  DESCRIPTION
+#  Arguments to pass to the NAnt build command if this src_compile is used.
+#****
+#****v* nant.cygclass/NANT_BUILD_TARGETS
+#  DESCRIPTION
+#  Target(s) to be built during the NAnt build command if this src_compile is used.
+#****
+
+#****o* nant.cygclass/src_compile (nant)
+#  DEFINITION
+src_compile() {
+	lndirs
+	cd ${B}
+	cygnant ${NANT_BUILD_ARGS} ${NANT_BUILD_TARGETS}
+}
+#****
+
+#****v* nant.cygclass/NANT_TEST_ARGS
+#  DESCRIPTION
+#  Arguments to pass to NAnt during testing if this src_test is used.
+#****
+#****v* nant.cygclass/NANT_TEST_TARGETS
+#  DESCRIPTION
+#  Target(s) to be built to run the testsuite if this src_test is used.
+#****
+
+#****o* nant.cygclass/src_test (nant)
+#  DEFINITION
+src_test() {
+	cd ${B}
+	cygnant ${NANT_TEST_ARGS} ${NANT_TEST_TARGETS:-test}
+}
+#****
+
+readonly -f cygnant donanttask

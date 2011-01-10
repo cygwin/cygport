@@ -234,6 +234,7 @@ unset conf;
 #  * lua.cygclass
 #  * mono.cygclass
 #  * mtn.cygclass
+#  * nant.cygclass
 #  * ocaml.cygclass
 #  * octave.cygclass
 #  * opensync.cygclass

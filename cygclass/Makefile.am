@@ -38,6 +38,7 @@ dist_cygclass_DATA = 			\
 	lua.cygclass				\
 	mono.cygclass				\
 	mtn.cygclass				\
+	nant.cygclass				\
 	ocaml.cygclass				\
 	octave.cygclass				\
 	opensync.cygclass			\

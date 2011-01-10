@@ -36,6 +36,8 @@
 #
 #  This cygclass sets definitions for downloading and building Mono components,
 #  and provides functions for installing CLR assemblies and programs.
+#  INHERITED BY
+#  nant.cygclass
 #  REQUIRES
 #  mono
 #****
