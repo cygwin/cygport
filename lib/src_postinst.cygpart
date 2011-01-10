@@ -555,6 +555,14 @@ __prepstrip() {
 		then
 			strip=${STRIP}
 		else
+			# sometimes .exe will be appended where it does not belong
+			case ${exe} in *.exe)
+				if [ $(head -c 2 ${exe}) = "#!" ]
+				then
+					mv ${exe} ${exe%.exe}
+				fi
+			esac
+
 			continue
 		fi
 
