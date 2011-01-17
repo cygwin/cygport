@@ -101,6 +101,7 @@ cygautoreconf() {
 	local configure_ac;
 	local config_h;
 	local config_h_in;
+	local sub_configure_ac;
 
 	if [ -f configure.ac ]
 	then
@@ -120,6 +121,16 @@ cygautoreconf() {
 	do
 		if [ -d ${d} ]
 		then
+			if [ -f ${d}/configure.ac ]
+			then
+				sub_configure_ac="${d}/configure.ac";
+			elif [ -f ${d}/configure.in ]
+			then
+				sub_configure_ac="${d}/configure.in";
+			else
+				error "Could not find ${d}/configure.ac or ${d}/configure.in";
+			fi
+
 			# e.g. CVS checkouts
 			if [ -f ${d}/configure ]
 			then
@@ -150,25 +161,25 @@ cygautoreconf() {
 				__config_set with_aclocal 1
 			fi
 
-			if $(grep -q 'AM_INIT_AUTOMAKE' ${d}/${configure_ac})
+			if $(grep -q 'AM_INIT_AUTOMAKE' ${sub_configure_ac})
 			then
 				__config_set with_automake 1
 			fi
 
-			if $(grep -Eq '(AM_GNU_GETTEXT|AM_ICONV|AC_GGZ_INTL)' ${d}/${configure_ac})
+			if $(grep -Eq '(AM_GNU_GETTEXT|AM_ICONV|AC_GGZ_INTL)' ${sub_configure_ac})
 			then
 				cp -f /usr/share/gettext/config.rpath ${d}/
 				__config_set with_gnu_gettext 1
 			fi
 
-			if $(grep -Eq '(A[CM]_PROG_LIBTOOL|LT_INIT)' ${d}/${configure_ac})
+			if $(grep -Eq '(A[CM]_PROG_LIBTOOL|LT_INIT)' ${sub_configure_ac})
 			then
 				__config_set with_libtool 1
 			fi
 
-			if $(grep -q '\./libtool -' ${d}/${configure_ac}) && ! $(grep -q 'LT_OUTPUT' ${d}/${configure_ac})
+			if $(grep -q '\./libtool -' ${sub_configure_ac}) && ! $(grep -q 'LT_OUTPUT' ${sub_configure_ac})
 			then
-				warning "${d}/${configure_ac} may require LT_OUTPUT macro"
+				warning "${sub_configure_ac} may require LT_OUTPUT macro"
 			fi
 
 			# Automake will exit if these are not present
@@ -319,7 +330,14 @@ cygautoreconf() {
 	do
 		if [ -d ${d} ]
 		then
-			config_h="$(grep 'A[CM]_CONFIG_HEADERS*' ${d}/${configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')";
+			if [ -f ${d}/configure.ac ]
+			then
+				sub_configure_ac="${d}/configure.ac";
+			else
+				sub_configure_ac="${d}/configure.in";
+			fi
+
+			config_h="$(grep 'A[CM]_CONFIG_HEADERS*' ${sub_configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')";
 
 			if defined config_h
 			then
