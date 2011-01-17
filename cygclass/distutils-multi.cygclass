@@ -76,6 +76,8 @@ src_install() {
     cd ${B}/py3
     python3_distutils_install
 
+    rm -f $(find ${D}/usr/bin/ ! -name "*${PYTHON3_VERSION}*")
+
     cd ${B}/py2
     python_distutils_install
 }
