@@ -54,9 +54,12 @@ ORIG_PN=${ORIG_PN:-${PN}}
 #****
 case ${ORIG_PN} in
 	exo|gtk-xfce-engine|libxfce4menu|libxfce4ui|libxfce4util|libxfcegui4\
-	|xfce-utils|xfce4-appfinder|xfce4-dev-tools|xfce4-panel\
+	|thunar-vfs|xfce-utils|xfce4-appfinder|xfce4-dev-tools|xfce4-panel\
 	|xfce4-session|xfce4-settings|xfconf|xfdesktop|xfwm4)
 		uri_subdir="xfce/${ORIG_PN}"
+		;;
+	garcon|ghal)
+		uri_subdir="libs/${ORIG_PN}"
 		;;
 	Thunar)
 		uri_subdir="xfce/thunar"
