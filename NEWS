@@ -1,3 +1,10 @@
+0.10.3:
+	* Scripts with erroneous .exe extension are renamed automatically.
+	* berkdb.cygclass: support BDB 5.x.
+	* nant.cygclass: NEW for NAnt-based .NET packages.
+	* php.cygclass: support PHP 5.3, improve 3rd-party channel support.
+	* xfce4.cygclass: updated for Xfce 4.8.
+
 0.10.2:
 	* All manpages with double-colon are renamed for man(1) compatibility.
 	* New and updated postinstall steps for GNOME 2.32 and GTK+ 3.0.
