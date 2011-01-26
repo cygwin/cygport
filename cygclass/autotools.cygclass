@@ -103,6 +103,16 @@ cygautoreconf() {
 	local config_h_in;
 	local sub_configure_ac;
 
+	__parse_aclocal_amflags() {
+		for arg in $@
+		do
+			case $1 in
+				-I) echo $2 ;;
+			esac
+			shift
+		done
+	}
+
 	if [ -f configure.ac ]
 	then
 		configure_ac="configure.ac";
@@ -154,6 +164,14 @@ cygautoreconf() {
 				done
 
 				unset ac_config_files;
+			fi
+
+			# sometimes ACLOCAL_AMFLAGS is defined but the given directory
+			# exists only in VCS (or is created by an autogen.sh) and is
+			# not shipped in the tarball
+			if [ -f Makefile.am ]
+			then
+				__parse_aclocal_amflags $(grep '^ACLOCAL_AMFLAGS' Makefile.am) | xargs -r mkdir -p
 			fi
 
 			if [ ! -f ${d}/aclocal.m4 ] || $(head -n 1 ${d}/aclocal.m4 | grep -q 'generated.* by aclocal')
@@ -367,6 +385,8 @@ cygautoreconf() {
 			done
 		fi
 	done
+
+	unset -f __parse_aclocal_amflags
 }
 
 #****C* autotools.cygclass/cygconf
