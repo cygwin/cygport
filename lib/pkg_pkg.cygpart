@@ -22,6 +22,7 @@
 
 __pkg_binpkg() {
 	local -i n=0;
+	local pkg_contents;
 	local pkg_contents_var;
 	local pkg_list;
 
@@ -57,23 +58,24 @@ __pkg_binpkg() {
 
 		if defined ${pkg_contents_var}
 		then
-			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
-				${!pkg_contents_var} \
-				|| error "Binary package creation failed"
+			pkg_contents=${!pkg_contents_var}
 		elif defined PKG_CONTENTS[${n}]
 		then
-			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
-				${PKG_CONTENTS[${n}]} \
-				|| error "Binary package creation failed"
+			pkg_contents=${PKG_CONTENTS[${n}]}
 		elif [ -f ${C}/${pkg_list[${n}]}.list ]
 		then
-			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
-				$(cat ${C}/${pkg_list[${n}]}.list) \
-				|| error "Binary package creation failed"
+			pkg_contents=$(cat ${C}/${pkg_list[${n}]}.list)
 		elif (( pkg_count == 1 ))
 		then
-			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 * \
-				|| error "Binary package creation failed"
+			pkg_contents="*"
+		else
+			pkg_contents=
+		fi
+
+		if defined pkg_contents
+		then
+			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${pkg_contents} \
+				|| error "Binary package creation failed: ${pkg_name[${n}]}"
 		else
 			inform "Creating empty package"
 			bzip2 < /dev/null > ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
