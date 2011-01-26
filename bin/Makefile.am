@@ -1,6 +1,6 @@
 nodist_bin_SCRIPTS = cygport
 
-cygport: cygport.in
+cygport: cygport.in $(top_srcdir)/configure
 	$(AM_V_GEN)sed	-e "s!\@VERSION\@!$(VERSION)!"			\
 		-e "s!\@docdir\@!$(docdir)!"			\
 		-e "s!\@pkgdatadir\@!$(pkgdatadir)!"	\
