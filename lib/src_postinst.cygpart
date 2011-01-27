@@ -227,9 +227,6 @@ __prep_gtk_icon_theme() {
 				if [ -x /usr/bin/gtk-update-icon-cache.exe ]
 				then
 				    /usr/bin/gtk-update-icon-cache --force ${icondir#${D}}
-				elif [ -x /usr/bin/gtk-update-icon-cache-3.0 ]
-				then
-				    /usr/bin/gtk-update-icon-cache-3.0 --force ${icondir#${D}}
 				fi
 
 			_EOF
