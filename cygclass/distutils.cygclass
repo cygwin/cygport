@@ -40,6 +40,7 @@ case ${PN} in
 		_pysuffix=
 		;;
 	python3-*)
+		inform "Using Python 3.x ..."
 		_pysuffix=3
 		;;
 	*)	if inherited python && ! inherited python3
@@ -47,6 +48,7 @@ case ${PN} in
 			_pysuffix=
 		elif inherited python3 && ! inherited python
 		then
+			inform "Using Python 3.x ..."
 			_pysuffix=3
 		elif inherited python && inherited python3
 		then
@@ -54,7 +56,6 @@ case ${PN} in
 			warning "Perhaps you want to use distutils-multi.cygclass instead?"
 			error "distutils.cygclass: incompatible use of both python and python3"
 		else
-			inform "Defaulting to Python 2.x ..."
 			_pysuffix=
 		fi
 esac
