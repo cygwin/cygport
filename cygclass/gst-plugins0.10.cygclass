@@ -3,7 +3,7 @@
 # gst-plugins0.10.cygclass - functions for building GStreamer 0.10 Plugins
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -107,7 +107,7 @@ case ${gst_pn} in
 		;;
 	good)
 		my_gst_plugins="aalib annodex cairo directdraw directsound
-		                esd flac gconf gdk_pixbuf jpeg libcaca libdv libpng
+		                esd flac gconf gdk_pixbuf jack jpeg libcaca libdv libpng
 		                oss pulse shout2 soup speex taglib wavpack x xshm"
 		conftest_gst_plugins="aalibtest esdtest shout2test"
 		never_gst_plugins="dv1394 gst_v4l2 hal oss4 osx_audio osx_video sunaudio xvideo"
@@ -116,9 +116,9 @@ case ${gst_pn} in
 		# WARNING: some of the dependent codecs may be patent encumbered
 		# oss4: moved into good before bad .18
 		my_gst_plugins="acm amrwb apexsink assrender bz2 celt cog dirac dts
-		                faac faad flite gme gsm ivorbis jack jp2k kate ladspa libmms lv2
+		                faac faad flite gme gsettings gsm ivorbis jack jp2k kate ladspa libmms lv2
 		                metadata mimic modplug mpeg2enc mplex musepack musicbrainz
-		                nas neon ofa resindvd rsvg schro sdl sndfile soundtouch spc
+		                nas neon ofa opencv resindvd rsvg rtmp schro sdl sndfile soundtouch spc
 		                theoradec timidity vp8 wildmidi wininet xvid zbar"
 		conftest_gst_plugins="sdltest"
 		never_gst_plugins="alsa cdaudio dc1394 directfb divx dvb fbdev gst_v4l2
