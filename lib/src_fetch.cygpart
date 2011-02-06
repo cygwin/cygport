@@ -120,12 +120,14 @@ __src_fetch() {
 
 	for uri in ${SRC_URI} ${PATCH_URI}
 	do
-		case ${uri%%://*} in
-			mirror)			__mirror_fetch ${uri} ;;
-			http|https|ftp)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
-			file|/*)		cp -f ${uri#file://} . || error "Copying ${uri##*/} failed" ;;
-			${uri})			;; # file in working directory
-			*)				error "Invalid download URI ${uri}" ;;
+		case ${uri%%//*} in
+			mirror:)			__mirror_fetch ${uri} ;;
+			http:|https:|ftp:)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
+			file:)		cp -f ${uri#file://} . || error "Copying ${uri##*/} failed" ;;
+			*:)			error "Unsupported download protocol ${uri%%//*}" ;;
+			*/*)		cp -f ${uri#file://} . || error "Copying ${uri##*/} failed" ;;
+			${uri})		;; # file in working directory
+			*)			error "Invalid download URI ${uri}" ;;
 		esac
 	done
 }
