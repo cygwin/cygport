@@ -3,7 +3,7 @@
 # qt4.cygclass - functions for building Qt4-dependent packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -41,7 +41,12 @@
 #  DESCRIPTION
 #  Root directory for the Qt4 installation.
 #****
-QT4_QTDIR=/usr/lib/qt4
+if inherited cross
+then
+	QT4_QTDIR=${CROSS_PREFIX}
+else
+	QT4_QTDIR=/usr/lib/qt4
+fi
 
 #****d* qt4.cygclass/QT4_BINDIR
 #  DESCRIPTION
@@ -53,7 +58,12 @@ QT4_BINDIR=${QT4_QTDIR}/bin
 #  DESCRIPTION
 #  Directory containing the Qt4 library headers.
 #****
-QT4_INCLUDEDIR=/usr/include/qt4
+if inherited cross
+then
+	QT4_INCLUDEDIR=${CROSS_INCLUDEDIR}
+else
+	QT4_INCLUDEDIR=/usr/include/qt4
+fi
 
 #****d* qt4.cygclass/QT4_LIBDIR
 #  DESCRIPTION
@@ -65,13 +75,23 @@ QT4_LIBDIR=${QT4_QTDIR}/lib
 #  DESCRIPTION
 #  Installation path for Qt4 plugins.
 #****
-QT4_PLUGINSDIR=${QT4_QTDIR}/plugins
+if inherited cross
+then
+	QT4_PLUGINSDIR=${CROSS_LIBDIR}/qt4/plugins
+else
+	QT4_PLUGINSDIR=${QT4_QTDIR}/plugins
+fi
 
 #****d* qt4.cygclass/QT4_DATADIR
 #  DESCRIPTION
 #  Directory containing Qt4 makespecs, documentation, and translation data.
 #****
-QT4_DATADIR=/usr/share/qt4
+if inherited cross
+then
+	QT4_DATADIR=${CROSS_DATADIR}/qt4
+else
+	QT4_DATADIR=/usr/share/qt4
+fi
 
 #****d* qt4.cygclass/QT4_QMAKE
 #  DESCRIPTION
@@ -101,7 +121,7 @@ QT4_UIC=${QT4_BINDIR}/uic
 #  DESCRIPTION
 #  Absolute path to the Qt4 Qt3Support User Interface Compiler
 #****
-QT4_UIC3=${QT4_BINDIR}/uic3
+QT4_UIC3=/usr/lib/qt4/bin/uic3
 
 __qt4_qmakespec() {
 	local spec

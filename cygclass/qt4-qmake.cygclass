@@ -3,7 +3,7 @@
 # qt4-qmake.cygclass - functions for building QMake-based Qt4 packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -49,17 +49,7 @@ cygqmake4() {
 		error "libQtCore4-devel is required to build this package"
 	fi
 
-	if inherited cross
-	then
-		args="QMAKE_CC=${CC} QMAKE_LINK_CC=${CC} QMAKE_CXX=${CXX} QMAKE_LINK=${CXX}"
-		args+=" QMAKE_INCDIR_QT=${CROSS_INCLUDEDIR} QMAKE_LIBDIR_QT=${CROSS_LIBDIR}"
-		args+=" QMAKE_MOC=${QT4_MOC} QMAKE_UIC=${QT4_UIC} QMAKE_RCC=${QT4_RCC}"
-		args+=" QMAKE_OBJCOPY=${CHOST}-objcopy QMAKE_RANLIB=${CHOST}-ranlib QMAKE_STRIP=${CHOST}-strip"
-	else
-		args=
-	fi
-
-	${QT4_QMAKE} -spec ${QMAKESPEC} ${args} -recursive ${CYGQMAKE4_ARGS} ${@} \
+	${QT4_QMAKE} -spec ${QMAKESPEC} -recursive ${CYGQMAKE4_ARGS} ${@} \
 			|| error "qmake failed"
 }
 
@@ -87,17 +77,20 @@ qt4_qmake_install() {
 
 	make install INSTALL_ROOT=${D} || error "make install failed"
 
-	for dll in $(find ${D}/usr/lib/ ${D}${QT4_LIBDIR} -maxdepth 1 -name '*.dll' 2> /dev/null)
+	for dll in $(find ${D}$(__host_prefix)/lib/ ${D}${QT4_LIBDIR} -maxdepth 1 -name '*.dll' 2> /dev/null)
 	do
-		dodir /usr/bin
-		mv ${dll} ${D}/usr/bin/
+		dodir $(__host_prefix)/bin
+		mv ${dll} ${D}$(__host_prefix)/bin/
 	done
 
-	for pc in $(find ${D}${QT4_LIBDIR}/pkgconfig -name '*.pc' 2> /dev/null)
-	do
-		dodir /usr/lib/pkgconfig
-		mv ${pc} ${D}/usr/lib/pkgconfig/
-	done
+	if [ ${QT4_LIBDIR} != $(__host_prefix)/lib ]
+	then
+		for pc in $(find ${D}${QT4_LIBDIR}/pkgconfig -name '*.pc' 2> /dev/null)
+		do
+			dodir $(__host_prefix)/lib/pkgconfig
+			mv ${pc} ${D}$(__host_prefix)/lib/pkgconfig/
+		done
+	fi
 }
 
 #****o* qt4-qmake.cygclass/src_compile (qt4-qmake)

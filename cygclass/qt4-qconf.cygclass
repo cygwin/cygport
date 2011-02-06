@@ -3,7 +3,7 @@
 # qt4-qconf.cygclass - functions for building QConf-based Qt4 packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -65,14 +65,7 @@ qt4_qconf_compile() {
 		error "qt4_qconf_compile: could not find configure file"
 	fi
 
-	if inherited cross
-	then
-		qtdir=${CROSS_PREFIX}
-	else
-		qtdir=${QT4_QTDIR}
-	fi
-
-	./configure --prefix=$(__host_prefix) --qtdir=${qtdir} ${@} || error "qconf configure failed"
+	./configure --prefix=$(__host_prefix) --qtdir=${QT4_QTDIR} ${@} || error "qconf configure failed"
 	cygmake
 }
 
