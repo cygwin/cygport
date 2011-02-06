@@ -131,6 +131,16 @@ SVN_URI="svn://anonsvn.kde.org/home/kde"
 SVN_MODULE=${SVN_MODULE:-${ORIG_PN:-${PN}}}
 fi
 
+if ! defined GIT_URI
+then
+#****o* kde4.cygclass/GIT_URI (kde4)
+#  NOTE
+#  git.cygclass should be inherit()ed last for this to be of use.
+#  DEFINITION
+GIT_URI="git://anongit.kde.org/${ORIG_PN:-${PN}}"
+#****
+fi
+
 export QTDIR=${QT4_QTDIR}
 export QT_PLUGIN_PATH=${QT4_PLUGINSDIR}
 
