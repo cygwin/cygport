@@ -701,7 +701,7 @@ __prep_libtool_modules() {
 	local ltlibs ltlibdir ltlibname ltversion
 	local dlname origdlname library_names old_library inherited_linker_flags \
 	      dependency_libs weak_library_names current age revision \
-		  installed shouldnotlink dlopen dlpreopen libdir
+		  installed shouldnotlink dlopen dlpreopen libdir rep_requires
 
 	pushd ${D}
 
@@ -852,6 +852,17 @@ __prep_libtool_modules() {
 			# Directory that this library needs to be installed in:
 			libdir='${libdir}'
 			_EOF
+
+		if defined rep_requires
+		then
+			cat >> ${lib_la} <<-_EOF
+
+				# Librep module dependencies
+				rep_requires='${rep_requires}'
+				_EOF
+
+			unset rep_requires
+		fi
 	done
 
 	popd
