@@ -3,7 +3,7 @@
 # lua.cygclass - functions for installing Lua modules
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -87,3 +87,57 @@ LUA_CFLAGS=$(pkg-config --cflags lua)
 #  Link flags for the Lua C library.
 #****
 LUA_LIBS=$(pkg-config --libs lua)
+
+#****I* lua.cygclass/luainto
+#  SYNOPSIS
+#  luainto SUBDIRECTORY
+#  DESCRIPTION
+#  Subdirectory of LUA_LIBDIR or LUA_SCRIPTDIR into which dolua should install.
+#  This is usually unnecessary.
+#****
+luainto() {
+	if (( $# != 1 ))
+	then
+		error "luainto accepts exactly one argument";
+	fi
+
+	case ${1} in
+		/*) error "luainto argument should be only a subdirectory" ;;
+	esac
+
+	export _luainto_dir=${1};
+}
+
+#****I* lua.cygclass/dolua
+#  SYNOPSIS
+#  [luainto SUBDIRECTORY]
+#  dolua MODULE1 [MODULE2] ...
+#  DESCRIPTION
+#  Installs the given Lua module(s) (.lua or .dll) into LUA_LIBDIR or
+#  LUA_SCRIPTDIR under $D, depending on filetype, or a subdirectory thereof
+#  if luainto was previously called.
+#****
+dolua() {
+	local i
+
+	for i
+	do
+		if [ ! -e ${i} ]
+		then
+			error "dolua: ${i}: file not found"
+		fi
+
+		case ${i} in
+		*.dll|*.la)
+			dodir ${LUA_LIBDIR}/${_luainto_dir}
+			__doinstall 0755 ${i} ${LUA_LIBDIR}/${_luainto_dir} || error "dolua ${i} failed"
+			;;
+		*)
+			dodir ${LUA_SCRIPTDIR}/${_luainto_dir}
+			__doinstall 0644 ${i} ${LUA_SCRIPTDIR}/${_luainto_dir} || error "dolua ${i} failed"
+			;;
+		esac
+	done
+}
+
+readonly -f luainto dolua
