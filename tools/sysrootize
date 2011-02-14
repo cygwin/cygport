@@ -3,7 +3,7 @@
 #
 # sysrootize - retarballs binary package under cross-compiler sysroot
 #
-# Copyright (C) 2010 Yaakov Selkowitz
+# Copyright (C) 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -62,7 +62,7 @@ do
 	t=$(mktemp -d)
 	mkdir -p $t/usr/$host/sys-root
 	tar axf $tar -C $t/usr/$host/sys-root
-	tar acf ${tar%/*}/$host-${tar##*/} -C $t usr/
+	tar acf $(dirname ${tar})/$host-${tar##*/} -C $t usr/
 	rm -fr $t
 
 	echo "Success"
