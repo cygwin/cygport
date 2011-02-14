@@ -3,7 +3,7 @@
 #
 # pkgrip - create tarballs from installed Solaris packages
 #
-# Copyright (C) 2010 Yaakov Selkowitz
+# Copyright (C) 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -37,7 +37,7 @@ do
 	lst=
 	pv=
 
-	# OpenSolaris adds a new 'pkg' command alongside the traditional 'pkg*'
+	# Solaris 11 adds a new 'pkg' command alongside the traditional 'pkg*'
 	# tools.  Packages installed with 'pkg' are seen as installed by the
 	# 'pkg*' tools but without a file list.  Packages installed with 'pkgadd'
 	# are not seen by 'pkg'.
@@ -76,7 +76,7 @@ do
 	fi
 
 	# Solaris tar (package SUNWcs) is not GNU, does not accept -z or -j
-	tar cf $d/$p-$pv.tar \
+	tar cf $d/${p////-}-$pv.tar \
 		$(for f in ${lst}
 		  do
 			if test -r $f && test ! -d $f
@@ -84,7 +84,7 @@ do
 				echo $f
 			fi
 		  done) \
-	&& gzip -9 $d/$p-$pv.tar \
+	&& gzip -9 $d/${p////-}-$pv.tar \
 	&& echo "Success" \
 	|| echo "ERROR: failed to create package"
 
