@@ -114,6 +114,7 @@ pythoninto() {
 dopython() {
 	local pydir
 	local i
+	local mode
 
 	if defined _pythoninto_dir
 	then
@@ -126,19 +127,17 @@ dopython() {
 
 	for i
 	do
-		if [ -e ${i} ]
+		if [ ! -e ${i} ]
 		then
-			case ${i} in
-				*.dll)
-					/bin/install -m0755 ${i} ${D}${pydir} || error "dopython ${i} failed"
-					;;
-				*)
-					/bin/install -m0644 ${i} ${D}${pydir} || error "dopython ${i} failed"
-					;;
-			esac
-		else
 			error "dopython: ${i}: file not found"
 		fi
+
+		case ${i} in
+			*.dll|*.la)	mode=0755 ;;
+			*)	mode=0644 ;;
+		esac
+
+		__doinstall ${mode} ${i} ${pydir} || error "dopython ${i} failed"
 	done
 }
 
