@@ -326,6 +326,18 @@ php_postinst() {
 	rm -fr ${D}/tmp/pear
 }
 
+#****I* php.cygclass/php_fix_shebang
+#  SYNOPSIS
+#  php_fix_shebang SCRIPT [SCRIPT ...]
+#  DESCRIPTION
+#  Fixes the designated interpreter of SCRIPT to PHP.  This would be necessary
+#  if the original uses an incorrect path (e.g. /usr/local/bin) or an
+#  incorrectly versioned binary.  SCRIPT need not be prefixed by $D.
+#****
+php_fix_shebang() {
+    __fix_shebang ${PHP} ${D}/${@#${D}}
+}
+
 #****o* php.cygclass/src_compile (php)
 #  DESCRIPTION
 #  Copies $S into $B with lndirs, then, if the package is a PHP C extension,
@@ -358,4 +370,5 @@ src_install() {
 }
 #****
 
-readonly -f __php_is_binary php_autoreconf php_compile php_install php_postinst
+readonly -f __php_is_binary php_autoreconf php_compile php_install php_postinst \
+            php_fix_shebang
