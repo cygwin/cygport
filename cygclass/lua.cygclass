@@ -140,4 +140,16 @@ dolua() {
 	done
 }
 
-readonly -f luainto dolua
+#****I* lua.cygclass/lua_fix_shebang
+#  SYNOPSIS
+#  lua_fix_shebang SCRIPT [SCRIPT ...]
+#  DESCRIPTION
+#  Fixes the designated interpreter of SCRIPT to LUA.  This would be necessary
+#  if the original uses an incorrect path (e.g. /usr/local/bin) or an
+#  incorrectly versioned binary.  SCRIPT need not be prefixed by $D.
+#****
+lua_fix_shebang() {
+    __fix_shebang ${LUA} ${D}/${@#${D}}
+}
+
+readonly -f luainto dolua lua_fix_shebang
