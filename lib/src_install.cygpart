@@ -2,7 +2,7 @@
 #
 # src_install.cygpart - cygport source installation functions
 #
-# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -80,6 +80,22 @@ __doinstall() {
 
 	verbose ${ltinst} /usr/bin/install -m${mode} ${file} ${D}${targetdir}/${targetfile}
 	return $?
+}
+
+__fix_shebang() {
+	local x
+	local interp=${1}
+	shift
+
+	for x
+	do
+		if [ $(head -c 2 ${x}) != "#!" ]
+		then
+			continue
+		fi
+
+		sed -i -e "s|#! */[^ ]*\(.*\)|#! ${interp}\1|" ${x}
+	done
 }
 
 
@@ -811,7 +827,8 @@ src_install() {
 #****
 
 # protect functions
-readonly -f __doinstall dodir keepdir dobin newbin docinto dodoc newdoc \
+readonly -f __doinstall __fix_shebang \
+            dodir keepdir dobin newbin docinto dodoc newdoc \
             exeinto doexe newexe insinto doins newins doicon newicon \
             dolib doman newman domenu newmenu dosbin newsbin dosym \
             make_desktop_entry make_etc_defaults __prepinstalldirs cyginstall
