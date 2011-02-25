@@ -3,7 +3,7 @@
 # python3.cygclass - functions for installing Python3 modules
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -167,4 +167,16 @@ python3_optimize() {
 	done
 }
 
-readonly -f python3into dopython3 python3_optimize
+#****I* python3.cygclass/python3_fix_shebang
+#  SYNOPSIS
+#  python3_fix_shebang SCRIPT [SCRIPT ...]
+#  DESCRIPTION
+#  Fixes the designated interpreter of SCRIPT to PYTHON3.  This would be necessary
+#  if the original uses an incorrect path (e.g. /usr/local/bin) or an
+#  incorrectly versioned binary.  SCRIPT need not be prefixed by $D.
+#****
+python3_fix_shebang() {
+    __fix_shebang ${PYTHON3} ${D}/${@#${D}}
+}
+
+readonly -f python3into dopython3 python3_optimize python3_fix_shebang
