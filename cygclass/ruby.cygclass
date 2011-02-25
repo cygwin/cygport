@@ -3,7 +3,7 @@
 # ruby.cygclass - functions for building Ruby modules
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -290,6 +290,18 @@ doruby() {
 	done
 }
 
+#****I* ruby.cygclass/ruby_fix_shebang
+#  SYNOPSIS
+#  ruby_fix_shebang SCRIPT [SCRIPT ...]
+#  DESCRIPTION
+#  Fixes the designated interpreter of SCRIPT to RUBY.  This would be necessary
+#  if the original uses an incorrect path (e.g. /usr/local/bin) or an
+#  incorrectly versioned binary.  SCRIPT need not be prefixed by $D.
+#****
+ruby_fix_shebang() {
+    __fix_shebang ${RUBY} ${D}/${@#${D}}
+}
+
 #****o* ruby.cygclass/src_compile (ruby)
 #  DEFINITION
 src_compile() {
@@ -307,4 +319,4 @@ src_install() {
 }
 #****
 
-readonly -f ruby_compile ruby_ext_compile ruby_install rubyinto doruby
+readonly -f ruby_compile ruby_ext_compile ruby_install rubyinto doruby ruby_fix_shebang
