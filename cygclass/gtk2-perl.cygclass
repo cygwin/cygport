@@ -71,7 +71,7 @@ fi  # ! defined CPAN_AUTHOR
 #  the stack which link against them as well.  Therefore, DEPS_PATH is set to
 #  catch these inter-module link dependencies.
 #****
-DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS:${PERL_VENDORARCH}/auto/Gnome2/GConf"
+DEPS_PATH="${PERL_VENDORARCH}/auto/Cairo:${PERL_VENDORARCH}/auto/Glib:${PERL_VENDORARCH}/auto/Gtk2:${PERL_VENDORARCH}/auto/Gnome2/VFS:${PERL_VENDORARCH}/auto/Gnome2/GConf:${PERL_VENDORARCH}/auto/Pango"
 
 #****C* gtk2-perl.cygclass/gtk2_perl_compile
 #  DESCRIPTION
