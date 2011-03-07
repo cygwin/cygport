@@ -147,6 +147,9 @@ gnome2_autoreconf() {
 		warning "${configure_ac} may require LT_OUTPUT macro"
 	fi
 
+	# aclocal requires that its directories exist
+	grep '^AC_CONFIG_MACRO_DIR' ${configure_ac} | sed -e 's|.*(\[*\([^]]*\)\]*).*|\1|' | xargs -r mkdir -p
+
 	# Automake will exit if these are not present
 	# dodoc won't install these, however, if they are empty
 	touch AUTHORS COPYING ChangeLog INSTALL NEWS README
