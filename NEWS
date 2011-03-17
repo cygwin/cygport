@@ -1,3 +1,14 @@
+0.10.4:
+	* Added RPM spec file (tested on Fedora 14).
+	* Cross-compiling improvements.
+	* Added functions for fixing script shebangs to lua, perl, python,
+	  python3, and ruby cygclasses.
+	* gst-plugins0.10.cygclass: update for good .27 and bad .21.
+	* kde4.cygclass: provide GIT_URI.
+	* lua.cygclass: added luainto and dolua functions.
+	* mono.cygclass: provide GIT_URI.
+	* pkgrip: update for Solaris 11.
+
 0.10.3:
 	* Scripts with erroneous .exe extension are renamed automatically.
 	* berkdb.cygclass: support BDB 5.x.
