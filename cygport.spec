@@ -25,6 +25,7 @@ Requires:       diffstat
 Requires:       diffutils
 Requires:       file
 Requires:       grep
+Requires:       imake
 Requires:       make
 Requires:       patch
 Requires:       rsync
