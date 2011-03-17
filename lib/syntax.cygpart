@@ -170,7 +170,7 @@ __arg_bool() {
 __canonicalize_triplet() {
 	local triplet
 
-	if ! triplet=$(${_privdatadir}/config.sub ${1} 2> /dev/null)
+	if ! triplet=$(${_privdatadir}${CYGPORT_BOOTSTRAP:+/gnuconfig}/config.sub ${1} 2> /dev/null)
 	then
 		error "Unknown or invalid system triplet: ${1}"
 	fi
