@@ -107,7 +107,23 @@ GIT_URI="git://git.xfce.org/${uri_subdir}"
 #  cygautoreconf, gnome2_autoreconf
 #****
 xfce4_autoreconf() {
+	local configure_ac f
+
 	check_prog_req xdt-autogen xfce4-dev-tools
+
+	for f in configure.ac configure.ac.in configure.in configure.in.in
+	do
+		if [ -e $f ]
+		then
+			configure_ac=$f
+			break
+		fi
+	done
+
+	if ! defined configure_ac
+	then
+		error "xfce4: configure.ac or configure.in not found"
+	fi
 
 	__config_set with_aclocal 1
 	__config_set with_autoconf 1
@@ -117,6 +133,8 @@ xfce4_autoreconf() {
 	__config_set with_glib_gettext 1
 
 	export WANT_AUTOMAKE
+
+	grep '^AC_CONFIG_MACRO_DIR' ${configure_ac} | sed -e 's|.*(\[*\([^]]*\)\]*).*|\1|' | xargs -r mkdir -p
 
 	NOCONFIGURE=1 \
 	XDT_PROG_ACLOCAL=aclocal \
