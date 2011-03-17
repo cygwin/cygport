@@ -2,7 +2,11 @@ SUBDIRS = bin lib cygclass data doc tests tools .
 
 noinst_DATA = AUTHORS COPYING NEWS README TODO
 
-EXTRA_DIST = $(noinst_DATA) CYGWIN-PATCHES/README CYGWIN-PATCHES/setup.hint
+EXTRA_DIST =					\
+	$(noinst_DATA)				\
+	cygport.spec				\
+	CYGWIN-PATCHES/README		\
+	CYGWIN-PATCHES/setup.hint
 
 DISTCLEANFILES = $(PACKAGE)-$(VERSION).tar.bz2
 
