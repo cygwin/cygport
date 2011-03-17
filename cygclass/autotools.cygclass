@@ -325,6 +325,13 @@ cygautoreconf() {
 			export ${tool}
 		done
 
+		ACLOCAL=${ACLOCAL:-aclocal}
+
+		if __cross_compiling && [ -d /usr/${CHOST}/sys-root/$(__target_prefix)/share/aclocal ]
+		then
+			ACLOCAL+=" -I /usr/${CHOST}/sys-root/$(__target_prefix)/share/aclocal"
+		fi
+
 #****v* cygautoreconf/ACLOCAL_FLAGS
 #  DESCRIPTION
 #  Set this variable when a package ships with its own aclocal macros but
@@ -334,7 +341,7 @@ cygautoreconf() {
 #****
 		if defined ACLOCAL_FLAGS
 		then
-			declare ACLOCAL="${ACLOCAL:-aclocal} ${ACLOCAL_FLAGS}"
+			ACLOCAL+=" ${ACLOCAL_FLAGS}"
 		fi
 		;;
 	*)
