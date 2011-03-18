@@ -160,9 +160,14 @@ declare    TOOLCHAIN_TARGET="";
 
 if [ ${CBUILD} != ${CHOST} ]
 then
-	warning "You are attempting to use cygport from a non-Cygwin host."
-	warning "This configuration has NOT been tested and may not work."
-	warning "Please send the results of your attempt to the mailing list."
+	if ! __config_equals foreign_warning 1
+	then
+		warning "You are attempting to use cygport from a non-Cygwin host."
+		warning "This configuration will only work for some packages,"
+		warning "such as those based on autotools, cmake, or qmake."
+		warning "Custom makefiles may also work if CC/CXX/AR/etc. are overridden."
+		__config_set foreign_warning 1
+	fi
 
 	CC=${CHOST}-gcc
 	CXX=${CHOST}-g++
