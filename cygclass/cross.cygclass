@@ -3,7 +3,7 @@
 # cross.cygclass - for building cross-compiled packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2008, 2010 Yaakov Selkowitz
+# Copyright (C) 2006, 2008, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -158,7 +158,7 @@ fi
 if check_prog pkg-config
 then
 	export PKG_CONFIG="/usr/bin/pkg-config"
-	export PKG_CONFIG_LIBDIR="$(__host_prefix)/lib/pkgconfig:/usr/share/pkgconfig"
+	export PKG_CONFIG_LIBDIR="$(__host_prefix)/lib/pkgconfig:$(__host_prefix)/share/pkgconfig:/usr/share/pkgconfig"
 fi
 
 #****I* cross.cygclass/doelflib
