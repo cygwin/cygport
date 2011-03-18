@@ -2,7 +2,7 @@
 #
 # compilers.cygpart - cygport compiler settings
 #
-# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -173,4 +173,15 @@ then
 	OBJCXX=${CHOST}-g++
 	OBJDUMP=${CHOST}-objdump
 	STRIP=${CHOST}-strip
+
+	# PKG_PROG_PKG_CONFIG looks for $host-pkg-config, but pkg-config is not
+	# a "tool" that is built for each target like binutils or gcc.  Instead,
+	# we set PKG_CONFIG_LIBDIR appropriately.
+	# The PKG_CONFIG override silences a bogus warning during configure:
+	# configure: WARNING: using cross tools not prefixed with host triplet
+	if check_prog pkg-config
+	then
+		export PKG_CONFIG="/usr/bin/pkg-config"
+		export PKG_CONFIG_LIBDIR="/usr/${CHOST}/sys-root/usr/lib/pkgconfig:/usr/${CHOST}/sys-root/usr/share/pkgconfig:/usr/share/pkgconfig"
+	fi
 fi
