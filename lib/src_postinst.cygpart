@@ -162,7 +162,7 @@ __prep_gtk2_modules() {
 	then
 		if $(pkg-config --atleast-version 2.22 gdk-pixbuf-2.0)
 		then
-			gdkp_moduledir=$(pkg-config --variable=gdk_pixbuf_moduledir gdk-pixbuf-2.0)
+			gdkp_moduledir=/usr/lib/gdk-pixbuf-2.0/$(pkg-config --variable=gdk_pixbuf_binary_version gdk-pixbuf-2.0)/loaders
 			dodir ${gdkp_moduledir}
 			mv ${D}/usr/lib/gtk-2.0/${gtk_api}/loaders/* ${D}${gdkp_moduledir}/
 			__prep_gdk_pixbuf_modules
