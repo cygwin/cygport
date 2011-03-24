@@ -545,9 +545,15 @@ __prepstrip() {
 	for exe in ${all_exes}
 	do
 		# assure this is actually a binary object
-		if __cross_compiling && ${CTARGET}-size -f ${exe} &>/dev/null
+		if check_prog ${CTARGET}-strip && ${CTARGET}-size -f ${exe} &>/dev/null
 		then
+			# for cross-compiled libs, cross-GCC target libs,
+			# or non-cross packages built on non-Cygwin systems
 			strip="/usr/bin/${CTARGET}-strip"
+		elif check_prog ${CHOST}-strip && ${CHOST}-size -f ${exe} &>/dev/null
+		then
+			# for cross-compilers built on non-Cygwin systems
+			strip="/usr/bin/${CHOST}-strip"
 		elif size -f ${exe} &>/dev/null
 		then
 			strip=${STRIP}
