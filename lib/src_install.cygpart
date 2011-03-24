@@ -464,6 +464,7 @@ doman() {
 			*.6|*.6x|*.6.gz)  mansection=6 ;;
 			*.7|*.7.gz)  mansection=7 ;;
 			*.8|*.8.gz)  mansection=8 ;;
+			*.l|*.l.gz)  mansection=l ;;
 			*.n|*.n.gz)  mansection=n ;;
 			*)  error "unknown man section" ;;
 		esac
@@ -511,6 +512,7 @@ newman() {
 		*.6|*.6x|*.6.gz)  mansection=6 ;;
 		*.7|*.7.gz)  mansection=7 ;;
 		*.8|*.8.gz)  mansection=8 ;;
+		*.l|*.l.gz)  mansection=l ;;
 		*.n|*.n.gz)  mansection=n ;;
 		*)  error "unknown man section" ;;
 	esac
