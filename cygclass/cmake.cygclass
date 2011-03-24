@@ -153,6 +153,7 @@ cygcmake() {
 		-DCMAKE_MODULE_LINKER_FLAGS="${LDFLAGS}" \
 		-DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}" \
 		-DCMAKE_INSTALL_PREFIX=$(__host_prefix) \
+		-DCMAKE_LEGACY_CYGWIN_WIN32=0 \
 		${crossargs} \
 		"${@}" \
 		${CYGCMAKE_ARGS} \
