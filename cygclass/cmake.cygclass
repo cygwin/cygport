@@ -3,7 +3,7 @@
 # cmake.cygclass - functions for building CMake-based packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -129,6 +129,9 @@ cygcmake() {
 			-DCMAKE_FIND_ROOT_PATH=${CROSS_SYSROOT}
 			-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY
 			-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY"
+		case ${CHOST} in *-cygwin*|*-mingw*)
+			crossargs+=" -DCMAKE_RC_COMPILER=/usr/bin/${CHOST}-windres.exe" ;;
+		esac
 	else
 		crossargs=
 	fi
