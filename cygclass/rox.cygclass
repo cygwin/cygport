@@ -40,6 +40,9 @@
 #  python.cygclass
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 inherit python
 
 ORIG_PN=${ORIG_PN:-${PN#rox-}}

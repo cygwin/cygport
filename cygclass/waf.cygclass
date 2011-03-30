@@ -45,6 +45,9 @@
 #  python, waf
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 #****d* waf.cygclass/WAF
 #  DESCRIPTION
 #  Absolute path to the Waf command.

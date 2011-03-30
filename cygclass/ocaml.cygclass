@@ -40,6 +40,9 @@
 #  ocaml, ocaml-findlib
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 check_prog_req ocaml
 
 #****d* ocaml.cygclass/OCAML

@@ -42,6 +42,9 @@
 #  apache1.cygclass, mirror_apache
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 case ${PN} in
 	apache2-*)
 		ORIG_PN=${ORIG_PN:-${PN#apache2-}}

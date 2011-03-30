@@ -49,6 +49,9 @@
 #  mirror_cran
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 check_prog_req R
 check_prog_req pkg-config
 

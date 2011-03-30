@@ -36,6 +36,9 @@
 #  php, php-PEAR
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 check_prog_req php
 
 #****d* php.cygclass/PHP

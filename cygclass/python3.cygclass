@@ -45,6 +45,9 @@
 #  python3
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 check_prog_req python3
 
 #****d* python3.cygclass/PYTHON3

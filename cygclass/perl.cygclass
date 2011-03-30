@@ -40,6 +40,9 @@
 #  perl
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 check_prog_req perl
 
 #****d* perl.cygclass/PERL

@@ -191,6 +191,13 @@ __cross_compiling() {
 	return $(test ${CBUILD} != ${CHOST} || test ${CHOST} != ${CTARGET})
 }
 
+__cross_compiling_error() {
+	if __cross_compiling
+	then
+		error "${BASH_SOURCE[1]##*/} does not yet support cross-compiling"
+	fi
+}
+
 __host_prefix() {
 	local prefix sysroot
 
@@ -223,4 +230,5 @@ __target_prefix() {
 }
 
 readonly -f defined pushd popd error warning inform verbose __stage __step \
-	__log_init __canonicalize_triplet __cross_compiling __host_prefix __target_prefix
+	__log_init __canonicalize_triplet __cross_compiling __cross_compiling_error \
+	__host_prefix __target_prefix

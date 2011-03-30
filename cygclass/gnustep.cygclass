@@ -36,6 +36,9 @@
 #  mirror_gnustep
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 check_prog_req gnustep-config gnustep-make
 
 case ${PN} in

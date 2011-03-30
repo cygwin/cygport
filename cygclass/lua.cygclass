@@ -34,6 +34,9 @@
 #  lua, pkg-config
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 check_prog_req lua
 check_prog_req pkg-config
 

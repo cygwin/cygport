@@ -44,6 +44,9 @@
 #  ruby-gnome2.cygclass
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 check_prog_req ruby
 
 #****d* ruby.cygclass/RUBY

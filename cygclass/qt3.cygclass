@@ -39,6 +39,9 @@
 #  kde3.cygclass, qt3-qmake.cygclass
 #****
 
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
 #****d* qt3.cygclass/QTDIR
 #  DESCRIPTION
 #  Root directory of the Qt3 installation.  This variable is exported to the
