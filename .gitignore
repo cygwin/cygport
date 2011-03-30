@@ -14,6 +14,7 @@ cygport
 cygport.1
 cygport.1.html
 cygport-*.tar.bz2
+cygport-inplace
 manual.css
 manual.html
 

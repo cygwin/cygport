@@ -2,12 +2,10 @@
 
 set -e
 
-export CYGPORT_BOOTSTRAP=1
-
-${top_builddir}/bin/cygport --help
+${top_builddir}/bin/cygport-inplace --help
 echo
 
-${top_builddir}/bin/cygport --version
+${top_builddir}/bin/cygport-inplace --version
 echo
 
 cat > foo-1.2.3-4.cygport <<-_EOF
@@ -16,7 +14,7 @@ cat > foo-1.2.3-4.cygport <<-_EOF
 	SRC_URI="http://sourceware.org/cygwinports/\${P}.ABC"
 	_EOF
 
-${top_builddir}/bin/cygport foo-1.2.3-4.cygport info
+${top_builddir}/bin/cygport-inplace foo-1.2.3-4.cygport info
 echo
 
 rm -f foo-1.2.3-4.cygport

@@ -4,9 +4,8 @@ if HAVE_HELP2MAN
 
 man_MANS = cygport.1
 
-cygport.1: $(top_builddir)/bin/cygport $(top_srcdir)/lib/help.cygpart
-	$(AM_V_GEN)CYGPORT_BOOTSTRAP=1 top_srcdir=$(top_srcdir) \
-	$(HELP2MAN) -o $@ --no-info --name="Cygwin source packaging tool" $<
+cygport.1: $(top_builddir)/bin/cygport-inplace $(top_srcdir)/lib/help.cygpart
+	$(AM_V_GEN)$(HELP2MAN) -o $@ --no-info --name="Cygwin source packaging tool" $<
 
 if HAVE_GROFF
 

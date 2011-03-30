@@ -34,27 +34,12 @@ export LC_COLLATE=C
 
 declare -r  _version=@VERSION@;
 
-# we can't use defined yet, as these must be declared first
-if [ "xCYGPORT_BOOTSTRAP" != "x" ] && [ "x$top_srcdir" != "x" ]
-then
-	case ${top_srcdir} in
-		.*) declare -r _prefix=$(pwd)/${top_srcdir} ;;
-		/*) declare -r _prefix=${top_srcdir} ;;
-    esac
-
-	declare -r _privlibdir=${_prefix}/lib;
-	declare -r _privdatadir=${_prefix}/data;
-	declare -r _privclassdir=${_prefix}/cygclass;
-	declare -r _privdocdir=${_prefix};
-	declare -r _sysconfdir=${_prefix}/data;
-else
-	declare -r _prefix=@pkglibdir@;
-	declare -r _privlibdir=${_prefix};
-	declare -r _privdatadir=@pkgdatadir@;
-	declare -r _privclassdir=${_privdatadir}/cygclass;
-	declare -r _privdocdir=@docdir@;
-	declare -r _sysconfdir=@sysconfdir@;
-fi
+declare -r _privlibdir=@pkglibdir@;
+declare -r _privdatadir=@pkgdatadir@;
+declare -r _privclassdir=@cygclassdir@;
+declare -r _privdocdir=@docdir@;
+declare -r _privgnuconfigdir=@gnuconfigdir@;
+declare -r _sysconfdir=@sysconfdir@;
 
 declare -ar argv=(${0} ${@})
 declare -ir argc=$(( $# + 1 ))

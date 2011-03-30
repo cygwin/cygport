@@ -2,8 +2,6 @@
 
 set -e
 
-export CYGPORT_BOOTSTRAP=1
-
 rm -f ${PACKAGE}-${VERSION}-1-src.tar.bz2 ${PACKAGE}-${VERSION}-1.tar.bz2
 
 if [ -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.bz2 ]
@@ -19,11 +17,11 @@ fi
 	
 cp -f ${top_srcdir}/data/sample.cygport ${PACKAGE}-${VERSION}-1.cygport
 
-${top_builddir}/bin/cygport ${PACKAGE}-${VERSION}-1.cygport prep compile install pkg
+${top_builddir}/bin/cygport-inplace ${PACKAGE}-${VERSION}-1.cygport prep compile install pkg
 
 cp -r ${PACKAGE}-${VERSION}-1/dist/${PACKAGE} .
 
-${top_builddir}/bin/cygport ${PACKAGE}-${VERSION}-1.cygport finish
+${top_builddir}/bin/cygport-inplace ${PACKAGE}-${VERSION}-1.cygport finish
 
 rm -f ${PACKAGE}-${VERSION}-1-src.tar.bz2 ${PACKAGE}-${VERSION}-1.tar.bz2
 rm -f ${PACKAGE}-${VERSION}.tar.bz2 ${PACKAGE}-${VERSION}-1.cygport
