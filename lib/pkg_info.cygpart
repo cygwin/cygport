@@ -89,7 +89,7 @@ __list_deps() {
 			tclibs=$(find . -type f -executable -exec ${CTARGET}-otool -L '{}' + 2>/dev/null | \
 				sed -e '1d;s|^\t\([^ ]*\).*|\1|g' | sort -u | xargs -r which || true )
 			;;
-		avr|*-aout|*-coff|*-eabi*|*-elf|*-msdosdjgpp*|*-rdos*)
+		avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|*-msdosdjgpp*|*-rdos*)
 			# no shared library support, hence no dependencies
 			;;
 		# FIXME: any other non-ELF systems?
