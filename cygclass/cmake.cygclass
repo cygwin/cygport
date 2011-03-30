@@ -130,7 +130,7 @@ cygcmake() {
 	if __cross_compiling
 	then
 		crossargs="-DCMAKE_SYSTEM_NAME=$(__cmake_system)
-			-DCMAKE_FIND_ROOT_PATH=${CROSS_SYSROOT}
+			-DCMAKE_FIND_ROOT_PATH=/usr/${CHOST}/sys-root
 			-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY
 			-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY"
 		case ${CHOST} in *-cygwin*|*-mingw*)
