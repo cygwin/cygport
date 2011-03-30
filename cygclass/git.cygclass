@@ -117,7 +117,7 @@ git_fetch() {
 	fi
 
 	cd ${T}/
-	tar jcf ${top}/${git_tarball} --exclude-vcs ${GIT_MODULE}/${GIT_SUBDIR}
+	tar ${_tar_bz2_flag}cf ${top}/${git_tarball} --exclude-vcs ${GIT_MODULE}/${GIT_SUBDIR}
 }
 
 readonly -f git_fetch

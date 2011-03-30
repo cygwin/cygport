@@ -80,7 +80,7 @@ hg_fetch() {
 
 	verbose hg clone ${hg_rev} ${HG_URI} ${HG_MODULE}
 
-	tar jcf ${top}/${hg_tarball} --exclude-vcs ${HG_MODULE}
+	tar ${_tar_bz2_flag}cf ${top}/${hg_tarball} --exclude-vcs ${HG_MODULE}
 }
 
 readonly -f hg_fetch

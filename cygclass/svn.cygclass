@@ -128,7 +128,7 @@ svn_fetch() {
 	cd ${T}
 	verbose svn checkout ${svn_uri} ${svn_rev} ${SVN_MODULE}
 
-	tar jcf ${top}/${svn_tarball} --exclude-vcs ${SVN_MODULE}
+	tar ${_tar_bz2_flag}cf ${top}/${svn_tarball} --exclude-vcs ${SVN_MODULE}
 }
 
 readonly -f svn_fetch

@@ -74,7 +74,7 @@ __pkg_binpkg() {
 
 		if defined pkg_contents
 		then
-			tar cvjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${pkg_contents} \
+			tar ${_tar_bz2_flag}cvf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${pkg_contents} \
 				|| error "Binary package creation failed: ${pkg_name[${n}]}"
 		else
 			inform "Creating empty package"
@@ -329,7 +329,7 @@ __pkg_srcpkg() {
 		fi
 	fi
 
-	tar cvjf ${top}/${PF}-src.tar.bz2 * || error "Source package creation failed"
+	tar ${_tar_bz2_flag}cvf ${top}/${PF}-src.tar.bz2 * || error "Source package creation failed"
 }
 
 __pkg_dist() {

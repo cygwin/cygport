@@ -124,6 +124,14 @@ done
 
 unset _myprog;
 
+if check_prog pbzip2
+then
+	readonly _tar_bz2_flag="-I pbzip2 -"
+else
+	# bzip2 is required, no need to check
+	readonly _tar_bz2_flag="-j"
+fi
+
 
 ################################################################################
 #

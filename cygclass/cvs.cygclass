@@ -93,7 +93,7 @@ cvs_fetch() {
 	cd ${T}
 	verbose cvs -d ${CVS_URI} checkout ${cvs_branch} ${cvs_date} ${CVS_MODULE}
 
-	tar jcf ${top}/${cvs_tarball} --exclude-vcs ${CVS_MODULE}
+	tar ${_tar_bz2_flag}cf ${top}/${cvs_tarball} --exclude-vcs ${CVS_MODULE}
 }
 
 readonly -f cvs_fetch
