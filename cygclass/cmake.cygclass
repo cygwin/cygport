@@ -97,9 +97,13 @@ __cmake_system() {
 #  cmake
 #****
 cygcmake() {
-	local cmdir crossargs;
+	local cmdir crossargs exeext;
 
 	check_prog_req cmake;
+
+	case ${CBUILD} in
+		*-cygwin*|*-mingw*)  exeext=".exe" ;;
+	esac
 
 #****v* cygcmake/CYGCMAKE_SOURCE
 #  DESCRIPTION
@@ -130,7 +134,7 @@ cygcmake() {
 			-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY
 			-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY"
 		case ${CHOST} in *-cygwin*|*-mingw*)
-			crossargs+=" -DCMAKE_RC_COMPILER=/usr/bin/${CHOST}-windres.exe" ;;
+			crossargs+=" -DCMAKE_RC_COMPILER=/usr/bin/${CHOST}-windres${exeext}" ;;
 		esac
 	else
 		crossargs=
@@ -148,9 +152,9 @@ cygcmake() {
 		${cmdir} \
 		-DCMAKE_BINARY_DIR=. \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_C_COMPILER=/usr/bin/${CC}.exe \
+		-DCMAKE_C_COMPILER=/usr/bin/${CC}${exeext} \
 		-DCMAKE_C_FLAGS="${CFLAGS} ${CPPFLAGS}" \
-		-DCMAKE_CXX_COMPILER=/usr/bin/${CXX}.exe \
+		-DCMAKE_CXX_COMPILER=/usr/bin/${CXX}${exeext} \
 		-DCMAKE_CXX_FLAGS="${CXXFLAGS} ${CPPFLAGS}" \
 		-DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
 		-DCMAKE_MODULE_LINKER_FLAGS="${LDFLAGS}" \
