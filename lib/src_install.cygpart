@@ -665,43 +665,60 @@ dotool() {
 
 #****I* Installing/make_desktop_entry
 #  SYNOPSIS
-#  make_desktop_entry COMMAND NAME ICON CATEGORIES [COMMENT] [ADDITIONAL_FIELDS]
+#  make_desktop_entry COMMAND NAME [ICON] [CATEGORIES] [COMMENT] [ADDITIONAL_FIELDS]
 #  DESCRIPTION
 #  Creates a desktop menu entry for GUI applications as follows:
 #  * COMMAND: the command line.  May contain arguments, in which case the
 #    entire command must be quoted.
 #  * NAME: the application name to be shown in the menu.
-#  * ICON: the icon name, excluding the file extension.
-#  * CATEGORIES: a colon-separated list of categories and subcategories per
+#  * ICON: (optional) the icon name, excluding the file extension.
+#  * CATEGORIES: (optional) a colon-separated list of categories and subcategories per
 #    |html the <a href="http://standards.freedesktop.org/menu-spec/latest/apa.html">Desktop Menu Specification</a>.
 #  * COMMENT: (optional) description of the program
-#  * ADDITIONAL_FIELDS: (optional) up to four additional menu entry fields per
+#  * ADDITIONAL_FIELDS: (optional) additional menu entry fields per
 #    |html the <a href="http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys">Desktop Entry Specification</a>.
+#  NOTES
+#  * In order to skip an optional argument but provide a later one, an empty
+#    string ("") must be provided as a placeholder for the optional argument.
+#  * In most cases, ICON and CATEGORIES should be provided.
 #****
 make_desktop_entry() {
+	local dtfile
+
 	if (( $# < 2 ))
 	then
 		error "make_desktop_entry requires a minimum of two arguments"
 	fi
 
 	dodir $(__host_prefix)/share/applications
+	dtfile=$(__host_prefix)/share/applications/${1%% *}.desktop
 
-	cat > ${D}$(__host_prefix)/share/applications/${1%% *}.desktop <<-_EOF
+	cat > ${D}${dtfile} <<-_EOF
 		[Desktop Entry]
 		Encoding=UTF-8
 		Version=1.0
 		Name=${2}
-		Type=Application
-		Comment=${5}
 		Exec=${1}
 		TryExec=${1%% *}
-		Icon=${3}
-		Categories=${4};
-		${6}
-		${7}
-		${8}
-		${9}
+		Type=Application
 	_EOF
+
+	if [ -n "${3}" ]
+	then
+		echo Icon=${3} >> ${D}${dtfile}
+	fi
+	if [ -n "${4}" ]
+	then
+		echo Categories=${4}; >> ${D}${dtfile}
+	fi
+	if [ -n "${5}" ]
+	then
+		echo Comment=${5} >> ${D}${dtfile}
+	fi
+	for ((n=6; n <= $#; n++))
+	do
+		echo ${!n} >> ${D}${dtfile}
+	done
 }
 
 #****I* Installing/make_etc_defaults
