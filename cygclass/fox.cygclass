@@ -48,11 +48,22 @@
 #****
 
 _fox_find_config() {
-	local fox_config
+	local fc fox_config
 
 	case ${FOX_VERSION} in
-		1.[246]) fox_config=/usr/bin/fox-config-${FOX_VERSION} ;;
 		'')	error "FOX_VERSION must be defined" ;;
+		*.*.*)	error "FOX_VERSION must be only a major-minor branch" ;;
+		1.[01]) error "FOX ${FOX_VERSION} is not supported" ;;
+		1.*)
+			for fc in fox-config-${FOX_VERSION} fox-${FOX_VERSION}-config fox-config
+			do
+				if [ -f $(__host_prefix)/bin/$fc ]
+				then
+					fox_config=$(__host_prefix)/bin/$fc
+					break
+				fi
+			done
+			;;
 		*) error "FOX ${FOX_VERSION} is not yet supported" ;;
 	esac
 
@@ -60,6 +71,11 @@ _fox_find_config() {
 	then
 		error "libFOX${FOX_VERSION}-devel is not installed"
 	fi
+
+	case $(${fox_config} --version) in
+		${FOX_VERSION}.*) ;;
+		*) error "version mismatch: ${FOX_VERSION} requested but not found" ;;
+	esac
 
 	echo -n ${fox_config}
 }
