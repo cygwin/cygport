@@ -123,7 +123,15 @@ __list_deps() {
 			| sort -u | xargs -r which || true)
 	fi
 
-	echo $nativelibs $tclibs $netlibs $netimps | sort -u | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
+	if [ "${CBUILD}" = "i686-pc-cygwin" ]
+	then
+	    echo $nativelibs $tclibs $netlibs $netimps | sort -u | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
+	else
+	    # cannot determine Cygwin package dependencies, but we can give
+	    # some guidance by listing the necessary libraries
+	    echo $nativelibs $tclibs $netlibs $netimps | sort -fu;
+	fi
+
 	popd
 
 	PATH="${os_path}"
