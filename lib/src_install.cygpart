@@ -663,6 +663,21 @@ dotool() {
 	done
 }
 
+#****I* Installing/doenv
+#  SYNOPSIS
+#  doenv VARIABLE VALUE
+#  DESCRIPTION
+#  Creates profile.d scripts which set the given environment variable.
+#****
+doenv() {
+	local var=${1}
+	shift
+
+	dodir /etc/profile.d
+	echo "export ${var}=\"${*}\"" >> ${D}/etc/profile.d/${PN}.sh
+	echo "setenv ${var} \"${*}\"" >> ${D}/etc/profile.d/${PN}.csh
+}
+
 #****I* Installing/make_desktop_entry
 #  SYNOPSIS
 #  make_desktop_entry COMMAND NAME [ICON] [CATEGORIES] [COMMENT] [ADDITIONAL_FIELDS]
