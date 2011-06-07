@@ -115,7 +115,7 @@ case ${gst_pn} in
 	bad)
 		# WARNING: some of the dependent codecs may be patent encumbered
 		# oss4: moved into good before bad .18
-		my_gst_plugins="acm amrwb apexsink assrender bz2 celt cog dirac dts
+		my_gst_plugins="acm amrwb apexsink assrender bz2 celt cog curl dirac dts
 		                faac faad flite gme gsettings gsm ivorbis jack jp2k kate ladspa libmms lv2
 		                metadata mimic modplug mpeg2enc mplex musepack musicbrainz
 		                nas neon ofa opencv resindvd rsvg rtmp schro sdl sndfile soundtouch spc
