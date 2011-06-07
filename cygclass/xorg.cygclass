@@ -110,6 +110,11 @@ case ${ORIG_PN} in
 		xorg_git="xorg/util/macros"
 		;;
 
+	xts)
+		xorg_cat="test"
+		xorg_git="xorg/test/xts"
+		;;
+
 	xorg-server)
 		xorg_cat="xserver"
 		xorg_git="xorg/xserver"
