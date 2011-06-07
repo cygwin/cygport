@@ -157,21 +157,21 @@ gnome2_autoreconf() {
 	gnome-autogen.sh || error "gnome2: autoreconf failed"
 }
 
-#****C* gnome2.cygclass/gnome2_compile
+#****C* gnome2.cygclass/gnome2_configure
 #  SYNOPSIS
 #  cd $B
-#  gnome2_compile [CONFIGURE_FLAGS]
+#  gnome2_configure [CONFIGURE_FLAGS]
 #  DESCRIPTION
-#  Calls cygconf with the following options, followed by cygmake:
+#  Calls cygconf with the following options:
 #  * --enable-gtk-doc: create and install API docs (native builds only)
 #  * --disable-schemas-install: GConf schemas are still installed, but are
 #    registered with postinstall and preremove scripts
 #  * --disable-scrollkeeper: Scrollkeeper is obsolete
 #  * --disable-static: GNOME packages use plugins extensively, so static
 #    libraries are of little value
-#  All arguments to gnome2_compile are passed to cygconf as configure flags.
+#  All arguments to gnome2_configure are passed to cygconf as configure flags.
 #****
-gnome2_compile() {
+gnome2_configure() {
 	local gtk_doc
 
 	if __cross_compiling
@@ -187,6 +187,18 @@ gnome2_compile() {
 		--disable-scrollkeeper \
 		--disable-static \
 		"${@}"
+}
+
+#****C* gnome2.cygclass/gnome2_compile
+#  SYNOPSIS
+#  cd $B
+#  gnome2_compile [CONFIGURE_FLAGS]
+#  DESCRIPTION
+#  Calls gnome2_configure followed by cygmake. All arguments to gnome2_compile
+#  are passed as configure flags.
+#****
+gnome2_compile() {
+	gnome2_configure
 	cygmake
 }
 
@@ -196,8 +208,9 @@ src_compile() {
 	cd ${S}
 	gnome2_autoreconf
 	cd ${B}
-	gnome2_compile
+	gnome2_configure
+	cygmake
 }
 #****
 
-readonly -f gnome2_autoreconf gnome2_compile
+readonly -f gnome2_autoreconf gnome2_configure gnome2_compile
