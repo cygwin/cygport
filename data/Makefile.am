@@ -9,6 +9,9 @@ dist_pkgdata_SCRIPTS =	\
 	gnuconfig/config.guess		\
 	gnuconfig/config.sub
 
+mimedir = $(datadir)/mime/packages
+dist_mime_DATA = cygport.xml
+
 bashcompletiondir = /etc/bash_completion.d
 dist_bashcompletion_DATA = cygport-bash-completion
 

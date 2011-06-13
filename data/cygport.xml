@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+   <mime-type type="application/x-cygport">
+     <sub-class-of type="application/x-shellscript"/>
+     <comment>Cygport package script</comment>
+     <glob pattern="*.cygport"/>
+   </mime-type>
+   <mime-type type="application/x-cygport-component">
+     <sub-class-of type="application/x-shellscript"/>
+     <comment>Cygport program component</comment>
+     <glob pattern="*.cygpart"/>
+     <glob pattern="*.cygclass"/>
+   </mime-type>
+</mime-info>
