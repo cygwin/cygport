@@ -3,7 +3,7 @@
 # font.cygclass - functions for installing X11 fonts
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006, 2007, 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -38,6 +38,26 @@
 #  The top font directory, AKA the fontrootdir.
 #****
 FONTSDIR="/usr/share/fonts"
+
+
+#****C* font.cygclass/sfd2ttf
+#  SYNOPSIS
+#  sfd2ttf SFD_FILE[S] ...
+#  DESCRIPTION
+#  Creates TrueType Font (TTF) files from FontForge Spline Font Database
+#  (SFD) sources.
+#****
+sfd2ttf() {
+	check_prog_req fontforge
+
+	for f in $@
+	do
+		[ -e $f ] || error "sfd2ttf: $f: File not found"
+		echo -n "Converting ${f##*/} to TTF... "
+		fontforge -lang=ff -c 'Open($1);Generate($fontname+".ttf","ttf")' $f &> /dev/null || error "fontforge: $f: Generate failed"
+		echo "Done."
+	done
+}
 
 #****I* font.cygclass/fontinto
 #  SYNOPSIS
@@ -98,4 +118,4 @@ dofont() {
 	done
 }
 
-readonly -f fontinto dofont
+readonly -f sfd2ttf fontinto dofont
