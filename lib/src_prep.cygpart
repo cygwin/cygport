@@ -205,6 +205,7 @@ cygpatch() {
 	local patchfile_name;
 	local patchfile_path;
 	local -i patchlevel;
+	local -i max_patchlevel=5;
 	local srcdir_depth;
 
 	for patchfile_path
@@ -237,7 +238,7 @@ cygpatch() {
 				;;
 		esac
 
-		while (( patchlevel <= 3 ))
+		while (( patchlevel <= max_patchlevel ))
 		do
 			if patch -N -s --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
 			then
@@ -254,7 +255,7 @@ cygpatch() {
 				warning "patch ${patchfile_name} already applied; skipping";
 				break;
 			else
-				if (( patchlevel == 3 ))
+				if (( patchlevel == max_patchlevel ))
 				then
 					error "patch ${patchfile_name} will not apply";
 				else
