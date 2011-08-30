@@ -191,12 +191,12 @@ __pkg_diff() {
 	fi
 
 	# gtk-doc
-	if [ -f ${S}/gtk-doc.make -a "${PN}" != "gtk-doc" ]
+	if [ -f ${S}/gtk-doc.make -o -f ${S}/common/gtk-doc.mak ]
 	then
 		default_excludes+=" *.stamp *.html *.bak *.sgml \
 			*.tmpl *.txt *.xml *.args *.devhelp* *.css \
 			*.hierarchy *.interfaces *.prerequisites *.signals \
-			*.png *.top *.bottom gtk-doc.make gtk-doc.m4";
+			*.png *.top *.bottom gtk-doc.mak* gtk-doc.m4";
 	fi
 
 	# GNOME miscellaneous
