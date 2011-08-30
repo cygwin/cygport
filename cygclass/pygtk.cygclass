@@ -103,7 +103,12 @@ HOMEPAGE="http://www.pygtk.org/"
 #  then compiles the package with cygmake.
 #****
 pygtk_compile() {
-	cygconf --disable-static "${@}"
+	if inherited gnome2
+	then
+		gnome2_configure "${@}"
+	else
+		cygconf --disable-static "${@}"
+	fi
 	cygmake LIBS="-no-undefined ${LIBPYTHON}"
 }
 
@@ -115,7 +120,12 @@ src_compile() {
 	then
 		ACLOCAL_FLAGS='-I m4'
 	fi
-	cygautoreconf
+	if inherited gnome2
+	then
+		gnome2_autoreconf
+	else
+		cygautoreconf
+	fi
 	cd ${B}
 	pygtk_compile
 }
