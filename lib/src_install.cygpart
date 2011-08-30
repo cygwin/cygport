@@ -724,7 +724,7 @@ make_desktop_entry() {
 	fi
 	if [ -n "${4}" ]
 	then
-		echo Categories=${4}; >> ${D}${dtfile}
+		echo Categories=${4}\; >> ${D}${dtfile}
 	fi
 	if [ -n "${5}" ]
 	then
