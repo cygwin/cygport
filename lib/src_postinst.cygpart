@@ -556,7 +556,7 @@ __prepstrip() {
 			strip="/usr/bin/${CHOST}-strip"
 		elif size -f ${exe} &>/dev/null
 		then
-			strip=${STRIP}
+			strip="strip"
 		else
 			# sometimes .exe will be appended where it does not belong
 			case ${exe} in *.exe)
