@@ -149,7 +149,7 @@ cygcmake() {
 #  default and as arguments to cygcmake.
 #****
 
-	cmake \
+	cmake -Wno-dev \
 		${cmdir} \
 		-DCMAKE_BINARY_DIR=. \
 		-DCMAKE_BUILD_TYPE=Release \
