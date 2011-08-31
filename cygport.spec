@@ -57,6 +57,14 @@ make DESTDIR=$RPM_BUILD_ROOT install
 rm -rf $RPM_BUILD_ROOT
 
 
+%post
+/usr/bin/update-mime-database ${_datadir}/mime &> /dev/null || :
+
+
+%postun
+/usr/bin/update-mime-database ${_datadir}/mime &> /dev/null || :
+
+
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS ChangeLog COPYING NEWS README TODO doc/cygport.1.html doc/manual.css doc/manual.html
@@ -65,12 +73,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/cygport
 %{_libdir}/cygport
 %{_datadir}/cygport
+%{_datadir}/mime/packages/cygport.xml
 %{_mandir}/man1/cygport.1.gz
 
 
 %changelog
 * Tue Aug 30 2011 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.5-1
 - Version bump.
+- Call update-mime-database in post and postun for the new MIME package.
 
 * Thu Mar 17 2011 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.4-1
 - Version bump.
