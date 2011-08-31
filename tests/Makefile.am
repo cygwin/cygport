@@ -9,7 +9,7 @@ CLEANFILES = \
 	$(PACKAGE)-$(VERSION)-1-src.tar.bz2 \
 	$(PACKAGE)-$(VERSION)-1.tar.bz2 \
 	$(PACKAGE)-$(VERSION)-1.cygport \
-	$(PACKAGE)-$(VERSION).tar.bz2
+	$(PACKAGE)-$(VERSION).tar.xz
 
 clean-local:
 	-rm -fr $(PACKAGE)/ $(PACKAGE)-$(VERSION)-1/
