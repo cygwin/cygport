@@ -1,3 +1,14 @@
+0.10.5:
+	* More cross-compiling improvements.
+	* Better support for running on non-Cygwin build systems.
+	* doenv: new function for setting global env vars in profile.d.
+	* doman: supports LAPACK manpages.
+	* make_desktop_entry: supports unlimited optional arguments.
+	* font.cygclass: new sfd2ttf func for building fonts (req. fontforge).
+	* gnome2.cygclass: gnome2_configure is now separate from gnome2_compile.
+	* gst-plugins0.10.cygclass: updated for latest releases.
+	* tcl.cygclass: added cross-compiling support.
+
 0.10.4:
 	* Added RPM spec file (tested on Fedora 14).
 	* Cross-compiling improvements.
