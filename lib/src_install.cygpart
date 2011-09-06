@@ -836,6 +836,8 @@ cyginstall() {
 			sbindir=${D}${prefix}/sbin \
 			libexecdir=${D}${prefix}/lib \
 			datadir=${D}${prefix}/share \
+			datarootdir=${D}${prefix}/share \
+			docdir=${D}${prefix}/share/doc/${PN} \
 			infodir=${D}${prefix}/share/info \
 			mandir=${D}${prefix}/share/man \
 			localstatedir=${D}${prefix%/usr}/var \
