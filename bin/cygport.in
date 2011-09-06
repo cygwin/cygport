@@ -141,7 +141,7 @@ fi
 
 # Values which can be overridden either system-wide or per package
 
-declare    MAKEOPTS="-j$(($(grep -c '^proc' /proc/cpuinfo) + 1)) ";
+declare    MAKEOPTS="-j$(($(nproc 2>/dev/null) + 1)) ";
 
 # load configuration
 for conf in ${_sysconfdir}/cygport.conf \
