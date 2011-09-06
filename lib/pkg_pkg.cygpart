@@ -181,8 +181,18 @@ __pkg_diff() {
 
 	if __config_equals with_gnu_gettext 1 && [ ${PN} != "gettext" ]
 	then
-		default_excludes+=" intl"
-		default_excludes+=" $(tar ztf /usr/share/gettext/archive.tar.gz | grep -Ev '(/$|/intl/)' | sed -e 's|.*/\([^/]*\),v|\1|g' | grep -v 'Makefile.in$' )"
+		# gettext since 0.18 uses a git archive instead of the previous
+		# CVS, so the file list cannot be simply derived from the tarball
+		default_excludes+=" ABOUT-NLS config.rpath intl codeset.m4
+			fcntl-o.m4 gettext.m4 glibc2.m4 glibc21.m4 iconv.m4
+			intdiv0.m4 intl.m4 intldir.m4 intlmacosx.m4 intmax.m4
+			inttypes-pri.m4 inttypes_h.m4 lcmessage.m4 lib-ld.m4
+			lib-link.m4 lib-prefix.m4 lock.m4 longlong.m4 nls.m4
+			po.m4 printf-posix.m4 progtest.m4 size_max.m4 stdint_h.m4
+			threadlib.m4 uintmax_t.m4 visibility.m4 wchar_t.m4
+			wint_t.m4 xsize.m4 boldquot.sed en@boldquot.header
+			en@quot.header insert-header.sin Makefile.in.in
+			Makevars.template quot.sed remove-potcdate.sin Rules-quot"
 	fi
 
 	if __config_equals with_glib_gettext 1

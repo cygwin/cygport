@@ -101,6 +101,7 @@ cygautoreconf() {
 	local configure_ac;
 	local config_h;
 	local config_h_in;
+	local gettext_version;
 	local sub_configure_ac;
 
 	__parse_aclocal_amflags() {
@@ -260,7 +261,13 @@ cygautoreconf() {
 
 		if __config_equals with_libtool 1
 		then
-			AUTOPOINT="autopoint -V 0.17"
+			# libtool 2.2+ is incompatible with gettext before 0.17
+			eval gettext_$(grep ^version= $(which autopoint))
+			if ! __version_at_least 0.17 ${gettext_version}
+			then
+				error "cygautoreconf: libtool 2.2+ requires at least gettext 0.17"
+			fi
+			AUTOPOINT="autopoint -V ${gettext_version}"
 		fi
 
 #****v* cygautoreconf/NO_ACLOCAL
