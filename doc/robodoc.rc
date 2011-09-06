@@ -76,12 +76,20 @@ ignore files:
 	Makefile
 	Makefile.in
 	README
+	aclocal.m4
+	config.log
+	config.status
+	configure
 	cygport
 	cygport-inplace
 	cygport-*.*.*
+	cygport.spec
 	doc
+	gnuconfig
+	install-sh
 	html
 	man
+	missing
 	patches
 	tmp
 	.git
