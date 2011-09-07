@@ -8,7 +8,7 @@ EXTRA_DIST =					\
 	CYGWIN-PATCHES/README		\
 	CYGWIN-PATCHES/setup.hint
 
-DISTCLEANFILES = $(PACKAGE)-$(VERSION).tar.bz2
+DISTCLEANFILES = $(PACKAGE)-$(VERSION).tar.bz2 $(PACKAGE)-$(VERSION).tar.xz
 
 dist-hook:
 	@if test -d "$(srcdir)/.git"; \
