@@ -15,7 +15,7 @@ cygport: cygport.in $(top_srcdir)/configure
 cygport-inplace: cygport.in $(top_srcdir)/configure
 	$(AM_V_GEN)sed	-e "s!\@VERSION\@!$(VERSION)!"			\
 		-e "s!\@cygclassdir\@!$(abs_top_srcdir)/cygclass!"	\
-		-e "s!\@docdir\@!$(abs_top_srcdir)/doc!"			\
+		-e "s!\@docdir\@!$(docdir)!"			\
 		-e "s!\@gnuconfigdir\@!$(abs_top_srcdir)/data/gnuconfig!"		\
 		-e "s!\@pkgdatadir\@!$(abs_top_srcdir)/data!"		\
 		-e "s!\@pkglibdir\@!$(abs_top_srcdir)/lib!"			\
