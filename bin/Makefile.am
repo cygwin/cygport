@@ -1,7 +1,7 @@
 nodist_bin_SCRIPTS = cygport
 nodist_noinst_SCRIPTS = cygport-inplace
 
-cygport: cygport.in $(top_srcdir)/configure
+cygport: cygport.in $(top_srcdir)/configure Makefile
 	$(AM_V_GEN)sed	-e "s!\@VERSION\@!$(VERSION)!"			\
 		-e "s!\@cygclassdir\@!$(pkgdatadir)/cygclass!"	\
 		-e "s!\@docdir\@!$(docdir)!"			\
@@ -12,7 +12,7 @@ cygport: cygport.in $(top_srcdir)/configure
 		$< > $@ ; \
 	chmod 755 $@
 
-cygport-inplace: cygport.in $(top_srcdir)/configure
+cygport-inplace: cygport.in $(top_srcdir)/configure Makefile
 	$(AM_V_GEN)sed	-e "s!\@VERSION\@!$(VERSION)!"			\
 		-e "s!\@cygclassdir\@!$(abs_top_srcdir)/cygclass!"	\
 		-e "s!\@docdir\@!$(docdir)!"			\
