@@ -101,6 +101,15 @@ case "${PN}:${PV}" in
 	phonon:4.*)
 		SRC_URI="mirror://kde/stable/phonon/${PV}/${P}.tar.bz2"
 		;;
+	# setup cannot handle '@' in PN
+	kde-l10n-ca?valencia:4.*.[789]?)
+		SRC_URI="mirror://kde/unstable/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.bz2"
+		SRC_DIR="kde-l10n-ca@valencia-${PV}"
+		;;
+	kde-l10n-ca?valencia:4.*)
+		SRC_URI="mirror://kde/stable/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.bz2"
+		SRC_DIR="kde-l10n-ca@valencia-${PV}"
+		;;
 	kde-l10n-*:4.*.[789]?)
 		SRC_URI="mirror://kde/unstable/${PV}/src/kde-l10n/${P}.tar.bz2"
 		;;
