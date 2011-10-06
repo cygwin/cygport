@@ -135,10 +135,10 @@ dopython3() {
 		then
 			case ${i} in
 				*.dll)
-					/bin/install -m0755 ${i} ${D}${pydir} || error "dopython3 ${i} failed"
+					__doinstall 0755 ${i} ${pydir} || error "dopython3 ${i} failed"
 					;;
 				*)
-					/bin/install -m0644 ${i} ${D}${pydir} || error "dopython3 ${i} failed"
+					__doinstall 0644 ${i} ${pydir} || error "dopython3 ${i} failed"
 					;;
 			esac
 		else

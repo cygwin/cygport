@@ -60,7 +60,7 @@ doemacs() {
 			error "file ${i} does not exist"
 		fi
 
-		/bin/install -m0644 ${i} ${D}/${EMACS_SITE} || error "doemacs ${i} failed"
+		__doinstall 0644 ${i} ${EMACS_SITE} || error "doemacs ${i} failed"
 	done
 }
 

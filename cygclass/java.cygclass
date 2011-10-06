@@ -225,7 +225,7 @@ dojar() {
 			error "dojar: ${i}: file not found"
 		fi
 
-		/bin/install -m0644 ${i} ${D}${JAVA_DIR} || error "dojar ${i} failed"
+		__doinstall 0644 ${i} ${JAVA_DIR} || error "dojar ${i} failed"
 		ib=${i##*/}
 		case ${ib} in
 			*-[0-9]*.jar)
@@ -256,7 +256,7 @@ newjar() {
 		error "newjar: ${1}: file not found"
 	fi
 
-	/bin/install -m0644 ${1} ${D}${JAVA_DIR}/${2} || error "newjar: install ${1} failed"
+	__doinstall 0644 ${1} ${JAVA_DIR}/${2} || error "newjar: install ${1} failed"
 	ib=${2##*/}
 	case ${ib} in
 		*-[0-9]*.jar)

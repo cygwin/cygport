@@ -283,15 +283,10 @@ doapache2mod() {
 		fi
 
 		case ${mod} in
-			*.la)
+			*.la|*.so)
 				dodir ${APACHE2_LIBEXECDIR}
-				verbose ${APR_LIBTOOL} --mode=install /usr/bin/install \
-					${mod} ${D}${APACHE2_LIBEXECDIR} \
+				__doinstall ${mod} ${APACHE2_LIBEXECDIR} \
 					|| error "install ${mod} failed"
-				;;
-			*.so)
-				exeinto ${APACHE2_LIBEXECDIR}
-				doexe ${mod}
 				;;
 			*)	error "doapache2mod: ${mod##*/}: Unknown file type"
 		esac

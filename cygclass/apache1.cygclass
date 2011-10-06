@@ -207,15 +207,10 @@ doapache1mod() {
 		fi
 
 		case ${mod} in
-			*.la)
+			*.la|*.dll)
 				dodir ${APACHE1_LIBEXECDIR}
-				verbose /usr/bin/libtool --mode=install /usr/bin/install \
-					${mod} ${D}${APACHE1_LIBEXECDIR} \
+				__doinstall 0755 ${mod} ${APACHE1_LIBEXECDIR} \
 					|| error "install ${mod} failed"
-				;;
-			*.dll)
-				exeinto ${APACHE1_LIBEXECDIR}
-				doexe ${mod}
 				;;
 			*)	error "doapache1mod: ${mod##*/}: Unknown file type"
 		esac

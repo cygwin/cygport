@@ -274,17 +274,14 @@ doruby() {
 		if [ -e ${i} ]
 		then
 			case ${i} in
-				*.la)
-					/usr/bin/libtool --mode=install /usr/bin/install ${i} ${D}${sodir} || error "doruby ${i} failed"
-					;;
-				*.so)
-					/usr/bin/install -m0755 ${i} ${D}${sodir} || error "doruby ${i} failed"
+				*.la|*.so)
+					__doinstall 0755 ${i} ${sodir} || error "doruby ${i} failed"
 					;;
 				*.a|*.h)
-					/usr/bin/install -m0644 ${i} ${D}${sodir} || error "doruby ${i} failed"
+					__doinstall 0644 ${i} ${sodir} || error "doruby ${i} failed"
 					;;
 				*)
-					/usr/bin/install -m0644 ${i} ${D}${rbdir} || error "doruby ${i} failed"
+					__doinstall 0644 ${i} ${rbdir} || error "doruby ${i} failed"
 					;;
 			esac
 		else
