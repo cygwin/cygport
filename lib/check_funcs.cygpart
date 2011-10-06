@@ -30,6 +30,8 @@
 check_prog() {
 	local _prog;
 
+	(( $# < 1 )) && return 1;
+
 	for _prog
 	do
 		if ! hash ${_prog} &> /dev/null
@@ -72,6 +74,8 @@ check_prog_req() {
 check_tool() {
 	local _prog;
 
+	(( $# < 1 )) && return 1;
+
 	for _prog
 	do
 		if ! hash ${CHOST}-${_prog} &> /dev/null
@@ -98,6 +102,8 @@ check_tool() {
 check_target_tool() {
 	local _prog;
 
+	(( $# < 1 )) && return 1;
+
 	for _prog
 	do
 		if ! hash ${CTARGET}-${_prog} &> /dev/null
@@ -115,11 +121,13 @@ check_target_tool() {
 }
 
 __check_function() {
+	(( $# < 1 )) && return 1;
 	declare -F ${1} &> /dev/null
 	return $?
 }
 
 __check_function_ro() {
+	(( $# < 1 )) && return 1;
 	declare -Fr | grep -q " ${1}$"
 	return $?
 }
