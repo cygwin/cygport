@@ -193,6 +193,8 @@ __pkg_diff() {
 			wint_t.m4 xsize.m4 boldquot.sed en@boldquot.header
 			en@quot.header insert-header.sin Makefile.in.in
 			Makevars.template quot.sed remove-potcdate.sin Rules-quot"
+		# gettext-0.15
+		default_excludes+=" inttypes-h.m4 longdouble.m4 signed.m4 ulonglong.m4"
 	fi
 
 	if __config_equals with_glib_gettext 1
