@@ -41,9 +41,6 @@ declare -r _privdocdir=@docdir@;
 declare -r _privgnuconfigdir=@gnuconfigdir@;
 declare -r _sysconfdir=@sysconfdir@;
 
-declare -ar argv=(${0} ${@})
-declare -ir argc=$(( $# + 1 ))
-
 
 ### import defined, pushd, popd
 source ${_privlibdir}/syntax.cygpart
@@ -69,7 +66,7 @@ source ${_privlibdir}/help.cygpart
 ###
 
 # Accept --help and --version arguments without specifying a cygport file
-case ${argv[1]} in
+case ${1} in
 	--help|-h|-\?)
 		__show_help;
 		exit 0;
@@ -78,12 +75,19 @@ case ${argv[1]} in
 		__show_version;
 		exit 0;
 		;;
+	--debug)
+		set -x;
+		shift;
+		;;
 	-*)
-		echo "${argv[0]}: unknown argument ${argv[1]}";
+		echo "${0}: unknown argument ${1}";
 		__show_help;
 		exit 1;
 		;;
 esac
+
+declare -ar argv=(${0} ${@})
+declare -ir argc=$(( $# + 1 ))
 
 # Show help if no commands are given
 if ! defined argv[1] || ! defined argv[2]
