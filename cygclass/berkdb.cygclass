@@ -243,7 +243,7 @@ berkdb_install() {
 		# relocate and install Tcl module
 		dodir ${TCL_LIBDIR}/db${SLOT}
 		mv ${D}/usr/lib/cygdb_tcl-${SLOT}.dll ${D}${TCL_LIBDIR}/db${SLOT}/
-		echo pkg_mkIndex ${D}${TCL_LIBDIR}/db${SLOT} cygdb_tcl-${SLOT}.dll | ${TCLSH}
+		echo pkg_mkIndex ${D}${TCL_LIBDIR}/db${SLOT} cygdb_tcl-${SLOT}.dll | PATH=${D}/usr/bin:$PATH ${TCLSH}
 		sed -i -e "s#${D}##g" ${D}${TCL_LIBDIR}/db${SLOT}/pkgIndex.tcl
 	fi
 }
