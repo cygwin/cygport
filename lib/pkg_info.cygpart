@@ -148,15 +148,14 @@ __show_web() {
 		mywww="http://www.google.com/search?q=${ORIG_PN:-${PN}}"
 	fi
 
-	if defined BROWSER
-	then
-		mybrowser="${BROWSER}"
-	elif check_prog xdg-open
-	then
-		mybrowser="xdg-open"
-	else
-		mybrowser="cygstart"
-	fi
+	for prog in "${BROWSER}" xdg-open cygstart false
+	do
+		if check_prog ${prog%% *}
+		then
+			mybrowser=${prog};
+			break;
+		fi
+	done
 
 	${mybrowser} ${mywww} &>/dev/null &
 }
