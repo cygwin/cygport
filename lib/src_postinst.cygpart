@@ -524,6 +524,7 @@ __prep_empty_dirs() {
 __prepstrip() {
 	local exe;
 	local all_exes;
+	local strip;
 
 	if defined _CYGPORT_RESTRICT_strip_
 	then
@@ -549,11 +550,11 @@ __prepstrip() {
 		then
 			# for cross-compiled libs, cross-GCC target libs,
 			# or non-cross packages built on non-Cygwin systems
-			strip="/usr/bin/${CTARGET}-strip"
+			strip="${CTARGET}-strip"
 		elif check_prog ${CHOST}-strip && ${CHOST}-size -f ${exe} &>/dev/null
 		then
 			# for cross-compilers built on non-Cygwin systems
-			strip="/usr/bin/${CHOST}-strip"
+			strip="${CHOST}-strip"
 		elif size -f ${exe} &>/dev/null
 		then
 			strip="strip"

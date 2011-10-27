@@ -125,7 +125,7 @@ __tcl_sys_version() {
 
 if __cross_compiling
 then
-    export ac_cv_c_tclconfig=/usr/${CHOST}/sys-root/$(__target_prefix)/lib
+    export ac_cv_c_tclconfig=$(${CC} -print-sysroot)$(__target_prefix)/lib
     export tcl_cv_sys_version=$(__tcl_sys_version)
 fi
 

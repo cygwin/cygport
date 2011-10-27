@@ -39,7 +39,7 @@ __list_files() {
 
 __list_deps() {
 	local d
-	local nativelibs netlibs netimps tclibs tcgcclibdir
+	local nativelibs netlibs netimps tclibs tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
 	pushd ${D}
@@ -64,28 +64,29 @@ __list_deps() {
 		fi
 	done
 
-	export PATH+="${D}/usr/bin:${os_path}";
+	export PATH+="${D}$(__host_prefix)/bin:${os_path}";
 
 	if __cross_compiling && check_target_tool gcc
 	then
 		tcgcclibdir=$(dirname $(${CTARGET}-gcc --print-file-name=libgcc.a))
+		tcgccsysroot=$(${CTARGET}-gcc -print-sysroot)
 		PATH+=":${D}${tcgcclibdir#${D}}:${tcgcclibdir#${D}}"
 
 		# FIXME: thoroughout this section, CTARGET to get libgcc et. al. deps,
 		#        or CHOST to get canadian-cross deps
 		case ${CTARGET} in
 		${CBUILD%%-*}-*-mingw*)
-			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:/usr/${CTARGET}/sys-root/$(__target_prefix)/bin"
+			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:${tcgccsysroot}$(__target_prefix)/bin"
 			# native binutils handles both cygwin and mingw binaries
 			;;
 		*-*-cygwin*|*-*-mingw*)
-			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:/usr/${CTARGET}/sys-root/$(__target_prefix)/bin"
+			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:${tcgccsysroot}$(__target_prefix)/bin"
 			tclibs=$(find . -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
 				-exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
 				cut -d ' ' -f 3 | xargs -r which || true)
 			;;
 		*-*-darwin*)
-			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:/usr/${CTARGET}/sys-root/$(__target_prefix)/lib"
+			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:${tcgccsysroot}$(__target_prefix)/lib"
 			tclibs=$(find . -type f -executable -exec ${CTARGET}-otool -L '{}' + 2>/dev/null | \
 				sed -e '1d;s|^\t\([^ ]*\).*|\1|g' | sort -u | xargs -r which || true )
 			;;
@@ -94,8 +95,8 @@ __list_deps() {
 			;;
 		# FIXME: any other non-ELF systems?
 		*)	# ELF system; libc in /lib, other libs in /usr/lib
-			PATH+=":${D}/usr/${CTARGET}/sys-root/lib:/usr/${CTARGET}/sys-root/lib"
-			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:/usr/${CTARGET}/sys-root/$(__target_prefix)/lib"
+			PATH+=":${D}/usr/${CTARGET}/sys-root/lib:${tcgccsysroot}/lib"
+			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:${tcgccsysroot}$(__target_prefix)/lib"
 			tclibs=$(find . -type f -executable -exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | \
 				grep ' NEEDED ' | sort -u | sed -e 's| *NEEDED *\([^ ]*\).*|\1|g' | \
 				sort -u | xargs -r which || true )

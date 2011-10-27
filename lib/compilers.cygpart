@@ -175,9 +175,6 @@ then
 	# we set PKG_CONFIG_LIBDIR appropriately.
 	# The PKG_CONFIG override silences a bogus warning during configure:
 	# configure: WARNING: using cross tools not prefixed with host triplet
-	if check_prog pkg-config
-	then
-		export PKG_CONFIG="/usr/bin/pkg-config"
-		export PKG_CONFIG_LIBDIR="/usr/${CHOST}/sys-root/usr/lib/pkgconfig:/usr/${CHOST}/sys-root/usr/share/pkgconfig:/usr/share/pkgconfig"
-	fi
+	export PKG_CONFIG="$(which pkg-config 2>/dev/null)"
+	export PKG_CONFIG_LIBDIR="$(${CC} -print-sysroot)/usr/lib/pkgconfig:$(${CC} -print-sysroot)/usr/share/pkgconfig:/usr/share/pkgconfig"
 fi

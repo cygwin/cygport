@@ -334,9 +334,10 @@ cygautoreconf() {
 
 		ACLOCAL=${ACLOCAL:-aclocal}
 
-		if __cross_compiling && [ -d /usr/${CHOST}/sys-root/$(__target_prefix)/share/aclocal ]
+		local sysrootaclocaldir=$(${CC} -print-sysroot)$(__target_prefix)/share/aclocal
+		if __cross_compiling && [ -d ${sysrootaclocaldir} ]
 		then
-			ACLOCAL+=" -I /usr/${CHOST}/sys-root/$(__target_prefix)/share/aclocal"
+			ACLOCAL+=" -I ${sysrootaclocaldir}"
 		fi
 
 #****v* cygautoreconf/ACLOCAL_FLAGS
