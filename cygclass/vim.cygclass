@@ -39,7 +39,7 @@ check_prog_req vim
 #  NOTE
 #  This is NOT the path to the Vim editor.
 #****
-VIM=$(/usr/bin/vim -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIM|quit' | tr -d '\015')
+VIM="/usr/share/vim"
 
 #****d* vim.cygclass/VIMRUNTIME
 #  DESCRIPTION
