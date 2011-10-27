@@ -74,7 +74,7 @@ doemacs() {
 emacs_compile() {
 	if check_prog emacs
 	then
-		${EMACS} --batch -f batch-byte-compile --no-site-file --no-init-file \
+		emacs --batch -f batch-byte-compile --no-site-file --no-init-file \
 			${D}${EMACS_SITE}/*.el
 	else
 		warning "emacs not installed, cannot compile lisp files"
