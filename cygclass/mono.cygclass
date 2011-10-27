@@ -164,6 +164,7 @@ mono_create_policy() {
 	local oldv="$2"
 	local newv=$3
 	local snk=$4
+	local polv
 	local token
 
 	if (( $# != 4 ))
@@ -176,11 +177,12 @@ mono_create_policy() {
 		error "mono_create_policy: ${snk}: file not found"
 	fi
 
+	polv=$(echo ${oldv} | sed -e 's|\([^\.]*\.[^\.]*\)\..*|\1|')
 	token=$(sn -t ${snk} | grep Token: | cut -d' ' -f4)
 
 	pushd ${T}
 
-	cat > policy.${assembly}.config <<_EOF
+	cat > policy.${polv}.${assembly}.config <<_EOF
 <configuration>
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
@@ -193,8 +195,8 @@ mono_create_policy() {
 </configuration>
 _EOF
 
-	/usr/bin/al -link:policy.${assembly}.config -out:policy.${assembly}.dll -keyfile:${snk} || error "mono_create_policy: al link failed"
-	${GACUTIL} -i policy.${assembly}.dll -gacdir ${D}/usr/lib || error "mono_create_policy: gacutil install failed"
+	/usr/bin/al -link:policy.${polv}.${assembly}.config -out:policy.${polv}.${assembly}.dll -keyfile:${snk} || error "mono_create_policy: al link failed"
+	${GACUTIL} -i policy.${polv}.${assembly}.dll -gacdir ${D}/usr/lib || error "mono_create_policy: gacutil install failed"
 
 	popd # ${T}
 }
