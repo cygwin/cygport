@@ -3,7 +3,7 @@
 # tcl.cygclass - definitions for installing Tcl modules
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -39,6 +39,9 @@
 
 check_prog_req tclsh tcl
 
+# this is used for TCL_VERSION
+export ac_cv_c_tclconfig=$(${CC} -print-sysroot)$(__target_prefix)/lib
+
 #****d* tcl.cygclass/TCLSH
 #  DESCRIPTION
 #  Absolute path to the Tcl interpreter.
@@ -49,7 +52,7 @@ TCLSH=/usr/bin/tclsh
 #  DESCRIPTION
 #  The major.minor version of the Tcl interpreter.
 #****
-TCL_VERSION=$(echo "puts [info tclversion]" | ${TCLSH})
+eval $(grep '^TCL_VERSION=' ${ac_cv_c_tclconfig}/tclConfig.sh)
 
 #****d* tcl.cygclass/TCL_INCLUDEDIR
 #  DESCRIPTION
@@ -62,7 +65,7 @@ TCL_INCLUDEDIR="/usr/include/tcl${TCL_VERSION}"
 #  DESCRIPTION
 #  Location of the Tcl standard library.
 #****
-TCL_LIBDIR=$(echo "puts [info library]" | ${TCLSH})
+TCL_LIBDIR="/usr/lib/tcl${TCL_VERSION}"
 
 #****d* tcl.cygclass/TK_INCLUDEDIR
 #  DESCRIPTION
@@ -123,10 +126,6 @@ __tcl_sys_version() {
 	echo -n ${tclsys}
 }
 
-if __cross_compiling
-then
-    export ac_cv_c_tclconfig=$(${CC} -print-sysroot)$(__target_prefix)/lib
-    export tcl_cv_sys_version=$(__tcl_sys_version)
-fi
+export tcl_cv_sys_version=$(__tcl_sys_version)
 
 readonly -f __tcl_sys_version
