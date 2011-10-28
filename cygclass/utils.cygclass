@@ -83,7 +83,8 @@ check_lib() {
 	local lib_path=$(${CC} -print-search-dirs | grep '^libraries:' | sed -e 's|libraries: =||' -e 's|:| |g' | xargs -n1 readlink -e)
 
 	case ${CHOST} in
-		*-cygwin*|*-mingw*)	shlibext=dll.a ;;
+		*-cygwin*|*-mingw*|*-msys*)
+				shlibext=dll.a ;;
 		*-darwin*)	shlibext=dylib ;;
 		*-hpux*)	shlibext=sl ;;
 		*)		shlibext=so ;;

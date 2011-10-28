@@ -634,7 +634,7 @@ dosym() {
 	fi
 
 	case ${CHOST} in
-	*-*-mingw*|*-*-msdos*)
+	*-*-mingw*|*-*-msys*|*-*-msdos*)
 		ln_s="cp" ;;
 	*)	ln_s="ln -s" ;;
 	esac

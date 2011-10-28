@@ -102,7 +102,7 @@ cygcmake() {
 	check_prog_req cmake;
 
 	case ${CBUILD} in
-		*-cygwin*|*-mingw*)  exeext=".exe" ;;
+		*-cygwin*|*-mingw*|*-msys*)  exeext=".exe" ;;
 	esac
 
 #****v* cygcmake/CYGCMAKE_SOURCE

@@ -75,11 +75,11 @@ __list_deps() {
 		# FIXME: thoroughout this section, CTARGET to get libgcc et. al. deps,
 		#        or CHOST to get canadian-cross deps
 		case ${CTARGET} in
-		${CBUILD%%-*}-*-mingw*)
+		${CBUILD%%-*}-*-mingw*|${CBUILD%%-*}-*-msys*)
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:${tcgccsysroot}$(__target_prefix)/bin"
 			# native binutils handles both cygwin and mingw binaries
 			;;
-		*-*-cygwin*|*-*-mingw*)
+		*-*-cygwin*|*-*-mingw*|*-*-msys*)
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:${tcgccsysroot}$(__target_prefix)/bin"
 			tclibs=$(find . -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
 				-exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \

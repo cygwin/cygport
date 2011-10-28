@@ -590,7 +590,7 @@ __prepstrip() {
 		# check for .exe from non-automake Makefile which install(1) didn't fix
 		# strip(1) used to take care of this, but not anymore
 		case ${CHOST} in
-		*-*-cygwin*|*-*-mingw*)
+		*-*-cygwin*|*-*-mingw*|*-*-msys*)
 			case ${exe##*/} in
 				*.*) ;;
 				*)	mv ${exe} ${exe}.exe
@@ -610,7 +610,7 @@ __prepuac() {
 
 	# only Windows-hosted binaries need to deal with UAC
 	case ${CHOST} in
-		*-*-cygwin*|*-*-mingw*) ;;
+		*-*-cygwin*|*-*-mingw*|*-*-msys*) ;;
 		*)	return ;;
 	esac
 
@@ -677,7 +677,7 @@ __prep_symlinks() {
 
 				# Some systems do not support symlinks
 				case ${CHOST} in
-				*-*-mingw*|*-*-msdos*)
+				*-*-mingw*|*-*-msys*|*-*-msdos*)
 					echo "        ${l#${D}}";
 					rm -f ${l};
 					cp -LR ${l_src} ${l};
@@ -693,7 +693,7 @@ __prep_symlinks() {
 
 				# Some systems do not support symlinks
 				case ${CHOST} in
-				*-*-mingw*|*-*-msdos*)
+				*-*-mingw*|*-*-msys*|*-*-msdos*)
 					echo "        ${l#${D}}";
 					rm -f ${l};
 					cp -LR ${l%/*}/${l_src} ${l};
@@ -763,7 +763,7 @@ __prep_libtool_modules() {
 
 			# would otherwise be CHOST, but gcc ships $target libraries
 			case ${CTARGET} in
-			*-*-cygwin*|*-*-mingw*)
+			*-*-cygwin*|*-*-mingw*|*-*-msys*)
 				if test ${CTARGET} != ${CHOST} # cross-compiler, use sysroot
 				then
 					dodir /usr/${CTARGET}/sys-root/$(__target_prefix)/bin
