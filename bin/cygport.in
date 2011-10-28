@@ -370,9 +370,13 @@ unset _autotools_CYGCLASS_ _autotools_CYGCLASS_stage1_
             PF=${argv[1]##*/}
 declare -r  PF=${PF%.cygport}
 # these must be defined now to be available in SRC_URI
-declare -r  PN=$(echo ${PF} | sed -e 's/\-[^\-]*\-[^\-]*$//');
-            PV=$(echo ${PF} | sed -e "s/${PN}\-//" -e 's/\-[^\-]*$//');
-declare -r  PR=${PF#${PN}-${PV}-};
+#
+# PN must begin with letter, may contain hyphens but must be followed by letter
+# PV must begin with digit and may be hyphenated
+# PR must be an integer
+declare -r  PN=${PF%%-[0-9]*};
+declare -r  PR=${PF##*-};
+            PV=$(echo ${PF} | sed -e "s/${PN}\-\(.*\)\-${PR}$/\1/");
 declare -r  P=${PN}-${PV};
 declare -r  PVR=${PV}-${PR};
 declare -ar PVP=(${PV//[-\._]/ });
