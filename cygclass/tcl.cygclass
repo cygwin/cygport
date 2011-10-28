@@ -41,6 +41,10 @@ check_prog_req tclsh tcl
 
 # this is used for TCL_VERSION
 export ac_cv_c_tclconfig=$(${CC} -print-sysroot)$(__target_prefix)/lib
+if test -f ${ac_cv_c_tclconfig}/tkConfig.sh
+then
+	export ac_cv_c_tkconfig=${ac_cv_c_tclconfig}
+fi
 
 #****d* tcl.cygclass/TCLSH
 #  DESCRIPTION
