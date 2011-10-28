@@ -259,16 +259,14 @@ cygautoreconf() {
 			*)	error "autoconf2.5 is required to build this package" ;;
 		esac
 
-		if __config_equals with_libtool 1
+		# libtool 2.2+ is incompatible with gettext before 0.17
+		# config.rpath is broken wrt dynamic linkage before 0.17
+		eval gettext_$(grep ^version= $(which autopoint))
+		if ! __version_at_least 0.17 ${gettext_version}
 		then
-			# libtool 2.2+ is incompatible with gettext before 0.17
-			eval gettext_$(grep ^version= $(which autopoint))
-			if ! __version_at_least 0.17 ${gettext_version}
-			then
-				error "cygautoreconf: libtool 2.2+ requires at least gettext 0.17"
-			fi
-			AUTOPOINT="autopoint -V ${gettext_version}"
+			error "cygautoreconf: at least gettext 0.17 required"
 		fi
+		AUTOPOINT="autopoint -V ${gettext_version}"
 
 #****v* cygautoreconf/NO_ACLOCAL
 #  DESCRIPTION
