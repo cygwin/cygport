@@ -1,3 +1,10 @@
+0.10.6:
+	* Allows hyphens in PV (which are allowed by setup).
+	* Supports gettext 0.18+.
+	* Allow for cross-compiler toolchains in locations other than /usr.
+	* mono.cygclass: updated SRC_URI, fixed mono_create_policy.
+	* tcl.cygclass: fully enabled cross-compiling support.
+
 0.10.5:
 	* More cross-compiling improvements.
 	* Better support for running on non-Cygwin build systems.

@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.10.5
+Version:        0.10.6
 Release:        1%{?dist}
 Summary:        Cygwin package building tool
 
@@ -78,9 +78,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Aug 30 2011 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.5-1
+* Fri Oct 28 2011 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.6-1
 - Version bump.
 - Call update-mime-database in post and postun for the new MIME package.
+
+* Tue Aug 30 2011 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.5-1
+- Version bump.
 
 * Thu Mar 17 2011 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.4-1
 - Version bump.
