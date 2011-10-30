@@ -142,8 +142,9 @@ __pkg_diff() {
 
 	default_excludes="CYGWIN-PATCHES aclocal.m4~ aclocal.m4t autom4te.cache
 		config.cache config.log config.status
-		*SlackBuild* *.egg-info *.dll *.exe *.o *.jpg *.png *.qm *.svgz *.tif
-		*.class *.jlc *.pyc *.pyo *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
+		*SlackBuild* *.egg-info *.dll *.exe *.o *.gch
+		 *.jpg *.png *.qm *.svgz *.tif *.class *.jlc *.pyc *.pyo
+		 *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
 
 	if __config_equals with_aclocal 1
 	then
