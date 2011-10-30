@@ -75,7 +75,7 @@ distutils_compile() {
 #  Wrapper for python_distutils_install/python3_distutils_install
 #****
 distutils_install() {
-	python${_pysuffix}_distutils_install
+	python${_pysuffix}_distutils_install "$@"
 }
 
 readonly -f distutils_compile distutils_install
