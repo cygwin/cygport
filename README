@@ -276,13 +276,6 @@ included in the package .cygport.  For example:
         make megatest
     }
     
-If a package has no testsuite and will not accept a 'make test', then
-define an empty src_test():
-    
-    src_test() {
-        :
-    }
-
 The src_install() function defines how the package is installed into
 ${D}, from which various generic post-installation steps occur and the
 binary package(s) are made.

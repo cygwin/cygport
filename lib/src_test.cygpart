@@ -37,10 +37,10 @@ cygtest() {
 		then
 			make -k test || true
 		else
-			error "Neither make check nor make test work.  You must define your own src_test().";
+			inform "No testsuite detected.";
 		fi
 	else
-		error "no Makefile found.  You must define your own src_test().";
+		inform "No testsuite detected.";
 	fi
 }
 
