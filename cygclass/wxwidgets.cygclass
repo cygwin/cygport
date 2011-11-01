@@ -3,7 +3,7 @@
 # wxwidgets.cygclass - functions for building wxWidgets-dependent packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -37,6 +37,9 @@
 #
 #  This cygclass selects the wx-config script for the desired version, backend
 #  tookit, and codeset of the wxWidgets toolkit.
+#  NOTE
+#  When cross-compiling, cross.cygclass must be inherit()ed BEFORE
+#  wxwidgets.cygclass.
 #****
 
 #****v* wxwidgets.cygclass/WX_VERSION
@@ -45,93 +48,150 @@
 #  be set before inherit()ing the wxwidgets.cygclass.
 #  NOTE
 #  Even minor version numbers represent stable branches; versions 2.6 and 2.8
-#  are supported.  Unstable branches (with odd minor versions) are currently
-#  not supported.
+#  are supported.  The latest unstable branch (version 2.9) is also currently
+#  supported.
 #****
 #****v* wxwidgets.cygclass/WX_TOOLKIT
 #  DESCRIPTION
-#  The desired backend toolkit version of the wxWidgets toolkit.  Possible values
-#  are "gtk2", "gtk", "motif", or "x11univ".
+#  The desired backend toolkit version of the wxWidgets toolkit.  Possible
+#  values are:
+#  * cocoa: (until 2.8) for Mac OS X Cocoa
+#  * dfb: for DirectFB (usually Linux embedded)
+#  * gtk2: the default for modern X11 desktop platforms, including Cygwin
+#  * gtk: for older X11 platforms with the deprecated 1.x version of GTK+
+#  * mac: (until 2.8) for Mac OS X Carbon
+#  * mgl: for SciTech MGL cross-platform graphics library (default on DJGPP)
+#  * microwin: for Microwindows (aka Nano X)
+#  * motif: for X11 systems using Motif/LessTif (default on older UNIXes)
+#  * msw: for Microsoft Windows (default on MinGW)
+#  * osx_carbon: (since 2.9) for Mac OS X Carbon interface
+#  * osx_cocoa: (since 2.9) for Mac OS X Cocoa interface
+#  * osx_iphone: (since 2.9) for iOS devices (iPhone/iPod Touch)
+#  * pm: for OS/2 EMX
+#  * x11: for X11 systems without another GUI toolkit
 #
 #  This variable must be set before inherit()ing the wxwidgets.cygclass.
-#  If undefined, "gtk2" is used as the default.
+#  If undefined, the default is "gtk2" on Cygwin; when cross-compiling,
+#  the default depends on CROSS_HOST as indicated above.
 #****
 #****v* wxwidgets.cygclass/WX_CODESET
 #  DESCRIPTION
 #  The choice of text codeset of the wxWidgets toolkit.  Possible values are
-#  "ansi" and "unicode", but only the "gtk2" WX_TOOLKIT supports "unicode".
+#  "ansi" and "unicode", however the "gtk" (1.x) and "motif" WX_TOOLKIT options
+#  do not support "unicode".
 #
 #  This variable must be set before inherit()ing the wxwidgets.cygclass.
-#  If undefined, "unicode" is the default if WX_TOOLKIT is "gtk2".
+#  If undefined, "unicode" is the default if supported by the given WX_TOOLKIT.
 #****
 
 _wx_find_config() {
-	local wx_config
-	local wx_base
-
-	WX_TOOLKIT=${WX_TOOLKIT:-gtk2}
-
-	case ${WX_TOOLKIT} in
-		base)
-			WX_TOOLKIT=gtk2
-			wx_base="base"
-			;;
-		gtk2u)
-			WX_TOOLKIT=${WX_TOOLKIT%u}
-			WX_CODESET=unicode
-			;;
-		x11) WX_TOOLKIT=x11univ ;;
-	esac
-
-	if ! defined WX_CODESET
-	then
-		case ${WX_TOOLKIT} in
-			gtk2)	WX_CODESET="unicode" ;;
-			*)		WX_CODESET="ansi" ;;
-		esac
-	fi
-
-	case ${WX_CODESET} in
-		unicode)
-			case ${WX_TOOLKIT} in
-				gtk2) ;;
-				gtk|motif|x11univ)
-					error "wxWidgets ${WX_TOOLKIT} is only available in ANSI"
-					;;
-				*)	error "Unknown or unsupported wxWidgets toolkit"
-					;;
-			esac
-			;;
-		ansi)
-			case ${WX_TOOLKIT} in
-				gtk|gtk2|motif|x11univ) ;;
-				*)	error "Unknown or unsupported wxWidgets toolkit"
-			esac
-			;;
-		*)	error "Unknown value for WX_CODESET; must be 'ansi' or 'unicode'"
-			;;
-		esac
+	local carbon
+	local _release
 
 	case ${WX_VERSION} in
-		2.6|2.8) wx_config=/usr/lib/wx/config/${WX_TOOLKIT}-${WX_CODESET}-release-${WX_VERSION} ;;
+		2.[68])
+			carbon="mac"
+			_release="-release"
+			;;
+		2.9)
+			carbon="osx_carbon"
+			_release=
+			;;
 		'') error "WX_VERSION must be defined" ;;
 		*) error "wxWidgets ${WX_VERSION} is not yet supported" ;;
 	esac
 
-	if [ ! -f ${wx_config} ]
+	if ! defined WX_TOOLKIT
 	then
-		error "could not find ${wx_config##*/}"
+		# roughly based on wxWidgets configure.in DEFAULT_DEFAULT_wxUSE_*
+		case ${CHOST} in
+			*-aix*|*-dgux*|*-hpux*|*-irix*|*-osf*|*-sunos*|*-sysv*)
+				    WX_TOOLKIT=motif ;;
+			arm-apple-darwin*)
+				    WX_TOOLKIT=osx_iphone ;;
+			*-darwin*)  WX_TOOLKIT=${carbon} ;;
+			*-msdos*)   WX_TOOLKIT=mgl ;;
+			*-mingw*)   WX_TOOLKIT=msw ;;
+			*-os2*emx)  WX_TOOLKIT=pm ;;
+			*-qnx*)     WX_TOOLKIT=x11 ;;
+			*)	    WX_TOOLKIT=gtk2 ;;
+		esac
 	fi
 
-	echo ${wx_config} ${wx_base}
+	case ${WX_TOOLKIT} in
+		*u)	WX_TOOLKIT=${WX_TOOLKIT%u}
+			WX_CODESET=unicode
+			;;
+	esac
+
+	case ${WX_TOOLKIT} in
+		# what a mess...
+		cocoa)
+			case ${WX_VERSION} in
+				2.[68]) ;;
+				*) error "Use WX_TOOLKIT=osx_cocoa for wxWidgets 2.9+"
+			esac ;;
+		mac)
+			case ${WX_VERSION} in
+				2.[68]) ;;
+				*) error "Use WX_TOOLKIT=osx_carbon for wxWidgets 2.9+"
+			esac ;;
+		osx_carbon)
+			case ${WX_VERSION} in
+				2.[68]) error "Use WX_TOOLKIT=mac for wxWidgets 2.6/2.8"
+			esac ;;
+		osx_cocoa)
+			case ${WX_VERSION} in
+				2.[68]) error "Use WX_TOOLKIT=cocoa for wxWidgets 2.6/2.8"
+			esac ;;
+		osx_iphone)
+			case ${WX_VERSION} in
+				2.[68]) error "wxWidgets osx_iphone requires at least 2.9"
+			esac ;;
+		dfb|mgl|microwin|x11)	WX_TOOLKIT+=univ ;;
+		dfbuniv|mgluniv|microwinuniv|x11univ) ;;
+		base|gtk|gtk2|motif|msw|pm|x11) ;;
+		*)	error "Unknown or unsupported wxWidgets toolkit for version ${WX_VERSION}"
+	esac
+
+	case ${WX_CODESET} in
+		unicode)
+			case ${WX_TOOLKIT} in
+				gtk|motif) error "wxWidgets ${WX_TOOLKIT} is only available in ANSI" ;;
+			esac
+			;;
+		ansi)	;;
+		'')
+			case ${WX_TOOLKIT} in
+				gtk|motif)  WX_CODESET="ansi" ;;
+				*)	    WX_CODESET="unicode" ;;
+			esac
+			;;
+		*)	error "Unknown value for WX_CODESET; must be 'ansi' or 'unicode'" ;;
+		esac
+
+	WX_CONFIG=$(${CXX} -print-sysroot)$(__target_prefix)/lib/wx/config/${CROSS_HOST}${CROSS_HOST:+-}${WX_TOOLKIT}-${WX_CODESET}${_release}-${WX_VERSION}
+
+	if [ -f ${WX_CONFIG} ]
+	then
+		inform "Using wxWidgets ${WX_CONFIG##*/}"
+	else
+		error "could not find ${WX_CONFIG##*/}"
+	fi
+
+	export WX_CONFIG
+	# used by wxwin.m4
+	export WX_CONFIG_NAME=${WX_CONFIG}
+	export WXRC=$(which wxrc-${WX_VERSION} 2> /dev/null)
 }
 
 #****d* wxwidgets.cygclass/WX_CONFIG
 #  DESCRIPTION
-#  Absolute path to the wx-config script for the given WX_VERSION, WX_TOOLKIT, and
-#  WX_CODESET.  This definition is exported to the build environment.
+#  Absolute path to the wx-config script for the given WX_VERSION, WX_TOOLKIT,
+#  and WX_CODESET (and CROSS_HOST if cross-compiling).  This definition is
+#  exported to the build environment.
 #****
-export WX_CONFIG="$(_wx_find_config)"
+_wx_find_config
 
 #****d* wxwidgets.cygclass/WX_CFLAGS
 #  DESCRIPTION
