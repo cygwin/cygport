@@ -273,8 +273,6 @@ __prepdoc() {
 	then
 		insinto /usr/share/doc/Cygwin;
 		doins ${C}/${PN}.README;
-	else
-		warning "Cygwin README is missing"
 	fi
 
 	pkg_hint=(${PKG_HINTS})
