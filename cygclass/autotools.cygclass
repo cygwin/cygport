@@ -500,9 +500,18 @@ cygconf() {
 	then
 		confargs+=" --build=${CBUILD} --host=${CHOST} --target=${CTARGET}"
 
+		# make sure that PATH checks for foo-config scripts
+		# do not detect the native ones in /usr/bin
+		for foo_config in $(ls /usr/bin/*[-_]config 2>/dev/null)
+		do
+			case ${foo_config##*/} in pkg-config) continue ; esac
+			export $(echo ${foo_config##*/} | tr "a-z+-\." "A-ZX__")=no
+			export ac_cv_path_$(echo ${foo_config##*/} | tr "a-z+-\." "A-ZX__")=no
+		done
 		for foo_config in $(ls $(__host_prefix)/bin/*[-_]config 2>/dev/null)
 		do
 			export $(echo ${foo_config##*/} | tr "a-z+-\." "A-ZX__")=$foo_config
+			export ac_cv_path_$(echo ${foo_config##*/} | tr "a-z+-\." "A-ZX__")=$foo_config
 		done
 	fi
 
