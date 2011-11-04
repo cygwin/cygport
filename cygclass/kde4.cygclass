@@ -3,7 +3,7 @@
 # kde4.cygclass - functions for building KDE 4.x packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -67,33 +67,26 @@ then
 	SRC_URI="mirror://kde/stable/${KDE4_EXTRAGEAR_VERSION}/src/extragear/${P}-kde${KDE4_EXTRAGEAR_VERSION}.tar.bz2"
 	SRC_DIR="${P}-kde${KDE4_EXTRAGEAR_VERSION}"
 else
+case ${PV} in
+	*.*.[789]?)	_stable="unstable" ;;
+	*)		_stable="stable" ;;
+esac
 case "${PN}:${PV}" in
 	automoc4:0.9.8[89])
 		SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.bz2"
 		;;
-	amarok:2.*.[789]?)
-		SRC_URI="mirror://kde/unstable/${PN}/${PV}/src/${P}.tar.bz2"
-		;;
 	amarok:2.*)
-		SRC_URI="mirror://kde/stable/${PN}/${PV}/src/${P}.tar.bz2"
-		;;
-	kdevplatform:1.*.[789]?|kdevelop:4.*.[789]?|kdevelop-*:1.*.[789]?)
-		SRC_URI="mirror://kde/unstable/kdevelop/4.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
+		SRC_URI="mirror://kde/${_stable}/${PN}/${PV}/src/${P}.tar.bz2"
 		;;
 	kdevplatform:1.*|kdevelop:4.*|kdevelop-*:1.*)
-		SRC_URI="mirror://kde/stable/kdevelop/4.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
+		SRC_URI="mirror://kde/${_stable}/kdevelop/4.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
 		;;
-	kdepim:4.4.[6-9]|kdepim-runtime:4.4.[6-9])
+	# KDE-PIM 4.5 never happened, 4.6 was out of sync with KDE SC 4.6
+	kdepim:4.4.[6-9]|kdepim-runtime:4.4.[6-9]|kdepim:4.6.*|kdepim-runtime:4.6.*)
 		SRC_URI="mirror://kde/stable/kdepim-${PV}/src/${P}.tar.bz2"
 		;;
-	kdepim:4.6.*|kdepim-runtime:4.6.*)
-		SRC_URI="mirror://kde/stable/kdepim-${PV}/src/${P}.tar.bz2"
-		;;
-	koffice:2.*.[789]?)
-		SRC_URI="mirror://kde/unstable/koffice-${PV}/${P}.tar.bz2"
-		;;
-	koffice:2.*)
-		SRC_URI="mirror://kde/stable/koffice-${PV}/${P}.tar.bz2"
+	calligra:2.*|koffice:2.*)
+		SRC_URI="mirror://kde/${_stable}/${PN}-${PV}/${P}.tar.bz2"
 		;;
 	phonon:4.*.[789]?)
 		SRC_URI="mirror://kde/unstable/phonon/${P}.tar.bz2"
@@ -102,33 +95,26 @@ case "${PN}:${PV}" in
 		SRC_URI="mirror://kde/stable/phonon/${PV}/${P}.tar.bz2"
 		;;
 	# setup cannot handle '@' in PN
-	kde-l10n-ca?valencia:4.*.[789]?)
-		SRC_URI="mirror://kde/unstable/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.bz2"
-		SRC_DIR="kde-l10n-ca@valencia-${PV}"
-		;;
 	kde-l10n-ca?valencia:4.*)
-		SRC_URI="mirror://kde/stable/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.bz2"
+		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.bz2"
 		SRC_DIR="kde-l10n-ca@valencia-${PV}"
-		;;
-	kde-l10n-*:4.*.[789]?)
-		SRC_URI="mirror://kde/unstable/${PV}/src/kde-l10n/${P}.tar.bz2"
 		;;
 	kde-l10n-*:4.*)
-		SRC_URI="mirror://kde/stable/${PV}/src/kde-l10n/${P}.tar.bz2"
+		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/${P}.tar.bz2"
 		;;
-	koffice-l10n-*:2.*.[789]?)
-		SRC_URI="mirror://kde/unstable/koffice-${PV}/koffice-l10n/${P}.tar.bz2"
+	# setup cannot handle '@' in PN
+	calligra-l10n-ca?valencia:2.*|koffice-l10n-ca?valencia:2.*)
+		SRC_URI="mirror://kde/${_stable}/${PN%%-*}-${PV}/${PN%%-*}-l10n/${PN%%-*}-l10n-ca@valencia-${PV}.tar.bz2"
+		SRC_DIR="${PN%%-*}-l10n-ca@valencia-${PV}"
 		;;
-	koffice-l10n-*:2.*)
-		SRC_URI="mirror://kde/stable/koffice-${PV}/koffice-l10n/${P}.tar.bz2"
-		;;
-	*:4.*.[789]?)
-		SRC_URI="mirror://kde/unstable/${PV}/src/${P}.tar.bz2"
+	calligra-l10n-*:2.|koffice-l10n-*:2.*)
+		SRC_URI="mirror://kde/${_stable}/${PN%-l10n*}-${PV}/${PN%-l10n*}-l10n/${P}.tar.bz2"
 		;;
 	*:4.*)
-		SRC_URI="mirror://kde/stable/${PV}/src/${P}.tar.bz2"
+		SRC_URI="mirror://kde/${_stable}/${PV}/src/${P}.tar.bz2"
 		;;
 esac
+unset _stable
 fi	# !KDE4_EXTRAGEAR_VERSION
 
 if ! defined SVN_URI
