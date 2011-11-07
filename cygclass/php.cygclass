@@ -145,30 +145,61 @@ __php_channel_fixup() {
 	case $(echo ${PHP_CHANNEL} | tr [:upper:] [:lower:]) in
 		11abacus)	channel="pear.11abacus.com" ;;
 		agavi)		channel="pear.agavi.org" ;;
+		arbit)		channel="pear.arbittracker.org" ;;
+		aws)		channel="pear.amazonwebservices.com" ;;
+		complexml)	channel="pear.complexml.org" ;;
 		crisscott)	channel="pear.crisscott.com" ;;
+		deepend)	channel="pear.survivethedeepend.com" ;;
+		docblox)	channel="pear.docblox-project.org" ;;
+		doctrine)	channel="pear.doctrine-project.org" ;;
 		domain51)	channel="pear.domain51.com" ;;
+		dotsunited)	channel="pear.dotsunited.de" ;;
+		erebot)		channel="pear.erebot.net" ;;
+		eveyron)	channel="pear.eveyron.com" ;;
 		ezc)		channel="components.ez.no" ;;
-		funkatron)	channel="funkatron.pearfarm.org" ;;
+		fluentdom)	channel="pear.fluentdom.org" ;;
+		geometria-lab)	channel="pear.geometria-lab.net" ;;
 		horde)		channel="pear.horde.org" ;;
+		invenzzia)	channel="pear.invenzzia.org" ;;
+		michelf)	channel="pear.michelf.com" ;;
+		openpear)	channel="openpear.org" ;;
 		pat)		channel="pear.php-tools.net" ;;
 		pdepend)	channel="pear.pdepend.org" ;;
 		pear)		channel="pear.php.net" ;;
+		pearflex)	channel="pear.pearplex.net" ;;
+		pearhub)	channel="pearhub.org" ;;
 		pecl)		channel="pecl.php.net" ;;
+		phergie)	channel="pear.phergie.org" ;;
 		phing)		channel="pear.phing.info" ;;
 		phpdocs)	channel="doc.php.net" ;;
 		phpmd)		channel="pear.phpmd.org" ;;
+		phpseclib)	channel="phpseclib.sourceforge.net" ;;
+		phpspec)	channel="pear.phpspec.net" ;;
 		phpuc)		channel="pear.phpundercontrol.org" ;;
 		phpunit)	channel="pear.phpunit.de" ;;
 		piece)		channel="pear.piece-framework.com" ;;
 		pirum)		channel="pear.pirum-project.org" ;;
+		psx)		channel="pear.phpsx.org" ;;
+		qubit)		channel="pear.qubit-toolkit.org" ;;
+		querypath)	channel="pear.querypath.org" ;;
+		ragnaroek)	channel="ragnaroek.pear.midgard-project.org" ;;
+		sabredav)	channel="pear.sabredav.org" ;;
+		sc)		channel="semanticscuttle.sourceforge.net" ;;
 		sikz)		channel="pear.si.kz" ;;
 		smarty)		channel="pear-smarty.googlecode.com/svn" ;;
 		solar)		channel="solarphp.com" ;;
+		sugar)		channel="pear.php-sugar.net" ;;
+		swift)		channel="pear.swiftmailer.org" ;;
 		symfony)	channel="pear.symfony-project.com" ;;
+		symfony2)	channel="pear.symfony.com" ;;
 		timj)		channel="pear.timj.co.uk" ;;
+		twig)		channel="pear.twig-project.org" ;;
+		typo3)		channel="pear.typo3.org" ;;
 		zend)		channel="zend.googlecode.com/svn" ;;
+		zero.mq)	channel="pear.zero.mq" ;;
 		*.*)		channel=${PHP_CHANNEL} ;;
-		*)			error "php: unknown channel: ${PHP_CHANNEL}" ;;
+		# possible fallback; if non-existant, will error out later
+		*)		channel="${PHP_CHANNEL}.pearfarm.org" ;;
 	esac
 
 	echo -n ${channel}
