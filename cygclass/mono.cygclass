@@ -50,7 +50,7 @@ MONO=/usr/bin/mono
 
 #****d* mono.cygclass/MCS
 #  DESCRIPTION
-#  Absolute path to the Mono C# 1.0 compiler.
+#  Absolute path to the default Mono C# compiler.
 #****
 MCS=/usr/bin/mcs
 
@@ -59,6 +59,12 @@ MCS=/usr/bin/mcs
 #  Absolute path to the Mono C# 2.0/3.0 compiler.
 #****
 GMCS=/usr/bin/gmcs
+
+#****d* mono.cygclass/DMCS
+#  DESCRIPTION
+#  Absolute path to the Mono C# 4.0 compiler.
+#****
+DMCS=/usr/bin/dmcs
 
 #****d* mono.cygclass/GACUTIL
 #  DESCRIPTION
