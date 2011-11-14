@@ -102,7 +102,7 @@ git_fetch() {
 		verbose git checkout tags/${GIT_TAG} || error "git checkout failed"
 	elif defined GIT_BRANCH
 	then
-		verbose git checkout remotes/${GIT_BRANCH} || error "git checkout failed"
+		verbose git checkout remotes/origin/${GIT_BRANCH} || error "git checkout failed"
 	elif defined GIT_REV
 	then
 		verbose git checkout ${GIT_REV} || error "git checkout failed"
