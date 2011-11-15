@@ -212,6 +212,29 @@ check_lua_module() {
 	return 0;
 }
 
+#****f* Checks/check_ocaml_module
+#  SYNOPSIS
+#  check_ocaml_module MODULE [MODULE2] ...
+#  DESCRIPTION
+#  Checks the presence of the given Objective Caml module(s).  If all given
+#  module(s) are present, returns TRUE, else FALSE.
+#  NOTE
+#  check_ocaml_module does not distinguish how the given module(s) were
+#  installed, whether they are from a Cygwin package or manually.
+#  REQUIRES
+#  ocaml, ocaml-findlib
+#****
+check_ocaml_module() {
+	check_prog_req ocamlfind ocaml-findlib;
+
+	if ! ocamlfind query ${*} &> /dev/null
+	then
+		return 2;
+	fi
+
+	return 0;
+}
+
 #****f* Checks/check_perl_module
 #  SYNOPSIS
 #  check_perl_module MODULE [MODULE2] ...
@@ -453,7 +476,8 @@ __version_at_least() {
 
 readonly -f check_prog check_prog_req check_tool check_target_tool \
             check_pkg_config check_girepository_module check_lua_module \
-            check_perl_module check_python_module check_python3_module \
-            check_ruby_module check_tcl_module check_vala_module \
+            check_ocaml_module check_perl_module check_python_module \
+            check_python3_module check_ruby_module check_tcl_module \
+            check_vala_module \
             __check_function __check_function_ro __check_unstable \
             __version_at_least
