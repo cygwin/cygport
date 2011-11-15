@@ -137,35 +137,6 @@ then
 
 fi
 
-#****f* perl.cygclass/check_perl_module
-#  SYNOPSIS
-#  check_perl_module MODULE [MODULE2] ...
-#  DESCRIPTION
-#  Checks the presence of the given Perl module(s).  If all given module(s)
-#  are present, returns TRUE, else FALSE.
-#  NOTE
-#  check_perl_module does not distinguish how the given module(s) were
-#  installed, whether they are from a Cygwin package or manually from CPAN.
-#****
-check_perl_module() {
-	local mod
-
-	if (( $# == 0 ))
-	then
-		error "check_perl_module requires at least one argument"
-	fi
-
-	for mod
-	do
-		if ! ${PERL} -e "require ${mod}" &> /dev/null
-		then
-			return 2
-		fi
-	done
-
-	return 0
-}
-
 #****C* perl.cygclass/perl_compile
 #  SYNOPSIS
 #  cd $B
@@ -293,5 +264,5 @@ src_install() {
 }
 #****
 
-readonly -f check_perl_module perl_compile perl_test perl_install perl_postinst \
+readonly -f perl_compile perl_test perl_install perl_postinst \
             perl_fix_shebang
