@@ -179,5 +179,6 @@ __version_at_least() {
 	return 0;	# equal
 }
 
-readonly -f check_prog check_prog_req __check_function __check_function_ro \
-            __check_unstable __version_at_least
+readonly -f check_prog check_prog_req check_tool check_target_tool \
+            __check_function __check_function_ro __check_unstable \
+            __version_at_least
