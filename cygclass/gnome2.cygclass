@@ -198,7 +198,7 @@ gnome2_configure() {
 #  are passed as configure flags.
 #****
 gnome2_compile() {
-	gnome2_configure
+	gnome2_configure "${@}"
 	cygmake
 }
 
