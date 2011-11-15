@@ -146,6 +146,34 @@ check_pkg_config() {
 	return 0;
 }
 
+#****f* Checks/check_lua_module
+#  SYNOPSIS
+#  check_lua_module MODULE [MODULE2] ...
+#  DESCRIPTION
+#  Checks the presence of the given Lua module(s).  If all given module(s)
+#  are present, returns TRUE, else FALSE.
+#  NOTE
+#  check_lua_module does not distinguish how the given module(s) were
+#  installed, whether they are from a Cygwin package or manually.
+#  REQUIRES
+#  lua
+#****
+check_lua_module() {
+	local mod;
+
+	check_prog_req lua;
+
+	for mod
+	do
+		if ! lua -e "require(\"${mod}\")" &> /dev/null
+		then
+			return 2;
+		fi
+	done
+
+	return 0;
+}
+
 #****f* Checks/check_perl_module
 #  SYNOPSIS
 #  check_perl_module MODULE [MODULE2] ...
@@ -234,6 +262,6 @@ __version_at_least() {
 }
 
 readonly -f check_prog check_prog_req check_tool check_target_tool \
-            check_pkg_config check_perl_module \
+            check_pkg_config check_lua_module check_perl_module \
             __check_function __check_function_ro __check_unstable \
             __version_at_least
