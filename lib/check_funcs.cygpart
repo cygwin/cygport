@@ -120,6 +120,32 @@ check_target_tool() {
 	return 0;
 }
 
+#****f* Checks/check_pkg_config
+#  SYNOPSIS
+#  check_pkg_config NAME "PKG_CONFIG_SPEC"
+#  DESCRIPTION
+#  Checks for the presence of the given development packages with pkg-config.
+#  If given pkg-config spec is found, return TRUE and defines NAME_CFLAGS
+#  and NAME_LIBS.  If not found, returns FALSE.
+#  REQUIRES
+#  pkg-config
+#****
+check_pkg_config() {
+	local modname=${1};
+	shift;
+
+	check_prog_req pkg-config;
+
+	if ! pkg-config --exists ${*}
+	then
+		return 1;
+	fi
+
+	export ${modname}_CFLAGS="$(pkg-config --cflags ${*})";
+	export ${modname}_LIBS="$(pkg-config --libs ${*})";
+	return 0;
+}
+
 __check_function() {
 	(( $# < 1 )) && return 1;
 	declare -F ${1} &> /dev/null
@@ -180,5 +206,6 @@ __version_at_least() {
 }
 
 readonly -f check_prog check_prog_req check_tool check_target_tool \
+            check_pkg_config \
             __check_function __check_function_ro __check_unstable \
             __version_at_least

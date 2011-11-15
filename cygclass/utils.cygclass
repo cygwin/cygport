@@ -112,31 +112,4 @@ check_lib() {
 	return 0
 }
 
-#****f* Checks/check_pkg_config
-#  SYNOPSIS
-#  inherit utils
-#  check_pkg_config NAME "PKG_CONFIG_SPEC"
-#  DESCRIPTION
-#  Checks for the presence of the given development packages with pkg-config.
-#  If given pkg-config spec is found, return TRUE and defines NAME_CFLAGS
-#  and NAME_LIBS.  If not found, returns FALSE.
-#  REQUIRES
-#  pkg-config
-#****
-check_pkg_config() {
-	local modname=${1};
-	shift;
-
-	check_prog_req pkg-config;
-
-	if ! pkg-config --exists ${*}
-	then
-		return 1;
-	fi
-
-	export ${modname}_CFLAGS="$(pkg-config --cflags ${*})";
-	export ${modname}_LIBS="$(pkg-config --libs ${*})";
-	return 0;
-}
-
-readonly -f check_header check_lib check_pkg_config
+readonly -f check_header check_lib
