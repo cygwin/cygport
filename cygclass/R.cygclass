@@ -115,39 +115,8 @@ SRC_DIR="${ORIG_PN}"
 ;;
 esac
 
-#****f* R.cygclass/check_R_package
-#  SYNOPSIS
-#   check_R_package PACKAGE [PACKAGE2] ...
-#  DESCRIPTION
-#  Checks the presence of a CRAN package on the system, regardless of how it
-#  was installed. Useful for conditional compiles or for error catching.
-#  Return TRUE if all packages were found, else FALSE.
-#****
-check_R_package() {
-	local p t
-
-	if (( $# == 0 ))
-	then
-		error "check_R_package requires at least one argument"
-	fi
-
-	check_prog_req mktemp
-
-	[ -d ${T} ] || mkdir -p ${T}
-
-	t=$(mktemp -p ${T})
-
-	for p
-	do
-		echo -e "library(${p})\nq()" > ${t}
-		if ! -e Rscript ${t} &> /dev/null
-		then
-			return 1
-		fi
-	done
-
-	return 0
-}
+# kept for API compatibility; now in check_funcs under different name
+check_R_package() { check_R_module ${*} ; }
 
 #****C* R.cygclass/R_compile
 #  SYNOPSIS
@@ -193,4 +162,4 @@ src_install() {
 }
 #****
 
-readonly -f check_R_package R_compile R_install
+readonly -f R_compile R_install
