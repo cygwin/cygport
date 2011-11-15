@@ -2,6 +2,9 @@ DESCRIPTION="Next-generation Cygwin packaging application"
 HOMEPAGE="http://sourceware.org/cygwinports/"
 SRC_URI="mirror://sourceforge/cygwin-ports/${P}.tar.xz"
 
+# Build dependencies only; runtime deps go in setup.hint
+DEPEND="groff help2man robodoc"
+
 # We use the standard src_compile and src_test.
 
 src_install() {

@@ -443,6 +443,107 @@ check_vala_module() {
 	return ${ret};
 }
 
+#****f* Information/DEPEND
+#  SYNOPSIS
+#  DEPEND="ATOM [ATOM] ..."
+#  DESCRIPTION
+#  A list of build-time (not runtime) dependencies to be checked before calling
+#  src_compile.  Each ATOM can be in one of the following forms:
+#  * girepository(Foo-1.0): GObject Introspection modules
+#  * lua(foo): Lua extensions
+#  * ocaml(foo): Objective Caml libraries
+#  * perl(Foo::Bar): Perl modules
+#  * pkgconfig(foo-1.0): A -devel package providing this pkg-config file
+#  * python(foo): Python 2 modules
+#  * python3(foo): Python 3 modules
+#  * R(foo): R packages
+#  * ruby(foo): Ruby modules
+#  * tcl(foo): Tcl/Tk packages
+#  * vala(foo-1.0): Vala bindings
+#  * foo: A Cygwin package (check skipped on non-Cygwin build systems)
+#****
+__check_depends() {
+	local atom failed_atoms;
+
+	if ! defined DEPEND
+	then
+		return 0;
+	fi
+
+	__deparenthesize() { echo "$@" | sed -e 's|[a-z]*(\([^)]*\))|\1|' ; }
+
+	for atom in ${DEPEND}
+	do
+		case ${atom} in
+		girepository\(*)
+			check_girepository_module $(__deparenthesize ${atom}) \
+				|| failed_atoms+="${atom} "
+			;;
+		lua\(*)
+			check_lua_module $(__deparenthesize ${atom}) \
+				|| failed_atoms+="${atom} "
+			;;
+		ocaml\(*)
+			check_ocaml_module $(__deparenthesize ${atom}) \
+				|| failed_atoms+="${atom} "
+			;;
+		perl\(*)
+			check_perl_module $(__deparenthesize ${atom//-/::}) \
+				|| failed_atoms+="${atom} "
+			;;
+		pkgconfig\(*)
+			check_prog_req pkg-config;
+			pkg-config --exists $(__deparenthesize ${atom}) \
+				|| failed_atoms+="${atom} "
+			;;
+		python\(*)
+			check_python_module $(__deparenthesize ${atom}) \
+				|| failed_atoms+="${atom} "
+			;;
+		python3\(*)
+			check_python3_module $(__deparenthesize ${atom}) \
+				|| failed_atoms+="${atom} "
+			;;
+		R\(*)
+			check_R_module $(__deparenthesize ${atom}) \
+				|| failed_atoms+="${atom} "
+			;;
+		ruby\(*)
+			check_ruby_module $(__deparenthesize ${atom}) \
+				|| failed_atoms+="${atom} "
+			;;
+		tcl\(*)
+			check_tcl_module $(__deparenthesize ${atom}) \
+				|| failed_atoms+="${atom} "
+			;;
+		vala\(*)
+			check_vala_module $(__deparenthesize ${atom}) \
+				|| failed_atoms+="${atom} "
+			;;
+		/*)	# undocumented for now
+			test -e ${atom} || failed_atoms+="${atom} "
+			;;
+		*)
+			# package checks not available on other systems
+			if check_prog cygcheck
+			then
+				cygcheck -cd ${atom} | d2u | grep -q "^${atom} " || failed_atoms+="${atom} "
+			fi
+			;;
+		esac
+	done
+
+	unset -f __deparenthesize
+
+	if defined failed_atoms
+	then
+		warning "Some build dependencies are not installed."
+		warning "This package may end up missing features, or not build at all."
+		warning "Consider installing these packages first before continuing:"
+		warning "    ${failed_atoms}"
+	fi
+}
+
 __check_function() {
 	(( $# < 1 )) && return 1;
 	declare -F ${1} &> /dev/null
@@ -507,5 +608,5 @@ readonly -f check_prog check_prog_req check_tool check_target_tool \
             check_ocaml_module check_perl_module check_python_module \
             check_python3_module check_R_module check_ruby_module \
             check_tcl_module check_vala_module \
-            __check_function __check_function_ro __check_unstable \
-            __version_at_least
+            __check_depends __check_function __check_function_ro \
+            __check_unstable __version_at_least

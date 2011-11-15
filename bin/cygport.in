@@ -540,6 +540,7 @@ do
 		compile|build|make)
 			__stage Compiling;
 			__log_init ${compilelog};
+			__check_depends && \
 			src_compile 2>&1 | tee -a ${compilelog};
 			_status=$?;
 			;;
@@ -592,6 +593,7 @@ do
 		almostall)
 			__stage Preparing && __src_prep && \
 			__log_init ${compilelog} && \
+			__check_depends && \
 			__stage Compiling && src_compile 2>&1 | tee -a ${compilelog} && \
 			__log_init ${installlog} && \
 			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
@@ -602,6 +604,7 @@ do
 		all)
 			__stage Preparing && __src_prep && \
 			__log_init ${compilelog} && \
+			__check_depends && \
 			__stage Compiling && src_compile 2>&1 | tee -a ${compilelog} && \
 			__log_init ${installlog} && \
 			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
