@@ -433,7 +433,7 @@ check_vala_module() {
 		pkgargs+="--pkg ${mod} "
 	done
 
-	if ! valac ${pkgargs} -C ${tmpfile} &> /dev/null
+	if ! valac ${pkgargs} -C -d ${tmpfile%/*} ${tmpfile} &> /dev/null
 	then
 		ret=2
 	fi
