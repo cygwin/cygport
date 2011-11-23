@@ -126,7 +126,7 @@ cygautoreconf() {
 
 	__config_set with_autoconf 1
 
-	ac_subdirs="$(grep 'AC_CONFIG_SUBDIRS*' ${configure_ac} | sed -e 's!.*AC_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
+	ac_subdirs="$(grep '^[^\#]*AC_CONFIG_SUBDIRS*' ${configure_ac} | sed -e 's!.*AC_CONFIG_SUBDIRS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
 
 	for d in . ${ac_subdirs}
 	do
