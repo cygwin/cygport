@@ -706,7 +706,7 @@ make_desktop_entry() {
 	fi
 
 	dodir $(__host_prefix)/share/applications
-	dtfile=$(__host_prefix)/share/applications/${1%% *}.desktop
+	dtfile=$(__host_prefix)/share/applications/$(basename ${1%% *}).desktop
 
 	cat > ${D}${dtfile} <<-_EOF
 		[Desktop Entry]
