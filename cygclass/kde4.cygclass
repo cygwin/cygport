@@ -107,7 +107,7 @@ case "${PN}:${PV}" in
 		SRC_URI="mirror://kde/${_stable}/${PN%%-*}-${PV}/${PN%%-*}-l10n/${PN%%-*}-l10n-ca@valencia-${PV}.tar.bz2"
 		SRC_DIR="${PN%%-*}-l10n-ca@valencia-${PV}"
 		;;
-	calligra-l10n-*:2.|koffice-l10n-*:2.*)
+	calligra-l10n-*:2.*|koffice-l10n-*:2.*)
 		SRC_URI="mirror://kde/${_stable}/${PN%-l10n*}-${PV}/${PN%-l10n*}-l10n/${P}.tar.bz2"
 		;;
 	*:4.*)
