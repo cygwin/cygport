@@ -349,7 +349,7 @@ unset _autotools_CYGCLASS_ _autotools_CYGCLASS_stage1_
 #****d* Globals/PV
 #  DESCRIPTION
 #  The upstream package version number.  PV must begin with a digit 0-9, and
-#  subsequent characters can be a digit, letter, dot, or underscore.
+#  subsequent characters can be a digit, letter, dot, hyphen, or underscore.
 #****
 #****d* Globals/PR
 #  DESCRIPTION
