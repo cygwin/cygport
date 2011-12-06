@@ -40,6 +40,29 @@
 #  mirror_gnome
 #****
 
+#****v* gnome.org.cygclass/GNOME_ORG_TARBALL_SUFFIX
+#  DESCRIPTION
+#  The compression format for tarballs on gnome.org.  Until December 2011,
+#  almost all sources were available with at least bz2 compression, but from
+#  that point on, only xz-compressed tarballs are being published.
+#
+#  If undefined, the server is checked to find which type of tarball exists.
+#  This variable can be set to avoid the server check, or if the extension
+#  is neither "bz2" nor "xz".
+#  NOTE
+#  This must be defined before inherit()ing gnome.org.cygclass.
+#****
+if ! defined GNOME_ORG_TARBALL_SUFFIX
+then
+	check_prog_req wget
+	if wget -q --spider http://download.gnome.org/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2
+	then
+		GNOME_ORG_TARBALL_SUFFIX="bz2"
+	else
+		GNOME_ORG_TARBALL_SUFFIX="xz"
+	fi
+fi
+
 #****o* gnome.org.cygclass/HOMEPAGE (gnome.org)
 #  DEFINITION
 HOMEPAGE="http://www.gnome.org/"
@@ -47,7 +70,7 @@ HOMEPAGE="http://www.gnome.org/"
 
 #****o* gnome.org.cygclass/SRC_URI (gnome.org)
 #  DEFINITION
-SRC_URI="mirror://gnome/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
+SRC_URI="mirror://gnome/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.${GNOME_ORG_TARBALL_SUFFIX}"
 #****
 
 if ! defined GIT_URI
