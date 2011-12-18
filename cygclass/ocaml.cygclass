@@ -1,9 +1,9 @@
 ################################################################################
 #
-# ocaml.cygclass - functions for installing O'Caml packages
+# ocaml.cygclass - functions for installing OCaml packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2007, 2008, 2009, 2010 Yaakov Selkowitz
+# Copyright (C) 2007, 2008, 2009, 2010, 2011 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -25,10 +25,11 @@
 #  SYNOPSIS
 #  inherit ocaml
 #  DESCRIPTION
-#  Objective Caml is an object-oriented dialect of the ML programming language.
-#  Individual scripts can be run as with interpreted languages, but most commonly
-#  code is compiled into bytecode and/or stand-alone native code.  A number of
-#  extension libraries are available in addition to the standard library.
+#  OCaml (previously known as Objective Caml) is an object-oriented dialect
+#  of the ML programming language. Individual scripts can be run as with
+#  interpreted languages, but most commonly code is compiled into bytecode
+#  and/or stand-alone native code.  A number of extension libraries are
+#  available in addition to the standard library.
 #
 #  This cygclass provides definitions for OCaml-based packages, and an install
 #  function for OCaml library packages which use OCAMLFIND.
