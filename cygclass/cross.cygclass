@@ -157,6 +157,9 @@ fi
 # configure: WARNING: using cross tools not prefixed with host triplet
 export PKG_CONFIG="$(which pkg-config 2>/dev/null)"
 export PKG_CONFIG_LIBDIR="$(__host_prefix)/lib/pkgconfig:$(__host_prefix)/share/pkgconfig:/usr/share/pkgconfig"
+# since pkg-config 0.26
+export PKG_CONFIG_SYSTEM_INCLUDE_PATH=${CROSS_INCLUDEDIR}
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=${CROSS_LIBDIR}
 
 #****I* cross.cygclass/doelflib
 #  SYNOPSIS

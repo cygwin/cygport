@@ -177,4 +177,8 @@ then
 	# configure: WARNING: using cross tools not prefixed with host triplet
 	export PKG_CONFIG="$(which pkg-config 2>/dev/null)"
 	export PKG_CONFIG_LIBDIR="$(${CC} -print-sysroot)/usr/lib/pkgconfig:$(${CC} -print-sysroot)/usr/share/pkgconfig:/usr/share/pkgconfig"
+	# since pkg-config 0.26
+	export PKG_CONFIG_SYSTEM_INCLUDE_PATH="$(${CC} -print-sysroot)/usr/include"
+	export PKG_CONFIG_SYSTEM_LIBRARY_PATH="$(${CC} -print-sysroot)/usr/lib"
+
 fi
