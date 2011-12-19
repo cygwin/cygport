@@ -64,7 +64,7 @@ ORIG_PN=gst-plugins-${gst_pn}
 #****
 
 case ${gst_pn} in
-	base|good|bad|ugly|farsight)
+	base|good|bad|bad-free|ugly|farsight)
 		for plugin in ${GST_PLUGINS_EXT}
 		do
 			case ${plugin} in
@@ -112,7 +112,7 @@ case ${gst_pn} in
 		conftest_gst_plugins="aalibtest esdtest shout2test"
 		never_gst_plugins="dv1394 gst_v4l2 hal oss4 osx_audio osx_video sunaudio xvideo"
 		;;
-	bad)
+	bad|bad-free)
 		# WARNING: some of the dependent codecs may be patent encumbered
 		# oss4: moved into good before bad .18
 		my_gst_plugins="acm amrwb apexsink assrender bz2 celt cog curl dirac dts
@@ -187,7 +187,7 @@ gst_plugins_compile() {
 		--disable-tests \
 		--disable-valgrind \
 		--with-default-audiosink=autoaudiosink \
-		--with-default-audiosrc=osssrc \
+		--with-default-audiosrc=autoaudiosrc \
 		--with-default-videosink=autovideosink \
 		--with-default-videosrc=videotestsrc \
 		--with-default-visualizer=goom \
