@@ -108,7 +108,7 @@ case ${gst_pn} in
 	good)
 		my_gst_plugins="aalib annodex cairo directdraw directsound
 		                esd flac gconf gdk_pixbuf jack jpeg libcaca libdv libpng
-		                oss pulse shout2 soup speex taglib wavpack x xshm"
+		                oss pulse shout2 soup speex taglib waveform wavpack x xshm"
 		conftest_gst_plugins="aalibtest esdtest shout2test"
 		never_gst_plugins="dv1394 gst_v4l2 hal oss4 osx_audio osx_video sunaudio xvideo"
 		;;
