@@ -70,9 +70,6 @@ mirror_apache+=" http://www.apache.org/dist"
 #  http://download.berlios.de
 #  MIRROR LIST
 #  http://developer.berlios.de/mirrors/
-#  NOTE
-#  BerliOS is closing on 2011-Dec-31, at which time this will be removed
-#  from cygport.
 #****
 # The FTP server listed is not for project releases
 mirror_berlios+="
