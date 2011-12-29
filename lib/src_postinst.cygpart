@@ -712,6 +712,49 @@ __prep_symlinks() {
 	done
 }
 
+#****v* Postinstall/KEEP_LA_FILES
+#  SYNOPSIS
+#  KEEP_LA_FILES=[all|module|shared|static|none]
+#  DESCRIPTION
+#  Libtool libraries use .la ("libtool archive") files to represent the
+#  library in a cross-platform way during the build process.  By default,
+#  these are installed alongside the library, in which they serve two
+#  possible purposes: to help lt_dlopen() (or sometimes g_module_open()) find
+#  the DLL, and to determine its dependencies when linking something else
+#  against it.
+#
+#  In practice, however, most of the time these files are not truly
+#  necessary, in which case they end up just slowing down builds and sometimes
+#  even causing a module to be loaded twice.  Therefore, many distributions
+#  have begun removing them from binary packages.
+#
+#  Whether and which .la files are removed during automatic postinstall
+#  is based on the value of this variable, which can be one of:
+#  * none: deletes all .la files
+#  * module: keep only those .la files for modules meant to be dlopen()ed
+#  * shared: keep only those .la files for non-module shared libraries
+#  * static: keep only those .la files for static-only libraries
+#  * all: keep all of the above (the default behaviour if undefined)
+#
+#  Some suggested guidelines:
+#  * If modules are to be loaded via libltdl or GModule, you may (but not
+#    always) need to set this to 'module'.
+#  * If a shared library is meant to be a dlopen()ed module but is linked
+#    without -module, then 'shared' may be necessary in order for the DLL
+#    to be found.
+#  * Some shared libraries imply the use of other libraries (e.g. GTK+ apps
+#    will always use GLib/GObject).  If these libraries are not listed in
+#    the corresponding .pc pkg-config file, then 'shared' will help.
+#  * When static libraries depend on other libraries, 'static' is recommended.
+#    If the static library depends only on libc, there is no need to keep it.
+#
+#  NOTE
+#  Deleting .la files for an import library which other libtool libraries were
+#  linked against will cause build errors when yet another libtool library
+#  tries to link against the second.  In this case, 'shared' is necessary
+#  to avoid breaking other users' installations.
+#****
+
 __prep_libtool_modules() {
 	local ltlibs ltlibdir ltlibname ltversion
 	local dlname origdlname library_names old_library inherited_linker_flags \
@@ -766,6 +809,11 @@ __prep_libtool_modules() {
 			if [ "x${dlname}" = "x" ]
 			then
 				# static-only library, hopefully for good reason...
+				case "${KEEP_LA_FILES:-all}" in
+					all|static) ;;
+					none|shared|module*) rm -f ${lib_la} ;;
+					*) error "KEEP_LA_FILES: unknown value: ${KEEP_LA_FILES}" ;;
+				esac
 				continue
 			fi
 
@@ -797,6 +845,12 @@ __prep_libtool_modules() {
 				;;
 			esac
 
+			case "${KEEP_LA_FILES:-all}" in
+				all|shared) ;;
+				none|static|module*) rm -f ${lib_la} ;;
+				*) error "KEEP_LA_FILES: unknown value: ${KEEP_LA_FILES}" ;;
+			esac
+
 			# The rest only applies if shouldnotlink=yes (-module)
 			continue
 		fi
@@ -821,6 +875,12 @@ __prep_libtool_modules() {
 
 		# static and import libraries are pointless for modules
 		rm -f ${ltlibdir}/${ltlibname}.a ${ltlibdir}/${ltlibname}.dll.a
+
+		case "${KEEP_LA_FILES:-all}" in
+			all|module*) ;;
+			none|shared|static) rm -f ${lib_la}; continue ;;
+			*) error "KEEP_LA_FILES: unknown value: ${KEEP_LA_FILES}" ;;
+		esac
 
 		cat > ${lib_la} <<-_EOF
 			# ${ltlibname}.la - a libtool library file
