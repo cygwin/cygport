@@ -355,10 +355,10 @@ __src_prep() {
 		case ${src_patch} in
 			*.tar.gz|*.tgz|*.tar.bz2|*.tbz2)
 				pushd ${T};
-				unpack ${src_patch};
+				unpack ${top}/${src_patch};
 				popd;
 
-				for tar_patch in $(tar tf ${src_patch} | grep -E '(diff|patch)$')
+				for tar_patch in $(tar tf ${top}/${src_patch} | sort | grep -E '(diff|patch)$')
 				do
 					cygpatch ${T}/${tar_patch};
 				done
