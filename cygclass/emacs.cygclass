@@ -64,21 +64,7 @@ doemacs() {
 	done
 }
 
-#****I* emacs.cygclass/emacs_compile
-#  SYNOPSIS
-#  emacs_compile
-#  DESCRIPTION
-#  Bytecode-compiles all Emacs Lisp libraries installed by the package,
-#  provided that emacs is installed.
-#****
-emacs_compile() {
-	if check_prog emacs
-	then
-		emacs --batch -f batch-byte-compile --no-site-file --no-init-file \
-			${D}${EMACS_SITE}/*.el
-	else
-		warning "emacs not installed, cannot compile lisp files"
-	fi
-}
+# deprecated by auto-compile in postinstall
+emacs_compile() { :; }
 
-readonly -f doemacs emacs_compile
+readonly -f doemacs
