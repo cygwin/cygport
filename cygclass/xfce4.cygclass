@@ -164,6 +164,7 @@ xfce4_compile() {
 		--sbindir=$(__host_prefix)/lib/xfce4 \
 		--disable-static \
 		--disable-visibility \
+		PLATFORM_LDFLAGS=-no-undefined \
 		"${@}"
 
 	cygmake
