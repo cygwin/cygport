@@ -141,6 +141,7 @@ xfce4_autoreconf() {
 	XDT_PROG_AUTOCONF=autoconf \
 	XDT_PROG_AUTOHEADER=autoheader \
 	XDT_PROG_AUTOMAKE=automake \
+	revision=${GIT_REV:0:7} \
 	xdt-autogen || error "xdt-autogen failed"
 }
 
