@@ -285,7 +285,7 @@ doapache2mod() {
 		case ${mod} in
 			*.la|*.so)
 				dodir ${APACHE2_LIBEXECDIR}
-				__doinstall ${mod} ${APACHE2_LIBEXECDIR} \
+				__doinstall 0755 ${mod} ${APACHE2_LIBEXECDIR} \
 					|| error "install ${mod} failed"
 				;;
 			*)	error "doapache2mod: ${mod##*/}: Unknown file type"
