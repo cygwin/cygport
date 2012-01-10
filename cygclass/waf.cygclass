@@ -82,9 +82,6 @@ waf_compile() {
 #****
 	${WAF} configure \
 		--prefix=/usr \
-		--libexecdir=/usr/lib \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
 		${WAF_CONFIGURE_FLAGS} ${@} \
 		|| error "waf configure failed"
 
