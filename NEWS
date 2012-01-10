@@ -1,3 +1,16 @@
+0.10.7:
+	* Added DEPEND build-time requirements checking.
+	* Added KEEP_LA_FILES libtool postinstall cleanup control.
+	* Use cross-compiling features in pkg-config 0.26.
+	* Emacs site-lisp files are always compiled during postinstall;
+	  emacs.cygclass is no longer needed for this purpose.
+	* gnome.org.cygclass: adapt to new xz-compressed tarballs.
+	* gst-plugins0.10.cygclass: allow for separate -bad and -bad-free.
+	* kde4.cygclass: add support for Calligra Suite.
+	* mono.cygclass: add Mono 2.10 support.
+	* php.cygclass: updated channel list.
+	* Various bugfixes.
+
 0.10.6:
 	* Allows hyphens in PV (which are allowed by setup).
 	* Supports gettext 0.18+.

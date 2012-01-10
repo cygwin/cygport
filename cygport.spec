@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.10.6
+Version:        0.10.7
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jan 09 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.7-1
+- Version bump.
+- Override pkglibdir to avoid i686/x86_64 %%_libdir differences.
+
 * Fri Oct 28 2011 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.6-1
 - Version bump.
 - Call update-mime-database in post and postun for the new MIME package.
