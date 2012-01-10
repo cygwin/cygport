@@ -43,14 +43,14 @@ Cygwin package building tool.
 
 %build
 %configure --docdir=%{_docdir}/%{name}-%{version}
-make %{?_smp_mflags}
+make %{?_smp_mflags} pkglibdir=%{_datadir}/%{name}/lib
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 # First install all the files belonging to the shared build
-make DESTDIR=$RPM_BUILD_ROOT install
+make install DESTDIR=$RPM_BUILD_ROOT pkglibdir=%{_datadir}/%{name}/lib
 
 
 %clean
@@ -71,7 +71,6 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/bash_completion.d/cygport-bash-completion
 %config(noreplace) %{_sysconfdir}/cygport.conf
 %{_bindir}/cygport
-%{_libdir}/cygport
 %{_datadir}/cygport
 %{_datadir}/mime/packages/cygport.xml
 %{_mandir}/man1/cygport.1.gz
