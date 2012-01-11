@@ -14,6 +14,7 @@ DISTCLEANFILES = $(PACKAGE)-$(VERSION).tar.bz2 $(PACKAGE)-$(VERSION).tar.xz
 EXTRA_DIST +=				\
 	AUTHORS				\
 	COPYING				\
+	COPYING-DOCS			\
 	NEWS				\
 	README				\
 	TODO				\

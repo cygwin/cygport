@@ -1,5 +1,5 @@
 options:
-	--documenttitle "Cygport Reference"
+	--documenttitle "Cygport Reference Manual"
 	--index
 	--masterindex "Index,index"
 	--nopre
