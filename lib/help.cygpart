@@ -38,7 +38,7 @@ __show_help() {
 		  almostall    run all of the above, excluding finish
 		  all          run all of the above, including finish
 
-		See ${_privdocdir}/README for further instructions.
+		See the included README file for further documentation.
 
 		Report bugs to <cygwin-ports-general@lists.sourceforge.net>.
 		_EOF
