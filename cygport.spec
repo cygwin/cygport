@@ -12,11 +12,6 @@ Source0:        http://downloads.sourceforge.net/cygwin-ports/%{name}-%{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-# for building documentation (TODO: add to EXTRA_DIST)
-BuildRequires:  groff
-BuildRequires:  help2man
-BuildRequires:  robodoc
-
 Requires:       autoconf automake libtool pkgconfig
 Requires:       bzip2 gzip unzip
 Requires:       cygwin-binutils
