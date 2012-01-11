@@ -2,6 +2,9 @@
 
 set -e
 
+test -d ${top_builddir}/tests || mkdir -p ${top_builddir}/tests
+cd ${top_builddir}/tests
+
 ${top_builddir}/bin/cygport-inplace --help
 echo
 

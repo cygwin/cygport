@@ -1,7 +1,8 @@
 toolsdir = $(pkgdatadir)/tools
-
-dist_tools_SCRIPTS =	\
-	deb2targz			\
-	pkgrip				\
-	sysrootize			\
+tools_SCRIPTS =				\
+	tools/deb2targz			\
+	tools/pkgrip			\
+	tools/sysrootize		\
 	$(NULL)
+
+EXTRA_DIST += $(tools_SCRIPTS)

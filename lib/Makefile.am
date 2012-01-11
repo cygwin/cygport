@@ -1,17 +1,19 @@
-dist_pkglib_DATA = \
-	check_funcs.cygpart			\
-	compilers.cygpart			\
-	config_registry.cygpart		\
-	help.cygpart				\
-	inheritance.cygpart			\
-	pkg_cleanup.cygpart			\
-	pkg_info.cygpart			\
-	pkg_pkg.cygpart				\
-	src_compile.cygpart			\
-	src_fetch.cygpart			\
-	src_install.cygpart			\
-	src_postinst.cygpart		\
-	src_prep.cygpart			\
-	src_test.cygpart			\
-	syntax.cygpart				\
+pkglib_DATA = \
+	lib/check_funcs.cygpart		\
+	lib/compilers.cygpart		\
+	lib/config_registry.cygpart	\
+	lib/help.cygpart		\
+	lib/inheritance.cygpart		\
+	lib/pkg_cleanup.cygpart		\
+	lib/pkg_info.cygpart		\
+	lib/pkg_pkg.cygpart		\
+	lib/src_compile.cygpart		\
+	lib/src_fetch.cygpart		\
+	lib/src_install.cygpart		\
+	lib/src_postinst.cygpart	\
+	lib/src_prep.cygpart		\
+	lib/src_test.cygpart		\
+	lib/syntax.cygpart		\
 	$(NULL)
+
+EXTRA_DIST += $(pkglib_DATA)

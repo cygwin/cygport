@@ -1,24 +1,30 @@
-dist_pkgdata_DATA = \
-	cygport.nanorc	\
-	mirrors			\
-	mono.snk		\
-	sample.cygport	\
-	uac-manifest.in
+pkgdata_DATA =				\
+	data/cygport.nanorc		\
+	data/mirrors			\
+	data/mono.snk			\
+	data/sample.cygport		\
+	data/uac-manifest.in		\
+	$(NULL)
 
-dist_pkgdata_SCRIPTS =	\
-	gnuconfig/config.guess		\
-	gnuconfig/config.sub
+pkgdata_SCRIPTS =			\
+	data/gnuconfig/config.guess	\
+	data/gnuconfig/config.sub
 
 mimedir = $(datadir)/mime/packages
-dist_mime_DATA = cygport.xml
+mime_DATA = data/cygport.xml
 
 bashcompletiondir = $(sysconfdir)/bash_completion.d
-dist_bashcompletion_DATA = cygport-bash-completion
+bashcompletion_DATA = data/cygport-bash-completion
 
 install-data-local:
 	if ! test -f $(DESTDIR)$(sysconfdir)/cygport.conf ; then \
 		$(mkinstalldirs) $(DESTDIR)$(sysconfdir) ; \
-		$(INSTALL_DATA) $(srcdir)/cygport.conf $(DESTDIR)$(sysconfdir) ; \
+		$(INSTALL_DATA) $(top_srcdir)/data/cygport.conf $(DESTDIR)$(sysconfdir) ; \
 	fi
 
-EXTRA_DIST = cygport.conf
+EXTRA_DIST += \
+	$(bashcompletion_DATA)	\
+	$(mime_DATA)		\
+	$(pkgdata_DATA)		\
+	$(pkgdata_SCRIPTS)	\
+	data/cygport.conf

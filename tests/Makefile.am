@@ -1,15 +1,15 @@
-TESTS = messages bootstrap
+TESTS = tests/messages tests/bootstrap
 
-TESTS_ENVIRONMENT = MAKE=$(MAKE) PACKAGE=$(PACKAGE) VERSION=$(VERSION) top_srcdir=$(top_srcdir) top_builddir=$(top_builddir)
+TESTS_ENVIRONMENT = MAKE=$(MAKE) PACKAGE=$(PACKAGE) VERSION=$(VERSION) top_srcdir=$(abs_top_srcdir) top_builddir=$(abs_top_builddir)
 
-EXTRA_DIST = $(TESTS)
+EXTRA_DIST += $(TESTS)
 
-CLEANFILES = \
-	foo-1.2.3-4.cygport \
-	$(PACKAGE)-$(VERSION)-1-src.tar.bz2 \
-	$(PACKAGE)-$(VERSION)-1.tar.bz2 \
-	$(PACKAGE)-$(VERSION)-1.cygport \
-	$(PACKAGE)-$(VERSION).tar.xz
+CLEANFILES += \
+	tests/foo-1.2.3-4.cygport \
+	tests/$(PACKAGE)-$(VERSION)-1-src.tar.bz2 \
+	tests/$(PACKAGE)-$(VERSION)-1.tar.bz2 \
+	tests/$(PACKAGE)-$(VERSION)-1.cygport \
+	tests/$(PACKAGE)-$(VERSION).tar.xz
 
 clean-local:
-	-rm -fr $(PACKAGE)/ $(PACKAGE)-$(VERSION)-1/
+	-rm -fr tests/$(PACKAGE)/ tests/$(PACKAGE)-$(VERSION)-1/

@@ -1,14 +1,25 @@
-SUBDIRS = bin lib cygclass data doc tests tools .
+CLEANFILES =
+EXTRA_DIST =
 
-noinst_DATA = AUTHORS COPYING NEWS README TODO
-
-EXTRA_DIST =					\
-	$(noinst_DATA)				\
-	cygport.spec				\
-	CYGWIN-PATCHES/README		\
-	CYGWIN-PATCHES/setup.hint
+include $(top_srcdir)/bin/Makefile.am
+include $(top_srcdir)/cygclass/Makefile.am
+include $(top_srcdir)/data/Makefile.am
+include $(top_srcdir)/lib/Makefile.am
+include $(top_srcdir)/tests/Makefile.am
+include $(top_srcdir)/tools/Makefile.am
+include $(top_srcdir)/doc/Makefile.am
 
 DISTCLEANFILES = $(PACKAGE)-$(VERSION).tar.bz2 $(PACKAGE)-$(VERSION).tar.xz
+
+EXTRA_DIST +=				\
+	AUTHORS				\
+	COPYING				\
+	NEWS				\
+	README				\
+	TODO				\
+	cygport.spec			\
+	CYGWIN-PATCHES/README		\
+	CYGWIN-PATCHES/setup.hint
 
 dist-hook:
 	@if test -d "$(srcdir)/.git"; \

@@ -1,17 +1,16 @@
-doc_DATA =
+doc_DATA = doc/cygport.1.html doc/manual.css doc/manual.html
+
+man_MANS = doc/cygport.1
 
 if HAVE_HELP2MAN
 
-man_MANS = cygport.1
-
-cygport.1: $(top_builddir)/bin/cygport-inplace $(top_srcdir)/lib/help.cygpart
-	$(AM_V_GEN)$(HELP2MAN) -o $@ --no-info --name="Cygwin source packaging tool" $<
+doc/cygport.1: $(top_srcdir)/configure $(top_srcdir)/lib/help.cygpart
+	$(AM_V_GEN)test -d doc || $(MKDIR_P) doc ; \
+	$(HELP2MAN) -o $@ --no-info --name="Cygwin source packaging tool" $(top_builddir)/bin/cygport-inplace
 
 if HAVE_GROFF
 
-doc_DATA += cygport.1.html
-
-cygport.1.html: cygport.1
+doc/cygport.1.html: doc/cygport.1
 	$(AM_V_GEN)$(GROFF) -t -mandoc -Thtml $< > $@
 
 endif HAVE_GROFF
@@ -19,15 +18,18 @@ endif HAVE_HELP2MAN
 
 if HAVE_ROBODOC
 
-doc_DATA += manual.html manual.css
+doc/manual.html: $(top_srcdir)/doc/robodoc.rc $(top_srcdir)/bin/cygport.in $(cygclass_DATA) $(pkglib_DATA) $(pkgdata_DATA)
+	$(AM_V_GEN)test -d doc || $(MKDIR_P) doc ; \
+		cd $(top_srcdir) && \
+		$(ROBODOC) --src . --doc $(abs_top_builddir)/doc/manual --rc $(abs_top_srcdir)/doc/robodoc.rc --html --singledoc
 
-manual.html: $(srcdir)/robodoc.rc $(wildcard $(top_srcdir)/cygclass/*.cygclass) $(wildcard $(top_srcdir)/lib/*.cygpart) $(top_srcdir)/bin/cygport.in $(wildcard $(top_srcdir)/data/*)
-	$(AM_V_GEN)cd $(top_srcdir) && $(ROBODOC) --src . --doc $(abs_builddir)/manual --rc $(abs_srcdir)/robodoc.rc --html --singledoc
-
-manual.css: manual.html
+doc/manual.css: doc/manual.html
 
 endif HAVE_ROBODOC
 
-CLEANFILES = $(man_MANS) $(doc_DATA)
+CLEANFILES += $(doc_DATA) $(man_MANS)
 
-EXTRA_DIST = robodoc.rc
+EXTRA_DIST += \
+	$(doc_DATA) \
+	$(man_MANS) \
+	doc/robodoc.rc

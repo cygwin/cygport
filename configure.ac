@@ -20,15 +20,6 @@ AM_CONDITIONAL(HAVE_GROFF, test "x$GROFF" != "x")
 AC_PATH_PROG(ROBODOC, robodoc)
 AM_CONDITIONAL(HAVE_ROBODOC, test "x$ROBODOC" != "x")
 
-AC_CONFIG_FILES([
-Makefile
-bin/Makefile
-lib/Makefile
-cygclass/Makefile
-data/Makefile
-doc/Makefile
-tests/Makefile
-tools/Makefile
-])
+AC_CONFIG_FILES([Makefile])
 
 AC_OUTPUT
