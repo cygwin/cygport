@@ -112,6 +112,20 @@ mirror_cpan+=" http://search.cpan.org/CPAN"
 mirror_cran+=" http://cran.r-project.org"
 
 
+#****d* Mirrors/mirror_ctan
+#  DESCRIPTION
+#  Comprehensive TeX Archive Network
+#  SYNOPSIS
+#  SRC_URI="mirror://ctan/macros/latex/contrib/${ORIG_PN}.zip"
+#  DEFAULT MIRROR
+#  http://mirror.ctan.org/
+#  MIRROR LIST
+#  http://mirror.ctan.org/tex-archive/CTAN.sites
+#****
+# grep -E 'URL: (f|ht)tp:' CTAN.sites | sed -e 's| *URL: |\t|g' -e 's|/$||g'
+mirror_ctan+=" http://mirror.ctan.org/"
+
+
 #****d* Mirrors/mirror_debian
 #  DESCRIPTION
 #  Debian package pool
