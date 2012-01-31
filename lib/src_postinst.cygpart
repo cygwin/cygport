@@ -233,6 +233,32 @@ __prep_gtk_icon_theme() {
 		fi
 	done
 }
+
+__prep_mateconf_schemas() {
+	dodir /etc/postinstall /etc/preremove
+
+	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+		export MATECONF_CONFIG_SOURCE="$(mateconftool-2 --get-default-source)"
+	_EOF
+
+	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+		export MATECONF_CONFIG_SOURCE="$(mateconftool-2 --get-default-source)"
+	_EOF
+
+	for schema in ${D}/etc/mateconf/schemas/*.schemas
+	do
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			/usr/bin/mateconftool-2 --makefile-install-rule /etc/mateconf/schemas/${schema##*/} > /dev/null 2>&1
+		_EOF
+
+		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+			/usr/bin/mateconftool-2 --makefile-uninstall-rule /etc/mateconf/schemas/${schema##*/} > /dev/null 2>&1
+		_EOF
+	done
+
+	echo >> ${D}/etc/postinstall/${PN}.sh
+	echo >> ${D}/etc/preremove/${PN}.sh
+}
 # end of conditional __prepetc helpers
 
 
@@ -405,6 +431,12 @@ __prepetc() {
 	if [ -d ${D}/usr/share/glib-2.0/schemas ]
 	then
 		__prep_gsettings_schemas || error "GSettings schemas postinstall failed"
+	fi
+
+	# MateConf schemas
+	if [ -d ${D}/etc/mateconf/schemas ] && ! defined _CYGPORT_RESTRICT_postinst_mateconf_
+	then
+		__prep_mateconf_schemas || error "MateConf schemas postinstall failed"
 	fi
 
 	# Freedesktop.org Shared Mime Info

@@ -35,6 +35,7 @@ cygclass_DATA =					\
 	cygclass/kde3.cygclass			\
 	cygclass/kde4.cygclass			\
 	cygclass/lua.cygclass			\
+	cygclass/mate.cygclass			\
 	cygclass/mono.cygclass			\
 	cygclass/mtn.cygclass			\
 	cygclass/nant.cygclass			\
