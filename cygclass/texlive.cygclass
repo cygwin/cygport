@@ -1,0 +1,176 @@
+################################################################################
+#
+# texlive.cygclass - functions for building TeX Live packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/texlive.cygclass
+#  DESCRIPTION
+#  TeX is an extensible typesetting system used to produce documentation
+#  in many formats.  TeX Live is the primary TeX distribution for *NIX systems,
+#  replacing teTeX when the latter became unsupported in 2006.
+#
+#  TeX Live packages, which total in the thousands, are distributed individually
+#  via CTAN and are updated on a continuous basis.
+#
+#  This cygclass creates Cygwin packages from one or more TeX Live packages.
+#  SEE ALSO
+#  mirror_ctan
+#****
+
+#****v* texlive.cygclass/TEXLIVE_MACRO_PKGS
+#  DESCRIPTION
+#  A list of one or more TeX Live arch-independent packages consisting of TeX
+#  macros, fonts, language support, and other files which are not documentation.
+#****
+#****v* texlive.cygclass/TEXLIVE_ARCH_PKGS
+#  DESCRIPTION
+#  A list of one or more TeX Live arch-specific packages, consisting of scripts
+#  and symlinks which are to be installed into the system PATH.
+#****
+#****v* texlive.cygclass/TEXLIVE_DOC_PKGS
+#  DESCRIPTION
+#  A list of one or more TeX Live documentation packages.
+#****
+if ! defined TEXLIVE_MACRO_PKGS && ! defined TEXLIVE_ARCH_PKGS && ! defined TEXLIVE_DOC_PKGS
+then
+	TEXLIVE_MACRO_PKGS=${PN#texlive-}
+fi
+
+DESCRIPTION="TeX Live ${PN#texlive-} package(s)"
+
+#****o* texlive.cygclass/HOMEPAGE (texlive)
+#  DEFINITION
+HOMEPAGE="http://www.tug.org/texlive/"
+#****
+
+TEXLIVE_ARCH="i386-cygwin"
+
+#****o* texlive.cygclass/SRC_URI (texlive)
+#  DESCRIPTION
+#  SRC_URI is constructed automatically based on the value of TEXLIVE_MACRO_PKGS,
+#  TEXLIVE_ARCH_PKGS, and TEXLIVE_DOC_PKGS.
+#****
+for pkg in ${TEXLIVE_MACRO_PKGS}
+do
+	SRC_URI+=" mirror://ctan/systems/texlive/tlnet/archive/$pkg.tar.xz"
+done
+for pkg in ${TEXLIVE_ARCH_PKGS}
+do
+	SRC_URI+=" mirror://ctan/systems/texlive/tlnet/archive/$pkg.${TEXLIVE_ARCH}.tar.xz"
+done
+for pkg in ${TEXLIVE_DOC_PKGS}
+do
+	SRC_URI+=" mirror://ctan/systems/texlive/tlnet/archive/$pkg.doc.tar.xz"
+done
+unset pkg
+
+SRC_DIR="."
+
+
+#****I* texlive.cygclass/texlive_install
+#  SYNOPSIS
+#  texlive_install
+#  DESCRIPTION
+#  Installs the TeX Live package file(s) into their respective locations.
+#****
+texlive_install() {
+	local f pkg pkgs tlpobj dst src
+
+	for pkg in ${TEXLIVE_MACRO_PKGS}
+	do
+		pkgs+="$pkg "
+	done
+	for pkg in ${TEXLIVE_ARCH_PKGS}
+	do
+		pkgs+="$pkg.${TEXLIVE_ARCH} "
+	done
+	for pkg in ${TEXLIVE_DOC_PKGS}
+	do
+		pkgs+="$pkg.doc "
+	done
+
+	for pkg in $pkgs
+	do
+		tlpobj="tlpkg/tlpobj/$pkg.tlpobj"
+		for f in $(grep '^ ' $tlpobj) $tlpobj
+		do
+			case $f in
+			*.exe)
+				# EXEs are compiled from source from and shipped
+				# in the main 'texlive' package
+				continue ;;
+			bin/${TEXLIVE_ARCH}/*)
+				if [ ! -L ${f} ]
+				then
+					dobin $f
+				else
+					dst=$(readlink $f)
+					dodir /usr/bin
+					case ${dst} in
+					\.\./*) dosym ../share/${dst#../../} /usr/bin/${f##*/} ;;
+					*) dosym ${dst} /usr/bin/${f##*/} ;;
+					esac
+				fi
+				continue ;;
+			*doc/info/dir)
+				# system-managed file
+				continue ;;
+			*doc/info/*.info)
+				doinfo ${f#RELOC/}
+				continue ;;
+			*doc/man/man[15]/*.[15])
+				doman ${f#RELOC/}
+				continue ;;
+			RELOC/*)
+				src=${f#RELOC/}; dst=texmf-dist/${src} ;;
+			texmf/*|texmf-dist/*|tlpkg/*)
+				src=$f; dst=$f ;;
+			*)
+				src=$f; dst=tlpkg/$f ;;
+			esac
+
+			if [ "$(head -c 2 $src)" = '#!' -o "$(head -c 4 $src)" = 'eval' ]
+			then
+				perm=755
+			else
+				perm=644
+			fi
+
+			dodir /usr/share/${dst%/*}
+			__doinstall ${perm} $src /usr/share/${dst%/*}
+		done
+	done
+}
+
+#****o* texlive.cygclass/src_compile (texlive)
+#  DEFINITION
+src_compile() { :; }
+#****
+
+#****o* texlive.cygclass/src_install (texlive)
+#  DEFINITION
+src_install() {
+	cd ${S}
+	texlive_install
+}
+#****
+
+readonly -f texlive_install

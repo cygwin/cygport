@@ -259,6 +259,21 @@ __prep_mateconf_schemas() {
 	echo >> ${D}/etc/postinstall/${PN}.sh
 	echo >> ${D}/etc/preremove/${PN}.sh
 }
+
+__prep_texlive() {
+	dodir /etc/postinstall
+	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+		if [ -x /usr/bin/mktexlsr ]
+		then
+			/usr/bin/mktexlsr
+			/usr/bin/updmap-sys --syncwithtrees
+			/usr/bin/mktexlsr
+			/usr/bin/fmtutil-sys --all
+			/usr/bin/mktexlsr
+		fi
+
+	_EOF
+}
 # end of conditional __prepetc helpers
 
 
@@ -444,6 +459,15 @@ __prepetc() {
 	then
 		__prep_freedesktop_mime || error "Shared Mime Info postinstall failed"
 	fi
+
+	for d in /usr/share/texmf{,-dist}
+	do
+		if [ -d ${D}${d} ]
+		then
+			__prep_texlive
+			break
+		fi
+	done
 
 	for d in /etc/postinstall /etc/preremove
 	do

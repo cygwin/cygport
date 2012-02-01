@@ -121,6 +121,8 @@ mirror_cran+=" http://cran.r-project.org"
 #  http://mirror.ctan.org/
 #  MIRROR LIST
 #  http://mirror.ctan.org/tex-archive/CTAN.sites
+#  SEE ALSO
+#  texlive.cygclass
 #****
 # grep -E 'URL: (f|ht)tp:' CTAN.sites | sed -e 's| *URL: |\t|g' -e 's|/$||g'
 mirror_ctan+=" http://mirror.ctan.org/"

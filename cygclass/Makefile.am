@@ -61,6 +61,7 @@ cygclass_DATA =					\
 	cygclass/ruby-gnome2.cygclass		\
 	cygclass/svn.cygclass			\
 	cygclass/tcl.cygclass			\
+	cygclass/texlive.cygclass		\
 	cygclass/toolchain.cygclass		\
 	cygclass/utils.cygclass			\
 	cygclass/vim.cygclass			\
