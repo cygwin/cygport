@@ -421,6 +421,22 @@ newlib() {
 	esac
 }
 
+#****I* Installing/doinfo
+#  SYNOPSIS
+#  doinfo FILE [FILE] ...
+#  DESCRIPTION
+#  Installs the given Info documentation file(s) into the standard infodir.
+#****
+doinfo() {
+	local _infodir=$(__host_prefix)/share/info
+
+	dodir ${_infodir}
+	for i
+	do
+		__doinstall 0644 ${i} ${_infodir} || error "doinfo ${i} failed"
+	done
+}
+
 #****I* Installing/doman
 #  SYNOPSIS
 #  doman [[-l |--lang=]LANGUAGE] MANPAGE [MANPAGE] ...
