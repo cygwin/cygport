@@ -110,7 +110,7 @@ texlive_install() {
 	for pkg in $pkgs
 	do
 		tlpobj="tlpkg/tlpobj/$pkg.tlpobj"
-		for f in $(grep '^ ' $tlpobj) $tlpobj
+		for f in $(grep '^ ' $tlpobj)
 		do
 			case $f in
 			*.exe|*.mem)
@@ -140,10 +140,10 @@ texlive_install() {
 				continue ;;
 			RELOC/*)
 				src=${f#RELOC/}; dst=texmf-dist/${src} ;;
-			texmf/*|texmf-dist/*|tlpkg/*)
+			texmf/*|texmf-dist/*|tlpkg/TeXLive/*) # used by updmap
 				src=$f; dst=$f ;;
-			*)
-				src=$f; dst=tlpkg/$f ;;
+			*)	# we don't use tlmgr, so tlpkg files aren't used
+				continue ;;
 			esac
 
 			if [ "$(head -c 2 $src)" = '#!' -o "$(head -c 4 $src)" = 'eval' ]
