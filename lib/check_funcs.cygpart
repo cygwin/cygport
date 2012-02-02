@@ -405,6 +405,32 @@ check_tcl_module() {
 	return 0;
 }
 
+#****f* Checks/check_tex_module
+#  SYNOPSIS
+#  check_tex_module MODULE [MODULE2] ...
+#  DESCRIPTION
+#  Checks the presence of the given TeX module(s).  If all given module(s)
+#  are present, returns TRUE, else FALSE.
+#  NOTE
+#  check_tex_module does not distinguish how the given module(s) were
+#  installed, whether they are from a Cygwin package or manually.
+#  REQUIRES
+#  texlive
+#****
+check_tex_module() {
+	local ret=0;
+
+	check_prog_req kpsewhich texlive;
+
+	if ! kpsewhich $@ &> /dev/null
+	then
+		ret=2
+	fi
+
+	return ${ret};
+}
+
+
 #****f* Checks/check_vala_module
 #  SYNOPSIS
 #  check_vala_module MODULE [MODULE2] ...
@@ -459,6 +485,7 @@ check_vala_module() {
 #  * R(foo): R packages
 #  * ruby(foo): Ruby modules
 #  * tcl(foo): Tcl/Tk packages
+#  * tex(foo.ext): TeX modules
 #  * vala(foo-1.0): Vala bindings
 #  * foo: A Cygwin package (check skipped on non-Cygwin build systems)
 #****
@@ -514,6 +541,10 @@ __check_depends() {
 			;;
 		tcl\(*)
 			check_tcl_module $(__deparenthesize ${atom}) \
+				|| failed_atoms+="${atom} "
+			;;
+		tex\(*)
+			check_tex_module $(__deparenthesize ${atom}) \
 				|| failed_atoms+="${atom} "
 			;;
 		vala\(*)
