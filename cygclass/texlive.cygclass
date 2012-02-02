@@ -44,6 +44,9 @@
 #  DESCRIPTION
 #  A list of one or more TeX Live arch-specific packages, consisting of scripts
 #  and symlinks which are to be installed into the system PATH.
+#  NOTE
+#  All arch-specific packages also provide an arch-independent component, which
+#  will be included and need not be listed separately in TEXLIVE_MACRO_PKGS.
 #****
 #****v* texlive.cygclass/TEXLIVE_DOC_PKGS
 #  DESCRIPTION
@@ -74,6 +77,7 @@ do
 done
 for pkg in ${TEXLIVE_ARCH_PKGS}
 do
+	SRC_URI+=" mirror://ctan/systems/texlive/tlnet/archive/$pkg.tar.xz"
 	SRC_URI+=" mirror://ctan/systems/texlive/tlnet/archive/$pkg.${TEXLIVE_ARCH}.tar.xz"
 done
 for pkg in ${TEXLIVE_DOC_PKGS}
@@ -100,7 +104,7 @@ texlive_install() {
 	done
 	for pkg in ${TEXLIVE_ARCH_PKGS}
 	do
-		pkgs+="$pkg.${TEXLIVE_ARCH} "
+		pkgs+="$pkg $pkg.${TEXLIVE_ARCH} "
 	done
 	for pkg in ${TEXLIVE_DOC_PKGS}
 	do
