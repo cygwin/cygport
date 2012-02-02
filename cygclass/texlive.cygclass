@@ -113,9 +113,8 @@ texlive_install() {
 		for f in $(grep '^ ' $tlpobj) $tlpobj
 		do
 			case $f in
-			*.exe)
-				# EXEs are compiled from source from and shipped
-				# in the main 'texlive' package
+			*.exe|*.mem)
+				# compiled from source in the 'texlive' package
 				continue ;;
 			bin/${TEXLIVE_ARCH}/*)
 				if [ ! -L ${f} ]
