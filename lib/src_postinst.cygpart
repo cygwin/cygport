@@ -263,13 +263,15 @@ __prep_mateconf_schemas() {
 __prep_texlive() {
 	dodir /etc/postinstall
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		if [ -x /usr/bin/mktexlsr ]
+		if [ -x /usr/bin/mktexlsr ] && \\
+		   [ ! -f /usr/share/texmf-dist/ls-R -o \\
+		     \$(find /usr/share/texmf{,-dist} -type f -newer /usr/share/texmf-dist/ls-R 2>/dev/null | wc -l) -gt 0 ]
 		then
-			/usr/bin/mktexlsr
-			/usr/bin/updmap-sys --syncwithtrees
-			/usr/bin/mktexlsr
-			/usr/bin/fmtutil-sys --all
-			/usr/bin/mktexlsr
+		    /usr/bin/mktexlsr
+		    /usr/bin/updmap-sys --syncwithtrees
+		    /usr/bin/mktexlsr
+		    /usr/bin/fmtutil-sys --all
+		    /usr/bin/mktexlsr
 		fi
 
 	_EOF
