@@ -35,7 +35,7 @@
 #  mirror_ctan
 #****
 
-#****v* texlive.cygclass/TEXLIVE_MACRO_PKGS
+#****v* texlive.cygclass/TEXLIVE_TEXMF_PKGS
 #  DESCRIPTION
 #  A list of one or more TeX Live arch-independent packages consisting of TeX
 #  macros, fonts, language support, and other files which are not documentation.
@@ -46,15 +46,15 @@
 #  and symlinks which are to be installed into the system PATH.
 #  NOTE
 #  All arch-specific packages also provide an arch-independent component, which
-#  will be included and need not be listed separately in TEXLIVE_MACRO_PKGS.
+#  will be included and need not be listed separately in TEXLIVE_TEXMF_PKGS.
 #****
 #****v* texlive.cygclass/TEXLIVE_DOC_PKGS
 #  DESCRIPTION
 #  A list of one or more TeX Live documentation packages.
 #****
-if ! defined TEXLIVE_MACRO_PKGS && ! defined TEXLIVE_ARCH_PKGS && ! defined TEXLIVE_DOC_PKGS
+if ! defined TEXLIVE_TEXMF_PKGS && ! defined TEXLIVE_ARCH_PKGS && ! defined TEXLIVE_DOC_PKGS
 then
-	TEXLIVE_MACRO_PKGS=${PN#texlive-}
+	TEXLIVE_TEXMF_PKGS=${PN#texlive-}
 fi
 
 case ${PN} in
@@ -76,10 +76,10 @@ TEXLIVE_ARCH="i386-cygwin"
 
 #****o* texlive.cygclass/SRC_URI (texlive)
 #  DESCRIPTION
-#  SRC_URI is constructed automatically based on the value of TEXLIVE_MACRO_PKGS,
+#  SRC_URI is constructed automatically based on the value of TEXLIVE_TEXMF_PKGS,
 #  TEXLIVE_ARCH_PKGS, and TEXLIVE_DOC_PKGS.
 #****
-for pkg in ${TEXLIVE_MACRO_PKGS}
+for pkg in ${TEXLIVE_TEXMF_PKGS}
 do
 	SRC_URI+=" mirror://ctan/systems/texlive/tlnet/archive/$pkg.tar.xz"
 done
@@ -106,7 +106,7 @@ SRC_DIR="."
 texlive_install() {
 	local f pkg pkgs tlpobj dst src
 
-	for pkg in ${TEXLIVE_MACRO_PKGS}
+	for pkg in ${TEXLIVE_TEXMF_PKGS}
 	do
 		pkgs+="$pkg "
 	done
