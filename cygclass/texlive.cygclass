@@ -57,7 +57,15 @@ then
 	TEXLIVE_MACRO_PKGS=${PN#texlive-}
 fi
 
-DESCRIPTION="TeX Live ${PN#texlive-} package(s)"
+case ${PN} in
+texlive-collection-documentation-*)
+	DESCRIPTION="TeX Live ${PN##*-} documentation" ;;
+texlive-collection-lang*)
+	DESCRIPTION="TeX Live ${PN#*-lang} language support" ;;
+texlive-collection-*|texlive-scheme-*)
+	DESCRIPTION="TeX Live ${PN##*-} package collection" ;;
+*)	DESCRIPTION="TeX Live ${PN#texlive-} package(s)" ;;
+esac
 
 #****o* texlive.cygclass/HOMEPAGE (texlive)
 #  DEFINITION
