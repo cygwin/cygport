@@ -265,7 +265,7 @@ __prep_texlive() {
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 		if [ -x /usr/bin/mktexlsr ] && \\
 		   [ ! -f /usr/share/texmf-dist/ls-R -o \\
-		     \$(find /usr/share/texmf{,-dist} -type f -newer /usr/share/texmf-dist/ls-R 2>/dev/null | wc -l) -gt 0 ]
+		     \$(find /usr/share/texmf{,-dist} -mindepth 2 -type f -cnewer /usr/share/texmf-dist/ls-R 2>/dev/null | wc -l) -gt 0 ]
 		then
 		    /usr/bin/mktexlsr
 		    /usr/bin/updmap-sys --syncwithtrees
