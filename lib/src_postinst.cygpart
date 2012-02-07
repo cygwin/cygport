@@ -345,7 +345,7 @@ __prepemacs() {
 	if test -d ${D}${emacssitedir} && check_prog emacs
 	then
 		emacs --batch -f batch-byte-compile --no-site-file --no-init-file \
-			${D}${emacssitedir}/*.el 2>/dev/null
+			$(find ${D}${emacssitedir} -name '*.el') 2>/dev/null || true
 	fi
 }
 
