@@ -333,6 +333,8 @@ __src_prep() {
 		error "SRC_DIR is not correctly defined"
 	fi
 
+	# cd will fail if not executable (e.g. dot2tex)
+	chmod +x ${origsrcdir}/${SRC_DIR};
 	cd ${origsrcdir}/${SRC_DIR};
 
 	if defined DISTCLEANFILES
