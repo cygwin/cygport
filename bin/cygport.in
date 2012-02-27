@@ -243,6 +243,7 @@ unset conf;
 #  * kde3.cygclass
 #  * kde4.cygclass
 #  * lua.cygclass
+#  * mate.cygclass
 #  * mono.cygclass
 #  * mtn.cygclass
 #  * nant.cygclass
@@ -268,6 +269,7 @@ unset conf;
 #  * ruby.cygclass
 #  * svn.cygclass
 #  * tcl.cygclass
+#  * texlive.cygclass
 #  * toolchain.cygclass
 #  * utils.cygclass
 #  * vim.cygclass
