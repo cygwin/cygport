@@ -41,8 +41,12 @@ HOMEPAGE="http://mate-desktop.org/"
 
 #****o* mate.cygclass/SRC_URI (mate)
 #  DEFINITION
-SRC_URI="http://pub.mate-desktop.org/releases/${PV[1]}.${PV[2]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
+
 #****
+case ${PV} in
+1.1.*) SRC_URI="http://pub.mate-desktop.org/releases/${PV[1]}.${PV[2]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2" ;;
+*) SRC_URI="http://pub.mate-desktop.org/releases/${PV[1]}.${PV[2]}/${ORIG_PN:-${PN}}-${PV}.tar.xz" ;;
+esac
 
 if ! defined GIT_URI
 then
@@ -60,7 +64,7 @@ KEEP_LA_FILES="none"
 #  SYNOPSIS
 #  mate_autoreconf
 #  DESCRIPTION
-#  Updates the build system with mate-autogen.sh.  mate_autoreconf must be
+#  Updates the build system with mate-autogen.  mate_autoreconf must be
 #  run in the directory containing the top-level configure.ac or configure.in
 #  (usually $S).
 #  WARNING
@@ -90,7 +94,7 @@ mate_autoreconf() {
 		error "mate: configure.ac or configure.in not found"
 	fi
 
-	check_prog_req mate-autogen.sh mate-common
+	check_prog_req mate-autogen mate-common
 
 	if [ -f omf-install/Makefile.am -o -f omf.make -o -f xmldocs.make ] || $(grep -Eq 'MATE_DOC_INIT' ${configure_ac})
 	then
@@ -110,7 +114,7 @@ mate_autoreconf() {
 
 #****v* mate.cygclass/MATE_NO_AUTOGEN
 #  DESCRIPTION
-#  By default, mate-autogen.sh will retool the working directory's and any
+#  By default, mate-autogen will retool the working directory's and any
 #  subdirectories containing a configure.ac/configure.in which may be configured
 #  separately with an AC_CONFIG_SUBDIRS.  If a subdirectory need not be
 #  retooled (e.g. it will not built for whatever reason), or it does not use
@@ -173,7 +177,7 @@ mate_autoreconf() {
 	# dodoc won't install these, however, if they are empty
 	touch AUTHORS COPYING ChangeLog INSTALL NEWS README
 
-	mate-autogen.sh || error "mate: autoreconf failed"
+	mate-autogen || error "mate: autoreconf failed"
 }
 
 #****C* mate.cygclass/mate_configure
