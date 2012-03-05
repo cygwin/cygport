@@ -268,7 +268,11 @@ __prep_texlive() {
 		     \$(find /usr/share/texmf{,-dist} -mindepth 2 -type f -cnewer /usr/share/texmf-dist/ls-R 2>/dev/null | wc -l) -gt 0 ]
 		then
 		    /usr/bin/mktexlsr
+		    if test -f /etc/texmf/web2c/updmap.cfg; then
+		      /usr/bin/sed -i -e 's/^#! //g' /etc/texmf/web2c/updmap.cfg
+		    fi
 		    /usr/bin/updmap-sys --syncwithtrees
+		    /usr/bin/updmap-sys --nohash
 		    /usr/bin/mktexlsr
 		    /usr/bin/fmtutil-sys --all
 		    /usr/bin/mktexlsr
