@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.10.8
+Version:        0.10.8.1
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Mar 05 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.8.1-1
+- Bugfixes for mate.cygclass and texlive postinstalls.
+
 * Sun Feb 26 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.8-1
 - Version bump, adding mate.cygclass and texlive.cygclass.
 
