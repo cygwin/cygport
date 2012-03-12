@@ -101,10 +101,14 @@ SRC_DIR="."
 #  SYNOPSIS
 #  texlive_install
 #  DESCRIPTION
-#  Installs the TeX Live package file(s) into their respective locations.
+#  Installs the TeX Live package file(s) into their respective locations and
+#  queues the necessary postinstall steps.
 #****
 texlive_install() {
-	local f pkg pkgs tlpobj dst src
+	local f pkg pkgs tlpobj dst src fmt map
+
+	__config_set texlive_fmts
+	__config_set texlive_maps
 
 	for pkg in ${TEXLIVE_TEXMF_PKGS}
 	do
@@ -167,6 +171,18 @@ texlive_install() {
 
 			dodir /usr/share/${dst%/*}
 			__doinstall ${perm} $src /usr/share/${dst%/*}
+		done
+
+		for fmt in $(grep -E 'execute AddFormat' $tlpobj \
+		             | sed 's/.* name=\([^ ]*\).*/\1/g')
+		do
+			__config_set texlive_fmts "$(__config_get texlive_fmts) $fmt"
+		done
+
+		for map in $(grep -E 'execute add[^ ]*Map' $tlpobj \
+		             | sed 's/execute add\([^ ]*\) */\1=/g')
+		do
+			__config_set texlive_maps "$(__config_get texlive_maps) $map"
 		done
 	done
 }
