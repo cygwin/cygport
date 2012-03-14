@@ -44,6 +44,8 @@ dodir() {
 #  DESCRIPTION
 #  Preserves the given empty directories under $D from being removed during
 #  automatic postinstall steps.
+#  SEE ALSO
+#  KEEPDIRS
 #****
 keepdir() {
 	for d

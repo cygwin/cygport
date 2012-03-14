@@ -606,6 +606,15 @@ __prepvargames() {
 	fi
 }
 
+#****v* Postinstall/KEEPDIRS
+#  SYNOPSIS
+#  KEEPDIRS="DIRECTORY [DIRECTORY...]"
+#  DESCRIPTION
+#  The equivalent of calling keepdir on the given directories.  This variable
+#  can be used for convenience to avoid defining a custom src_install solely
+#  in order to add a keepdir command.
+#****
+
 # remove empty directories in D
 # if empty directory must remain, call keepdir() in src_install()
 __prep_empty_dirs() {
