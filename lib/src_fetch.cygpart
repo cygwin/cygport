@@ -33,6 +33,16 @@
 #  a default SRC_URI based on the values of PN and PV.
 #****
 
+#****v* Downloading/PATCH_URI
+#  DESCRIPTION
+#  Download address(es) for source patches which are to be applied immediately
+#  after unpacking sources, as a string.
+#
+#  Individual source patches maintained locally may also be used by adding
+#  their basenames to PATCH_URI.  This provides an easy way to carry
+#  Cygwin-specific patches forward between releases.
+#****
+
 # downloads file(s) from Internet
 fetch() {
 	local uri;
