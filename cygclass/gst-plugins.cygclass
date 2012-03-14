@@ -1,6 +1,6 @@
 ################################################################################
 #
-# gst-plugins.cygclass - wrapper for versioned gst-plugins cygclasses
+# gst-plugins.cygclass - functions for building GStreamer Plugins
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012 Yaakov Selkowitz
@@ -23,16 +23,158 @@
 
 #****h* Cygclasses/gst-plugins.cygclass
 #  SYNOPSIS
+#  GST_PLUGINS_ENABLE=...
+#  [GST_PLUGINS_DISABLE=...]
 #  inherit gst-plugins
 #  DESCRIPTION
-#  This cygclass inherits the versioned gst-plugins cygclass based on PV
-#  (e.g. 0.10.x -> gst-plugins0.10.cygclass).  If the package's PV does not
-#  match the corresponding GStreamer series (which is rare), then you must
-#  inherit the correct versioned cygclass directly.
-#  NOTE
-#  The only GStreamer series currently supported is 0.10.
+#  For an introduction to GStreamer, see gstreamer.cygclass.
+#
+#  Since the 0.9/0.10 series, GStreamer ships most of their plugins in four
+#  bundles (base, good, bad, and ugly), each of which contain a number of
+#  plugins, some with external dependencies and some without.  There also
+#  exist several packages which contain a single plugin or a very few related
+#  plugins.
+#
+#  This Cygclass handles GStreamer's unique build system requirements, as
+#  well as the de/selection of plugins with external dependencies.
 #  INHERITS
-#  gst-plugins0.10.cygclass
+#  autotools.cygclass, gstreamer.cygclass
 #****
 
-inherit gst-plugins${PV[1]}.$((PV[2] + PV[2] % 2))
+#****v* gst-plugins.cygclass/GST_PLUGINS_ENABLE
+#  DESCRIPTION
+#  This variable controls which plugins with external dependencies will be
+#  built.  It must be defined as a string, with plugins indicated by their
+#  configure argument.
+#
+#  Because the name of the plugin often corresponds to its configure argument
+#  (e.g. ogg -> libgstogg.la), these plugins can easily be packaged separately
+#  with a 'for' loop with this variable as the iterator collection.
+#  SEE ALSO
+#  GST_PLUGINS_DISABLE
+#****
+
+#****v* gst-plugins.cygclass/GST_PLUGINS_DISABLE
+#  DESCRIPTION
+#  This variable controls which plugins will not be built, even if their
+#  dependencies are present. It must be defined as a string, with plugins
+#  indicated by their configure argument.
+#  SEE ALSO
+#  GST_PLUGINS_ENABLE
+#****
+
+gst_pn=${PN#gstreamer[0-9]*-plugins-}
+
+case ${gst_pn} in
+	ffmpeg)
+		ORIG_PN="gst-ffmpeg"
+		;;
+	gnonlin)
+		ORIG_PN="gnonlin"
+		;;
+	openmax)
+		ORIG_PN="gst-openmax"
+		;;
+	fluendo-*)
+		ORIG_PN=gst-${gst_pn}
+		SRC_URI="http://core.fluendo.com/gstreamer/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
+		;;
+	*)
+		ORIG_PN=gst-plugins-${gst_pn}
+		;;
+esac
+
+inherit gstreamer
+
+#****o* gst-plugins.cygclass/DESCRIPTION (gst-plugins)
+#  DEFINITION
+DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
+#****
+
+#****C* gst-plugins.cygclass/gst_plugins_autoreconf
+#  DESCRIPTION
+#  Alias for gstreamer_autoreconf.
+#****
+gst_plugins_autoreconf() {
+	gstreamer_autoreconf
+}
+
+#****C* gst-plugins.cygclass/gst_plugins_compile
+#  DESCRIPTION
+#  First, cygconf is called with several GStreamer-specific arguments which
+#  apply to all plugin packages, as well as the necessary arguments to enable
+#  or disable plugins with external dependencies, per the value of
+#  GST_PLUGINS_ENABLE and GST_PLUGINS_DISABLE. Then cygmake is called to build
+#  the package.
+#
+#  gst_plugins_compile optionally accepts additional configure flags as
+#  arguments, which are passed to cygconf.
+#****
+gst_plugins_compile() {
+	local plugin gst_conf
+
+	for plugin in ${GST_PLUGINS_DISABLE}
+	do
+		gst_conf+=" --disable-${plugin}"
+	done
+	for plugin in ${GST_PLUGINS_ENABLE} ${GST_PLUGINS_EXT}
+	do
+		case ${plugin} in
+		mad) gst_conf+=" --enable-id3tag --enable-mad" ;;
+		ximage|ximagesrc) gst_conf+=" --enable-x" ;;
+		*) gst_conf+=" --enable-${plugin}" ;;
+		esac
+	done
+
+	if __cross_compiling
+	then
+		gst_conf+=" --disable-gtk-doc"
+	else
+		gst_conf+=" --enable-gtk-doc"
+	fi
+
+	cygconf \
+		--enable-experimental \
+		--disable-examples \
+		--disable-schemas-install \
+		--disable-static \
+		--disable-tests \
+		--disable-valgrind \
+		--with-default-audiosink=autoaudiosink \
+		--with-default-audiosrc=autoaudiosrc \
+		--with-default-videosink=autovideosink \
+		--with-default-videosrc=videotestsrc \
+		--with-default-visualizer=goom \
+		ac_cv_header_winsock2_h=no \
+		${gst_conf} "${@}"
+
+	cygmake
+}
+
+#****I* gst-plugins.cygclass/gst_plugins_install
+#  DESCRIPTION
+#  Alias for cyginstall.
+#****
+gst_plugins_install() {
+	cyginstall
+}
+
+#****o* gst-plugins.cygclass/src_compile (gst-plugins)
+#  DEFINITION
+src_compile() {
+	cd ${S}
+	gst_plugins_autoreconf
+	cd ${B}
+	gst_plugins_compile
+}
+#****
+
+#****o* gst-plugins.cygclass/src_install (gst-plugins)
+#  DEFINITION
+src_install() {
+	cd ${B}
+	gst_plugins_install
+}
+#****
+
+readonly -f gst_plugins_autoreconf gst_plugins_compile gst_plugins_install

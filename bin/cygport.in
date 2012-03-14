@@ -234,7 +234,6 @@ unset conf;
 #  * gnome2.cygclass
 #  * gnustep.cygclass
 #  * gst-plugins.cygclass
-#  * gst-plugins0.10.cygclass
 #  * gstreamer.cygclass
 #  * gtk2-perl.cygclass
 #  * gtkmm.cygclass

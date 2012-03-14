@@ -49,9 +49,9 @@
 #  but the functions defined herein are used by a number of Cygclasses:
 #
 #  apache1.cygclass, apache2.cygclass, berkdb.cygclass, ggz.cygclass, gnome2.cygclass,
-#  gnustep.cygclass, gst-plugins0.10.cygclass, gtkmm.cygclass, kde3.cygclass,
-#  opensync.cygclass, php.cygclass, pygtk.cygclass, toolchain.cygclass, xfce4.cygclass,
-#  xorg.cygclass
+#  gnustep.cygclass, gst-plugins.cygclass, gtkmm.cygclass, kde3.cygclass,
+#  mate.cygclass, opensync.cygclass, php.cygclass, pygtk.cygclass, toolchain.cygclass,
+#  xfce4.cygclass, xorg.cygclass
 #****
 
 
