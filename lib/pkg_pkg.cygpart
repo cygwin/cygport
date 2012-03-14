@@ -393,9 +393,15 @@ __pkg_dist() {
 	done
 
 	# e.g. split library package w/o PN in PKG_NAMES
-	if [ ! -f ${distdir}/${PN}/setup.hint -a -f ${C}/${PN}.hint ]
+	if [ ! -f ${distdir}/${PN}/setup.hint ]
 	then
-		cp ${C}/${PN}.hint ${distdir}/${PN}/setup.hint
+		if [ -f ${C}/${PN}.hint ]
+		then
+			cp ${C}/${PN}.hint ${distdir}/${PN}/setup.hint
+		elif [ -f ${C}/setup.hint ]
+		then
+			cp ${C}/setup.hint ${distdir}/${PN}/setup.hint
+		fi
 	fi
 }
 
