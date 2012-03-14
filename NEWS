@@ -1,5 +1,8 @@
-0.10.8.1:
-	* Bug fix for TeX Live postinstall scripts.
+0.10.9:
+	* Bug fixes for TeX Live postinstall scripts.
+	* dodoc: Respects .md as alternative file suffix.
+	* gst-plugins.cygclass: Add support for 0.11/1.0 series.
+	* gst-plugins0.10.cygclass: Deprecated; use gst-plugins.cygclass.
 	* mate.cygclass: Update for 1.2 changes.
 
 0.10.8:
