@@ -237,15 +237,15 @@ mirror_gnustep+="
 #  SYNOPSIS
 #  SRC_URI="mirror://kde/stable/${PV}/src/${P}.tar.bz2"
 #  DEFAULT MIRROR
-#  ftp://ftp.kde.org/pub/kde
+#  http://download.kde.org
 #  MIRROR LIST
-#  http://www.kde.org/mirrors/ftp.php
+#  http://download.kde.org/extra/mirrors.html
 #  SEE ALSO
 #  kde3.cygclass, kde4.cygclass
 #****
-# cat ftp.php | grep '<dd><a' | \
-#   sed -e 's!.*<dd><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
-mirror_kde+=" ftp://ftp.kde.org/pub/kde"
+# cat mirrors | grep '<td><a' | \
+#   sed -e 's!.*<td><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
+mirror_kde+=" http://download.kde.org"
 
 
 #****d* Mirrors/mirror_mplayer
