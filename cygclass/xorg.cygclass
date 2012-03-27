@@ -65,6 +65,11 @@ case ${ORIG_PN} in
 		xorg_git="xkeyboard-config"
 		;;
 
+	xf86-*)
+		xorg_cat="driver"
+		xorg_git="xorg/driver/${ORIG_PN}"
+		;;
+
 	xorg-docs|xorg-sgml-doctools)
 		xorg_cat="doc"
 		xorg_git=xorg/doc/${ORIG_PN}
