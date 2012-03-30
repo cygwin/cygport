@@ -94,6 +94,10 @@ unpack() {
 				check_prog_req xz
 				unpack_cmd="tar --xz -xf"
 				;;
+			*.tar.lrz)
+				check_prog_req lrzuntar lrzip
+				unpack_cmd="lrzuntar"
+				;;
 			*.tar.lz)
 				check_prog_req lzip
 				unpack_cmd="tar -I lzip -xf"
