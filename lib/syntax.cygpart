@@ -229,6 +229,15 @@ __target_prefix() {
 	echo -n ${prefix}
 }
 
+__target_is_embedded() {
+	local ret=1;
+	case ${CTARGET} in
+	avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|*-msdosdjgpp*|msp430|*-rdos*)
+		ret=0 ;;
+	esac
+	return ${ret}
+}
+
 readonly -f defined pushd popd error warning inform verbose __stage __step \
 	__log_init __canonicalize_triplet __cross_compiling __cross_compiling_error \
-	__host_prefix __target_prefix
+	__host_prefix __target_prefix __target_is_embedded
