@@ -152,8 +152,6 @@ xfce4_autoreconf() {
 #  DESCRIPTION
 #  Calls cygconf with the following options, followed by cygmake:
 #  * --sbindir=/usr/lib/xfce4: sbin_PROGRAMS are really libexec_PROGRAMS
-#  * --disable-static: Xfce4 packages use plugins extensively, so static
-#    libraries are of little value
 #  * --disable-visibility: Cygwin does not support ELF visibility attributes
 #  All arguments to xfce4_compile are passed to cygconf as configure flags.
 #  NOTE
@@ -162,7 +160,6 @@ xfce4_autoreconf() {
 xfce4_compile() {
 	cygconf \
 		--sbindir=$(__host_prefix)/lib/xfce4 \
-		--disable-static \
 		--disable-visibility \
 		PLATFORM_LDFLAGS=-no-undefined \
 		"${@}"

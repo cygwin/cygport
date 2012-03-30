@@ -167,8 +167,6 @@ gnome2_autoreconf() {
 #  * --disable-schemas-install: GConf schemas are still installed, but are
 #    registered with postinstall and preremove scripts
 #  * --disable-scrollkeeper: Scrollkeeper is obsolete
-#  * --disable-static: GNOME packages use plugins extensively, so static
-#    libraries are of little value
 #  All arguments to gnome2_configure are passed to cygconf as configure flags.
 #****
 gnome2_configure() {
@@ -185,7 +183,6 @@ gnome2_configure() {
 		${gtk_doc} \
 		--disable-schemas-install \
 		--disable-scrollkeeper \
-		--disable-static \
 		"${@}"
 }
 

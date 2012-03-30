@@ -156,7 +156,6 @@ kde3_compile() {
 
 	cygconf \
 		--includedir=/usr/include/kde \
-		--disable-static \
 		--disable-debug --without-debug \
 		--disable-dependency-tracking \
 		--disable-closure \

@@ -276,7 +276,6 @@ php_compile() {
 	then
 		test -e configure && CYGCONF_SOURCE=$PWD
 		cygconf \
-			--disable-static \
 			--enable-${ORIG_PN}=shared --with-${ORIG_PN}=shared \
 			"${@}"
 

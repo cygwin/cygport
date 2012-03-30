@@ -128,7 +128,6 @@ apache1_compile() {
 	fi
 
 	cygconf \
-		--disable-static \
 		--with-apxs=${APXS} \
 		"${@}"
 

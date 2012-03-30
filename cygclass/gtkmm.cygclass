@@ -94,11 +94,10 @@ gtkmm_autoreconf() {
 #  DESCRIPTION
 #  Calls cygconf with the following options, followed by cygmake:
 #  * --disable-demos --disable-examples: not installed
-#  * --disable-static: since GNOME packages are also so built
 #  All arguments to gtkmm_compile are passed to cygconf as configure flags.
 #****
 gtkmm_compile() {
-	cygconf --disable-static --disable-demos --disable-examples ${@}
+	cygconf --disable-demos --disable-examples ${@}
 	cygmake LDFLAGS="${LDFLAGS} -no-undefined"
 }
 

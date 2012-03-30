@@ -137,7 +137,6 @@ gst_plugins_compile() {
 		--enable-experimental \
 		--disable-examples \
 		--disable-schemas-install \
-		--disable-static \
 		--disable-tests \
 		--disable-valgrind \
 		--with-default-audiosink=autoaudiosink \

@@ -518,6 +518,11 @@ cygconf() {
 		done
 	fi
 
+	if __config_equals with_libtool 1 && ! __target_is_embedded
+	then
+		confargs+=" --enable-shared --disable-static"
+	fi
+
 	# AC_HAVE_MMAP fails despite a working mmap, so we force this to yes
 	# (see http://www.cygwin.com/ml/cygwin/2004-09/msg00741.html
 	# and following thread for details)

@@ -203,7 +203,6 @@ apache2_compile() {
 	fi
 
 	cygconf \
-		--disable-static \
 		--with-apxs=${APXS2} \
 		--with-apr-config=${APR_CONFIG} \
 		"${@}"

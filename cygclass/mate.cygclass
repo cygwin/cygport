@@ -190,8 +190,6 @@ mate_autoreconf() {
 #  * --disable-schemas-install: MateConf schemas are still installed, but are
 #    registered with postinstall and preremove scripts
 #  * --disable-scrollkeeper: Scrollkeeper is obsolete
-#  * --disable-static: MATE packages use plugins extensively, so static
-#    libraries are of little value
 #  All arguments to mate_configure are passed to cygconf as configure flags.
 #****
 mate_configure() {
@@ -208,7 +206,6 @@ mate_configure() {
 		${gtk_doc} \
 		--disable-schemas-install \
 		--disable-scrollkeeper \
-		--disable-static \
 		"${@}"
 }
 

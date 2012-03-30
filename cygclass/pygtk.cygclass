@@ -107,7 +107,7 @@ pygtk_compile() {
 	then
 		gnome2_configure "${@}"
 	else
-		cygconf --disable-static "${@}"
+		cygconf "${@}"
 	fi
 	cygmake LIBS="-no-undefined ${LIBPYTHON}"
 }
