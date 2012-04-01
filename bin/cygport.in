@@ -543,8 +543,12 @@ declare -i arg_n=2
 while (( arg_n < argc ))
 do
 	case ${argv[${arg_n}]} in
-		download|fetch|wget|get)
+		downloadall|fetchall|wgetall|getall)
 			__src_fetch;
+			_status=$?;
+			;;
+		download|fetch|wget|get)
+			__DL_ONLY_MISSING=1 __src_fetch;
 			_status=$?;
 			;;
 		prep|unpack)

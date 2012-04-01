@@ -130,6 +130,10 @@ __src_fetch() {
 
 	for uri in ${SRC_URI} ${PATCH_URI}
 	do
+		if defined __DL_ONLY_MISSING && [ -f ${uri##*/} ]
+		then
+				continue
+		fi
 		case ${uri%%//*} in
 			mirror:)			__mirror_fetch ${uri} ;;
 			http:|https:|ftp:)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
