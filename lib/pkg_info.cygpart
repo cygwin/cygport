@@ -42,6 +42,11 @@ __list_deps() {
 	local nativelibs netlibs netimps tclibs tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
+	if __host_is_embedded
+	then
+		return
+	fi
+
 	pushd ${D}
 
 #****v* Information/DEPS_PATH
@@ -66,7 +71,7 @@ __list_deps() {
 
 	export PATH+="${D}$(__host_prefix)/bin:${os_path}";
 
-	if __cross_compiling && check_target_tool gcc
+	if __cross_compiling && ! __target_is_embedded && check_target_tool gcc
 	then
 		tcgcclibdir=$(dirname $(${CTARGET}-gcc --print-file-name=libgcc.a))
 		tcgccsysroot=$(${CTARGET}-gcc -print-sysroot)
@@ -89,9 +94,6 @@ __list_deps() {
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:${tcgccsysroot}$(__target_prefix)/lib"
 			tclibs=$(find . -type f -executable -exec ${CTARGET}-otool -L '{}' + 2>/dev/null | \
 				sed -e '1d;s|^\t\([^ ]*\).*|\1|g' | sort -u | xargs -r which || true )
-			;;
-		avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|*-msdosdjgpp*|*-rdos*)
-			# no shared library support, hence no dependencies
 			;;
 		# FIXME: any other non-ELF systems?
 		*)	# ELF system; libc in /lib, other libs in /usr/lib

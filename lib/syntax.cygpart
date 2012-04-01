@@ -217,6 +217,15 @@ __host_prefix() {
 	echo -n ${prefix}
 }
 
+__host_is_embedded() {
+	local ret=1;
+	case ${CHOST} in
+	avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|*-msdosdjgpp*|msp430|*-rdos*)
+		ret=0 ;;
+	esac
+	return ${ret}
+}
+
 __target_prefix() {
 	local prefix
 
@@ -240,4 +249,4 @@ __target_is_embedded() {
 
 readonly -f defined pushd popd error warning inform verbose __stage __step \
 	__log_init __canonicalize_triplet __cross_compiling __cross_compiling_error \
-	__host_prefix __target_prefix __target_is_embedded
+	__host_prefix __host_is_embedded __target_prefix __target_is_embedded

@@ -518,7 +518,7 @@ cygconf() {
 		done
 	fi
 
-	if __config_equals with_libtool 1 && ! __target_is_embedded
+	if __config_equals with_libtool 1 && ! __host_is_embedded
 	then
 		confargs+=" --enable-shared --disable-static"
 	fi
