@@ -153,10 +153,12 @@ docinto() {
 #  SYNOPSIS
 #  dodoc FILE [FILE] ...
 #  DESCRIPTION
-#  Installs the given files into $D/usr/share/doc/PN/, or a subdirectory thereof
-#  specified by the previous call to docinto.
+#  Installs the given files or directories into $D/usr/share/doc/PN/, or a
+#  subdirectory thereof specified by the previous call to docinto.
 #****
 dodoc() {
+	local docdir d f i
+
 	case "${_docinto_dir}" in
 		'')	docdir=/usr/share/doc/${PN} ;;
 		/*)	docdir=/usr/share/doc${_docinto_dir} ;;
@@ -167,7 +169,17 @@ dodoc() {
 
 	for i
 	do
-		if [ -f ${i} -o -L ${i} ]
+		if [ -d ${i} ]
+		then
+			d=${i%/}
+			pushd ${d}/..
+			dodir $(find ${d##*/} -type d -exec printf ${docdir}/'{}'" " \;)
+			for f in $(find ${d##*/} ! -type d)
+			do
+				__doinstall 0644 ${f} ${docdir}/${f%/*} || error "dodoc -r ${d} failed"
+			done
+			popd
+		elif [ -f ${i} -o -L ${i} ]
 		then
 			if [ "x$(file -b ${i})" != "xempty" -a ! -f ${D}${docdir}/${i} ]
 			then
