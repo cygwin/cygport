@@ -68,7 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/cygport
 %{_datadir}/cygport
 %{_datadir}/mime/packages/cygport.xml
-%{_mandir}/man1/cygport.1.gz
+%{_mandir}/man1/cygport.1*
 
 
 %changelog
