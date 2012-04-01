@@ -68,6 +68,23 @@ source ${_privlibdir}/syntax.cygpart
 #****
 
 #****** Cygport/Introduction
+#  INTRODUCTION
+#  cygport is a utility for creating and building software packages for the
+#  software platform.  It is designed to minimize the amount of code and
+#  effort for individual packages, automating common processes while leaving
+#  flexibility to deal with unusual packages while avoiding many mistakes
+#  or omissions.
+#
+#  cygport packages are controlled by .cygport files, which define variables
+#  and functions unique to that package and version.  cygport provides a
+#  modular API, documented here, which covers a wide variety of packaging
+#  scenarios.
+#
+#  The syntax of .cygport files resemble that of Gentoo Portage, but they
+#  are not compatible.  Furthermore, unlike Portage, cygport is not a
+#  package manager; it only creates packages which can then be used in a
+#  Cygwin package repository and installed with Cygwin's setup.exe package
+#  manager.
 #****
 
 #****** Cygport/Usage
