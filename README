@@ -360,19 +360,20 @@ libraries, and API documentation.  In order to create separate binary
 packages for each of these, all that is necessary is to define a few
 variables:
 
-    PKG_NAMES="${PN} ${PN}-devel ${PN}-doc"
+    PKG_NAMES="libgnome2 libgnome2-devel libgnome2-doc"
     PKG_HINTS="setup devel doc"
-    PKG_CONTENTS[0]="etc/ usr/bin/ usr/lib/bonobo/ usr/share/doc/ \
+    libgnome2_CONTENTS="etc/ usr/bin/ usr/lib/bonobo/ usr/share/doc/ \
         usr/share/man/"
-    PKG_CONTENTS[1]='usr/include/ usr/lib/lib* usr/lib/pkgconfig/'
-    PKG_CONTENTS[2]='usr/share/gtk-doc/'
+    libgnome2_devel_CONTENTS='usr/include/ usr/lib/lib* usr/lib/pkgconfig/'
+    libgnome2_doc_CONTENTS='usr/share/gtk-doc/'
 
 Or an ordinary library package may look like:
 
-    PKG_NAMES="${PN} lib${PN}2"
-    PKG_HINTS='setup runtime'
-    PKG_CONTENTS[0]='--exclude=usr/bin/*.dll usr/'
-    PKG_CONTENTS[1]='usr/bin/*.dll'
+    PKG_NAMES="foo libfoo2 libfoo-devel"
+    PKG_HINTS='setup runtime devel'
+    foo_CONTENTS='--exclude=usr/bin/*.dll usr/bin/ usr/share/'
+    libfoo1_CONTENTS='usr/bin/cygfoo*-1.dll"
+    libfoo_devel_CONTENTS="usr/include/ usr/lib/"
 
 PKG_NAMES is a string list of package names; the first package name must 
 be ${PN}.
@@ -382,11 +383,11 @@ optional here (but mandatory for the files themselves).  These will be
 installed as setup.hint in the corresponding directory of dist/${PN}/.
 PKG_HINTS will default to PKG_NAMES if left undefined.
 
-PKG_CONTENTS[] is an array; each element (starting with 0) should be
+[PKG]_CONTENTS is a set of variables, one for each package in PKG_NAMES,
 defined as the files to include in the corresponding binary package as
 arguments to tar(1).  Alternatively, a PKG_NAME.list file can be created 
-in CYGWIN-PATCHES with the argument list, in which case the PKG_CONTENTS 
-member should not be defined.
+in CYGWIN-PATCHES with the argument list, in which case that [PKG]_CONTENTS
+variable should not be defined.
 
 cygport will check that all PKG_* variables refer to the same number of
 packages.
