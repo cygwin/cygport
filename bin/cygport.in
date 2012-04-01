@@ -471,6 +471,7 @@ else
 fi
 
 #****d* Globals/S
+#  DESCRIPTION
 #  The source directory.  Build tool regeneration (e.g. cygautoreconf) occurs
 #  in this directory, but other build steps should occur in B.
 #****
