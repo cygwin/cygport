@@ -70,6 +70,7 @@ headertypes:
 	C  "Compile Functions" cygport_compile_functions
 	T  "Testsuite Functions" cygport_testsuite_functions
 	I  "Install Functions" cygport_install_functions
+	P  "Postinstall Steps" cygport_postinstall_steps
 ignore files:
 	autom4te.cache
 	CYGWIN-PATCHES

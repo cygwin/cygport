@@ -20,6 +20,18 @@
 #
 ################################################################################
 
+#****P* Postinstall/ Fonts
+#  DESCRIPTION
+#  If fonts are installed into the standard font directory under $D, the
+#  following steps will occur automatically:
+#  * PCF fonts are gzip-compressed
+#  * Script(s) will be created to register the fonts with the X11 core font
+#    system and with fontconfig.
+#  NOTE
+#  Packages including fonts must depend on the font-encodings, fontconfig,
+#  mkfontdir, and mkfontscale packages.
+#****
+
 # these are called conditionally by __prepetc
 __prep_fonts_dir() {
 	fontsdir=/usr/share/fonts
@@ -49,6 +61,16 @@ __prep_fonts_dir() {
 		esac
 	done
 }
+
+#****P* Postinstall/Freedesktop.org MIME
+#  DESCRIPTION
+#  Package postinstall commands will be automatically generated if desktop
+#  menu entries with MimeType declarations, or additional definitions for the
+#  Shared MIME-Info database, are present in the package.
+#  NOTE
+#  Packages including either of these should depend on the desktop-file-utils
+#  and shared-mime-info packages.
+#****
 
 __prep_freedesktop_mime() {
 	local _already_updated_mime_db
@@ -95,6 +117,14 @@ __prep_freedesktop_mime() {
 	fi
 }
 
+#****P* Postinstall/GConf Schemas
+#  DESCRIPTION
+#  Package postinstall and preremove scripts will be automatically generated
+#  to un/register GConf schemas into the system GConf database.
+#  NOTE
+#  Packages providing GConf schemas must require the GConf2 package.
+#****
+
 __prep_gconf_schemas() {
 	dodir /etc/postinstall /etc/preremove
 
@@ -121,6 +151,15 @@ __prep_gconf_schemas() {
 	echo >> ${D}/etc/preremove/${PN}.sh
 }
 
+#****P* Postinstall/GSettings Schemas
+#  DESCRIPTION
+#  Package postinstall scripts will be automatically generated to register
+#  GSettings schemas with the system GSettings database.
+#  NOTE
+#  Packages using GSettings will always require libglib2.0_0 or one of its
+#  bindings.
+#****
+
 __prep_gsettings_schemas() {
 	dodir /etc/postinstall
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
@@ -128,6 +167,14 @@ __prep_gsettings_schemas() {
 
 	_EOF
 }
+
+#****P* Postinstall/GIO Modules
+#  DESCRIPTION
+#  Package postinstall scripts will be automatically generated to register
+#  GIO modules with the system GIO module cache.
+#  NOTE
+#  Packages providing GIO modules will always require libglib2.0_0.
+#****
 
 __prep_gio_modules() {
 	dodir /etc/postinstall
@@ -140,6 +187,14 @@ __prep_gio_modules() {
 		_EOF
 }
 
+#****P* Postinstall/GdkPixbuf Loaders
+#  DESCRIPTION
+#  Package postinstall scripts will be automatically generated to register
+#  GdkPixbuf loaders with the system GdkPixbuf loader cache.
+#  NOTE
+#  Packages using GSettings will always require libgdk_pixbuf2.0_0.
+#****
+
 __prep_gdk_pixbuf_modules() {
 	dodir /etc/postinstall
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
@@ -150,6 +205,15 @@ __prep_gdk_pixbuf_modules() {
 
 		_EOF
 }
+
+#****P* Postinstall/GTK+ Input Method Modules
+#  DESCRIPTION
+#  Package postinstall scripts will be automatically generated to register
+#  GTK+ Input Method Modules with the system module cache.
+#  NOTE
+#  Packages providing GTK Input Method Modules will always require either
+#  libgtk2.0_0 or libgtk3_0, depending on which version of GTK+ it supports.
+#****
 
 __prep_gtk2_modules() {
 	# necessary for postinstalling gtk2 itself
@@ -215,6 +279,13 @@ __prep_gtk3_modules() {
 	fi
 }
 
+#****P* Postinstall/Icon Themes
+#  DESCRIPTION
+#  Packages postinstall scripts will be automatically generated for packages
+#  providing an icon theme, or additional icons for a given theme, to update
+#  that icon theme's cache.
+#****
+
 __prep_gtk_icon_theme() {
 	local icondir
 
@@ -233,6 +304,14 @@ __prep_gtk_icon_theme() {
 		fi
 	done
 }
+
+#****P* Postinstall/MATEConf Schemas
+#  DESCRIPTION
+#  Package postinstall and preremove scripts will be automatically generated
+#  to un/register MATEConf schemas into the system MATEConf database.
+#  NOTE
+#  Packages providing MATEConf schemas must require the mate-conf package.
+#****
 
 __prep_mateconf_schemas() {
 	dodir /etc/postinstall /etc/preremove
@@ -259,6 +338,17 @@ __prep_mateconf_schemas() {
 	echo >> ${D}/etc/postinstall/${PN}.sh
 	echo >> ${D}/etc/preremove/${PN}.sh
 }
+
+#****P* Postinstall/TeX Live
+#  DESCRIPTION
+#  Package postinstall and preremove scripts will be automatically generated
+#  for packages installing TeX files into the system TEXMF tree, which will
+#  update the ls-R databases, TeX font maps, and TeX format files.
+#  NOTE
+#  Packages providing TeX files must require the texlive-collection-basic
+#  package, and also the fontconfig package if OTF, TTF, or Type1 fonts
+#  are provided.
+#****
 
 __prep_texlive() {
 	local d fmt fmts map maps
@@ -318,6 +408,11 @@ __prep_texlive() {
 }
 # end of conditional __prepetc helpers
 
+#****P* Postinstall/ Documentation
+#  DESCRIPTION
+#  Standard documentation files in $S will be automatically installed into
+#  $D/usr/share/doc/PN.  Empty files will be skipped.
+#****
 
 # installs standard docs, html docs, and Cygwin README
 __prepdoc() {
@@ -378,6 +473,11 @@ __prepdoc() {
 		n+=1;
 	done
 }
+
+#****P* Postinstall/Emacs Lisp
+#  DESCRIPTION
+#  Emacs Lisp files will be automatically byte-compiled if emacs is present.
+#****
 
 __prepemacs() {
 	local emacssitedir="/usr/share/emacs/site-lisp"
@@ -520,6 +620,14 @@ __prepetc() {
 	done
 }
 
+#****P* Postinstall/Man Pages
+#  DESCRIPTION
+#  The following cleanup steps will occur if man pages are installed:
+#  * Man page filenames with '::' will be renamed for compatibility with man(1).
+#  * Man pages will be gzip-compressed.
+#  * Man page symlinks will be fixed.
+#****
+
 __prepman() {
 	local man manlink manpage;
 
@@ -562,6 +670,13 @@ __prepman() {
 	fi
 }
 
+#****P* Postinstall/Info Pages
+#  DESCRIPTION
+#  The following cleanup steps will occur if info pages are installed:
+#  * Info pages will be gzip-compressed.
+#  * Errant info/dir files will be deleted.
+#****
+
 __prepinfo() {
 	local infopage;
 
@@ -588,6 +703,11 @@ __prepinfo() {
 	fi
 }
 
+#****P* Postinstall/Game Data
+#  DESCRIPTION
+#  Game data installed into /var/games will be handled with make_etc_defaults.
+#****
+
 __prepvargames() {
 	local f;
 
@@ -606,7 +726,13 @@ __prepvargames() {
 	fi
 }
 
-#****v* Postinstall/KEEPDIRS
+#****P* Postinstall/Empty Directories
+#  DESCRIPTION
+#  Empty directories will be removed automatically, unless marked for saving
+#  with keepdir or KEEPDIRS.
+#****
+
+#****v* Empty Directories/KEEPDIRS
 #  SYNOPSIS
 #  KEEPDIRS="DIRECTORY [DIRECTORY...]"
 #  DESCRIPTION
@@ -635,6 +761,13 @@ __prep_empty_dirs() {
 		done
 	done
 }
+
+#****P* Postinstall/Strip Binaries
+#  DESCRIPTION
+#  Debug symbols in executables and shared libraries will be stripped
+#  automatically, except for Mono assemblies and OCaml bytecode which cannot
+#  be stripped.
+#****
 
 __prepstrip() {
 	local exe;
@@ -719,6 +852,12 @@ __prepstrip() {
 		${strip} ${exe};
 	done
 }
+
+#****P* Postinstall/Windows UAC
+#  DESCRIPTION
+#  Manifest files will be automatically generated to circumvent UAC for those
+#  executables whose names normally trigger UAC.
+#****
 
 __prepuac() {
 	local exe exename;
@@ -819,9 +958,7 @@ __prep_symlinks() {
 	done
 }
 
-#****v* Postinstall/KEEP_LA_FILES
-#  SYNOPSIS
-#  KEEP_LA_FILES=[all|module|shared|static|none]
+#****P* Postinstall/Libtool Libraries
 #  DESCRIPTION
 #  Libtool libraries use .la ("libtool archive") files to represent the
 #  library in a cross-platform way during the build process.  By default,
@@ -830,8 +967,20 @@ __prep_symlinks() {
 #  the DLL, and to determine its dependencies when linking something else
 #  against it.
 #
-#  In practice, however, most of the time these files are not truly
-#  necessary, in which case they end up just slowing down builds and sometimes
+#  The following steps will occur automatically when libtool libraries
+#  are included in a package:
+#  * files are checked to assure that all components have been installed
+#  * static and import libraries are removed from modules
+#  * DLLs from non-module libraries will be moved to $D/usr/bin or
+#    $D/$CROSS_BINDIR as appropriate.
+#****
+
+#****v* Libtool Libraries/KEEP_LA_FILES
+#  SYNOPSIS
+#  KEEP_LA_FILES=[all|module|shared|static|none]
+#  DESCRIPTION
+#  Most of the time, libtool library files are not truly necessary,
+#  in which case they end up just slowing down builds and sometimes
 #  even causing a module to be loaded twice.  Therefore, many distributions
 #  have begun removing them from binary packages.
 #
