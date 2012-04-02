@@ -90,6 +90,12 @@ source ${_privlibdir}/syntax.cygpart
 #****** Cygport/Usage
 #  USAGE
 #  See href:cygport.1.html for command line options.
+#  REQUIRES
+#  The following packages are required to build packages with cygport:
+#   autoconf, automake, bash, binutils, bzip2, coreutils, diffstat, diffutils,
+#   file, grep, gzip, libtool, lndir, make, patch, rsync, sed, tar, unzip,
+#   util-linux, wget.
+#  Other software packages are required by some Cygclasses, as indicated within.
 #****
 
 ### import _show_help, _show_version
@@ -138,6 +144,19 @@ fi
 #****
 
 #****** Cygport/Format
+#  INTRODUCTION
+#  The .cygport file name must be in the form PN-PV-PR.cygport, and its
+#  contents must conform to bash shell syntax.  Comments may be included,
+#  beginning with '#' until end-of-line; all comments are ignored during
+#  execution of cygport.
+#
+#  Since a .cygport file is itself not a functioning script, the she-bang
+#  header (#!/bin/bash) should be omitted.
+#
+#  The bare minimum for a working .cygport file includes a SRC_URI definition,
+#  and src_compile and src_install functions.  Note that several Cygclasses
+#  provide some or all of these, so in some cases a single line inherit
+#  command will suffice.
 #****
 
 #****** Cygport/Checks
@@ -221,6 +240,15 @@ unset conf;
 #****
 
 #****** Cygport/Packaging
+#  INTRODUCTION
+#  In most cases, only one binary package is created from a source package,
+#  including all files installed into $D.  This is the default, and if
+#  this applies to your package, the rest of this section is irrelevant.
+#
+#  However, there are many cases -- often with library packages -- that it
+#  is desirable to create multiple binary packages from one source.
+#  cygport makes that very easy, by defining the variables described in this
+#  section.
 #****
 
 #****** Cygport/Cygclasses
