@@ -159,7 +159,7 @@ fi
 #  command will suffice.
 #****
 
-#****** Cygport/Checks
+#****** Cygport/Information
 #****
 
 ### import check_prog and friends
@@ -223,6 +223,9 @@ unset conf;
 #****** Cygport/Preparation
 #****
 
+#****** Cygport/Checks
+#****
+
 #****** Cygport/Compiling
 #****
 
@@ -237,9 +240,6 @@ unset conf;
 #****
 
 #****** Cygport/Postinstall
-#****
-
-#****** Cygport/Information
 #****
 
 #****** Cygport/Packaging
