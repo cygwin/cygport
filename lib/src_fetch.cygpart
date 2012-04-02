@@ -33,7 +33,7 @@
 #  a default SRC_URI based on the values of PN and PV.
 #****
 
-#****v* Downloading/PATCH_URI
+#****v* Preparation/PATCH_URI
 #  DESCRIPTION
 #  Download address(es) for source patches which are to be applied immediately
 #  after unpacking sources, as a string.

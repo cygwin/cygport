@@ -332,6 +332,15 @@ __src_prep() {
 		unpack ${top}/${src_pkg};
 	done
 
+#****v* Preparation/SRC_DIR
+#  DESCRIPTION
+#  The top-level directory of the primary source tarball.  Defaults to
+#  PN-PV.
+#  NOTE
+#  If the source tarball does not have a single directory under which all
+#  files are unpacked, use SRC_DIR=".".
+#****
+
 	if [ ! -d ${origsrcdir}/${SRC_DIR} ]
 	then
 		error "SRC_DIR is not correctly defined"
@@ -340,6 +349,13 @@ __src_prep() {
 	# cd will fail if not executable (e.g. dot2tex)
 	chmod +x ${origsrcdir}/${SRC_DIR};
 	cd ${origsrcdir}/${SRC_DIR};
+
+#****v* Preparation/DISTCLEANFILES
+#  DESCRIPTION
+#  A list of files to be deleted immediately upon unpacking sources,
+#  relative to $S.  This is intended to be used with buildsystem-generated
+#  files which are incorrectly included in the source tarball.
+#****
 
 	if defined DISTCLEANFILES
 	then
