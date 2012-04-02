@@ -20,6 +20,17 @@
 #
 ################################################################################
 
+#****v* Information/DESCRIPTION
+#  DESCRIPTION
+#  A short, one-line description of the package.  This is purely informational.
+#****
+
+#****v* Information/HOMEPAGE
+#  DESCRIPTION
+#  The website URI of the package.  Besides being informational, this defines
+#  what address will be displayed in BROWSER by the homepage command.
+#****
+
 __show_info() {
 	cat <<-_EOF
 	Cygport package information

@@ -487,11 +487,6 @@ do
 	export _CYGPORT_RESTRICT_${restrict//-/_}_=1
 done
 
-#****v* Information/DESCRIPTION
-#****
-
-#****v* Information/HOMEPAGE
-#****
 
 ################################################################################
 #
