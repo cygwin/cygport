@@ -412,7 +412,7 @@ __prep_texlive() {
 }
 # end of conditional __prepetc helpers
 
-#****P* Postinstall/ Documentation
+#****P* Postinstall/Documentation Files
 #  DESCRIPTION
 #  Standard documentation files in $S will be automatically installed into
 #  $D/usr/share/doc/PN.  Empty files will be skipped.
@@ -439,9 +439,21 @@ __prepdoc() {
 	then
 		inform "Skipping package doc installation per request";
 	else
+
+#****v* Documentation Files/DOCS
+#  DESCRIPTION
+#  A list of documentation files, relative to $S, to be installed.  Note
+#  that most standard documentation files are installed automatically and
+#  do not need to specified here.
+#****
 		unset _docinto_dir;
 		dodoc ${default_docs} ${DOCS};
 
+#****v* Documentation Files/HTMLDOCS
+#  DESCRIPTION
+#  A list of HTML documentation files, relative to $S, to be installed in
+#  the html subdirectory of the standard docdir.
+#****
 		for html in ${HTMLDOCS}
 		do
 			docinto html;
