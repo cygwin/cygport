@@ -482,8 +482,6 @@ then
 fi
 
 
-#****v* Globals/RESTRICT
-#****
 for restrict in ${RESTRICT}
 do
 	export _CYGPORT_RESTRICT_${restrict//-/_}_=1

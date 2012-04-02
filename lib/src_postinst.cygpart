@@ -123,6 +123,8 @@ __prep_freedesktop_mime() {
 #  to un/register GConf schemas into the system GConf database.
 #  NOTE
 #  Packages providing GConf schemas must require the GConf2 package.
+#  SEE ALSO
+#  RESTRICT
 #****
 
 __prep_gconf_schemas() {
@@ -311,6 +313,8 @@ __prep_gtk_icon_theme() {
 #  to un/register MATEConf schemas into the system MATEConf database.
 #  NOTE
 #  Packages providing MATEConf schemas must require the mate-conf package.
+#  SEE ALSO
+#  RESTRICT
 #****
 
 __prep_mateconf_schemas() {
@@ -412,6 +416,8 @@ __prep_texlive() {
 #  DESCRIPTION
 #  Standard documentation files in $S will be automatically installed into
 #  $D/usr/share/doc/PN.  Empty files will be skipped.
+#  SEE ALSO
+#  RESTRICT
 #****
 
 # installs standard docs, html docs, and Cygwin README
@@ -767,6 +773,8 @@ __prep_empty_dirs() {
 #  Debug symbols in executables and shared libraries will be stripped
 #  automatically, except for Mono assemblies and OCaml bytecode which cannot
 #  be stripped.
+#  SEE ALSO
+#  RESTRICT
 #****
 
 __prepstrip() {
@@ -1198,6 +1206,22 @@ __prep_libtool_modules() {
 
 	popd
 }
+
+#****v* Postinstall/RESTRICT
+#  DESCRIPTION
+#  List of automatic postinstall or packaging step(s) which should be skipped
+#  for this package.  Supported values are:
+#  * diff: do not generate a .src.patch file of changes made in $S.
+#  * postinst-doc: do not install standard documentation files.
+#  * postinst-gconf: do not create postinstall commands for GConf schemas.
+#  * postinst-mateconf: do not create postinstall commands for MATEConf schemas.
+#  * strip: do not strip binaries.
+#  Of these, "diff" is the only one that should be considered useful, e.g.
+#  with very large data-only packages which will have no useful diff.  If you
+#  find yourself using any of the others to work around cygport's default
+#  behaviour, in all likelyhood it is either a bug in cygport or in the
+#  .cygport file.
+#****
 
 __src_postinst() {
 	__prepdoc;
