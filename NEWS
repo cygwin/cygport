@@ -1,3 +1,12 @@
+0.10.10:
+	* The "download" command now downloads only missing sources; use
+	  "downloadall" to refetch all sources (the previous behaviour).
+	* Added support for .tar.lrz tarballs (requires lrzip).
+	* Documentation is nearly complete.
+	* dodoc: accepts directories to be installed recursively.
+	* autotools.cygclass: build only shared libtool libraries by default.
+	* xorg.cygclass: add support for driver packages.
+
 0.10.9:
 	* Bug fixes for TeX Live postinstall scripts.
 	* dodoc: Respects .md as alternative file suffix.

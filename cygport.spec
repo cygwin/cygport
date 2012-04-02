@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.10.9
+Version:        0.10.10
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Apr 01 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.10-1
+- Version bump.
+
 * Wed Mar 14 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.9-1
 - Added support for GStreamer 0.11/1.0 series.
 - More bugfixes for texlive postinstalls.
