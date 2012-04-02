@@ -16,6 +16,7 @@ Requires:       autoconf automake libtool pkgconfig
 Requires:       bzip2 gzip unzip
 Requires:       cygwin-binutils
 Requires:       cygwin-gcc
+Requires:       cygwin-libtool
 Requires:       diffstat
 Requires:       diffutils
 Requires:       file
