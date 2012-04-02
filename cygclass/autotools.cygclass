@@ -334,7 +334,13 @@ cygautoreconf() {
 
 		if __cross_compiling
 		then
-			local sysrootaclocaldir=$(${CC} -print-sysroot)$(__target_prefix)/share/aclocal
+			local ccsysroot=$(${CC} -print-sysroot)
+			local sysrootltize=${ccsysroot}$(__target_prefix)/bin/libtoolize
+			local sysrootaclocaldir=${ccsysroot}$(__target_prefix)/share/aclocal
+			if [ -x ${sysrootltize} ]
+			then
+				LIBTOOLIZE=${sysrootltize}
+			fi
 			if [ -d ${sysrootaclocaldir} ]
 			then
 				ACLOCAL+=" -I ${sysrootaclocaldir}"
