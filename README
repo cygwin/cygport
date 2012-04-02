@@ -175,144 +175,8 @@ See the data/sample.cygport file, included in the Cygwin package in
 ${prefix}/share/cygport, for a simple example.  Many more examples
 are available in the Cygwin Ports repository[5].
 
-The .cygport file name must be in the form PKGNAME-VERSION-RELEASE.cygport, 
-where PKGNAME is the Cygwin package name (which need not be the same as 
-the original source package name).
-
-Pure bash syntax is used.  Since a .cygport file is itself not a
-functioning script, the she-bang header (#!/bin/bash) should be omitted.
-
-Bash-style comments may be included, beginning with # until end-of-line;
-all comments are ignored during execution of cygport.
-
-At a minimum, the following must be considered:
-
-SRC_URI must be defined to a wget-downloadable URL; this is also used to
-determine the original source package and assume its top directory name;
-if the latter does not conform to PKGNAME-VERSION (in cygport syntax,
-${PN}-${PV}, or ${P}), then define SRC_DIR.
-
-During the src_* functions, be sure to cd into the correct directory. 
-The directories are defined by cygport as follows:
-
-    S is the original source directory; you should NOT compile here.
-    B is the build directory, where all compilation should take place.
-    D is the installation directory (DESTDIR).
-    C is the CYGWIN-PATCHES directory.
-
-All compilation is handled in the src_compile() function.
-
-All autotool-based packages should have autoreconf run on them before
-running configure, in order to pull in the current Cygwin libtool, and
-to assure that patches to configure.in or Makefile.am actually take
-affect.  The defaults are autoconf-2.5 and automake-1.10; these may be
-overridden by defining WANT_AUTOCONF and WANT_AUTOMAKE to the desired
-versions; be sure to remember that libtool >= 1.5 requires that
-autoconf-2.5 be used.  The 'cygautoreconf' command handles all this for
-you, and must be called at the beginning of the src_compile step. 
-(Files regenerated through this process will be ignored when generating
-the source patch.)
-
-The 'cygconf' command should be run from ${B}, and it passes the
-following arguments to configure:
-
-    --prefix=/usr
-    --exec-prefix=/usr
-    --libexecdir=/usr/lib
-    --sysconfdir=/etc
-    --localstatedir=/var
-
-    (autoconf-2.13)                  (autoconf-2.6x)
-    --datadir=/usr/share             --datarootdir=/usr/share
-    --infodir=/usr/share/info        --docdir=/usr/share/doc/${P}
-    --mandir=/usr/share/man
-
-
-These arguments will install everything according to the Cygwin
-packaging guidelines. Additional arguments can be passed to configure as
-arguments of cygconf, e.g.:
-
-    cygconf --disable-static
-
-or by defining CYGCONF_ARGS:
-
-    CYGCONF_ARGS="--disable-static"
-
-Remember that, in case of conflicting arguments, that configure will
-accept only the last. Arguments to cygconf will override the default
-arguments.
-
-The 'cygmake' command calls make(1) and passes it ${MAKEOPTS} and any
-arguments it receives. By default, MAKEOPTS is defined to '-j2' --
-despite what it says on the Cygwin website[6], parallel make works just
-as well on Cygwin as it does on Linux.  Some packages, however, use make
-rules that break parallel jobs, in which case you can do one of the
-following:
-
-    MAKEOPTS+=" -j1"
-
-    cygmake -j1
-
-A default src_compile() is provided, which does the following:
-
-    cd ${S}
-    cygautoreconf
-    cd ${B}
-    cygconf
-    cygmake
-
-Another command that may come in useful is 'lndirs', which mirrors ${S}
-into ${B} with symlinks.  This is primarily for use with non-autotooled 
-packages, so that they may be built in ${B} rather than ${S}.
-
-The src_test() function defines how to run the package testsuite, if
-any, during the check command The default is to run 'make check' if the
-package is autotool-based, otherwise 'make test' is run.  If a package
-does not conform to this rule, then a src_test() function should be
-included in the package .cygport.  For example:
-
-    src_test() {
-        cd ${B}
-        make megatest
-    }
-    
-The src_install() function defines how the package is installed into
-${D}, from which various generic post-installation steps occur and the
-binary package(s) are made.
-
-The 'cyginstall' command runs 'make install'.  cyginstall can be run in
-two modes.  If USE_DESTDIR=1 (the default), then DESTDIR=${D} is
-defined, otherwise, if USE_DESTDIR=0, then prefix and all the standard
-*dir values are redefined with a preceding ${D}; the latter is meant for
-non-automake Makefiles which don't support DESTDIR.  In either mode,
-cyginstall passes along any arguments it receives.
-
-A number of helper commands are available for manually installing files
-to various locations.  These commands have names and syntax almost
-identical to their Gentoo counterparts.  When specifying directories,
-write as if your installing to the system; the scripts will do
-everything under ${D} for you.  Some examples:
-
-    # create directories
-    dodir /usr/share/foo/bar /usr/share/foo/misc
-
-    # install -m755 into ${D}/usr/bin
-    dobin foo.exe
-
-    # install -m644 into a custom directory
-    insinto /usr/include/foo-1.0
-    doins ${S}/src/foo.h
-
-    # install -m644 into ${D}/usr/lib
-    dolib libfoo.dll.a    
-
-The default src_install() is defined simply as:
-
-    cd ${B}
-    cyginstall
-
-Many cygclasses also define default src_compile(), src_test(), and
-src_install() functions, which will override the aforementioned defaults.
+Please see the Cygport Reference Manual, included with this package, for
+documentation on the cygport API.
 
 The post-install stage is run automatically after src_install(), during
 which a number of steps are run:
@@ -344,67 +208,7 @@ CYGWIN-PATCHES directory as postinstall.sh and preremove.sh; these
 scripts should be written as stubs, without the she-bang header.
 
 
-5. PACKAGING
-
-In most cases, only one binary package is created from a source package,
-including all files installed into ${D}.  This is the default, and if
-this applies to your package, the rest of this section is irrelevant.
-
-However, there are many cases -- often with library packages -- that it
-is desirable to create multiple binary packages from one source. 
-cygport makes that very easy.
-
-Let's take a typical GNOME 2 library package as an example.  Such
-packages contain runtime libraries and data, development headers and
-libraries, and API documentation.  In order to create separate binary
-packages for each of these, all that is necessary is to define a few
-variables:
-
-    PKG_NAMES="libgnome2 libgnome2-devel libgnome2-doc"
-    PKG_HINTS="setup devel doc"
-    libgnome2_CONTENTS="etc/ usr/bin/ usr/lib/bonobo/ usr/share/doc/ \
-        usr/share/man/"
-    libgnome2_devel_CONTENTS='usr/include/ usr/lib/lib* usr/lib/pkgconfig/'
-    libgnome2_doc_CONTENTS='usr/share/gtk-doc/'
-
-Or an ordinary library package may look like:
-
-    PKG_NAMES="foo libfoo2 libfoo-devel"
-    PKG_HINTS='setup runtime devel'
-    foo_CONTENTS='--exclude=usr/bin/*.dll usr/bin/ usr/share/'
-    libfoo1_CONTENTS='usr/bin/cygfoo*-1.dll"
-    libfoo_devel_CONTENTS="usr/include/ usr/lib/"
-
-PKG_NAMES is a string list of package names; the first package name must 
-be ${PN}.
-
-PKG_HINTS is a string list of setup.hint names; the .hint extension is
-optional here (but mandatory for the files themselves).  These will be
-installed as setup.hint in the corresponding directory of dist/${PN}/.
-PKG_HINTS will default to PKG_NAMES if left undefined.
-
-[PKG]_CONTENTS is a set of variables, one for each package in PKG_NAMES,
-defined as the files to include in the corresponding binary package as
-arguments to tar(1).  Alternatively, a PKG_NAME.list file can be created 
-in CYGWIN-PATCHES with the argument list, in which case that [PKG]_CONTENTS
-variable should not be defined.
-
-cygport will check that all PKG_* variables refer to the same number of
-packages.
-
-During the 'package' phase, the additional packages will be created as
-subdirectories of dist/${PN}/ for easy transfer to release/, e.g.:
-
-    libgnome2/libgnome2-devel/libgnome2-devel-2.14.0-1.tar.bz2
-    libgnome2/libgnome2-devel/setup.hint    # ${C}/devel.hint
-    libgnome2/libgnome2-doc/libgnome2-doc-2.14.0-1.tar.bz2
-    libgnome2/libgnome2-doc/setup.hint        # ${C}/doc.hint
-    libgnome2/libgnome2-2.14.0-1-src.tar.bz2
-    libgnome2/libgnome2-2.14.0-1.tar.bz2
-    libgnome2/setup.hint                    # ${C}/setup.hint
-
-
-6. REQUIREMENTS
+5. REQUIREMENTS
 
 The following packages are required to build packages with cygport, in
 addition to the packages own dependencies:
@@ -432,7 +236,7 @@ addition to the packages own dependencies:
     util-linux
     wget
 
-7. DOWNLOAD AND INSTALLATION
+6. DOWNLOAD AND INSTALLATION
 
 Cygwin binary and source packages of cygport are available as part of
 the Cygwin distribution, under the 'Devel' category.  Installing cygport 
@@ -454,7 +258,7 @@ Cygwin packages are required: autoconf, automake, coreutils, groff,
 help2man, robodoc, sed.
 
 
-8. SUPPORT
+7. SUPPORT
 
 Discussion on cygport should occur on the Cygwin Ports discussion list
 <cygwin-ports-general@lists.sourceforge.net> or on the Cygwin-apps list
@@ -466,4 +270,3 @@ Discussion on cygport should occur on the Cygwin Ports discussion list
 [3] http://gentoo-wiki.com/HOWTO_Gentoo_on_Cygwin
 [4] http://www.cygwin.com/ml/cygwin-apps/2006-03/msg00000.html
 [5] http://cygwin-ports.svn.sourceforge.net/viewvc/cygwin-ports/ports/trunk/
-[6] http://cygwin.com/faq/faq.programming.html#faq.programming.make-execvp
