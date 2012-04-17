@@ -33,7 +33,7 @@
 #
 #  This package provides definitions and functions for building PyGTK bindings.
 #  INHERITS
-#  gnome.org.cygclass, python.cygclass
+#  gnome.org.cygclass (unless mate.cygclass has been inherit()ed), python.cygclass
 #****
 
 case ${PN#python-} in
@@ -53,13 +53,18 @@ case ${PN#python-} in
 		pygtk_mod="gstreamer 0.10"
 		ORIG_PN="gst-python"
 		;;
+	mate*)
+		pygtk_mod=${PN#python-}
+		ORIG_PN=${ORIG_PN:-${PN}}
+		;;
 	*)
 		pygtk_mod=${PN#python-}
 		ORIG_PN=${ORIG_PN:-py${pygtk_mod%2*}}
 		;;
 esac
 
-inherit gnome.org python
+inherited mate || inherit gnome.org
+inherit python
 
 #****d* pygtk.cygclass/PYGTK_INCLUDEDIR
 #  DESCRIPTION
