@@ -108,6 +108,21 @@ declare -x GCJ="gcj";
 #****
 declare -x GCJFLAGS="${CFLAGS}";
 
+#****d* Compiling/GOC
+#  DESCRIPTION
+#  The GCC Go native-code compiler.
+#****
+declare -x GOC="gccgo";
+
+#****v* Compiling/GOFLAGS
+#  DESCRIPTION
+#  Flags passed to GOC when native-compiling Go code.  Individual packages may
+#  append or override this value if they will not build correctly without it.
+#  DEFAULT VALUE
+#  -g -O2 -pipe
+#****
+declare -x GOFLAGS="${CFLAGS}";
+
 #****d* Compiling/OBJC
 #  DESCRIPTION
 #  The GCC Objective C compiler.
@@ -165,6 +180,7 @@ then
 	F77=${CHOST}-gfortran
 	FC=${CHOST}-gfortran
 	GCJ=${CHOST}-gcj
+	GOC=${CHOST}-gccgo
 	OBJC=${CHOST}-gcc
 	OBJCXX=${CHOST}-g++
 	OBJDUMP=${CHOST}-objdump
