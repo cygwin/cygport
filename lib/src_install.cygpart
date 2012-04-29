@@ -711,7 +711,10 @@ doenv() {
 
 	dodir /etc/profile.d
 	echo "export ${var}=\"${*}\"" >> ${D}/etc/profile.d/${PN}.sh
-	echo "setenv ${var} \"${*}\"" >> ${D}/etc/profile.d/${PN}.csh
+	cat >> ${D}/etc/profile.d/${PN}.csh <<-_EOF
+		if ( ! \$?${var} ) setenv ${var} ""
+		setenv ${var} "${*}"
+	_EOF
 }
 
 #****I* Installing/make_desktop_entry
