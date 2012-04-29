@@ -85,6 +85,21 @@ source ${_privlibdir}/syntax.cygpart
 #  package manager; it only creates packages which can then be used in a
 #  Cygwin package repository and installed with Cygwin's setup.exe package
 #  manager.
+#
+#  This manual is divided into the following chapters:
+#  * Usage
+#  * Configuration
+#  * Format
+#  * Information
+#  * Downloading
+#  * Preparation
+#  * Checks
+#  * Compiling
+#  * Testing
+#  * Installing
+#  * Postinstall
+#  * Packaging
+#  * Cygclasses
 #****
 
 #****** Cygport/Usage
