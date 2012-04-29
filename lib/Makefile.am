@@ -1,4 +1,5 @@
-pkglib_DATA = \
+cygpartdir = $(pkgdatadir)/lib
+cygpart_DATA = \
 	lib/check_funcs.cygpart		\
 	lib/compilers.cygpart		\
 	lib/config_registry.cygpart	\
@@ -16,4 +17,4 @@ pkglib_DATA = \
 	lib/syntax.cygpart		\
 	$(NULL)
 
-EXTRA_DIST += $(pkglib_DATA)
+EXTRA_DIST += $(cygpart_DATA)

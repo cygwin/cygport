@@ -34,9 +34,9 @@ export LC_COLLATE=C
 
 declare -r  _version=@VERSION@;
 
-declare -r _privlibdir=@pkglibdir@;
 declare -r _privdatadir=@pkgdatadir@;
 declare -r _privclassdir=@cygclassdir@;
+declare -r _privlibdir=@cygpartdir@;
 declare -r _privgnuconfigdir=@gnuconfigdir@;
 declare -r _sysconfdir=@sysconfdir@;
 

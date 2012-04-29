@@ -39,14 +39,14 @@ Cygwin package building tool.
 
 %build
 %configure --docdir=%{_docdir}/%{name}-%{version}
-make %{?_smp_mflags} pkglibdir=%{_datadir}/%{name}/lib
+make %{?_smp_mflags}
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 # First install all the files belonging to the shared build
-make install DESTDIR=$RPM_BUILD_ROOT pkglibdir=%{_datadir}/%{name}/lib
+make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %clean

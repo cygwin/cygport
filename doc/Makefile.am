@@ -18,7 +18,7 @@ endif HAVE_HELP2MAN
 
 if HAVE_ROBODOC
 
-doc/manual.html: Makefile.in $(top_srcdir)/doc/robodoc.rc $(top_srcdir)/bin/cygport.in $(cygclass_DATA) $(pkglib_DATA) $(pkgdata_DATA)
+doc/manual.html: Makefile.in $(top_srcdir)/doc/robodoc.rc $(top_srcdir)/bin/cygport.in $(cygclass_DATA) $(cygpart_DATA) $(pkgdata_DATA)
 	$(AM_V_GEN)test -d doc || $(MKDIR_P) doc ; \
 		cd $(top_srcdir) && \
 		$(ROBODOC) --src $(abs_top_srcdir) --doc $(abs_top_builddir)/doc/manual --rc $(abs_top_srcdir)/doc/robodoc.rc --html --singledoc
