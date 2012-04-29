@@ -140,7 +140,7 @@ texlive_install() {
 					dst=$(readlink $f)
 					dodir /usr/bin
 					case ${dst} in
-					\.\./*) dosym ../share/${dst#../../} /usr/bin/${f##*/} ;;
+					\.\./*) dosym /usr/share/${dst#../../} /usr/bin/${f##*/} ;;
 					*) dosym ${dst} /usr/bin/${f##*/} ;;
 					esac
 				fi
