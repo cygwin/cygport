@@ -289,10 +289,11 @@ __pkg_diff() {
 		default_excludes+=" mate-doc-utils.make mate-doc-utils.m4";
 	fi
 
-	if [ "${PN}" != "intltool" ]
+	if __config_equals with_intltool 1
 	then
 		default_excludes+=" intltool.m4 intltool-extract intltool-extract.in \
-			intltool-merge intltool-merge.in intltool-update intltool-update.in";
+			intltool-merge intltool-merge.in intltool-update intltool-update.in
+			Makefile.in.in";
 	fi
 
 	# KDE3
