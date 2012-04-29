@@ -284,6 +284,11 @@ __pkg_diff() {
 		default_excludes+=" gnome-doc-utils.make gnome-doc-utils.m4";
 	fi
 
+	if [ "${PN}" != "mate-doc-utils" ]
+	then
+		default_excludes+=" mate-doc-utils.make mate-doc-utils.m4";
+	fi
+
 	if [ "${PN}" != "intltool" ]
 	then
 		default_excludes+=" intltool.m4 intltool-extract intltool-extract.in \
