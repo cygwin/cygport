@@ -191,6 +191,12 @@ cygautoreconf() {
 				__config_set with_gnu_gettext 1
 			fi
 
+			if $(grep -Eq '(AC|IT)_PROG_INTLTOOL' ${sub_configure_ac})
+			then
+				intltoolize --automake --copy --force
+				__config_set with_intltool 1
+			fi
+
 			if $(grep -Eq '(A[CM]_PROG_LIBTOOL|LT_INIT)' ${sub_configure_ac})
 			then
 				__config_set with_libtool 1
