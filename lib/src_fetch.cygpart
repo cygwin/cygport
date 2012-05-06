@@ -31,6 +31,9 @@
 #
 #  This variable is required, but many cygclasses automatically define
 #  a default SRC_URI based on the values of PN and PV.
+#  SEE ALSO
+#  bzr.cygclass, cvs.cygclass, fossil.cygclass, git.cygclass, hg.cygclass,
+#  mtn.cygclass, svn.cygclass
 #****
 
 #****v* Preparation/PATCH_URI
