@@ -343,12 +343,12 @@ __pkg_diff() {
 	# diff exits >0 when targets differ, hence catch exception with true
 	if [ "${SRC_DIR}" = "." ]
 	then
-		diff -urN \
+		diff -urN -x '*~' \
 			${origsrcdir##*/}/CYGWIN-PATCHES ${srcdir##*/}/CYGWIN-PATCHES \
 			> ${patchdir}/${cygwin_patchfile} || true;
 		difflevel=1;
 	else
-		diff -urN \
+		diff -urN -x '*~' \
 			${origsrcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES ${srcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES \
 			> ${patchdir}/${cygwin_patchfile} || true;
 		difflevel=2;
