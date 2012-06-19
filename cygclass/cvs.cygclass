@@ -26,6 +26,7 @@
 #  CVS_URI="..."
 #  [CVS_BRANCH="..."]
 #  [CVS_DATE="..."]
+#  [CVS_MODULE="..."]
 #  inherit cvs
 #  DESCRIPTION
 #  CVS is a centralized version control system.  It was the first widely-used
@@ -41,13 +42,12 @@
 #  cvs
 #****
 
-# is this truly necessary?
 CVS_MODULE=${CVS_MODULE:-${ORIG_PN:-${PN}}}
 
 cvs_tarball="${CVS_MODULE//\//-}-${PV}.tar.bz2"
 
 SRC_URI="${cvs_tarball} "
-SRC_DIR="${CVS_MODULE}"
+SRC_DIR=${SRC_DIR:-${CVS_MODULE}}
 
 cvs_fetch() {
 	local cvs_branch
@@ -57,7 +57,7 @@ cvs_fetch() {
 
 #****v* cvs.cygclass/CVS_URI
 #  DESCRIPTION
-#  Address of CVS repository, usually in the form:
+#  Address of CVS repository ("Root" in CVS parlance), usually in the form:
 #    :pserver:anonymous@<server_uri>:/remote/path/to/repository
 #****
 	if ! defined CVS_URI
@@ -88,12 +88,20 @@ cvs_fetch() {
 		cvs_date="-D ${CVS_DATE}"
 	fi
 
+#****v* cvs.cygclass/CVS_MODULE
+#  DESCRIPTION
+#  Name of the CVS module to check out.  The default value is ORIG_PN if
+#  defined, or PN if not.
+#  NOTE
+#  In the rare case that the top-level directory of the checkout does not
+#  match the value of CVS_MODULE, then define SRC_DIR accordingly.
+#****
 	# T likely doesn't exist at this point, so create it first
 	mkdir -p ${T}
 	cd ${T}
 	verbose cvs -d ${CVS_URI} checkout ${cvs_branch} ${cvs_date} ${CVS_MODULE}
 
-	tar ${_tar_bz2_flag}cf ${top}/${cvs_tarball} --exclude-vcs ${CVS_MODULE}
+	tar ${_tar_bz2_flag}cf ${top}/${cvs_tarball} --exclude-vcs ${SRC_DIR}
 }
 
 readonly -f cvs_fetch
