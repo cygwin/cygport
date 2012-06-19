@@ -178,31 +178,11 @@ are available in the Cygwin Ports repository[5].
 Please see the Cygport Reference Manual, included with this package, for
 documentation on the cygport API.
 
-The post-install stage is run automatically after src_install(), during
-which a number of steps are run:
-    1) standard documentation is installed;
-    2) postinstall and preremove scripts are created, if necessary;
-    3) binaries are stripped;
-    4) man pages are compressed.
-
 A Cygwin README file should be included in the CYGWIN-PATCHES directory,
 named README.  A standard template for this purpose is available from
 the Cygwin distribution website[2].  The setup.hint files should also be
 included in CYGWIN-PATCHES.
     
-Most standard documentation files will be installed automatically; if
-your package has a unique doc, then you can either pass them to 'dodoc'
-during src_install(), or define DOCS as a string containing the names of
-docs you want installed.
-
-Many common postinstall/preremove script tasks are provided
-automatically, including:
-
-    1) GTK+ icon caching (gtk-update-icon-cache);
-    2) GConf schemas (gconftool-2 --(un)install-makefile-rule);
-    3) FreeDesktop.org Desktop Menu files (update-desktop-database);
-    4) FreeDesktop.org Shared Mime Info files (update-mime-database).
-
 Custom postinstall and preremove commands may be included in the
 CYGWIN-PATCHES directory as postinstall.sh and preremove.sh; these
 scripts should be written as stubs, without the she-bang header.
