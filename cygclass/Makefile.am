@@ -69,6 +69,7 @@ cygclass_DATA =					\
 	cygclass/wxwidgets.cygclass		\
 	cygclass/xfce4.cygclass			\
 	cygclass/xorg.cygclass			\
+	cygclass/xvfb.cygclass			\
 	$(NULL)
 
 EXTRA_DIST += $(cygclass_DATA)

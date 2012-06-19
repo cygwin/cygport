@@ -16,6 +16,9 @@ mime_DATA = data/cygport.xml
 bashcompletiondir = $(sysconfdir)/bash_completion.d
 bashcompletion_DATA = data/cygport-bash-completion
 
+xorgconfdir = /etc/X11
+xorgconf_DATA = data/cygport-xvfb.conf
+
 install-data-local:
 	if ! test -f $(DESTDIR)$(sysconfdir)/cygport.conf ; then \
 		$(mkinstalldirs) $(DESTDIR)$(sysconfdir) ; \
@@ -27,4 +30,5 @@ EXTRA_DIST += \
 	$(mime_DATA)		\
 	$(pkgdata_DATA)		\
 	$(pkgdata_SCRIPTS)	\
+	$(xorgconf_DATA)	\
 	data/cygport.conf

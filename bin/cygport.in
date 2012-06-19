@@ -339,6 +339,7 @@ unset conf;
 #  * wxwidgets.cygclass
 #  * xfce4.cygclass
 #  * xorg.cygclass
+#  * xvfb.cygclass
 #  BUGS
 #  Why do the cygclasses get listed in reverse order?!?
 #****

@@ -1,0 +1,118 @@
+################################################################################
+#
+# xvfb.cygclass - for building packages which require a running X server
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/xvfb.cygclass
+#  SYNOPSIS
+#  inherit xvfb
+#  DESCRIPTION
+#  Some packages require a running X server while building; if one is already
+#  running, that usually suffices, but checking that one is present, and
+#  starting one if not, is complicated to do in an automated fashion.
+#
+#  This cygclass provides a function which handles checking for, and
+#  if necessary, launching a temporary X session.
+#****
+
+#****C* xvfb.cygclass/xvfb_run
+#  SYNOPSIS
+#  xvfb_run COMMAND [ARGUMENTS...]
+#  DESCRIPTION
+#  Runs the given COMMAND (binary, script, or shell function), with
+#  optional ARGUMENTS, which requires an X session to complete.
+#  NOTE
+#  If several consecutive commands require an X session, then they can be
+#  wrapped in a single custom function which can then be passed to xvfb_run,
+#  e.g.:
+#    mycommand() { for f in *; do foo; bar; done ; }
+#    src_compile() {
+#      ....
+#      xvfb_run mycommand
+#      ....
+#    }
+#  REQUIRES
+#  dbus, gamin, xmodmap, xorg-server
+#****
+xvfb_run() {
+	local n
+	local xvfb_display xvfb_pid dbus_pid gamin_pid
+	local xvfb_sock dbus_sock gamin_sock
+
+	check_prog_req Xorg xorg-server
+	check_prog_req xmodmap  # relatively safe dep, required by xinit
+
+	if defined DISPLAY && xmodmap -display $DISPLAY &> /dev/null
+	then
+		xvfb_display=$DISPLAY
+	else
+		for ((n=1; ; n++))
+		do
+			if [ ! -e /tmp/.X11-unix/X${n} -a ! -e /tmp/.X${n}-lock ]
+			then
+				xvfb_display=:${n}
+				Xorg $xvfb_display -config cygport-xvfb.conf -nolisten tcp -noreset &> /dev/null &
+				xvfb_pid=$!
+				xvfb_sock="/tmp/.X${n}-lock /tmp/.X11-unix/X${n}"
+				if xmodmap -display $xvfb_display &> /dev/null
+				then
+					export DISPLAY=${xvfb_display}
+					break
+				else
+					# why not ?!?
+					/bin/kill $xvfb_pid &> /dev/null || true
+					/bin/kill -s KILL $xvfb_pid &> /dev/null || true
+					rm -f $xvfb_sock
+				fi
+			fi
+		done
+	fi
+
+	# avoid the most common fork failures
+	case ${CBUILD##*-} in
+	cygwin*)
+		if [ x"$(ps | grep gam_server)" = x ]
+		then
+			export GAM_CLIENT_ID="cygport"
+			/usr/lib/gamin/gam_server --notimeout $GAM_CLIENT_ID &
+			gamin_pid=$!
+			gamin_sock="/tmp/fam-$(id -un)/fam-"$GAM_CLIENT_ID
+		fi
+	esac
+
+	# what doesn't require a D-Bus session nowadays?
+	if ! defined DBUS_SESSION_BUS_ADDRESS
+	then
+		eval `dbus-launch --sh-syntax`
+		dbus_pid=$DBUS_SESSION_BUS_PID
+		dbus_sock=$(echo $DBUS_SESSION_BUS_ADDRESS | sed -e 's/.*path=\(.*\),.*/\1/')
+	fi
+
+	# now run the task
+	"$@"
+
+	# cleanup
+	/bin/kill $xvfb_pid $dbus_pid $gamin_pid &> /dev/null || true
+	/bin/kill -s KILL $xvfb_pid $dbus_pid $gamin_pid &> /dev/null || true
+	rm -f $xvfb_sock $dbus_sock $gamin_sock
+}
+
+readonly -f xvfb_run
