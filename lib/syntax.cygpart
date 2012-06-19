@@ -176,12 +176,21 @@ __canonicalize_triplet() {
 	fi
 
 	case ${triplet} in
-		*-unknown-none)
-			triplet=${triplet%-unknown-none} ;;
-		*-unknown-*)
-			triplet=${triplet/-unknown-/-} ;;
-		*-none)
-			triplet=${triplet%-none} ;;
+	*-unknown-none)
+		if ${_privgnuconfigdir}/config.sub ${triplet%-unknown-none} &> /dev/null
+		then
+			triplet=${triplet%-unknown-none}
+		fi ;;
+	*-unknown-*)
+		if ${_privgnuconfigdir}/config.sub ${triplet/-unknown-/-} &> /dev/null
+		then
+			triplet=${triplet/-unknown-/-}
+		fi ;;
+	*-none)
+		if ${_privgnuconfigdir}/config.sub ${triplet%-none} &> /dev/null
+		then
+			triplet=${triplet%-none}
+		fi ;;
 	esac
 
 	echo -n ${triplet}
