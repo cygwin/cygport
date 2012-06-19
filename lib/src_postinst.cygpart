@@ -853,12 +853,19 @@ __prepstrip() {
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
 	all_exes=$(find * -type f -a \( -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.so.*' -o -name '*.oct' -o -name '*.cmxs' \))
 	# could be .exe from non-automake Makefile which install(1) didn't fix
-	all_exes+=" "$(find * -type f -executable ! -name '*.*')
+	all_exes+=" "$(find * -type f -executable ! -name '*.dll' ! -name '*.exe' ! -name '*.so' ! -name '*.so.[0-9]*' ! -name '*.oct' ! -name '*.cmxs' ! -name '*.a' ! -name '*.la' ! -name '*.exe.manifest' ! -name '*.exe.config' ! -name '*.dll.config' ! -name '*-config' ! -name '*.csh' ! -name '*.sh' ! -name '*.pl' ! -name '*.pm' ! -name '*.py' ! -name '*.rb' ! -name '*.tcl')
 
 	for exe in ${all_exes}
 	do
 		# assure this is actually a binary object
-		if check_prog ${CTARGET}-strip && ${CTARGET}-size -f ${exe} &>/dev/null
+		if [ "$(head -c 2 ${exe})" = '#!' ]
+		then
+			# sometimes .exe will be appended where it does not belong
+			case ${exe} in *.exe)
+				mv ${exe} ${exe%.exe} ;;
+			esac
+			continue
+		elif check_prog ${CTARGET}-strip && ${CTARGET}-size -f ${exe} &>/dev/null
 		then
 			# for cross-compiled libs, cross-GCC target libs,
 			# or non-cross packages built on non-Cygwin systems
@@ -871,14 +878,6 @@ __prepstrip() {
 		then
 			strip="strip"
 		else
-			# sometimes .exe will be appended where it does not belong
-			case ${exe} in *.exe)
-				if [ $(head -c 2 ${exe}) = "#!" ]
-				then
-					mv ${exe} ${exe%.exe}
-				fi
-			esac
-
 			continue
 		fi
 
@@ -904,7 +903,7 @@ __prepstrip() {
 		case ${CHOST} in
 		*-*-cygwin*|*-*-mingw*|*-*-msys*)
 			case ${exe##*/} in
-				*.*) ;;
+				*.dll|*.exe|*.so|*.so.[0-9]*|*.oct|*.cmxs) ;;
 				*)	mv ${exe} ${exe}.exe
 					exe+=.exe ;;
 			esac
