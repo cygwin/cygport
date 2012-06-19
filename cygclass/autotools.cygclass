@@ -172,7 +172,7 @@ cygautoreconf() {
 			# not shipped in the tarball
 			if [ -f Makefile.am ]
 			then
-				__parse_aclocal_amflags $(grep '^ACLOCAL_AMFLAGS' Makefile.am) | xargs -r mkdir -p
+				__parse_aclocal_amflags $(grep '^ACLOCAL_AMFLAGS' Makefile.am | sed 's/=/ = /') | xargs -r mkdir -p
 			fi
 
 			if [ ! -f ${d}/aclocal.m4 ] || $(head -n 1 ${d}/aclocal.m4 | grep -q 'generated.* by aclocal')
@@ -191,7 +191,7 @@ cygautoreconf() {
 				__config_set with_gnu_gettext 1
 			fi
 
-			if $(grep -Eq '(AC|IT)_PROG_INTLTOOL' ${sub_configure_ac})
+			if $(grep -Eq '^(AC|IT)_PROG_INTLTOOL' ${sub_configure_ac})
 			then
 				intltoolize --automake --copy --force
 				__config_set with_intltool 1
