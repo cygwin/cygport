@@ -1140,6 +1140,11 @@ __prep_libtool_modules() {
 			# would otherwise be CHOST, but gcc ships $target libraries
 			case ${CTARGET} in
 			*-*-cygwin*|*-*-mingw*|*-*-msys*)
+				if [ -f ${lib_la%.la}.dll.a ]
+				then
+					# implibs do NOT need to be executable
+					chmod 0644 ${lib_la%.la}.dll.a
+				fi
 				if test ${CTARGET} != ${CHOST} # cross-compiler, use sysroot
 				then
 					dodir /usr/${CTARGET}/sys-root/$(__target_prefix)/bin
