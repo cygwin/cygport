@@ -53,13 +53,13 @@ ORIG_PN=${ORIG_PN:-${PN}}
 #  git.cygclass should be inherit()ed last for this to be of use.
 #****
 case ${ORIG_PN} in
-	exo|gtk-xfce-engine|libxfce4menu|libxfce4ui|libxfce4util|libxfcegui4\
-	|thunar-vfs|xfce-utils|xfce4-appfinder|xfce4-dev-tools|xfce4-panel\
+	exo|garcon|gtk-xfce-engine|libxfce4ui|libxfce4util\
+	|xfce4-appfinder|xfce4-dev-tools|xfce4-panel\
 	|xfce4-session|xfce4-settings|xfconf|xfdesktop|xfwm4)
 		uri_subdir="xfce/${ORIG_PN}"
 		;;
-	garcon|ghal)
-		uri_subdir="libs/${ORIG_PN}"
+	libxfce4menu|libxfcegui4|thunar-vfs|xfce-utils)
+		uri_subdir="archive/${ORIG_PN}"
 		;;
 	Thunar)
 		uri_subdir="xfce/thunar"
@@ -129,6 +129,7 @@ xfce4_autoreconf() {
 	__config_set with_autoconf 1
 	__config_set with_autoheader 1
 	__config_set with_automake 1
+	__config_set with_intltool 1
 	__config_set with_libtool 1
 	__config_set with_glib_gettext 1
 
@@ -166,6 +167,8 @@ xfce4_compile() {
 
 	cygmake
 }
+
+KEEP_LA_FILES="none"
 
 #****o* xfce4.cygclass/src_compile (xfce4)
 #  DEFINITION
