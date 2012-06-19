@@ -91,16 +91,41 @@ case "${PN}:${PV}" in
 	phonon:4.*.[789]?)
 		SRC_URI="mirror://kde/unstable/phonon/${P}.tar.bz2"
 		;;
-	phonon:4.*)
+	phonon:4.4.4|phonon:4.5.0)
+		SRC_URI="mirror://kde/stable/phonon/${PV}/src/${P}.tar.bz2"
+		;;
+	phonon:4.[0-4].*)
 		SRC_URI="mirror://kde/stable/phonon/${PV}/${P}.tar.bz2"
 		;;
+	phonon:4.*)
+		SRC_URI="mirror://kde/stable/phonon/${PV}/src/${P}.tar.xz"
+		;;
+	phonon-backend-gstreamer:4.[4-5].*)
+		SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.bz2"
+		;;
+	phonon-backend-gstreamer:4.*)
+		SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.xz"
+		;;
+	phonon-backend-vlc:0.[3-4].*)
+		SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/${P}.tar.bz2"
+		;;
+	phonon-backend-vlc:0.*)
+		SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.xz"
+		;;
 	# setup cannot handle '@' in PN
-	kde-l10n-ca?valencia:4.*)
+	kde-l10n-ca?valencia:4.[0-7].*|kde-l10n-ca?valencia:4.8.[01])
 		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.bz2"
 		SRC_DIR="kde-l10n-ca@valencia-${PV}"
 		;;
-	kde-l10n-*:4.*)
+	kde-l10n-ca?valencia:4.*)
+		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.xz"
+		SRC_DIR="kde-l10n-ca@valencia-${PV}"
+		;;
+	kde-l10n-*:4.[0-7].*|kde-l10n-*:4.8.[01])
 		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/${P}.tar.bz2"
+		;;
+	kde-l10n-*:4.*)
+		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/${P}.tar.xz"
 		;;
 	# setup cannot handle '@' in PN
 	calligra-l10n-ca?valencia:2.*|koffice-l10n-ca?valencia:2.*)
@@ -110,8 +135,11 @@ case "${PN}:${PV}" in
 	calligra-l10n-*:2.*|koffice-l10n-*:2.*)
 		SRC_URI="mirror://kde/${_stable}/${PN%-l10n*}-${PV}/${PN%-l10n*}-l10n/${P}.tar.bz2"
 		;;
+	*:4.[0-7].*|*:4.8.[01])
+		SRC_URI="mirror://kde/${_stable}/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
+		;;
 	*:4.*)
-		SRC_URI="mirror://kde/${_stable}/${PV}/src/${P}.tar.bz2"
+		SRC_URI="mirror://kde/${_stable}/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
 		;;
 esac
 unset _stable
