@@ -112,8 +112,8 @@ DESCRIPTION="Perl ${ORIG_PN//-/::} module"
 
 if defined CPAN_AUTHOR
 then
-	cpan_author_web=$(echo ${CPAN_AUTHOR} | tr '[:upper:]' '[:lower:]')
-	cpan_author_ftp=$(echo ${CPAN_AUTHOR} | tr '[:lower:]' '[:upper:]')
+	cpan_author_web=${CPAN_AUTHOR,,}
+	cpan_author_ftp=${CPAN_AUTHOR^^}
 
 #****o* perl.cygclass/HOMEPAGE (perl)
 #  DESCRIPTION

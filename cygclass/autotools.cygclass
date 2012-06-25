@@ -331,7 +331,7 @@ cygautoreconf() {
 			if __arg_bool NO_${tool}
 			then
 				declare ${tool}=true
-				__config_set with_$(echo ${tool} | tr '[:upper:]' '[:lower:]') 0
+				__config_set with_${tool,,} 0
 			fi
 			export ${tool}
 		done

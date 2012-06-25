@@ -142,7 +142,7 @@ __php_channel_fixup() {
 		return
 	fi
 
-	case $(echo ${PHP_CHANNEL} | tr [:upper:] [:lower:]) in
+	case ${PHP_CHANNEL,,} in
 		11abacus)	channel="pear.11abacus.com" ;;
 		agavi)		channel="pear.agavi.org" ;;
 		arbit)		channel="pear.arbittracker.org" ;;
