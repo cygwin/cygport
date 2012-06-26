@@ -56,11 +56,24 @@ check_prog_req python3
 #****
 PYTHON3=/usr/bin/python3
 
+#****d* python3.cygclass/PYTHON3_CONFIG
+#  DESCRIPTION
+#  Absolute path to the Python3 config script.
+#****
+PYTHON3_CONFIG=/usr/bin/python3-config
+
 #****d* python3.cygclass/PYTHON3_VERSION
 #  DESCRIPTION
 #  The major.minor version of the current Python3 interpreter.
 #****
 PYTHON3_VERSION=$(${PYTHON3} -c 'from distutils.sysconfig import * ; print(get_python_version());')
+
+#****d* python3.cygclass/PYTHON3_ABIFLAGS
+#  DESCRIPTION
+#  The ABI flags of the current Python3 interpreter, as used in the names of
+#  the interpreter, config script and subdir, shared library, and includedir.
+#****
+PYTHON3_ABIFLAGS=$(${PYTHON3_CONFIG} --abiflags 2>/dev/null)
 
 #****d* python3.cygclass/PYTHON3_INCLUDEDIR
 #  DESCRIPTION
@@ -86,7 +99,7 @@ PYTHON3_SITELIB=$(${PYTHON3} -c 'from distutils.sysconfig import * ; print(get_p
 #  DESCRIPTION
 #  Link flags for the Python3 C library.  This definition must be properly quoted.
 #****
-LIBPYTHON3="-L${PYTHON3_LIB}/config -lpython${PYTHON3_VERSION}"
+LIBPYTHON3=$(${PYTHON3_CONFIG} --libs)
 
 #****I* python3.cygclass/python3into
 #  SYNOPSIS
