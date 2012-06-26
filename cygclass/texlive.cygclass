@@ -52,6 +52,12 @@
 #  DESCRIPTION
 #  A list of one or more TeX Live documentation packages.
 #****
+#****v* texlive.cygclass/TEXLIVE_PRETEST
+#  DESCRIPTION
+#  Define if packages should be downloaded from a pretest package repository
+#  mirror instead of from stable release repository mirrors, which are frozen
+#  during the pretest phase.
+#****
 if ! defined TEXLIVE_TEXMF_PKGS && ! defined TEXLIVE_ARCH_PKGS && ! defined TEXLIVE_DOC_PKGS
 then
 	TEXLIVE_TEXMF_PKGS=${PN#texlive-}
@@ -77,22 +83,28 @@ TEXLIVE_ARCH="i386-cygwin"
 #****o* texlive.cygclass/SRC_URI (texlive)
 #  DESCRIPTION
 #  SRC_URI is constructed automatically based on the value of TEXLIVE_TEXMF_PKGS,
-#  TEXLIVE_ARCH_PKGS, and TEXLIVE_DOC_PKGS.
+#  TEXLIVE_ARCH_PKGS, TEXLIVE_DOC_PKGS, and TEXLIVE_PRETEST.
 #****
+if defined TEXLIVE_PRETEST
+then
+	tlnet="mirror://tlpretest"
+else
+	tlnet="mirror://ctan/systems/texlive/tlnet"
+fi
 for pkg in ${TEXLIVE_TEXMF_PKGS}
 do
-	SRC_URI+=" mirror://ctan/systems/texlive/tlnet/archive/$pkg.tar.xz"
+	SRC_URI+=" ${tlnet}/archive/$pkg.tar.xz"
 done
 for pkg in ${TEXLIVE_ARCH_PKGS}
 do
-	SRC_URI+=" mirror://ctan/systems/texlive/tlnet/archive/$pkg.tar.xz"
-	SRC_URI+=" mirror://ctan/systems/texlive/tlnet/archive/$pkg.${TEXLIVE_ARCH}.tar.xz"
+	SRC_URI+=" ${tlnet}/archive/$pkg.tar.xz"
+	SRC_URI+=" ${tlnet}/archive/$pkg.${TEXLIVE_ARCH}.tar.xz"
 done
 for pkg in ${TEXLIVE_DOC_PKGS}
 do
-	SRC_URI+=" mirror://ctan/systems/texlive/tlnet/archive/$pkg.doc.tar.xz"
+	SRC_URI+=" ${tlnet}/archive/$pkg.doc.tar.xz"
 done
-unset pkg
+unset pkg tlnet
 
 SRC_DIR="."
 
