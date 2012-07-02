@@ -103,7 +103,7 @@ doggzmod() {
 			error "doggzmod: ${m}: file not found"
 		fi
 
-		cl=$(grep ^CommandLine ${m} | sed -e 's|CommandLine *= *\([^ ]*\).*|\1|g')
+		cl=$(sed -n -e 's|^CommandLine *= *\([^ ]*\).*|\1|gp' ${m})
 
 		insinto ${GGZ_MODULES_DIR}
 		newins ${m} ${cl##*/}.dsc

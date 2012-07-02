@@ -191,7 +191,7 @@ doelflib() {
 		*)	error "doelflib: ${i}: not an ELF shared object" ;;
 		esac
 
-		soname=$(${CHOST}-objdump -p ${i} | grep ' SONAME ' | sed -e 's| *SONAME *\([^ ]*\).*|\1|g')
+		soname=$(${CHOST}-objdump -p ${i} | sed -n -e 's| *SONAME *\([^ ]*\).*|\1|gp')
 
 		# try to catch mistaken "doelflib libfoo.so*"
 		if echo "${sonames}" | grep -q ${soname}

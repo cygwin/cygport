@@ -111,7 +111,7 @@ __list_deps() {
 			PATH+=":${D}/usr/${CTARGET}/sys-root/lib:${tcgccsysroot}/lib"
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:${tcgccsysroot}$(__target_prefix)/lib"
 			tclibs=$(find . -type f -executable -exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | \
-				grep ' NEEDED ' | sort -u | sed -e 's| *NEEDED *\([^ ]*\).*|\1|g' | \
+				sed -n -e 's| *NEEDED *\([^ ]*\).*|\1|gp' | \
 				sort -u | xargs -r which || true )
 			;;
 		esac
@@ -133,7 +133,7 @@ __list_deps() {
 			| sort -u); do \
 			if ! test -f ./$x ; then echo /$x ; fi ; done)
 		netimps=$(find . \( -name '*.dll.config' -o -name '*.exe.config' \) \
-			| xargs -r grep -h 'target=.*\.dll' | sed -e 's|.*target="*\([^ "]*\.dll\).*|\1|g' \
+			| xargs -r sed -n -e 's|.*target="*\([^ "]*\.dll\).*|\1|gp' \
 			| sort -u | xargs -r which || true)
 	fi
 

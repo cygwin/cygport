@@ -312,12 +312,12 @@ apache2_postinst() {
 
 		if [ -f ${imp} ]
 		then
-			sym=$(nm ${imp} 2>/dev/null | grep ' I __nm__[^_]*_module$' | sed -e 's#.*__\(.*\)_module#\1#')
+			sym=$(nm ${imp} 2>/dev/null | sed -n -e 's|.* I __nm__\(.*\)_module$|\1|p')
 		fi
 
 		if ! defined sym
 		then
-			sym=$(nm ${mod} 2>/dev/null | grep ' D .*_module$' | sed -e 's#.*D _\(.*\)_module#\1#')
+			sym=$(nm ${mod} 2>/dev/null | sed -n -e 's|.* D _\(.*\)_module$|\1|p')
 		fi
 
 		if ! defined sym
