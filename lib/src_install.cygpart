@@ -181,19 +181,19 @@ dodoc() {
 			popd
 		elif [ -f ${i} -o -L ${i} ]
 		then
-			if [ "x$(file -b ${i})" != "xempty" -a ! -f ${D}${docdir}/${i} ]
+			if [ -s ${i} -a ! -f ${D}${docdir}/${i} ]
 			then
 				__doinstall 0644 ${i} ${docdir} || error "dodoc ${i} failed"
 			fi
 		elif [ -f ${i}.md -o -L ${i}.md ]
 		then
-			if [ "x$(file -b ${i}.md)" != "xempty" -a ! -f ${D}${docdir}/${i}.md ]
+			if [ -s ${i}.md -a ! -f ${D}${docdir}/${i}.md ]
 			then
 				__doinstall 0644 ${i}.md ${docdir} || error "dodoc ${i}.md failed"
 			fi
 		elif [ -f ${i}.txt -o -L ${i}.txt ]
 		then
-			if [ "x$(file -b ${i}.txt)" != "xempty" -a ! -f ${D}${docdir}/${i}.txt ]
+			if [ -s ${i}.txt -a ! -f ${D}${docdir}/${i}.txt ]
 			then
 				__doinstall 0644 ${i}.txt ${docdir} || error "dodoc ${i}.txt failed"
 			fi

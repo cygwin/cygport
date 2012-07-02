@@ -388,7 +388,7 @@ __pkg_srcpkg() {
 
 	cp ${patchdir}/${cygwin_patchfile} ${spkgdir};
 
-	if [ "x$(file -b ${patchdir}/${src_patchfile})" != "xempty" ]
+	if [ -s ${patchdir}/${src_patchfile} ]
 	then
 		cp ${patchdir}/${src_patchfile} ${spkgdir};
 	fi
