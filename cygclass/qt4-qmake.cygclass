@@ -49,8 +49,12 @@ cygqmake4() {
 		error "libQtCore4-devel is required to build this package"
 	fi
 
-	${QT4_QMAKE} -spec ${QMAKESPEC} -recursive ${CYGQMAKE4_ARGS} ${@} \
-			|| error "qmake failed"
+	${QT4_QMAKE} -spec ${QMAKESPEC} -recursive \
+		QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
+		QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
+		QMAKE_STRIP=: \
+		${CYGQMAKE4_ARGS} ${@} \
+		|| error "qmake failed"
 }
 
 #****C* qt4-qmake.cygclass/qt4_qmake_compile
