@@ -11,5 +11,5 @@ src_install() {
 	cd ${B}
 	cyginstall
 
-	make_etc_defaults /etc/cygport.conf
+	make_etc_defaults /etc/cygport.conf /etc/X11/cygport-xvfb.conf
 }

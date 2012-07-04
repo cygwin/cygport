@@ -66,6 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog COPYING NEWS README TODO doc/cygport.1.html doc/manual.css doc/manual.html
 %config %{_sysconfdir}/bash_completion.d/cygport-bash-completion
 %config(noreplace) %{_sysconfdir}/cygport.conf
+%config(noreplace) %{_sysconfdir}/X11/cygport-xvfb.conf
 %{_bindir}/cygport
 %{_datadir}/cygport
 %{_datadir}/mime/packages/cygport.xml
