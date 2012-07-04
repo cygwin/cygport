@@ -8,6 +8,7 @@ cygclass_DATA =					\
 	cygclass/autotools.cygclass		\
 	cygclass/berkdb.cygclass		\
 	cygclass/bzr.cygclass			\
+	cygclass/clang.cygclass			\
 	cygclass/claws-mail.cygclass		\
 	cygclass/cmake.cygclass			\
 	cygclass/cross.cygclass			\

@@ -1,0 +1,53 @@
+################################################################################
+#
+# clang.cygclass - for using the clang compiler instead of gcc
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/clang.cygclass
+#  SYNOPSIS
+#  inherit [cross] clang
+#  DESCRIPTION
+#  Clang is a BSD-licensed compiler suite, based on the LLVM code-generation
+#  and optimization libraries, which supports a wide variety of platforms
+#  and architectures.
+#
+#  This cygclass sets CC, CXX, OBJC, and OBJCXX to use the clang compiler
+#  suite in place of GCC.  If cross-compiling, clang.cygclass must be
+#  inherit()ed after cross.cygclass.
+#****
+
+if __cross_compiling
+then
+	CC="${CHOST}-clang"
+	CXX="${CHOST}-clang++"
+	OBJC="${CHOST}-clang"
+	OBJCXX="${CHOST}-clang++"
+else
+	CC="clang"
+	CXX="clang++"
+	OBJC="clang"
+	OBJCXX="clang++"
+fi
+
+if ! check_prog ${CC}
+then
+	error "This package requires ${CHOST} clang"
+fi
