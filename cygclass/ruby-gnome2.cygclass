@@ -179,7 +179,7 @@ ruby_gnome2_compile() {
 
 	${RUBY} extconf.rb --vendor ${rbg2_dir} || error "extconf.rb failed"
 
-	cygmake LOCAL_LIBS="-L${RUBY_VENDORARCH}"
+	cygmake cflags="${CFLAGS} ${CPPFLAGS}" LOCAL_LIBS="-L${RUBY_VENDORARCH}"
 
 	for d in ${rbg2_dir}
 	do
