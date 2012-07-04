@@ -834,9 +834,11 @@ __prep_empty_dirs() {
 #****
 
 __prepstrip() {
+	local dbg;
 	local exe;
 	local all_exes;
-	local strip;
+	local objcopy;
+	local objdump;
 
 	if defined _CYGPORT_RESTRICT_strip_
 	then
@@ -855,6 +857,8 @@ __prepstrip() {
 	# could be .exe from non-automake Makefile which install(1) didn't fix
 	all_exes+=" "$(find * -type f -executable ! -name '*.dll' ! -name '*.exe' ! -name '*.so' ! -name '*.so.[0-9]*' ! -name '*.oct' ! -name '*.cmxs' ! -name '*.a' ! -name '*.la' ! -name '*.exe.manifest' ! -name '*.exe.config' ! -name '*.dll.config' ! -name '*-config' ! -name '*.csh' ! -name '*.sh' ! -name '*.pl' ! -name '*.pm' ! -name '*.py' ! -name '*.rb' ! -name '*.tcl')
 
+	> ${T}/.dbgsrc.lst
+
 	for exe in ${all_exes}
 	do
 		# assure this is actually a binary object
@@ -864,20 +868,6 @@ __prepstrip() {
 			case ${exe} in *.exe)
 				mv ${exe} ${exe%.exe} ;;
 			esac
-			continue
-		elif check_prog ${CTARGET}-strip && ${CTARGET}-size -f ${exe} &>/dev/null
-		then
-			# for cross-compiled libs, cross-GCC target libs,
-			# or non-cross packages built on non-Cygwin systems
-			strip="${CTARGET}-strip"
-		elif check_prog ${CHOST}-strip && ${CHOST}-size -f ${exe} &>/dev/null
-		then
-			# for cross-compilers built on non-Cygwin systems
-			strip="${CHOST}-strip"
-		elif size -f ${exe} &>/dev/null
-		then
-			strip="strip"
-		else
 			continue
 		fi
 
@@ -889,9 +879,28 @@ __prepstrip() {
 			Caml1999X0[0-9][0-9])  continue ;;
 		esac
 
+		if check_prog ${CTARGET}-objcopy && ${CTARGET}-size -f ${exe} &>/dev/null
+		then
+			# for cross-compiled libs, cross-GCC target libs,
+			# or non-cross packages built on non-Cygwin systems
+			objcopy="${CTARGET}-objcopy"
+			objdump="${CTARGET}-objdump"
+		elif check_prog ${CHOST}-objcopy && ${CHOST}-size -f ${exe} &>/dev/null
+		then
+			# for cross-compilers built on non-Cygwin systems
+			objcopy="${CHOST}-objcopy"
+			objdump="${CHOST}-objdump"
+		elif size -f ${exe} &>/dev/null
+		then
+			objcopy="objcopy"
+			objdump="objdump"
+		else
+			continue
+		fi
+
 		# Mono assemblies must not be stripped, but remove .mdb debug symbols,
 		# and make them non-executable so they're not launched by MS .NET
-		if ${OBJDUMP} -p ${exe} 2>&1 | grep -q "DLL Name: mscoree.dll"
+		if ${objdump} -p ${exe} 2>&1 | grep -q "DLL Name: mscoree.dll"
 		then
 			chmod 0644 ${exe}
 			rm -f ${exe}.mdb
@@ -912,8 +921,75 @@ __prepstrip() {
 
 		echo "        ${exe}";
 		chmod 0755 ${exe};
-		${strip} ${exe};
+
+		if defined _CYGPORT_RESTRICT_debuginfo_
+		then
+			${objcopy} --strip-all ${exe};
+		else
+			dbg="/usr/lib/debug/${exe}.dbg";
+
+			dodir ${dbg%/*};
+			${objdump} -dl ${exe} | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' >> ${T}/.dbgsrc.lst;
+
+			# --add-gnu-debuglink will fail if .gnu_debuglink section
+			# already exists, e.g. binutils, which uses hardlinks,
+			# or cygwin which creates a custom .dbg file
+			if ! ${objdump} -h ${exe} | grep -q '\.gnu_debuglink'
+			then
+				${objcopy} --add-gnu-debuglink=/dev/null --only-keep-debug ${exe} ${D}${dbg};
+				${objcopy} --strip-all ${exe};
+				${objcopy} --add-gnu-debuglink=${D}${dbg} ${exe} 2>/dev/null;
+			fi
+		fi
 	done
+}
+
+#****P* Postinstall/Split Debugging Information
+#  DESCRIPTION
+#  Debug symbols stripped from executables and shared libraries are preserved
+#  as split debuginfo files, and sources referenced therein are automatically
+#  installed into a package-specific location.  A PN-debuginfo package will
+#  be automatically created with split debugging symbols and source files if
+#  both are present; inclusion in PKG_NAMES and PKG_CONTENTS is not necessary.
+#  SEE ALSO
+#  RESTRICT
+#****
+
+__prepdebugsrc() {
+	local dbg;
+	local dbgdir="/usr/lib/debug";
+	local dbgsrc;
+	local dbgsrcdir="/usr/src/debug/${PF}";
+	local srcf;
+	local -i i=0;
+
+	if defined _CYGPORT_RESTRICT_debuginfo_ || [ ! -d ${D}${dbgdir} ]
+	then
+		return;
+	fi
+
+	printf "Preparing debuginfo source files:\n";
+
+	for dbgsrc in $(sort -u ${T}/.dbgsrc.lst)
+	do
+		# make sure that paths with '../' don't leave $dbgsrcdir
+		case $(realpath -m ${dbgsrc}) in
+			${dbgsrcdir}/*) ;;
+			*)  continue ;;
+		esac
+
+		srcf=${dbgsrc#${dbgsrcdir}/}
+		if [ -f ${B}/${srcf} ]
+		then
+			install -Dp -m0644 ${B}/${srcf} ${D}${dbgsrc}
+			printf "\r\t$((i++)) files"
+		elif [ -f ${S}/${srcf} ]
+		then
+			install -Dp -m0644 ${S}/${srcf} ${D}${dbgsrc}
+			printf "\r\t$((i++)) files"
+		fi
+	done
+	printf '\n'
 }
 
 #****P* Postinstall/Windows UAC
@@ -1271,16 +1347,20 @@ __prep_libtool_modules() {
 #  DESCRIPTION
 #  List of automatic postinstall or packaging step(s) which should be skipped
 #  for this package.  Supported values are:
+#  * debuginfo: do not create a debuginfo subpackage
 #  * diff: do not generate a .src.patch file of changes made in $S.
 #  * postinst-doc: do not install standard documentation files.
 #  * postinst-gconf: do not create postinstall commands for GConf schemas.
 #  * postinst-mateconf: do not create postinstall commands for MATEConf schemas.
 #  * strip: do not strip binaries.
 #  Of these, "diff" is the only one that should be considered useful, e.g.
-#  with very large data-only packages which will have no useful diff.  If you
-#  find yourself using any of the others to work around cygport's default
-#  behaviour, in all likelyhood it is either a bug in cygport or in the
-#  .cygport file.
+#  with very large data-only packages which will have no useful diff.
+#  "debuginfo" is useful on a temporary, per-build basis to debug a package
+#  in the build tree (e.g. a noinst test package).
+#
+#  If you find yourself using any of the others to work around cygport's
+#  default behaviour, in all likelyhood it is either a bug in cygport or in
+#  the .cygport file.
 #****
 
 __src_postinst() {
@@ -1293,6 +1373,7 @@ __src_postinst() {
 	__prepvargames;
 	__prep_libtool_modules;
 	__prepstrip;
+	__prepdebugsrc;
 	__prepuac;
 	__prep_empty_dirs;
 }
@@ -1303,4 +1384,5 @@ readonly -f __prep_fonts_dir __prep_freedesktop_mime __prep_gconf_schemas \
             __prep_mateconf_schemas __prep_texlive __prep_xsessions \
             __prepdoc __prepemacs __prepetc __prepman __prepinfo \
             __prepvargames __prep_empty_dirs \
-            __prepstrip __prepuac __prep_symlinks __prep_libtool_modules __src_postinst
+            __prepstrip __prepdebugsrc __prepuac __prep_symlinks \
+            __prep_libtool_modules __src_postinst

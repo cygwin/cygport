@@ -589,6 +589,21 @@ declare -r src_patchfile=${PF}.src.patch;
 declare -ar pkg_name=(${PKG_NAMES:-${PN}});
 declare -r  pkg_count=${#pkg_name[*]};
 
+# this requires S and B to be already defined
+if ! defined _CYGPORT_RESTRICT_debuginfo_
+then
+	for flags in {C,CXX,F,FC,GCJ,GO,OBJC,OBJCXX}FLAGS
+	do
+		for map in ${DEBUG_PREFIX_MAPS[*]}
+		do
+			declare ${flags}+=" -fdebug-prefix-map=${map}=/usr/src/debug/${PF}"
+		done
+		declare ${flags}+=" -fdebug-prefix-map=${B}=/usr/src/debug/${PF}"
+		declare ${flags}+=" -fdebug-prefix-map=${S}=/usr/src/debug/${PF}"
+	done
+	unset flags map
+fi
+
 ################################################################################
 #
 # Command processing

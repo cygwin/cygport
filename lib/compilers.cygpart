@@ -31,9 +31,9 @@ declare -x CC="gcc";
 #  Flags passed to CC when compiling C code.  Individual packages may append
 #  or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -g -O2 -pipe
+#  -ggdb -O2 -pipe
 #****
-declare -x CFLAGS="-g -O2 -pipe ";
+declare -x CFLAGS="-ggdb -O2 -pipe";
 
 #****v* Compiling/CPPFLAGS
 #  DESCRIPTION
@@ -53,7 +53,7 @@ declare -x CXX="g++";
 #  Flags passed to CXX when compiling C++ code.  Individual packages may append
 #  or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -g -O2 -pipe
+#  -ggdb -O2 -pipe
 #****
 declare -x CXXFLAGS="${CFLAGS}";
 
@@ -70,7 +70,7 @@ declare -x F77="gfortran";
 #  Flags passed to F77 when compiling Fortran 77 code.  Individual packages may
 #  append or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -g -O2 -pipe
+#  -ggdb -O2 -pipe
 #****
 declare -x FFLAGS="${CFLAGS}";
 
@@ -87,7 +87,7 @@ declare -x FC="gfortran";
 #  Flags passed to FC when compiling Fortran 95 code.  Individual packages may
 #  append or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -g -O2 -pipe
+#  -ggdb -O2 -pipe
 #****
 declare -x FCFLAGS="${CFLAGS}";
 
@@ -104,7 +104,7 @@ declare -x GCJ="gcj";
 #  Flags passed to GCJ when native-compiling Java code.  Individual packages may
 #  append or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -g -O2 -pipe
+#  -ggdb -O2 -pipe
 #****
 declare -x GCJFLAGS="${CFLAGS}";
 
@@ -119,7 +119,7 @@ declare -x GOC="gccgo";
 #  Flags passed to GOC when native-compiling Go code.  Individual packages may
 #  append or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -g -O2 -pipe
+#  -ggdb -O2 -pipe
 #****
 declare -x GOFLAGS="${CFLAGS}";
 
@@ -134,7 +134,7 @@ declare -x OBJC="${CC}";
 #  Flags passed to OBJC when compiling Objective C code.  Individual packages
 #  may append or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -g -O2 -pipe
+#  -ggdb -O2 -pipe
 #****
 declare -x OBJCFLAGS="${CFLAGS}";
 
@@ -149,7 +149,7 @@ declare -x OBJCXX="${CXX}";
 #  Flags passed to OBJCXX when compiling Objective C++ code.  Individual packages
 #  may append or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -g -O2 -pipe
+#  -ggdb -O2 -pipe
 #****
 declare -x OBJCXXFLAGS="${CFLAGS}";
 

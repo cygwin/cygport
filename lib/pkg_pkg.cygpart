@@ -128,7 +128,7 @@ __pkg_binpkg() {
 
 		if defined pkg_contents
 		then
-			tar jcvf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${pkg_contents} \
+			tar jcvf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 --exclude=usr/lib/debug --exclude=usr/src ${pkg_contents} \
 				|| error "Binary package creation failed: ${pkg_name[${n}]}"
 		else
 			inform "Creating empty package"
@@ -138,6 +138,17 @@ __pkg_binpkg() {
 		echo;
 		n+=1;
 	done
+
+	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -d ${D}/usr/lib/debug -a -d ${D}/usr/src/debug ]
+	then
+		__step "${PN}-debuginfo-${PVR}.tar.bz2";
+		tar jcvf ${top}/${PN}-debuginfo-${PVR}.tar.bz2 usr/lib/debug/ usr/src/debug/ \
+				|| error "Debuginfo package creation failed: ${PN}-debuginfo"
+		echo;
+	else
+		inform "No debug files, skipping debuginfo subpackage"
+		echo;
+	fi
 }
 
 __pkg_pkgcheck() {
@@ -155,6 +166,11 @@ __pkg_pkgcheck() {
 		tar tjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 | grep -Ev "/$" >> ${tmp1}
 		n+=1
 	done
+
+	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${top}/${PN}-debuginfo-${PVR}.tar.bz2 ]
+	then
+		tar tjf ${top}/${PN}-debuginfo-${PVR}.tar.bz2 | grep -Ev "/$" >> ${tmp1}
+	fi
 
 #****v* Packaging/PKG_IGNORE
 #  DESCRIPTION
@@ -469,6 +485,28 @@ __pkg_dist() {
 
 		n+=1;
 	done
+
+	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${top}/${PN}-debuginfo-${PVR}.tar.bz2 ]
+	then
+		mkdir -p ${distdir}/${PN}/${PN}-debuginfo
+		cp ${top}/${PN}-debuginfo-${PVR}.tar.bz2 ${distdir}/${PN}/${PN}-debuginfo/
+
+		if [ -f ${C}/${PN}-debuginfo.hint ]
+		then
+			cp ${C}/${PN}-debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/setup.hint
+		elif [ -f ${C}/debuginfo.hint ]
+		then
+			cp ${C}/debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/setup.hint
+		else
+			cat > ${distdir}/${PN}/${PN}-debuginfo/setup.hint <<-_EOF
+category: Debug
+requires:
+sdesc: "Debug info for ${PN}"
+ldesc: "This package contains files necessary for debugging the
+${PN} package with gdb."
+_EOF
+		fi
+	fi
 
 	# e.g. split library package w/o PN in PKG_NAMES
 	if [ ! -f ${distdir}/${PN}/setup.hint ]
