@@ -153,7 +153,7 @@ perl_compile() {
 		${PERL} Build || error "Module::Build build failed"
 	elif [ -e Makefile.PL ]
 	then
-		${PERL} Makefile.PL ${@} PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
+		${PERL} Makefile.PL ${@} PREFIX=/usr INSTALLDIRS=vendor OPTIMIZE="${CFLAGS}" || error "Perl Makefile creation failed"
 		cygmake all manifypods
 	else
 		error "No Perl module detected"
