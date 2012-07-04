@@ -1,3 +1,14 @@
+0.10.11:
+	* Debuginfo subpackages created automatically when possible.
+	* Added support for gccgo.
+	* Start Menu shortcuts are created for starting X sessions.
+	* clang.cygclass: NEW for using clang in place of gcc.
+	* kde4.cygclass: updated for 4.8.x+ xz tarballs.
+	* python3.cygclass: updated for Python 3.2.
+	* texlive.cygclass: supports pretest packages.
+	* xfce4.cygclass: updated for Xfce 4.10.
+	* xvfb.cygclass: NEW for packages which need an X session during build.
+
 0.10.10:
 	* The "download" command now downloads only missing sources; use
 	  "downloadall" to refetch all sources (the previous behaviour).

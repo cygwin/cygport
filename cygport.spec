@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.10.10
+Version:        0.10.11
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -74,6 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 04 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.11-1
+- Added support for automatic split debuginfo subpackages.
+- Added support for gccgo.
+- Added clang.cygclass, xvfb.cygclass.
+
 * Sun Apr 01 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.10-1
 - Version bump.
 
