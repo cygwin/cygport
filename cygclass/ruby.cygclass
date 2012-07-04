@@ -162,7 +162,7 @@ ruby_ext_compile() {
 	fi
 
 	${RUBY} extconf.rb --vendor ${@} || error "extconf.rb configure failed"
-	cygmake
+	cygmake cflags="${CFLAGS} ${CPPFLAGS}"
 }
 
 #****I* ruby.cygclass/ruby_install
