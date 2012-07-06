@@ -501,6 +501,7 @@ __pkg_dist() {
 			cat > ${distdir}/${PN}/${PN}-debuginfo/setup.hint <<-_EOF
 category: Debug
 requires:
+external-source: ${PN}
 sdesc: "Debug info for ${PN}"
 ldesc: "This package contains files necessary for debugging the
 ${PN} package with gdb."
