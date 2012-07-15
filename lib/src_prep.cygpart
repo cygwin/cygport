@@ -88,25 +88,12 @@ unpack() {
 		# determine correct source decompression command
 		case ${unpack_file_path} in
 			*.asc|*.md5|*.sig|*.sign)  continue ;;
-			*.tar.bz2|*.tbz2|*.tar.bz|*.tbz) unpack_cmd="tar jxf" ;;
-			*.tar.gz|*.tgz|*.tar.Z) unpack_cmd="tar zxf" ;;
-			*.tar.lzma|*.tar.xz)
-				check_prog_req xz
-				unpack_cmd="tar --xz -xf"
-				;;
 			*.tar.lrz)
 				check_prog_req lrzuntar lrzip
 				unpack_cmd="lrzuntar"
 				;;
-			*.tar.lz)
-				check_prog_req lzip
-				unpack_cmd="tar -I lzip -xf"
-				;;
-			*.tar.lzo)
-				check_prog_req lzop
-				unpack_cmd="tar --lzop -xf"
-				;;
-			*.tar)  unpack_cmd="tar xf"  ;;
+			*.tar|*.tar.*|*.tbz|*.tbz2|*.tgz|*.tlz|*.tzo)
+				unpack_cmd="tar xf" ;;
 			*.bz2)
 				unpack_cmd="bunzip2 -c";
 				unpack_out="${unpack_file_name%.bz2}";
