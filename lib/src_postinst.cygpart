@@ -1013,17 +1013,8 @@ __prepuac() {
 
 	for exe in $(find * -type f -executable -a \( -name '*instal*.exe' -o -name '*patch*.exe' -o -name '*setup*.exe' -o -name '*update*.exe' \))
 	do
-		exename=${exe##*/};
-
-		# Mono assemblies may already include .manifest files.
-		if [ ! -e ${exe}.manifest ]
-		then
-			echo "        ${exe}";
-			sed -e "s|@PKGNAME@|${PN//.}|" \
-				-e "s|@APPNAME@|${exename%.exe}|" \
-				${_privdatadir}/uac-manifest.in > ${exe}.manifest
-			chmod +x ${exe}.manifest
-		fi
+		echo "        ${exe}";
+		manifestize ${exe}
 	done
 }
 

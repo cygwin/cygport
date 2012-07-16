@@ -52,6 +52,47 @@ lndirs() {
 	lndir -silent ${fromdir} ${todir} || error "lndir failed"
 }
 
+#****C* Compiling/manifestize
+#  SYNOPSIS
+#  manifestize EXE [EXE ...]
+#  DESCRIPTION
+#  Since Windows Vista/2008, executables with names containing "instal", "patch",
+#  "setup", or "update" require administrator privleges to run (under the
+#  assumption that these are software installers).  This security feature is
+#  neither necessary nor appropriate for console-mode applications which are
+#  so named, in which case special side-by-side manifest files can be used
+#  to inform Windows that elevated privledges are not required.
+#
+#  In the situation where a package builds such an executable *and* needs to
+#  execute it in-tree, then use this function to create manifest files for
+#  those EXEs *before* they need to be run (e.g., before the call to cygmake).
+#  NOTES
+#  cygport automatically creates manifest files as needed during postinstall,
+#  so maintainers need not be concerned for the usability of their packages.
+#****
+manifestize() {
+	local exe exename
+
+	for exe in $@
+	do
+		exename=${exe##*/};
+
+		if [ -e ${exe}.manifest ]
+		then
+			continue;
+		fi
+
+		case ${exe} in
+		*/*) mkdir -p ${exe%/*} ;;
+		esac
+
+		sed -e "s|@PKGNAME@|${PN//.}|" \
+		    -e "s|@APPNAME@|${exename%.exe}|" \
+		    ${_privdatadir}/uac-manifest.in > ${exe}.manifest;
+		chmod +x ${exe}.manifest;
+	done;
+}
+
 #****f* Compiling/cygmake
 #  SYNOPSIS
 #  cygmake [OPTIONS]
@@ -75,4 +116,4 @@ cygmake() {
 #  The default src_compile function is provided by autotools.cygclass.
 #****
 
-readonly -f lndirs cygmake
+readonly -f lndirs manifestize cygmake
