@@ -912,9 +912,13 @@ __prepstrip() {
 		case ${CHOST} in
 		*-*-cygwin*|*-*-mingw*|*-*-msys*)
 			case ${exe##*/} in
-				*.dll|*.exe|*.so|*.so.[0-9]*|*.oct|*.cmxs) ;;
-				*)	mv ${exe} ${exe}.exe
-					exe+=.exe ;;
+			*.dll|*.exe|*.so|*.so.[0-9]*|*.oct|*.cmxs) ;;
+			# make sure this isn't some oddly named DLL
+			*)	if ! objdump -f ${exe} | grep -q 'HAS_RELOC'
+				then
+					mv ${exe} ${exe}.exe
+					exe+=.exe
+				fi ;;
 			esac
 			;;
 		esac
