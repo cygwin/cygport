@@ -44,7 +44,13 @@ __show_info() {
 
 __list_files() {
 	pushd ${D}
-	find . ! -type d | sed 's!^\.!  !' | sort
+	find * -path 'usr/*/debug' -prune -o ! -type d -print | sed 's!^!  /!' | sort
+	popd
+}
+
+__list_debug_files() {
+	pushd ${D}
+	find usr/*/debug ! -type d 2>/dev/null | sed 's!^!  /!' | sort
 	popd
 }
 
@@ -174,4 +180,4 @@ __show_web() {
 	${mybrowser} ${mywww} &>/dev/null &
 }
 
-readonly -f __list_files __list_deps __show_info __show_web
+readonly -f __list_files __list_debug_files __list_deps __show_info __show_web

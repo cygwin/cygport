@@ -657,6 +657,10 @@ do
 			__list_files;
 			_status=$?;
 			;;
+		listdebug*|listdbg*)
+			__list_debug_files;
+			_status=$?;
+			;;
 		dep*)
 			__list_deps;
 			_status=$?;
