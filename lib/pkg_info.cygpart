@@ -57,7 +57,7 @@ __list_debug_files() {
 __list_deps() {
 	local locs="${@}"
 	local d f ext
-	local alldeps pcdep pldep pldirs pydep pydirs pyexts rbdep rbdirs
+	local alldeps ladep pcdep pldep pldirs pydep pydirs pyexts rbdep rbdirs
 	local tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
@@ -135,6 +135,18 @@ __list_deps() {
 	# implib devel->dll subpackage dependencies
 	alldeps+=" "$(find ${locs} -type f -name '*.dll.a' -exec dlltool -I '{}' \; 2>/dev/null \
 			| sort -u | xargs -r which)
+
+	for ladep in $(find ${locs} -type f -name '*.la' \
+			| xargs sed -ne "s|^dependency_libs='\(.*\)'|\1|gp" \
+			| sed -e 's| -[LR][^ ]*||g;s| -l\([^ ]*\)| /usr/lib/lib\1.dll.a|g')
+	do
+		if [ -f ${D}${ladep} ]
+		then
+			alldeps+=" "${D}${ladep};
+		else
+			alldeps+=" "${ladep};
+		fi
+	done
 
 	# pkg-config dependencies on other devel packages
 	for pcdep in $(find ${locs} -type f -name '*.pc' | xargs -r grep ^Requires | cut -d' ' -f2-)
