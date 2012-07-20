@@ -587,7 +587,7 @@ __pkg_dist() {
 		esac
 
 		# allow REQUIRES only for single packages
-		if [ -z "${distsubdir}${!pkg_requires_var}" ]
+		if [ -z "${distsubdir}${!pkg_requires_var}" -a -n "${REQUIRES+yes}" ]
 		then
 			declare ${pkg_requires_var}="${REQUIRES}"
 		fi
@@ -599,12 +599,17 @@ __pkg_dist() {
 		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
 		then
 			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/setup.hint;
-		elif [ "${CBUILD}" = "i686-pc-cygwin" \
-			-a -n "${!pkg_category_var:-${CATEGORY}}" \
+		elif [ "${CBUILD}" = "i686-pc-cygwin" -o -n "${!pkg_requires_var+yes}" ] \
+		     && [ -n "${!pkg_category_var:-${CATEGORY}}" \
 			-a -n "${!pkg_summary_var:-${SUMMARY}}${!pkg_description_var:-${DESCRIPTION}}" ]
 		then
-			pkg_bin_requires=$(__list_deps $(cat ${T}/.${pkg_name[${n}]}.lst | sort -fu | grep -Ev "/$") \
-					   | sort -fu | sed -e "/^cygwin-1/d;/^${pkg_name[${n}]}-${PVR}$/d;s/-[0-9].*$//g" | sed -e ':a;N;$!ba;s/\n/ /g')
+			if [ "${CBUILD}" = "i686-pc-cygwin" ]
+			then
+				pkg_bin_requires=$(__list_deps $(cat ${T}/.${pkg_name[${n}]}.lst | sort -fu | grep -Ev "/$") \
+						   | sort -fu | sed -e "/^cygwin-1/d;/^${pkg_name[${n}]}-${PVR}$/d;s/-[0-9].*$//g" \
+						   | sed -e ':a;N;$!ba;s/\n/ /g')
+			fi
+
 			__step "${pkg_name[${n}]} requires: ${pkg_bin_requires} ${!pkg_requires_var}"
 
 			cat > ${distdir}/${PN}/${distsubdir}/setup.hint <<-_EOF
