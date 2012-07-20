@@ -20,11 +20,6 @@
 #
 ################################################################################
 
-#****v* Information/DESCRIPTION
-#  DESCRIPTION
-#  A short, one-line description of the package.  This is purely informational.
-#****
-
 #****v* Information/HOMEPAGE
 #  DESCRIPTION
 #  The website URI of the package.  Besides being informational, this defines
@@ -38,7 +33,7 @@ __show_info() {
 	    Package version:  ${PV}
 	    Cygwin release:   ${PR}
 	    Homepage:         ${HOMEPAGE}
-	    Description:      ${DESCRIPTION}
+	    Description:      ${SUMMARY:-${DESCRIPTION}}
 		_EOF
 }
 

@@ -444,12 +444,14 @@ __pkg_srcpkg() {
 	fi
 
 	tar jcvf ${top}/${PF}-src.tar.bz2 * || error "Source package creation failed"
+	echo;
 }
 
 __pkg_dist() {
 	local -i n;
 	local -a pkg_hint;
 	local distsubdir;
+	local pkg_category_var pkg_requires_var pkg_summary_var pkg_description_var;
 
 	rm -fr ${distdir}/*;
 
@@ -471,13 +473,124 @@ __pkg_dist() {
 		error "Different number of packages defined in PKG_NAMES and PKG_HINTS";
 	fi
 
+#****v* Packaging/CATEGORY
+#  DESCRIPTION
+#  A string containing one or more setup package categories.  This will be
+#  used as the category: field of auto-generated setup.hint files.
+#  NOTE
+#  A list of official categories is available on the
+#  |html <a href="http://cygwin.com/setup.html#setup.hint">Cygwin website</a>.
+#  SEE ALSO
+#  PKG_CATEGORY
+#****
+#****v* Packaging/PKG_CATEGORY
+#  DESCRIPTION
+#  A string containing one or more setup package categories.  This will be
+#  used as the category: field of the corresponding auto-generated setup.hint
+#  file.
+#
+#  Note that the PKG_CATEGORY name is descriptive rather than literal,
+#  where "PKG" should be substituted with the name of the binary package
+#  whose contents it describes.  When a package contains a character which
+#  cannot be used in a shell variable name (namely '+', '-', and '.'),
+#  that character must be substituted with an underscore ('_'), e.g.
+#  libfoo-devel will use libfoo_devel_CATEGORY.
+#  NOTE
+#  A list of official categories is available on the
+#  |html <a href="http://cygwin.com/setup.html#setup.hint">Cygwin website</a>.
+#****
+#****v* Packaging/SUMMARY
+#  DESCRIPTION
+#  A one-line summary of the package.  This will be used as the sdesc: field
+#  of auto-generated setup.hint files.
+#  SEE ALSO
+#  PKG_SUMMARY
+#****
+#****v* Packaging/PKG_SUMMARY
+#  DESCRIPTION
+#  A one-line summary of the subpackage.  This will be used as the sdesc:
+#  field of the corresponding auto-generated setup.hint file.
+#
+#  Note that the PKG_SUMMARY name is descriptive rather than literal,
+#  where "PKG" should be substituted with the name of the binary package
+#  whose contents it describes.  When a package contains a character which
+#  cannot be used in a shell variable name (namely '+', '-', and '.'),
+#  that character must be substituted with an underscore ('_'), e.g.
+#  libfoo-devel will use libfoo_devel_SUMMARY.
+#****
+#****v* Packaging/DESCRIPTION
+#  DESCRIPTION
+#  A short paragraph description of the package.  This will be used as the
+#  ldesc: field of auto-generated setup.hint files.
+#  SEE ALSO
+#  PKG_DESCRIPTION
+#****
+#****v* Packaging/PKG_DESCRIPTION
+#  DESCRIPTION
+#  A short paragraph description of the subpackage.  This will be used as the
+#  ldesc: field of the corresponding auto-generated setup.hint file.
+#
+#  Note that the PKG_DESCRIPTION name is descriptive rather than literal,
+#  where "PKG" should be substituted with the name of the binary package
+#  whose contents it describes.  When a package contains a character which
+#  cannot be used in a shell variable name (namely '+', '-', and '.'),
+#  that character must be substituted with an underscore ('_'), e.g.
+#  libfoo-devel will use libfoo_devel_DESCRIPTION.
+#****
+#****v* Packaging/REQUIRES
+#  DESCRIPTION
+#  A single-line strings containing a list of packages on which this
+#  package depends. This will be added to the requires: field of the
+#  auto-generated setup.hint file.
+#  NOTES
+#  * cygport attempts to automatically detect many types of package
+#  dependencies, which do not need to be listed in REQUIRES.  This is still
+#  needed for commands called by scripts or in code with fork(), libraries
+#  which are accessed by dlopen(), or data used by your package at runtime.
+#  * If there is more than one package in PKG_NAMES, this variable will be
+#  ignored; you must use PKG_REQUIRES instead.
+#  * Any newlines in this variable must be escaped.
+#  SEE ALSO
+#  PKG_REQUIRES
+#****
+#****v* Packaging/PKG_REQUIRES
+#  DESCRIPTION
+#  A single-line strings containing a list of packages on which this
+#  package depends. This will be added to the requires: field of the
+#  auto-generated setup.hint file.
+#
+#  Note that the PKG_CATEGORY name is descriptive rather than literal,
+#  where "PKG" should be substituted with the name of the binary package
+#  whose contents it describes.  When a package contains a character which
+#  cannot be used in a shell variable name (namely '+', '-', and '.'),
+#  that character must be substituted with an underscore ('_'), e.g.
+#  libfoo-devel will use libfoo_devel_REQUIRES.
+#  NOTES
+#  * cygport attempts to automatically detect many types of package
+#  dependencies, which do not need to be listed in REQUIRES.  This is still
+#  needed for commands called by scripts or in code with fork(), libraries
+#  which are accessed by dlopen(), or data used by your package at runtime.
+#  * Any newlines in this variable must be escaped.
+#****
+
 	n=0;
 	while defined pkg_name[${n}]
 	do
+		pkg_category_var=${pkg_name[${n}]//[-+\.]/_}_CATEGORY;
+		pkg_requires_var=${pkg_name[${n}]//[-+\.]/_}_REQUIRES;
+		pkg_summary_var=${pkg_name[${n}]//[-+\.]/_}_SUMMARY;
+		pkg_description_var=${pkg_name[${n}]//[-+\.]/_}_DESCRIPTION;
+
 		case ${pkg_name[${n}]} in
 			${PN})  distsubdir="" ;;
 			*)      distsubdir=${pkg_name[${n}]} ;;
 		esac
+
+		# allow REQUIRES only for single packages
+		if [ -z "${distsubdir}${!pkg_requires_var}" ]
+		then
+			declare ${pkg_requires_var}="${REQUIRES}"
+		fi
 
 		mkdir -p ${distdir}/${PN}/${distsubdir};
 
@@ -486,6 +599,21 @@ __pkg_dist() {
 		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
 		then
 			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/setup.hint;
+		elif [ "${CBUILD}" = "i686-pc-cygwin" \
+			-a -n "${!pkg_category_var:-${CATEGORY}}" \
+			-a -n "${!pkg_summary_var:-${SUMMARY}}${!pkg_description_var:-${DESCRIPTION}}" ]
+		then
+			pkg_bin_requires=$(__list_deps $(cat ${T}/.${pkg_name[${n}]}.lst | sort -fu | grep -Ev "/$") \
+					   | sort -fu | sed -e "/^cygwin-1/d;/^${pkg_name[${n}]}-${PVR}$/d;s/-[0-9].*$//g" | sed -e ':a;N;$!ba;s/\n/ /g')
+			__step "${pkg_name[${n}]} requires: ${pkg_bin_requires} ${!pkg_requires_var}"
+
+			cat > ${distdir}/${PN}/${distsubdir}/setup.hint <<-_EOF
+category: ${!pkg_category_var:-${CATEGORY}}
+requires: ${pkg_bin_requires} ${!pkg_requires_var}
+sdesc: "${!pkg_summary_var:-${SUMMARY}}"
+ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
+${distsubdir:+external-source: ${PN}}
+_EOF
 		else
 			warning "${pkg_hint[${n}]%.hint}.hint is missing";
 		fi
