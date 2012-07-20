@@ -56,8 +56,9 @@ __list_debug_files() {
 
 __list_deps() {
 	local locs="${@}"
-	local d f
-	local alldeps pcdep pldep pldirs rbdep rbdirs tcgcclibdir tcgccsysroot
+	local d f ext
+	local alldeps pcdep pldep pldirs pydep pydirs pyexts rbdep rbdirs
+	local tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
 	if __host_is_embedded
@@ -178,6 +179,31 @@ __list_deps() {
 					alldeps+=" "${d}/${pldep//:://}.pm;
 					break;
 				fi
+			done
+		done
+	fi
+
+	if check_prog python && ! inherited python3
+	then
+		pydirs=$(PYTHONPATH=${D}${PYTHON_SITELIB} python -c 'import sys; print(" ".join(sys.path))')
+		pyexts=$(python -c 'import imp
+for suffix, mode, type in imp.get_suffixes(): print(suffix)')
+		for pydep in $(echo $(find ${locs} -name '*.py') \
+				$(find ${locs} ! -type d ! -name '*.*' -executable | xargs grep -l '^#!.*python[^3]*') \
+				| xargs -r grep -h '^[^#]*import ' \
+				| sed -e 's/ *from \([^ ]*\) import .*/\1/g;s/ *import //g;s/,.*//g;s/ as .*//g;' \
+				| sort -u)
+		do
+			for d in ${pydirs}
+			do
+				for ext in ${pyexts} /__init__.py /__init__.pyc
+				do
+					if [ -f ${d}/${pydep//\.//}${ext} ]
+					then
+						alldeps+=" "${d}/${pydep//\.//}${ext};
+						break 2;
+					fi
+				done
 			done
 		done
 	fi
