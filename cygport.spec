@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 20 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.12-1
+- Bugfix release.
+
 * Wed Jul 04 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.11-1
 - Added support for automatic split debuginfo subpackages.
 - Added support for gccgo.
