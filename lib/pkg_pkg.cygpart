@@ -181,7 +181,7 @@ __pkg_pkgcheck() {
 
 	if defined PKG_IGNORE
 	then
-		find ${PKG_IGNORE} ! -type d >> ${tmp1}
+		find ${PKG_IGNORE} -path 'usr/*/debug' -prune -o ! -type d -print >> ${tmp1}
 	fi
 
 	sort < ${tmp1} > "${tmp1}.sorted";
