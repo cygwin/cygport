@@ -262,6 +262,10 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	    echo $alldeps | sort -fu;
 	fi
 
+	find ${T} -maxdepth 1 -name '.*.lst' \
+		| xargs -r grep -l $(echo $alldeps | sed -e "s|${D}/\([^ ]*\)|\1|g;s| /[^ ]*||g;s/\([^ ]*\)/-e ^\1$/g") \
+		| sort -u | sed -e "s|${T}/\.\(.*\)\.lst|\1-${PVR}|";
+
 	popd
 
 	PATH="${os_path}"
