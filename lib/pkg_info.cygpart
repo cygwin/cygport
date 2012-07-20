@@ -131,6 +131,10 @@ __list_deps() {
 		-exec ${OBJDUMP} -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
 		cut -d ' ' -f 3 | xargs -r which || true)
 
+	# implib devel->dll subpackage dependencies
+	alldeps+=" "$(find ${locs} -type f -name '*.dll.a' -exec dlltool -I '{}' \; 2>/dev/null \
+			| sort -u | xargs -r which)
+
 	if check_prog monodis
 	then
 		alldeps+=" "$(for x in $(monodis --assemblyref $(find ${locs} -type f -perm 644 \( -name '*.exe' -o -name '*.dll' \) ) 2>/dev/null \
