@@ -56,7 +56,7 @@ __list_debug_files() {
 
 __list_deps() {
 	local d
-	local nativelibs netlibs netimps tclibs tcgcclibdir tcgccsysroot
+	local alldeps tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
 	if __host_is_embedded
@@ -103,20 +103,20 @@ __list_deps() {
 			;;
 		*-*-cygwin*|*-*-mingw*|*-*-msys*)
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:${tcgccsysroot}$(__target_prefix)/bin"
-			tclibs=$(find . -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
+			alldeps+=" "$(find . -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
 				-exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
 				cut -d ' ' -f 3 | xargs -r which || true)
 			;;
 		*-*-darwin*)
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:${tcgccsysroot}$(__target_prefix)/lib"
-			tclibs=$(find . -type f -executable -exec ${CTARGET}-otool -L '{}' + 2>/dev/null | \
+			alldeps+=" "$(find . -type f -executable -exec ${CTARGET}-otool -L '{}' + 2>/dev/null | \
 				sed -e '1d;s|^\t\([^ ]*\).*|\1|g' | sort -u | xargs -r which || true )
 			;;
 		# FIXME: any other non-ELF systems?
 		*)	# ELF system; libc in /lib, other libs in /usr/lib
 			PATH+=":${D}/usr/${CTARGET}/sys-root/lib:${tcgccsysroot}/lib"
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:${tcgccsysroot}$(__target_prefix)/lib"
-			tclibs=$(find . -type f -executable -exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | \
+			alldeps+=" "$(find . -type f -executable -exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | \
 				sed -n -e 's| *NEEDED *\([^ ]*\).*|\1|gp' | \
 				sort -u | xargs -r which || true )
 			;;
@@ -126,30 +126,30 @@ __list_deps() {
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
-	nativelibs=$(find . -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
+	alldeps+=" "$(find . -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
 		-exec ${OBJDUMP} -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
 		cut -d ' ' -f 3 | xargs -r which || true)
 
 	if check_prog monodis
 	then
-		netlibs=$(for x in $(monodis --assemblyref $(find . -type f -perm 644 \( -name '*.exe' -o -name '*.dll' \) ) 2>/dev/null \
+		alldeps+=" "$(for x in $(monodis --assemblyref $(find . -type f -perm 644 \( -name '*.exe' -o -name '*.dll' \) ) 2>/dev/null \
 			| sed -e ':a;N;$!ba;s|\n\t| |g;s|\n0x00000000: ||g' | grep 'Public Key:' \
 			| sed -e 's|.* Version=\([1-9]\).* Name=\(mscorlib\) .*|usr/lib/mono/\1.0/\2.dll|g' \
 			-e 's|.* Version=\([0-9\.]*\) Name=\([^ ]*\).* Public Key:\([0-F ]*\)|usr/lib/mono/gac/\2/\1__\L\3\E/\2.dll|g' -e 's| ||g' \
 			| sort -u); do \
 			if ! test -f ./$x ; then echo /$x ; fi ; done)
-		netimps=$(find . \( -name '*.dll.config' -o -name '*.exe.config' \) \
+		alldeps+=" "$(find . \( -name '*.dll.config' -o -name '*.exe.config' \) \
 			| xargs -r sed -n -e 's|.*target="*\([^ "]*\.dll\).*|\1|gp' \
 			| sort -u | xargs -r which || true)
 	fi
 
 	if [ "${CBUILD}" = "i686-pc-cygwin" ]
 	then
-	    echo $nativelibs $tclibs $netlibs $netimps | sort -u | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
+	    echo $alldeps | sort -u | xargs -r cygcheck -f | sort -fu | sed 's!^!  !';
 	else
 	    # cannot determine Cygwin package dependencies, but we can give
 	    # some guidance by listing the necessary libraries
-	    echo $nativelibs $tclibs $netlibs $netimps | sort -fu;
+	    echo $alldeps | sort -fu;
 	fi
 
 	popd
