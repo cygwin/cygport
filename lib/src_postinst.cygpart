@@ -879,6 +879,13 @@ __prepstrip() {
 			Caml1999X0[0-9][0-9])  continue ;;
 		esac
 
+		# Perl Archive (PAR) binaries must not be stripped
+		# https://rt.cpan.org/Public/Bug/Display.html?id=18536
+		# http://cygwin.com/ml/cygwin-apps/2012-07/msg00088.html
+		case $(tail -c 8 ${exe} | tr '\012' '%') in
+			%PAR\.pm%)  continue ;;
+		esac
+
 		if check_prog ${CTARGET}-objcopy && ${CTARGET}-size -f ${exe} &>/dev/null
 		then
 			# for cross-compiled libs, cross-GCC target libs,
