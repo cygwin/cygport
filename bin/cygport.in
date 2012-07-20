@@ -385,7 +385,7 @@ source ${_privlibdir}/src_install.cygpart
 source ${_privlibdir}/src_postinst.cygpart
 ###
 
-### __list_files, __list_deps, __show_info, __show_web
+### __list_files, __show_deps, __show_info, __show_web
 source ${_privlibdir}/pkg_info.cygpart
 ###
 
@@ -662,7 +662,7 @@ do
 			_status=$?;
 			;;
 		dep*)
-			__list_deps;
+			__show_deps;
 			_status=$?;
 			;;
 		info*)
