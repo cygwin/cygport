@@ -857,7 +857,7 @@ __prepstrip() {
 	# could be .exe from non-automake Makefile which install(1) didn't fix
 	all_exes+=" "$(find * -type f -executable ! -name '*.dll' ! -name '*.exe' ! -name '*.so' ! -name '*.so.[0-9]*' ! -name '*.oct' ! -name '*.cmxs' ! -name '*.a' ! -name '*.la' ! -name '*.exe.manifest' ! -name '*.exe.config' ! -name '*.dll.config' ! -name '*-config' ! -name '*.csh' ! -name '*.sh' ! -name '*.pl' ! -name '*.pm' ! -name '*.py' ! -name '*.rb' ! -name '*.tcl')
 
-	> ${T}/.dbgsrc.lst
+	> ${T}/.dbgsrc.out
 
 	for exe in ${all_exes}
 	do
@@ -933,7 +933,7 @@ __prepstrip() {
 			dbg="/usr/lib/debug/${exe}.dbg";
 
 			dodir ${dbg%/*};
-			${objdump} -dl ${exe} 2>/dev/null | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' | sort -u >> ${T}/.dbgsrc.lst;
+			${objdump} -dl ${exe} 2>/dev/null | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' | sort -u >> ${T}/.dbgsrc.out;
 
 			# --add-gnu-debuglink will fail if .gnu_debuglink section
 			# already exists, e.g. binutils, which uses hardlinks,
@@ -974,7 +974,7 @@ __prepdebugsrc() {
 
 	printf "Preparing debuginfo source files:\n";
 
-	for dbgsrc in $(sort -u ${T}/.dbgsrc.lst)
+	for dbgsrc in $(sort -u ${T}/.dbgsrc.out)
 	do
 		# make sure that paths with '../' don't leave $dbgsrcdir
 		case $(realpath -m ${dbgsrc}) in
