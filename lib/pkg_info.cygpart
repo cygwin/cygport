@@ -57,7 +57,7 @@ __list_debug_files() {
 __list_deps() {
 	local locs="${@}"
 	local d f
-	local alldeps pcdep pldep pldirs tcgcclibdir tcgccsysroot
+	local alldeps pcdep pldep pldirs rbdep rbdirs tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
 	if __host_is_embedded
@@ -178,6 +178,28 @@ __list_deps() {
 					alldeps+=" "${d}/${pldep//:://}.pm;
 					break;
 				fi
+			done
+		done
+	fi
+
+	if check_prog ruby
+	then
+		rbdirs=$(RUBYLIB=${D}${RUBY_VENDORLIB}:${D}${RUBY_VENDORARCH}:${D}${RUBY_SITELIB}:${D}${RUBY_SITEARCH} ruby -e 'print($:.join(" "))')
+		for rbdep in $(echo $(find ${locs} -name '*.rb') \
+				$(find ${locs} ! -type d ! -name '*.*' -executable | xargs grep -l '^#!.*ruby') \
+				| xargs -r sed -ne "s|^[^#]*require ['\"]\([^'\"]*\)['\"].*|\1|gp" \
+				| sort -u)
+		do
+			for d in ${rbdirs}
+			do
+				for f in ${rbdep}.rb ${rbdep}.so ${rbdep}
+				do
+					if [ -f ${d}/${f} ]
+					then
+						alldeps+=" "${d}/${f};
+						break 2;
+					fi
+				done
 			done
 		done
 	fi
