@@ -1,5 +1,0 @@
-category: Devel
-requires: autoconf automake bash binutils bzip2 coreutils diffstat diffutils file grep gzip libtool lndir make patch rsync sed tar unzip util-linux wget
-sdesc: "Cygwin source packaging tool"
-ldesc: "This is cygport, a revolutionary new method for building and
-maintaining packages for the Cygwin distribution"

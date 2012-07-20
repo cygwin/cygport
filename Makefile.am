@@ -20,7 +20,7 @@ EXTRA_DIST +=				\
 	TODO				\
 	cygport.spec			\
 	CYGWIN-PATCHES/README		\
-	CYGWIN-PATCHES/setup.hint
+	$(NULL)
 
 dist-hook:
 	@if test -d "$(srcdir)/.git"; \
