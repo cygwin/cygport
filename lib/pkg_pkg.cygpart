@@ -103,6 +103,8 @@ __pkg_binpkg() {
 		fi
 	fi
 
+	set -o pipefail
+
 	n=0
 	while (( n < pkg_count ))
 	do
@@ -129,11 +131,13 @@ __pkg_binpkg() {
 		if defined pkg_contents
 		then
 			tar jcvf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 --exclude=usr/lib/debug --exclude=usr/src ${pkg_contents} \
+				| tee ${T}/.${pkg_name[${n}]}.lst \
 				|| error "Binary package creation failed: ${pkg_name[${n}]}"
 		else
 			inform "Creating empty package"
 			bzip2 < /dev/null > ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
 				|| error "Empty package creation failed"
+			> ${T}/.${pkg_name[${n}]}.lst
 		fi
 		echo;
 		n+=1;
@@ -143,12 +147,15 @@ __pkg_binpkg() {
 	then
 		__step "${PN}-debuginfo-${PVR}.tar.bz2";
 		tar jcvf ${top}/${PN}-debuginfo-${PVR}.tar.bz2 usr/lib/debug/ usr/src/debug/ \
+				| tee ${T}/.${PN}-debuginfo.lst \
 				|| error "Debuginfo package creation failed: ${PN}-debuginfo"
 		echo;
 	else
 		inform "No debug files, skipping debuginfo subpackage"
 		echo;
 	fi
+
+	set +o pipefail
 }
 
 __pkg_pkgcheck() {
@@ -163,13 +170,13 @@ __pkg_pkgcheck() {
 
 	while defined pkg_name[${n}]
 	do
-		tar tjf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 | grep -Ev "/$" >> ${tmp1}
+		grep -Ev "/$" ${T}/.${pkg_name[${n}]}.lst >> ${tmp1}
 		n+=1
 	done
 
 	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${top}/${PN}-debuginfo-${PVR}.tar.bz2 ]
 	then
-		tar tjf ${top}/${PN}-debuginfo-${PVR}.tar.bz2 | grep -Ev "/$" >> ${tmp1}
+		grep -Ev "/$" ${T}/.${PN}-debuginfo.lst >> ${tmp1}
 	fi
 
 #****v* Packaging/PKG_IGNORE
