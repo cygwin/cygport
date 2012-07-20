@@ -933,7 +933,7 @@ __prepstrip() {
 			dbg="/usr/lib/debug/${exe}.dbg";
 
 			dodir ${dbg%/*};
-			${objdump} -dl ${exe} | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' | sort -u >> ${T}/.dbgsrc.lst;
+			${objdump} -dl ${exe} 2>/dev/null | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' | sort -u >> ${T}/.dbgsrc.lst;
 
 			# --add-gnu-debuglink will fail if .gnu_debuglink section
 			# already exists, e.g. binutils, which uses hardlinks,
