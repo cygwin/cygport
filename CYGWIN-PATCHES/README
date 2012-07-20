@@ -46,21 +46,21 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack cygport-0.10.11-X-src.tar.bz2
+  unpack cygport-0.10.12-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./cygport-0.10.11-X.cygport all
+  cygport ./cygport-0.10.12-X.cygport all
 
 This will create:
-  /usr/src/cygport-0.10.11-X-src.tar.bz2
-  /usr/src/cygport-0.10.11-X.tar.bz2
+  /usr/src/cygport-0.10.12-X-src.tar.bz2
+  /usr/src/cygport-0.10.12-X.tar.bz2
 
 -------------------------------------------
 
 Port Notes:
 
------ version 0.10.11-1 -----
+----- version 0.10.12-1 -----
 Version bump.
 See ChangeLog and NEWS for more information about this and past releases.
 

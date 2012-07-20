@@ -1,3 +1,9 @@
+0.10.12:
+	* New manifestize function for manually generating UAC manifest files.
+	* unpack now works with tarballs with incorrect extensions
+	  (e.g. .tar.bz2 which is really gzip-compressed).
+	* Bug fixes for debuginfo subpackages.
+
 0.10.11:
 	* Debuginfo subpackages created automatically when possible.
 	* Added support for gccgo.
