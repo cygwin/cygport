@@ -206,6 +206,29 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				done
 			done
 		done
+	elif check_prog python3
+	then
+		pydirs=$(PYTHONPATH=${D}${PYTHON3_SITELIB} python3 -c 'import sys; print(" ".join(sys.path))')
+		pyexts=$(python3 -c 'import imp
+for suffix, mode, type in imp.get_suffixes(): print(suffix)')
+		for pydep in $(echo $(find ${locs} -name '*.py') \
+				$(find ${locs} ! -type d ! -name '*.*' -executable | xargs grep -l '^#!.*python3') \
+				| xargs -r grep -h '^[^#]*import ' \
+				| sed -e 's/ *from \([^ ]*\) import .*/\1/g;s/ *import //g;s/,.*//g;s/ as .*//g;' \
+				| sort -u)
+		do
+			for d in ${pydirs}
+			do
+				for ext in ${pyexts} /__init__.py /__pycache__/__init__.pyc /__init__.pyc
+				do
+					if [ -f ${d}/${pydep//\.//}${ext} ]
+					then
+						alldeps+=" "${d}/${pydep//\.//}${ext};
+						break 2;
+					fi
+				done
+			done
+		done
 	fi
 
 	if check_prog ruby
