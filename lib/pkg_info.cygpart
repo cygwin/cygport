@@ -57,7 +57,7 @@ __list_debug_files() {
 __list_deps() {
 	local locs="${@}"
 	local d f
-	local alldeps pcdep tcgcclibdir tcgccsysroot
+	local alldeps pcdep pldep pldirs tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
 	if __host_is_embedded
@@ -161,6 +161,25 @@ __list_deps() {
 		alldeps+=" "$(find ${locs} \( -name '*.dll.config' -o -name '*.exe.config' \) \
 			| xargs -r sed -n -e 's|.*target="*\([^ "]*\.dll\).*|\1|gp' \
 			| sort -u | xargs -r which || true)
+	fi
+
+	if check_prog perl
+	then
+		pldirs=$(PERL5LIB=${D}${PERL_VENDORLIB} perl -e 'print join(" ",@INC)')
+		for pldep in $(echo $(find ${locs} -name '*.pl' -o -name '*.pm') \
+				$(find ${locs} ! -type d ! -name '*.*' -executable | xargs grep -l '^#!.*perl.*') \
+				| xargs -r sed -ne 's/^ *\(use\|require\) \([A-Z][^ ;]*\).*/\2/gp' \
+				| sort -u)
+		do
+			for d in ${pldirs}
+			do
+				if [ -f ${d}/${pldep//:://}.pm ]
+				then
+					alldeps+=" "${d}/${pldep//:://}.pm;
+					break;
+				fi
+			done
+		done
 	fi
 
 	if [ "${CBUILD}" = "i686-pc-cygwin" ]
