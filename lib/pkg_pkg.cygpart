@@ -103,6 +103,9 @@ __pkg_binpkg() {
 		fi
 	fi
 
+	# just in case PKG_NAMES has changed
+	rm -f ${T}/.*.lst
+
 	set -o pipefail
 
 	n=0
