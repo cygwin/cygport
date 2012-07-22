@@ -208,27 +208,13 @@ __prep_gtk2_modules() {
 	local gtk_api=$(pkg-config --variable=gtk_binary_version gtk+-x11-2.0)
 	local gdkp_moduledir
 
-	# Gdk-Pixbuf loaders
+	# Gdk-Pixbuf loaders in legacy directory
 	if [ -d ${D}/usr/lib/gtk-2.0/${gtk_api}/loaders ]
 	then
-		if $(pkg-config --atleast-version 2.22 gdk-pixbuf-2.0)
-		then
-			gdkp_moduledir=/usr/lib/gdk-pixbuf-2.0/$(pkg-config --variable=gdk_pixbuf_binary_version gdk-pixbuf-2.0)/loaders
-			dodir ${gdkp_moduledir}
-			mv ${D}/usr/lib/gtk-2.0/${gtk_api}/loaders/* ${D}${gdkp_moduledir}/
-			__prep_gdk_pixbuf_modules
-		else
-			dodir /etc/postinstall
-			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-				if [ -x /usr/bin/gdk-pixbuf-query-loaders.exe ]
-				then
-				    /usr/bin/mkdir -p /etc/gtk-2.0
-				    /usr/bin/chmod 777 /etc/gtk-2.0
-				    /usr/bin/gdk-pixbuf-query-loaders > /etc/gtk-2.0/gdk-pixbuf.loaders
-				fi
-
-				_EOF
-		fi
+		gdkp_moduledir=/usr/lib/gdk-pixbuf-2.0/$(pkg-config --variable=gdk_pixbuf_binary_version gdk-pixbuf-2.0)/loaders
+		dodir ${gdkp_moduledir}
+		mv ${D}/usr/lib/gtk-2.0/${gtk_api}/loaders/* ${D}${gdkp_moduledir}/
+		__prep_gdk_pixbuf_modules
 	fi
 
 	# GTK Immodules
