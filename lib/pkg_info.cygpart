@@ -52,7 +52,7 @@ __list_debug_files() {
 __list_deps() {
 	local locs="${@}"
 	local d f ext
-	local alldeps ladep pcdep pidep pldep pldirs pydep pydirs pyexts rbdep rbdirs
+	local alldeps ladep pcdep pidep phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
 	local tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
@@ -187,6 +187,34 @@ __list_deps() {
 					break;
 				fi
 			done
+		done
+	fi
+
+	if check_prog php
+	then
+		phpmoddir=$(php-config  --extension-dir)
+		for phpdep in $(echo $(find ${locs} -name '*.php') \
+				$(find ${locs} ! -type d ! -name '*.*' -executable | xargs grep -l '^#!.*php*') \
+				| xargs -r sed -ne "s/^ *\(include\|require\)\(_once\)* '\([^'\"]*\).*\;/\3/gp;s/.*loadExtension *( *[^$]\([^)'\"]*\).*/\1.dll/gp" \
+				| sort -u)
+		do
+			case ${phpdep} in
+			*.php)	if [ -f ${D}/usr/share/pear/${phpdep} ]
+				then
+					alldeps+=" "${D}/usr/share/pear/${phpdep}
+				else
+					alldeps+=" "/usr/share/pear/${phpdep}
+				fi ;;
+			*.dll)	if php -mn | grep -q ^${phpdep%.dll}$
+				then
+					alldeps+=" "$(which php)
+				elif [ -f ${D}${phpmoddir}/${phpdep} ]
+				then
+					alldeps+=" "${D}${phpmoddir}/${phpdep}
+				else
+					alldeps+=" "${phpmoddir}/${phpdep}
+				fi ;;
+			esac
 		done
 	fi
 
