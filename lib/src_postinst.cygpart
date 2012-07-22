@@ -84,14 +84,8 @@ __prep_freedesktop_mime() {
 			_already_updated_mime_db=1
 			dodir /etc/postinstall
 			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-				if [ -x /usr/bin/update-desktop-database ]
-				then
-				    /usr/bin/update-desktop-database
-				fi
-				if [ -x /usr/bin/update-mime-database ]
-				then
-				    /usr/bin/update-mime-database /usr/share/mime
-				fi
+				/usr/bin/update-desktop-database
+				/usr/bin/update-mime-database /usr/share/mime
 
 			_EOF
 		fi
@@ -107,10 +101,7 @@ __prep_freedesktop_mime() {
 		then
 			dodir /etc/postinstall
 			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-				if [ -x /usr/bin/update-mime-database ]
-				then
-				    /usr/bin/update-mime-database /usr/share/mime
-				fi
+				/usr/bin/update-mime-database /usr/share/mime
 
 			_EOF
 		fi
@@ -181,10 +172,7 @@ __prep_gsettings_schemas() {
 __prep_gio_modules() {
 	dodir /etc/postinstall
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		if [ -x /usr/bin/gio-querymodules ]
-		then
-		    /usr/bin/gio-querymodules /usr/lib/gio/modules
-		fi
+		/usr/bin/gio-querymodules /usr/lib/gio/modules
 
 		_EOF
 }
@@ -200,10 +188,7 @@ __prep_gio_modules() {
 __prep_gdk_pixbuf_modules() {
 	dodir /etc/postinstall
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		if [ -x /usr/bin/gdk-pixbuf-query-loaders ]
-		then
-		    /usr/bin/gdk-pixbuf-query-loaders --update-cache
-		fi
+		/usr/bin/gdk-pixbuf-query-loaders --update-cache
 
 		_EOF
 }
@@ -251,12 +236,9 @@ __prep_gtk2_modules() {
 	then
 		dodir /etc/postinstall
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			if [ -x /usr/bin/gtk-query-immodules-2.0.exe ]
-			then
-			    /usr/bin/mkdir -p /etc/gtk-2.0
-			    /usr/bin/chmod 777 /etc/gtk-2.0
-			    /usr/bin/gtk-query-immodules-2.0 > /etc/gtk-2.0/gtk.immodules
-			fi
+			/usr/bin/mkdir -p /etc/gtk-2.0
+			/usr/bin/chmod 777 /etc/gtk-2.0
+			/usr/bin/gtk-query-immodules-2.0 > /etc/gtk-2.0/gtk.immodules
 
 		_EOF
 	fi
@@ -272,10 +254,7 @@ __prep_gtk3_modules() {
 	then
 		dodir /etc/postinstall
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			if [ -x /usr/bin/gtk-query-immodules-3.0 ]
-			then
-			    /usr/bin/gtk-query-immodules-3.0 --update-cache
-			fi
+			/usr/bin/gtk-query-immodules-3.0 --update-cache
 
 			_EOF
 	fi
