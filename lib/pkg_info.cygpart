@@ -52,7 +52,7 @@ __list_debug_files() {
 __list_deps() {
 	local locs="${@}"
 	local d f ext
-	local alldeps ladep pcdep pldep pldirs pydep pydirs pyexts rbdep rbdirs
+	local alldeps ladep pcdep pidep pldep pldirs pydep pydirs pyexts rbdep rbdirs
 	local tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
@@ -260,6 +260,18 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		done
 	fi
 
+	# commands called in postinstall/preremove scripts
+	for pidep in $(find ${locs} -path 'etc/postinstall/*.sh' -o -path 'etc/preremove/*.sh' \
+			| xargs -r sed -ne 's|^\(/[^ ]*\).*|\1|gp' | sort -u)
+	do
+		if [ -x ${D}${pidep} ]
+		then
+			alldeps+=" "${D}${pidep}
+		else
+			alldeps+=" "${pidep}
+		fi
+	done
+
 	if [ "${CBUILD}" = "i686-pc-cygwin" ]
 	then
 	    echo $alldeps | sort -u | xargs -r cygcheck -f;
@@ -279,7 +291,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 }
 
 __show_deps() {
-	__list_deps | sort -fu | sed "/^${PF}$/d;s/^/  /g"
+	__list_deps \* | sort -fu | sed "/^${PF}$/d;s/^/  /g"
 }
 
 __show_web() {
