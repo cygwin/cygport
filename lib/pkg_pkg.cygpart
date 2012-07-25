@@ -655,12 +655,27 @@ _EOF
 	# e.g. split library package w/o PN in PKG_NAMES
 	if [ ! -f ${distdir}/${PN}/setup.hint ]
 	then
+		pkg_category_var=${PN//[-+\.]/_}_CATEGORY;
+		pkg_summary_var=${PN//[-+\.]/_}_SUMMARY;
+		pkg_description_var=${PN//[-+\.]/_}_DESCRIPTION;
+
 		if [ -f ${C}/${PN}.hint ]
 		then
 			cp ${C}/${PN}.hint ${distdir}/${PN}/setup.hint
 		elif [ -f ${C}/setup.hint ]
 		then
 			cp ${C}/setup.hint ${distdir}/${PN}/setup.hint
+		elif [ -n "${!pkg_category_var:-${CATEGORY}}" \
+			-a -n "${!pkg_summary_var:-${SUMMARY}}${!pkg_description_var:-${DESCRIPTION}}" ]
+		then
+			cat > ${distdir}/${PN}/setup.hint <<-_EOF
+category: ${!pkg_category_var:-${CATEGORY}}
+requires:
+sdesc: "${!pkg_summary_var:-${SUMMARY}}"
+ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
+_EOF
+		else
+			warning "${PN}.hint is missing";
 		fi
 	fi
 }
