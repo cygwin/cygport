@@ -248,7 +248,7 @@ __list_deps() {
 		done
 	fi
 
-	if check_prog python && ! inherited python3
+	if check_prog python && ! inherited python3 && [ ${PN} != "python3" ]
 	then
 		pydirs=($(python -c 'import sys; print(" ".join(sys.path))'))
 		pyexts=$(python -c 'import imp
