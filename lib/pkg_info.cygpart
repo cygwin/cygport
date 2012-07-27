@@ -203,13 +203,13 @@ __list_deps() {
 
 	if check_prog perl
 	then
-		pldirs=$(PERL5LIB=${D}${PERL_VENDORLIB} perl -e 'print join(" ",@INC)')
+		pldirs=($(perl -e 'print join(" ",@INC)'))
 		for pldep in $(find ${locs} \( -name '*.pl' -o -name '*.pm' \) -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*perl.*' '{}' + \
 				| xargs -r sed -ne 's/^ *\(use\|require\) \([A-Z][^ ;]*\).*/\2/gp' \
 				| sort -u)
 		do
-			for d in ${pldirs}
+			for d in ${pldirs[*]/\//${D}/} ${pldirs[*]}
 			do
 				if [ -f ${d}/${pldep//:://}.pm ]
 				then
@@ -250,7 +250,7 @@ __list_deps() {
 
 	if check_prog python && ! inherited python3
 	then
-		pydirs=$(PYTHONPATH=${D}${PYTHON_SITELIB} python -c 'import sys; print(" ".join(sys.path))')
+		pydirs=($(python -c 'import sys; print(" ".join(sys.path))'))
 		pyexts=$(python -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find ${locs} -name '*.py' -print \
@@ -259,7 +259,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				| sed -e 's/ *from \([^ ]*\) import .*/\1/g;s/ *import //g;s/,.*//g;s/ as .*//g;' \
 				| sort -u)
 		do
-			for d in ${pydirs}
+			for d in ${pydirs[*]/\//${D}/} ${pydirs[*]}
 			do
 				for ext in ${pyexts} /__init__.py /__init__.pyc
 				do
@@ -273,7 +273,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		done
 	elif check_prog python3
 	then
-		pydirs=$(PYTHONPATH=${D}${PYTHON3_SITELIB} python3 -c 'import sys; print(" ".join(sys.path))')
+		pydirs=($(python3 -c 'import sys; print(" ".join(sys.path))'))
 		pyexts=$(python3 -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find ${locs} -name '*.py' -print \
@@ -282,7 +282,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				| sed -e 's/ *from \([^ ]*\) import .*/\1/g;s/ *import //g;s/,.*//g;s/ as .*//g;' \
 				| sort -u)
 		do
-			for d in ${pydirs}
+			for d in ${pydirs[*]/\//${D}/} ${pydirs[*]}
 			do
 				for ext in ${pyexts} /__init__.py /__pycache__/__init__.pyc /__init__.pyc
 				do
@@ -298,13 +298,13 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 
 	if check_prog ruby
 	then
-		rbdirs=$(RUBYLIB=${D}${RUBY_VENDORLIB}:${D}${RUBY_VENDORARCH}:${D}${RUBY_SITELIB}:${D}${RUBY_SITEARCH} ruby -e 'print($:.join(" "))')
+		rbdirs=($(ruby -e 'print($:.join(" "))'))
 		for rbdep in $(find ${locs} -name '*.rb' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*ruby' '{}' + \
 				| xargs -r sed -ne "s|^[^#]*require ['\"]\([^'\"]*\)['\"].*|\1|gp" \
 				| sort -u)
 		do
-			for d in ${rbdirs}
+			for d in ${rbdirs[*]/\//${D}/} ${rbdirs[*]}
 			do
 				for f in ${rbdep}.rb ${rbdep}.so ${rbdep}
 				do
