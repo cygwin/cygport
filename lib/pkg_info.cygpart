@@ -52,7 +52,7 @@ __list_debug_files() {
 __list_deps() {
 	local locs="${@}"
 	local d f ext
-	local alldeps jar jpkg ladep pcdep pidep phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
+	local alldeps girdep jar jpkg ladep pcdep pidep phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
 	local tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
@@ -169,6 +169,22 @@ __list_deps() {
 		alldeps+=" "$(find ${locs} \( -name '*.dll.config' -o -name '*.exe.config' \) \
 			| xargs -r sed -n -e 's|.*target="*\([^ "]*\.dll\).*|\1|gp' \
 			| sort -u | xargs -r which || true)
+	fi
+
+	if [ -d ${D}/usr/share/gir-1.0 ]
+	then
+		alldeps+=" "$(find ${locs} -path 'usr/share/gir-1.0/*.gir' | xargs -r sed -n -e '/shared-library/s/,/ /g;s/.*shared-library="\([^"]*\).*/\1/gp' | xargs -r which | sort -u)
+		for girdep in $(find ${locs} -path 'usr/share/gir-1.0/*.gir' \
+				| xargs -r sed -n -e 's/.*<include *name="\([^"]*\)" *version="\([^"]*\)".*/\1-\2.gir/gp' \
+				| sort -u)
+		do
+			if [ -f ${D}/usr/share/gir-1.0/${girdep} ]
+			then
+				alldeps+=" "${D}/usr/share/gir-1.0/${girdep}
+			else
+				alldeps+=" "/usr/share/gir-1.0/${girdep}
+			fi
+		done
 	fi
 
 	if [ $(find ${locs} -type f -name '*.jar' | wc -l) -gt 0 ] && check_prog jdepend jar
