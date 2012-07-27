@@ -148,7 +148,8 @@ __list_deps() {
 	do
 		# avoid version comparison tokens
 		case ${pcdep} in [A-Za-z]*) ;; *) continue ;; esac
-		for d in $(__target_prefix)/lib/pkgconfig /usr/share/pkgconfig
+		for d in ${D}$(__target_prefix)/lib/pkgconfig ${D}/usr/share/pkgconfig \
+			 $(__target_prefix)/lib/pkgconfig /usr/share/pkgconfig
 		do
 			if [ -f ${d}/${pcdep}.pc ]
 			then
