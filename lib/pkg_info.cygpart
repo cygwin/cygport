@@ -204,8 +204,8 @@ __list_deps() {
 	if check_prog perl
 	then
 		pldirs=$(PERL5LIB=${D}${PERL_VENDORLIB} perl -e 'print join(" ",@INC)')
-		for pldep in $(echo $(find ${locs} -name '*.pl' -o -name '*.pm') \
-				$(find ${locs} ! -type d ! -name '*.*' -executable | xargs grep -l '^#!.*perl.*') \
+		for pldep in $(find ${locs} \( -name '*.pl' -o -name '*.pm' \) -print \
+				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*perl.*' '{}' + \
 				| xargs -r sed -ne 's/^ *\(use\|require\) \([A-Z][^ ;]*\).*/\2/gp' \
 				| sort -u)
 		do
@@ -223,8 +223,8 @@ __list_deps() {
 	if check_prog php
 	then
 		phpmoddir=$(php-config  --extension-dir)
-		for phpdep in $(echo $(find ${locs} -name '*.php') \
-				$(find ${locs} ! -type d ! -name '*.*' -executable | xargs grep -l '^#!.*php*') \
+		for phpdep in $(find ${locs} -name '*.php' -print \
+				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*php*' '{}' + \
 				| xargs -r sed -ne "s/^ *\(include\|require\)\(_once\)* '\([^'\"]*\).*\;/\3/gp;s/.*loadExtension *( *[^$]\([^)'\"]*\).*/\1.dll/gp" \
 				| sort -u)
 		do
@@ -253,8 +253,8 @@ __list_deps() {
 		pydirs=$(PYTHONPATH=${D}${PYTHON_SITELIB} python -c 'import sys; print(" ".join(sys.path))')
 		pyexts=$(python -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
-		for pydep in $(echo $(find ${locs} -name '*.py') \
-				$(find ${locs} ! -type d ! -name '*.*' -executable | xargs grep -l '^#!.*python[^3]*') \
+		for pydep in $(find ${locs} -name '*.py' -print \
+				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python[^3]*' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
 				| sed -e 's/ *from \([^ ]*\) import .*/\1/g;s/ *import //g;s/,.*//g;s/ as .*//g;' \
 				| sort -u)
@@ -276,8 +276,8 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		pydirs=$(PYTHONPATH=${D}${PYTHON3_SITELIB} python3 -c 'import sys; print(" ".join(sys.path))')
 		pyexts=$(python3 -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
-		for pydep in $(echo $(find ${locs} -name '*.py') \
-				$(find ${locs} ! -type d ! -name '*.*' -executable | xargs grep -l '^#!.*python3') \
+		for pydep in $(find ${locs} -name '*.py' -print \
+				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python3' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
 				| sed -e 's/ *from \([^ ]*\) import .*/\1/g;s/ *import //g;s/,.*//g;s/ as .*//g;' \
 				| sort -u)
@@ -299,8 +299,8 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	if check_prog ruby
 	then
 		rbdirs=$(RUBYLIB=${D}${RUBY_VENDORLIB}:${D}${RUBY_VENDORARCH}:${D}${RUBY_SITELIB}:${D}${RUBY_SITEARCH} ruby -e 'print($:.join(" "))')
-		for rbdep in $(echo $(find ${locs} -name '*.rb') \
-				$(find ${locs} ! -type d ! -name '*.*' -executable | xargs grep -l '^#!.*ruby') \
+		for rbdep in $(find ${locs} -name '*.rb' -print \
+				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*ruby' '{}' + \
 				| xargs -r sed -ne "s|^[^#]*require ['\"]\([^'\"]*\)['\"].*|\1|gp" \
 				| sort -u)
 		do
