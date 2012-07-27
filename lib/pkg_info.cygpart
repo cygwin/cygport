@@ -256,7 +256,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find ${locs} -name '*.py' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python[^3]*' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
-				| sed -e 's/ *from \([^ ]*\) import .*/\1/g;s/ *import //g;s/,.*//g;s/ as .*//g;' \
+				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
 				| sort -u)
 		do
 			for d in ${pydirs[*]/\//${D}/} ${pydirs[*]}
@@ -279,7 +279,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find ${locs} -name '*.py' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python3' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
-				| sed -e 's/ *from \([^ ]*\) import .*/\1/g;s/ *import //g;s/,.*//g;s/ as .*//g;' \
+				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
 				| sort -u)
 		do
 			for d in ${pydirs[*]/\//${D}/} ${pydirs[*]}
