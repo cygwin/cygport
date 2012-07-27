@@ -412,7 +412,10 @@ __pkg_srcpkg() {
 
 	__pkg_diff;
 
-	cp ${patchdir}/${cygwin_patchfile} ${spkgdir};
+	if [ -s ${patchdir}/${cygwin_patchfile} ]
+	then
+		cp ${patchdir}/${cygwin_patchfile} ${spkgdir};
+	fi
 
 	if [ -s ${patchdir}/${src_patchfile} ]
 	then
