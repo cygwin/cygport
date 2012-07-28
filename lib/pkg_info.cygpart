@@ -52,7 +52,8 @@ __list_debug_files() {
 __list_deps() {
 	local locs="${@}"
 	local d f ext
-	local alldeps girdep jar jpkg ladep pcdep pidep phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
+	local alldeps girdep jar jpkg ladep luadep luapaths pcdep pidep
+	local phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
 	local tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
@@ -198,6 +199,25 @@ __list_deps() {
 		for jpkg in $(find ${D} -type f -name '*.jar' | xargs -r jdepend | sed -ne 's/^\([^,]*\),[0-9].*/\1/gp')
 		do
 			alldeps+=" "$(sed -ne "/ $jpkg /s|^\(.*\):.*|\1|1p" ${T}/.jardb)
+		done
+	fi
+
+	if check_prog lua
+	then
+		luapaths=($(lua -e 'print(package.path.."\;"..package.cpath)' | tr '\;' ' '))
+		for luadep in $(find ${locs} -name '*.lua' -print \
+				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*lua' '{}' + \
+				| xargs -r sed -ne "s|^[^#]*require *['\"]\([^'\"]*\)['\"].*|\1|gp" \
+				| sort -u)
+		do
+			for f in ${luapaths[*]/\//${D}/} ${luapaths[*]}
+			do
+				if [ -f ${f/\?/${luadep}} ]
+				then
+					alldeps+=" "${f/\?/${luadep}};
+					break;
+				fi
+			done
 		done
 	fi
 
