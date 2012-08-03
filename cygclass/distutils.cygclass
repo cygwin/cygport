@@ -1,6 +1,6 @@
 ################################################################################
 #
-# distutils.cygclass - wrapper for versioned python*-distutils cygclasses
+# distutils.cygclass - wrapper for various py*-distutils cygclasses
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012 Yaakov Selkowitz
@@ -25,57 +25,68 @@
 #  SYNOPSIS
 #  inherit distutils
 #  DESCRIPTION
-#  Compatibility wrapper for python-distutils.cygclass or python3-distutils.cygclass.
+#  Compatibility wrapper for python-distutils.cygclass. python3-distutils.cygclass.
+#  or pypy-distutils.cygclass.
 #  INHERITS
-#  python-distutils.cygclass in most scenarios, OR python3-distutils.cygclass,
-#  if PN begins with "python3-*" or python3.cygclass has already been inherit()ed.
+#  python-distutils.cygclass in most scenarios, OR python3-distutils.cygclass
+#  if PN begins with "python3-*" or python3.cygclass has already been inherit()ed,
+#  OR pypy-distutils.cygclass if PN begins with "pypy-*" or pypy.cygclass has
+#  already been inherit()ed.
 #  WARNING
-#  distutils.cygclass cannot be used with both python and python3.  If you wish
-#  to build a module for both versions from the same source simultaneously, use
-#  distutils-multi.cygclass.
+#  distutils.cygclass can only be used with one of python, python3, or pypy.
+#  If you wish to build a module for both python and python3 from the same
+#  source simultaneously, use distutils-multi.cygclass.
 #****
 
 case ${PN} in
 	python-*)
-		_pysuffix=
+		_pyinterp=python
 		;;
 	python3-*)
 		inform "Using Python 3.x ..."
-		_pysuffix=3
+		_pyinterp=python3
 		;;
-	*)	if inherited python && ! inherited python3
+	pypy-*)
+		inform "Using PyPy ..."
+		_pyinterp=pypy
+		;;
+	*)	if inherited python && ! inherited python3 && ! inherited pypy
 		then
-			_pysuffix=
-		elif inherited python3 && ! inherited python
+			_pyinterp=python
+		elif inherited python3 && ! inherited python && ! inherited pypy
 		then
 			inform "Using Python 3.x ..."
-			_pysuffix=3
+			_pyinterp=python3
+		elif inherited pypy && ! inherited python && ! inherited python3
+		then
+			inform "Using PyPy ..."
+			_pyinterp=pypy
 		elif inherited python && inherited python3
 		then
 			warning "Both python.cygclass and python3.cygclass have been inherited!"
 			warning "Perhaps you want to use distutils-multi.cygclass instead?"
 			error "distutils.cygclass: incompatible use of both python and python3"
 		else
-			_pysuffix=
+			_pyinterp=python
 		fi
 esac
 
-inherit python${_pysuffix}-distutils
+inherit ${_pyinterp}-distutils
 
 #****C* distutils.cygclass/distutils_compile
 #  DESCRIPTION
-#  Wrapper for python_distutils_compile/python3_distutils_compile
+#  Wrapper for python_distutils_compile/python3_distutils_compile/pypy_distutils_compile
 #****
 distutils_compile() {
-	python${_pysuffix}_distutils_compile "$@"
+	${_pyinterp}_distutils_compile "$@"
 }
 
 #****I* distutils.cygclass/distutils_install
 #  DESCRIPTION
-#  Wrapper for python_distutils_install/python3_distutils_install
+#  Wrapper for python_distutils_install/python3_distutils_install/pypy_distutils_install
 #****
 distutils_install() {
-	python${_pysuffix}_distutils_install "$@"
+	${_pyinterp}_distutils_install "$@"
 }
 
 readonly -f distutils_compile distutils_install
