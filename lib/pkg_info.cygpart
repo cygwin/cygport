@@ -268,13 +268,37 @@ __list_deps() {
 		done
 	fi
 
-	if check_prog python && ! inherited python3 && [ ${PN} != "python3" ]
+	if check_prog python && ! inherited python3 && ! inherited pypy \
+	   && [ ${PN} != "python3" ] && [ ${PN} != "pypy" ]
 	then
 		pydirs=($(python -c 'import sys; print(" ".join(sys.path))'))
 		pyexts=$(python -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find ${locs} -name '*.py' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python[^3]*' '{}' + \
+				| xargs -r grep -h '^[^#]*import ' \
+				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
+				| sort -u)
+		do
+			for d in ${pydirs[*]/\//${D}/} ${pydirs[*]}
+			do
+				for ext in ${pyexts} /__init__.py /__init__.pyc
+				do
+					if [ -f ${d}/${pydep//\.//}${ext} ]
+					then
+						alldeps+=" "${d}/${pydep//\.//}${ext};
+						break 2;
+					fi
+				done
+			done
+		done
+	elif inherited pypy
+	then
+		pydirs=($(pypy -c 'import sys; print(" ".join(sys.path))'))
+		pyexts=$(pypy -c 'import imp
+for suffix, mode, type in imp.get_suffixes(): print(suffix)')
+		for pydep in $(find ${locs} -name '*.py' -print \
+				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*pypy' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
 				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
 				| sort -u)
