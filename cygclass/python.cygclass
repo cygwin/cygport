@@ -35,8 +35,8 @@
 #  number of ways, so this cygclass does not provide any build functions.  The
 #  two most common build systems for Python packages are Distutils and autotools.
 #  NOTE
-#  python.cygclass is for the 2.x versions of Python; for the 3.x versions,
-#  see python3.cygclass.
+#  python.cygclass is for the 2.x versions of CPython. For the 3.x versions,
+#  see python3.cygclass; for PyPy, see pypy.cygclass.
 #  INHERITED BY
 #  distutils.cygclass, pygtk.cygclass, rox.cygclass
 #  REQUIRES
