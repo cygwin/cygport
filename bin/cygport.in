@@ -316,6 +316,7 @@ unset conf;
 #  * perl.cygclass
 #  * php.cygclass
 #  * pygtk.cygclass
+#  * pypy.cygclass
 #  * python.cygclass
 #  * python-distutils.cygclass
 #  * python3.cygclass

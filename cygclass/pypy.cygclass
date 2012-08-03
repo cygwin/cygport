@@ -1,0 +1,179 @@
+################################################################################
+#
+# pypy.cygclass - functions for installing PyPy modules
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/pypy.cygclass
+#  SYNOPSIS
+#  inherit pypy
+#  DESCRIPTION
+#  PyPy is an alternative implementation of the Python general-purpose
+#  interpreted programming language which includes a Just-In-Time compiler.
+#  It is mostly compatible with Python 2.7 and most pure Python programs and
+#  libraries; support for C extensions is experimental.
+#
+#  This cygclass provides definitions and some install helpers which can be used
+#  by any PyPy-based package.  PyPy modules and programs are built in a number
+#  of ways, so this cygclass does not provide any build functions.  The two
+#  most common build systems for PyPy packages are Distutils and autotools.
+#  INHERITED BY
+#  pypy-distutils.cygclass
+#  REQUIRES
+#  pypy
+#****
+
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
+check_prog_req pypy
+
+#****d* pypy.cygclass/PYPY
+#  DESCRIPTION
+#  Absolute path to the PyPy interpreter.
+#****
+PYPY=/usr/bin/pypy
+
+#****d* pypy.cygclass/PYPY_VERSION
+#  DESCRIPTION
+#  The major.minor version of the current PyPy interpreter.
+#****
+PYPY_VERSION=$(${PYPY} -c 'from distutils.sysconfig import * ; print get_python_version();')
+
+#****d* pypy.cygclass/PYPY_INCLUDEDIR
+#  DESCRIPTION
+#  Path containing the PyPy C library headers.
+#****
+PYPY_INCLUDEDIR=$(${PYPY} -c 'from distutils.sysconfig import * ; print get_python_inc();')
+
+#****d* pypy.cygclass/PYPY_SITELIB
+#  DESCRIPTION
+#  Installation path for all PyPy extension modules.
+#****
+PYPY_SITELIB=$(${PYPY} -c 'from distutils.sysconfig import * ; print get_python_lib(0,0);')
+
+#****d* python.cygclass/LIBPYPY
+#  DESCRIPTION
+#  Link flags for the PyPy import library.  This definition must be properly quoted.
+#****
+LIBPYPY="-L${PYPY_SITELIB%/*}/lib/python${PYPY_VERSION}/config -lpython${PYPY_VERSION}"
+
+DEPS_PATH+=":${PYPY_SITELIB%/*}/bin"
+
+#****I* pypy.cygclass/pypyinto
+#  SYNOPSIS
+#  pypyinto SUBDIRECTORY
+#  DESCRIPTION
+#  Subdirectory of PYPY_SITELIB into which dopypy should install.  This is
+#  usually unnecessary.
+#****
+pypyinto() {
+	if (( $# != 1 ))
+	then
+	    error "pypyinto accepts exactly one argument";
+	fi
+
+	case ${1} in
+    	/*) error "pypyinto argument should be only a subdirectory" ;;
+	esac
+
+	export _pypyinto_dir=${1};
+}
+
+#****I* pypy.cygclass/dopypy
+#  SYNOPSIS
+#  [pypyinto SUBDIRECTORY]
+#  dopypy MODULE1 [MODULE2] ...
+#  DESCRIPTION
+#  Installs the given PyPy module(s) (.py or .dll) into PYPY_SITELIB under $D,
+#  or a subdirectory thereof if pypyinto was previously called.
+#****
+dopypy() {
+	local pydir
+	local i
+	local mode
+
+	if defined _pypyinto_dir
+	then
+		pydir=${PYPY_SITELIB}/${_pypyinto_dir}
+	else
+		pydir=${PYPY_SITELIB}
+	fi
+
+	dodir ${pydir}
+
+	for i
+	do
+		if [ ! -e ${i} ]
+		then
+			error "dopypy: ${i}: file not found"
+		fi
+
+		case ${i} in
+			*.la|*.so)	mode=0755 ;;
+			*)	mode=0644 ;;
+		esac
+
+		__doinstall ${mode} ${i} ${pydir} || error "dopypy ${i} failed"
+	done
+}
+
+#****I* pypy.cygclass/pypy_optimize
+#  SYNOPSIS
+#  pypy_optimize [DIRECTORY1] [DIRECTORY2] ...
+#  DESCRIPTION
+#  Bytecode-compile all PyPy modules found in the given directories under $D.
+#  If no directories are specified, PYPY_SITELIB under $D is assumed.
+#  NOTE
+#  PyPy modules installed with distutils_install are automatically compiled,
+#  as are those installed by automake-based packages *if* they have been declared
+#  as _PYTHON files (in which case a py-compile script will be present in $S).
+#  Some automake-based packages mistakenly declare these as _DATA instead, in
+#  which case either the Makefile.am must be patched or this function called
+#  after cyginstall.
+#****
+pypy_optimize() {
+	local pyd
+
+	for pyd in "${@:-${PYPY_SITELIB}}"
+	do
+		if [ ! -d ${D}${pyd} ]
+		then
+			error "directory ${pyd} does not exist"
+		fi
+
+		inform "Compiling ${pyd}..."
+		${PYPY} -m compileall -f -q -d ${pyd} ${D}${pyd}
+	done
+}
+
+#****I* pypy.cygclass/pypy_fix_shebang
+#  SYNOPSIS
+#  pypy_fix_shebang SCRIPT [SCRIPT ...]
+#  DESCRIPTION
+#  Fixes the designated interpreter of SCRIPT to PYPY.  This would be necessary
+#  if the original uses an incorrect path (e.g. /usr/local/bin) or defaults
+#  to the CPython interpreter.  SCRIPT need not be prefixed by $D.
+#****
+pypy_fix_shebang() {
+    __fix_shebang ${PYPY} ${D}/${@#${D}}
+}
+
+readonly -f pypyinto dopypy pypy_optimize pypy_fix_shebang

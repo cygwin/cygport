@@ -46,6 +46,7 @@ cygclass_DATA =					\
 	cygclass/perl.cygclass			\
 	cygclass/php.cygclass			\
 	cygclass/pygtk.cygclass			\
+	cygclass/pypy.cygclass			\
 	cygclass/python.cygclass		\
 	cygclass/python-distutils.cygclass	\
 	cygclass/python3.cygclass		\
