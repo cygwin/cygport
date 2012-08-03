@@ -1,0 +1,110 @@
+################################################################################
+#
+# pypy-distutils.cygclass - for building PyPy modules with Distutils
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/pypy-distutils.cygclass
+#  DESCRIPTION
+#  Distutils is the most common method for building and installing PyPy
+#  libraries and programs.  The build is defined by a setup.py file in the
+#  top source directory, which controls the installation of files. Many such
+#  packages are hosted on the Python Package Index (PyPI, previously known as
+#  Cheeseshop).
+#
+#  This cygclass handles the building of PyPy distutils-based packages.
+#  INHERITS
+#  pypy.cygclass
+#  REQUIRES
+#  pypy
+#****
+inherit pypy
+
+ORIG_PN=${ORIG_PN:-${PN#pypy-}}
+
+#****o* pypy-distutils.cygclass/HOMEPAGE (pypy-distutils)
+#  DESCRIPTION
+#  Default homepage of the module on the Python Package Index.
+#****
+HOMEPAGE="http://pypi.python.org/pypi/${ORIG_PN}"
+
+#****o* pypy-distutils.cygclass/SRC_URI (pypy-distutils)
+#  DESCRIPTION
+#  Download location of the module on the Python Package Index.
+#****
+SRC_URI="http://pypi.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
+
+#****C* pypy-distutils.cygclass/pypy_distutils_compile
+#  SYNOPSIS
+#  pypy_distutils_compile [OPTIONS]
+#  DESCRIPTION
+#  Runs the setup.py 'config' and 'build' commands.  All arguments are passed
+#  to the setup.py 'build' command.
+#****
+pypy_distutils_compile() {
+	if [ ! -e setup.py ]
+	then
+		error "No PyPy Distutils module detected"
+	fi
+
+	${PYPY} setup.py config || error "setup.py config failed"
+	${PYPY} setup.py build "${@}" || error "setup.py build failed"
+}
+
+#****I* pypy-distutils.cygclass/pypy_distutils_install
+#  SYNOPSIS
+#  pypy_distutils_install [OPTIONS]
+#  DESCRIPTION
+#  Runs the setup.py 'install' phase, setting the root argument to install
+#  into $D, followed by pypy_optimize.  All arguments are passed to the
+#  setup.py 'install' command.
+#****
+pypy_distutils_install() {
+	if [ ! -e setup.py ]
+	then
+		error "No Python Distutils module detected"
+	fi
+
+	${PYPY} setup.py "${@}" install --no-compile --root=${D} || error "setup.py install failed"
+
+	if [ -d ${D}${PYPY_SITELIB} ]
+	then
+		pypy_optimize ${PYPY_SITELIB}
+	fi
+}
+
+#****o* pypy-distutils.cygclass/src_compile (pypy-distutils)
+#  DEFINITION
+src_compile() {
+	lndirs
+	cd ${B}
+	pypy_distutils_compile
+}
+#****
+
+#****o* pypy-distutils.cygclass/src_install (pypy-distutils)
+#  DEFINITION
+src_install() {
+	cd ${B}
+	pypy_distutils_install
+}
+#****
+
+readonly -f pypy_distutils_compile pypy_distutils_install
