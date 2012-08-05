@@ -62,6 +62,7 @@ cygclass_DATA =					\
 	cygclass/rox.cygclass			\
 	cygclass/ruby.cygclass			\
 	cygclass/ruby-gnome2.cygclass		\
+	cygclass/sugar.cygclass			\
 	cygclass/svn.cygclass			\
 	cygclass/tcl.cygclass			\
 	cygclass/texlive.cygclass		\

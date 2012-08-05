@@ -332,6 +332,7 @@ unset conf;
 #  * rox.cygclass
 #  * ruby.cygclass
 #  * ruby-gnome2.cygclass
+#  * sugar.cygclass
 #  * svn.cygclass
 #  * tcl.cygclass
 #  * texlive.cygclass

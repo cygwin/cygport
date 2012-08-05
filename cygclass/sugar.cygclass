@@ -1,0 +1,104 @@
+################################################################################
+#
+# sugar.cygclass - for building Sugar Activities packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/sugar.cygclass
+#  DESCRIPTION
+#  The Sugar Learning Platform provides an alternative to traditional
+#  office/desktop software with a focus on education and ease of use,
+#  particularly for children.  Sugar Activities (applications) are written
+#  in Python to ease both authorship and deployment.
+#
+#  This cygclass provides functions for building Sugar Activities packages.
+#  INHERITS
+#  python.cygclass
+#  REQUIRES
+#  python, sugar-toolkit
+#****
+
+: ${ORIG_PN:=${PN#sugar-}}
+
+inherit python
+
+#****o* sugar.cygclass/CATEGORY (sugar)
+#  DEFINITION
+CATEGORY="Sugar"
+#****
+#****o* sugar.cygclass/SUMMARY (sugar)
+#  DEFINITION
+SUMMARY="Sugar Desktop ${ORIG_PN} activity"
+#****
+#****o* sugar.cygclass/DESCRIPTION (sugar)
+#  DEFINITION
+DESCRIPTION="The award-winning Sugar Learning Platform promotes
+collaborative learning through Sugar Activities that encourage critical
+thinking, the heart of a quality education. Designed from the ground up
+especially for children, Sugar offers an alternative to traditional
+office-desktop software."
+#****
+#****o* sugar.cygclass/HOMEPAGE (sugar)
+#  DEFINITION
+HOMEPAGE="http://www.sugarlabs.org/"
+#****
+
+#****v* sugar.cygclass/SUGAR_TYPE
+#  DESCRIPTION
+#  Activities shipped by Sugar Labs are classified into one of two Taxonomies:
+#  "Fructose" (maintained by the Sugar developers) and "Honey" (maintained by
+#  third parties).  If SUGAR_TYPE is defined as one of these two, then SRC_URI
+#  will be defined automatically.
+#  NOTE
+#  This variable is case-insensitive.
+#****
+case "${SUGAR_TYPE,,}" in
+fructose)
+	SRC_URI="http://download.sugarlabs.org/sources/sucrose/fructose/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2" ;;
+honey)	SRC_URI="http://download.sugarlabs.org/sources/honey/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2" ;;
+esac
+
+#****I* sugar.cygclass/sugar_install
+#  SYNOPSIS
+#  sugar_install
+#  DESCRIPTION
+#  Installs the Sugar activity into $D and byte-compiles all Python code.
+#****
+sugar_install() {
+	[ -e setup.py ] || error "sugar_install: setup.py not found"
+	${PYTHON} setup.py install --prefix=${D}/usr || error "setup.py install failed"
+	python_optimize /usr/share/sugar/activities
+}
+
+#****o* sugar.cygclass/src_compile (sugar)
+#  DESCRIPTION
+#  There is nothing to build, so this is empty.
+#****
+src_compile() { :; }
+
+#****o* sugar.cygclass/src_install (sugar)
+#  DEFINITION
+src_install() {
+	cd ${S}
+	sugar_install
+}
+#****
+
+readonly -f sugar_install
