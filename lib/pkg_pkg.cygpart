@@ -334,6 +334,11 @@ __pkg_diff() {
 		fi
 	fi
 
+	if inherited sugar
+	then
+		default_excludes+=" *.linfo";
+	fi
+
 	# cd now so that wildcards aren't mistakenly expanded to match files in
 	# user's directory
 	cd ${workdir};
