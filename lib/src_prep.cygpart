@@ -128,7 +128,7 @@ unpack() {
 				check_prog_req xar;
 				unpack_cmd="xar -xf";
 				;;
-			*.zip|*.ZIP)
+			*.xo|*.zip|*.ZIP)
 				check_prog_req unzip;
 				unpack_cmd="unzip -oq";
 				;;
