@@ -128,6 +128,11 @@ __list_deps() {
 		-exec ${OBJDUMP} -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
 		cut -d ' ' -f 3 | xargs -r which || true)
 
+	# shebang script interpreters
+	alldeps+=" "$(find ${locs} -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' \
+			| xargs -r sed -n -e '/^#!/s|/env *|/|g;s|^#! *\([^ ]*\).*|\1|gp' \
+			| sort -u)
+
 	# implib devel->dll subpackage dependencies
 	alldeps+=" "$(find ${locs} -type f -name '*.dll.a' -exec dlltool -I '{}' \; 2>/dev/null \
 			| sort -u | xargs -r which)
