@@ -138,7 +138,7 @@ __list_deps() {
 			| sort -u | xargs -r which)
 
 	for ladep in $(find ${locs} -type f -name '*.la' \
-			| xargs sed -ne "s|^dependency_libs='\(.*\)'|\1|gp" \
+			| xargs -r sed -ne "s|^dependency_libs='\(.*\)'|\1|gp" \
 			| sed -e 's| -[LR][^ ]*||g;s| -l\([^ ]*\)| /usr/lib/lib\1.dll.a|g')
 	do
 		if [ -f ${D}${ladep} ]
