@@ -297,7 +297,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				done
 			done
 		done
-	elif inherited pypy
+	elif inherited pypy || [ ${PN} = "pypy" ]
 	then
 		pydirs=($(pypy -c 'import sys; print(" ".join(sys.path))'))
 		pyexts=$(pypy -c 'import imp
