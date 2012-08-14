@@ -54,6 +54,7 @@ __list_deps() {
 	local d f ext
 	local alldeps girdep jar jpkg ladep luadep luapaths pcdep pidep
 	local phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
+	local vapidep vapidir
 	local tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
@@ -190,6 +191,20 @@ __list_deps() {
 				alldeps+=" "${D}/usr/share/gir-1.0/${girdep}
 			else
 				alldeps+=" "/usr/share/gir-1.0/${girdep}
+			fi
+		done
+	fi
+
+	vapidir=/usr/share/vala/vapi
+	if [ -d ${D}${vapidir} ]
+	then
+		for vapidep in $(find ${locs} -path "${vapidir#/}/*.deps" | xargs -r cat | sort -u)
+		do
+			if [ -f ${D}${vapidir}/${vapidep}.vapi ]
+			then
+				alldeps+=" "${D}${vapidir}/${vapidep}.vapi
+			else
+				alldeps+=" "${vapidir}/${vapidep}.vapi
 			fi
 		done
 	fi
