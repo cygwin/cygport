@@ -555,11 +555,11 @@ __pkg_dist() {
 #  auto-generated setup.hint file.
 #  NOTES
 #  * cygport attempts to automatically detect many types of package
-#  dependencies, which do not need to be listed in REQUIRES.  This is still
-#  needed for commands called by scripts or in code with fork(), libraries
-#  which are accessed by dlopen(), or data used by your package at runtime.
+#    dependencies, which do not need to be listed in REQUIRES.  This is still
+#    needed for commands called by scripts or in code with fork(), libraries
+#    which are accessed by dlopen(), or data used by your package at runtime.
 #  * If there is more than one package in PKG_NAMES, this variable will be
-#  ignored; you must use PKG_REQUIRES instead.
+#    ignored; you must use PKG_REQUIRES instead.
 #  * Any newlines in this variable must be escaped.
 #  SEE ALSO
 #  PKG_REQUIRES
@@ -578,9 +578,9 @@ __pkg_dist() {
 #  libfoo-devel will use libfoo_devel_REQUIRES.
 #  NOTES
 #  * cygport attempts to automatically detect many types of package
-#  dependencies, which do not need to be listed in REQUIRES.  This is still
-#  needed for commands called by scripts or in code with fork(), libraries
-#  which are accessed by dlopen(), or data used by your package at runtime.
+#    dependencies, which do not need to be listed in REQUIRES.  This is still
+#    needed for commands called by scripts or in code with fork(), libraries
+#    which are accessed by dlopen(), or data used by your package at runtime.
 #  * Any newlines in this variable must be escaped.
 #****
 
