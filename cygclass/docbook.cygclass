@@ -55,9 +55,21 @@ case ${dtd_type} in
 	*)	error "docbook: Unknown DTD type: ${dtd_type}"
 esac
 
-
-DESCRIPTION="DocBook ${dtd_type} DTD, version ${PN}"
-
+#****o* docbook.cygclass/CATEGORY (docbook)
+#  DEFINITION
+CATEGORY="Text"
+#****
+#****o* docbook.cygclass/SUMMARY (docbook)
+#  DEFINITION
+SUMMARY="DocBook ${dtd_type} DTD, version ${PV}"
+#****
+#****o* docbook.cygclass/DESCRIPTION (docbook)
+#  DEFINITION
+DESCRIPTION="DocBook is a schema maintained by the DocBook Technical Committee
+of OASIS. It is particularly well suited to books and papers about computer
+hardware and software (though it is by no means limited to these applications).
+This package provides version ${PV} of the DocBook DTDs for ${dtd_type}."
+#****
 #****o* docbook.cygclass/HOMEPAGE (docbook)
 #  DEFINITION
 HOMEPAGE="http://www.oasis-open.org/docbook/"
