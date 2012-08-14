@@ -74,11 +74,17 @@ ASPELL_DICTDIR=$(aspell dump config dict-dir)
 #****
 ASPELL_LANG="${PN#aspell-}"
 
+#****d* aspell-dict.cygclass/ASPELL_LANG_FULL
+#  DESCRIPTION
+#  The English name for the language specified in ASPELL_LANG.
+#  NOTE
+#  The iso-codes package must be installed in order to provide this definition.
+#****
 iso_639=/usr/share/xml/iso-codes/iso_639.xml
 
 if [ -f ${iso_639} ]
 then
-	ASPELL_LANG_FULL=$(sed -e ':a;N;$!ba;s|\n\t\t| |g' ${iso_639} | grep \"${ASPELL_LANG}\" | sed -e 's|.* name="\([^"]*\).*|\1|')
+	ASPELL_LANG_FULL=$(sed -e ':a;N;$!ba;s|\n\t\t| |g' ${iso_639} | grep \"${ASPELL_LANG}\" | sed -e 's|.* name="\([^"\;]*\).*|\1|')
 fi
 
 unset iso_639
