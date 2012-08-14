@@ -87,8 +87,21 @@ unset iso_639
 ORIG_PN="aspell${ASPELL_COMPAT}-${ASPELL_LANG}"
 ORIG_PV=${PV%.*}-${PV##*.}
 
-DESCRIPTION="Aspell ${ASPELL_LANG_FULL:-${ASPELL_LANG}} dictionary"
-
+#****o* aspell-dict.cygclass/CATEGORY (aspell-dict)
+#  DEFINITION
+CATEGORY="Text"
+#****
+#****o* aspell-dict.cygclass/SUMMARY (aspell-dict)
+#  DEFINITION
+SUMMARY="Aspell ${ASPELL_LANG_FULL:-${ASPELL_LANG}} dictionary"
+#****
+#****o* aspell-dict.cygclass/DESCRIPTION (aspell-dict)
+#  DEFINITION
+DESCRIPTION="GNU Aspell is a Free and Open Source spell checker designed to
+eventually replace Ispell. It can either be used as a library or as an
+independent spell checker.
+This package provides ${ASPELL_LANG_FULL:-${ASPELL_LANG}} dictionaries for Aspell."
+#****
 #****o* aspell-dict.cygclass/HOMEPAGE (aspell-dict)
 #  DEFINITION
 HOMEPAGE="http://aspell.net/"
