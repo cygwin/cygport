@@ -32,13 +32,18 @@
 
 ORIG_PN="${PN#ebook-}"
 
-DESCRIPTION="EBook ${ORIG_PN} documentation"
-
+#****o* ebook.cygclass/CATEGORY (ebook)
+#  DEFINITION
+CATEGORY="Doc"
+#****
+#****o* ebook.cygclass/SUMMARY (ebook)
+#  DEFINITION
+SUMMARY="EBook ${ORIG_PN} documentation"
+#****
 #****o* ebook.cygclass/HOMEPAGE (ebook)
 #  DEFINITION
 HOMEPAGE="http://code.google.com/p/htmlhelp/"
 #****
-
 #****o* ebook.cygclass/SRC_URI (ebook)
 #  DEFINITION
 SRC_URI="http://htmlhelp.googlecode.com/files/${ORIG_PN}-${PV}.tgz"
