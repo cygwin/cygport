@@ -47,11 +47,14 @@ case ${PN} in
 	;;
 esac
 
-#****o* gnustep.cygclass/DESCRIPTION (gnustep)
+#****o* gnustep.cygclass/CATEGORY (gnustep)
 #  DEFINITION
-DESCRIPTION="GNUstep ${ORIG_PN:-${PN#gnustep-}} component"
+CATEGORY="GNUstep"
 #****
-
+#****o* gnustep.cygclass/SUMMARY (gnustep)
+#  DEFINITION
+SUMMARY="GNUstep ${ORIG_PN:-${PN#gnustep-}} component"
+#****
 #****o* gnustep.cygclass/HOMEPAGE (gnustep)
 #  DEFINITION
 HOMEPAGE="http://www.gnustep.org/"
