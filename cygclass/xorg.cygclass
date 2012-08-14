@@ -131,16 +131,18 @@ case ${ORIG_PN} in
 		;;
 esac
 
-#****o* xorg.cygclass/DESCRIPTION (xorg)
+#****o* xorg.cygclass/CATEGORY (xorg)
 #  DEFINITION
-DESCRIPTION="X.Org ${ORIG_PN} component"
+CATEGORY="X11"
 #****
-
+#****o* xorg.cygclass/SUMMARY (xorg)
+#  DEFINITION
+SUMMARY="X.Org ${ORIG_PN} component"
+#****
 #****o* xorg.cygclass/HOMEPAGE (xorg)
 #  DEFINITION
 HOMEPAGE="http://xorg.freedesktop.org/"
 #****
-
 #****o* xorg.cygclass/SRC_URI (xorg)
 #  DESCRIPTION
 #  Download location of the release tarball.
