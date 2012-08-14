@@ -105,16 +105,22 @@ esac
 #  HOMEPAGE and SRC_URI are set to their usual locations on CPAN.
 #****
 
-#****o* perl.cygclass/DESCRIPTION (perl)
-#  DEFINITION
-DESCRIPTION="Perl ${ORIG_PN//-/::} module"
-#****
-
 if defined CPAN_AUTHOR
 then
-	cpan_author_web=${CPAN_AUTHOR,,}
-	cpan_author_ftp=${CPAN_AUTHOR^^}
-
+#****o* perl.cygclass/CATEGORY (perl)
+#  DEFINITION
+CATEGORY="Perl"
+#  NOTE
+#  This variable is set only if CPAN_AUTHOR is defined before inherit()ing
+#  perl.cygclass.
+#****
+#****o* perl.cygclass/SUMMARY (perl)
+#  DEFINITION
+SUMMARY="Perl ${ORIG_PN//-/::} module"
+#  NOTE
+#  This variable is set only if CPAN_AUTHOR is defined before inherit()ing
+#  perl.cygclass.
+#****
 #****o* perl.cygclass/HOMEPAGE (perl)
 #  DESCRIPTION
 #  Web address for the Perl module on CPAN.
@@ -122,7 +128,7 @@ then
 #  This variable is set only if CPAN_AUTHOR is defined before inherit()ing
 #  perl.cygclass.
 #****
-	HOMEPAGE="http://search.cpan.org/~${cpan_author_web}/${ORIG_PN}/"
+HOMEPAGE="http://search.cpan.org/dist/${ORIG_PN}/"
 
 #****o* perl.cygclass/SRC_URI (perl)
 #  DESCRIPTION
@@ -133,9 +139,10 @@ then
 #  SEE ALSO
 #  mirror_cpan
 #****
-	SRC_URI="mirror://cpan/authors/id/${cpan_author_ftp:0:1}/${cpan_author_ftp:0:2}/${cpan_author_ftp}/${ORIG_PN}-${PV}.${CPAN_TARBALL_SUFFIX:-tar.gz}"
+cpan_author_ftp=${CPAN_AUTHOR^^}
+SRC_URI="mirror://cpan/authors/id/${cpan_author_ftp:0:1}/${cpan_author_ftp:0:2}/${cpan_author_ftp}/${ORIG_PN}-${PV}.${CPAN_TARBALL_SUFFIX:-tar.gz}"
 
-fi
+fi	# defined CPAN_AUTHOR
 
 #****C* perl.cygclass/perl_compile
 #  SYNOPSIS
