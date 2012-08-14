@@ -47,11 +47,14 @@ inherit python
 
 ORIG_PN=${ORIG_PN:-${PN#rox-}}
 
-#****o* rox.cygclass/DESCRIPTION (rox)
+#****o* rox.cygclass/CATEGORY (rox)
 #  DEFINITION
-DESCRIPTION="ROX Desktop ${ORIG_PN} component"
+CATEGORY="ROX"
 #****
-
+#****o* rox.cygclass/SUMMARY (rox)
+#  DEFINITION
+SUMMARY="ROX Desktop ${ORIG_PN} component"
+#****
 #****o* rox.cygclass/HOMEPAGE (rox)
 #  DEFINITION
 HOMEPAGE="http://roscidus.com/desktop/"
