@@ -46,8 +46,23 @@ esac
 
 tarpv=${PV[1]}.${PV[2]}.${PV[3]}
 
-DESCRIPTION="Berkeley DB version ${SLOT}"
-
+#****o* berkdb.cygclass/CATEGORY (berkdb)
+#  DEFINITION
+CATEGORY="Database Libs"
+#****
+#****o* berkdb.cygclass/SUMMARY (berkdb)
+#  DEFINITION
+SUMMARY="Berkeley DB version ${SLOT}"
+#****
+#****o* berkdb.cygclass/DESCRIPTION (berkdb)
+#  DEFINITION
+DESCRIPTION="Oracle Berkeley DB is the industry-leading open source, embeddable
+database engine that provides developers with fast, reliable, local
+persistence with zero administration. Oracle Berkeley DB is a library
+that links directly into your application. Your application makes simple
+function calls, rather than sending messages to a remote server,
+eliminating the performance penalty of client-server architectures."
+#****
 #****o* berkdb.cygclass/HOMEPAGE (berkdb)
 #  DEFINITION
 HOMEPAGE="http://www.oracle.com/technology/products/berkeley-db/db/index.html"
