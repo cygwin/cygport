@@ -611,8 +611,7 @@ __pkg_dist() {
 		then
 			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/setup.hint;
 		elif [ "${CBUILD}" = "i686-pc-cygwin" -o -n "${!pkg_requires_var+yes}" ] \
-		     && [ -n "${!pkg_category_var:-${CATEGORY}}" \
-			-a -n "${!pkg_summary_var:-${SUMMARY}}${!pkg_description_var:-${DESCRIPTION}}" ]
+		     && [ -n "${!pkg_category_var:-${CATEGORY}}" -a -n "${!pkg_summary_var:-${SUMMARY}}" ]
 		then
 			if [ "${CBUILD}" = "i686-pc-cygwin" ]
 			then
