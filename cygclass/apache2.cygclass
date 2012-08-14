@@ -45,13 +45,19 @@
 # cross-compiling is not (yet?) supported
 __cross_compiling_error
 
-case ${PN} in
-	apache2-*)
-		ORIG_PN=${ORIG_PN:-${PN#apache2-}}
-		ORIG_P=${ORIG_PN}-${PV}
-		APACHE_MOD_NAME=${APACHE_MOD_NAME:-${PN#apache2-}}
-		DESCRIPTION="Apache 2.x ${APACHE_MOD_NAME} module"
-		;;
+case ${PN} in apache2-*)
+ORIG_PN=${ORIG_PN:-${PN#apache2-}}
+ORIG_P=${ORIG_PN}-${PV}
+APACHE_MOD_NAME=${APACHE_MOD_NAME:-${PN#apache2-}}
+#****o* apache2.cygclass/CATEGORY (apache2)
+#  DEFINITION
+CATEGORY="Web"
+#****
+#****o* apache2.cygclass/SUMMARY (apache2)
+#  DEFINITION
+SUMMARY="Apache 2.x ${APACHE_MOD_NAME} module"
+#****
+;;
 esac
 
 #****d* apache2.cygclass/APXS2
