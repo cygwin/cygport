@@ -39,11 +39,14 @@ SRC_DIR=${ORIG_PN}-${PV}
 
 inherit gnome.org
 
-#****o* gtkmm.cygclass/DESCRIPTION (gtkmm)
+#****o* gtkmm.cygclass/CATEGORY (gtkmm)
 #  DEFINITION
-DESCRIPTION="GNOME C++ bindings for ${ORIG_PN/mm/}-${PV_MAJ}.x"
+CATEGORY="Gnome"
 #****
-
+#****o* gtkmm.cygclass/SUMMARY (gtkmm)
+#  DEFINITION
+SUMMARY="GNOME C++ bindings for ${ORIG_PN/mm/}-${PV_MAJ}.x"
+#****
 #****o* gtkmm.cygclass/HOMEPAGE (gtkmm)
 #  DEFINITION
 HOMEPAGE="http://www.gtkmm.org/"
