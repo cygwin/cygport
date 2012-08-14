@@ -105,6 +105,22 @@ RI_SITEDIR=/usr/share/ri/${RUBY_VERSION}/site
 #****
 LIBRUBY=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["LIBRUBYARG"]')
 
+case ${PN} in ruby-*)
+#****o* ruby.cygclass/CATEGORY (ruby)
+#  DEFINITION
+CATEGORY="Ruby"
+#  NOTE
+#  This is defined only if PN begins with "ruby-".
+#****
+#****o* ruby.cygclass/SUMMARY (ruby)
+#  DEFINITION
+SUMMARY="Ruby ${PN#ruby-} module"
+#  NOTE
+#  This is defined only if PN begins with "ruby-".
+#****
+;;
+esac
+
 #****C* ruby.cygclass/ruby_compile
 #  SYNOPSIS
 #  cd $B
