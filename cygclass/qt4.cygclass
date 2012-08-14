@@ -41,81 +41,67 @@
 #  DESCRIPTION
 #  Root directory for the Qt4 installation.
 #****
-if inherited cross
-then
-	QT4_QTDIR=${CROSS_PREFIX}
-else
-	QT4_QTDIR=/usr/lib/qt4
-fi
-
 #****d* qt4.cygclass/QT4_BINDIR
 #  DESCRIPTION
 #  Directory containing the Qt4 build tools.
 #****
-QT4_BINDIR=${QT4_QTDIR}/bin
-
 #****d* qt4.cygclass/QT4_INCLUDEDIR
 #  DESCRIPTION
 #  Directory containing the Qt4 library headers.
 #****
-if inherited cross
-then
-	QT4_INCLUDEDIR=${CROSS_INCLUDEDIR}
-else
-	QT4_INCLUDEDIR=/usr/include/qt4
-fi
-
 #****d* qt4.cygclass/QT4_LIBDIR
 #  DESCRIPTION
 #  Directory containing the Qt4 link libraries.
 #****
-QT4_LIBDIR=${QT4_QTDIR}/lib
-
 #****d* qt4.cygclass/QT4_PLUGINSDIR
 #  DESCRIPTION
 #  Installation path for Qt4 plugins.
 #****
-if inherited cross
-then
-	QT4_PLUGINSDIR=${CROSS_LIBDIR}/qt4/plugins
-else
-	QT4_PLUGINSDIR=${QT4_QTDIR}/plugins
-fi
-
 #****d* qt4.cygclass/QT4_DATADIR
 #  DESCRIPTION
 #  Directory containing Qt4 makespecs, documentation, and translation data.
 #****
-if inherited cross
-then
-	QT4_DATADIR=${CROSS_DATADIR}/qt4
-else
-	QT4_DATADIR=/usr/share/qt4
-fi
-
 #****d* qt4.cygclass/QT4_QMAKE
 #  DESCRIPTION
 #  Absolute path to the Qt4 project and Makefile generator
 #****
-QT4_QMAKE=${QT4_BINDIR}/qmake
-
 #****d* qt4.cygclass/QT4_MOC
 #  DESCRIPTION
 #  Absolute path to the Qt4 Meta-Object Compiler
 #****
-QT4_MOC=${QT4_BINDIR}/moc
-
 #****d* qt4.cygclass/QT4_RCC
 #  DESCRIPTION
 #  Absolute path to the Qt4 resource compiler
 #****
-QT4_RCC=${QT4_BINDIR}/rcc
-
 #****d* qt4.cygclass/QT4_UIC
 #  DESCRIPTION
 #  Absolute path to the Qt4 User Interface Compiler
 #****
-QT4_UIC=${QT4_BINDIR}/uic
+
+if inherited cross
+then
+	QT4_QTDIR=${CROSS_PREFIX}
+	QT4_BINDIR=${QT4_QTDIR}/bin
+	QT4_INCLUDEDIR=${CROSS_INCLUDEDIR}
+	QT4_LIBDIR=${QT4_QTDIR}/lib
+	QT4_PLUGINSDIR=${CROSS_LIBDIR}/qt4/plugins
+	QT4_DATADIR=${CROSS_DATADIR}/qt4
+	QT4_QMAKE=/usr/bin/${CROSS_HOST}-qmake
+	QT4_MOC=/usr/bin/${CROSS_HOST}-moc
+	QT4_RCC=/usr/bin/${CROSS_HOST}-rcc
+	QT4_UIC=/usr/bin/${CROSS_HOST}-uic
+else
+	QT4_QTDIR=/usr/lib/qt4
+	QT4_BINDIR=${QT4_QTDIR}/bin
+	QT4_INCLUDEDIR=/usr/include/qt4
+	QT4_LIBDIR=${QT4_QTDIR}/lib
+	QT4_PLUGINSDIR=${QT4_QTDIR}/plugins
+	QT4_DATADIR=/usr/share/qt4
+	QT4_QMAKE=${QT4_BINDIR}/qmake
+	QT4_MOC=${QT4_BINDIR}/moc
+	QT4_RCC=${QT4_BINDIR}/rcc
+	QT4_UIC=${QT4_BINDIR}/uic
+fi
 
 #****d* qt4.cygclass/QT4_UIC3
 #  DESCRIPTION
