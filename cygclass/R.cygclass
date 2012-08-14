@@ -94,11 +94,14 @@ R_SITELIB=${R_HOME}/site-library
 case ${PN} in
 R-*)
 ORIG_PN=${ORIG_PN:-${PN#R-}}
-#****o* R.cygclass/DESCRIPTION (R)
+#****o* R.cygclass/CATEGORY (R)
 #  DEFINITION
-DESCRIPTION="R ${ORIG_PN} package"
+CATEGORY="Math Science"
 #****
-
+#****o* R.cygclass/SUMMARY (R)
+#  DEFINITION
+SUMMARY="R ${ORIG_PN} package"
+#****
 #****o* R.cygclass/HOMEPAGE (R)
 #  DESCRIPTION
 #  Web address for the R module on CRAN.
