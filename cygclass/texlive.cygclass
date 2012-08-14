@@ -63,16 +63,33 @@ then
 	TEXLIVE_TEXMF_PKGS=${PN#texlive-}
 fi
 
+#****o* texlive.cygclass/CATEGORY (texlive)
+#  DEFINITION
+CATEGORY="Publishing"
+#****
+#****o* texlive.cygclass/SUMMARY (texlive)
+#  DESCRIPTION
+#  The default SUMMARY depends on the value of PN.
+#****
 case ${PN} in
+*-doc)
+	SUMMARY="Documentation for ${PN%-doc}" ;;
 texlive-collection-documentation-*)
-	DESCRIPTION="TeX Live ${PN##*-} documentation" ;;
+	SUMMARY="TeX Live ${PN##*-} documentation" ;;
 texlive-collection-lang*)
-	DESCRIPTION="TeX Live ${PN#*-lang} language support" ;;
+	SUMMARY="TeX Live ${PN#*-lang} language support" ;;
 texlive-collection-*|texlive-scheme-*)
-	DESCRIPTION="TeX Live ${PN##*-} package collection" ;;
-*)	DESCRIPTION="TeX Live ${PN#texlive-} package(s)" ;;
+	SUMMARY="TeX Live ${PN##*-} package collection" ;;
+*)	SUMMARY="TeX Live ${PN#texlive-} package(s)" ;;
 esac
 
+#****o* texlive.cygclass/DESCRIPTION (texlive)
+#  DEFINITION
+DESCRIPTION="TeX Live is an easy way to get up and running with the TeX
+document production system.  It includes all the major TeX-related
+programs, macro packages, and fonts that are free software, including
+support for many languages around the world."
+#****
 #****o* texlive.cygclass/HOMEPAGE (texlive)
 #  DEFINITION
 HOMEPAGE="http://www.tug.org/texlive/"
