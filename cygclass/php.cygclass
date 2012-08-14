@@ -116,6 +116,24 @@ LIBPHP=$(${PHP_CONFIG} --libs)
 #  A list of known channels is available at http://pear.php.net/channels/ .
 #****
 
+case ${PN} in php-*)
+ORIG_PN=${ORIG_PN:-${PN#php-}}
+
+#****o* php.cygclass/CATEGORY (php)
+#  DEFINITION
+CATEGORY="PHP"
+#  NOTE
+#  This is defined only if PN begins with "php-".
+#****
+#****o* php.cygclass/SUMMARY (php)
+#  DEFINITION
+SUMMARY="PHP ${ORIG_PN} extension"
+#  NOTE
+#  This is defined only if PN begins with "php-".
+#****
+;;
+esac
+
 #****o* php.cygclass/HOMEPAGE (php)
 #  DESCRIPTION
 #  Web address for the PHP extension.  This variable is defined only if
@@ -126,13 +144,6 @@ LIBPHP=$(${PHP_CONFIG} --libs)
 #  Download location for the PHP extension sources.  This variable is defined
 #  only if PHP_CHANNEL was defined before inherit()ing php.cygclass.
 #****
-
-case ${PN} in
-php-*)
-	ORIG_PN=${ORIG_PN:-${PN#php-}}
-	DESCRIPTION="PHP ${ORIG_PN} extension"
-	;;
-esac
 
 __php_channel_fixup() {
 	local channel
