@@ -86,9 +86,9 @@ esac
 
 inherit gstreamer
 
-#****o* gst-plugins.cygclass/DESCRIPTION (gst-plugins)
+#****o* gst-plugins.cygclass/SUMMARY (gst-plugins)
 #  DEFINITION
-DESCRIPTION="${gst_pn} plugin for the GStreamer multimedia framework"
+SUMMARY="${gst_pn} plugin for the GStreamer multimedia framework"
 #****
 
 #****C* gst-plugins.cygclass/gst_plugins_autoreconf
