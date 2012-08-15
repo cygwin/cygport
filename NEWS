@@ -1,3 +1,6 @@
+0.10.13:
+	* Various bug fixes.
+
 0.10.12:
 	* New manifestize function for manually generating UAC manifest files.
 	* unpack now works with tarballs with incorrect extensions
