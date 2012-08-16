@@ -19,7 +19,6 @@ EXTRA_DIST +=				\
 	README				\
 	TODO				\
 	cygport.spec			\
-	CYGWIN-PATCHES/README		\
 	$(NULL)
 
 dist-hook:

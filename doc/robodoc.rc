@@ -73,7 +73,6 @@ headertypes:
 	P  "Postinstall Steps" cygport_postinstall_steps
 ignore files:
 	autom4te.cache
-	CYGWIN-PATCHES
 	Makefile
 	Makefile.in
 	README
