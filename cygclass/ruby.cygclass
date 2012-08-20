@@ -59,7 +59,7 @@ RUBY=/usr/bin/ruby
 #  DESCRIPTION
 #  The major.minor version of the Ruby interpreter.
 #****
-RUBY_VERSION=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["ruby_version"]')
+RUBY_VERSION=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["ruby_version"]')
 
 #****d* ruby.cygclass/RUBY_LIB
 #  DESCRIPTION
@@ -67,7 +67,7 @@ RUBY_VERSION=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["ruby_version"]')
 #  NOTE
 #  Never install third-party extensions into RUBY_LIB; use RUBY_VENDORLIB instead.
 #****
-RUBY_LIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
+RUBY_LIB=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["rubylibdir"]')
 
 #****d* ruby.cygclass/RUBY_ARCH
 #  DESCRIPTION
@@ -75,23 +75,23 @@ RUBY_LIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 #  NOTE
 #  Never install third-party extensions into RUBY_ARCH; use RUBY_VENDORARCH instead.
 #****
-RUBY_ARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["archdir"]')
+RUBY_ARCH=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["archdir"]')
 
 # deprecated; use RUBY_VENDOR{LIB,ARCH} instead
-RUBY_SITELIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitelibdir"]')
-RUBY_SITEARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["sitearchdir"]')
+RUBY_SITELIB=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["sitelibdir"]')
+RUBY_SITEARCH=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["sitearchdir"]')
 
 #****d* ruby.cygclass/RUBY_VENDORLIB
 #  DESCRIPTION
 #  Installation path for third-party Ruby libraries.
 #****
-RUBY_VENDORLIB=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["vendorlibdir"]')
+RUBY_VENDORLIB=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["vendorlibdir"]')
 
 #****d* ruby.cygclass/RUBY_VENDORARCH
 #  DESCRIPTION
 #  Installation path for third-party Ruby C extensions.
 #****
-RUBY_VENDORARCH=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["vendorarchdir"]')
+RUBY_VENDORARCH=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["vendorarchdir"]')
 
 #****d* ruby.cygclass/RI_SITEDIR
 #  DESCRIPTION
@@ -103,7 +103,7 @@ RI_SITEDIR=/usr/share/ri/${RUBY_VERSION}/site
 #  DESCRIPTION
 #  Link flags for the Ruby C library.
 #****
-LIBRUBY=$(${RUBY} -r rbconfig -e 'print Config::CONFIG["LIBRUBYARG"]')
+LIBRUBY=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["LIBRUBYARG"]')
 
 #****C* ruby.cygclass/ruby_compile
 #  SYNOPSIS
