@@ -950,7 +950,7 @@ __prepdebugsrc() {
 	for dbgsrc in $(sort -u ${T}/.dbgsrc.out)
 	do
 		# make sure that paths with '../' don't leave $dbgsrcdir
-		case $(readlink -m ${dbgsrc}) in
+		case $(readlink -m -- "${dbgsrc}") in
 			${dbgsrcdir}/*) ;;
 			*)  continue ;;
 		esac
