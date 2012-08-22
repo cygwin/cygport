@@ -58,6 +58,9 @@ __list_deps() {
 	local tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
+	# if file list is empty, there are obviously no dependencies
+	defined locs || return
+
 	if __host_is_embedded
 	then
 		return
