@@ -363,6 +363,14 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	if check_prog ruby
 	then
 		rbdirs=($(ruby -e 'print($:.join(" "))'))
+		if check_prog gem
+		then
+			gemdir=$(gem env gemdir)
+			for d in ${D}${gemdir}/gems/*/lib ${gemdir}/gems/*/lib
+			do
+				rbdirs[${#rbdirs[*]}]=${d}
+			done
+		fi
 		for rbdep in $(find ${locs} -name '*.rb' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*ruby' '{}' + \
 				| xargs -r sed -ne "s|^[^#]*require ['\"]\([^'\"]*\)['\"].*|\1|gp" \
