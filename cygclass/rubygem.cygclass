@@ -1,0 +1,118 @@
+################################################################################
+#
+# rubygem.cygclass - functions for building RubyGems packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/rubygem.cygclass
+#  SYNOPSIS
+#  inherit rubygem
+#  DESCRIPTION
+#  RubyGems is a Ruby extension hosting service, much like CPAN is for Perl.
+#  Packages are distributed in the .gem format and have a unique installation
+#  scheme which allows for multiple versions of any package to be installed.
+#  Since Ruby 1.9, RubyGems is fully integrated into Ruby, and has become the
+#  preferred way to distribute Ruby extensions.
+#
+#  This cygclass provides a framework for building RubyGems packages for Cygwin.
+#  INHERITS
+#  ruby.cygclass
+#****
+
+inherit ruby
+
+check_prog_req gem ruby
+
+#****o* rubygem.cygclass/ORIG_PN (rubygem)
+#  DESCRIPTION
+#  The original package name of the package as listed on RubyGems.  The default
+#  value is PN without the leading "ruby-", which covers most RubyGems packages.
+#****
+: ${ORIG_PN=${PN#ruby-}}
+
+#****o* rubygem.cygclass/CATEGORY (rubygem)
+#  DEFINITION
+CATEGORY="Ruby"
+#****
+#****o* rubygem.cygclass/SUMMARY (rubygem)
+#  DEFINITION
+SUMMARY="Ruby ${PN#ruby-} module"
+#****
+#****o* rubygem.cygclass/HOMEPAGE (rubygem)
+#  DESCRIPTION
+#  Default homepage of the Ruby module on RubyGems.
+#****
+HOMEPAGE="http://rubygems.org/gems/${ORIG_PN}"
+
+#****o* rubygem.cygclass/SRC_URI (rubygem)
+#  DESCRIPTION
+#  Default download location of the Ruby module on RubyGems.
+#****
+SRC_URI="http://rubygems.org/downloads/${ORIG_PN}-${PV}.gem"
+
+#****C* rubygem.cygclass/rubygem_compile
+#  SYNOPSIS
+#  rubygem_compile
+#  DESCRIPTION
+#  Builds the gem (including any patches made to files in $S), compiles any
+#  native extensions, and prepares the gem for installation.
+#****
+rubygem_compile() {
+	gem build ${ORIG_PN}-${PV}.gemspec
+	rm -fr _gem_
+	gem install --local --force --rdoc --ri --install-dir ./_gem_ ${ORIG_PN}-${PV}.gem
+}
+
+#****I* rubygem.cygclass/rubygem_install
+#  SYNOPSIS
+#  rubygem_install
+#  DESCRIPTION
+#  Installs the built gem into $D.
+#****
+rubygem_install() {
+	local gemdir=$(gem env gemdir)
+	dodir ${gemdir}
+	find _gem_/gems/ -name '*.o' -delete
+	cp -r _gem_/{cache,doc,gems,specifications}/ ${D}${gemdir}/
+	if [ -d _gem_/bin ]
+	then
+		rm -f _gem_/bin/*.bat
+		dobin _gem_/bin/*
+	fi
+}
+
+#****o* rubygem.cygclass/src_compile (rubygem)
+#  DEFINITION
+src_compile() {
+	lndirs
+	cd ${B}
+	rubygem_compile
+}
+#****
+
+#****o* rubygem.cygclass/src_install (rubygem)
+#  DEFINITION
+src_install() {
+	cd ${B}
+	rubygem_install
+}
+#****
+
+readonly -f rubygem_compile rubygem_install
