@@ -1,3 +1,7 @@
+0.10.14:
+	* Restore compatibility with Fedora 16 and Enterprise Linux 6.
+	* ruby.cygclass: make compatible with Ruby 1.9.
+
 0.10.13:
 	* Various bug fixes.
 

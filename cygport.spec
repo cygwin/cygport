@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.10.13
+Version:        0.10.14
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 22 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.14-1
+- Restore compatibility with F16 and EL6.
+- Fix compatibility with Ruby 1.9.
+
 * Wed Aug 15 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.13-1
 - Bugfix release.
 
