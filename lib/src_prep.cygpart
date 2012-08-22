@@ -30,12 +30,9 @@ __gem_extract() {
 	local gemfile=${gem##*/}
 	local gemsubdir=${gemfile%.gem}
 
-	# .gem's are tarballs containing two files: data.tar.gz and manifest.gz
-	# both the .gem and data.tar.gz are packed without file timestamps
-	tar xmf ${gem} data.tar.gz
-	mkdir -p ${gemsubdir}
-	tar zxmf data.tar.gz -C ${gemsubdir}
-	rm -f data.tar.gz
+	check_prog_req gem ruby
+	gem unpack ${gem} --quiet
+	gem spec ${gem} --ruby > ${gemsubdir}/${gemfile}spec
 }
 
 __srpm_extract() {
