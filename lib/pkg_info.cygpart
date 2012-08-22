@@ -140,14 +140,20 @@ __list_deps() {
 
 	for ladep in $(find ${locs} -type f -name '*.la' \
 			| xargs -r sed -ne "s|^dependency_libs='\(.*\)'|\1|gp" \
-			| sed -e 's| -[LR][^ ]*||g;s| -l\([^ ]*\)| /usr/lib/lib\1.dll.a|g')
+			| sed -e 's| -[LR][^ ]*||g;s| -l\([^ ]*\)| lib\1|g')
 	do
-		if [ -f ${D}${ladep} ]
-		then
-			alldeps+=" "${D}${ladep};
-		else
-			alldeps+=" "${ladep};
-		fi
+		for f in $(__target_prefix)/lib/${pcdep}.{dll.a,so,a}
+		do
+			if [ -f ${D}${f} ]
+			then
+				alldeps+=" "${D}${f};
+				break
+			elif [ -f ${f} ]
+			then
+				alldeps+=" "${f};
+				break
+			fi
+		done
 	done
 
 	# pkg-config dependencies on other devel packages
