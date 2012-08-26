@@ -54,7 +54,7 @@ __list_deps() {
 	local d f ext
 	local alldeps girdep jar jpkg ladep luadep luapaths pcdep pidep
 	local phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
-	local vapidep vapidir
+	local tcldep tclpkgs vapidep vapidir
 	local tcgcclibdir tcgccsysroot
 	local os_path="${PATH}"
 
@@ -415,6 +415,20 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 					fi
 				done
 			done
+		done
+	fi
+
+	if [ $(find ${locs} -type f -name '*.tcl' ! -name 'pkgIndex.tcl' -print \
+		-o -type f ! -name '*.*' -executable -exec grep -l '^\(#!.*\|exec \)\(tcl\|wi\)sh*' '{}' + \
+		| wc -l) -gt 0 ]
+	then
+		tclpkgs=$(find ${D} /usr/lib/*/ -type f -name 'pkgIndex.tcl')
+		for tcldep in $(find ${locs} -name '*.tcl' ! -name 'pkgIndex.tcl' -print \
+				-o -type f ! -name '*.*' -executable -exec grep -l '^\(#!.*\|exec \)\(tcl\|wi\)sh*' '{}' + \
+				| xargs -r sed -n -e 's|^[^#]*package require \([^ }]*\).*|\1|gp' \
+				| sort -u)
+		do
+			alldeps+=" "$(grep -l "package ifneeded $tcldep " $tclpkgs || true)
 		done
 	fi
 
