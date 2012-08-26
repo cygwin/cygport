@@ -32,7 +32,7 @@ __gem_extract() {
 
 	check_prog_req gem ruby
 	gem unpack ${gem} --quiet
-	gem spec ${gem} --ruby > ${gemsubdir}/${gemfile}spec
+	gem spec ${gem} --ruby > ${gemsubdir}/${gemfile%-[0-9]*}.gemspec
 }
 
 __srpm_extract() {

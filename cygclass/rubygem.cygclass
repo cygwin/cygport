@@ -75,7 +75,7 @@ SRC_URI="http://rubygems.org/downloads/${ORIG_PN}-${PV}.gem"
 #  native extensions, and prepares the gem for installation.
 #****
 rubygem_compile() {
-	gem build ${ORIG_PN}-${PV}.gemspec
+	gem build ${ORIG_PN}.gemspec
 	rm -fr _gem_
 	gem install --local --force --rdoc --ri --install-dir ./_gem_ ${ORIG_PN}-${PV}.gem
 }
