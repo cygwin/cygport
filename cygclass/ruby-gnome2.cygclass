@@ -35,6 +35,9 @@
 #  the Ruby-GNOME project.
 #
 #  This cygclass builds both official and third-party Ruby-GNOME2 binding packages.
+#  NOTE
+#  Ruby-GNOME packages may now be built from gems with rubygem.cygclass.
+#  Therefore, this cygclass is deprecated and may be removed in the future.
 #  INHERITS
 #  ruby.cygclass
 #****
