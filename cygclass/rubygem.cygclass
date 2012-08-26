@@ -90,7 +90,11 @@ rubygem_install() {
 	local gemdir=$(gem env gemdir)
 	dodir ${gemdir}
 	find _gem_/gems/ -name '*.o' -delete
-	cp -r _gem_/{cache,doc,gems,specifications}/ ${D}${gemdir}/
+	cp -r _gem_/{cache,gems,specifications}/ ${D}${gemdir}/
+	if [ $(find _gem_/doc/*/ri -mindepth 1 -type d | wc -l) -gt 0 ]
+	then
+		cp -r _gem_/doc/ ${D}${gemdir}/
+	fi
 	if [ -d _gem_/bin ]
 	then
 		rm -f _gem_/bin/*.bat
