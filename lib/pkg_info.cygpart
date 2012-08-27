@@ -274,7 +274,7 @@ __list_deps() {
 		pldirs=($(perl -e 'print join(" ",@INC)'))
 		for pldep in $(find ${locs} \( -name '*.pl' -o -name '*.pm' \) -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*perl.*' '{}' + \
-				| xargs -r sed -ne "s/^[^#]*use \(base\|parent\) ['\"]*\([A-Z][^ '\";]*\).*/\2/gp;s/^[^#]*\(use\|require\) ['\"]*\([A-Z][^ '\";]*\).*/\2/gp" \
+				| xargs -r sed -ne "s/^[^#]*use \(base\|parent\) ['\"]*\(qw( *\)*\([A-Z][^-)'\";]*\).*/\3/gp;s/^[^#]*\(use\|require\) ['\"]*\([A-Z][^ '\";]*\).*/\2/gp" \
 				| sort -u)
 		do
 			for d in ${pldirs[*]/\//${D}/} ${pldirs[*]}
