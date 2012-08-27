@@ -90,6 +90,10 @@ rubygem_install() {
 	local gemdir=$(gem env gemdir)
 	dodir ${gemdir}
 	find _gem_/gems/ -name '*.o' -delete
+	for so in $(find _gem_/gems/*/lib -name '*.so')
+	do
+		find _gem_/gems/ -path '_gem_/gems/*/lib/*' -prune -o -name ${so##*/} -print | xargs rm -f
+	done
 	cp -r _gem_/{cache,gems,specifications}/ ${D}${gemdir}/
 	if [ $(find _gem_/doc/*/ri -mindepth 1 -type d | wc -l) -gt 0 ]
 	then
