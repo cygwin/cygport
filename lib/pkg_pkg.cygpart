@@ -251,7 +251,7 @@ __pkg_diff() {
 
 	if __config_equals with_automake 1
 	then
-		default_excludes+=" COPYING INSTALL config-ml.in elisp-comp
+		default_excludes+=" COPYING INSTALL ar-lib config-ml.in elisp-comp
 			mdate-sh mkinstalldirs py-compile symlink-tree texinfo.tex ylwrap
 			Makefile.in GNUmakefile.in makefile.in"
 	fi
