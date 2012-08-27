@@ -53,6 +53,7 @@ __list_deps() {
 	local locs="${@}"
 	local d f ext
 	local alldeps girdep jar jpkg ladep luadep luapaths pcdep pidep
+	local mldep mldir mllib
 	local phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
 	local tcldep tclpkgs vapidep vapidir
 	local tcgcclibdir tcgccsysroot
@@ -267,6 +268,33 @@ __list_deps() {
 				fi
 			done
 		done
+	fi
+
+	if check_prog ocamlc.opt
+	then
+		mldir=$(ocamlc.opt -where)
+		for mllib in $(find ${locs} -type f -name '*.cmxa')
+		do
+			for mldep in $(strings ${mllib} | sed -ne 's/^.-l\([^@]*\).*/lib\1/gp')
+			do
+				if [ -f ${mllib%/*}/${mldep}.a ]
+				then
+					alldeps+=" "${mllib%/*}/${mldep}.a
+				elif [ -f ${D}/usr/lib/${mldep}.dll.a ]
+				then
+					alldeps+=" "${D}/usr/lib/${mldep}.dll.a
+				else
+					alldeps+=" "/usr/lib/${mldep}.dll.a
+				fi
+			done
+		done
+		if check_prog ocamlfind
+		then
+			alldeps+=" "$(find ${locs} -path "${mldir#/}/*/META" \
+					| xargs -r grep -h 'requires *=' \
+					| sed -e 's|.*requires *= *"\([^"]*\)".*|\1|g;s/,/ /g;' \
+					| OCAMLPATH=${D}${mldir} xargs -r ocamlfind query -predicates byte -format '%d/%a')
+		fi
 	fi
 
 	if check_prog perl
