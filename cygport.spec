@@ -74,6 +74,17 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 27 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.11.0-1
+- Automatic setup.hint generation.
+- New cygclasses: pypy, pypy-distutils, rubygem, sugar.
+
+* Wed Aug 22 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.14-1
+- Restore compatibility with F16 and EL6.
+- Fix compatibility with Ruby 1.9.
+
+* Wed Aug 15 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.13-1
+- Bugfix release.
+
 * Fri Jul 20 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.10.12-1
 - Bugfix release.
 
