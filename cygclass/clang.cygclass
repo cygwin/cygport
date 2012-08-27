@@ -34,7 +34,7 @@
 #  inherit()ed after cross.cygclass.
 #****
 
-if __cross_compiling
+if check_prog ${CHOST}-clang
 then
 	CC="${CHOST}-clang"
 	CXX="${CHOST}-clang++"
@@ -45,9 +45,25 @@ else
 	CXX="clang++"
 	OBJC="clang"
 	OBJCXX="clang++"
+	if __cross_compiling
+	then
+		for cc in CC CXX OBJC OBJCXX
+		do
+			declare ${cc}+=" -target ${CHOST}"
+			if [ -d /usr/${CHOST}/sys-root ]
+			then
+				declare ${cc}+=" --sysroot=/usr/${CHOST}/sys-root"
+			fi
+			if [ -d /usr/${CHOST}/include ]
+			then
+				declare ${cc}+=" -isystem /usr/${CHOST}/include"
+			fi
+		done
+	fi
 fi
+unset cc
 
-if ! check_prog ${CC}
+if ! check_prog ${CC%% *}
 then
 	error "This package requires ${CHOST} clang"
 fi
