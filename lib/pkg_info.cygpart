@@ -161,7 +161,7 @@ __list_deps() {
 	done
 
 	# pkg-config dependencies on other devel packages
-	for pcdep in $(find ${locs} -type f -name '*.pc' | xargs -r grep ^Requires | cut -d' ' -f2-)
+	for pcdep in $(find ${locs} -type f -name '*.pc' | xargs -r grep ^Requires | cut -d' ' -f2- | sed -e 's/,/ /g')
 	do
 		# avoid version comparison tokens
 		case ${pcdep} in [A-Za-z]*) ;; *) continue ;; esac
