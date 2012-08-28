@@ -146,7 +146,7 @@ __list_deps() {
 			| xargs -r sed -ne "s|^dependency_libs='\(.*\)'|\1|gp" \
 			| sed -e 's| -[LR][^ ]*||g;s| -l\([^ ]*\)| lib\1|g')
 	do
-		for f in $(__target_prefix)/lib/${pcdep}.{dll.a,so,a}
+		for f in ${ladep} $(__target_prefix)/lib/${ladep}.{dll.a,so,a}
 		do
 			if [ -f ${D}${f} ]
 			then
