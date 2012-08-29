@@ -251,7 +251,7 @@ __list_deps() {
 		do
 			echo $jar: $(jar tf $jar | grep '\.class$' | sed -e 's|/[^/]*.class$||g;s|/|.|g' | sort -u)" " >> ${T}/.jardb
 		done
-		for jpkg in $(find ${D} -type f -name '*.jar' | xargs -r jdepend | sed -ne 's/^\([^,]*\),[0-9].*/\1/gp')
+		for jpkg in $(find ${locs} -type f -name '*.jar' | xargs -r jdepend | sed -ne 's/^\([^,]*\),[0-9].*/\1/gp')
 		do
 			alldeps+=" "$(sed -ne "/ $jpkg /s|^\(.*\):.*|\1|1p" ${T}/.jardb)
 		done
