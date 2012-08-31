@@ -62,7 +62,7 @@ __doinstall() {
 	local targetfile=${4:-${2##*/}}
 	local ltinst
 
-	if [ ! -e ${file} ]
+	if [ ! -e "${file}" ]
 	then
 		error "file ${file} does not exist"
 		return 2
@@ -77,10 +77,10 @@ __doinstall() {
 	ltinst=
 	case ${file} in
 		*.la)  ltinst="/usr/bin/libtool --mode=install" ;;
-		*)     [ -f ${file%/*}/.libs/${file##*/} ] && ltinst="/usr/bin/libtool --mode=install" ;;
+		*)     [ -f "${file%/*}/.libs/${file##*/}" ] && ltinst="/usr/bin/libtool --mode=install" ;;
 	esac
 
-	verbose ${ltinst} /usr/bin/install -m${mode} ${file} ${D}${targetdir}/${targetfile}
+	verbose ${ltinst} /usr/bin/install -m${mode} "${file}" "${D}${targetdir}/${targetfile}"
 	return $?
 }
 
@@ -169,33 +169,33 @@ dodoc() {
 
 	for i
 	do
-		if [ -d ${i} ]
+		if [ -d "${i}" ]
 		then
 			d=${i%/}
 			pushd ${d}/..
 			dodir $(find ${d##*/} -type d -exec printf ${docdir}/'{}'" " \;)
 			for f in $(find ${d##*/} ! -type d)
 			do
-				__doinstall 0644 ${f} ${docdir}/${f%/*} || error "dodoc -r ${d} failed"
+				__doinstall 0644 "${f}" ${docdir}/${f%/*} || error "dodoc -r ${d} failed"
 			done
 			popd
-		elif [ -f ${i} -o -L ${i} ]
+		elif [ -f "${i}" -o -L "${i}" ]
 		then
-			if [ -s ${i} -a ! -f ${D}${docdir}/${i} ]
+			if [ -s "${i}" -a ! -f "${D}${docdir}/${i}" ]
 			then
-				__doinstall 0644 ${i} ${docdir} || error "dodoc ${i} failed"
+				__doinstall 0644 "${i}" ${docdir} || error "dodoc ${i} failed"
 			fi
-		elif [ -f ${i}.md -o -L ${i}.md ]
+		elif [ -f "${i}.md" -o -L "${i}.md" ]
 		then
-			if [ -s ${i}.md -a ! -f ${D}${docdir}/${i}.md ]
+			if [ -s "${i}.md" -a ! -f "${D}${docdir}/${i}.md" ]
 			then
-				__doinstall 0644 ${i}.md ${docdir} || error "dodoc ${i}.md failed"
+				__doinstall 0644 "${i}.md" ${docdir} || error "dodoc ${i}.md failed"
 			fi
-		elif [ -f ${i}.txt -o -L ${i}.txt ]
+		elif [ -f "${i}.txt" -o -L "${i}.txt" ]
 		then
-			if [ -s ${i}.txt -a ! -f ${D}${docdir}/${i}.txt ]
+			if [ -s "${i}.txt" -a ! -f "${D}${docdir}/${i}.txt" ]
 			then
-				__doinstall 0644 ${i}.txt ${docdir} || error "dodoc ${i}.txt failed"
+				__doinstall 0644 "${i}.txt" ${docdir} || error "dodoc ${i}.txt failed"
 			fi
 		fi
 	done
