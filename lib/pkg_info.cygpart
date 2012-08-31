@@ -513,7 +513,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 }
 
 __show_deps() {
-	__list_deps \* | sort -fu | sed "/^${PF}$/d;s/^/  /g"
+	__list_deps \* | sort -fu | sed "/^${PN}-[0-9].*$/d;s/^/  /g"
 }
 
 __show_web() {
