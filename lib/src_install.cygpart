@@ -717,6 +717,42 @@ doenv() {
 	_EOF
 }
 
+#****I* Installing/make_autostart_entry
+#  SYNOPSIS
+#  make_autostart_entry COMMAND NAME [ADDITIONAL_FIELDS]
+#  DESCRIPTION
+#  Creates an autostart entry for desktop applications as follows:
+#  * COMMAND: the command line.  May contain arguments, in which case the
+#    entire command must be quoted.
+#  * NAME: the application name to be shown in autostart configuration menus.
+#  * ADDITIONAL_FIELDS: (optional) additional menu entry fields per
+#    |html the <a href="http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys">Desktop Entry Specification</a>
+#    |html and the <a href="http://standards.freedesktop.org/autostart-spec/autostart-spec-latest.html">Desktop Application Autostart Specification</a>.
+#****
+make_autostart_entry() {
+	local dtfile
+
+	if (( $# < 2 ))
+	then
+		error "make_autostart_entry requires a minimum of two arguments"
+	fi
+
+	dodir /etc/xdg/autostart
+	dtfile=/etc/xdg/autostart/$(basename ${1%% *}).desktop
+
+	cat > ${D}${dtfile} <<-_EOF
+		[Desktop Entry]
+		Type=Application
+		Name=${2}
+		Exec=${1}
+	_EOF
+
+	for ((n=3; n <= $#; n++))
+	do
+		echo ${!n} >> ${D}${dtfile}
+	done
+}
+
 #****I* Installing/make_desktop_entry
 #  SYNOPSIS
 #  make_desktop_entry COMMAND NAME [ICON] [CATEGORIES] [COMMENT] [ADDITIONAL_FIELDS]
@@ -906,4 +942,5 @@ readonly -f __doinstall __fix_shebang \
             dodir keepdir dobin newbin docinto dodoc newdoc \
             exeinto doexe newexe insinto doins newins doicon newicon \
             dolib doman newman domenu newmenu dosbin newsbin dosym \
-            make_desktop_entry make_etc_defaults __prepinstalldirs cyginstall
+            make_autostart_entry make_desktop_entry make_etc_defaults \
+            __prepinstalldirs cyginstall
