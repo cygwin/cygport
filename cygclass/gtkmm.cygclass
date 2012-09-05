@@ -95,12 +95,11 @@ gtkmm_autoreconf() {
 #  cd $B
 #  gtkmm_compile [CONFIGURE_FLAGS]
 #  DESCRIPTION
-#  Calls cygconf with the following options, followed by cygmake:
-#  * --disable-demos --disable-examples: not installed
-#  All arguments to gtkmm_compile are passed to cygconf as configure flags.
+#  Calls cygconf, followed by cygmake.  All arguments to gtkmm_compile are
+#  passed to cygconf as configure flags.
 #****
 gtkmm_compile() {
-	cygconf --disable-demos --disable-examples ${@}
+	cygconf ${@}
 	cygmake LDFLAGS="${LDFLAGS} -no-undefined"
 }
 
