@@ -112,7 +112,7 @@ gnome2_autoreconf() {
 
 	__config_set with_autoconf 1
 
-    if [ ! -f aclocal.m4 ] || $(head -n 1 aclocal.m4 | grep -q 'generated.* by aclocal')
+	if [ ! -f aclocal.m4 ] || $(head -n 1 aclocal.m4 | grep -q 'generated.* by aclocal')
 	then
 		__config_set with_aclocal 1
 	fi
