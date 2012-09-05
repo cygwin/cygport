@@ -802,6 +802,7 @@ __prepstrip() {
 	local dbg;
 	local exe;
 	local all_exes;
+	local lib;
 	local objcopy;
 	local objdump;
 
@@ -818,7 +819,7 @@ __prepstrip() {
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
-	all_exes=$(find * -type f -a \( -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.so.*' -o -name '*.oct' -o -name '*.cmxs' \))
+	all_exes=$(find * -type f ! -name '*.dll.a' -a \( -name '*.a' -o -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.so.*' -o -name '*.oct' -o -name '*.cmxs' \))
 	# could be .exe from non-automake Makefile which install(1) didn't fix
 	all_exes+=" "$(find * -type f -executable ! -name '*.dll' ! -name '*.exe' ! -name '*.so' ! -name '*.so.[0-9]*' ! -name '*.oct' ! -name '*.cmxs' ! -name '*.a' ! -name '*.la' ! -name '*.exe.manifest' ! -name '*.exe.config' ! -name '*.dll.config' ! -name '*.mdb' ! -name '*-config' ! -name '*.csh' ! -name '*.sh' ! -name '*.pl' ! -name '*.pm' ! -name '*.py' ! -name '*.rb' ! -name '*.tcl')
 
@@ -869,6 +870,13 @@ __prepstrip() {
 		else
 			continue
 		fi
+
+		# Static libraries should not be stripped, but we can still
+		# provide split debuginfo
+		case ${exe} in *.a)
+			${objdump} -dl ${exe} 2>/dev/null | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' | sort -u >> ${T}/.dbgsrc.out;
+			continue ;;
+		esac
 
 		# Mono assemblies must not be stripped, but remove .mdb debug symbols,
 		# and make them non-executable so they're not launched by MS .NET
@@ -923,24 +931,23 @@ __prepstrip() {
 
 #****P* Postinstall/Split Debugging Information
 #  DESCRIPTION
-#  Debug symbols stripped from executables and shared libraries are preserved
+#  Debug symbols stripped from executables and libraries are preserved
 #  as split debuginfo files, and sources referenced therein are automatically
 #  installed into a package-specific location.  A PN-debuginfo package will
-#  be automatically created with split debugging symbols and source files if
-#  both are present; inclusion in PKG_NAMES and PKG_CONTENTS is not necessary.
+#  be automatically created with split debugging symbols and source files when
+#  present; inclusion in PKG_NAMES and PKG_CONTENTS is not necessary.
 #  SEE ALSO
 #  RESTRICT
 #****
 
 __prepdebugsrc() {
 	local dbg;
-	local dbgdir="/usr/lib/debug";
 	local dbgsrc;
 	local dbgsrcdir="/usr/src/debug/${PF}";
 	local srcf;
 	local -i i=0;
 
-	if defined _CYGPORT_RESTRICT_debuginfo_ || [ ! -d ${D}${dbgdir} ]
+	if defined _CYGPORT_RESTRICT_debuginfo_
 	then
 		return;
 	fi

@@ -146,10 +146,10 @@ __pkg_binpkg() {
 		n+=1;
 	done
 
-	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -d ${D}/usr/lib/debug -a -d ${D}/usr/src/debug ]
+	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -d ${D}/usr/src/debug ]
 	then
 		__step "${PN}-debuginfo-${PVR}.tar.bz2";
-		tar jcvf ${top}/${PN}-debuginfo-${PVR}.tar.bz2 usr/lib/debug/ usr/src/debug/ \
+		tar jcvf ${top}/${PN}-debuginfo-${PVR}.tar.bz2 usr/*/debug/ \
 				| tee ${T}/.${PN}-debuginfo.lst \
 				|| error "Debuginfo package creation failed: ${PN}-debuginfo"
 		echo;
