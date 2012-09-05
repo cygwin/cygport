@@ -41,7 +41,7 @@
 
 case ${PV_MAJ_MIN} in
 	3.*|4.*|5.*)	SLOT="${PV_MAJ_MIN}" ;;
-	*)			error "berkdb: accepts only versions 3.x or 4.x" ;;
+	*)		error "berkdb: accepts only versions 3.x/4.x/5.x" ;;
 esac
 
 tarpv=${PV[1]}.${PV[2]}.${PV[3]}
