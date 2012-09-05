@@ -95,6 +95,8 @@ then
 	done
 fi
 
+unset tarpv
+
 #****o* berkdb.cygclass/PKG_NAMES (berkdb)
 #  DESCRIPTION
 #  The following binary packages are created automatically:
@@ -107,21 +109,21 @@ fi
 #  * tcl-dbX.Y: Tcl bindings.
 #****
 PKG_NAMES="${PN} lib${PN} lib${PN}-devel ${PN}-doc"
-export ${PN//./_}_CONTENTS="--exclude=html usr/bin/db${SLOT}_*.exe usr/share/doc/"
-export lib${PN//./_}_CONTENTS="--exclude=*java* usr/bin/*-${SLOT}.dll"
-export lib${PN//./_}_devel_CONTENTS="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib*"
-export ${PN//./_}_doc_CONTENTS="usr/share/doc/${PN}/html/"
+declare ${PN//./_}_CONTENTS="--exclude=html usr/bin/db${SLOT}_*.exe usr/share/doc/"
+declare lib${PN//./_}_CONTENTS="--exclude=*java* usr/bin/*-${SLOT}.dll"
+declare lib${PN//./_}_devel_CONTENTS="etc/p*/lib${PN}-devel.sh usr/include/ usr/lib/lib*"
+declare ${PN//./_}_doc_CONTENTS="usr/share/doc/${PN}/html/"
 
 if inherited java
 then
 	PKG_NAMES+=" java-${PN}"
-	export java_${PN//./_}_CONTENTS="usr/bin/cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
+	declare java_${PN//./_}_CONTENTS="usr/bin/cygdb_java-${SLOT}.dll ${JAVA_DIR#/}"
 fi
 
 if inherited tcl
 then
 	PKG_NAMES+=" tcl-${PN}"
-	export tcl_${PN//./_}_CONTENTS="${TCL_LIBDIR#/}"
+	declare tcl_${PN//./_}_CONTENTS="${TCL_LIBDIR#/}"
 fi
 
 DIFF_EXCLUDES="config.hin db.jar libtool.ac lt*.ac"
@@ -169,7 +171,7 @@ berkdb_autoreconf() {
 #  that the java-dbX.Y and tcl-dbX.Y packages must depend on libdbX.Y.
 #****
 berkdb_compile() {
-	local use_java use_sql use_tcl
+	local objvar use_java use_sql use_tcl
 
 	case ${PV} in
 		5.*)  use_sql="--enable-sql" ;;
@@ -239,10 +241,9 @@ berkdb_install() {
 	rm -f ${D}/usr/lib/libdb{_cxx,}.a
 
 	# slot executables
-	(
-	 cd ${D}/usr/bin
-	 rename db_ db${SLOT}_ *.exe
-	)
+	pushd ${D}/usr/bin
+	rename db_ db${SLOT}_ *.exe
+	popd
 
 	if inherited java
 	then

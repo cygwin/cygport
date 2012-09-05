@@ -127,7 +127,6 @@ rox_compile() {
 #  creates the wrapper script if ROX_WRAPPER is defined.
 #****
 rox_install() {
-	local icoext
 	local wrapper=${ROX_WRAPPER:-none}
 
 	if [ ! -d ${ROX_APP} ]

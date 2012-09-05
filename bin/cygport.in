@@ -505,8 +505,9 @@ fi
 
 for restrict in ${RESTRICT}
 do
-	export _CYGPORT_RESTRICT_${restrict//-/_}_=1
+	declare _CYGPORT_RESTRICT_${restrict//-/_}_=1
 done
+unset restrict
 
 
 ################################################################################

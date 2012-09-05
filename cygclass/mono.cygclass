@@ -215,10 +215,8 @@ _EOF
 #  installed on the system) with Mono.
 #****
 mono_wrapper() {
-	local massembly
-	local massemblyfile
-	local massemblypath
-	local mscript
+	local massembly massemblyfile massemblypath
+	local mscript mscriptfile mscriptpath
 
 	if (( $# != 2 ))
 	then

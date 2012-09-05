@@ -40,8 +40,7 @@
 
 case ${PN} in
 	gstreamer*)
-		gst_component=${PN#gstreamer*-}
-		ORIG_PN=${ORIG_PN:-gst-${gst_component}}
+		ORIG_PN=${ORIG_PN:-gst-${PN#gstreamer*-}}
 	;;
 esac
 

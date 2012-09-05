@@ -118,7 +118,7 @@ python3into() {
     	/*) error "python3into argument should be only a subdirectory" ;;
 	esac
 
-	export _python3into_dir=${1};
+	_python3into_dir=${1};
 }
 
 #****I* python3.cygclass/dopython3

@@ -258,7 +258,7 @@ rubyinto() {
     	/*) error "rubyinto argument should be only a subdirectory" ;;
 	esac
 
-	export _rubyinto_dir=${1};
+	_rubyinto_dir=${1};
 }
 
 #****I* ruby.cygclass/doruby

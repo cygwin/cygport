@@ -103,7 +103,7 @@ pythoninto() {
     	/*) error "pythoninto argument should be only a subdirectory" ;;
 	esac
 
-	export _pythoninto_dir=${1};
+	_pythoninto_dir=${1};
 }
 
 #****I* python.cygclass/dopython

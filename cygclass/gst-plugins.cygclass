@@ -91,6 +91,8 @@ inherit gstreamer
 SUMMARY="${gst_pn} plugin for the GStreamer multimedia framework"
 #****
 
+undef gst_pn
+
 #****C* gst-plugins.cygclass/gst_plugins_autoreconf
 #  DESCRIPTION
 #  Alias for gstreamer_autoreconf.

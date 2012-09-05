@@ -87,7 +87,7 @@ viminto() {
     	/*) error "viminto argument should be only a subdirectory" ;;
 	esac
 
-	export _viminto_dir=${1};
+	_viminto_dir=${1};
 }
 
 #****I* vim.cygclass/dovim

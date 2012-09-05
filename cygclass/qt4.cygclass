@@ -183,7 +183,7 @@ qt4pluginto() {
 		error "qt4pluginto requires exactly one argument"
 	fi
 
-	export __QT4_PLUGIN_SUBDIR=${1}
+	__QT4_PLUGIN_SUBDIR=${1}
 }
 
 #****I* qt4.cygclass/doqt4plugin

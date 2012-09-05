@@ -67,6 +67,8 @@ export ac_cv_header_winsock2_h=no
 #  description files with ggz-config.
 #****
 ggz_postinst() {
+	local g
+
 	rm -f ${D}/etc/ggz.modules
 
 	if defined GGZMODS

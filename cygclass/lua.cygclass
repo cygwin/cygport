@@ -108,7 +108,7 @@ luainto() {
 		/*) error "luainto argument should be only a subdirectory" ;;
 	esac
 
-	export _luainto_dir=${1};
+	_luainto_dir=${1};
 }
 
 #****I* lua.cygclass/dolua

@@ -175,7 +175,7 @@ export PKG_CONFIG_SYSTEM_LIBRARY_PATH=${CROSS_LIBDIR}
 #****
 doelflib() {
 	local clibdir="$(__host_prefix)/lib"
-	local soname sonames
+	local i soname sonames
 
 	dodir ${clibdir}
 

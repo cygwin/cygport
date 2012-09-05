@@ -118,6 +118,8 @@ SUMMARY="Ruby ${rbg2_pn} bindings"
 HOMEPAGE="http://ruby-gnome2.sourceforge.jp/"
 #****
 
+unset rbg2_pn
+
 #****o* ruby-gnome2.cygclass/SRC_URI (ruby-gnome2)
 #  DESCRIPTION
 #  Download location of the Ruby-GNOME2 source package.

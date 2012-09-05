@@ -42,8 +42,6 @@ inherit qt4
 #  Generates Makefiles from the package's qmake project files.
 #****
 cygqmake4() {
-	local args
-
 	if [ ! -x ${QT4_QMAKE} ]
 	then
 		error "libQtCore4-devel is required to build this package"

@@ -94,7 +94,7 @@ pypyinto() {
     	/*) error "pypyinto argument should be only a subdirectory" ;;
 	esac
 
-	export _pypyinto_dir=${1};
+	_pypyinto_dir=${1};
 }
 
 #****I* pypy.cygclass/dopypy

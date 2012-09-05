@@ -65,7 +65,7 @@ NANT=/usr/bin/nant
 #  Runs NAnt with the given options, if any.
 #****
 cygnant() {
-	local fileargs task taskpath
+	local fileargs
 
 	if ! find . -maxdepth 1 -name "${NANT_BUILD_FILE:*.build}"
 	then

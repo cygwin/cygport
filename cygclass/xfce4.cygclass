@@ -87,6 +87,8 @@ esac
 SRC_URI="mirror://xfce/src/${uri_subdir}/${PV[1]}.${PV[2]}/${ORIG_PN}-${PV}.tar.bz2"
 GIT_URI="git://git.xfce.org/${uri_subdir}"
 
+unset uri_subdir
+
 #****C* xfce4.cygclass/xfce4_autoreconf
 #  SYNOPSIS
 #  cd $S

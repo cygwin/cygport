@@ -134,7 +134,7 @@ SRC_DIR="."
 #  queues the necessary postinstall steps.
 #****
 texlive_install() {
-	local f pkg pkgs tlpobj dst src fmt map
+	local f pkg pkgs tlpobj dst src fmt map perm
 
 	__config_set texlive_fmts
 	__config_set texlive_maps

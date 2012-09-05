@@ -156,3 +156,5 @@ SRC_URI="http://xorg.freedesktop.org/releases/individual/${xorg_cat}/${ORIG_PN}-
 #  git.cygclass should be inherit()ed last for this to be of use.
 #****
 GIT_URI="git://anongit.freedesktop.org/git/${xorg_git}"
+
+unset xorg_cat xorg_git

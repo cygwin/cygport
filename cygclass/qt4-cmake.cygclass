@@ -42,8 +42,6 @@ inherit cmake qt4
 #  of -DVARIABLE=VALUE, are passed on to cygcmake.
 #****
 qt4_cmake_compile() {
-	local qtdirs
-
 	cygcmake \
 		-DAUTOMOC4_EXECUTABLE=/usr/bin/automoc4 \
 		-DQT_MOC_EXECUTABLE=${QT4_MOC} \

@@ -48,6 +48,8 @@ FONTSDIR="/usr/share/fonts"
 #  (SFD) sources.
 #****
 sfd2ttf() {
+	local f
+
 	check_prog_req fontforge
 
 	for f in $@
@@ -91,7 +93,7 @@ fontinto() {
 	esac
 
 	dodir ${FONTSDIR}/${1}
-	export _fontinto_dir=${FONTSDIR}/${1}
+	_fontinto_dir=${FONTSDIR}/${1}
 }
 
 #****I* font.cygclass/dofont

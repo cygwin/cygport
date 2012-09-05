@@ -105,6 +105,8 @@ cygautoreconf() {
 	local sub_configure_ac;
 
 	__parse_aclocal_amflags() {
+		local arg;
+
 		for arg in $@
 		do
 			case $1 in

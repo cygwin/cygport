@@ -117,6 +117,8 @@ case "${dtd_type}:${PV}" in
 	*)	error "docbook: unknown or unsupported DTD version: ${dtd_type} ${PV}" ;;
 esac
 
+unset my_pn my_p
+
 #****I* docbook.cygclass/docbook_install
 #  SYNOPSIS
 #  cd $S

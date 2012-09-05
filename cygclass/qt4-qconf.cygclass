@@ -58,8 +58,6 @@ cygqconf4() {
 #  to compile the package.
 #****
 qt4_qconf_compile() {
-	local qtdir
-
 	if [ ! -e configure ]
 	then
 		error "qt4_qconf_compile: could not find configure file"

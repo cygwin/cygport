@@ -51,6 +51,8 @@ EMACS_SITE=/usr/share/emacs/site-lisp
 #  emacs_compile must be run separately.
 #****
 doemacs() {
+	local i
+
 	dodir ${EMACS_SITE}
 
 	for i

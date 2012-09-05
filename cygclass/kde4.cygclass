@@ -221,7 +221,7 @@ kde4_compile() {
 #  Options, if any, are passed on to cyginstall.
 #****
 kde4_install() {
-	local doc kdepkg
+	local kdepkg
 
 	cyginstall "${@}"
 

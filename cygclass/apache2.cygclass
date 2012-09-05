@@ -231,8 +231,6 @@ apache2_compile() {
 #  - LIBS -- Additional libraries required for linking this DSO.  Must be last.
 #****
 apache2_apxs_compile() {
-	local ldflags
-
 	if ! defined APACHE_MOD_NAME
 	then
 		error "define APACHE_MOD_NAME before calling apache2_apxs_compile"
@@ -308,7 +306,7 @@ doapache2mod() {
 #  order to use the DSO.
 #****
 apache2_postinst() {
-	local imp mod sym
+	local dso imp mod sym
 
 	dodir /etc/postinstall /etc/preremove
 
