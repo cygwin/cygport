@@ -50,7 +50,6 @@ __list_debug_files() {
 }
 
 __list_deps() {
-	local locs="${@}"
 	local d f ext
 	local alldeps girdep jar jpkg ladep luadep luapaths pcdep pidep
 	local mldep mldir mllib
@@ -60,7 +59,7 @@ __list_deps() {
 	local os_path="${PATH}"
 
 	# if file list is empty, there are obviously no dependencies
-	defined locs || return
+	(( $# > 0 )) || return
 
 	if __host_is_embedded
 	then
@@ -112,20 +111,20 @@ __list_deps() {
 			;;
 		*-*-cygwin*|*-*-mingw*|*-*-msys*)
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:${tcgccsysroot}$(__target_prefix)/bin"
-			alldeps+=" "$(find ${locs} -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
+			alldeps+=" "$(find "${@//^_^/ }" -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
 				-exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
 				cut -d ' ' -f 3 | xargs -r which || true)
 			;;
 		*-*-darwin*)
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:${tcgccsysroot}$(__target_prefix)/lib"
-			alldeps+=" "$(find ${locs} -type f -executable -exec ${CTARGET}-otool -L '{}' + 2>/dev/null | \
+			alldeps+=" "$(find "${@//^_^/ }" -type f -executable -exec ${CTARGET}-otool -L '{}' + 2>/dev/null | \
 				sed -e '1d;s|^\t\([^ ]*\).*|\1|g' | sort -u | xargs -r which || true )
 			;;
 		# FIXME: any other non-ELF systems?
 		*)	# ELF system; libc in /lib, other libs in /usr/lib
 			PATH+=":${D}/usr/${CTARGET}/sys-root/lib:${tcgccsysroot}/lib"
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:${tcgccsysroot}$(__target_prefix)/lib"
-			alldeps+=" "$(find ${locs} -type f -executable -exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | \
+			alldeps+=" "$(find "${@//^_^/ }" -type f -executable -exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | \
 				sed -n -e 's| *NEEDED *\([^ ]*\).*|\1|gp' | \
 				sort -u | xargs -r which || true )
 			;;
@@ -135,20 +134,20 @@ __list_deps() {
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
-	alldeps+=" "$(find ${locs} -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
+	alldeps+=" "$(find "${@//^_^/ }" -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
 		-exec ${OBJDUMP} -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
 		cut -d ' ' -f 3 | xargs -r which || true)
 
 	# shebang script interpreters
-	alldeps+=" "$(find ${locs} -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' \
+	alldeps+=" "$(find "${@//^_^/ }" -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' \
 			| xargs -r sed -n -e '/^#!/s|/env *|/|g;s|^#! *\([^ ]*\).*|\1|gp' \
 			| sort -u)
 
 	# implib devel->dll subpackage dependencies
-	alldeps+=" "$(find ${locs} -type f -name '*.dll.a' -exec dlltool -I '{}' \; 2>/dev/null \
+	alldeps+=" "$(find "${@//^_^/ }" -type f -name '*.dll.a' -exec dlltool -I '{}' \; 2>/dev/null \
 			| sort -u | xargs -r which)
 
-	for ladep in $(find ${locs} -type f -name '*.la' \
+	for ladep in $(find "${@//^_^/ }" -type f -name '*.la' \
 			| xargs -r sed -ne "s|^dependency_libs='\(.*\)'|\1|gp" \
 			| sed -e 's| -[LR][^ ]*||g;s| -l\([^ ]*\)| lib\1|g')
 	do
@@ -167,7 +166,7 @@ __list_deps() {
 	done
 
 	# pkg-config dependencies on other devel packages
-	for pcdep in $(find ${locs} -type f -name '*.pc' | xargs -r grep ^Requires | cut -d' ' -f2- | sed -e 's/,/ /g')
+	for pcdep in $(find "${@//^_^/ }" -type f -name '*.pc' | xargs -r grep ^Requires | cut -d' ' -f2- | sed -e 's/,/ /g')
 	do
 		# avoid version comparison tokens
 		case ${pcdep} in [A-Za-z]*) ;; *) continue ;; esac
@@ -183,7 +182,7 @@ __list_deps() {
 	done
 
 	# pkg-config dependencies on other libraries
-	for pcdep in $(find ${locs} -type f -name '*.pc' \
+	for pcdep in $(find "${@//^_^/ }" -type f -name '*.pc' \
 			| xargs -r grep ^Libs | cut -d' ' -f2- \
 			| sed -e "s| *-[^l][^ ]*||g;s| *-l\([^ ]*\)| lib\1|g")
 	do
@@ -203,21 +202,21 @@ __list_deps() {
 
 	if check_prog monodis
 	then
-		alldeps+=" "$(for x in $(monodis --assemblyref $(find ${locs} -type f -perm 644 \( -name '*.exe' -o -name '*.dll' \) ) 2>/dev/null \
+		alldeps+=" "$(for x in $(monodis --assemblyref $(find "${@//^_^/ }" -type f -perm 644 \( -name '*.exe' -o -name '*.dll' \) ) 2>/dev/null \
 			| sed -e ':a;N;$!ba;s|\n\t| |g;s|\n0x00000000: ||g' | grep 'Public Key:' \
 			| sed -e 's|.* Version=\([1-9]\).* Name=\(mscorlib\) .*|usr/lib/mono/\1.0/\2.dll|g' \
 			-e 's|.* Version=\([0-9\.]*\) Name=\([^ ]*\).* Public Key:\([0-F ]*\)|usr/lib/mono/gac/\2/\1__\L\3\E/\2.dll|g' -e 's| ||g' \
 			| sort -u); do \
 			if ! test -f ./$x ; then echo /$x ; fi ; done)
-		alldeps+=" "$(find ${locs} \( -name '*.dll.config' -o -name '*.exe.config' \) \
+		alldeps+=" "$(find "${@//^_^/ }" \( -name '*.dll.config' -o -name '*.exe.config' \) \
 			| xargs -r sed -n -e 's|.*target="*\([^ "]*\.dll\).*|\1|gp' \
 			| sort -u | xargs -r which || true)
 	fi
 
 	if [ -d ${D}/usr/share/gir-1.0 ]
 	then
-		alldeps+=" "$(find ${locs} -path 'usr/share/gir-1.0/*.gir' | xargs -r sed -n -e '/shared-library/s/,/ /g;s/.*shared-library="\([^"]*\).*/\1/gp' | xargs -r which | sort -u)
-		for girdep in $(find ${locs} -path 'usr/share/gir-1.0/*.gir' \
+		alldeps+=" "$(find "${@//^_^/ }" -path 'usr/share/gir-1.0/*.gir' | xargs -r sed -n -e '/shared-library/s/,/ /g;s/.*shared-library="\([^"]*\).*/\1/gp' | xargs -r which | sort -u)
+		for girdep in $(find "${@//^_^/ }" -path 'usr/share/gir-1.0/*.gir' \
 				| xargs -r sed -n -e 's/.*<include *name="\([^"]*\)" *version="\([^"]*\)".*/\1-\2.gir/gp' \
 				| sort -u)
 		do
@@ -233,7 +232,7 @@ __list_deps() {
 	vapidir=/usr/share/vala/vapi
 	if [ -d ${D}${vapidir} ]
 	then
-		for vapidep in $(find ${locs} -path "${vapidir#/}/*.deps" | xargs -r cat | sort -u)
+		for vapidep in $(find "${@//^_^/ }" -path "${vapidir#/}/*.deps" | xargs -r cat | sort -u)
 		do
 			if [ -f ${D}${vapidir}/${vapidep}.vapi ]
 			then
@@ -244,14 +243,14 @@ __list_deps() {
 		done
 	fi
 
-	if [ $(find ${locs} -type f -name '*.jar' | wc -l) -gt 0 ] && check_prog jdepend jar
+	if [ $(find "${@//^_^/ }" -type f -name '*.jar' | wc -l) -gt 0 ] && check_prog jdepend jar
 	then
 		> ${T}/.jardb
 		for jar in $(find ${D} /usr/share/java -type f -name '*.jar' ! -name 'libgcj-*.jar')
 		do
 			echo $jar: $(jar tf $jar | grep '\.class$' | sed -e 's|/[^/]*.class$||g;s|/|.|g' | sort -u)" " >> ${T}/.jardb
 		done
-		for jpkg in $(find ${locs} -type f -name '*.jar' | xargs -r jdepend | sed -ne 's/^\([^,]*\),[0-9].*/\1/gp')
+		for jpkg in $(find "${@//^_^/ }" -type f -name '*.jar' | xargs -r jdepend | sed -ne 's/^\([^,]*\),[0-9].*/\1/gp')
 		do
 			alldeps+=" "$(sed -ne "/ $jpkg /s|^\(.*\):.*|\1|1p" ${T}/.jardb)
 		done
@@ -260,7 +259,7 @@ __list_deps() {
 	if check_prog lua
 	then
 		luapaths=($(lua -e 'print(package.path.."\;"..package.cpath)' | tr '\;' ' '))
-		for luadep in $(find ${locs} -path 'usr/share/doc/*' -prune \
+		for luadep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -name '*.lua' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*lua' '{}' + \
 				| xargs -r sed -ne "s|^[^#]*require *['\"]\([^'\"]*\)['\"].*|\1|gp" \
@@ -280,7 +279,7 @@ __list_deps() {
 	if check_prog ocamlc.opt
 	then
 		mldir=$(ocamlc.opt -where)
-		for mllib in $(find ${locs} -type f -name '*.cmxa')
+		for mllib in $(find "${@//^_^/ }" -type f -name '*.cmxa')
 		do
 			for mldep in $(strings ${mllib} | sed -ne 's/^.-l\([^@]*\).*/lib\1/gp')
 			do
@@ -297,7 +296,7 @@ __list_deps() {
 		done
 		if check_prog ocamlfind
 		then
-			alldeps+=" "$(find ${locs} -path "${mldir#/}/*/META" \
+			alldeps+=" "$(find "${@//^_^/ }" -path "${mldir#/}/*/META" \
 					| xargs -r grep -h 'requires *=' \
 					| sed -e 's|.*requires *= *"\([^"]*\)".*|\1|g;s/,/ /g;' \
 					| OCAMLPATH=${D}${mldir} xargs -r ocamlfind query -predicates byte -format '%d/%a')
@@ -307,7 +306,7 @@ __list_deps() {
 	if check_prog perl
 	then
 		pldirs=($(perl -e 'print join(" ",@INC)'))
-		for pldep in $(find ${locs} -path 'usr/share/doc/*' -prune \
+		for pldep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o \( -name '*.pl' -o -name '*.pm' \) -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*perl.*' '{}' + \
 				| xargs -r sed -ne "s/^[^#]*use \(base\|parent\) ['\"]*\(qw( *\)*\([A-Z][^-)'\";]*\).*/\3/gp;s/^[^#]*\(use\|require\) ['\"]*\([A-Z][^ '\";]*\).*/\2/gp" \
@@ -327,7 +326,7 @@ __list_deps() {
 	if check_prog php
 	then
 		phpmoddir=$(php-config  --extension-dir)
-		for phpdep in $(find ${locs} -path 'usr/share/doc/*' -prune \
+		for phpdep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -name '*.php' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*php*' '{}' + \
 				| xargs -r sed -ne "s/^ *\(include\|require\)\(_once\)* '\([^'\"]*\).*\;/\3/gp;s/.*loadExtension *( *[^$]\([^)'\"]*\).*/\1.dll/gp" \
@@ -359,7 +358,7 @@ __list_deps() {
 		pydirs=($(python -c 'import sys; print(" ".join(sys.path))'))
 		pyexts=$(python -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
-		for pydep in $(find ${locs} -path 'usr/share/doc/*' -prune \
+		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python3.*' -prune \
 				-o -name '*.py' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python[^3]*' '{}' + \
@@ -386,7 +385,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		pydirs=($(pypy -c 'import sys; print(" ".join(sys.path))'))
 		pyexts=$(pypy -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
-		for pydep in $(find ${locs} -path 'usr/share/doc/*' -prune \
+		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -path 'usr/lib/python[23].*' -prune \
 				-o -name '*.py' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*pypy' '{}' + \
@@ -413,7 +412,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		pydirs=($(python3 -c 'import sys; print(" ".join(sys.path))'))
 		pyexts=$(python3 -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
-		for pydep in $(find ${locs} -path 'usr/share/doc/*' -prune \
+		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python2.*' -prune \
 				-o -name '*.py' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python3' '{}' + \
@@ -446,7 +445,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				rbdirs[${#rbdirs[*]}]=${d}
 			done
 		fi
-		for rbdep in $(find ${locs} -path 'usr/share/doc/*' -prune \
+		for rbdep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -name '*.rb' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*ruby' '{}' + \
 				| xargs -r sed -ne "s|^[^#]*require ['\"]\([^'\"]*\)['\"].*|\1|gp" \
@@ -466,13 +465,13 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		done
 	fi
 
-	if [ $(find ${locs} -path 'usr/share/doc/*' -prune \
+	if [ $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 		-o -type f -name '*.tcl' ! -name 'pkgIndex.tcl' -print \
 		-o -type f ! -name '*.*' -executable -exec grep -l '^\(#!.*\|exec \)\(tcl\|wi\)sh*' '{}' + \
 		| wc -l) -gt 0 ]
 	then
 		tclpkgs=$(find ${D} /usr/lib/*/ -type f -name 'pkgIndex.tcl')
-		for tcldep in $(find ${locs} -path 'usr/share/doc/*' -prune \
+		for tcldep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -name '*.tcl' ! -name 'pkgIndex.tcl' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^\(#!.*\|exec \)\(tcl\|wi\)sh*' '{}' + \
 				| xargs -r sed -n -e 's|^[^#]*package require \([^ }]*\).*|\1|gp' \
@@ -483,7 +482,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	fi
 
 	# commands called in postinstall/preremove scripts
-	for pidep in $(find ${locs} -path 'etc/postinstall/*.sh' -o -path 'etc/preremove/*.sh' \
+	for pidep in $(find "${@//^_^/ }" -path 'etc/postinstall/*.sh' -o -path 'etc/preremove/*.sh' \
 			| xargs -r sed -ne 's|^\(/[^ ]*\).*|\1|gp' | sort -u)
 	do
 		if [ -x ${D}${pidep} ]
@@ -513,7 +512,9 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 }
 
 __show_deps() {
-	__list_deps \* | sort -fu | sed "/^${PN}-[0-9].*$/d;s/^/  /g"
+	pushd ${D}
+	__list_deps * | sort -fu | sed "/^${PN}-[0-9].*$/d;s/^/  /g"
+	popd
 }
 
 __show_web() {

@@ -615,7 +615,7 @@ __pkg_dist() {
 		then
 			if [ "${CBUILD}" = "i686-pc-cygwin" ]
 			then
-				pkg_bin_requires=$(__list_deps $(cat ${T}/.${pkg_name[${n}]}.lst | sort -fu | grep -Ev "/$") \
+				pkg_bin_requires=$(__list_deps $(sort -fu ${T}/.${pkg_name[${n}]}.lst | sed -e '\|/$|d;s| |^_^|g') \
 						   | sort -fu | sed -e "/^cygwin-1/d;/^${pkg_name[${n}]}-[0-9].*$/d;s/-[0-9].*$//g" \
 						   | sed -e ':a;N;$!ba;s/\n/ /g')
 			fi
