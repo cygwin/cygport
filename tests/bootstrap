@@ -18,13 +18,13 @@ else
 	cp -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.xz .
 fi
 
-cp -f ${top_srcdir}/data/sample.cygport ${PACKAGE}-${VERSION}-1.cygport
+cp -f ${top_srcdir}/data/sample.cygport ${PACKAGE}.cygport
 
-${top_builddir}/bin/cygport-inplace ${PACKAGE}-${VERSION}-1.cygport prep compile install pkg
+${top_builddir}/bin/cygport-inplace ${PACKAGE}.cygport prep compile install pkg
 
 cp -r ${PACKAGE}-${VERSION}-1/dist/${PACKAGE} .
 
-${top_builddir}/bin/cygport-inplace ${PACKAGE}-${VERSION}-1.cygport finish
+${top_builddir}/bin/cygport-inplace ${PACKAGE}.cygport finish
 
 rm -f ${PACKAGE}-${VERSION}-1-src.tar.bz2 ${PACKAGE}-${VERSION}-1.tar.bz2
-rm -f ${PACKAGE}-${VERSION}.tar.xz ${PACKAGE}-${VERSION}-1.cygport
+rm -f ${PACKAGE}-${VERSION}.tar.xz ${PACKAGE}.cygport

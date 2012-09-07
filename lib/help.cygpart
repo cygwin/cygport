@@ -24,7 +24,7 @@ __show_help() {
 	cat <<-_EOF
 		cygport is a utility for creating and building Cygwin software packages.
 
-		Usage: cygport [/path/to/]PKGNAME-VER-REL[.cygport] COMMAND [COMMAND2 ...]
+		Usage: cygport CYGPORT_FILE COMMAND [COMMAND2 ...]
 
 		COMMAND may be one or more of the following:
 

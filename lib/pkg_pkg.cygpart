@@ -429,7 +429,7 @@ __pkg_srcpkg() {
 
 	__step "Creating source package";
 
-	cp ${top}/${PF}.cygport ${spkgdir};
+	cp ${top}/${cygportfile} ${spkgdir};
 
 	for src in ${_src_orig_pkgs} ${_src_orig_patches}
 	do
@@ -442,7 +442,7 @@ __pkg_srcpkg() {
 	then
 		if check_prog gpg
 		then
-			__gpg_sign ${spkgdir}/${PF}.cygport "CYGPORT SCRIPT";
+			__gpg_sign ${spkgdir}/${cygportfile} "CYGPORT SCRIPT";
 			__gpg_sign ${spkgdir}/${cygwin_patchfile} "CYGWIN PATCH";
 
 			if [ -f ${spkgdir}/${src_patchfile} ]

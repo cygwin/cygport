@@ -125,7 +125,7 @@ contain the package .cygport, one or two patchfiles, and the original source
 package, for example:
 
     foo-2.3.7.tar.gz
-    foo2-2.3.7-1.cygport
+    foo2.cygport
     foo2-2.3.7-1.cygwin.patch
     foo2-2.3.7-1.src.patch     (will be absent if package builds OOTB)
 
@@ -134,20 +134,10 @@ files must remain in the same directory.
 
 The general format of a cygport command is:
 
-    cygport [/path/to/]PKGNAME-VERSION-RELEASE[.cygport] COMMAND [COMMAND2]
-    
-The first argument to cygport may be either a path to a .cygport file, e.g.:
+    cygport CYGPORT_FILE COMMAND [COMMAND2]
 
-    $ cygport /usr/src/foo2-2.3.7-1.cygport COMMAND
-    
-Or, alternatively, if cygport is run from the directory containing the
-.cygport file, then the PKGNAME-VERSION-RELEASE triplet may be used
-instead of a path:
-
-    $ cd /usr/src
-    $ cygport foo2-2.3.7-1 COMMAND
-
-All other arguments are interpreted as a COMMAND, which may be:
+The first argument is the (relative or absolute) path to the .cygport file
+to be processed.  ll other arguments are interpreted as a COMMAND, which may be:
 
     prep      - create working directory, unpack the source and apply patches
     compile   - run all compilation steps

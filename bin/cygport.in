@@ -160,13 +160,17 @@ fi
 
 #****** Cygport/Format
 #  INTRODUCTION
-#  The .cygport file name must be in the form PN-PV-PR.cygport, and its
-#  contents must conform to bash shell syntax.  Comments may be included,
+#  If the .cygport file defines NAME, VERSION, and RELEASE, the filename may
+#  be anything, but is conventionally NAME.cygport.  Otherwise, the filename
+#  must be in the form NAME-VERSION-RELEASE.cygport, and the values of NAME,
+#  VERSION, and RELEASE will be determined automatically.
+#
+#  A .cygport file must conform to bash shell syntax.  Comments may be included,
 #  beginning with '#' until end-of-line; all comments are ignored during
 #  execution of cygport.
 #
 #  Since a .cygport file is itself not a functioning script, the she-bang
-#  header (#!/bin/bash) should be omitted.
+#  header (#!/bin/bash) should be omitted, and the file should not be executable.
 #
 #  The bare minimum for a working .cygport file includes a SRC_URI definition,
 #  and src_compile and src_install functions.  Note that several Cygclasses
@@ -418,11 +422,7 @@ unset _autotools_CYGCLASS_ _autotools_CYGCLASS_stage1_
 #****** Format/Globals
 #****
 
-#****d* Globals/P
-#  DESCRIPTION
-#  The package name and version, equivalent to PN-PV.
-#****
-#****d* Globals/PN
+#****v* Globals/NAME
 #  DESCRIPTION
 #  The Cygwin (primary) package name.  Generally, this is the same as the
 #  upstream package name, but need not be.  A common reason for deviating from
@@ -430,45 +430,77 @@ unset _autotools_CYGCLASS_ _autotools_CYGCLASS_stage1_
 #  a package are completely parallel installable (e.g. gtk1.2 and gtk2.0, both
 #  from gtk+).  In this case, define ORIG_PN to the upstream package name.
 #****
-#****d* Globals/PV
+#****v* Globals/VERSION
 #  DESCRIPTION
 #  The upstream package version number.  PV must begin with a digit 0-9, and
 #  subsequent characters can be a digit, letter, dot, hyphen, or underscore.
 #****
-#****d* Globals/PR
+#****v* Globals/RELEASE
 #  DESCRIPTION
 #  The Cygwin package release number, e.g. the "1" in foo-2.3.4-1.  The first
 #  release of a new version is usually 1, and is incremented if subsequent
 #  releases are made of the same version.  PR must be an integer.
 #****
+#****d* Globals/PN
+#  DESCRIPTION
+#  A read-only alias for NAME.
+#****
+#****d* Globals/PV
+#  DESCRIPTION
+#  A read-only alias for VERSION.
+#****
+#****d* Globals/PR
+#  DESCRIPTION
+#  A read-only alias for RELEASE.
+#****
+#****d* Globals/P
+#  DESCRIPTION
+#  A read-only alias for NAME-VERSION (PN-PV).
+#****
 #****d* Globals/PVR
 #  DESCRIPTION
-#  The package version and release, equivalent to PV-PR.
+#  A read-only alias for VERSION-RELEASE (PV-PR).
 #****
 #****d* Globals/PF
 #  DESCRIPTION
-#  The full package descriptor, equivalent to PN-PV-PR.
+#  A read-only alias for NAME-VERSION-RELEASE (PN-PV-PR).
 #****
 
-# argv[1] may or may not include the .cygport extension
+unset NAME VERSION RELEASE
+if [ -f ${argv[1]} ]
+then
+	eval $(grep '^NAME=' ${argv[1]})
+	eval $(grep '^VERSION=' ${argv[1]})
+	eval $(grep '^RELEASE=' ${argv[1]})
+fi
+
+if [ "${NAME+y}${VERSION+y}${RELEASE+y}" = "yyy" ]
+then
+declare -r  PN=${NAME}
+declare     PV=${VERSION}
+declare -r  PR=${RELEASE}
+declare -r  PF=${PN}-${PV}-${PR}
+declare -r  cygportfile=${argv[1]##*/}
+else
+# file must be named PN-PV-PR.cygport, but the extension is optional in argv[1]
             PF=${argv[1]##*/}
 declare -r  PF=${PF%.cygport}
-# these must be defined now to be available in SRC_URI
-#
-# PN must begin with letter, may contain hyphens but must be followed by letter
-# PV must begin with digit and may be hyphenated
-# PR must be an integer
 declare -r  PN=${PF%%-[0-9]*};
+declare     NAME=${PN}
 declare -r  PR=${PF##*-};
+declare     RELEASE=${PR}
             PV=$(echo ${PF} | sed -e "s/${PN}\-\(.*\)\-${PR}$/\1/");
+declare     VERSION=${PV}
+declare -r  cygportfile=${PF}.cygport;
+fi
+
+# these must be defined now to be available in SRC_URI
 declare -r  P=${PN}-${PV};
 declare -r  PVR=${PV}-${PR};
 declare -ar PVP=(${PV//[-\._]/ });
 declare -r  PV=(${PV} ${PVP[*]});
 declare -r  PV_MAJ=${PV[1]};
 declare -r  PV_MAJ_MIN="${PV[1]}.${PV[2]}";
-
-declare -r  cygportfile=${PF}.cygport;
 
 _topdir=${argv[1]%/*};
 

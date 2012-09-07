@@ -272,9 +272,9 @@ __src_prep() {
 	# wasn't upgraded since prep
 	__config_set cygport_version ${_version}
 
-	if [ -f ${top}/${PF}.cygport.sig ]
+	if [ -f ${top}/${cygportfile}.sig ]
 	then
-		__gpg_verify ${top}/${PF}.cygport "CYGPORT SCRIPT";
+		__gpg_verify ${top}/${cygportfile} "CYGPORT SCRIPT";
 	fi
 
 	for src_pkg in ${_src_orig_pkgs}
