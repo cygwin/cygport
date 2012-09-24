@@ -63,26 +63,20 @@
 #  GST_PLUGINS_ENABLE
 #****
 
-gst_pn=${PN#gstreamer[0-9]*-plugins-}
+if ! defined ORIG_PN
+then
+gst_pn=${PN#*gstreamer[0-9]*-plugins-}
 
 case ${gst_pn} in
-	ffmpeg)
-		ORIG_PN="gst-ffmpeg"
-		;;
-	gnonlin)
-		ORIG_PN="gnonlin"
-		;;
-	openmax)
-		ORIG_PN="gst-openmax"
-		;;
-	fluendo-*)
-		ORIG_PN=gst-${gst_pn}
-		SRC_URI="http://core.fluendo.com/gstreamer/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
-		;;
-	*)
-		ORIG_PN=gst-plugins-${gst_pn}
-		;;
+ffmpeg|libav|openmax)
+	ORIG_PN="gst-${gst_pn}" ;;
+fluendo-*)
+	ORIG_PN=gst-${gst_pn}
+	SRC_URI="http://core.fluendo.com/gstreamer/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
+	;;
+*)	ORIG_PN=gst-plugins-${gst_pn} ;;
 esac
+fi
 
 inherit gstreamer
 
@@ -91,7 +85,7 @@ inherit gstreamer
 SUMMARY="${gst_pn} plugin for the GStreamer multimedia framework"
 #****
 
-undef gst_pn
+unset gst_pn
 
 #****C* gst-plugins.cygclass/gst_plugins_autoreconf
 #  DESCRIPTION

@@ -39,9 +39,7 @@
 #****
 
 case ${PN} in
-	gstreamer*)
-		ORIG_PN=${ORIG_PN:-gst-${PN#gstreamer*-}}
-	;;
+*gstreamer*) ORIG_PN=${ORIG_PN:-gst-${PN#*gstreamer*-}} ;;
 esac
 
 #****o* gstreamer.cygclass/HOMEPAGE (gstreamer)
@@ -50,9 +48,17 @@ HOMEPAGE="http://gstreamer.freedesktop.org/"
 #****
 
 #****o* gstreamer.cygclass/SRC_URI (gstreamer)
-#  DEFINITION
-SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
+#  DESCRIPTION
+#  Download location for the upstream source tarball.
 #****
+case ${PV} in
+0.[0-9].*|0.10.*|0.11.?)
+SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
+;;
+*)
+SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.xz"
+;;
+esac
 
 #****o* gstreamer.cygclass/GIT_URI (gstreamer)
 #  NOTE
@@ -67,7 +73,10 @@ DIFF_EXCLUDES="common m4 po autoregen.sh stamp-h.in"
 #  DESCRIPTION
 #  Installation path for GStreamer plugins.
 #****
-GST_PLUGINDIR="/usr/lib/gstreamer-${PV_MAJ_MIN}"
+case ${PV} in
+0.*)		GST_PLUGINDIR="$(__host_prefix)/lib/gstreamer-${PV[1]}.${PV[2]}" ;;
+*)		GST_PLUGINDIR="$(__host_prefix)/lib/gstreamer-${PV[1]}.0" ;;
+esac
 
 #****C* gstreamer.cygclass/gstreamer_autoreconf
 #  SYNOPSIS
