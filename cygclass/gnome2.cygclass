@@ -99,7 +99,7 @@ gnome2_autoreconf() {
 #  the subdirectories to skip, relative to the directory where gnome2_autoreconf
 #  will be run (usually $S).
 #****
-	for skip_d in ${GNOME2_NO_AUTOGEN}
+	for skip_d in ${GNOME2_NO_AUTOGEN//,/ }
 	do
 		if [ ! -d ${skip_d} ]
 		then

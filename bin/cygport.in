@@ -535,7 +535,7 @@ then
 fi
 
 
-for restrict in ${RESTRICT}
+for restrict in ${RESTRICT//,/ }
 do
 	declare _CYGPORT_RESTRICT_${restrict//-/_}_=1
 done

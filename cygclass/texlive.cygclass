@@ -108,16 +108,16 @@ then
 else
 	tlnet="mirror://ctan/systems/texlive/tlnet"
 fi
-for pkg in ${TEXLIVE_TEXMF_PKGS}
+for pkg in ${TEXLIVE_TEXMF_PKGS//,/ }
 do
 	SRC_URI+=" ${tlnet}/archive/$pkg.tar.xz"
 done
-for pkg in ${TEXLIVE_ARCH_PKGS}
+for pkg in ${TEXLIVE_ARCH_PKGS//,/ }
 do
 	SRC_URI+=" ${tlnet}/archive/$pkg.tar.xz"
 	SRC_URI+=" ${tlnet}/archive/$pkg.${TEXLIVE_ARCH}.tar.xz"
 done
-for pkg in ${TEXLIVE_DOC_PKGS}
+for pkg in ${TEXLIVE_DOC_PKGS//,/ }
 do
 	SRC_URI+=" ${tlnet}/archive/$pkg.doc.tar.xz"
 done
@@ -139,15 +139,15 @@ texlive_install() {
 	__config_set texlive_fmts
 	__config_set texlive_maps
 
-	for pkg in ${TEXLIVE_TEXMF_PKGS}
+	for pkg in ${TEXLIVE_TEXMF_PKGS//,/ }
 	do
 		pkgs+="$pkg "
 	done
-	for pkg in ${TEXLIVE_ARCH_PKGS}
+	for pkg in ${TEXLIVE_ARCH_PKGS//,/ }
 	do
 		pkgs+="$pkg $pkg.${TEXLIVE_ARCH} "
 	done
-	for pkg in ${TEXLIVE_DOC_PKGS}
+	for pkg in ${TEXLIVE_DOC_PKGS//,/ }
 	do
 		pkgs+="$pkg.doc "
 	done

@@ -115,11 +115,11 @@ gst_plugins_autoreconf() {
 gst_plugins_compile() {
 	local plugin gst_conf
 
-	for plugin in ${GST_PLUGINS_DISABLE}
+	for plugin in ${GST_PLUGINS_DISABLE//,/ }
 	do
 		gst_conf+=" --disable-${plugin}"
 	done
-	for plugin in ${GST_PLUGINS_ENABLE} ${GST_PLUGINS_EXT}
+	for plugin in ${GST_PLUGINS_ENABLE//,/ } ${GST_PLUGINS_EXT//,/ }
 	do
 		case ${plugin} in
 		mad) gst_conf+=" --enable-id3tag --enable-mad" ;;

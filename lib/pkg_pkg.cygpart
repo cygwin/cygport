@@ -364,7 +364,7 @@ __pkg_diff() {
 			diff_excludes_x+=" ${DIFF_EXCLUDES}";
 			;;
 		*)
-			for exclude in ${DIFF_EXCLUDES}
+			for exclude in ${DIFF_EXCLUDES//,/ }
 			do
 				diff_excludes_x+=" -x ${exclude}";
 			done

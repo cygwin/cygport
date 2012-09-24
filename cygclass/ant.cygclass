@@ -86,7 +86,7 @@ cygant() {
 		error "Ant build.xml file not found"
 	fi
 
-	for task in ${ANT_TASKS}
+	for task in ${ANT_TASKS//,/ }
 	do
 		case ${task} in
 			oro|regexp)	taskpath+=${JAVA_DIR}/jakarta-${task}.jar: ;;
