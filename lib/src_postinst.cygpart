@@ -918,7 +918,7 @@ __prepstrip() {
 			# --add-gnu-debuglink will fail if .gnu_debuglink section
 			# already exists, e.g. binutils, which uses hardlinks,
 			# or cygwin which creates a custom .dbg file
-			if ! ${objdump} -h ${exe} | grep -q '\.gnu_debuglink'
+			if ! ${objdump} -h ${exe} | grep -q '\.gnu_deb'
 			then
 				${objcopy} --add-gnu-debuglink=/dev/null --only-keep-debug ${exe} ${D}${dbg};
 				chmod 0644 ${D}${dbg};
