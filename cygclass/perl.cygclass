@@ -165,7 +165,7 @@ CATEGORY="Perl"
 #****
 #****o* perl.cygclass/SUMMARY (perl)
 #  DEFINITION
-SUMMARY="Perl ${ORIG_PN//-/::} module"
+SUMMARY="Perl distribution ${ORIG_PN}"
 #  NOTE
 #  This variable is set only if CPAN_AUTHOR is defined before inherit()ing
 #  perl.cygclass.
