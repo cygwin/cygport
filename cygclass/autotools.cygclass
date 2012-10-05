@@ -199,7 +199,7 @@ cygautoreconf() {
 				__config_set with_intltool 1
 			fi
 
-			if $(grep -Eq '(A[CM]_PROG_LIBTOOL|LT_INIT)' ${sub_configure_ac})
+			if $(grep -Eq '(A[CM]_PROG_LIBTOOL|LT_INIT|XCB_UTIL_COMMON)' ${sub_configure_ac})
 			then
 				__config_set with_libtool 1
 			fi
