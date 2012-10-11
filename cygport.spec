@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.11.0
+Version:        0.11.1
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Oct 10 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.11.1-1
+- Allow spec-style file names.
+- Various bugfixes.
+
 * Mon Aug 27 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.11.0-1
 - Automatic setup.hint generation.
 - New cygclasses: pypy, pypy-distutils, rubygem, sugar.

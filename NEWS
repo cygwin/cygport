@@ -1,3 +1,10 @@
+0.11.1:
+	* NAME, VERSION, and RELEASE can be defined, removing the filename
+	  constraints from .cygport files.
+	* New install function: make_autostart_entry.
+	* gstreamer.cygclass: updated for GStreamer 1.0.
+	* Bugfixes for debuginfo packages and dependency generation.
+
 0.11.0:
 	* Automatically generate setup.hint files when [PKG_]CATEGORY,
 	  [PKG_]SUMMARY, [PKG_]DESCRIPTION, and (optionally) [PKG_]REQUIRES
