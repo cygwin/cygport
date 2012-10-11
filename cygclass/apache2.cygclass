@@ -31,15 +31,14 @@
 #  which use DLLs.
 #
 #  The purpose of apache2.cygclass is to provide functions and definitions
-#  for building DSOs for the Cygwin Apache 2.x packages.  (For Apache 1.x
-#  support, see apache1.cygclass.)  Cygwin packages doing so should use the
-#  "apache2-" prefix before the canonical package name.  Because there is no
-#  consistent DSO source buildsystem, src_compile and src_install must be
-#  defined yourself.
+#  for building DSOs for the Cygwin Apache 2.x packages.  Cygwin packages
+#  doing so should use the "apache2-" prefix before the canonical package name.
+#  Because there is no consistent DSO source buildsystem, src_compile and
+#  src_install must be defined yourself.
 #  REQUIRES
 #  apache2-devel, libapr1-devel, libaprutil1-devel
 #  SEE ALSO
-#  apache1.cygclass, mirror_apache
+#  mirror_apache
 #****
 
 # cross-compiling is not (yet?) supported

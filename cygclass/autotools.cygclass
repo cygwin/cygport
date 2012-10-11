@@ -48,7 +48,7 @@
 #  No Cygclass actually inherit()s autotools.cygclass for the reasons stated above,
 #  but the functions defined herein are used by a number of Cygclasses:
 #
-#  apache1.cygclass, apache2.cygclass, berkdb.cygclass, ggz.cygclass, gnome2.cygclass,
+#  apache2.cygclass, berkdb.cygclass, ggz.cygclass, gnome2.cygclass,
 #  gnustep.cygclass, gst-plugins.cygclass, gtkmm.cygclass, kde3.cygclass,
 #  mate.cygclass, opensync.cygclass, php.cygclass, pygtk.cygclass, toolchain.cygclass,
 #  xfce4.cygclass, xorg.cygclass

@@ -23,79 +23,57 @@
 
 #****h* Cygclasses/apache.cygclass
 #  SYNOPSIS
-#  APACHE_MAJOR=2
 #  inherit apache
 #  DESCRIPTION
-#  Compatibility wrapper for apache1.cygclass or apache2.cygclass.
-#  Deprecated; should not be used with new code. Instead, directly inherit
-#  apache1.cygclass and/or apache2.cygclass as necessary.
+#  Deprecated compatibility wrapper for apache2.cygclass.
 #  INHERITS
-#  apache1.cygclass or apache2.cygclass, based on the value of APACHE_MAJOR.
+#  apache2.cygclass
 #****
 
-#****v* apache.cygclass/APACHE_MAJOR
-#  DESCRIPTION
-#  Major version of Apache (1 or 2) being built against.
-#****
-case ${PN} in
-	apache-*)
-		APACHE_MAJOR=1
-		;;
-	apache2-*)
-		APACHE_MAJOR=2
-		;;
-	*)
-		case ${APACHE_MAJOR} in
-			1|2)	;;
-			*|'')	error "APACHE_MAJOR must be defined to 1 or 2" ;;
-		esac
-		;;
-esac
-
-inherit apache${APACHE_MAJOR}
+inherit apache2
 
 #****C* apache.cygclass/apache_compile
 #  DESCRIPTION
-#  Wrapper for apache1_compile/apache2_compile
+#  Alias for apache2_compile
 #****
 apache_compile() {
-	apache${APACHE_MAJOR}_compile "$@"
+	apache2_compile "$@"
 }
 
 #****C* apache.cygclass/apache_apxs_compile
 #  DESCRIPTION
-#  Wrapper for apache1_apxs_compile/apache2_apxs_compile
+#  Alias for apache2_apxs_compile
 #****
 apache_apxs_compile() {
-	apache${APACHE_MAJOR}_apxs_compile "$@"
+	apache2_apxs_compile "$@"
 }
 
 apxs_compile() {
-	apache${APACHE_MAJOR}_apxs_compile "$@"
+	apache2_apxs_compile "$@"
 }
 
 #****I* apache.cygclass/doapacheconf
 #  DESCRIPTION
-#  Wrapper for doapache1conf/doapache2conf
+#  Alias for doapache2conf
 #****
 doapacheconf() {
-	doapache${APACHE_MAJOR}conf "$@"
+	doapache2conf "$@"
 }
 
 #****I* apache.cygclass/doapachemod
 #  DESCRIPTION
-#  Wrapper for doapache1mod/doapache2mod
+#  Alias for doapache2mod
 #****
 doapachemod() {
-	doapache${APACHE_MAJOR}mod "$@"
+	doapache2mod "$@"
 }
 
 #****I* apache.cygclass/apache_postinst
 #  DESCRIPTION
-#  Wrapper for apache1_postinst/apache2_postinst
+#  Alias for apache2_postinst
 #****
 apache_postinst() {
-	apache${APACHE_MAJOR}_postinst
+	apache2_postinst
 }
 
 readonly -f apache_compile apache_apxs_compile apxs_compile doapacheconf \

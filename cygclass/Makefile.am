@@ -2,7 +2,6 @@ cygclassdir = $(pkgdatadir)/cygclass
 cygclass_DATA =					\
 	cygclass/ant.cygclass			\
 	cygclass/apache.cygclass		\
-	cygclass/apache1.cygclass		\
 	cygclass/apache2.cygclass		\
 	cygclass/aspell-dict.cygclass		\
 	cygclass/autotools.cygclass		\

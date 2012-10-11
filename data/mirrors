@@ -53,7 +53,7 @@
 #  MIRROR LIST
 #  http://www.apache.org/mirrors/index.html
 #  SEE ALSO
-#  apache1.cygclass, apache2.cygclass
+#  apache2.cygclass
 #****
 # grep -h '^  <TD ALIGN="RIGHT"><A HREF=' index.html \
 # | sed -e 's#<TD ALIGN="RIGHT"><A HREF="\(.*\)/">.*#\1#g' \

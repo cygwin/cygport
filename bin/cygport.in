@@ -277,7 +277,6 @@ unset conf;
 #  DESCRIPTION
 #  * ant.cygclass
 #  * apache.cygclass
-#  * apache1.cygclass
 #  * apache2.cygclass
 #  * aspell-dict.cygclass
 #  * autotools.cygclass
