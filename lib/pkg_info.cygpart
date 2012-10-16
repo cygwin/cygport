@@ -151,7 +151,7 @@ __list_deps() {
 			| xargs -r sed -ne "s|^dependency_libs='\(.*\)'|\1|gp" \
 			| sed -e 's| -[LR][^ ]*||g;s| -l\([^ ]*\)| lib\1|g')
 	do
-		for f in ${ladep} $(__target_prefix)/lib/${ladep}.{dll.a,so,a}
+		for f in ${ladep} $(__host_prefix)/lib/${ladep}.{dll.a,so,a}
 		do
 			if [ -f ${D}${f} ]
 			then
@@ -170,8 +170,8 @@ __list_deps() {
 	do
 		# avoid version comparison tokens
 		case ${pcdep} in [A-Za-z]*) ;; *) continue ;; esac
-		for d in ${D}$(__target_prefix)/lib/pkgconfig ${D}/usr/share/pkgconfig \
-			 $(__target_prefix)/lib/pkgconfig /usr/share/pkgconfig
+		for d in ${D}$(__host_prefix)/lib/pkgconfig ${D}$(__host_prefix)/share/pkgconfig ${D}/usr/share/pkgconfig \
+			 $(__host_prefix)/lib/pkgconfig $(__host_prefix)/share/pkgconfig /usr/share/pkgconfig
 		do
 			if [ -f ${d}/${pcdep}.pc ]
 			then
