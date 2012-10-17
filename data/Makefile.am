@@ -13,6 +13,9 @@ pkgdata_SCRIPTS =			\
 mimedir = $(datadir)/mime/packages
 mime_DATA = data/cygport.xml
 
+vimftdetectdir = $(datadir)/vim/vimfiles/ftdetect
+vimftdetect_DATA = data/cygport.vim
+
 bashcompletiondir = $(sysconfdir)/bash_completion.d
 bashcompletion_DATA = data/cygport-bash-completion
 
@@ -30,5 +33,6 @@ EXTRA_DIST += \
 	$(mime_DATA)		\
 	$(pkgdata_DATA)		\
 	$(pkgdata_SCRIPTS)	\
+	$(vimftdetect_DATA)	\
 	$(xorgconf_DATA)	\
 	data/cygport.conf
