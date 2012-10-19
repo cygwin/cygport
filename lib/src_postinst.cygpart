@@ -831,8 +831,9 @@ __prepstrip() {
 		if [ "$(head -c 2 ${exe})" = '#!' ]
 		then
 			# sometimes .exe will be appended where it does not belong
-			case ${exe} in *.exe)
-				mv ${exe} ${exe%.exe} ;;
+			case ${exe} in
+			usr/lib/hevea/*.exe) ;;
+			*.exe)	mv ${exe} ${exe%.exe} ;;
 			esac
 			continue
 		fi
