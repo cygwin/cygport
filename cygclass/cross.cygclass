@@ -145,6 +145,9 @@ case ${CHOST} in
 	OBJCFLAGS="${OBJCFLAGS} -mms-bitfields"
 	OBJCXXFLAGS="${OBJCXXFLAGS} -mms-bitfields"
 	;;
+*-*-linux-gnu)
+	LDFLAGS="${LDFLAGS} -Wl,--as-needed -Wl,--no-undefined"
+	;;
 esac
 
 if ! check_tool gcc || ! check_tool strip
