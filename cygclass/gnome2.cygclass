@@ -89,6 +89,21 @@ gnome2_autoreconf() {
 	export REQUIRED_LIBTOOL_VERSION=2.2.2
 	export USE_COMMON_DOC_BUILD
 
+	if __cross_compiling
+	then
+		local ccsysroot=$(${CC} -print-sysroot)
+		local sysrootltize=${ccsysroot}$(__target_prefix)/bin/libtoolize
+		local sysrootaclocaldir=${ccsysroot}$(__target_prefix)/share/aclocal
+		if [ -x ${sysrootltize} ]
+		then
+			export LIBTOOLIZE=${sysrootltize}
+		fi
+		if [ -d ${sysrootaclocaldir} ]
+		then
+			ACLOCAL_FLAGS+=" -I ${sysrootaclocaldir}"
+		fi
+	fi
+
 #****v* gnome2.cygclass/GNOME2_NO_AUTOGEN
 #  DESCRIPTION
 #  By default, gnome-autogen.sh will retool the working directory's and any
