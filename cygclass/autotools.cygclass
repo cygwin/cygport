@@ -243,7 +243,7 @@ cygautoreconf() {
 #****v* cygautoreconf/WANT_AUTOMAKE
 #  DESCRIPTION
 #  This variable controls the version of automake to be used.  Valid settings
-#  are currently "1.4" through "1.11".  If undefined, the version used by
+#  are currently "1.4" through "1.12".  If undefined, the version used by
 #  the preexisting automake files will be used; if nonexistant (e.g. a VCS
 #  checkout), the newest available automake will be used.
 #****
