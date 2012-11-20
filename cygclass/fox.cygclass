@@ -103,12 +103,10 @@ FOX_LIBS="$(${FOX_CONFIG} --libs)"
 
 #****f* fox.cygclass/fox-config
 #  DESCRIPTION
-#  Wrapper function for calling FOX_CONFIG.  This function is exported to the
-#  build environment.
+#  Wrapper function for calling FOX_CONFIG.
 #****
 fox-config() {
 	${FOX_CONFIG} ${@}
 }
 
-export -f fox-config
 readonly -f _fox_find_config fox-config
