@@ -221,12 +221,10 @@ WX_LIBS="$(${WX_CONFIG} --libs)"
 
 #****f* wxwidgets.cygclass/wx-config
 #  DESCRIPTION
-#  Wrapper function for calling WX_CONFIG.  This function is exported to the
-#  build environment.
+#  Wrapper function for calling WX_CONFIG.
 #****
 wx-config() {
 	${WX_CONFIG} ${@}
 }
 
-export -f wx-config
 readonly -f _wx_find_config wx-config
