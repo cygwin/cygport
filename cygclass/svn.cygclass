@@ -126,7 +126,7 @@ svn_fetch() {
 	# T likely doesn't exist at this point, so create it first
 	mkdir -p ${T}
 	cd ${T}
-	verbose svn checkout ${svn_uri} ${svn_rev} ${SVN_MODULE}
+	verbose svn export ${svn_uri} ${svn_rev} ${SVN_MODULE}
 
 	tar ${_tar_bz2_flag}cf ${top}/${svn_tarball} --exclude-vcs ${SVN_MODULE}
 }
