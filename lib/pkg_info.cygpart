@@ -166,7 +166,7 @@ __list_deps() {
 	done
 
 	# pkg-config dependencies on other devel packages
-	for pcdep in $(find "${@//^_^/ }" -type f -name '*.pc' | xargs -r grep ^Requires | cut -d' ' -f2- | sed -e 's/,/ /g')
+	for pcdep in $(find "${@//^_^/ }" -type f -name '*.pc' | xargs -r grep -h ^Requires | cut -d' ' -f2- | sed -e 's/,/ /g')
 	do
 		# avoid version comparison tokens
 		case ${pcdep} in [A-Za-z]*) ;; *) continue ;; esac
@@ -183,7 +183,7 @@ __list_deps() {
 
 	# pkg-config dependencies on other libraries
 	for pcdep in $(find "${@//^_^/ }" -type f -name '*.pc' \
-			| xargs -r grep ^Libs \
+			| xargs -r grep -h ^Libs \
 			| sed -e "s|^[^ ]*||g;s| \+-[^l][^ ]*||g;s| *-l\([^ ]*\)| lib\1|g")
 	do
 		for f in $(__host_prefix)/lib/${pcdep}.{dll.a,so,a}
