@@ -55,7 +55,12 @@ fetch() {
 	urifile=${uri%\?*};
 	urifile=${urifile##*/};
 
-	if check_prog wget
+	if defined __DL_ONLY_MISSING && defined DISTDIR && [ -f ${DISTDIR}/${urifile} ]
+	then
+		cp -f ${DISTDIR}/${urifile} .
+		inform "Copying ${urifile} from DISTDIR"
+		return 0
+	elif check_prog wget
 	then
 		if wget --no-check-certificate -O ${urifile}.tmp ${uri}
 		then
@@ -75,6 +80,12 @@ fetch() {
 		fi
 	else
 		error "Either wget or curl are required to fetch sources.";
+	fi
+
+	if defined DISTDIR && [ -f ${urifile} ]
+	then
+		[ -d ${DISTDIR} ] || mkdir -p ${DISTDIR}
+		cp -fp ${urifile} ${DISTDIR}/
 	fi
 }
 
@@ -138,13 +149,13 @@ __src_fetch() {
 				continue
 		fi
 		case ${uri%%//*} in
-			mirror:)			__mirror_fetch ${uri} ;;
+			mirror:)	__mirror_fetch ${uri} ;;
 			http:|https:|ftp:)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
 			file:)		cp -f ${uri#file://} . || error "Copying ${uri##*/} failed" ;;
-			*:)			error "Unsupported download protocol ${uri%%//*}" ;;
+			*:)		error "Unsupported download protocol ${uri%%//*}" ;;
 			*/*)		cp -f ${uri#file://} . || error "Copying ${uri##*/} failed" ;;
 			${uri})		;; # file in working directory
-			*)			error "Invalid download URI ${uri}" ;;
+			*)		error "Invalid download URI ${uri}" ;;
 		esac
 	done
 }
