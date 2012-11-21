@@ -24,7 +24,9 @@ __pkg_binpkg() {
 	local -i n=0;
 	local pkg_contents;
 	local pkg_contents_var;
+	local pkg_docs_var;
 	local pkg_list;
+	local f;
 
 #****v* Packaging/PKG_NAMES
 #  SYNOPSIS
@@ -114,6 +116,7 @@ __pkg_binpkg() {
 		__step "${pkg_name[${n}]}-${PVR}.tar.bz2";
 
 		pkg_contents_var=${pkg_name[${n}]//[-+\.]/_}_CONTENTS;
+		pkg_docs_var=${pkg_name[${n}]//[-+\.]/_}_DOCS;
 
 		if defined ${pkg_contents_var}
 		then
@@ -130,6 +133,11 @@ __pkg_binpkg() {
 		else
 			pkg_contents=
 		fi
+
+		for f in ${!pkg_docs_var}
+		do
+			pkg_contents+=" usr/share/doc/${pkg_name[${n}]}/${f##*/}"
+		done
 
 		if defined pkg_contents
 		then
@@ -251,7 +259,7 @@ __pkg_diff() {
 
 	if __config_equals with_automake 1
 	then
-		default_excludes+=" COPYING INSTALL ar-lib config-ml.in elisp-comp
+		default_excludes+=" COPYING INSTALL ansi2knr.c ar-lib config-ml.in elisp-comp
 			mdate-sh mkinstalldirs py-compile symlink-tree texinfo.tex ylwrap
 			Makefile.in GNUmakefile.in makefile.in"
 	fi

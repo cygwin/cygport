@@ -426,8 +426,10 @@ _EOF
 
 # installs standard docs, html docs, and Cygwin README
 __prepdoc() {
+	local doc;
 	local html;
-	local -i n=1;
+	local -i n=0;
+	local pkg_docs_var;
 	local pkg_hint;
 	local default_docs="\
 		ANNOUNCE ANNOUNCEMENTS AUTHOR AUTHORS \
@@ -469,16 +471,36 @@ __prepdoc() {
 	then
 		insinto /usr/share/doc/Cygwin;
 		newins ${C}/README ${PN}.README;
-	elif [ -e ${C}/${PN}.README ]
-	then
-		insinto /usr/share/doc/Cygwin;
-		doins ${C}/${PN}.README;
 	fi
 
 	pkg_hint=(${PKG_HINTS})
 
+#****v* Documentation Files/PKG_DOCS
+#  DESCRIPTION
+#  A list of documentation files, relative to $S, to be installed in a
+#  PKG-specific docdir and automatically included in the PKG subpackage.
+#  The PKG_DOCS name is descriptive rather than literal, where "PKG" should
+#  be substituted with the name of the binary package to whose contents the
+#  docs should be added.  When a package contains a character which cannot
+#  be used in a shell variable name (namely '+', '-', and '.'), that character
+#  must be substituted with an underscore ('_'), e.g. libfoo_devel_DOCS for a
+#  libfoo-devel package.
+#  NOTE
+#  When using PKG_DOCS, usr/share/doc/PKG should not be included in the
+#  corresponding PKG_CONTENTS; the specified files will be added to the
+#  package automatically.
+#****
 	while defined pkg_name[${n}]
 	do
+		pkg_docs_var=${pkg_name[${n}]//[-+\.]/_}_DOCS;
+
+		if defined ${pkg_docs_var}
+		then
+			docinto /${pkg_name[${n}]};
+			dodoc ${!pkg_docs_var};
+			unset _docinto_dir;
+		fi
+
 		if [ -f ${C}/${pkg_name[${n}]}.README ]
 		then
 			insinto /usr/share/doc/Cygwin;
