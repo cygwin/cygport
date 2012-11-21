@@ -60,6 +60,8 @@ SUMMARY="ROX Desktop ${ORIG_PN} component"
 HOMEPAGE="http://roscidus.com/desktop/"
 #****
 
+DEPS_PATH="/usr/lib/ROX-Lib2/python"
+
 #****v* rox.cygclass/ROX_APP
 #  DESCRIPTION
 #  The name of the directory containing the AppRun script.  This variable
