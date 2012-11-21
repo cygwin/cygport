@@ -25,7 +25,9 @@ Requires:       imake
 Requires:       make
 Requires:       patch
 Requires:       rsync
+Requires:       shared-mime-info
 Requires:       util-linux
+Requires:       vim-filesystem
 Requires:       wget
 
 
@@ -70,6 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/cygport
 %{_datadir}/cygport
 %{_datadir}/mime/packages/cygport.xml
+%{_datadir}/vim/vimfiles/ftdetect/cygport.vim
 %{_mandir}/man1/cygport.1*
 
 
