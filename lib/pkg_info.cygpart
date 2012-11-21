@@ -259,6 +259,7 @@ __list_deps() {
 	if check_prog lua
 	then
 		luapaths=($(lua -e 'print(package.path.."\;"..package.cpath)' | tr '\;' ' '))
+		luapaths+=" ${DEPS_PATH//:/ }"
 		for luadep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -name '*.lua' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*lua' '{}' + \
@@ -306,6 +307,7 @@ __list_deps() {
 	if check_prog perl
 	then
 		pldirs=($(perl -e 'print join(" ",@INC)'))
+		pldirs+=" ${DEPS_PATH//:/ }"
 		for pldep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o \( -name '*.pl' -o -name '*.pm' \) -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*perl.*' '{}' + \
@@ -356,6 +358,7 @@ __list_deps() {
 	   && [ ${PN} != "python3" ] && [ ${PN} != "pypy" ] || inherited python
 	then
 		pydirs=($(python -c 'import sys; print(" ".join(sys.path))'))
+		pydirs+=" ${DEPS_PATH//:/ }"
 		pyexts=$(python -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
@@ -383,6 +386,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	   && [ ${PN} != "python" ] && [ ${PN} != "python3" ] || inherited pypy
 	then
 		pydirs=($(pypy -c 'import sys; print(" ".join(sys.path))'))
+		pydirs+=" ${DEPS_PATH//:/ }"
 		pyexts=$(pypy -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
@@ -410,6 +414,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	   && [ ${PN} != "python" ] && [ ${PN} != "pypy" ] || inherited python3
 	then
 		pydirs=($(python3 -c 'import sys; print(" ".join(sys.path))'))
+		pydirs+=" ${DEPS_PATH//:/ }"
 		pyexts=$(python3 -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
@@ -437,6 +442,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	if check_prog ruby
 	then
 		rbdirs=($(ruby -e 'print($:.join(" "))'))
+		rbdirs+=" ${DEPS_PATH//:/ }"
 		if check_prog gem
 		then
 			gemdir=$(gem env gemdir)
