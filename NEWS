@@ -1,3 +1,12 @@
+0.11.2:
+	* DISTDIR can be defined in cygport.conf for saving downloaded files.
+	* Automatically installs and packages docs defined in [PKG]_DOCS.
+	* Added vim plugin to enable syntax highlighting for .cygport files.
+	* apache1.cygclass was REMOVED.
+	* cross.cygclass: defines LDFLAGS for Linux targets.
+	* svn.cygclass: uses svn export instead of checkout.
+	* Bugfixes for dependency generation.
+
 0.11.1:
 	* NAME, VERSION, and RELEASE can be defined, removing the filename
 	  constraints from .cygport files.
