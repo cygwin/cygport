@@ -55,6 +55,8 @@ HOMEPAGE="http://www.gtkmm.org/"
 # .rc files are removed for regeneration by configure
 DIFF_EXCLUDES+=" Doxyfile MSVC_Net200*"
 
+KEEP_LA_FILES="none"
+
 #****C* gtkmm.cygclass/gtkmm_autoreconf
 #  SYNOPSIS
 #  cd $S
