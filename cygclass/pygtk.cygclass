@@ -106,6 +106,8 @@ SUMMARY="Python ${pygtk_mod} bindings"
 HOMEPAGE="http://www.pygtk.org/"
 #****
 
+KEEP_LA_FILES="none"
+
 unset pygtk_mod
 
 #****C* pygtk.cygclass/pygtk_compile
