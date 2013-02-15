@@ -42,7 +42,8 @@
 #****v* toolchain.cygclass/TOOLCHAIN_TARGET
 #  DESCRIPTION
 #  The CPU-VENDOR-OS triplet describing the compiler's "target" system, e.g.
-#  'i686-pc-mingw32' or 'x86_64-pc-linux-gnu'.
+#  'i686-pc-mingw32' or 'x86_64-pc-linux-gnu', or the keyword "native", which
+#  will cause a host-native compiler to be built.
 #  NOTES
 #  * TOOLCHAIN_TARGET must be defined before inherit()ing toolchain.cygclass.
 #  * TOOLCHAIN_TARGET will be canonicalized upon calling "inherit toolchain".
@@ -54,8 +55,11 @@ if ! defined TOOLCHAIN_TARGET
 then
 	error "TOOLCHAIN_TARGET must be defined before 'inherit toolchain'"
 fi
-
-CTARGET=$(__canonicalize_triplet ${TOOLCHAIN_TARGET})
+case ${TOOLCHAIN_TARGET} in
+[Nn][Aa][Tt][Ii][Vv][Ee])
+	inform "Building native toolchain for ${CTARGET} host" ;;
+*)	CTARGET=$(__canonicalize_triplet ${TOOLCHAIN_TARGET}) ;;
+esac
 TOOLCHAIN_TARGET=${CTARGET}
 
 #****d* toolchain.cygclass/TOOLCHAIN_SYSROOT
