@@ -167,7 +167,11 @@ STRIP="strip"
 
 # system triplets
 declare    CBUILD=$(__canonicalize_triplet $(${_privgnuconfigdir}/config.guess))
-declare    CHOST="i686-pc-cygwin";
+case ${CBUILD} in
+*-cygwin)  CHOST="${_host_arch:-${CBUILD%%-*}}-pc-cygwin" ;;
+*)         CHOST="${_host_arch:-i686}-pc-cygwin" ;;
+esac
+unset _host_arch
 declare    CTARGET=${CHOST};
 declare    CROSS_HOST="";
 declare    CROSS_SYSROOT="";

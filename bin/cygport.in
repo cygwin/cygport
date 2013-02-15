@@ -131,6 +131,14 @@ case ${1} in
 		set -x;
 		shift;
 		;;
+	--32|-4)
+		_host_arch=i686
+		shift;
+		;;
+	--64|-8)
+		_host_arch=x86_64
+		shift;
+		;;
 	-*)
 		echo "${0}: unknown argument ${1}";
 		__show_help;
