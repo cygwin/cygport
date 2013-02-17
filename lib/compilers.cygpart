@@ -162,7 +162,9 @@ declare -x LDFLAGS="";
 
 declare -x LIBS="";
 
+AR="ar"
 OBJDUMP="objdump"
+RANLIB="ranlib"
 STRIP="strip"
 
 # system triplets
@@ -187,7 +189,9 @@ then
 	GOC=${CHOST}-gccgo
 	OBJC=${CHOST}-gcc
 	OBJCXX=${CHOST}-g++
+	AR=${CHOST}-ar
 	OBJDUMP=${CHOST}-objdump
+	RANLIB=${CHOST}-ranlib
 	STRIP=${CHOST}-strip
 
 	# PKG_PROG_PKG_CONFIG looks for $host-pkg-config, but pkg-config is not

@@ -130,7 +130,9 @@ GCJ="${CHOST}-gcj"
 GOC="${CHOST}-gccgo"
 OBJC="${CHOST}-gcc"
 OBJCXX="${CHOST}-g++"
+AR="${CHOST}-ar"
 OBJDUMP="${CHOST}-objdump"
+RANLIB="${CHOST}-ranlib"
 STRIP="${CHOST}-strip"
 
 case ${CHOST} in
