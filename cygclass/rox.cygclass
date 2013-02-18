@@ -55,9 +55,16 @@ CATEGORY="ROX"
 #  DEFINITION
 SUMMARY="ROX Desktop ${ORIG_PN} component"
 #****
+#****o* rox.cygclass/DESCRIPTION (rox)
+#  DEFINITION
+DESCRIPTION="ROX is a fast, user friendly desktop based on RISC OS which makes
+extensive use of drag-and-drop. The interface revolves around the file manager,
+or filer, following the traditional Unix view that 'everything is a file' rather
+than trying to hide the filesystem beneath start menus, wizards, or druids."
+#****
 #****o* rox.cygclass/HOMEPAGE (rox)
 #  DEFINITION
-HOMEPAGE="http://roscidus.com/desktop/"
+HOMEPAGE="http://rox.sourceforge.net/desktop/"
 #****
 
 DEPS_PATH="/usr/lib/ROX-Lib2/python"
