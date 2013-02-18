@@ -162,9 +162,24 @@ declare -x LDFLAGS="";
 
 declare -x LIBS="";
 
+#****d* Compiling/AR
+#  DESCRIPTION
+#  The static library archiver for the host platform.
+#****
 AR="ar"
+
 OBJDUMP="objdump"
+
+#****d* Compiling/RANLIB
+#  DESCRIPTION
+#  The static library indexer for the host platform.
+#****
 RANLIB="ranlib"
+
+#****d* Compiling/STRIP
+#  DESCRIPTION
+#  The symbol remover for the host platform.
+#****
 STRIP="strip"
 
 # system triplets
