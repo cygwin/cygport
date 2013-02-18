@@ -71,7 +71,12 @@ lndirs() {
 #  so maintainers need not be concerned for the usability of their packages.
 #****
 manifestize() {
-	local exe exename
+	local exe exename arch
+
+	case ${CHOST} in
+	i?86-*)    arch=x86 ;;
+	x86_64-*)  arch=amd64 ;;
+	esac
 
 	for exe in $@
 	do
@@ -88,6 +93,7 @@ manifestize() {
 
 		sed -e "s|@PKGNAME@|${PN//.}|" \
 		    -e "s|@APPNAME@|${exename%.exe}|" \
+		    -e "s|@ARCH@|${arch}|" \
 		    ${_privdatadir}/uac-manifest.in > ${exe}.manifest;
 		chmod +x ${exe}.manifest;
 	done;
