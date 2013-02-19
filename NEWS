@@ -1,3 +1,10 @@
+0.11.3:
+	* Preliminary support for x86_64-pc-cygwin host.
+	* Cross-compiling to x86_64-cygwin from either i686-Cygwin or Linux
+	can be enabled with cygport --64 foo.cygport [command(s)].
+	* New definitions: AR, RANLIB, STRIP.
+	* toolchain.cygclass: accept TOOLCHAIN_TARGET="native".
+
 0.11.2:
 	* DISTDIR can be defined in cygport.conf for saving downloaded files.
 	* Automatically installs and packages docs defined in [PKG]_DOCS.

@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.11.2
+Version:        0.11.3
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 18 2013 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.11.3-1
+- Preliminary x86_64-cygwin support.
+
 * Tue Nov 20 2012 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.11.2-1
 - Support DISTDIR, PKG_DOCS.
 - Removed obsolete apache1.cygclass.

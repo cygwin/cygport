@@ -1,5 +1,5 @@
 NAME="cygport"
-VERSION=0.11.2
+VERSION=0.11.3
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Cygwin source packaging tool"
