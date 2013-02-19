@@ -19,6 +19,7 @@ Requires:       cygwin-gcc
 Requires:       cygwin-libtool
 Requires:       diffstat
 Requires:       diffutils
+Requires:       dos2unix
 Requires:       file
 Requires:       grep
 Requires:       imake

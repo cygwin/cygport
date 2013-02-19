@@ -594,7 +594,7 @@ __check_depends() {
 			# package checks not available on other systems
 			if check_prog cygcheck
 			then
-				cygcheck -cd ${atom} | d2u | grep -q "^${atom} " || failed_atoms+="${atom} "
+				cygcheck -cd ${atom} | dos2unix | grep -q "^${atom} " || failed_atoms+="${atom} "
 			fi
 			;;
 		esac

@@ -192,6 +192,7 @@ addition to the packages own dependencies:
     coreutils
     diffstat
     diffutils
+    dos2unix
     file
     grep
     gzip
