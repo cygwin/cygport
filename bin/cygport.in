@@ -109,7 +109,7 @@ source ${_privlibdir}/syntax.cygpart
 #  The following packages are required to build packages with cygport:
 #   autoconf, automake, bash, binutils, bzip2, coreutils, diffstat, diffutils,
 #   dos2unix, file, grep, gzip, libtool, lndir, make, patch, rsync, sed, tar,
-#   unzip, util-linux, wget.
+#   unzip, util-linux, wget, which.
 #  Other software packages are required by some Cygclasses, as indicated within.
 #****
 
@@ -195,7 +195,7 @@ source ${_privlibdir}/check_funcs.cygpart
 
 # check now for all mandatory programs
 for _myprog in bzip2 cat chmod cp diff diffstat dos2unix find grep gzip install \
-               ln mkdir mv patch rm rsync sed sort tar xargs
+               ln mkdir mv patch rm rsync sed sort tar xargs which
 do
 	if ! check_prog ${_myprog}
 	then

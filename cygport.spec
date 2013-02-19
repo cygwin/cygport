@@ -30,6 +30,7 @@ Requires:       shared-mime-info
 Requires:       util-linux
 Requires:       vim-filesystem
 Requires:       wget
+Requires:       which
 
 
 %description

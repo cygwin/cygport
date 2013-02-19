@@ -206,6 +206,7 @@ addition to the packages own dependencies:
     unzip
     util-linux
     wget
+    which
 
 6. DOWNLOAD AND INSTALLATION
 
