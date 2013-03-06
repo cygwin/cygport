@@ -363,6 +363,7 @@ __list_deps() {
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python3.*' -prune \
+				-o -name '*-gdb.py' -prune \
 				-o -name '*.py' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python[^3]*' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
@@ -391,6 +392,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -path 'usr/lib/python[23].*' -prune \
+				-o -name '*-gdb.py' -prune \
 				-o -name '*.py' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*pypy' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
@@ -419,6 +421,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python2.*' -prune \
+				-o -name '*-gdb.py' -prune \
 				-o -name '*.py' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python3' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
