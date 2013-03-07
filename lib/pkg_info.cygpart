@@ -96,7 +96,7 @@ __list_deps() {
 		PATH+=":$(cygpath -S)"
 	fi
 
-	if __cross_compiling && ! __target_is_embedded && check_target_tool gcc
+	if (cross_compiling || [ "${CHOST}" != "${CTARGET}" ]) && ! __target_is_embedded && check_target_tool gcc
 	then
 		tcgcclibdir=$(dirname $(${CTARGET}-gcc --print-file-name=libgcc.a))
 		tcgccsysroot=$(${CTARGET}-gcc -print-sysroot)

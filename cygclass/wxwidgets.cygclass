@@ -170,7 +170,7 @@ _wx_find_config() {
 		*)	error "Unknown value for WX_CODESET; must be 'ansi' or 'unicode'" ;;
 		esac
 
-	if __cross_compiling
+	if cross_compiling
 	then
 		WX_CONFIG=$(${CXX} -print-sysroot)$(__target_prefix)/lib/wx/config/${CROSS_HOST}${CROSS_HOST:+-}${WX_TOOLKIT}-${WX_CODESET}${_release}-${WX_VERSION}
 	else

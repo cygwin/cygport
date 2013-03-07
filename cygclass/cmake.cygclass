@@ -127,7 +127,7 @@ cygcmake() {
 		error "cygcmake: cmake directory not found";
 	fi
 
-	if __cross_compiling
+	if cross_compiling
 	then
 		crossargs="-DCMAKE_SYSTEM_NAME=$(__cmake_system)
 			-D_CMAKE_TOOLCHAIN_PREFIX=${CHOST}-

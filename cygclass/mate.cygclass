@@ -116,7 +116,7 @@ mate_autoreconf() {
 	export REQUIRED_LIBTOOL_VERSION=2.2.2
 	export USE_COMMON_DOC_BUILD
 
-	if __cross_compiling
+	if cross_compiling
 	then
 		local ccsysroot=$(${CC} -print-sysroot)
 		local sysrootltize=${ccsysroot}$(__target_prefix)/bin/libtoolize

@@ -196,12 +196,18 @@ __canonicalize_triplet() {
 	echo -n ${triplet}
 }
 
-__cross_compiling() {
-	return $(test ${CBUILD} != ${CHOST} || test ${CHOST} != ${CTARGET})
+#****** Syntax/cross_compiling
+#  SYNOPSIS
+#  if cross_compiling; then ...; fi
+#  DESCRIPTION
+#  Tests if the package is being cross-compiled.  Returns TRUE if so, else FALSE.
+#****
+cross_compiling() {
+	return $(test ${CBUILD} != ${CHOST})
 }
 
 __cross_compiling_error() {
-	if __cross_compiling
+	if cross_compiling
 	then
 		error "${BASH_SOURCE[1]##*/} does not yet support cross-compiling"
 	fi
@@ -257,5 +263,5 @@ __target_is_embedded() {
 }
 
 readonly -f defined pushd popd error warning inform verbose __stage __step \
-	__log_init __canonicalize_triplet __cross_compiling __cross_compiling_error \
+	__log_init __canonicalize_triplet cross_compiling __cross_compiling_error \
 	__host_prefix __host_is_embedded __target_prefix __target_is_embedded

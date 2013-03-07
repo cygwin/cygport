@@ -340,7 +340,7 @@ cygautoreconf() {
 
 		ACLOCAL=${ACLOCAL:-aclocal}
 
-		if __cross_compiling
+		if cross_compiling || inherited toolchain
 		then
 			local ccsysroot=$(${CC} -print-sysroot)
 			local sysrootltize=${ccsysroot}$(__target_prefix)/bin/libtoolize
@@ -513,7 +513,7 @@ cygconf() {
 		x2.[5-9]*)	confargs+=" -C" ;;
 	esac
 
-	if __cross_compiling
+	if cross_compiling || inherited toolchain
 	then
 		confargs+=" --build=${CBUILD} --host=${CHOST}"
 

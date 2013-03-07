@@ -122,7 +122,7 @@ gst_plugins_compile() {
 		esac
 	done
 
-	if __cross_compiling
+	if cross_compiling
 	then
 		gst_conf+=" --disable-gtk-doc"
 	else

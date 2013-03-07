@@ -45,7 +45,7 @@ else
 	CXX="clang++"
 	OBJC="clang"
 	OBJCXX="clang++"
-	if __cross_compiling
+	if cross_compiling
 	then
 		for cc in CC CXX OBJC OBJCXX
 		do

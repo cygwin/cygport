@@ -40,7 +40,7 @@
 check_prog_req tclsh tcl
 
 # this is used for TCL_VERSION
-if __cross_compiling
+if cross_compiling
 then
 	export ac_cv_c_tclconfig=$(${CC} -print-sysroot)$(__target_prefix)/lib
 else
