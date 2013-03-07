@@ -193,6 +193,8 @@ STRIP="strip"
 # system triplets
 declare    CBUILD=$(__canonicalize_triplet $(${_privgnuconfigdir}/config.guess))
 case ${CBUILD} in
+# http://cygwin.com/ml/cygwin-developers/2013-02/msg00132.html
+x86_64-unknown-cygwin)  CBUILD="x86_64-pc-cygwin" ;&
 *-cygwin)  CHOST="${_host_arch:-${CBUILD%%-*}}-pc-cygwin" ;;
 *)         CHOST="${_host_arch:-i686}-pc-cygwin" ;;
 esac
