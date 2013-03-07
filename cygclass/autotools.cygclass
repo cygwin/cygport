@@ -515,7 +515,7 @@ cygconf() {
 
 	if __cross_compiling
 	then
-		confargs+=" --build=${CBUILD} --host=${CHOST} --target=${CTARGET}"
+		confargs+=" --build=${CBUILD} --host=${CHOST}"
 
 		# make sure that PATH checks for foo-config scripts
 		# do not detect the native ones in /usr/bin

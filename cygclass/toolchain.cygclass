@@ -107,7 +107,7 @@ toolchain_compile() {
 		sysroot="--with-sysroot=${TOOLCHAIN_SYSROOT} --with-build-sysroot=${TOOLCHAIN_SYSROOT}"
 	fi
 
-	cygconf ${sysroot} ${@}
+	cygconf --target=${CTARGET} ${sysroot} ${@}
 	cygmake
 }
 
