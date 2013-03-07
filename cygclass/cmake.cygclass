@@ -159,6 +159,8 @@ cygcmake() {
 		-DCMAKE_CXX_FLAGS="${CXXFLAGS} ${CPPFLAGS}" \
 		-DCMAKE_Fortran_COMPILER=$(which ${FC}${exeext}) \
 		-DCMAKE_Fortran_FLAGS="${FCFLAGS} ${CPPFLAGS}" \
+		-DCMAKE_AR=$(which ${AR}${exeext}) \
+		-DCMAKE_RANLIB=$(which ${RANLIB}${exeext}) \
 		-DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
 		-DCMAKE_MODULE_LINKER_FLAGS="${LDFLAGS}" \
 		-DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}" \
