@@ -176,6 +176,14 @@ OBJDUMP="objdump"
 #****
 RANLIB="ranlib"
 
+#****d* Compiling/RC
+#  DESCRIPTION
+#  The Windows resource compiler for the host platform.
+#  NOTE
+#  This tool is available only on Cygwin, Windows, and embedded PE hosts.
+#****
+RC="windres";
+
 #****d* Compiling/STRIP
 #  DESCRIPTION
 #  The symbol remover for the host platform.
@@ -207,6 +215,7 @@ then
 	AR=${CHOST}-ar
 	OBJDUMP=${CHOST}-objdump
 	RANLIB=${CHOST}-ranlib
+	RC=${CHOST}-windres
 	STRIP=${CHOST}-strip
 
 	# PKG_PROG_PKG_CONFIG looks for $host-pkg-config, but pkg-config is not

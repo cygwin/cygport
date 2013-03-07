@@ -135,6 +135,13 @@ OBJDUMP="${CHOST}-objdump"
 RANLIB="${CHOST}-ranlib"
 STRIP="${CHOST}-strip"
 
+# windres is not provided for all platforms
+case ${CHOST} in
+*-cygwin*|*-mingw*|*-msys*|*-*-pe*|*-wince*|*-cegcc*|*-netbsdpe)
+	RC="${CHOST}-windres" ;;
+*)	RC="false"
+esac
+
 case ${CHOST} in
 *-pc-mingw*)
 	# mingw.org packages are built to be compatible with MSVC-compiled software
