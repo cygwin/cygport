@@ -711,7 +711,7 @@ __prepman() {
 			echo ".so ${manref%.gz}" > ${manlink%.gz};
 		done
 
-		for manpage in $(find ${D}$(__host_prefix)/share/man -type f ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma')
+		for manpage in $(find ${D}$(__host_prefix)/share/man -type f -links 1 ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma')
 		do
 			echo "        ${manpage##*/}";
 			gzip -q ${manpage};
