@@ -56,12 +56,12 @@ lndirs() {
 #  SYNOPSIS
 #  manifestize EXE [EXE ...]
 #  DESCRIPTION
-#  Since Windows Vista/2008, executables with names containing "instal", "patch",
-#  "setup", or "update" require administrator privleges to run (under the
-#  assumption that these are software installers).  This security feature is
+#  Since Windows Vista/2008, 32-bit executables with names containing "instal",
+#  "patch", "setup", or "update" require administrator privileges to run (under
+#  the assumption that these are software installers).  This security feature is
 #  neither necessary nor appropriate for console-mode applications which are
 #  so named, in which case special side-by-side manifest files can be used
-#  to inform Windows that elevated privledges are not required.
+#  to inform Windows that elevated privileges are not required.
 #
 #  In the situation where a package builds such an executable *and* needs to
 #  execute it in-tree, then use this function to create manifest files for
@@ -71,12 +71,7 @@ lndirs() {
 #  so maintainers need not be concerned for the usability of their packages.
 #****
 manifestize() {
-	local exe exename arch
-
-	case ${CHOST} in
-	i?86-*)    arch=x86 ;;
-	x86_64-*)  arch=amd64 ;;
-	esac
+	local exe exename
 
 	for exe in $@
 	do
@@ -93,7 +88,6 @@ manifestize() {
 
 		sed -e "s|@PKGNAME@|${PN//.}|" \
 		    -e "s|@APPNAME@|${exename%.exe}|" \
-		    -e "s|@ARCH@|${arch}|" \
 		    ${_privdatadir}/uac-manifest.in > ${exe}.manifest;
 		chmod +x ${exe}.manifest;
 	done;

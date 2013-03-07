@@ -1002,16 +1002,17 @@ __prepdebugsrc() {
 #****P* Postinstall/Windows UAC
 #  DESCRIPTION
 #  Manifest files will be automatically generated to circumvent UAC for those
-#  executables whose names normally trigger UAC.
+#  32-bit executables whose names normally trigger UAC Installer Detection.
 #****
 
 __prepuac() {
 	local exe exename;
 
-	# only Windows-hosted binaries need to deal with UAC
+	# UAC Installer Detection only applies to 32-bit executables:
+	# http://technet.microsoft.com/en-us/library/cc709628.aspx
 	case ${CHOST} in
-		*-*-cygwin*|*-*-mingw*|*-*-msys*) ;;
-		*)	return ;;
+	i?86-*-cygwin*|i?86-*-mingw*|i?86-*-msys*) ;;
+	*)	return ;;
 	esac
 
 	cd ${D};
