@@ -59,6 +59,8 @@ fi
 CHOST=$(__canonicalize_triplet ${CROSS_HOST})
 CTARGET=${CHOST}
 CROSS_HOST=${CHOST}
+ARCH=noarch
+unset ARCH_i686 ARCH_x86_64
 
 
 #****d* cross.cygclass/CROSS_SYSROOT

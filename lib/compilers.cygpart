@@ -203,6 +203,8 @@ declare    CTARGET=${CHOST};
 declare    CROSS_HOST="";
 declare    CROSS_SYSROOT="";
 declare    TOOLCHAIN_TARGET="";
+declare    ARCH=${CHOST%%-*};
+declare    ARCH_${ARCH}=1;
 
 if [ ${CBUILD} != ${CHOST} ]
 then
