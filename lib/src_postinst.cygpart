@@ -827,6 +827,7 @@ __prepstrip() {
 	local lib;
 	local objcopy;
 	local objdump;
+	local lines;
 
 	if defined _CYGPORT_RESTRICT_strip_
 	then
@@ -936,7 +937,13 @@ __prepstrip() {
 			dbg="/usr/lib/debug/${exe}.dbg";
 
 			dodir ${dbg%/*};
-			${objdump} -dl ${exe} 2>/dev/null | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' | sort -u >> ${T}/.dbgsrc.out;
+			lines=$(${objdump} -dl ${exe} 2>/dev/null | grep /usr/src/debug/${PF}/ | sed -e 's/:[0-9]*$//g' | sort -u | tee -a ${T}/.dbgsrc.out | wc -l);
+
+			if (( lines == 0 ))
+			then
+				${objcopy} --strip-all ${exe};
+				continue;
+			fi
 
 			# --add-gnu-debuglink will fail if .gnu_debuglink section
 			# already exists, e.g. binutils, which uses hardlinks,
