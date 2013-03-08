@@ -42,23 +42,28 @@
 
 #****v* cross.cygclass/CROSS_HOST
 #  DESCRIPTION
-#  The CPU-VENDOR-OS triplet describing the system for which you are cross-compiling,
-#  for example 'i686-pc-linux-gnu' or 'x86_64-w64-mingw32'.
+#  The CPU-VENDOR-OS triplet, or customary abbreviation thereof, describing the
+#  system for which you are cross-compiling; for example:
+#  * i686-pc-linux-gnu: i686 GNU/Linux
+#  * x86_64-w64-mingw32: Win64
+#  * arm-eabi [arm-unknown-eabi]: Embedded ARM ELF system (e.g. with Newlib)
+#  * avr [avr-unknown-none]: Atmel AVR bare metal (e.g. Arduino)
+#  Note that while the 'unknown' vendor tag is usually omitted from embedded
+#  systems, particularly in conjunction with a 'none' OS tag, as above, this
+#  does not apply to e.g. 'x86_64-unknown-linux-gnu' and other systems.
 #  NOTES
 #  * CROSS_HOST must be defined before inherit()ing cross.cygclass.
-#  * CROSS_HOST will be canonicalized upon calling "inherit cross".  That means
-#    if set to 'amd64-linux', it will be changed into 'x86_64-pc-linux-gnu'.
-#    Therefore it is important continue using $CROSS_HOST as a variable instead
-#    of writing its initial value.
+#  * CROSS_HOST must match the prefix of the toolchain being used (in other
+#    words, the TOOLCHAIN_TARGET used for building said toolchain).
 #****
 if ! defined CROSS_HOST
 then
 	error "CROSS_HOST must be defined before 'inherit cross'"
 fi
 
-CHOST=$(__canonicalize_triplet ${CROSS_HOST})
+__check_triplet ${CROSS_HOST}
+CHOST=${CROSS_HOST}
 CTARGET=${CHOST}
-CROSS_HOST=${CHOST}
 ARCH=noarch
 unset ARCH_i686 ARCH_x86_64
 

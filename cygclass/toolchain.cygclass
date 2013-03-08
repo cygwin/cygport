@@ -41,15 +41,21 @@
 
 #****v* toolchain.cygclass/TOOLCHAIN_TARGET
 #  DESCRIPTION
-#  The CPU-VENDOR-OS triplet describing the compiler's "target" system, e.g.
-#  'i686-pc-mingw32' or 'x86_64-pc-linux-gnu', or the keyword "native", which
-#  will cause a host-native compiler to be built.
+#  The CPU-VENDOR-OS triplet, or customary abbreviation thereof, describing the
+#  compiler's "target" system; for example:
+#  * i686-pc-linux-gnu: i686 GNU/Linux
+#  * x86_64-w64-mingw32: Win64
+#  * arm-eabi [arm-unknown-eabi]: Embedded ARM ELF system (e.g. with Newlib)
+#  * avr [avr-unknown-none]: Atmel AVR bare metal (e.g. Arduino)
+#  Note that while the 'unknown' vendor tag is usually omitted from embedded
+#  systems, particularly in conjunction with a 'none' OS tag, as above, this
+#  does not apply to e.g. 'x86_64-unknown-linux-gnu' and other systems.
+#
+#  The keyword "native" is also accepted, which will cause a host-native
+#  Cygwin compiler to be built, and TOOLCHAIN_TARGET to be redefined
+#  accordingly.
 #  NOTES
 #  * TOOLCHAIN_TARGET must be defined before inherit()ing toolchain.cygclass.
-#  * TOOLCHAIN_TARGET will be canonicalized upon calling "inherit toolchain".
-#    That means if set to 'amd64-linux', it will be changed into 'x86_64-pc-linux-gnu'.
-#    Therefore it is important to continue using $TOOLCHAIN_TARGET as a variable
-#    instead of writing out its initial value.
 #****
 if ! defined TOOLCHAIN_TARGET
 then
@@ -57,10 +63,11 @@ then
 fi
 case ${TOOLCHAIN_TARGET} in
 [Nn][Aa][Tt][Ii][Vv][Ee])
-	inform "Building native toolchain for ${CTARGET} host" ;;
-*)	CTARGET=$(__canonicalize_triplet ${TOOLCHAIN_TARGET}) ;;
+	inform "Building native toolchain for ${CTARGET} host"
+	TOOLCHAIN_TARGET=${CTARGET} ;;
+*)	__check_triplet ${TOOLCHAIN_TARGET}
+	CTARGET=${TOOLCHAIN_TARGET} ;;
 esac
-TOOLCHAIN_TARGET=${CTARGET}
 
 #****d* toolchain.cygclass/TOOLCHAIN_SYSROOT
 #  DESCRIPTION

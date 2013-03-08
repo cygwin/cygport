@@ -167,33 +167,11 @@ __arg_bool() {
 	return ${ret}
 }
 
-__canonicalize_triplet() {
-	local triplet
-
-	if ! triplet=$(${_privgnuconfigdir}/config.sub ${1} 2> /dev/null)
+__check_triplet() {
+	if ! ${_privgnuconfigdir}/config.sub ${1} &> /dev/null
 	then
 		error "Unknown or invalid system triplet: ${1}"
 	fi
-
-	case ${triplet} in
-	*-unknown-none)
-		if ${_privgnuconfigdir}/config.sub ${triplet%-unknown-none} &> /dev/null
-		then
-			triplet=${triplet%-unknown-none}
-		fi ;;
-	*-unknown-*)
-		if ${_privgnuconfigdir}/config.sub ${triplet/-unknown-/-} &> /dev/null
-		then
-			triplet=${triplet/-unknown-/-}
-		fi ;;
-	*-none)
-		if ${_privgnuconfigdir}/config.sub ${triplet%-none} &> /dev/null
-		then
-			triplet=${triplet%-none}
-		fi ;;
-	esac
-
-	echo -n ${triplet}
 }
 
 #****** Syntax/cross_compiling
@@ -263,5 +241,5 @@ __target_is_embedded() {
 }
 
 readonly -f defined pushd popd error warning inform verbose __stage __step \
-	__log_init __canonicalize_triplet cross_compiling __cross_compiling_error \
+	__log_init __check_triplet cross_compiling __cross_compiling_error \
 	__host_prefix __host_is_embedded __target_prefix __target_is_embedded

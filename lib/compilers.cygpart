@@ -191,7 +191,7 @@ RC="windres";
 STRIP="strip"
 
 # system triplets
-declare    CBUILD=$(__canonicalize_triplet $(${_privgnuconfigdir}/config.guess))
+declare    CBUILD=$(${_privgnuconfigdir}/config.guess)
 case ${CBUILD} in
 # http://cygwin.com/ml/cygwin-developers/2013-02/msg00132.html
 x86_64-unknown-cygwin)  CBUILD="x86_64-pc-cygwin" ;&
@@ -221,6 +221,11 @@ then
 	RANLIB=${CHOST}-ranlib
 	RC=${CHOST}-windres
 	STRIP=${CHOST}-strip
+
+	if ! check_tool gcc || ! check_tool strip
+	then
+	        error "Cross-compiling this package requires ${CHOST} binutils and gcc"
+	fi
 
 	# PKG_PROG_PKG_CONFIG looks for $host-pkg-config, but pkg-config is not
 	# a "tool" that is built for each target like binutils or gcc.  Instead,
