@@ -470,7 +470,8 @@ __pkg_dist() {
 	local -i n;
 	local -a pkg_hint;
 	local distsubdir;
-	local pkg_category_var pkg_requires_var pkg_summary_var pkg_description_var;
+	local pkg_category_var pkg_requires_var pkg_summary_var;
+	local pkg_description_var pkg_message_var;
 
 	rm -fr ${distdir}/*;
 
@@ -599,6 +600,7 @@ __pkg_dist() {
 		pkg_requires_var=${pkg_name[${n}]//[-+\.]/_}_REQUIRES;
 		pkg_summary_var=${pkg_name[${n}]//[-+\.]/_}_SUMMARY;
 		pkg_description_var=${pkg_name[${n}]//[-+\.]/_}_DESCRIPTION;
+		pkg_message_var=${pkg_name[${n}]//[-+\.]/_}_MESSAGE;
 
 		case ${pkg_name[${n}]} in
 			${PN})  distsubdir="" ;;
@@ -637,6 +639,12 @@ sdesc: "${!pkg_summary_var:-${SUMMARY}}"
 ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
 ${distsubdir:+external-source: ${PN}}
 _EOF
+			if defined ${pkg_message_var}
+			then
+				cat >> ${distdir}/${PN}/${distsubdir}/setup.hint <<-_EOF
+message: ${pkg_name[${n}]} "${!pkg_message_var}"
+_EOF
+			fi
 		else
 			warning "${pkg_hint[${n}]%.hint}.hint is missing";
 		fi
