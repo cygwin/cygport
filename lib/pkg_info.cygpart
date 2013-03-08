@@ -56,6 +56,7 @@ __list_deps() {
 	local phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
 	local tcldep tclpkgs vapidep vapidir
 	local tcgcclibdir tcgccsysroot
+	local dlltool="dlltool"
 	local os_path="${PATH}"
 
 	# if file list is empty, there are obviously no dependencies
@@ -64,6 +65,11 @@ __list_deps() {
 	if __host_is_embedded
 	then
 		return
+	fi
+
+	if cross_compiling && check_prog ${CTARGET}-dlltool
+	then
+		dlltool="${CTARGET}-dlltool"
 	fi
 
 	pushd ${D}
@@ -111,9 +117,6 @@ __list_deps() {
 			;;
 		*-*-cygwin*|*-*-mingw*|*-*-msys*)
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:${tcgccsysroot}$(__target_prefix)/bin"
-			alldeps+=" "$(find "${@//^_^/ }" -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
-				-exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
-				cut -d ' ' -f 3 | xargs -r which || true)
 			;;
 		*-*-darwin*)
 			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:${tcgccsysroot}$(__target_prefix)/lib"
@@ -144,7 +147,7 @@ __list_deps() {
 			| sort -u)
 
 	# implib devel->dll subpackage dependencies
-	alldeps+=" "$(find "${@//^_^/ }" -type f -name '*.dll.a' -exec dlltool -I '{}' \; 2>/dev/null \
+	alldeps+=" "$(find "${@//^_^/ }" -type f -name '*.dll.a' -exec ${dlltool} -I '{}' \; 2>/dev/null \
 			| sort -u | xargs -r which)
 
 	for ladep in $(find "${@//^_^/ }" -type f -name '*.la' \
