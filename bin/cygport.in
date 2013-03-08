@@ -118,7 +118,9 @@ source ${_privlibdir}/help.cygpart
 ###
 
 # Accept --help and --version arguments without specifying a cygport file
-case ${1} in
+while true
+do
+	case ${1} in
 	--help|-h|-\?)
 		__show_help;
 		exit 0;
@@ -127,7 +129,7 @@ case ${1} in
 		__show_version;
 		exit 0;
 		;;
-	--debug)
+	--debug|-d)
 		set -x;
 		shift;
 		;;
@@ -144,7 +146,9 @@ case ${1} in
 		__show_help;
 		exit 1;
 		;;
-esac
+	*)	break ;;
+	esac
+done
 
 declare -ar argv=(${0} ${@})
 declare -ir argc=$(( $# + 1 ))
