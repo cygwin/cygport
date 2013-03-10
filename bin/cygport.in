@@ -517,11 +517,11 @@ _topdir=${argv[1]%/*};
 
 if [ "x${_topdir}" = "x${argv[1]}" ]
 then
-	if [ -f /usr/src/${cygportfile} ]
+	if [ -f ./${cygportfile} ]
 	then
-		_topdir=/usr/src;
-	else
 		_topdir=.;
+	else
+		_topdir=/usr/src;
 	fi
 fi
 
