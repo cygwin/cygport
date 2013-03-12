@@ -544,6 +544,13 @@ cygconf() {
 		confargs+=" --enable-shared --disable-static"
 	fi
 
+	# workaround lib-link.m4:AC_LIB_HAVE_LINKFLAGS's insistence on
+	# linking with rpath, and stick with -l flags instead
+	for l in $(grep '^with_lib[^ ]*_prefix$' ${configure})
+	do
+		confargs+=" --${l//_/-}=no"
+	done
+
 	# AC_HAVE_MMAP fails despite a working mmap, so we force this to yes
 	# (see http://www.cygwin.com/ml/cygwin/2004-09/msg00741.html
 	# and following thread for details)
