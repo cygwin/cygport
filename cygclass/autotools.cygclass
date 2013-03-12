@@ -515,7 +515,7 @@ cygconf() {
 
 	if cross_compiling || inherited toolchain
 	then
-		confargs+=" --build=${CBUILD} --host=${CHOST}"
+		confargs+=" --build=${CBUILD} --host=${CHOST} --target=${CTARGET}"
 
 		# make sure that PATH checks for foo-config scripts
 		# do not detect the native ones in /usr/bin
