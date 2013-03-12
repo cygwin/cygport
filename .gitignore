@@ -9,6 +9,7 @@ config.status
 configure
 install-sh
 missing
+test-driver
 
 cygport
 cygport.1
