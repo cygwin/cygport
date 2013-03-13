@@ -620,10 +620,10 @@ __pkg_dist() {
 		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
 		then
 			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/setup.hint;
-		elif [ "${CBUILD}" = "i686-pc-cygwin" -o -n "${!pkg_requires_var+yes}" ] \
+		elif [ "${CBUILD##*-}" = "cygwin" -o -n "${!pkg_requires_var+yes}" ] \
 		     && [ -n "${!pkg_category_var:-${CATEGORY}}" -a -n "${!pkg_summary_var:-${SUMMARY}}" ]
 		then
-			if [ "${CBUILD}" = "i686-pc-cygwin" ]
+			if [ "${CBUILD##*-}" = "cygwin" ]
 			then
 				pkg_bin_requires=$(__list_deps $(sort -fu ${T}/.${pkg_name[${n}]}.lst | sed -e '\|/$|d;s| |^_^|g') \
 						   | sort -fu | sed -e "/^cygwin-1/d;/^${pkg_name[${n}]}-[0-9].*$/d;s/-[0-9].*$//g" \
