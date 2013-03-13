@@ -548,7 +548,12 @@ cygconf() {
 	# linking with rpath, and stick with -l flags instead
 	for l in $(grep '^with_lib[^ ]*_prefix$' ${configure})
 	do
-		confargs+=" --${l//_/-}=no"
+		# make sure this is not just a custom AC_ARG_WITH;
+		# AC_LIB_HAVE_LINKFLAGS uses LIBNAME_PREFIX= further on in
+		if grep -q $(echo ${l#with_}= | tr '[:lower:]' '[:upper:]') ${configure}
+		then
+			confargs+=" --${l//_/-}=no"
+		fi
 	done
 
 	# AC_HAVE_MMAP fails despite a working mmap, so we force this to yes
