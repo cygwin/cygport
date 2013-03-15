@@ -12,8 +12,8 @@ SRC_URI="mirror://sourceforge/cygwin-ports/${P}.tar.xz"
 DEPEND="groff help2man robodoc"
 # runtime deps to go in setup.hint, and note the escaped newline
 REQUIRES="autoconf automake binutils bzip2 coreutils diffstat diffutils \
-dos2unix file grep gzip libtool lndir make patch rsync sed tar unzip util-linux \
-wget which"
+dos2unix file gawk grep gzip libtool lndir make patch rsync sed tar unzip \
+util-linux wget which"
 
 # We use the standard src_compile and src_test.
 

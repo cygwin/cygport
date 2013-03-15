@@ -21,6 +21,7 @@ Requires:       diffstat
 Requires:       diffutils
 Requires:       dos2unix
 Requires:       file
+Requires:       gawk
 Requires:       grep
 Requires:       imake
 Requires:       make

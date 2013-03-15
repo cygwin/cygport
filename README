@@ -194,6 +194,7 @@ addition to the packages own dependencies:
     diffutils
     dos2unix
     file
+    gawk
     grep
     gzip
     libtool

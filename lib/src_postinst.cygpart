@@ -911,6 +911,21 @@ __prepstrip() {
 			continue
 		fi
 
+		# check for DLLs with low-address manual ImageBase, either
+		# due to -Wl,--image-base, or BASE directive in .def file;
+		# use CTARGET to avoid false positives from cross-gcc
+		case ${CTARGET} in
+		x86_64-*-cygwin*)
+			case ${exe##*/} in
+			cygwin1.dll|cyglsa64.dll) ;;
+			*.dll|*.so|*.oct|*.cmxs)
+				if ${objdump} -p ${exe} | sed -ne '/^ImageBase/s/.*\t/0x/gp' | gawk '{ exit (strtonum($1) <= 0x400000000 ? 0 : 1) }'
+				then
+					warning "${exe} was not linked with -Wl,--enable-auto-image-base"
+				fi
+			esac
+		esac
+
 		# check for .exe from non-automake Makefile which install(1) didn't fix
 		# strip(1) used to take care of this, but not anymore
 		case ${CHOST} in
