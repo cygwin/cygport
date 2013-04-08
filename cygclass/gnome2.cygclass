@@ -198,7 +198,7 @@ gnome2_autoreconf() {
 gnome2_configure() {
 	local gtk_doc
 
-	if __cross_compiling
+	if cross_compiling
 	then
 		gtk_doc="--disable-gtk-doc"
 	else
