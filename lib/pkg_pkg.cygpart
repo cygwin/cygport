@@ -579,7 +579,7 @@ __pkg_dist() {
 #  package depends. This will be added to the requires: field of the
 #  auto-generated setup.hint file.
 #
-#  Note that the PKG_CATEGORY name is descriptive rather than literal,
+#  Note that the PKG_REQUIRES name is descriptive rather than literal,
 #  where "PKG" should be substituted with the name of the binary package
 #  whose contents it describes.  When a package contains a character which
 #  cannot be used in a shell variable name (namely '+', '-', and '.'),
