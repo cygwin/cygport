@@ -518,7 +518,9 @@ cygconf() {
 		confargs+=" --build=${CBUILD} --host=${CHOST}"
 		if inherited toolchain
 		then
-			confargs+=" --target=${CTARGET}"
+			# AM_GNU_GETTEXT is used in subdirectories of the
+			# cygnus tree but not in the top-level
+			confargs+=" --target=${CTARGET} --without-libiconv-prefix --without-libintl-prefix"
 		fi
 	fi
 
