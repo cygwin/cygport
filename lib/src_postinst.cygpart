@@ -1146,11 +1146,11 @@ __prep_symlinks() {
 #
 #  Whether and which .la files are removed during automatic postinstall
 #  is based on the value of this variable, which can be one of:
-#  * none: deletes all .la files
+#  * none: deletes all .la files (the default behaviour on x86_64)
 #  * module: keep only those .la files for modules meant to be dlopen()ed
 #  * shared: keep only those .la files for non-module shared libraries
 #  * static: keep only those .la files for static-only libraries
-#  * all: keep all of the above (the default behaviour if undefined)
+#  * all: keep all of the above (the default behaviour on i686)
 #
 #  Some suggested guidelines:
 #  * If modules are to be loaded via libltdl or GModule, you may (but not
@@ -1176,6 +1176,7 @@ __prep_libtool_modules() {
 	local dlname origdlname library_names old_library inherited_linker_flags \
 	      dependency_libs weak_library_names current age revision \
 		  installed shouldnotlink dlopen dlpreopen libdir rep_requires
+	local keep
 
 	pushd ${D}
 
@@ -1185,6 +1186,16 @@ __prep_libtool_modules() {
 	then
 		# nothing to do
 		return 0
+	fi
+
+	if defined KEEP_LA_FILES
+	then
+		keep=${KEEP_LA_FILES}
+	elif defined ARCH_i686
+	then
+		keep="all"
+	else
+		keep="none"
 	fi
 
 	echo "Fixing libtool modules:"
@@ -1225,7 +1236,7 @@ __prep_libtool_modules() {
 			if [ "x${dlname}" = "x" ]
 			then
 				# static-only library, hopefully for good reason...
-				case "${KEEP_LA_FILES:-all}" in
+				case ${keep} in
 					all|static) ;;
 					none|shared|module*) rm -f ${lib_la} ;;
 					*) error "KEEP_LA_FILES: unknown value: ${KEEP_LA_FILES}" ;;
@@ -1266,7 +1277,7 @@ __prep_libtool_modules() {
 				;;
 			esac
 
-			case "${KEEP_LA_FILES:-all}" in
+			case ${keep} in
 				all|shared) ;;
 				none|static|module*) rm -f ${lib_la} ;;
 				*) error "KEEP_LA_FILES: unknown value: ${KEEP_LA_FILES}" ;;
@@ -1297,7 +1308,7 @@ __prep_libtool_modules() {
 		# static and import libraries are pointless for modules
 		rm -f ${ltlibdir}/${ltlibname}.a ${ltlibdir}/${ltlibname}.dll.a
 
-		case "${KEEP_LA_FILES:-all}" in
+		case ${keep} in
 			all|module*) ;;
 			none|shared|static) rm -f ${lib_la}; continue ;;
 			*) error "KEEP_LA_FILES: unknown value: ${KEEP_LA_FILES}" ;;
