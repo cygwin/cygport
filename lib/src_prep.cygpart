@@ -233,12 +233,12 @@ cygpatch() {
 		do
 			if patch -N -s --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
 			then
-				inform "applying patch ${patchfile_name}:";
+				inform "applying patch ${patchfile_name} (-p${patchlevel}):";
 				patch -N -p${patchlevel} --no-backup-if-mismatch -i ${patchfile_path} || error "patch ${patchfile_name} failed"
 				break;
 			elif patch -N -s --binary --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
 			then
-				inform "applying patch ${patchfile_name}:";
+				inform "applying binary patch ${patchfile_name} (-p${patchlevel}):";
 				patch -N --binary -p${patchlevel} --no-backup-if-mismatch -i ${patchfile_path} || error "patch ${patchfile_name} failed"
 				break;
 			elif patch -R -s --dry-run -p${patchlevel} -i ${patchfile_path} &> /dev/null
