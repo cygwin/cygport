@@ -203,7 +203,22 @@ declare    CTARGET=${CHOST};
 declare    CROSS_HOST="";
 declare    CROSS_SYSROOT="";
 declare    TOOLCHAIN_TARGET="";
+
+#****d* Compiling/ARCH
+#  DESCRIPTION
+#  The Cygwin architecture of the binaries being built (i686 or x86_64),
+#  or "noarch" when using cross.cygclass.
+#****
 declare    ARCH=${CHOST%%-*};
+
+#****d* Compiling/ARCH_i686
+#  DESCRIPTION
+#  Defined only when building binaries for i686 (32-bit) Cygwin.
+#****
+#****d* Compiling/ARCH_x86_64
+#  DESCRIPTION
+#  Defined only when building binaries for x86_64 (64-bit) Cygwin.
+#****
 declare    ARCH_${ARCH}=1;
 
 if [ ${CBUILD} != ${CHOST} ]
