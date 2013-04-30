@@ -537,6 +537,11 @@ fi
 source ${top}/${cygportfile} || error "could not read ${cygportfile}"
 ###
 
+case ${ARCH} in
+${CHOST%%-*}|noarch) ;;
+*)  error "This package may only be built for ${ARCH}"
+esac
+
 if defined CYGPORT_DEPEND
 then
 	if ! __version_at_least ${CYGPORT_DEPEND} ${_version}
