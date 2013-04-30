@@ -24,7 +24,19 @@ __show_help() {
 	cat <<-_EOF
 		cygport is a utility for creating and building Cygwin software packages.
 
-		Usage: cygport CYGPORT_FILE COMMAND [COMMAND2 ...]
+		Usage: cygport [OPTIONS] CYGPORT_FILE COMMAND [COMMAND2 ...]
+
+		OPTIONS may include the following:
+
+		  --32, -4     build package for i686 Cygwin
+		  --64, -8     build package for x86_64 Cygwin
+		  --debug      enable debugging messages
+
+		The --32 and --64 options are mutually exclusive.
+
+		On Cygwin, if neither the --32 nor --64 options are enabled,
+		the package will be built for the architecture on which cygport
+		is run.  On other systems, one of those options is required.
 
 		COMMAND may be one or more of the following:
 
