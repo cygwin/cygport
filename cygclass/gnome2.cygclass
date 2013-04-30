@@ -88,8 +88,6 @@ gnome2_autoreconf() {
 	fi
 
 	export ACLOCAL_FLAGS
-	# packages that use intltool w/o glib-gettext get this wrong
-	export DATADIRNAME=share
 	export NOCONFIGURE=1
 	export PKG_NAME=${ORIG_PN:-${PN}}
 	export REQUIRED_LIBTOOL_VERSION=2.2.2
@@ -197,6 +195,9 @@ gnome2_autoreconf() {
 #****
 gnome2_configure() {
 	local gtk_doc
+
+	# packages that use intltool w/o glib-gettext get this wrong
+	export DATADIRNAME="share"
 
 	if cross_compiling
 	then
