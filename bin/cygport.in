@@ -134,10 +134,18 @@ do
 		shift;
 		;;
 	--32|-4)
+		if defined _host_arch && [ ${_host_arch} != i686 ]
+		then
+			error "Only one of --32|--64 may be specified"
+		fi
 		_host_arch=i686
 		shift;
 		;;
 	--64|-8)
+		if defined _host_arch && [ ${_host_arch} != x86_64 ]
+		then
+			error "Only one of --32|--64 may be specified"
+		fi
 		_host_arch=x86_64
 		shift;
 		;;
