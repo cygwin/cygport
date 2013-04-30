@@ -256,7 +256,8 @@ __prep_gtk3_modules() {
 __prep_gtk_icon_theme() {
 	local icondir
 
-	for icondir in $(find ${D}/usr/share/icons -mindepth 1 -maxdepth 1 -type d)
+	find ${D}/usr/share/icons -mindepth 1 -maxdepth 1 -type d -print0 | \
+	while read -d $'\0' icondir
 	do
 		if [ -f ${icondir}/index.theme -o -f ${icondir#${D}}/index.theme ]
 		then
@@ -698,23 +699,26 @@ __prepman() {
 		# sometimes (e.g. gtk2-perl) man pages created with '::', and
 		# with 1.7 it works OOTB, but man is still patched and hence
 		# won't find these.
-		for man in $(find ${D}$(__host_prefix)/share/man -name '*::*')
+		find ${D}$(__host_prefix)/share/man -name '*::*' -print0 | \
+		while read -d $'\0' man
 		do
-			mv ${man} ${man//::/.}
+			mv "${man}" "${man//::/.}"
 		done
 
-		for manlink in $(find ${D}$(__host_prefix)/share/man -type l)
+		find ${D}$(__host_prefix)/share/man -type l -print0 | \
+		while read -d $'\0' manlink
 		do
-			manref=$(readlink ${manlink})
-			manref=${manref##*/};
-			rm -f ${manlink};
-			echo ".so ${manref%.gz}" > ${manlink%.gz};
+			manref=$(readlink "${manlink}")
+			manref="${manref##*/}";
+			rm -f "${manlink}";
+			echo ".so ${manref%.gz}" > "${manlink%.gz}";
 		done
 
-		for manpage in $(find ${D}$(__host_prefix)/share/man -type f -links 1 ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma')
+		find ${D}$(__host_prefix)/share/man -type f -links 1 ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma' -print0 | \
+		while read -d $'\0' manpage
 		do
 			echo "        ${manpage##*/}";
-			gzip -q ${manpage};
+			gzip -q "${manpage}";
 		done
 	fi
 }
@@ -744,10 +748,11 @@ __prepinfo() {
 
 		echo "Compressing info pages:";
 
-		for infopage in $(find ${D}$(__host_prefix)/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2')
+		find ${D}$(__host_prefix)/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2' -print0 | \
+		while read -d $'\0' infopage
 		do
 			echo "        ${infopage##*/}";
-			gzip -q ${infopage};
+			gzip -q "${infopage}";
 		done
 	fi
 }
@@ -768,9 +773,10 @@ __prepvargames() {
 
 	if [ -d ${D}/var/games ]
 	then
-		for f in $(find ${D}/var/games -type f)
+		find ${D}/var/games -type f -print0 | \
+		while read -d $'\0' f
 		do
-			make_etc_defaults ${f#${D}};
+			make_etc_defaults "${f#${D}}";
 		done
 	fi
 }
@@ -803,10 +809,11 @@ __prep_empty_dirs() {
 	# PTC if you find a package deeper than 20 (even perl mods are < 15)
 	for (( n=20; n >= 1; n-- ))
 	do
-		for d in $(find ${D} -mindepth ${n} -type d -empty)
+		find ${D} -mindepth ${n} -type d -empty -print0 | \
+		while read -d $'\0' d
 		do
 			inform "Removing empty directory: ${d#${D}}";
-			rmdir ${d};
+			rmdir "${d}";
 		done
 	done
 }
@@ -837,26 +844,25 @@ __prepstrip() {
 
 	cd ${D};
 
+	> ${T}/.dbgsrc.out
+
 	echo "Stripping executables:";
 
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
-	all_exes=$(find * -type f ! -name '*.dll.a' ! -name '*.lib' -a \( -name '*.a' -o -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.so.*' -o -name '*.oct' -o -name '*.cmxs' \))
-	# could be .exe from non-automake Makefile which install(1) didn't fix
-	all_exes+=" "$(find * -type f -executable ! -name '*.dll' ! -name '*.exe' ! -name '*.so' ! -name '*.so.[0-9]*' ! -name '*.oct' ! -name '*.cmxs' ! -name '*.a' ! -name '*.la' ! -name '*.lib' ! -name '*.exe.manifest' ! -name '*.exe.config' ! -name '*.dll.config' ! -name '*.mdb' ! -name '*-config' ! -name '*.csh' ! -name '*.sh' ! -name '*.pl' ! -name '*.pm' ! -name '*.py' ! -name '*.rb' ! -name '*.tcl')
-
-	> ${T}/.dbgsrc.out
-
-	for exe in ${all_exes}
+	find * -type f ! -name '*.dll.a' ! -name '*.lib' \
+		-a \( -name '*.a' -o -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.so.*' -o -name '*.oct' -o -name '*.cmxs' \) -print0 \
+		-o -type f -executable ! -name '*.dll' ! -name '*.exe' ! -name '*.so' ! -name '*.so.[0-9]*' ! -name '*.oct' ! -name '*.cmxs' ! -name '*.a' ! -name '*.la' ! -name '*.lib' ! -name '*.exe.manifest' ! -name '*.exe.config' ! -name '*.dll.config' ! -name '*.mdb' ! -name '*-config' ! -name '*.csh' ! -name '*.sh' ! -name '*.pl' ! -name '*.pm' ! -name '*.py' ! -name '*.rb' ! -name '*.tcl' -print0 | \
+	while read -d $'\0' exe
 	do
 		# assure this is actually a binary object
-		if [ "$(head -c 2 ${exe})" = '#!' ]
+		if [ $(head -c 2 "${exe}") = '#!' ]
 		then
 			# sometimes .exe will be appended where it does not belong
-			case ${exe} in
+			case "${exe}" in
 			usr/lib/hevea/*.exe) ;;
-			*.exe)	mv ${exe} ${exe%.exe} ;;
+			*.exe)	mv "${exe}" "${exe%.exe}" ;;
 			esac
 			continue
 		fi
@@ -865,29 +871,29 @@ __prepstrip() {
 		# Magic number is at end of file:
 		# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=256900#74
 		# http://cygwin.com/ml/cygwin-apps/2010-10/msg00057.html
-		case $(tail -c 12 ${exe}) in
+		case $(tail -c 12 "${exe}") in
 			Caml1999X0[0-9][0-9])  continue ;;
 		esac
 
 		# Perl Archive (PAR) binaries must not be stripped
 		# https://rt.cpan.org/Public/Bug/Display.html?id=18536
 		# http://cygwin.com/ml/cygwin-apps/2012-07/msg00088.html
-		case $(tail -c 8 ${exe} | tr '\012' '%') in
+		case $(tail -c 8 "${exe}" | tr '\012' '%') in
 			%PAR\.pm%)  continue ;;
 		esac
 
-		if check_prog ${CTARGET}-objcopy && ${CTARGET}-size -f ${exe} &>/dev/null
+		if check_prog ${CTARGET}-objcopy && ${CTARGET}-size -f "${exe}" &>/dev/null
 		then
 			# for cross-compiled libs, cross-GCC target libs,
 			# or non-cross packages built on non-Cygwin systems
 			objcopy="${CTARGET}-objcopy"
 			objdump="${CTARGET}-objdump"
-		elif check_prog ${CHOST}-objcopy && ${CHOST}-size -f ${exe} &>/dev/null
+		elif check_prog ${CHOST}-objcopy && ${CHOST}-size -f "${exe}" &>/dev/null
 		then
 			# for cross-compilers built on non-Cygwin systems
 			objcopy="${CHOST}-objcopy"
 			objdump="${CHOST}-objdump"
-		elif size -f ${exe} &>/dev/null
+		elif size -f "${exe}" &>/dev/null
 		then
 			objcopy="objcopy"
 			objdump="objdump"
@@ -897,17 +903,17 @@ __prepstrip() {
 
 		# Static libraries should not be stripped, but we can still
 		# provide split debuginfo
-		case ${exe} in *.a)
-			${objdump} -dl ${exe} 2>/dev/null | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' | sort -u >> ${T}/.dbgsrc.out;
+		case "${exe}" in *.a)
+			${objdump} -dl "${exe}" 2>/dev/null | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' | sort -u >> ${T}/.dbgsrc.out;
 			continue ;;
 		esac
 
 		# Mono assemblies must not be stripped, but remove .mdb debug symbols,
 		# and make them non-executable so they're not launched by MS .NET
-		if ${objdump} -p ${exe} 2>&1 | grep -q "DLL Name: mscoree.dll"
+		if ${objdump} -p "${exe}" 2>&1 | grep -q "DLL Name: mscoree.dll"
 		then
-			chmod 0644 ${exe}
-			rm -f ${exe}.mdb
+			chmod 0644 "${exe}"
+			rm -f "${exe}.mdb"
 			continue
 		fi
 
@@ -916,10 +922,10 @@ __prepstrip() {
 		# use CTARGET to avoid false positives from cross-gcc
 		case ${CTARGET} in
 		x86_64-*-cygwin*)
-			case ${exe##*/} in
+			case "${exe##*/}" in
 			cygwin1.dll|cyglsa64.dll) ;;
 			*.dll|*.so|*.oct|*.cmxs)
-				if ${objdump} -p ${exe} | sed -ne '/^ImageBase/s/.*\t/0x/gp' | gawk '{ exit (strtonum($1) <= 0x400000000 ? 0 : 1) }'
+				if ${objdump} -p "${exe}" | sed -ne '/^ImageBase/s/.*\t/0x/gp' | gawk '{ exit (strtonum($1) <= 0x400000000 ? 0 : 1) }'
 				then
 					warning "${exe} was not linked with -Wl,--enable-auto-image-base"
 				fi
@@ -930,12 +936,12 @@ __prepstrip() {
 		# strip(1) used to take care of this, but not anymore
 		case ${CHOST} in
 		*-*-cygwin*|*-*-mingw*|*-*-msys*)
-			case ${exe##*/} in
+			case "${exe##*/}" in
 			*.dll|*.exe|*.sfx|*.so|*.so.[0-9]*|*.oct|*.cmxs) ;;
 			# make sure this isn't some oddly named DLL
-			*)	if ${objdump} -f ${exe} | grep -q '^start address 0x0*401[0-9a-e][0-9a-e]0'
+			*)	if ${objdump} -f "${exe}" | grep -q '^start address 0x0*401[0-9a-e][0-9a-e]0'
 				then
-					mv ${exe} ${exe}.exe
+					mv "${exe}" "${exe}.exe"
 					exe+=.exe
 				fi ;;
 			esac
@@ -943,32 +949,32 @@ __prepstrip() {
 		esac
 
 		echo "        ${exe}";
-		chmod 0755 ${exe};
+		chmod 0755 "${exe}";
 
 		if defined _CYGPORT_RESTRICT_debuginfo_
 		then
-			${objcopy} --strip-all ${exe};
+			${objcopy} --strip-all "${exe}";
 		else
 			dbg="/usr/lib/debug/${exe}.dbg";
 
-			lines=$(${objdump} -dl ${exe} 2>/dev/null | grep /usr/src/debug/${PF}/ | sed -e 's/:[0-9]*$//g' | sort -u | tee -a ${T}/.dbgsrc.out | wc -l);
+			lines=$(${objdump} -dl "${exe}" 2>/dev/null | grep /usr/src/debug/${PF}/ | sed -e 's/:[0-9]*$//g' | sort -u | tee -a ${T}/.dbgsrc.out | wc -l);
 
 			if (( lines == 0 ))
 			then
-				${objcopy} --strip-all ${exe};
+				${objcopy} --strip-all "${exe}";
 				continue;
 			fi
 
 			# --add-gnu-debuglink will fail if .gnu_debuglink section
 			# already exists, e.g. binutils, which uses hardlinks,
 			# or cygwin which creates a custom .dbg file
-			if ! ${objdump} -h ${exe} | grep -q '\.gnu_deb'
+			if ! ${objdump} -h "${exe}" | grep -q '\.gnu_deb'
 			then
-				dodir ${dbg%/*};
-				${objcopy} --long-section-names enable --add-gnu-debuglink=/dev/null --only-keep-debug ${exe} ${D}${dbg};
-				chmod 0644 ${D}${dbg};
-				${objcopy} --strip-all ${exe};
-				${objcopy} --long-section-names enable --add-gnu-debuglink=${D}${dbg} ${exe} 2>/dev/null;
+				dodir "${dbg%/*}";
+				${objcopy} --long-section-names enable --add-gnu-debuglink=/dev/null --only-keep-debug "${exe}" "${D}${dbg}";
+				chmod 0644 "${D}${dbg}";
+				${objcopy} --strip-all "${exe}";
+				${objcopy} --long-section-names enable --add-gnu-debuglink="${D}${dbg}" "${exe}" 2>/dev/null;
 			fi
 		fi
 	done
@@ -999,22 +1005,23 @@ __prepdebugsrc() {
 
 	printf "Preparing debuginfo source files:\n";
 
-	for dbgsrc in $(sort -u ${T}/.dbgsrc.out)
+	sort -u ${T}/.dbgsrc.out | \
+	while read dbgsrc
 	do
 		# make sure that paths with '../' don't leave $dbgsrcdir
 		case $(readlink -m -- "${dbgsrc}") in
-			${dbgsrcdir}/*) ;;
+			"${dbgsrcdir}"/*) ;;
 			*)  continue ;;
 		esac
 
-		srcf=${dbgsrc#${dbgsrcdir}/}
-		if [ -f ${B}/${srcf} ]
+		srcf="${dbgsrc#${dbgsrcdir}/}"
+		if [ -f "${B}/${srcf}" ]
 		then
-			install -Dp -m0644 ${B}/${srcf} ${D}${dbgsrc}
+			install -Dp -m0644 "${B}/${srcf}" "${D}${dbgsrc}"
 			printf "\r\t$((++i)) files"
-		elif [ -f ${S}/${srcf} ]
+		elif [ -f "${S}/${srcf}" ]
 		then
-			install -Dp -m0644 ${S}/${srcf} ${D}${dbgsrc}
+			install -Dp -m0644 "${S}/${srcf}" "${D}${dbgsrc}"
 			printf "\r\t$((++i)) files"
 		fi
 	done
@@ -1041,10 +1048,11 @@ __prepuac() {
 
 	echo "Preparing executables for UAC:";
 
-	for exe in $(find * -type f -executable -a \( -name '*instal*.exe' -o -name '*patch*.exe' -o -name '*setup*.exe' -o -name '*update*.exe' \))
+	find * -type f -executable -a \( -name '*instal*.exe' -o -name '*patch*.exe' -o -name '*setup*.exe' -o -name '*update*.exe' \) -print0 | \
+	while read -d $'\0' exe
 	do
 		echo "        ${exe}";
-		manifestize ${exe}
+		manifestize "${exe}"
 	done
 }
 
@@ -1053,37 +1061,38 @@ __prep_symlinks() {
 
 	echo "Fixing symlinks:"
 
-	for l in $(find ${D}/ -type l)
+	find ${D}/ -type l -print0 | \
+	while read -d $'\0' l
 	do
-		l_src=$(readlink ${l})
+		l_src=$(readlink "${l}")
 
 		# avoid .exe suffix in symlinks
 		# http://cygwin.com/ml/cygwin-apps/2007-04/msg00065.html
-		case ${CHOST}:${l} in
+		case "${CHOST}:${l}" in
 			*-*-cygwin*:*.exe)
-				mv ${l} ${l%.exe};
-				l=${l%.exe};
+				mv "${l}" "${l%.exe}";
+				l="${l%.exe}";
 				;;
 		esac
 
-		case ${l_src} in
-			${l%/*}/${l_src##*/})
+		case "${l_src}" in
+			"${l%/*}/${l_src##*/}")
 				echo "        ${l#${D}}";
-				rm -f ${l};
-				dosym ${l_src##*/} ${l#${D}};
+				rm -f "${l}";
+				dosym "${l_src##*/}" "${l#${D}}";
 				;;
-			${D}/*)
+			"${D}"/*)
 				echo "        ${l#${D}}";
-				rm -f ${l};
-				dosym ${l_src#${D}} ${l#${D}};
+				rm -f "${l}";
+				dosym "${l_src#${D}}" "${l#${D}}";
 				;;
-			${workdir}/*)
+			"${workdir}"/*)
 				echo "        ${l#${D}}";
-				rm -f ${l};
-				cp -LR ${l_src} ${l};
+				rm -f "${l}";
+				cp -LR "${l_src}" "${l}";
 				;;
 			/*)
-				if [ ! -e ${D}${l_src} ] && [ ! -e ${l_src} ]
+				if [ ! -e "${D}${l_src}" ] && [ ! -e "${l_src}" ]
 				then
 					warning "symlink ${l#${D}} points to nonexistant ${l_src}";
 					continue
@@ -1093,13 +1102,13 @@ __prep_symlinks() {
 				case ${CHOST} in
 				*-*-mingw*|*-*-msys*|*-*-msdos*)
 					echo "        ${l#${D}}";
-					rm -f ${l};
-					cp -LR ${l_src} ${l};
+					rm -f "${l}";
+					cp -LR "${l_src}" "${l}";
 					;;
 				esac
 				;;
 			*)
-				if [ ! -e ${l%/*}/${l_src} ]
+				if [ ! -e "${l%/*}/${l_src}" ]
 				then
 					warning "symlink ${l#${D}} points to nonexistant ${l_src}";
 					continue
@@ -1109,8 +1118,8 @@ __prep_symlinks() {
 				case ${CHOST} in
 				*-*-mingw*|*-*-msys*|*-*-msdos*)
 					echo "        ${l#${D}}";
-					rm -f ${l};
-					cp -LR ${l%/*}/${l_src} ${l};
+					rm -f "${l}";
+					cp -LR "${l%/*}/${l_src}" "${l}";
 					;;
 				esac
 				;;
