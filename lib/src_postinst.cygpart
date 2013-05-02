@@ -857,7 +857,7 @@ __prepstrip() {
 	while read -d $'\0' exe
 	do
 		# assure this is actually a binary object
-		if [ $(head -c 2 "${exe}") = '#!' ]
+		if [ "$(head -c 2 "${exe}")" = '#!' ]
 		then
 			# sometimes .exe will be appended where it does not belong
 			case "${exe}" in
