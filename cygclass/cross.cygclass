@@ -137,15 +137,25 @@ GCJ="${CHOST}-gcj"
 GOC="${CHOST}-gccgo"
 OBJC="${CHOST}-gcc"
 OBJCXX="${CHOST}-g++"
-AR="${CHOST}-ar"
-OBJDUMP="${CHOST}-objdump"
-RANLIB="${CHOST}-ranlib"
-STRIP="${CHOST}-strip"
+
+# native binutils do not install $host- prefixed equivalents, so we must not
+# prefix them when "crossbacking" (e.g. building i686-cygwin sysroot libs on
+# i686-cygwin for use on x86_64-cygwin)
+if cross_compiling
+then
+	AR="${CHOST}-ar"
+	OBJDUMP="${CHOST}-objdump"
+	RANLIB="${CHOST}-ranlib"
+	STRIP="${CHOST}-strip"
+fi
 
 # windres is not provided for all platforms
 case ${CHOST} in
 *-cygwin*|*-mingw*|*-msys*|*-*-pe*|*-wince*|*-cegcc*|*-netbsdpe)
-	RC="${CHOST}-windres" ;;
+	if cross_compiling
+	then
+		RC="${CHOST}-windres"
+	fi ;;
 *)	RC="false"
 esac
 
@@ -210,7 +220,7 @@ doelflib() {
 		*)	error "doelflib: ${i}: not an ELF shared object" ;;
 		esac
 
-		soname=$(${CHOST}-objdump -p ${i} | sed -n -e 's| *SONAME *\([^ ]*\).*|\1|gp')
+		soname=$(${OBJDUMP} -p ${i} | sed -n -e 's| *SONAME *\([^ ]*\).*|\1|gp')
 
 		# try to catch mistaken "doelflib libfoo.so*"
 		if echo "${sonames}" | grep -q ${soname}
