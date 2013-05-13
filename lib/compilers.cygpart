@@ -190,6 +190,17 @@ RC="windres";
 #****
 STRIP="strip"
 
+#****d* Compiling/CC_SYSROOT
+#  DESCRIPTION
+#  The sysroot used by CC, i.e. the output of $CC -print-sysroot.  This is
+#  useful when specifying the location of a package's dependency so that it
+#  will be correct both when building natively or cross-compiling
+#  (e.g. CYGCONF_ARGS="--with-foo-include=${CC_SYSROOT}/usr/include/foo-1").
+#  This is NOT for specifying installation directories for a package being
+#  cross-compiled; see CROSS_SYSROOT instead.
+#****
+declare   CC_SYSROOT="";
+
 # system triplets
 declare    CBUILD=$(${_privgnuconfigdir}/config.guess)
 case ${CBUILD} in
@@ -237,6 +248,8 @@ then
 	RANLIB=${CHOST}-ranlib
 	RC=${CHOST}-windres
 	STRIP=${CHOST}-strip
+
+	CC_SYSROOT=$(${CC} -print-sysroot)
 
 	if ! check_tool gcc || ! check_tool strip
 	then

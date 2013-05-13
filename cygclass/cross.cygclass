@@ -138,6 +138,8 @@ GOC="${CHOST}-gccgo"
 OBJC="${CHOST}-gcc"
 OBJCXX="${CHOST}-g++"
 
+CC_SYSROOT=$(${CC} -print-sysroot)
+
 # native binutils do not install $host- prefixed equivalents, so we must not
 # prefix them when "crossbacking" (e.g. building i686-cygwin sysroot libs on
 # i686-cygwin for use on x86_64-cygwin)
