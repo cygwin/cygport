@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.12.0
+Version:        0.12.1
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun May 12 2013 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.12.1-1
+- Bugfixes for crossback scenarios.
+
 * Tue Apr 30 2013 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.12.0-1
 - Full x86_64-cygwin support.
 
