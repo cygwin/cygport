@@ -23,3 +23,6 @@ manual.html
 patches
 *.orig
 *.rej
+
+*.log
+*.trs
