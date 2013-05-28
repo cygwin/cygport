@@ -366,9 +366,10 @@ __list_deps() {
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python3.*' -prune \
-				-o -name '*-gdb.py' -prune \
-				-o -name '*.py' -print \
-				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python[^3]*' '{}' + \
+				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
+				-o -name '*.py' ! -executable -print \
+				-o -name '*.py' -executable -exec grep -l '^#!.*python\([^3]\|$\)' '{}' + \
+				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python\([^3]\|$\)' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
 				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
 				| sort -u)
@@ -395,8 +396,9 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -path 'usr/lib/python[23].*' -prune \
-				-o -name '*-gdb.py' -prune \
-				-o -name '*.py' -print \
+				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
+				-o -name '*.py' ! -executable -print \
+				-o -name '*.py' -executable -exec grep -l '^#!.*pypy' '{}' + \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*pypy' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
 				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
@@ -424,8 +426,9 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python2.*' -prune \
-				-o -name '*-gdb.py' -prune \
-				-o -name '*.py' -print \
+				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
+				-o -name '*.py' ! -executable -print \
+				-o -name '*.py' -executable -exec grep -l '^#!.*python3' '{}' + \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python3' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
 				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
