@@ -246,6 +246,28 @@ perl_fix_shebang() {
     __fix_shebang ${PERL} ${D}/${@#${D}}
 }
 
+#****I* perl.cygclass/perl_sax_parser_register
+#  SYNOPSIS
+#  perl_sax_parser_register PARSER_CLASS [PARSER_CLASS ...]
+#  DESCRIPTION
+#  Generates postinstall and preremove scripts to handle registration of
+#  XML::SAX parser drivers with XML::SAX's ParserDetails.ini file.
+#****
+perl_sax_parser_register() {
+	local parser
+
+	dodir /etc/postinstall /etc/preremove
+	for parser in $@
+	do
+		cat >> ${D}/etc/postinstall/${NAME}.sh <<-_EOF
+/usr/bin/perl -MXML::SAX -e "XML::SAX->add_parser(q($parser))->save_parsers()"
+_EOF
+		cat >> ${D}/etc/preremove/${NAME}.sh <<-_EOF
+/usr/bin/perl -MXML::SAX -e "XML::SAX->remove_parser(q($parser))->save_parsers()"
+_EOF
+	done
+}
+
 #****o* perl.cygclass/src_compile (perl)
 #  DEFINITION
 src_compile() {
