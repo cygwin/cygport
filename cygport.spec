@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.12.1
+Version:        0.12.2
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -80,6 +80,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jun 17 2013 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.12.2-1
+- New function for XML::SAX parser registration handling.
+- Bug fixes.
+
 * Sun May 12 2013 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.12.1-1
 - Bugfixes for crossback scenarios.
 

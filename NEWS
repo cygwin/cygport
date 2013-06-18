@@ -1,3 +1,11 @@
+0.12.2:
+	* Bug fixes for dependency detection.
+	* autotools.cygclass: Use cygport's bundled config.guess/config.sub
+	  files to fix configure with automake-1.9 and older.
+	* perl.cygclass: New function for handling XML::SAX parser registration
+	  in postinstall/preremove scripts.
+	* waf.cygclass: Accept WAF_USE_BUNDLED.
+
 0.12.1:
 	* Bugfixes for "crossback" scenarios.
 	* New definition: CC_SYSROOT.
