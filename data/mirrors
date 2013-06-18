@@ -293,13 +293,13 @@ mirror_mysql+="
 #  SYNOPSIS
 #  PATCH_URI="mirror://portage/cat-egory/packagename/files/${P}-whatever.patch"
 #  DEFAULT MIRROR
-#  http://sources.gentoo.org/viewcvs.py/*checkout*/gentoo-x86
+#  http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86
 #  MIRROR LIST
 #  None
 #  SEE ALSO
 #  mirror_gentoo
 #****
-mirror_portage+=" http://sources.gentoo.org/viewcvs.py/*checkout*/gentoo-x86"
+mirror_portage+=" http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86"
 
 
 #****d* Mirrors/mirror_rubyforge
