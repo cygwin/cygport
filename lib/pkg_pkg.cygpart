@@ -236,7 +236,7 @@ __pkg_diff() {
 	local exclude;
 
 	default_excludes="CYGWIN-PATCHES aclocal.m4~ aclocal.m4t autom4te.cache
-		config.cache config.log config.status
+		config.cache config.guess config.log config.status config.sub
 		*SlackBuild* *.egg-info *.dll *.exe *.o *.gch
 		 *.jpg *.png *.qm *.svgz *.tif *.class *.jlc *.pyc *.pyo
 		 *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
@@ -272,7 +272,7 @@ __pkg_diff() {
 
 	if __config_equals with_libtool 1 || __config_equals with_automake 1
 	then
-		default_excludes+=" compile config.guess config.sub depcomp install-sh missing"
+		default_excludes+=" compile depcomp install-sh missing"
 	fi
 
 	if __config_equals with_gnu_gettext 1 && [ ${PN} != "gettext" ]

@@ -406,6 +406,11 @@ cygautoreconf() {
 				fi
 			done
 
+			if [ -f ${d}/config.guess ]
+			then
+				cp -f ${_privgnuconfigdir}/config.{guess,sub} ${d}
+			fi
+
 			for f in COPYING INSTALL
 			do
 				if [ -f ${d}/${f}.temp ]
