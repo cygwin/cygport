@@ -461,6 +461,9 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 			done
 		fi
 		for rbdep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+				-o -path 'usr/lib/ruby/gems/*/gems/*/examples/*' -prune \
+				-o -path 'usr/lib/ruby/gems/*/gems/*/sample*' -prune \
+				-o -path 'usr/lib/ruby/gems/*/gems/*/test/*' -prune \
 				-o -name '*.rb' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*ruby' '{}' + \
 				| xargs -r sed -ne "s|^[^#]*require ['\"]\([^'\"]*\)['\"].*|\1|gp" \
