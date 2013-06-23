@@ -85,7 +85,7 @@ PERL_VENDORLIB=$(${PERL} -MConfig -e 'print $Config{vendorlib};')
 #****
 PERL_VENDORARCH=$(${PERL} -MConfig -e 'print $Config{vendorarch};')
 
-# private; for perl_postinst only
+# private
 PERL_SITELIB=$(${PERL} -MConfig -e 'print $Config{sitelib};')
 
 #****d* perl.cygclass/LIBPERL
@@ -209,30 +209,8 @@ perl_install() {
 	fi
 }
 
-#****I* perl.cygclass/perl_postinst
-#  SYNOPSIS
-#  perl_postinst
-#  DESCRIPTION
-#  Runs the following postinstall steps:
-#  * Deletes the perllocal.pod file, as this file is owned by perl itself;
-#  * Removes the $D prefix from the .packlist file, if created.
-#  If a src_compile other than the one provided in this cygclass is used,
-#  this function must be run manually after installing files to $D.
-#****
-perl_postinst() {
-	# Previously this was appended to the system perllocal.pod via
-	# postinstall, as in Gentoo, but now everybody justs deletes this
-	rm -f ${D}${PERL_ARCHLIB}/perllocal.pod
-
-	# Fix .packlist
-	if [ -d ${D}${PERL_SITELIB} ]
-	then
-		warning "Package should use INSTALLDIRS=vendor instead of site"
-		find ${D}${PERL_SITELIB} -name .packlist -exec sed -i -e "s:${D}::g" '{}' +
-	else
-		find ${D}${PERL_VENDORLIB} -name .packlist -exec sed -i -e "s:${D}::g" '{}' +
-	fi
-}
+# Functionality moved to __prepperl; this remains for backwards compatibility
+perl_postinst() { :; }
 
 #****I* perl.cygclass/perl_fix_shebang
 #  SYNOPSIS
@@ -290,9 +268,8 @@ src_test() {
 src_install() {
 	cd ${B}
 	perl_install
-	perl_postinst
 }
 #****
 
 readonly -f perl_compile perl_test perl_install perl_postinst \
-            perl_fix_shebang
+            perl_fix_shebang perl_sax_parser_register
