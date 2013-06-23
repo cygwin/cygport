@@ -150,7 +150,7 @@ __php_channel_fixup() {
 
 	if ! defined PHP_CHANNEL
 	then
-		return
+		return 0
 	fi
 
 	case ${PHP_CHANNEL,,} in

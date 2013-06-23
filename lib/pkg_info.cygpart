@@ -60,11 +60,11 @@ __list_deps() {
 	local os_path="${PATH}"
 
 	# if file list is empty, there are obviously no dependencies
-	(( $# > 0 )) || return
+	(( $# > 0 )) || return 0
 
 	if __host_is_embedded
 	then
-		return
+		return 0
 	fi
 
 	if cross_compiling && check_prog ${CTARGET}-dlltool

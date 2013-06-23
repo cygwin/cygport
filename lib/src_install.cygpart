@@ -825,7 +825,7 @@ make_etc_defaults() {
 	if inherited cross
 	then
 		warning "make_etc_defaults is not supported when cross-compiling"
-		return
+		return 0
 	fi
 
 	for etc in ${@}

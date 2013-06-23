@@ -544,7 +544,7 @@ __prepetc() {
 	if inherited cross
 	then
 		# postinst/prerm does not apply to cross-compiles
-		return
+		return 0;
 	fi
 
 	for s in postinstall preremove
@@ -768,7 +768,7 @@ __prepvargames() {
 	if inherited cross
 	then
 		# postinst/prerm does not apply to cross-compiles
-		return
+		return 0
 	fi
 
 	if [ -d ${D}/var/games ]
@@ -1000,7 +1000,7 @@ __prepdebugsrc() {
 
 	if defined _CYGPORT_RESTRICT_debuginfo_
 	then
-		return;
+		return 0;
 	fi
 
 	printf "Preparing debuginfo source files:\n";
@@ -1041,7 +1041,7 @@ __prepuac() {
 	# http://technet.microsoft.com/en-us/library/cc709628.aspx
 	case ${CHOST} in
 	i?86-*-cygwin*|i?86-*-mingw*|i?86-*-msys*) ;;
-	*)	return ;;
+	*)	return 0 ;;
 	esac
 
 	cd ${D};
