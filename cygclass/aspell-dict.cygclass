@@ -34,6 +34,21 @@
 #  to be "aspell-<language_code>" and the hyphen in the canonical version number
 #  to be substituted with a point.  If the source tarball is named "aspell5-*"
 #  or "aspell6-*", ASPELL_COMPAT must be declared before inheriting.
+#  EXAMPLE
+#
+#    ASPELL_COMPAT=6
+#    inherit aspell-dict
+#    
+#    NAME="aspell-en"
+#    VERSION=7.1-0
+#    RELEASE=1
+#    CATEGORY="Text"
+#    SUMMARY="Aspell English dictionaries"
+#    DESCRIPTION="GNU Aspell is a Free and Open Source spell checker designed
+#    to eventually replace Ispell. It can either be used as a library or as an
+#    independent spell checker.
+#    This package provides English dictionaries for Aspell."
+#
 #  REQUIRES
 #  aspell
 #  SEE ALSO
