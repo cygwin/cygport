@@ -35,6 +35,67 @@
 #  doing so should use the "apache2-" prefix before the canonical package name.
 #  Because there is no consistent DSO source buildsystem, src_compile and
 #  src_install must be defined yourself.
+#  EXAMPLES
+#  Apache module source packages do not have a single system.  Some packages
+#  are autoconf-based:
+#    inherit apache2
+#    
+#    NAME="apache2-mod_clamav"
+#    VERSION=0.23
+#    RELEASE=1
+#    CATEGORY="Web"
+#    SUMMARY="Apache 2 ClamAV filter module"
+#    DESCRIPTION="mod_clamav is an Apache 2 filter which scans the content
+#    delivered by the proxy module (mod_proxy) for viruses using the Clamav
+#    virus scanning engine."
+#    HOMEPAGE="http://software.othello.ch/mod_clamav/"
+#    SRC_URI="http://software.othello.ch/mod_clamav/mod_clamav-${VERSION}.tar.gz"
+#    SRC_DIR="mod_clamav-${VERSION}"
+#    PATCH_URI="0.22-cygwin-layout.patch"
+#    
+#    src_compile() {
+#      cd ${S}
+#      cygautoreconf
+#      cd ${B}
+#      apache2_compile
+#    }
+#    
+#    src_install() {
+#      cd ${B}
+#      doapache2mod mod_clamav
+#      doapache2conf ${S}/sample.conf ${S}/safepatterns.conf
+#      apache2_postinst
+#    }
+#
+#  Other simple module just ship the sources without a build system:
+#
+#    inherit apache2
+#    
+#    NAME="apache2-mod_geoip"
+#    VERSION=1.2.8
+#    RELEASE=1
+#    CATEGORY="Web"
+#    SUMMARY="Apache 2.x GeoIP module"
+#    DESCRIPTION="mod_geoip2 is an Apache 2.0 module for finding the country and
+#    city that a web request originated from.  It uses the GeoIP library and
+#    database to perform the lookup."
+#    HOMEPAGE="http://www.maxmind.com/app/mod_geoip"
+#    SRC_URI="http://www.maxmind.com/download/geoip/api/mod_geoip2/mod_geoip2_${VERSION}.tar.gz"
+#    SRC_DIR="mod_geoip2_${VERSION}"
+#    
+#    src_compile() {
+#      lndirs
+#      cd ${B}
+#      apache2_apxs_compile *.c -lGeoIP
+#    }
+#    
+#    src_install() {
+#      cd ${B}
+#      doapache2mod mod_geoip
+#      apache2_postinst
+#      dodoc README.php
+#    }
+#
 #  REQUIRES
 #  apache2-devel, libapr1-devel, libaprutil1-devel
 #  SEE ALSO
