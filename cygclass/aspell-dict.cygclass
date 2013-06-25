@@ -31,8 +31,7 @@
 #
 #  The purpose of this cygclass is to create Aspell dictionary packages for
 #  the Cygwin Aspell package.  aspell-dict.cygclass expects the package name
-#  to be "aspell-<language_code>" and the hyphen in the canonical version number
-#  to be substituted with a point.  If the source tarball is named "aspell5-*"
+#  to be "aspell-<language_code>".  If the source tarball is named "aspell5-*"
 #  or "aspell6-*", ASPELL_COMPAT must be declared before inheriting.
 #  EXAMPLE
 #
@@ -106,7 +105,10 @@ unset iso_639
 
 # e.g. tarball version 6.0-0 => PV=6.0.0
 ORIG_PN="aspell${ASPELL_COMPAT}-${ASPELL_LANG}"
-ORIG_PV=${PV%.*}-${PV##*.}
+case ${PV} in
+	*-*) ORIG_PV=${PV} ;;
+	*)   ORIG_PV=${PV%.*}-${PV##*.} ;;
+esac
 
 #****o* aspell-dict.cygclass/CATEGORY (aspell-dict)
 #  DEFINITION
