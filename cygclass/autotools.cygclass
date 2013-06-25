@@ -30,6 +30,111 @@
 #  autotool-based packages.  Since these are so widespread, this is the
 #  assumed build system if no other is specified, and provides the default
 #  src_compile accordingly.
+#  EXAMPLES
+#  A basic autotool-based program package can be as simple as:
+#
+#    NAME="grep"
+#    VERSION=2.14
+#    RELEASE=1
+#    CATEGORY="Base"
+#    SUMMARY="Searches files for text patterns"
+#    DESCRIPTION="The grep command searches one or more input files for lines
+#    containing a match to a specified pattern. By default, grep prints the
+#    matching lines."
+#    HOMEPAGE="http://www.gnu.org/software/grep/"
+#    SRC_URI="mirror://gnu/grep/grep-${VERSION}.tar.xz"
+#
+#  If the only customization needed is to add configure flags, use CYGCONF_ARGS:
+#
+#    NAME="nano"
+#    VERSION=2.2.6
+#    RELEASE=1
+#    CATEGORY="Editors"
+#    SUMMARY="Enhanced clone of Pico editor"
+#    DESCRIPTION="GNU nano is a small and friendly console-mode text editor, based
+#    on and mostly compatible with UW Pico. Besides basic text editing, nano offers
+#    many extra features like an interactive search and replace, go to line and
+#    column number, auto-indentation, feature toggles, internationalization support,
+#    and filename tab completion."
+#    HOMEPAGE="http://www.nano-editor.org/"
+#    SRC_URI="http://www.nano-editor.org/dist/v${VERSION%.*}/nano-${VERSION}.tar.gz"
+#    PATCH_URI="2.2.4-wchar.patch"
+#    
+#    DIFF_EXCLUDES="nano.spec"
+#    
+#    CYGCONF_ARGS="--without-slang"
+#
+#  Packages providing libraries need a bit more to handle split lib/devel
+#  packaging:
+#
+#    NAME="libdatrie"
+#    VERSION=0.2.6
+#    RELEASE=1
+#    CATEGORY="Libs"
+#    SUMMARY="Double-array digital search tree library"
+#    DESCRIPTION="This is an implementation of double-array structure for
+#    representing trie, as proposed by Junichi Aoe."
+#    
+#    PKG_NAMES="${NAME}1 ${NAME}-devel ${NAME}-doc"
+#    # see PKG_CONTENTS
+#    libdatrie1_CONTENTS="usr/bin/cygdatrie-1.dll"
+#    # trietool is a dev-util
+#    libdatrie_devel_CONTENTS="usr/bin/trietool* usr/include/ usr/lib/ usr/share/man/"
+#    libdatrie_doc_CONTENTS="usr/share/doc/"
+#
+#  Sometimes a package uses its own aclocal macros but does not ship them,
+#  or uses an older autoconf which is incompatible with the current version,
+#  making cygautoreconf impossible.  In that case, as long as the package does
+#  not use libtool, you may be able to skip cygautoreconf:
+#
+#    src_compile() {
+#      # cannot autoreconf: undefined macro: AC_ACVERSION
+#      cd ${B}
+#      cygconf --enable-iconv
+#      cygmake
+#    }
+#
+#  For more complicated packages, additional compile and/or install steps
+#  may be necessary, in which case you should override the default src_compile
+#  and/or src_install:
+#
+#    src_compile() {
+#      # the configure script is not distributed, and VPATH builds aren't supported
+#      cd ${S}
+#      cygmake configure
+#      lndirs
+#      cd ${B}
+#      cygconf --htmldir=/usr/share/doc/${NAME}/html --mandir=/usr/share/man
+#      cygmake all
+#      # these can't be built in parallel
+#      cygmake html
+#      cygmake man
+#      cygmake info
+#      cygmake pdf
+#    }
+#    
+#    src_install() {
+#      cd ${B}
+#      cyginstall install-html install-man install-info install-pdf pdfdir=/usr/share/doc/${NAME}
+#    
+#      # ship bash completion
+#      insinto /etc/bash_completion.d
+#      doins ${S}/contrib/completion/*.bash
+#    }
+#
+#  As noted below, cygconf is only intended for autoconf-compatible configure
+#  scripts.  Some packages use a custom configure script which is not compatible,
+#  in which case you need to call configure yourself:
+#
+#    src_compile() {
+#      # package is not VPATH aware
+#      lndirs
+#      cd ${B}
+#      # custom configure incompatible with autoconf
+#      ./configure --prefix=/usr || error "configure failed"
+#      cygmake
+#   }
+#
 #  NOTES
 #  These functions were previously part of cygport itself, but were moved
 #  out for easier maintainability.  For backwards compatibility, this
