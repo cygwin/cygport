@@ -26,8 +26,8 @@
 #  Emacs is a programmers' text editor which is extensible through libraries
 #  written in its own Lisp dialect, which is also bytecode compilable.
 #
-#  This cygclass includes helper functions for installing and compiling
-#  Emacs Lisp (.el) libraries.
+#  This cygclass includes helper functions for installing Emacs Lisp (.el)
+#  libraries.
 #****
 
 #****d* emacs.cygclass/EMACS
@@ -47,8 +47,6 @@ EMACS_SITE=/usr/share/emacs/site-lisp
 #  doemacs FILE [FILE2] ...
 #  DESCRIPTION
 #  Installs one or more Emacs Lisp libraries into EMACS_SITE (under $D).
-#  NOTE
-#  emacs_compile must be run separately.
 #****
 doemacs() {
 	local i
