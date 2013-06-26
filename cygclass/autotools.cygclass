@@ -372,15 +372,6 @@ cygautoreconf() {
 			*)	error "autoconf2.5 is required to build this package" ;;
 		esac
 
-		# libtool 2.2+ is incompatible with gettext before 0.17
-		# config.rpath is broken wrt dynamic linkage before 0.17
-		eval gettext_$(grep ^version= $(which autopoint))
-		if ! __version_at_least 0.17 ${gettext_version}
-		then
-			error "cygautoreconf: at least gettext 0.17 required"
-		fi
-		AUTOPOINT="autopoint -V ${gettext_version}"
-
 #****v* cygautoreconf/NO_ACLOCAL
 #  DESCRIPTION
 #  Define this variable to a boolean true value to skip running aclocal
@@ -433,6 +424,38 @@ cygautoreconf() {
 #  versions of gettext are incompatible with the current libtool.
 #****
 
+		ACLOCAL=${ACLOCAL:-aclocal}
+		AUTOPOINT=${AUTOPOINT:-autopoint}
+
+		if cross_compiling || inherited toolchain
+		then
+			local ccsysroot=$(${CC} -print-sysroot)
+			local sysrootgtize=${ccsysroot}$(__target_prefix)/bin/autopoint
+			local sysrootltize=${ccsysroot}$(__target_prefix)/bin/libtoolize
+			local sysrootaclocaldir=${ccsysroot}$(__target_prefix)/share/aclocal
+			if [ -x ${sysrootltize} ]
+			then
+				LIBTOOLIZE=${sysrootltize}
+			fi
+			if [ -x ${sysrootgtize} ]
+			then
+				AUTOPOINT=${sysrootgtize}
+			fi
+			if [ -d ${sysrootaclocaldir} ]
+			then
+				ACLOCAL+=" -I ${sysrootaclocaldir}"
+			fi
+		fi
+
+		# libtool 2.2+ is incompatible with gettext before 0.17
+		# config.rpath is broken wrt dynamic linkage before 0.17
+		eval gettext_$(grep ^version= $(which ${AUTOPOINT}))
+		if ! __version_at_least 0.17 ${gettext_version}
+		then
+			error "cygautoreconf: at least gettext 0.17 required"
+		fi
+		AUTOPOINT+=" -V ${gettext_version}"
+
 		for tool in ACLOCAL LIBTOOLIZE AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
 		do
 			if __arg_bool NO_${tool}
@@ -442,23 +465,6 @@ cygautoreconf() {
 			fi
 			export ${tool}
 		done
-
-		ACLOCAL=${ACLOCAL:-aclocal}
-
-		if cross_compiling || inherited toolchain
-		then
-			local ccsysroot=$(${CC} -print-sysroot)
-			local sysrootltize=${ccsysroot}$(__target_prefix)/bin/libtoolize
-			local sysrootaclocaldir=${ccsysroot}$(__target_prefix)/share/aclocal
-			if [ -x ${sysrootltize} ]
-			then
-				LIBTOOLIZE=${sysrootltize}
-			fi
-			if [ -d ${sysrootaclocaldir} ]
-			then
-				ACLOCAL+=" -I ${sysrootaclocaldir}"
-			fi
-		fi
 
 #****v* cygautoreconf/ACLOCAL_FLAGS
 #  DESCRIPTION
