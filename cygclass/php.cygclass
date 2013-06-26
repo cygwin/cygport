@@ -32,6 +32,52 @@
 #  in either PHP or C can be installed to provide additional functionality.
 #
 #  This cygclass is meant for building PHP extension packages.
+#  EXAMPLES
+#  A typical PEAR (pure PHP) module package looks like this:
+#
+#    PHP_CHANNEL=pear
+#    inherit php
+#    
+#    NAME="php-Archive_Tar"
+#    VERSION=1.3.11
+#    RELEASE=1
+#    CATEGORY="PHP"
+#    SUMMARY="PHP class for creating and managing tarballs"
+#    DESCRIPTION="The Archive_Tar class helps in creating and managing GNU tar
+#    format files compressed by Gzip or not. The class offers basic functions
+#    like creating an archive, adding files in the archive, extracting files
+#    from the archive and listing the archive content."
+#    
+#    # these are loaded only conditionally
+#    php_Archive_Tar_REQUIRES="php-bz2 php-zlib"
+#
+#  PECL extensions (written in C) are similarly straightforward:
+#
+#    PHP_CHANNEL=pecl
+#    inherit php
+#    
+#    NAME="php-ncurses"
+#    VERSION=1.0.2
+#    RELEASE=1
+#    CATEGORY="PHP"
+#    SUMMARY="PHP ncurses extension"
+#    DESCRIPTION="Terminal screen handling extension for PHP (cli-mode only)"
+#    
+#    CYGCONF_ARGS="--enable-ncursesw"
+#
+#  Third-party PEAR channels are also easily handled by setting PHP_CHANNEL:
+#
+#    PHP_CHANNEL="pear.phpunit.de"
+#    inherit php
+#    
+#    NAME="php-PHPUnit"
+#    VERSION=3.7.21
+#    RELEASE=1
+#    CATEGORY="PHP"
+#    SUMMARY="PHP unit testing framework"
+#    DESCRIPTION="An open source framework for test-driven development with the
+#    PHP programming language."
+#
 #  REQUIRES
 #  php, php-PEAR
 #****
