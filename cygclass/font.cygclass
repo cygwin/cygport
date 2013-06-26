@@ -26,6 +26,30 @@
 #  This cygclass provides functions for installing fonts so that they
 #  will be found by the X server (for Xaw/Motif applications) and fontconfig
 #  (used by most modern GUI toolkits).
+#  EXAMPLE
+#    ORIG_PN="cantarell-fonts"
+#    inherit gnome.org font
+#    
+#    NAME="font-cantarell-otf"
+#    VERSION=0.0.12
+#    RELEASE=1
+#    CATEGORY="X11"
+#    SUMMARY="Cantarell TTF sans serif fonts"
+#    DESCRIPTION="The Cantarell typeface family was designed as a contemporary
+#    Humanist sans serif, and was developed for on-screen reading; in particular,
+#    reading web pages on a mobile phone."
+#    HOMEPAGE="http://abattis.org/cantarell/"
+#    
+#    src_compile() { :; }
+#    
+#    src_install() {
+#      cd ${S}
+#      insinto /etc/fonts/conf.d
+#      doins fontconfig/*.conf
+#    
+#      fontinto OTF
+#      dofont otf/*.otf
+#    }
 #  NOTE
 #  Regardless of the usage of font.cygclass, cygport will compress all
 #  bitmap fonts (.pcf) and create postinstall scripts for all fonts
