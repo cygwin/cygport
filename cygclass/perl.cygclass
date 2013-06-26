@@ -34,6 +34,41 @@
 #
 #  This cygclass provides definitions for building Perl dependent packages,
 #  and functions for building Perl module packages.
+#  EXAMPLES
+#  A typical CPAN extension package looks like this:
+#
+#    CPAN_AUTHOR=adamk
+#    inherit perl
+#    
+#    NAME="perl-Archive-Zip"
+#    VERSION=1.30
+#    RELEASE=1
+#    CATEGORY="Perl"
+#    SUMMARY="Perl module for working with Zip archives"
+#    DESCRIPTION="This module allows a Perl program to create, manipulate, read,
+#    and write Zip archive files. Zip archives can be created, or you can read
+#    from existing zip files. Once created, they can be written to files, streams,
+#    or strings."
+#
+#  Occasionaly, a CPAN module tries to ask questions while configuring the
+#  build, in which case you can override that in src_compile:
+#
+#    src_compile() {
+#      lndirs
+#      cd ${B}
+#      # answer 'y' to all questions from Makefile.PL
+#      yes | perl_compile
+#    }
+#
+#  Perl modules which provide XML::SAX parser engines require an additional
+#  step during src_install, e.g.:
+#
+#    src_install() {
+#      cd ${B}
+#      perl_install
+#      perl_sax_parser_register XML::LibXML::SAX
+#    }
+#
 #  INHERITED BY
 #  gtk2-perl.cygclass
 #  REQUIRES
