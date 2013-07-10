@@ -159,6 +159,29 @@
 #  xfce4.cygclass, xorg.cygclass
 #****
 
+#****C* autotools.cygclass/gnuconfigize
+#  SYNOPSIS
+#  gnuconfigize DIRECTORY [DIRECTORY ...]
+#  DESCRIPTION
+#  Updates the config.guess and config.sub files in the given directory(ies).
+#  This may be necessary when building packages natively for x86_64-cygwin,
+#  which is not recognized by older versions of this file.
+#  NOTE
+#  This function is called automatically during cygautoreconf; it need only
+#  be called directly for packages which install their copies of this file
+#  (e.g. the autotools themselves) or in the unusual case where cygautoreconf
+#  absolutely cannot be used.
+#****
+
+gnuconfigize() {
+	(( $# >= 1 )) || error "gnuconfigize: no destinations specified"
+
+	for d in $@
+	do
+		[ -f $d/config.guess ] || error "gnuconfigize: $d: not a gnuconfig directory"
+		cp -f ${_privgnuconfigdir}/config.{guess,sub} $d/
+	done
+}
 
 #****C* autotools.cygclass/cygautoreconf
 #  SYNOPSIS
@@ -519,7 +542,7 @@ cygautoreconf() {
 
 			if [ -f ${d}/config.guess ]
 			then
-				cp -f ${_privgnuconfigdir}/config.{guess,sub} ${d}
+				gnuconfigize ${d}
 			fi
 
 			for f in COPYING INSTALL
@@ -708,5 +731,5 @@ src_compile() {
 
 if ! defined _autotools_CYGCLASS_stage1_
 then
-	readonly -f cygautoreconf cygconf
+	readonly -f cygautoreconf cygconf gnuconfigize
 fi
