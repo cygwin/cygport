@@ -226,6 +226,7 @@ cygautoreconf() {
 	local ac_config_headers;
 	local ac_subdirs;
 	local ac_ver;
+	local auxdir;
 	local configure_ac;
 	local config_h;
 	local config_h_in;
@@ -519,6 +520,7 @@ cygautoreconf() {
 				sub_configure_ac="${d}/configure.in";
 			fi
 
+			auxdir="$(grep '^[^\#]*AC_CONFIG_AUX_DIR' ${sub_configure_ac} | sed -e 's!.*AC_CONFIG_AUX_DIR(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
 			config_h="$(grep 'A[CM]_CONFIG_HEADERS*' ${sub_configure_ac} | sed -e 's!A[CM]_CONFIG_HEADERS*(\[*\(.*\))!\1!g' -e 's!\]*!!g')";
 
 			if defined config_h
@@ -540,9 +542,9 @@ cygautoreconf() {
 				fi
 			done
 
-			if [ -f ${d}/config.guess ]
+			if [ -f ${d}/${auxdir}/config.guess ]
 			then
-				gnuconfigize ${d}
+				gnuconfigize ${d}/${auxdir}
 			fi
 
 			for f in COPYING INSTALL
