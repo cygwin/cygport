@@ -930,11 +930,18 @@ __prepstrip() {
 			continue
 		fi
 
-		# Static libraries should not be stripped, but we can still
-		# provide split debuginfo
+		# Static libraries should not be fully stripped, but we can
+		# still provide split debuginfo if desired
 		case "${exe}" in *.a)
-			${objdump} -dl "${exe}" 2>/dev/null | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' | sort -u >> ${T}/.dbgsrc.out;
-			continue ;;
+			if defined _CYGPORT_RESTRICT_debuginfo_
+			then
+				echo "        ${exe}";
+				${objcopy} --strip-debug "${exe}";
+			else
+				${objdump} -dl "${exe}" 2>/dev/null | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' | sort -u >> ${T}/.dbgsrc.out;
+			fi
+			continue
+			;;
 		esac
 
 		# Mono assemblies must not be stripped, but remove .mdb debug symbols,
