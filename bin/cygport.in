@@ -368,8 +368,6 @@ unset conf;
 #    For GNOME 2.x/3.x packages.
 #  * gnustep.cygclass -
 #    For GNUstep packages.
-#  * kde3.cygclass -
-#    For KDE 3.x packages.
 #  * kde4.cygclass -
 #    For KDE 4.x packages.
 #  * mate.cygclass -

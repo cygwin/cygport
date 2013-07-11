@@ -241,7 +241,7 @@ mirror_gnustep+="
 #  MIRROR LIST
 #  http://download.kde.org/extra/mirrors.html
 #  SEE ALSO
-#  kde3.cygclass, kde4.cygclass
+#  kde4.cygclass
 #****
 # cat mirrors | grep '<td><a' | \
 #   sed -e 's!.*<td><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'

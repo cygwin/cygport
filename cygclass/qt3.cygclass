@@ -36,7 +36,7 @@
 #  * The 3.x version of Qt is deprecated.  Support for Qt3 may be dropped in
 #    the near future.
 #  INHERITED BY
-#  kde3.cygclass, qt3-qmake.cygclass
+#  qt3-qmake.cygclass
 #****
 
 # cross-compiling is not (yet?) supported

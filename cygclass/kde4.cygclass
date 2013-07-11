@@ -30,8 +30,6 @@
 #  Most packages are written in C++ and are built with CMake.
 #
 #  This cygclass manages the building of most KDE4-based packages.
-#  NOTE
-#  This is only for KDE 4.x packages; for KDE 3.x, use kde3.cygclass instead.
 #  INHERITS
 #  cmake.cygclass, qt4.cygclass
 #****

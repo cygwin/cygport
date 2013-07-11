@@ -32,7 +32,6 @@ cygclass_DATA =					\
 	cygclass/gtkmm.cygclass			\
 	cygclass/hg.cygclass			\
 	cygclass/java.cygclass			\
-	cygclass/kde3.cygclass			\
 	cygclass/kde4.cygclass			\
 	cygclass/lua.cygclass			\
 	cygclass/mate.cygclass			\
