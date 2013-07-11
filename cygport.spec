@@ -14,9 +14,12 @@ BuildArch:      noarch
 
 Requires:       autoconf automake libtool pkgconfig
 Requires:       bzip2 gzip unzip
-Requires:       cygwin-binutils
-Requires:       cygwin-gcc
-Requires:       cygwin-libtool
+Requires:       cygwin32-binutils
+Requires:       cygwin32-gcc
+Requires:       cygwin32-libtool
+Requires:       cygwin64-binutils
+Requires:       cygwin64-gcc
+Requires:       cygwin64-libtool
 Requires:       diffstat
 Requires:       diffutils
 Requires:       dos2unix
