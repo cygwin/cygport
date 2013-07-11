@@ -860,10 +860,12 @@ __prepstrip() {
 	local dbg;
 	local exe;
 	local all_exes;
+	local arch_tree;
 	local lib;
 	local objcopy;
 	local objdump;
 	local lines;
+	local tmpvar;
 
 	if defined _CYGPORT_RESTRICT_strip_
 	then
@@ -911,7 +913,25 @@ __prepstrip() {
 			%PAR\.pm%)  continue ;;
 		esac
 
-		if check_prog ${CTARGET}-objcopy && ${CTARGET}-size -f "${exe}" &>/dev/null
+		case "${exe}" in
+		usr/*/lib*/lib*|usr/*/sys-root/*)
+			tmpvar="${exe#usr/}"
+			arch_tree="${tmpvar%%/*}"
+			;;
+		usr/lib/gcc/*/lib*)
+			tmpvar="${exe#usr/lib/gcc/}"
+			arch_tree="${tmpvar%%/*}"
+			;;
+		esac
+
+		if defined arch_tree && check_prog ${arch_tree}-objcopy && ${arch_tree}-size -f "${exe}" &>/dev/null
+		then
+			# for cross-compiled libs or cross-GCC target libs
+			# built without cross.cygclass or toolchain.cygclass
+			objcopy="${arch_tree}-objcopy"
+			objdump="${arch_tree}-objdump"
+			unset arch_tree
+		elif check_prog ${CTARGET}-objcopy && ${CTARGET}-size -f "${exe}" &>/dev/null
 		then
 			# for cross-compiled libs, cross-GCC target libs,
 			# or non-cross packages built on non-Cygwin systems
