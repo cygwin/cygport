@@ -42,6 +42,18 @@
 #  Alternatively, the definitions in this cygclass can be used to help build
 #  an R-dependent package which does not use CRAN, e.g.
 #  |html <a href="http://cygwin-ports.git.sourceforge.net/git/gitweb.cgi?p=cygwin-ports/rkward;a=tree;hb=HEAD">rkward</a>.
+#  EXAMPLE
+#  inherit R
+#  
+#  NAME="R-RODBC"
+#  VERSION=1.3-7
+#  RELEASE=1
+#  CATEGORY="Math"
+#  SUMMARY="R ODBC interface"
+#  DESCRIPTION="ODBC database interface for the R statistic programming language"
+#  
+#  R_CONFIGURE_ARGS="--with-odbc-manager=iodbc"
+#
 #  REQUIRES
 #  pkg-config, R
 #  SEE ALSO
