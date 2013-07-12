@@ -115,9 +115,11 @@ rox_autoreconf() {
 #  platform-specific subdir, named based on uname(1) output.  Because
 #  Cygwin's `uname -s` also contains the Windows version, applications
 #  compiled on one computer will not be found on another if their underlying
-#  Windows versions differ.  To avoid this, add the following line near the
-#  top of AppRun (and AppletRun, if it exists):
-#    export PLATFORM="CYGWIN-ix86"
+#  Windows versions differ.  To avoid this, change the definition of PLATFORM
+#  in AppRun (and AppletRun, if it exists) from
+#    PLATFORM=`uname -s`-$ARCH
+#  to
+#    PLATFORM=CYGWIN-$ARCH
 #  This will allow the application to run on all Cygwin installations.
 #****
 rox_compile() {
