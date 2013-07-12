@@ -120,6 +120,14 @@ esac
 # kept for API compatibility; now in check_funcs under different name
 check_R_package() { check_R_module ${*} ; }
 
+#****v* R.cygclass/R_CONFIGURE_ARGS
+#  SYNOPSIS
+#  R_CONFIGURE_ARGS="arg1 [arg2 ...]"
+#  DESCRIPTION
+#  A string containing flag(s) to be passed to the configure script used by
+#  module packages containing native code.
+#****
+
 #****C* R.cygclass/R_compile
 #  SYNOPSIS
 #  cd $B
@@ -131,7 +139,10 @@ check_R_package() { check_R_module ${*} ; }
 #****
 R_compile() {
 	mkdir -p ${T}/inst
-	${R} CMD INSTALL --library=${T}/inst ${B}/${ORIG_PN}
+	${R} CMD INSTALL \
+		--library=${T}/inst \
+		--configure-args="${R_CONFIGURE_ARGS}" \
+		${B}/${ORIG_PN}
 }
 
 #****I* R.cygclass/R_install
