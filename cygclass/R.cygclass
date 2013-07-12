@@ -35,14 +35,13 @@
 #  Most CRAN packages build OOTB, but creating a Cygwin package may be helpful
 #  if a patch is required or if the build requirements are substantial (e.g.
 #  RGtk2, the GTK+ bindings which are used in several GUIs).  When using R.cygclass
-#  to build a CRAN package, PN should be prefixed with "R-" and a hyphen in
-#  the CRAN version substituted with an underscore (so as not to conflict with
-#  the Cygwin package release number).  In most such cases, the R.cygclass
-#  src_compile and src_install should suffice.
+#  to build a CRAN package, NAME must be "R-" followed by the CRAN package
+#  name.  In most such cases, the R.cygclass src_compile and src_install should
+#  suffice.
 #
 #  Alternatively, the definitions in this cygclass can be used to help build
 #  an R-dependent package which does not use CRAN, e.g.
-#  |html <a href="http://cygwin-ports.svn.sourceforge.net/viewvc/cygwin-ports/ports/trunk/science/rkward/">rkward</a>.
+#  |html <a href="http://cygwin-ports.git.sourceforge.net/git/gitweb.cgi?p=cygwin-ports/rkward;a=tree;hb=HEAD">rkward</a>.
 #  REQUIRES
 #  pkg-config, R
 #  SEE ALSO
