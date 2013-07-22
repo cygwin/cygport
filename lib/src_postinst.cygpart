@@ -995,7 +995,7 @@ __prepstrip() {
 			case "${exe##*/}" in
 			*.dll|*.exe|*.sfx|*.so|*.so.[0-9]*|*.oct|*.cmxs) ;;
 			# make sure this isn't some oddly named DLL
-			*)	if ${objdump} -f "${exe}" | grep -q '^start address 0x0*401[0-9a-e][0-9a-e]0'
+			*)	if ${objdump} -f "${exe}" | grep -Eq '^start address 0x(0000000[01])?00401[0-9a-e][0-9a-e]0'
 				then
 					mv "${exe}" "${exe}.exe"
 					exe+=.exe
