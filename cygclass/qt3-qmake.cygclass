@@ -47,13 +47,27 @@ cygqmake3() {
 		error "libqt3-devel is required to build this package"
 	fi
 
-	for pro in $(find . -name '*.pro')
-	do
-		rm -f ${pro%/*}/Makefile
-
-		${QT3_QMAKE} -spec cygwin-g++ -o ${pro%/*}/Makefile ${pro} \
-			|| error "qmake ${pro} failed"
-	done
+	${QT3_QMAKE} -spec ${QMAKESPEC} \
+		QMAKE_CC=${CC} \
+		QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
+		QMAKE_CXX=${CXX} \
+		QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
+		QMAKE_LFLAGS="${LDFLAGS}" \
+		QMAKE_LINK=${CXX} \
+		QMAKE_LINK_SHLIB=${CXX} \
+		QMAKE_INCDIR=  QMAKE_LIBDIR= \
+		QMAKE_INCDIR_OPENGL=  QMAKE_LIBDIR_OPENGL= \
+		QMAKE_INCDIR_X11=  QMAKE_LIBDIR_X11= \
+		QMAKE_INCDIR_QT=${QT3_INCLUDEDIR} \
+		QMAKE_LIBDIR_QT=${QT3_LIBDIR} \
+		QMAKE_MOC=${QT3_MOC} \
+		QMAKE_UIC=${QT3_UIC} \
+		QMAKE_AR="${AR} cqs" \
+		QMAKE_RANLIB=${RANLIB} \
+		QMAKE_STRIP=: \
+		QMAKE_RPATH= \
+		${CYGQMAKE3_ARGS} ${@} \
+		|| error "qmake failed"
 }
 
 #****C* qt3-qmake.cygclass/qt3_qmake_compile
