@@ -39,67 +39,101 @@
 #  qt3-qmake.cygclass
 #****
 
-# cross-compiling is not (yet?) supported
-__cross_compiling_error
-
 #****d* qt3.cygclass/QTDIR
 #  DESCRIPTION
 #  Root directory of the Qt3 installation.  This variable is exported to the
 #  build environment.
 #****
-export QTDIR=/usr/lib/qt3
-
-export QMAKESPEC=cygwin-g++
-
 #****d* qt3.cygclass/QT3_BINDIR
 #  DESCRIPTION
 #  Directory containing the Qt3 development tools.
 #****
-QT3_BINDIR=/usr/lib/qt3/bin
-
 #****d* qt3.cygclass/QT3_INCLUDEDIR
 #  DESCRIPTION
 #  Directory containing the Qt3 library headers.
 #****
-QT3_INCLUDEDIR=/usr/include/qt3
-
 #****d* qt3.cygclass/QT3_LIBDIR
 #  DESCRIPTION
 #  Directory containing the Qt3 link libraries.
 #****
-QT3_LIBDIR=/usr/lib/qt3/lib
-
 #****d* qt3.cygclass/QT3_PLUGINSDIR
 #  DESCRIPTION
 #  Installation path for Qt3 plugins.
 #****
-QT3_PLUGINSDIR=/usr/lib/qt3/plugins
-
 #****d* qt3.cygclass/QT3_DATADIR
 #  DESCRIPTION
 #  Directory containing the Qt3 documentation and translation data.
 #****
-QT3_DATADIR=/usr/share/qt3
+
+if inherited cross
+then
+	export QTDIR=${CROSS_PREFIX}
+	QT3_BINDIR=${CROSS_BINDIR}
+	QT3_INCLUDEDIR=${CROSS_INCLUDEDIR}/qt3
+	QT3_LIBDIR=${CROSS_LIBDIR}
+	QT3_PLUGINSDIR=${CROSS_LIBDIR}/qt3/plugins
+	QT3_DATADIR=${CROSS_DATADIR}/qt3
+else
+	export QTDIR=/usr/lib/qt3
+	QT3_BINDIR=${QTDIR}/bin
+	QT3_INCLUDEDIR=/usr/include/qt3
+	QT3_LIBDIR=${QTDIR}/lib
+	QT3_PLUGINSDIR=${QTDIR}/plugins
+	QT3_DATADIR=/usr/share/qt3
+fi
 
 #****d* qt3.cygclass/QT3_QMAKE
 #  DESCRIPTION
 #  Absolute path to the Qt3 project and Makefile generator.
 #****
-QT3_QMAKE=${QT3_BINDIR}/qmake
+QT3_QMAKE=/usr/lib/qt3/bin/qmake
 
 #****d* qt3.cygclass/QT3_MOC
 #  DESCRIPTION
 #  Absolute path to the Qt3 Meta-Object Compiler.
 #****
-QT3_MOC=${QT3_BINDIR}/moc
+QT3_MOC=/usr/lib/qt3/bin/moc
 
 #****d* qt3.cygclass/QT3_UIC
 #  DESCRIPTION
 #  Absolute path to the Qt3 User Interface Compiler.
 #****
-QT3_UIC=${QT3_BINDIR}/uic
+QT3_UIC=/usr/lib/qt3/bin/uic
 
-export PATH="${QT3_BINDIR}:${PATH}"
+__qt3_qmakespec() {
+	local spec
+
+	# FIXME: -64 varieties
+	case ${CHOST} in
+	*-ibm-aix*)        spec="aix-g++" ;;
+	*-*-bsdi*)         spec="bsdi-g++" ;;
+	*-*-cygwin*)       spec="cygwin-g++" ;;
+	*-*-darwin*)       spec="darwin-g++" ;;
+	*-*-dgux*)         spec="dgux-g++" ;;
+	*-*-freebsd*)      spec="freebsd-g++" ;;
+	*-*-hpux)          spec="hpux-g++" ;;
+	*-*-irix)          spec="irix-g++" ;;
+	*-*-linux*)        spec="linux-g++" ;;
+	*-*-lynxos*)       spec="lynxos-g++" ;;
+	*-*-netbsd*)       spec="netbsd-g++" ;;
+	*-*-openbsd*)      spec="openbsd-g++" ;;
+	*-*-qnx*)          spec="qnx-g++" ;;
+	*-*-sco*)          spec="sco-g++" ;;
+	*-*-solaris*)      spec="solaris-g++" ;;
+	*-*-osf*)          spec="tru64-g++" ;;
+	*-*-sysv4.2uw*)    spec="unixware-g++" ;;
+	*-*-mingw*)        spec="win32-g++" ;;
+	# must be last to avoid false positives from *-*-KERNEL-gnu
+	*-*-gnu*)          spec="hurd-g++" ;;
+	*)	error "Host ${CHOST} is not supported by Qt3" ;;
+	esac
+
+	echo -n ${spec}
+}
+
+export QMAKESPEC=$(__qt3_qmakespec)
+
+export PATH="/usr/lib/qt3/bin:${PATH}"
 
 #****I* qt3.cygclass/doqt3inc
 #  SYNOPSIS
