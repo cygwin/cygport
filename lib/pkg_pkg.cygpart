@@ -470,8 +470,9 @@ __pkg_dist() {
 	local -i n;
 	local -a pkg_hint;
 	local distsubdir;
+	local obspkg;
 	local pkg_category_var pkg_requires_var pkg_summary_var;
-	local pkg_description_var pkg_message_var;
+	local pkg_description_var pkg_message_var pkg_obsoletes_var;
 
 	rm -fr ${distdir}/*;
 
@@ -592,6 +593,30 @@ __pkg_dist() {
 #    which are accessed by dlopen(), or data used by your package at runtime.
 #  * Any newlines in this variable must be escaped.
 #****
+#****v* Packaging/OBSOLETES
+#  DESCRIPTION
+#  A single-line string containing a list of package(s) which this
+#  package replaces.  An empty package will be created for each listed
+#  obsoletion which will cause this package to be installed in its place.
+#  NOTE
+#  If there is more than one package in PKG_NAMES, this variable will be
+#  ignored; you must use PKG_OBSOLETES instead.
+#  SEE ALSO
+#  PKG_OBSOLETES
+#****
+#****v* Packaging/PKG_OBSOLETES
+#  DESCRIPTION
+#  A single-line string containing a list of package(s) which this
+#  package replaces.  An empty package will be created for each listed
+#  obsoletion which will cause PKG to be installed in its place.
+#
+#  Note that the PKG_REQUIRES name is descriptive rather than literal,
+#  where "PKG" should be substituted with the name of the binary package
+#  whose contents it describes.  When a package contains a character which
+#  cannot be used in a shell variable name (namely '+', '-', and '.'),
+#  that character must be substituted with an underscore ('_'), e.g.
+#  libfoo-devel will use libfoo_devel_OBSOLETES.
+#****
 
 	n=0;
 	while defined pkg_name[${n}]
@@ -601,16 +626,21 @@ __pkg_dist() {
 		pkg_summary_var=${pkg_name[${n}]//[-+\.]/_}_SUMMARY;
 		pkg_description_var=${pkg_name[${n}]//[-+\.]/_}_DESCRIPTION;
 		pkg_message_var=${pkg_name[${n}]//[-+\.]/_}_MESSAGE;
+		pkg_obsoletes_var=${pkg_name[${n}]//[-+\.]/_}_OBSOLETES;
 
 		case ${pkg_name[${n}]} in
 			${PN})  distsubdir="" ;;
 			*)      distsubdir=${pkg_name[${n}]} ;;
 		esac
 
-		# allow REQUIRES only for single packages
+		# allow REQUIRES and OBSOLETES only for single packages
 		if [ -z "${distsubdir}${!pkg_requires_var}" -a -n "${REQUIRES+yes}" ]
 		then
 			declare ${pkg_requires_var}="${REQUIRES}"
+		fi
+		if [ -z "${distsubdir}${!pkg_obsoletes_var}" -a -n "${OBSOLETES+yes}" ]
+		then
+			declare ${pkg_obsoletes_var}="${OBSOLETES}"
 		fi
 
 		mkdir -p ${distdir}/${PN}/${distsubdir};
@@ -648,6 +678,24 @@ _EOF
 		else
 			warning "${pkg_hint[${n}]%.hint}.hint is missing";
 		fi
+
+		for obspkg in ${!pkg_obsoletes_var}
+		do
+			mkdir -p ${distdir}/${PN}/${obspkg}
+			bzip2 < /dev/null > ${distdir}/${PN}/${obspkg}/${obspkg}-${PVR}.tar.bz2
+
+			__step "${pkg_name[${n}]} OBSOLETES: ${obspkg}"
+
+			cat > ${distdir}/${PN}/${obspkg}/setup.hint <<-_EOF
+category: _obsolete
+requires: ${pkg_name[${n}]}
+sdesc: "Obsoleted by ${pkg_name[${n}]}"
+ldesc: "The ${obspkg} package is obsolete.  Selecting this package for
+installation will cause the ${pkg_name[${n}]} package, which replaces this
+one, to be installed instead."
+external-source: ${PN}
+_EOF
+		done
 
 		n+=1;
 	done
