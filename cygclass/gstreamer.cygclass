@@ -112,6 +112,7 @@ gstreamer_autoreconf() {
 	__config_set with_libtool 1
 
 	NOCONFIGURE=1 ./autogen.sh || error "autogen.sh failed"
+	gnuconfigize .
 }
 
 gst_autoreconf() { gstreamer_autoreconf ; }
