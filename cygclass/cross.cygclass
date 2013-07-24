@@ -162,16 +162,8 @@ case ${CHOST} in
 esac
 
 case ${CHOST} in
-*-pc-mingw*)
-	# mingw.org packages are built to be compatible with MSVC-compiled software
-	CFLAGS="${CFLAGS} -mms-bitfields"
-	CXXFLAGS="${CXXFLAGS} -mms-bitfields"
-	F77FLAGS="${F77FLAGS} -mms-bitfields"
-	FCFLAGS="${FCFLAGS} -mms-bitfields"
-	GCJFLAGS="${GCJFLAGS} -mms-bitfields"
-	GOCFLAGS="${GOCFLAGS} -mms-bitfields"
-	OBJCFLAGS="${OBJCFLAGS} -mms-bitfields"
-	OBJCXXFLAGS="${OBJCXXFLAGS} -mms-bitfields"
+*-*-mingw*)
+	# GCC since 4.7 uses -mms-bitfields by default
 	;;
 *-*-linux-gnu)
 	LDFLAGS="${LDFLAGS} -Wl,--as-needed -Wl,--no-undefined"
