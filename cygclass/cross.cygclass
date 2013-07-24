@@ -26,10 +26,11 @@
 #  CROSS_HOST="..."
 #  inherit cross
 #  DESCRIPTION
-#  This cygclass assists in "cross-compiling", where the code being built will
-#  run on a different platform (the "host" system) then the one on which it was
-#  built (and, in most cases, NOT on the build system), but can be used on the
-#  build system to cross-compile other software which depends on it.
+#  This cygclass assists in building libraries to be used by "cross-compilers",
+#  which generate code to be run on a different platform (the "host" system)
+#  then the one on which it was built (and, in most cases, NOT on the build
+#  system), but can be used on the build system to cross-compile other software
+#  which depends on it.
 #
 #  Supported build systems for cross-compiling are autotools, cmake, qmake, and
 #  custom Makefiles.  When using cross.cygclass, cygconf, cygcmake, and cygqmake4
@@ -42,15 +43,15 @@
 
 #****v* cross.cygclass/CROSS_HOST
 #  DESCRIPTION
-#  The CPU-VENDOR-OS triplet, or customary abbreviation thereof, describing the
-#  system for which you are cross-compiling; for example:
-#  * i686-pc-linux-gnu: i686 GNU/Linux
+#  The CPU-VENDOR-OS[-TOOLCHAIN] triplet, or customary abbreviation thereof,
+#  describing the system for which you are cross-compiling; for example:
+#  * i686-linux [i686-pc-linux-gnu]: i686 GNU/Linux
 #  * x86_64-w64-mingw32: Win64
 #  * arm-eabi [arm-unknown-eabi]: Embedded ARM ELF system (e.g. with Newlib)
 #  * avr [avr-unknown-none]: Atmel AVR bare metal (e.g. Arduino)
-#  Note that while the 'unknown' vendor tag is usually omitted from embedded
-#  systems, particularly in conjunction with a 'none' OS tag, as above, this
-#  does not apply to e.g. 'x86_64-unknown-linux-gnu' and other systems.
+#  Note that while 'unknown' vendor tags are often omitted, particularly in
+#  conjunction with a 'none' OS tag, as above, this does not apply to e.g.
+#  'armv7hl-unknown-linux-gnueabi' and other systems.
 #  NOTES
 #  * CROSS_HOST must be defined before inherit()ing cross.cygclass.
 #  * CROSS_HOST must match the prefix of the toolchain being used (in other
