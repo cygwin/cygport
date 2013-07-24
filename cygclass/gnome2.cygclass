@@ -60,6 +60,7 @@ KEEP_LA_FILES="none"
 #  cygautoreconf
 #****
 gnome2_autoreconf() {
+	local auxdir
 	local configure_ac
 	local skip_d
 
@@ -179,6 +180,12 @@ gnome2_autoreconf() {
 	touch AUTHORS COPYING ChangeLog INSTALL NEWS README
 
 	gnome-autogen.sh || error "gnome2: autoreconf failed"
+
+	auxdir="$(grep '^[^\#]*AC_CONFIG_AUX_DIR' ${configure_ac} | sed -e 's!.*AC_CONFIG_AUX_DIR(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
+	if [ -f ${auxdir:-.}/config.guess ]
+	then
+		gnuconfigize ${auxdir:-.}
+	fi
 }
 
 #****C* gnome2.cygclass/gnome2_configure
