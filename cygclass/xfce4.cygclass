@@ -109,7 +109,7 @@ unset uri_subdir
 #  cygautoreconf, gnome2_autoreconf
 #****
 xfce4_autoreconf() {
-	local configure_ac f
+	local auxdir configure_ac f
 
 	check_prog_req xdt-autogen xfce4-dev-tools
 
@@ -146,6 +146,12 @@ xfce4_autoreconf() {
 	XDT_PROG_AUTOMAKE=automake \
 	revision=${GIT_REV:0:7} \
 	xdt-autogen || error "xdt-autogen failed"
+
+	auxdir="$(grep '^[^\#]*AC_CONFIG_AUX_DIR' ${configure_ac} | sed -e 's!.*AC_CONFIG_AUX_DIR(\[*\(.*\))!\1!g' -e 's!\]*!!g')"
+	if [ -f ${auxdir:-.}/config.guess ]
+	then
+		gnuconfigize ${auxdir:-.}
+	fi
 }
 
 #****C* xfce4.cygclass/xfce4_compile
