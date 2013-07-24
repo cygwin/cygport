@@ -318,6 +318,7 @@ php_autoreconf() {
 	__config_set with_libtool 1
 
 	${PHPIZE} || error "phpize failed"
+	# phpize uses its own copy of gnuconfig, no need to gnuconfigize here
 }
 
 #****C* php.cygclass/php_compile
