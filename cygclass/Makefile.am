@@ -36,6 +36,7 @@ cygclass_DATA =					\
 	cygclass/lua.cygclass			\
 	cygclass/mate.cygclass			\
 	cygclass/mono.cygclass			\
+	cygclass/multilib.cygclass		\
 	cygclass/mtn.cygclass			\
 	cygclass/nant.cygclass			\
 	cygclass/ocaml.cygclass			\

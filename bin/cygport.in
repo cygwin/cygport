@@ -436,6 +436,9 @@ unset conf;
 #    For using Clang as a compiler instead of GCC.
 #  * cross.cygclass -
 #    For packaging libraries to be used with cross-compiler toolchains.
+#  * multilib.cygclass -
+#    For packaging libraries for cross-compiler toolchains which support
+#    multiple ABIs.
 #  * toolchain.cygclass -
 #    For creating compilers and cross-compilers (binutils, gcc, gdb, newlib).
 #

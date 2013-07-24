@@ -409,7 +409,7 @@ doinclude() {
 #  * Cross-compiled ELF Shared Objects must be installed with doelflib.
 #****
 dolib() {
-	local _libdir=$(__host_prefix)/lib
+	local _libdir=$(__host_prefix)/${MULTILIB_LIBDIR-lib}
 
 	dodir ${_libdir}
 	for i
@@ -432,7 +432,7 @@ dolib() {
 #  * Libtool libraries must be installed with dolib.
 #****
 newlib() {
-	local _libdir=$(__host_prefix)/lib
+	local _libdir=$(__host_prefix)/${MULTILIB_LIBDIR-lib}
 
 	dodir ${_libdir}
 	case ${i} in
@@ -593,7 +593,7 @@ newmenu() {
 #  Installs the given pkg-config metadata files.
 #****
 dopkgconfig() {
-	local _pcdir=$(__host_prefix)/lib/pkgconfig
+	local _pcdir=$(__host_prefix)/${MULTILIB_LIBDIR-lib}/pkgconfig
 
 	dodir ${_pcdir}
 	for i
@@ -907,7 +907,7 @@ cyginstall() {
 			exec_prefix=${D}${prefix} \
 			bindir=${D}${prefix}/bin/ \
 			includedir=${D}${prefix}/include \
-			libdir=${D}${prefix}/lib \
+			libdir=${D}${prefix}/${MULTILIB_LIBDIR-lib} \
 			sbindir=${D}${prefix}/sbin \
 			libexecdir=${D}${prefix}/lib \
 			datadir=${D}${prefix}/share \

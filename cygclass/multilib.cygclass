@@ -1,0 +1,272 @@
+################################################################################
+#
+# multilib.cygclass - functions for building packages for multilib platforms
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/multilib.cygclass
+#  SYNOPSIS
+#  CROSS_HOST="..."
+#  inherit cross multilib
+#  DESCRIPTION
+#  Some architectures, particularly embedded systems, support multiple,
+#  incompatible ABIs in the same compiler triplet, with each ABI being
+#  distinguished by one or more complier flags.  In such setups, each
+#  ABI has its own libdir, with only the "default" ABI in $prefix/lib.
+#
+#  In order to build libraries for such targets, a package must be compiled
+#  and installed once per ABI.  This cygclass allows the packager to specify
+#  the compile and install steps only once, while handling the differences
+#  in libdir and compiler flags for each ABI iteration automatically.
+#  NOTES
+#  * Unlike other cygclasses, the src_compile and src_install functions
+#    provided herein are mandatory; the build may only be controlled via
+#    the functions documented below.  Therefore, if other cygclasses are
+#    used as well, they must precede multilib in the inherit command.
+#  * Do not attempt to use multilib with a PE architecture (such as Cygwin and
+#    MinGW), as the placement of DLLs in $libdir/../bin does not allow for
+#    multilib.
+#  EXAMPLE
+#  CROSS_HOST="x86_64-pc-linux-gnu" # supports x86-64 and x32
+#  inherit cross multilib
+#  
+#  NAME="linux-x86_64-zlib"
+#  VERSION=1.2.8
+#  RELEASE=1
+#  CATEGORY="Devel"
+#  SUMMARY="zlib for Linux x86-64/x32 toolchain"
+#  HOMEPAGE="http://www.zlib.net/"
+#  SRC_URI="mirror://sourceforge/libpng/zlib-${VERSION}.tar.gz"
+#  SRC_DIR="zlib-${VERSION}"
+#  
+#  multilib_compile() {
+#    lndirs ${S}
+#    rm -f Makefile
+#    CC="${CC}" CFLAGS="${CFLAGS}" CHOST=${CROSS_HOST} \
+#    ./configure --prefix=${CROSS_PREFIX} --libdir=${CROSS_LIBDIR}
+#    cygmake
+#  }
+#  
+#  multilib_install() {
+#    cyginstall
+#  }
+#  
+#  multilib_postinstall() {
+#    # already provided by native zlib
+#    rm -fr ${D}${CROSS_DATADIR}/man
+#  }
+#****
+
+if ! inherited cross
+then
+	error "multilib: cross.cygclass must be inherit()ed first"
+fi
+
+# e.g.:
+# $ avr-gcc -print-multi-lib
+# .;
+# avr25;@mmcu=avr25
+# avr3;@mmcu=avr3
+# ... [snip] ...
+# tiny-stack;@msp8
+# avr25/tiny-stack;@mmcu=avr25@msp8
+
+MULTILIB_OPTIONS=("" $(${CC} -print-multi-lib | sed -e 's/.*;//g'))
+MULTILIB_DIRNAMES=($(${CC} -print-multi-lib | sed -e 's/;.*//g'))
+if [ ${#MULTILIB_DIRNAMES[*]} -eq 1 ]
+then
+	error "multilib: ${CC} does not have multilib support"
+fi
+for (( i=0; i < ${#MULTILIB_DIRNAMES[*]}; i++ ))
+do
+	if [ ${MULTILIB_DIRNAMES[$i]} = '.' ]
+	then
+		MULTILIB_DIRNAMES[$i]="default"
+	fi
+	MULTILIB_OSDIRNAMES[$i]=$(${CC} -print-multi-os-directory ${MULTILIB_OPTIONS[$i]//@/ -})
+done
+
+#****C* multilib.cygclass/multilib_precompile
+#  SYNOPSIS
+#  multilib_precompile() {
+#    PRECOMPILE_COMMAND; [PRECOMPILE_COMMAND ...]
+#  }
+#  DESCRIPTION
+#  This function, if defined, will be run once in total prior to the loop which
+#  calls multilib_compile.  This function is intended to include cygautoreconf
+#  and similar commands.  Directory traversal is completely within control of
+#  the function (e.g. cd ${S} must still be called before cygautoreconf).
+#****
+#****C* multilib.cygclass/multilib_compile
+#  SYNOPSIS
+#  multilib_compile() {
+#    COMPILE_COMMAND; [COMPILE_COMMAND ...]
+#  }
+#  DESCRIPTION
+#  This function must include all compile commands, such as cygconf and
+#  cygmake.  This function will be called once per ABI, during which the
+#  following variables will be altered to match the ABI:
+#  * CC/CXX/etc. have the corresponding ABI flag(s) added;
+#  * CROSS_LIBDIR is adjusted to match the ABI-specific libdir;
+#  * pkg-config's environment variables are adjusted to use CROSS_LIBDIR.
+#  The working directory of multilib_compile is unique for each ABI.  Do not
+#  attempt to call cd ${B} or the like, but if you may traverse into a
+#  relative subdirectory with pushd/popd.
+#****
+
+src_compile() {
+	local opt dirname osdirname n
+	local orig_CC orig_CXX orig_F77 orig_FC orig_GCJ orig_GOC orig_OBJC orig_OBJCXX
+
+	if __check_function multilib_precompile
+	then
+		multilib_precompile
+	fi
+
+	if ! __check_function multilib_compile
+	then
+		error "multilib: the multilib_compile function is required"
+	fi
+
+	for (( n=0; n < ${#MULTILIB_OPTIONS[*]}; n++ ))
+	do
+		opt=${MULTILIB_OPTIONS[$n]}
+		dirname=${MULTILIB_DIRNAMES[$n]}
+		osdirname=${MULTILIB_OSDIRNAMES[$n]}
+		MULTILIB_LIBDIR=lib/${osdirname}
+
+		orig_CC="${CC}"
+		orig_CXX="${CXX}"
+		orig_F77="${F77}"
+		orig_FC="${FC}"
+		orig_GCJ="${GCJ}"
+		orig_GOC="${GOC}"
+		orig_OBJC="${OBJC}"
+		orig_OBJCXX="${OBJCXX}"
+		CC+="${opt//@/ -}"
+		CXX+="${opt//@/ -}"
+		F77+="${opt//@/ -}"
+		FC+="${opt//@/ -}"
+		GCJ+="${opt//@/ -}"
+		GOC+="${opt//@/ -}"
+		OBJC+="${opt//@/ -}"
+		OBJCXX+="${opt//@/ -}"
+
+		CROSS_LIBDIR="$(__host_prefix)/${MULTILIB_LIBDIR}"
+		export PKG_CONFIG_LIBDIR="${CROSS_LIBDIR}/pkgconfig:$(__host_prefix)/share/pkgconfig:/usr/share/pkgconfig"
+		# since pkg-config 0.26
+		export PKG_CONFIG_SYSTEM_LIBRARY_PATH=${CROSS_LIBDIR}
+
+		mkdir -p ${B}/${dirname}
+		pushd ${B}/${dirname}
+
+		inform "compiling for multilib: ${dirname}"
+
+		multilib_compile || error "multilib_compile failed"
+
+		popd
+
+		CC="${orig_CC}"
+		CXX="${orig_CXX}"
+		F77="${orig_F77}"
+		FC="${orig_FC}"
+		GCJ="${orig_GCJ}"
+		GOC="${orig_GOC}"
+		OBJC="${orig_OBJC}"
+		OBJCXX="${orig_OBJCXX}"
+	done
+
+	# reset variables, not that they should be used outside of this context
+	CROSS_LIBDIR="$(__host_prefix)/lib"
+	export PKG_CONFIG_LIBDIR="${CROSS_LIBDIR}/pkgconfig:$(__host_prefix)/share/pkgconfig:/usr/share/pkgconfig"
+	export PKG_CONFIG_SYSTEM_LIBRARY_PATH=${CROSS_LIBDIR}
+	# for use in multilib_compile(), therefore cannot be local
+	unset MULTILIB_LIBDIR
+}
+
+#****C* multilib.cygclass/multilib_install
+#  SYNOPSIS
+#  multilib_install() {
+#    INSTALL_COMMAND; [INSTALL_COMMAND ...]
+#  }
+#  DESCRIPTION
+#  This function must include all install commands, such as cyginstall.
+#  This function will be called once per ABI, during which the following
+#  variables will be altered to match the ABI:
+#  * CROSS_LIBDIR is adjusted to match the ABI-specific libdir;
+#  * pkg-config's environment variables are adjusted to use CROSS_LIBDIR.
+#  The working directory of multilib_install is unique for each ABI.  Do not
+#  attempt to call cd ${B} or the like, but if you may traverse into a
+#  relative subdirectory with pushd/popd.
+#****
+#****C* multilib.cygclass/multilib_postinstall
+#  SYNOPSIS
+#  multilib_postinstall() {
+#    POSTINSTALL_COMMAND; [POSTINSTALL_COMMAND ...]
+#  }
+#  DESCRIPTION
+#  This function, if defined, will be run once in total after the loop which
+#  calls multilib_install is complete.  This function is intended to include
+#  cleanup commands, such as removing superfluous documentation from the sysroot.
+#  Directory traversal is completely within control of the function.
+#****
+
+src_install() {
+	local dirname osdirname n
+
+	if ! __check_function multilib_install
+	then
+		error "multilib: the multilib_install function is required"
+	fi
+
+	for (( n=${#MULTILIB_OPTIONS[*]}-1; n >= 0; n-- ))
+	do
+		dirname=${MULTILIB_DIRNAMES[$n]}
+		osdirname=${MULTILIB_OSDIRNAMES[$n]}
+		MULTILIB_LIBDIR=lib/${osdirname}
+
+		CROSS_LIBDIR="$(__host_prefix)/${MULTILIB_LIBDIR}"
+		export PKG_CONFIG_LIBDIR="${CROSS_LIBDIR}/pkgconfig:$(__host_prefix)/share/pkgconfig:/usr/share/pkgconfig"
+		# since pkg-config 0.26
+		export PKG_CONFIG_SYSTEM_LIBRARY_PATH=${CROSS_LIBDIR}
+
+		pushd ${B}/${dirname}
+
+		inform "installing for multilib: ${dirname}"
+
+		multilib_install || error "multilib_install failed"
+
+		popd
+	done
+
+	if __check_function multilib_postinstall
+	then
+		multilib_postinstall
+	fi
+
+	# reset variables, not that they should be used outside of this context
+	CROSS_LIBDIR="$(__host_prefix)/lib"
+	export PKG_CONFIG_LIBDIR="${CROSS_LIBDIR}/pkgconfig:$(__host_prefix)/share/pkgconfig:/usr/share/pkgconfig"
+	export PKG_CONFIG_SYSTEM_LIBRARY_PATH=${CROSS_LIBDIR}
+	# for use in multilib_install(), therefore cannot be local
+	unset MULTILIB_LIBDIR
+}
+
+readonly -f src_compile src_install

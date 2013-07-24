@@ -641,6 +641,11 @@ cygconf() {
 			  --datadir=${prefix}/share --localstatedir=${prefix%/usr}/var \
 			  --sysconfdir=${prefix%/usr}/etc"
 
+	if inherited multilib
+	then
+		confargs+=" --libdir=${prefix}/${MULTILIB_LIBDIR}"
+	fi
+
 	case "x${confver}" in
 		x2.6[0-9]*)
 			confargs+=" --datarootdir=${prefix}/share --docdir=/usr/share/doc/${PN}"
