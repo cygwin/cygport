@@ -637,9 +637,9 @@ cygconf() {
 
 	# Set default configure arguments
 	confargs="--prefix=${prefix} --exec-prefix=${prefix} --bindir=${prefix}/bin \
-			  --sbindir=${prefix}/sbin --libexecdir=${prefix}/lib \
-			  --datadir=${prefix}/share --localstatedir=${prefix%/usr}/var \
-			  --sysconfdir=${prefix%/usr}/etc"
+		  --sbindir=${prefix}/sbin --libexecdir=${prefix}/libexec \
+		  --datadir=${prefix}/share --localstatedir=${prefix%/usr}/var \
+		  --sysconfdir=${prefix%/usr}/etc"
 
 	if inherited multilib
 	then

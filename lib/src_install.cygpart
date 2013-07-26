@@ -909,7 +909,7 @@ cyginstall() {
 			includedir=${D}${prefix}/include \
 			libdir=${D}${prefix}/${MULTILIB_LIBDIR-lib} \
 			sbindir=${D}${prefix}/sbin \
-			libexecdir=${D}${prefix}/lib \
+			libexecdir=${D}${prefix}/libexec \
 			datadir=${D}${prefix}/share \
 			datarootdir=${D}${prefix}/share \
 			docdir=${D}${prefix}/share/doc/${PN} \
