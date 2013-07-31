@@ -1,3 +1,13 @@
+0.13.0:
+	* Added [PKG_]OBSOLETES.
+	* New gnuconfigize function, called in all autotools-based cygclasses.
+	* Removed kde3.cygclass.
+	* autotools: Changed libexecdir to /usr/libexec.
+	* perl: Moved perl_postinst functionality to automatic postinstall.
+	* qt3, qt3-qmake: Enhanced; enabled cross-compiling.
+	* R: Added R_CONFIGURE_ARGS.
+	* Added some examples to documentation.
+
 0.12.2:
 	* Bug fixes for dependency detection.
 	* autotools.cygclass: Use cygport's bundled config.guess/config.sub
