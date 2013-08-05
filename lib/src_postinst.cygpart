@@ -221,10 +221,14 @@ __prep_gtk2_modules() {
 	if [ -d ${D}/usr/lib/gtk-2.0/${gtk_api}/immodules ]
 	then
 		dodir /etc/postinstall
+		# cache location moved in 2.24.20
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			if ! /usr/bin/gtk-query-immodules-2.0 --update-cache
+			then
 			/usr/bin/mkdir -p /etc/gtk-2.0
 			/usr/bin/chmod 777 /etc/gtk-2.0
 			/usr/bin/gtk-query-immodules-2.0 > /etc/gtk-2.0/gtk.immodules
+			fi
 
 		_EOF
 	fi
