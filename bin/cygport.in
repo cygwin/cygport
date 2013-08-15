@@ -340,6 +340,8 @@ unset conf;
 #    For packages which depend on Qt 4.x and use the QConf buildsystem.
 #  * qt4-qmake.cygclass -
 #    For packages which depend on Qt 4.x and use the qmake buildsystem.
+#  * qt5-qmake.cygclass -
+#    For packages which depend on Qt 5.x and use the qmake buildsystem.
 #  * waf.cygclass -
 #    For packages which use the Waf buildsystem.
 #
@@ -358,6 +360,8 @@ unset conf;
 #    For packages which depend on Qt 3.x.
 #  * qt4.cygclass -
 #    For packages which depend on Qt 4.x.
+#  * qt5.cygclass -
+#    For packages which depend on Qt 5.x.
 #  * tcl.cygclass -
 #    For packages which depend on Tcl.
 #  * wxwidgets.cygclass -

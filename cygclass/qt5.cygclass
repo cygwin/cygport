@@ -1,0 +1,189 @@
+################################################################################
+#
+# qt5.cygclass - functions for building Qt5-dependent packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/qt5.cygclass
+#  SYNOPSIS
+#  inherit qt5
+#  DESCRIPTION
+#  Qt is a C++ cross-platform application framework for writing desktop GUI
+#  applications.  Qt is the underlying toolkit used by the KDE desktop
+#  environment.
+#
+#  This cygclass provides definitions and install functions which can be used
+#  by all Qt5-based packages, regardless of the build system being used.
+#  NOTES
+#  * Packages based on the previous 3.x or 4.x versions of Qt must use
+#    qt3.cygclass or qt4.cygclass, respectively.
+#  INHERITED BY
+#  qt5-qmake.cygclass
+#****
+
+#****d* qt5.cygclass/QT5_QTDIR
+#  DESCRIPTION
+#  Root directory for the Qt5 installation.
+#****
+#****d* qt5.cygclass/QT5_BINDIR
+#  DESCRIPTION
+#  Directory containing the Qt5 build tools.
+#****
+#****d* qt5.cygclass/QT5_INCLUDEDIR
+#  DESCRIPTION
+#  Directory containing the Qt5 library headers.
+#****
+#****d* qt5.cygclass/QT5_LIBDIR
+#  DESCRIPTION
+#  Directory containing the Qt5 link libraries.
+#****
+#****d* qt5.cygclass/QT5_PLUGINSDIR
+#  DESCRIPTION
+#  Installation path for Qt5 plugins.
+#****
+#****d* qt5.cygclass/QT5_DATADIR
+#  DESCRIPTION
+#  Directory containing Qt5 documentation, and translation data.
+#****
+#****d* qt5.cygclass/QT5_QMAKE
+#  DESCRIPTION
+#  Absolute path to the Qt5 project and Makefile generator
+#****
+#****d* qt5.cygclass/QT5_MOC
+#  DESCRIPTION
+#  Absolute path to the Qt5 Meta-Object Compiler
+#****
+#****d* qt5.cygclass/QT5_RCC
+#  DESCRIPTION
+#  Absolute path to the Qt5 resource compiler
+#****
+#****d* qt5.cygclass/QT5_UIC
+#  DESCRIPTION
+#  Absolute path to the Qt5 User Interface Compiler
+#****
+
+if inherited cross
+then
+	QT5_QTDIR=${CROSS_PREFIX}
+	QT5_BINDIR=${QT5_QTDIR}/bin
+	QT5_INCLUDEDIR=${CROSS_INCLUDEDIR}
+	QT5_LIBDIR=${CROSS_LIBDIR}
+	QT5_PLUGINSDIR=${CROSS_LIBDIR}/qt5/plugins
+	QT5_DATADIR=${CROSS_DATADIR}/qt5
+	QT5_QMAKE=/usr/bin/${CROSS_HOST}-qmake
+	QT5_MOC=/usr/bin/${CROSS_HOST}-moc
+	QT5_RCC=/usr/bin/${CROSS_HOST}-rcc
+	QT5_UIC=/usr/bin/${CROSS_HOST}-uic
+else
+	QT5_QTDIR=/usr/lib/qt5
+	QT5_BINDIR=${QT5_QTDIR}/bin
+	QT5_INCLUDEDIR=/usr/include/qt5
+	QT5_LIBDIR=/usr/lib
+	QT5_PLUGINSDIR=${QT5_QTDIR}/plugins
+	QT5_DATADIR=/usr/share/qt5
+	QT5_QMAKE=${QT5_BINDIR}/qmake
+	QT5_MOC=${QT5_BINDIR}/moc
+	QT5_RCC=${QT5_BINDIR}/rcc
+	QT5_UIC=${QT5_BINDIR}/uic
+fi
+
+__qt5_qmakespec() {
+	local spec
+
+	# FIXME: -64 varieties, qws/*
+	case ${CHOST} in
+	*-ibm-aix*)        spec="aix-g++" ;;
+	*-linux-android*)  spec="android-g++" ;;
+	*-*-cygwin*)       spec="cygwin-g++" ;;
+	*-*-darwin*)       spec="darwin-g++" ;;
+	*-*-freebsd*)      spec="freebsd-g++" ;;
+	*-*-hpux)          spec="hpux-g++" ;;
+	*-*-irix)          spec="irix-g++" ;;
+	*-*-linux*)        spec="linux-g++" ;;
+	*-*-lynxos*)       spec="lynxos-g++" ;;
+	*-*-netbsd*)       spec="netbsd-g++" ;;
+	*-*-openbsd*)      spec="openbsd-g++" ;;
+	*-*-sco*)          spec="sco-g++" ;;
+	*-*-solaris*)      spec="solaris-g++" ;;
+	*-*-osf*)          spec="tru64-g++" ;;
+	*-*-sysv4.2uw*)    spec="unixware-g++" ;;
+	*-*-mingw*)        spec="win32-g++" ;;
+	# must be last to avoid false positives from *-*-KERNEL-gnu
+	*-*-gnu*)          spec="hurd-g++" ;;
+	*)	error "Host ${CHOST} is not supported by Qt5" ;;
+	esac
+
+	echo -n ${spec}
+}
+
+export QMAKESPEC=$(__qt5_qmakespec)
+
+export PATH="${QT5_BINDIR}:${PATH}"
+
+#****I* qt5.cygclass/doqt5inc
+#  SYNOPSIS
+#  doqt5inc HEADERS
+#  DESCRIPTION
+#  Installs headers into QT5_INCLUDEDIR under $D.
+#****
+doqt5inc() {
+	insinto ${QT5_INCLUDEDIR}
+	doins ${@}
+}
+
+#****I* qt5.cygclass/qt5pluginto
+#  SYNOPSIS
+#  qt5pluginto SUBDIRECTORY
+#  DESCRIPTION
+#  Sets the subdirectory of QT5_PLUGINDIR in which doqt5plugin should install.
+#  Supported subdirectories include:
+#  * designer: Qt Designer widgets
+#  * imageformats: image format handlers
+#  * platformthemes: GUI style engines
+#  * sqldrivers: SQL datbase backends
+#****
+qt5pluginto() {
+	if [ -z "${1}" -o -n "${2}" ]
+	then
+		error "qt5pluginto requires exactly one argument"
+	fi
+
+	__QT5_PLUGIN_SUBDIR=${1}
+}
+
+#****I* qt5.cygclass/doqt5plugin
+#  SYNOPSIS
+#  qt5pluginto SUBDIRECTORY
+#  doqt5plugin PLUGINS
+#  DESCRIPTION
+#  Installs the given plugins into the subdirectory of QT5_PLUGINDIR passed
+#  to the previous call to qt5pluginto.
+#****
+doqt5plugin() {
+	if ! defined __QT5_PLUGIN_SUBDIR
+	then
+		error "qt5pluginto must be called before doqt5plugin"
+	fi
+
+	exeinto ${QT5_PLUGINSDIR}/${__QT5_PLUGIN_SUBDIR}
+	doexe ${@}
+}
+
+readonly -f __qt5_qmakespec doqt5inc qt5pluginto doqt5plugin

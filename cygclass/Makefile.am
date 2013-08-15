@@ -57,6 +57,8 @@ cygclass_DATA =					\
 	cygclass/qt4-cmake.cygclass		\
 	cygclass/qt4-qconf.cygclass		\
 	cygclass/qt4-qmake.cygclass		\
+	cygclass/qt5.cygclass			\
+	cygclass/qt5-qmake.cygclass		\
 	cygclass/R.cygclass			\
 	cygclass/rox.cygclass			\
 	cygclass/ruby.cygclass			\

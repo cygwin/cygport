@@ -32,7 +32,8 @@
 #  This cygclass provides definitions and install functions which can be used
 #  by all Qt3-based packages, regardless of the build system being used.
 #  NOTES
-#  * Packages based on the current 4.x version of Qt must use qt4.cygclass.
+#  * Packages based on the newer 4.x or 5.x versions of Qt must use
+#    qt4.cygclass or qt5.cygclass, respectively.
 #  * The 3.x version of Qt is deprecated.  Support for Qt3 may be dropped in
 #    the near future.
 #  INHERITED BY
