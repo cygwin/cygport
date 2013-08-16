@@ -81,9 +81,11 @@ qt5_qmake_compile() {
 #****I* qt5-qmake.cygclass/qt5_qmake_install
 #  SYNOPSIS
 #  cd $B
-#  qt5_qmake_install
+#  qt5_qmake_install [OPTIONS]
 #  DESCRIPTION
 #  Installs the package into $D and fixes some common installation issues.
+#  Any additional arguments (which may be either variable overrides or
+#  additional install targets) are passed directly to make.
 #  WARNING
 #  Many qmake projects do not define correct install rules, if any at all.
 #  qt5_qmake_install is of no use in such cases; you must use manual
@@ -92,7 +94,7 @@ qt5_qmake_compile() {
 qt5_qmake_install() {
 	local dll la pc
 
-	make install INSTALL_ROOT=${D} || error "make install failed"
+	make INSTALL_ROOT=${D} install ${@} || error "make install failed"
 
 	for dll in $(find ${D}$(__host_prefix)/lib/ -maxdepth 1 -name '*.dll' 2> /dev/null)
 	do
