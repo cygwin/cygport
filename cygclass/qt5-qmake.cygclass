@@ -90,7 +90,7 @@ qt5_qmake_compile() {
 #  installation commands instead.
 #****
 qt5_qmake_install() {
-	local dll pc
+	local dll la pc
 
 	make install INSTALL_ROOT=${D} || error "make install failed"
 
@@ -98,6 +98,14 @@ qt5_qmake_install() {
 	do
 		dodir $(__host_prefix)/bin
 		mv ${dll} ${D}$(__host_prefix)/bin/
+
+		# dlname would need to be fixed for ../bin, and old_library
+		# made empty, but we don't want .la files anyway
+		la=$(echo ${dll} | sed -e 's|cyg\([^/]*\)-[0-9]*\.dll|lib\1.la|')
+		if [ -f ${la} ]
+		then
+			rm -f ${la}
+		fi
 	done
 }
 
