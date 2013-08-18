@@ -92,7 +92,7 @@ xvfb_run() {
 		if [ x"$(ps | grep gam_server)" = x ]
 		then
 			export GAM_CLIENT_ID="cygport"
-			/usr/lib/gamin/gam_server --notimeout $GAM_CLIENT_ID &
+			/usr/libexec/gam_server --notimeout $GAM_CLIENT_ID &
 			gamin_pid=$!
 			gamin_sock="/tmp/fam-$(id -un)/fam-"$GAM_CLIENT_ID
 		fi
