@@ -78,7 +78,7 @@ else
 	export QTDIR=/usr/lib/qt3
 	QT3_BINDIR=${QTDIR}/bin
 	QT3_INCLUDEDIR=/usr/include/qt3
-	QT3_LIBDIR=${QTDIR}/lib
+	QT3_LIBDIR=/usr/lib
 	QT3_PLUGINSDIR=${QTDIR}/plugins
 	QT3_DATADIR=/usr/share/qt3
 fi

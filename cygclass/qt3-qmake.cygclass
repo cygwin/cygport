@@ -99,12 +99,6 @@ qt3_qmake_install() {
 		dodir /usr/bin
 		mv ${dll} ${D}/usr/bin/
 	done
-
-	for pc in $(find ${D}${QT3_LIBDIR}/pkgconfig -name '*.pc' 2> /dev/null)
-	do
-		dodir /usr/lib/pkgconfig
-		mv ${pc} ${D}/usr/lib/pkgconfig/
-	done
 }
 
 #****o* qt3-qmake.cygclass/src_compile (qt3-qmake)
