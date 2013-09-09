@@ -68,7 +68,7 @@ cygqmake4() {
 		QMAKE_OBJCOPY=${OBJDUMP/dump/copy} \
 		QMAKE_RANLIB=${RANLIB} \
 		QMAKE_STRIP=: \
-		${CYGQMAKE4_ARGS} ${@} \
+		${CYGQMAKE4_ARGS} "${@}" \
 		|| error "qmake failed"
 }
 
