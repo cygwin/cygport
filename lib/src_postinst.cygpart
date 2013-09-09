@@ -971,7 +971,7 @@ __prepstrip() {
 
 		# Mono assemblies must not be stripped, but remove .mdb debug symbols,
 		# and make them non-executable so they're not launched by MS .NET
-		if ${objdump} -p "${exe}" 2>&1 | grep -q "DLL Name: mscoree.dll"
+		if file -b "${exe}" 2>&1 | grep -q "Mono/\.Net assembly"
 		then
 			chmod 0644 "${exe}"
 			rm -f "${exe}.mdb"

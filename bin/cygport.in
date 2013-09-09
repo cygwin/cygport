@@ -206,7 +206,7 @@ source ${_privlibdir}/check_funcs.cygpart
 ###
 
 # check now for all mandatory programs
-for _myprog in bzip2 cat chmod cp diff diffstat dos2unix find gawk grep gzip \
+for _myprog in bzip2 cat chmod cp diff diffstat dos2unix file find gawk grep gzip \
                install ln mkdir mv patch rm rsync sed sort tar xargs which
 do
 	if ! check_prog ${_myprog}
