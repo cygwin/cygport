@@ -113,7 +113,7 @@ __pkg_binpkg() {
 	n=0
 	while (( n < pkg_count ))
 	do
-		__step "${pkg_name[${n}]}-${PVR}.tar.bz2";
+		__step "${pkg_name[${n}]}-${PVR}.tar.xz";
 
 		pkg_contents_var=${pkg_name[${n}]//[-+\.]/_}_CONTENTS;
 		pkg_docs_var=${pkg_name[${n}]//[-+\.]/_}_DOCS;
@@ -141,12 +141,12 @@ __pkg_binpkg() {
 
 		if defined pkg_contents
 		then
-			tar jcvf ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 --exclude=usr/lib/debug --exclude=usr/src ${pkg_contents} \
+			tar Jcvf ${top}/${pkg_name[${n}]}-${PVR}.tar.xz --exclude=usr/lib/debug --exclude=usr/src ${pkg_contents} \
 				| tee ${T}/.${pkg_name[${n}]}.lst \
 				|| error "Binary package creation failed: ${pkg_name[${n}]}"
 		else
 			inform "Creating empty package"
-			bzip2 < /dev/null > ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 \
+			xz < /dev/null > ${top}/${pkg_name[${n}]}-${PVR}.tar.xz \
 				|| error "Empty package creation failed"
 			> ${T}/.${pkg_name[${n}]}.lst
 		fi
@@ -156,8 +156,8 @@ __pkg_binpkg() {
 
 	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -d ${D}/usr/src/debug ]
 	then
-		__step "${PN}-debuginfo-${PVR}.tar.bz2";
-		tar jcvf ${top}/${PN}-debuginfo-${PVR}.tar.bz2 usr/*/debug/ \
+		__step "${PN}-debuginfo-${PVR}.tar.xz";
+		tar Jcvf ${top}/${PN}-debuginfo-${PVR}.tar.xz usr/*/debug/ \
 				| tee ${T}/.${PN}-debuginfo.lst \
 				|| error "Debuginfo package creation failed: ${PN}-debuginfo"
 		echo;
@@ -185,7 +185,7 @@ __pkg_pkgcheck() {
 		n+=1
 	done
 
-	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${top}/${PN}-debuginfo-${PVR}.tar.bz2 ]
+	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${top}/${PN}-debuginfo-${PVR}.tar.xz ]
 	then
 		grep -Ev "/$" ${T}/.${PN}-debuginfo.lst >> ${tmp1}
 	fi
@@ -462,7 +462,7 @@ __pkg_srcpkg() {
 		fi
 	fi
 
-	tar jcvf ${top}/${PF}-src.tar.bz2 * || error "Source package creation failed"
+	tar Jcvf ${top}/${PF}-src.tar.xz * || error "Source package creation failed"
 	echo;
 }
 
@@ -480,7 +480,7 @@ __pkg_dist() {
 
 	mkdir -p ${distdir}/${PN};
 
-	cp ${top}/${PF}-src.tar.bz2 ${distdir}/${PN};
+	cp ${top}/${PF}-src.tar.xz ${distdir}/${PN};
 
 	if (( pkg_count == 1 )) && [ ${pkg_name[0]} = ${PN} ]
 	then
@@ -645,7 +645,7 @@ __pkg_dist() {
 
 		mkdir -p ${distdir}/${PN}/${distsubdir};
 
-		cp ${top}/${pkg_name[${n}]}-${PVR}.tar.bz2 ${distdir}/${PN}/${distsubdir};
+		cp ${top}/${pkg_name[${n}]}-${PVR}.tar.xz ${distdir}/${PN}/${distsubdir};
 
 		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
 		then
@@ -682,7 +682,7 @@ _EOF
 		for obspkg in ${!pkg_obsoletes_var}
 		do
 			mkdir -p ${distdir}/${PN}/${obspkg}
-			bzip2 < /dev/null > ${distdir}/${PN}/${obspkg}/${obspkg}-${PVR}.tar.bz2
+			xz < /dev/null > ${distdir}/${PN}/${obspkg}/${obspkg}-${PVR}.tar.xz
 
 			__step "${pkg_name[${n}]} OBSOLETES: ${obspkg}"
 
@@ -700,10 +700,10 @@ _EOF
 		n+=1;
 	done
 
-	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${top}/${PN}-debuginfo-${PVR}.tar.bz2 ]
+	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${top}/${PN}-debuginfo-${PVR}.tar.xz ]
 	then
 		mkdir -p ${distdir}/${PN}/${PN}-debuginfo
-		cp ${top}/${PN}-debuginfo-${PVR}.tar.bz2 ${distdir}/${PN}/${PN}-debuginfo/
+		cp ${top}/${PN}-debuginfo-${PVR}.tar.xz ${distdir}/${PN}/${PN}-debuginfo/
 
 		if [ -f ${C}/${PN}-debuginfo.hint ]
 		then

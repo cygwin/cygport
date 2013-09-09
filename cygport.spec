@@ -35,6 +35,7 @@ Requires:       util-linux
 Requires:       vim-filesystem
 Requires:       wget
 Requires:       which
+Requires:       xz
 
 
 %description

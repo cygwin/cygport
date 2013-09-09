@@ -7,8 +7,8 @@ EXTRA_DIST += $(TESTS)
 CLEANFILES += \
 	tests/foo-1.2.3-4.cygport \
 	tests/$(PACKAGE).cygport \
-	tests/$(PACKAGE)-$(VERSION)-1-src.tar.bz2 \
-	tests/$(PACKAGE)-$(VERSION)-1.tar.bz2 \
+	tests/$(PACKAGE)-$(VERSION)-1-src.tar.xz \
+	tests/$(PACKAGE)-$(VERSION)-1.tar.xz \
 	tests/$(PACKAGE)-$(VERSION).tar.xz
 
 clean-local:

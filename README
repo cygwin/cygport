@@ -208,6 +208,7 @@ addition to the packages own dependencies:
     util-linux
     wget
     which
+    xz
 
 6. DOWNLOAD AND INSTALLATION
 

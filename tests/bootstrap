@@ -5,7 +5,7 @@ set -e
 test -d ${top_builddir}/tests || mkdir -p ${top_builddir}/tests
 cd ${top_builddir}/tests
 
-rm -f ${PACKAGE}-${VERSION}-1-src.tar.bz2 ${PACKAGE}-${VERSION}-1.tar.bz2
+rm -f ${PACKAGE}-${VERSION}-1-src.tar.xz ${PACKAGE}-${VERSION}-1.tar.xz
 
 if [ -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.xz ]
 then
@@ -26,5 +26,5 @@ cp -r ${PACKAGE}-${VERSION}-1/dist/${PACKAGE} .
 
 ${top_builddir}/bin/cygport-inplace ${PACKAGE}.cygport finish
 
-rm -f ${PACKAGE}-${VERSION}-1-src.tar.bz2 ${PACKAGE}-${VERSION}-1.tar.bz2
+rm -f ${PACKAGE}-${VERSION}-1-src.tar.xz ${PACKAGE}-${VERSION}-1.tar.xz
 rm -f ${PACKAGE}-${VERSION}.tar.xz ${PACKAGE}.cygport
