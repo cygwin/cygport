@@ -644,6 +644,8 @@ cygconf() {
 	if inherited multilib
 	then
 		confargs+=" --libdir=${prefix}/${MULTILIB_LIBDIR}"
+	else
+		confargs+=" --libdir=${prefix}/lib"
 	fi
 
 	case "x${confver}" in
