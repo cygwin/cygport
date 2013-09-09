@@ -96,20 +96,11 @@ qt4_qmake_install() {
 
 	make install INSTALL_ROOT=${D} || error "make install failed"
 
-	for dll in $(find ${D}$(__host_prefix)/lib/ ${D}${QT4_LIBDIR} -maxdepth 1 -name '*.dll' 2> /dev/null)
+	for dll in $(find ${D}$(__host_prefix)/lib/ -maxdepth 1 -name '*.dll' 2> /dev/null)
 	do
 		dodir $(__host_prefix)/bin
 		mv ${dll} ${D}$(__host_prefix)/bin/
 	done
-
-	if [ ${QT4_LIBDIR} != $(__host_prefix)/lib ]
-	then
-		for pc in $(find ${D}${QT4_LIBDIR}/pkgconfig -name '*.pc' 2> /dev/null)
-		do
-			dodir $(__host_prefix)/lib/pkgconfig
-			mv ${pc} ${D}$(__host_prefix)/lib/pkgconfig/
-		done
-	fi
 }
 
 #****o* qt4-qmake.cygclass/src_compile (qt4-qmake)
