@@ -359,15 +359,15 @@ mirror_sourceware+=" ftp://ftp.sourceware.org/pub"
 
 #****d* Mirrors/mirror_qt
 #  DESCRIPTION
-#  Qt, QtCreator, and QtJambi downloads
+#  Qt, QtCreator, and PySide downloads
 #  SYNOPSIS
-#  SRC_URI="mirror://qt/qt/source/${ORIG_PN}-${PV}.tar.bz2"
+#  SRC_URI="mirror://qt/offical_releases/qt/${VERSION%.*}/${VERSION}/qt-everywhere-opensource-src-${VERSION}.tar.gz"
 #  DEFAULT MIRROR
-#  http://download.qt.nokia.com/
+#  http://download.qt-project.org/
 #  MIRROR LIST
-#  ftp://ftp.qt.nokia.com/mirrors
+#  http://download.qt-project.org/static/mirrorlist/
 #****
-mirror_qt+=" http://download.qt.nokia.com"
+mirror_qt+=" http://download.qt-project.org"
 
 # curl http://tug.org/texlive/mirmon/ \
 #   | sed -n -e 's|^  <TD ALIGN=RIGHT><A HREF="\([^"]*\)/".*|\1|p'
