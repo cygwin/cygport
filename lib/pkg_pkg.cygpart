@@ -738,12 +738,7 @@ _EOF
 		elif [ -n "${!pkg_category_var:-${CATEGORY}}" \
 			-a -n "${!pkg_summary_var:-${SUMMARY}}${!pkg_description_var:-${DESCRIPTION}}" ]
 		then
-			cat > ${distdir}/${PN}/setup.hint <<-_EOF
-category: ${!pkg_category_var:-${CATEGORY}}
-requires:
-sdesc: "${!pkg_summary_var:-${SUMMARY}}"
-ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
-_EOF
+			echo "skip:" > ${distdir}/${PN}/setup.hint
 		else
 			warning "${PN}.hint is missing";
 		fi
