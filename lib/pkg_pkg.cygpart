@@ -84,6 +84,8 @@ __pkg_binpkg() {
 
 	pkg_list=(${PKG_LISTS:-${PKG_NAMES}});
 
+	rm -fr ${distdir}/*;
+
 	cd ${D};
 
 	__step "Creating binary package(s)";
@@ -118,6 +120,11 @@ __pkg_binpkg() {
 		pkg_contents_var=${pkg_name[${n}]//[-+\.]/_}_CONTENTS;
 		pkg_docs_var=${pkg_name[${n}]//[-+\.]/_}_DOCS;
 
+		case ${pkg_name[${n}]} in
+			${PN})  distsubdir="" ;;
+			*)      distsubdir=${pkg_name[${n}]} ;;
+		esac
+
 		if defined ${pkg_contents_var}
 		then
 			pkg_contents=${!pkg_contents_var}
@@ -141,12 +148,15 @@ __pkg_binpkg() {
 
 		if defined pkg_contents
 		then
-			tar Jcvf ${top}/${pkg_name[${n}]}-${PVR}.tar.xz --exclude=usr/lib/debug --exclude=usr/src ${pkg_contents} \
+			mkdir -p ${distdir}/${PN}/${distsubdir};
+			tar Jcvf ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.tar.xz \
+				--exclude=usr/lib/debug --exclude=usr/src ${pkg_contents} \
 				| tee ${T}/.${pkg_name[${n}]}.lst \
 				|| error "Binary package creation failed: ${pkg_name[${n}]}"
 		else
 			inform "Creating empty package"
-			xz < /dev/null > ${top}/${pkg_name[${n}]}-${PVR}.tar.xz \
+			mkdir -p ${distdir}/${PN}/${distsubdir};
+			xz < /dev/null > ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.tar.xz \
 				|| error "Empty package creation failed"
 			> ${T}/.${pkg_name[${n}]}.lst
 		fi
@@ -157,9 +167,11 @@ __pkg_binpkg() {
 	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -d ${D}/usr/src/debug ]
 	then
 		__step "${PN}-debuginfo-${PVR}.tar.xz";
-		tar Jcvf ${top}/${PN}-debuginfo-${PVR}.tar.xz usr/*/debug/ \
-				| tee ${T}/.${PN}-debuginfo.lst \
-				|| error "Debuginfo package creation failed: ${PN}-debuginfo"
+		mkdir -p ${distdir}/${PN}/${PN}-debuginfo;
+		tar Jcvf ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.tar.xz \
+			usr/*/debug/ \
+			| tee ${T}/.${PN}-debuginfo.lst \
+			|| error "Debuginfo package creation failed: ${PN}-debuginfo"
 		echo;
 	else
 		inform "No debug files, skipping debuginfo subpackage"
@@ -185,7 +197,7 @@ __pkg_pkgcheck() {
 		n+=1
 	done
 
-	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${top}/${PN}-debuginfo-${PVR}.tar.xz ]
+	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.tar.xz ]
 	then
 		grep -Ev "/$" ${T}/.${PN}-debuginfo.lst >> ${tmp1}
 	fi
@@ -462,7 +474,7 @@ __pkg_srcpkg() {
 		fi
 	fi
 
-	tar Jcvf ${top}/${PF}-src.tar.xz * || error "Source package creation failed"
+	tar Jcvf ${distdir}/${PN}/${PF}-src.tar.xz * || error "Source package creation failed"
 	echo;
 }
 
@@ -474,13 +486,7 @@ __pkg_dist() {
 	local pkg_category_var pkg_requires_var pkg_summary_var;
 	local pkg_description_var pkg_message_var pkg_obsoletes_var;
 
-	rm -fr ${distdir}/*;
-
 	cd ${top};
-
-	mkdir -p ${distdir}/${PN};
-
-	cp ${top}/${PF}-src.tar.xz ${distdir}/${PN};
 
 	if (( pkg_count == 1 )) && [ ${pkg_name[0]} = ${PN} ]
 	then
@@ -643,10 +649,6 @@ __pkg_dist() {
 			declare ${pkg_obsoletes_var}="${OBSOLETES}"
 		fi
 
-		mkdir -p ${distdir}/${PN}/${distsubdir};
-
-		cp ${top}/${pkg_name[${n}]}-${PVR}.tar.xz ${distdir}/${PN}/${distsubdir};
-
 		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
 		then
 			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/setup.hint;
@@ -681,7 +683,7 @@ _EOF
 
 		for obspkg in ${!pkg_obsoletes_var}
 		do
-			mkdir -p ${distdir}/${PN}/${obspkg}
+			mkdir -p ${distdir}/${PN}/${obspkg};
 			xz < /dev/null > ${distdir}/${PN}/${obspkg}/${obspkg}-${PVR}.tar.xz
 
 			__step "${pkg_name[${n}]} OBSOLETES: ${obspkg}"
@@ -700,11 +702,8 @@ _EOF
 		n+=1;
 	done
 
-	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${top}/${PN}-debuginfo-${PVR}.tar.xz ]
+	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.tar.xz ]
 	then
-		mkdir -p ${distdir}/${PN}/${PN}-debuginfo
-		cp ${top}/${PN}-debuginfo-${PVR}.tar.xz ${distdir}/${PN}/${PN}-debuginfo/
-
 		if [ -f ${C}/${PN}-debuginfo.hint ]
 		then
 			cp ${C}/${PN}-debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/setup.hint
