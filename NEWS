@@ -1,3 +1,11 @@
+0.14.0:
+	* Creates .tar.xz packages (adds dependency on xz).
+	* Generated packages are placed solely in NAME-VERSION-RELEASE/dist.
+	* Consequently, the 'all' command no longer includes 'finish'.
+	* The setup.hint skip: tag is used for source-only packages.
+	* qt3, qt4: use standard libdir for link libraries.
+	* qt5, qt5-qmake: NEW for Qt5-dependent packages.
+
 0.13.0:
 	* Added [PKG_]OBSOLETES.
 	* New gnuconfigize function, called in all autotools-based cygclasses.
