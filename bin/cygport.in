@@ -842,7 +842,7 @@ do
 			__pkg_diff;
 			_status=$?;
 			;;
-		finish)
+		clean|finish)
 			__finish;
 			_status=$?;
 			;;

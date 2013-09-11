@@ -10,7 +10,7 @@ _cygport()
 	commands='download fetch wget get \
 		prep unpack oldpatch compile build make \
 		check test inst install list dep depends \
-		info package pkg diff mkdiff mkpatch finish  \
+		info package pkg diff mkdiff mkpatch clean finish \
 		almostall all help version homepage website'
 
 	if [[ $COMP_CWORD -eq 1 ]] ; then
