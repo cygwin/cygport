@@ -846,7 +846,7 @@ do
 			__finish;
 			_status=$?;
 			;;
-		almostall)
+		almostall|all)
 			__stage Preparing && __src_prep && \
 			__log_init ${compilelog} && \
 			__check_depends && \
@@ -855,18 +855,6 @@ do
 			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
 			__log_init ${pkglog} && \
 			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog}
-			_status=$?;
-			;;
-		all)
-			__stage Preparing && __src_prep && \
-			__log_init ${compilelog} && \
-			__check_depends && \
-			__stage Compiling && src_compile 2>&1 | tee -a ${compilelog} && \
-			__log_init ${installlog} && \
-			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
-			__log_init ${pkglog} && \
-			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog} && \
-			__finish;
 			_status=$?;
 			;;
 		help)

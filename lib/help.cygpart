@@ -47,8 +47,7 @@ __show_help() {
 		  install      install into a DESTDIR, and run post-installation steps
 		  package      create binary and source packages
 		  finish       delete the working directory
-		  almostall    run all of the above, excluding finish
-		  all          run all of the above, including finish
+		  all          run all of the above, excluding finish
 
 		See the included README file for further documentation.
 
