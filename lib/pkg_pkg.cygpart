@@ -30,7 +30,7 @@ __pkg_binpkg() {
 
 #****v* Packaging/PKG_NAMES
 #  SYNOPSIS
-#  PKG_NAMES="foo libfoo1 libfoo-devel"
+#  PKG_NAMES="foo libfoo1 libfoo-devel libfoo-doc"
 #  DESCRIPTION
 #  A list of binary packages to create from the files installed into D.
 #  The exact contents of these packages are specified in PKG_CONTENTS
@@ -46,8 +46,8 @@ __pkg_binpkg() {
 
 #****v* Packaging/PKG_HINTS
 #  SYNOPSIS
-#  PKG_NAMES="foo libfoo1 libfoo-devel"
-#  PKG_HINTS="setup runtime devel"
+#  PKG_NAMES="foo libfoo1 libfoo-devel libfoo-doc"
+#  PKG_HINTS="setup runtime devel doc"
 #  DESCRIPTION
 #  A list of unsuffixed .hint files which should be used for each given
 #  binary package in PKG_NAMES.
@@ -61,10 +61,11 @@ __pkg_binpkg() {
 
 #****v* Packaging/PKG_CONTENTS
 #  SYNOPSIS
-#  PKG_NAMES="foo libfoo1 libfoo-devel"
-#  foo_CONTENTS="usr/bin/foo.exe usr/share/doc/ usr/share/locale/"
+#  PKG_NAMES="foo libfoo1 libfoo-devel libfoo-doc"
+#  foo_CONTENTS="--exclude=html usr/bin/foo.exe usr/share/doc/ usr/share/locale/"
 #  libfoo1_CONTENTS="usr/bin/cygfoo-1.dll"
 #  libfoo_devel_CONTENTS="usr/include/ usr/lib/ usr/share/aclocal/"
+#  libfoo_doc_CONTENTS="usr/share/doc/${NAME}/html/"
 #  DESCRIPTION
 #  A list of files to be included in each binary package.  The PKG_CONTENTS
 #  name is descriptive rather than literal, where "PKG" should be
@@ -74,6 +75,9 @@ __pkg_binpkg() {
 #  must be substituted with an underscore ('_'), such as libfoo-devel above.
 #  NOTES
 #  * Be sure to omit the leading forward slash from file contents.
+#  * Patterns to be excluded from a given package may be specified with
+#    an --exclude= argument (as above).  All such arguments must precede
+#    all file or directory names which are being included.
 #  * Early versions of cygport only supported a literal PKG_CONTENTS, in
 #    form of an array.  This form should be considered deprecated in favour
 #    of explicitly-named variables as described above.
