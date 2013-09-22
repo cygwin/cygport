@@ -419,7 +419,7 @@ __pkg_diff() {
 			> ${patchdir}/${src_patchfile} || true;
 	fi
 
-	sed -e '/^diff -u/d' -i ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
+	sed -b -e '/^diff -u/d' -i ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
 
 	diffstat -p${difflevel} ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
 }
