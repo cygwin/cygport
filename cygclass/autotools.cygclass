@@ -396,6 +396,15 @@ cygautoreconf() {
 			*)	error "autoconf2.5 is required to build this package" ;;
 		esac
 
+		if __config_equals with_libtool 1
+		then
+			case $(automake --version 2> /dev/null | head -n 1) in
+			automake*\ 1.9.*|automake*\ 1.1[0-9]*) ;;
+			*)  inform "libtool requires at least automake 1.9; setting WANT_AUTOMAKE"
+			    WANT_AUTOMAKE=1.9 ;;
+			esac
+		fi
+
 #****v* cygautoreconf/NO_ACLOCAL
 #  DESCRIPTION
 #  Define this variable to a boolean true value to skip running aclocal
