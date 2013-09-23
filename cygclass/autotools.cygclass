@@ -650,7 +650,7 @@ cygconf() {
 
 	case "x${confver}" in
 		x2.6[0-9]*)
-			confargs+=" --datarootdir=${prefix}/share --docdir=/usr/share/doc/${PN}"
+			confargs+=" --datarootdir=${prefix}/share --docdir=/usr/share/doc/${PN} --htmldir=/usr/share/doc/${PN}/html"
 			;;
 		*)
 			confargs+=" --infodir=${prefix}/share/info --mandir=${prefix}/share/man"
