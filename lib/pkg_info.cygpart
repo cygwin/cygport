@@ -20,6 +20,20 @@
 #
 ################################################################################
 
+__pager() {
+	local pager
+	if defined PAGER
+	then
+		pager=${PAGER}
+	elif check_prog less
+	then
+		pager="less"
+	else
+		pager="cat"
+	fi
+	[ -t 1 ] && ${pager} || cat
+}
+
 #****v* Information/HOMEPAGE
 #  DESCRIPTION
 #  The website URI of the package.  Besides being informational, this defines
@@ -27,25 +41,27 @@
 #****
 
 __show_info() {
-	cat <<-_EOF
+	__pager <<-_EOF
 	Cygport package information
 	    Package name:     ${PN}
 	    Package version:  ${PV}
 	    Cygwin release:   ${PR}
 	    Homepage:         ${HOMEPAGE}
-	    Description:      ${SUMMARY:-${DESCRIPTION}}
-		_EOF
+	    Summary:          ${SUMMARY:-${DESCRIPTION}}
+	    Description:
+${DESCRIPTION:-${SUMMARY}}
+	_EOF
 }
 
 __list_files() {
 	pushd ${D}
-	find * -path 'usr/*/debug' -prune -o ! -type d -print | sed 's!^!  /!' | sort
+	find * -path 'usr/*/debug' -prune -o ! -type d -print | sed 's!^!  /!' | sort | __pager
 	popd
 }
 
 __list_debug_files() {
 	pushd ${D}
-	find usr/*/debug ! -type d 2>/dev/null | sed 's!^!  /!' | sort
+	find usr/*/debug ! -type d 2>/dev/null | sed 's!^!  /!' | sort | __pager
 	popd
 }
 
@@ -531,7 +547,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 
 __show_deps() {
 	pushd ${D}
-	__list_deps * | sort -fu | sed "/^${PN}-[0-9].*$/d;s/^/  /g"
+	__list_deps * | sort -fu | sed "/^${PN}-[0-9].*$/d;s/^/  /g" | __pager
 	popd
 }
 
@@ -559,4 +575,4 @@ __show_web() {
 }
 
 readonly -f __list_files __list_debug_files __list_deps \
-	    __show_deps __show_info __show_web
+	    __show_deps __show_info __show_web __pager
