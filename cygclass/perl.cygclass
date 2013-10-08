@@ -191,8 +191,7 @@ fi	# defined CPAN_AUTHOR
 perl_compile() {
 	if [ -e Build.PL ]
 	then
-		check_perl_module Module::Build || error "perl-Module-Build is required"
-		${PERL} Build.PL installdirs=vendor ${@} || error "Module::Build creation failed"
+		${PERL} Build.PL --installdirs=vendor ${@} || error "Module::Build creation failed"
 		${PERL} Build || error "Module::Build build failed"
 	elif [ -e Makefile.PL ]
 	then
@@ -213,7 +212,6 @@ perl_compile() {
 perl_test() {
 	if [ -f Build ]
 	then
-		check_perl_module Module::Build || error "perl-Module-Build is required"
 		${PERL} Build test
 	elif [ -f Makefile ]
 	then
@@ -234,8 +232,7 @@ perl_test() {
 perl_install() {
 	if [ -f Build ]
 	then
-		check_perl_module Module::Build || error "perl-Module-Build is required"
-		${PERL} Build install destdir=${D} ${@} || error "Module::Build install failed"
+		${PERL} Build install --destdir=${D} ${@} || error "Module::Build install failed"
 	elif [ -f Makefile ]
 	then
 		cyginstall ${@}
