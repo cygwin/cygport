@@ -457,8 +457,8 @@ cygautoreconf() {
 #  versions of gettext are incompatible with the current libtool.
 #****
 
-		ACLOCAL=${ACLOCAL:-aclocal}
-		AUTOPOINT=${AUTOPOINT:-autopoint}
+		ACLOCAL=aclocal
+		AUTOPOINT=autopoint
 
 		if cross_compiling || inherited toolchain
 		then
