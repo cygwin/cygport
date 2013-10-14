@@ -669,13 +669,7 @@ dosym() {
 		error "dosym: ${dest%/*} is not a directory"
 	fi
 
-	case ${CHOST} in
-	*-*-mingw*|*-*-msys*|*-*-msdos*)
-		ln_s="cp" ;;
-	*)	ln_s="ln -s" ;;
-	esac
-
-	${ln_s} -f ${_argv[*]:1:$((_argc - 1))} ${D}${dest} || error "dosym failed"
+	ln -sf ${_argv[*]:1:$((_argc - 1))} ${D}${dest} || error "dosym failed"
 
 	popd
 }

@@ -1158,15 +1158,6 @@ __prep_symlinks() {
 					warning "symlink ${l#${D}} points to nonexistant ${l_src}";
 					continue
 				fi
-
-				# Some systems do not support symlinks
-				case ${CHOST} in
-				*-*-mingw*|*-*-msys*|*-*-msdos*)
-					echo "        ${l#${D}}";
-					rm -f "${l}";
-					cp -LR "${l_src}" "${l}";
-					;;
-				esac
 				;;
 			*)
 				if [ ! -e "${l%/*}/${l_src}" ]
@@ -1174,15 +1165,6 @@ __prep_symlinks() {
 					warning "symlink ${l#${D}} points to nonexistant ${l_src}";
 					continue
 				fi
-
-				# Some systems do not support symlinks
-				case ${CHOST} in
-				*-*-mingw*|*-*-msys*|*-*-msdos*)
-					echo "        ${l#${D}}";
-					rm -f "${l}";
-					cp -LR "${l%/*}/${l_src}" "${l}";
-					;;
-				esac
 				;;
 		esac
 	done
