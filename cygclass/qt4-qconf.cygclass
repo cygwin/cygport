@@ -64,6 +64,7 @@ qt4_qconf_compile() {
 	fi
 
 	./configure --prefix=$(__host_prefix) --qtdir=${QT4_QTDIR} ${@} || error "qconf configure failed"
+	cygqmake4
 	cygmake
 }
 
