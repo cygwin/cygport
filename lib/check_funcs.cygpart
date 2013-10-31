@@ -427,7 +427,7 @@ check_tcl_module() {
 
 	for mod
 	do
-		if echo "package require ${mod}; exit" | tclsh 2>&1 | grep -q "^can't find package"
+		if echo "package require ${mod}; exit" | LC_ALL=C tclsh 2>&1 | grep -q "^can't find package"
 		then
 			return 2;
 		fi

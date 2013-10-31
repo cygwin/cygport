@@ -41,7 +41,7 @@
 check_header() {
 	local d
 	local h
-	local gcc_inc=$(${CC} -print-search-dirs | grep '^install:' | cut -d ' ' -f 2)/include
+	local gcc_inc=$(LC_ALL=C ${CC} -print-search-dirs | grep '^install:' | cut -d ' ' -f 2)/include
 
 	local inc_path="${gcc_inc} ${gcc_inc}/c++ /usr/${CHOST}/include $(__host_prefix)/include"
 
@@ -80,7 +80,7 @@ check_lib() {
 	local d
 	local l
 	local shlibext
-	local lib_path=$(${CC} -print-search-dirs | grep '^libraries:' | sed -e 's|libraries: =||' -e 's|:| |g' | xargs -n1 readlink -e)
+	local lib_path=$(LC_ALL=C ${CC} -print-search-dirs | grep '^libraries:' | sed -e 's|libraries: =||' -e 's|:| |g' | xargs -n1 readlink -e)
 
 	case ${CHOST} in
 		*-cygwin*|*-mingw*|*-msys*)
