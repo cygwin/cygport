@@ -376,12 +376,12 @@ apache2_postinst() {
 
 		if [ -f ${imp} ]
 		then
-			sym=$(nm ${imp} 2>/dev/null | sed -n -e 's|.* I __nm__\(.*\)_module$|\1|p')
+			sym=$(nm ${imp} 2>/dev/null | sed -n -e 's|.* I __nm_${ARCH_i686+_}\(.*\)_module$|\1|p')
 		fi
 
 		if ! defined sym
 		then
-			sym=$(nm ${mod} 2>/dev/null | sed -n -e 's|.* D _\(.*\)_module$|\1|p')
+			sym=$(nm -C ${mod} 2>/dev/null | sed -n -e 's|.* D \(.*\)_module$|\1|p')
 		fi
 
 		if ! defined sym
