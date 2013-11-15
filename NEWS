@@ -1,3 +1,11 @@
+0.14.1:
+	* $PAGER (e.g. less) is now used to display 'list', 'listdebug',
+	  and 'info' information.
+	* Added -Wimplicit-function-declaration to CFLAGS/OBJCFLAGS to
+	  help detect potential crashers on x86_64-cygwin.
+	* setup.hint auto-generation no longer requires [PKG_]REQUIRES on Linux.
+	* Generated patches now preserve original line endings.
+
 0.14.0:
 	* Creates .tar.xz packages (adds dependency on xz).
 	* Generated packages are placed solely in NAME-VERSION-RELEASE/dist.

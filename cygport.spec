@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.14.0
+Version:        0.14.1
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -84,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Nov 15 2013 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.14.1-1
+- Version bump.
+
 * Wed Sep 11 2013 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.14.0-1
 - Version bump.
 - Add xz to Requires for .tar.xz package generation.
