@@ -125,7 +125,7 @@ __pkg_binpkg() {
 		pkg_docs_var=${pkg_name[${n}]//[-+\.]/_}_DOCS;
 
 		case ${pkg_name[${n}]} in
-			${PN})  distsubdir="" ;;
+			${PN})  distsubdir= ;;
 			*)      distsubdir=${pkg_name[${n}]} ;;
 		esac
 
@@ -639,7 +639,7 @@ __pkg_dist() {
 		pkg_obsoletes_var=${pkg_name[${n}]//[-+\.]/_}_OBSOLETES;
 
 		case ${pkg_name[${n}]} in
-			${PN})  distsubdir="" ;;
+			${PN})  distsubdir= ;;
 			*)      distsubdir=${pkg_name[${n}]} ;;
 		esac
 
@@ -656,25 +656,31 @@ __pkg_dist() {
 		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
 		then
 			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/setup.hint;
-		elif [ "${CBUILD##*-}" = "cygwin" -o -n "${!pkg_requires_var+yes}" ] \
-		     && [ -n "${!pkg_category_var:-${CATEGORY}}" -a -n "${!pkg_summary_var:-${SUMMARY}}" ]
+		elif [ -n "${!pkg_category_var:-${CATEGORY}}" -a -n "${!pkg_summary_var:-${SUMMARY}}" ]
 		then
 			if [ "${CBUILD##*-}" = "cygwin" ]
 			then
 				pkg_bin_requires=$(__list_deps $(sort -fu ${T}/.${pkg_name[${n}]}.lst | sed -e '\|/$|d;s| |^_^|g') \
 						   | sort -fu | sed -e "/^cygwin-1/d;/^${pkg_name[${n}]}-[0-9].*$/d;s/-[0-9].*$//g" \
 						   | sed -e ':a;N;$!ba;s/\n/ /g')
+				__step "${pkg_name[${n}]} requires: ${pkg_bin_requires} ${!pkg_requires_var}"
+			else
+				pkg_bin_requires=
+				inform "ADD ${distsubdir:-${PN}} DLL DEPENDENCIES TO ${PN}${distsubdir:+/}${distsubdir}/setup.hint"
 			fi
-
-			__step "${pkg_name[${n}]} requires: ${pkg_bin_requires} ${!pkg_requires_var}"
 
 			cat > ${distdir}/${PN}/${distsubdir}/setup.hint <<-_EOF
 category: ${!pkg_category_var:-${CATEGORY}}
 requires: ${pkg_bin_requires} ${!pkg_requires_var}
 sdesc: "${!pkg_summary_var:-${SUMMARY}}"
 ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
-${distsubdir:+external-source: ${PN}}
 _EOF
+			if defined distsubdir
+			then
+				cat >> ${distdir}/${PN}/${distsubdir}/setup.hint <<-_EOF
+external-source: ${PN}
+_EOF
+			fi
 			if defined ${pkg_message_var}
 			then
 				cat >> ${distdir}/${PN}/${distsubdir}/setup.hint <<-_EOF
