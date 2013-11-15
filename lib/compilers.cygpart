@@ -31,9 +31,9 @@ declare -x CC="gcc";
 #  Flags passed to CC when compiling C code.  Individual packages may append
 #  or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -ggdb -O2 -pipe
+#  -ggdb -O2 -pipe -Wimplicit-function-declaration
 #****
-declare -x CFLAGS="-ggdb -O2 -pipe";
+declare -x CFLAGS="-ggdb -O2 -pipe -Wimplicit-function-declaration";
 
 #****v* Compiling/CPPFLAGS
 #  DESCRIPTION
@@ -55,7 +55,7 @@ declare -x CXX="g++";
 #  DEFAULT VALUE
 #  -ggdb -O2 -pipe
 #****
-declare -x CXXFLAGS="${CFLAGS}";
+declare -x CXXFLAGS="-ggdb -O2 -pipe";
 
 #****d* Compiling/F77
 #  DESCRIPTION
@@ -72,7 +72,7 @@ declare -x F77="gfortran";
 #  DEFAULT VALUE
 #  -ggdb -O2 -pipe
 #****
-declare -x FFLAGS="${CFLAGS}";
+declare -x FFLAGS="-ggdb -O2 -pipe";
 
 #****d* Compiling/FC
 #  DESCRIPTION
@@ -89,7 +89,7 @@ declare -x FC="gfortran";
 #  DEFAULT VALUE
 #  -ggdb -O2 -pipe
 #****
-declare -x FCFLAGS="${CFLAGS}";
+declare -x FCFLAGS="-ggdb -O2 -pipe";
 
 #****d* Compiling/GCJ
 #  DESCRIPTION
@@ -106,7 +106,7 @@ declare -x GCJ="gcj";
 #  DEFAULT VALUE
 #  -ggdb -O2 -pipe
 #****
-declare -x GCJFLAGS="${CFLAGS}";
+declare -x GCJFLAGS="-ggdb -O2 -pipe";
 
 #****d* Compiling/GOC
 #  DESCRIPTION
@@ -121,7 +121,7 @@ declare -x GOC="gccgo";
 #  DEFAULT VALUE
 #  -ggdb -O2 -pipe
 #****
-declare -x GOFLAGS="${CFLAGS}";
+declare -x GOFLAGS="-ggdb -O2 -pipe";
 
 #****d* Compiling/OBJC
 #  DESCRIPTION
@@ -134,7 +134,7 @@ declare -x OBJC="${CC}";
 #  Flags passed to OBJC when compiling Objective C code.  Individual packages
 #  may append or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -ggdb -O2 -pipe
+#  -ggdb -O2 -pipe -Wimplicit-function-declaration
 #****
 declare -x OBJCFLAGS="${CFLAGS}";
 
@@ -151,7 +151,7 @@ declare -x OBJCXX="${CXX}";
 #  DEFAULT VALUE
 #  -ggdb -O2 -pipe
 #****
-declare -x OBJCXXFLAGS="${CFLAGS}";
+declare -x OBJCXXFLAGS="${CXXFLAGS}";
 
 #****v* Compiling/LDFLAGS
 #  DESCRIPTION
