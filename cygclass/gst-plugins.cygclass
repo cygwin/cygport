@@ -129,6 +129,10 @@ gst_plugins_compile() {
 		gst_conf+=" --enable-gtk-doc"
 	fi
 
+	case ${CHOST} in *-cygwin*)
+		gst_conf+=" ac_cv_header_winsock2_h=no" ;;
+	esac
+
 	cygconf \
 		--enable-experimental \
 		--disable-examples \
@@ -140,7 +144,6 @@ gst_plugins_compile() {
 		--with-default-videosink=autovideosink \
 		--with-default-videosrc=videotestsrc \
 		--with-default-visualizer=goom \
-		ac_cv_header_winsock2_h=no \
 		${gst_conf} "${@}"
 
 	cygmake
