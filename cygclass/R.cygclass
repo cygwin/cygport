@@ -41,7 +41,7 @@
 #
 #  Alternatively, the definitions in this cygclass can be used to help build
 #  an R-dependent package which does not use CRAN, e.g.
-#  |html <a href="http://cygwin-ports.git.sourceforge.net/git/gitweb.cgi?p=cygwin-ports/rkward;a=tree;hb=HEAD">rkward</a>.
+#  |html <a href="http://sourceforge.net/p/cygwin-ports/rkward/">rkward</a>.
 #  EXAMPLE
 #  inherit R
 #  

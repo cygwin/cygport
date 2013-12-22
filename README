@@ -218,14 +218,14 @@ with setup.exe will automatically install all mandatory dependencies.
 
 cygport is hosted on Git.  Those interested in helping with cygport
 development, or testing the newest features should use branch 'master'.
-The sources can be browsed through Gitweb at:
+The sources and history can be browsed at:
 
-  http://cygwin-ports.git.sourceforge.net/git/gitweb.cgi?p=cygwin-ports/cygport
+  http://sourceforge.net/p/cygwin-ports/cygport
 
 Patches for cygport should be created through 'git format-patch' and 
 based on the 'master' branch.  The source repository can be cloned from:
 
-  git://cygwin-ports.git.sourceforge.net/gitroot/cygwin-ports/cygport
+  git://git.code.sourceforge.net/p/cygwin-ports/cygport
 
 To build cygport from git, run ./autogen.sh, then make. The following 
 Cygwin packages are required: autoconf, automake, coreutils, groff, 
@@ -243,4 +243,4 @@ Discussion on cygport should occur on the Cygwin Ports discussion list
 [2] http://cygwin.com/setup.html#package_contents
 [3] http://gentoo-wiki.com/HOWTO_Gentoo_on_Cygwin
 [4] http://www.cygwin.com/ml/cygwin-apps/2006-03/msg00000.html
-[5] http://cygwin-ports.git.sourceforge.net/
+[5] http://sourceforge.net/p/cygwin-ports/_list/git
