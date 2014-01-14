@@ -87,6 +87,46 @@ esac
 #  TOOLCHAIN_SYSROOT, and use those to build a cross-GCC for the first time.
 #****
 
+#****d* toolchain.cygclass/TOOLCHAIN_PREFIX
+#  DESCRIPTION
+#  The $prefix directory under the sysroot.  This definition is meant to
+#  be used in configure or cmake arguments to avoid dealing with different
+#  prefixes on various systems.
+#****
+TOOLCHAIN_PREFIX="${TOOLCHAIN_SYSROOT}/$(__target_prefix)"
+
+#****d* toolchain.cygclass/TOOLCHAIN_BINDIR
+#  DESCRIPTION
+#  The $prefix/bin directory under the sysroot.  This definition is meant to
+#  be used in configure or cmake arguments to avoid dealing with different
+#  prefixes on various systems.
+#****
+TOOLCHAIN_BINDIR="${TOOLCHAIN_PREFIX}/bin"
+
+#****d* toolchain.cygclass/TOOLCHAIN_INCLUDEDIR
+#  DESCRIPTION
+#  The $prefix/include directory under the sysroot.  This definition is
+#  meant to be used in configure or cmake arguments to avoid dealing with
+#  different prefixes on various systems.
+#****
+TOOLCHAIN_INCLUDEDIR="${TOOLCHAIN_PREFIX}/include"
+
+#****d* toolchain.cygclass/TOOLCHAIN_LIBDIR
+#  DESCRIPTION
+#  The $prefix/lib directory under the sysroot.  This definition is meant to
+#  be used in configure or cmake arguments to avoid dealing with different
+#  prefixes on various systems.
+#****
+TOOLCHAIN_LIBDIR="${TOOLCHAIN_PREFIX}/lib"
+
+#****d* toolchain.cygclass/TOOLCHAIN_DATADIR
+#  DESCRIPTION
+#  The $prefix/share directory under the sysroot.  This definition is meant to
+#  be used in configure or cmake arguments to avoid dealing with different
+#  prefixes on various systems.
+#****
+TOOLCHAIN_DATADIR="${TOOLCHAIN_PREFIX}/share"
+
 # A normal cross-compiler uses the stage1 xgcc to cross-compile
 # libgcc/libstdc++/etc.  However, in a "Canadian cross" scenario,
 # the stage1 compiler will not run on the build system, as it is itself
