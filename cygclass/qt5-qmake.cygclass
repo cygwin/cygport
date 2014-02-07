@@ -46,25 +46,10 @@ cygqmake5() {
 		error "libQt5Core-devel is required to build this package"
 	fi
 
-	${QT5_QMAKE} -spec ${QMAKESPEC} -recursive \
-		QMAKE_CC=${CC} \
+	${QT5_QMAKE} -recursive \
 		QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
-		QMAKE_CXX=${CXX} \
 		QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
-		QMAKE_LINK=${CXX} \
-		QMAKE_LINK_SHLIB=${CXX} \
-		QMAKE_LINK_C=${CC} \
-		QMAKE_LINK_C_SHLIB=${CC} \
-		QMAKE_LFLAGS="${LDFLAGS}" \
 		QMAKE_LFLAGS_RPATH= \
-		QMAKE_INCDIR_QT=${QT5_INCLUDEDIR} \
-		QMAKE_LIBDIR_QT=${QT5_LIBDIR} \
-		QMAKE_MOC=${QT5_MOC} \
-		QMAKE_RCC=${QT5_RCC} \
-		QMAKE_UIC=${QT5_UIC} \
-		QMAKE_AR="${AR} cqs" \
-		QMAKE_OBJCOPY=${OBJDUMP/dump/copy} \
-		QMAKE_RANLIB=${RANLIB} \
 		QMAKE_STRIP=: \
 		${CYGQMAKE5_ARGS} "${@}" \
 		|| error "qmake failed"

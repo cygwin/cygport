@@ -47,26 +47,11 @@ cygqmake4() {
 		error "libQtCore4-devel is required to build this package"
 	fi
 
-	${QT4_QMAKE} -spec ${QMAKESPEC} -recursive \
-		QMAKE_CC=${CC} \
+	${QT4_QMAKE} -recursive \
 		QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
-		QMAKE_CXX=${CXX} \
 		QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
-		QMAKE_LINK=${CXX} \
-		QMAKE_LINK_SHLIB=${CXX} \
-		QMAKE_LINK_C=${CC} \
-		QMAKE_LINK_C_SHLIB=${CC} \
 		QMAKE_LFLAGS="${LDFLAGS}" \
 		QMAKE_LFLAGS_RPATH= \
-		QMAKE_INCDIR_QT=${QT4_INCLUDEDIR} \
-		QMAKE_LIBDIR_QT=${QT4_LIBDIR} \
-		QMAKE_MOC=${QT4_MOC} \
-		QMAKE_RCC=${QT4_RCC} \
-		QMAKE_UIC=${QT4_UIC} \
-		QMAKE_UIC3=${QT4_UIC3} \
-		QMAKE_AR="${AR} cqs" \
-		QMAKE_OBJCOPY=${OBJDUMP/dump/copy} \
-		QMAKE_RANLIB=${RANLIB} \
 		QMAKE_STRIP=: \
 		${CYGQMAKE4_ARGS} "${@}" \
 		|| error "qmake failed"
