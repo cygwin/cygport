@@ -85,7 +85,7 @@ gnome2_autoreconf() {
 	then
 		export AUTOMAKE=automake-${WANT_AUTOMAKE}
 	else
-		export REQUIRED_AUTOMAKE_VERSION=$(automake --version | head -n 1 | sed 's/^.*[  ]\([0-9.]*[a-z]*\).*$/\1/')
+		export AUTOMAKE=automake-$(automake --version | head -n 1 | sed 's/^.*[  ]\([0-9]*\.[0-9]*\).*$/\1/')
 	fi
 
 	export ACLOCAL_FLAGS
