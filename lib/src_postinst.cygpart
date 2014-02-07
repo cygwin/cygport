@@ -76,32 +76,32 @@ __prep_freedesktop_mime() {
 	local _already_updated_mime_db
 
 	# Freedesktop.org Desktop Menu files with MimeType declarations
-	if [ -d ${D}/usr/share/applications ]
+	if [ -d ${D}${CROSS_PREFIX-/usr}/share/applications ]
 	then
-		if [ -n "$(grep -lr MimeType ${D}/usr/share/applications)" ]
+		if [ -n "$(grep -lr MimeType ${D}${CROSS_PREFIX-/usr}/share/applications)" ]
 		then
-			rm -f ${D}/usr/share/applications/mimeinfo.cache
+			rm -f ${D}${CROSS_PREFIX-/usr}/share/applications/mimeinfo.cache
 			_already_updated_mime_db=1
 			dodir /etc/postinstall
 			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-				/usr/bin/update-desktop-database
-				/usr/bin/update-mime-database /usr/share/mime
+				/usr/bin/update-desktop-database ${CROSS_PREFIX-/usr}/share/applications
+				/usr/bin/update-mime-database ${CROSS_PREFIX-/usr}/share/mime
 
 			_EOF
 		fi
 	fi
 
 	# Freedesktop.org Shared Mime types
-	if [ -d ${D}/usr/share/mime ]
+	if [ -d ${D}${CROSS_PREFIX-/usr}/share/mime ]
 	then
 		# make sure system-generated files aren't clobbered
-		find ${D}/usr/share/mime/ -maxdepth 1 -type f -delete
+		find ${D}${CROSS_PREFIX-/usr}/share/mime/ -maxdepth 1 -type f -delete
 
 		if ! defined _already_updated_mime_db
 		then
 			dodir /etc/postinstall
 			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-				/usr/bin/update-mime-database /usr/share/mime
+				/usr/bin/update-mime-database ${CROSS_PREFIX-/usr}/share/mime
 
 			_EOF
 		fi
@@ -122,21 +122,21 @@ __prep_gconf_schemas() {
 	dodir /etc/postinstall /etc/preremove
 
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		export GCONF_CONFIG_SOURCE="$(gconftool-2 --get-default-source)"
+		export GCONF_CONFIG_SOURCE="xml:merged:${CROSS_PREFIX}/etc/gconf/gconf.xml.defaults"
 	_EOF
 
 	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-		export GCONF_CONFIG_SOURCE="$(gconftool-2 --get-default-source)"
+		export GCONF_CONFIG_SOURCE="xml:merged:${CROSS_PREFIX}/etc/gconf/gconf.xml.defaults"
 	_EOF
 
-	for schema in ${D}/etc/gconf/schemas/*.schemas
+	for schema in ${D}${CROSS_PREFIX}/etc/gconf/schemas/*.schemas
 	do
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			/usr/bin/gconftool-2 --makefile-install-rule /etc/gconf/schemas/${schema##*/} > /dev/null 2>&1
+			/usr/bin/gconftool-2 --makefile-install-rule ${CROSS_PREFIX}/etc/gconf/schemas/${schema##*/} > /dev/null 2>&1
 		_EOF
 
 		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-			/usr/bin/gconftool-2 --makefile-uninstall-rule /etc/gconf/schemas/${schema##*/} > /dev/null 2>&1
+			/usr/bin/gconftool-2 --makefile-uninstall-rule ${CROSS_PREFIX}/etc/gconf/schemas/${schema##*/} > /dev/null 2>&1
 		_EOF
 	done
 
@@ -156,7 +156,7 @@ __prep_gconf_schemas() {
 __prep_gsettings_schemas() {
 	dodir /etc/postinstall
 	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		/usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas
+		/usr/bin/glib-compile-schemas ${CROSS_PREFIX-/usr}/share/glib-2.0/schemas
 
 	_EOF
 }
@@ -260,7 +260,7 @@ __prep_gtk3_modules() {
 __prep_gtk_icon_theme() {
 	local icondir
 
-	find ${D}/usr/share/icons -mindepth 1 -maxdepth 1 -type d -print0 | \
+	find ${D}${CROSS_PREFIX-/usr}/share/icons -mindepth 1 -maxdepth 1 -type d -print0 | \
 	while read -d $'\0' icondir
 	do
 		if [ -f ${icondir}/index.theme -o -f ${icondir#${D}}/index.theme ]
@@ -546,12 +546,6 @@ __prepetc() {
 	local -i n;
 	local s;
 
-	if inherited cross
-	then
-		# postinst/prerm does not apply to cross-compiles
-		return 0;
-	fi
-
 	for s in postinstall preremove
 	do
 		if [ -f ${C}/${s}.sh -a -f ${C}/${PN}.${s} ]
@@ -611,7 +605,7 @@ __prepetc() {
 	fi
 
 	# GTK+ 2.x modules
-	if [ -d ${D}/usr/share/icons ]
+	if [ -d ${D}${CROSS_PREFIX-/usr}/share/icons ]
 	then
 		__prep_gtk_icon_theme || error "GTK+ icon theme postinstall failed"
 	fi
@@ -629,13 +623,13 @@ __prepetc() {
 	fi
 
 	# GConf schemas
-	if [ -d ${D}/etc/gconf/schemas ] && ! defined _CYGPORT_RESTRICT_postinst_gconf_
+	if [ -d ${D}${CROSS_PREFIX}/etc/gconf/schemas ] && ! defined _CYGPORT_RESTRICT_postinst_gconf_
 	then
 		__prep_gconf_schemas || error "GConf schemas postinstall failed"
 	fi
 
 	# GSettings schemas
-	if [ -d ${D}/usr/share/glib-2.0/schemas ]
+	if [ -d ${D}${CROSS_PREFIX-/usr}/share/glib-2.0/schemas ]
 	then
 		__prep_gsettings_schemas || error "GSettings schemas postinstall failed"
 	fi
@@ -647,7 +641,7 @@ __prepetc() {
 	fi
 
 	# Freedesktop.org Shared Mime Info
-	if [ -d ${D}/usr/share/applications -o -d ${D}/usr/share/mime ]
+	if [ -d ${D}${CROSS_PREFIX-/usr}/share/applications -o -d ${D}${CROSS_PREFIX-/usr}/share/mime ]
 	then
 		__prep_freedesktop_mime || error "Shared Mime Info postinstall failed"
 	fi
