@@ -83,14 +83,14 @@ if inherited cross
 then
 	QT5_QTDIR=${CROSS_PREFIX}
 	QT5_BINDIR=${QT5_QTDIR}/bin
-	QT5_INCLUDEDIR=${CROSS_INCLUDEDIR}
+	QT5_INCLUDEDIR=${CROSS_INCLUDEDIR}/qt5
 	QT5_LIBDIR=${CROSS_LIBDIR}
 	QT5_PLUGINSDIR=${CROSS_LIBDIR}/qt5/plugins
 	QT5_DATADIR=${CROSS_DATADIR}/qt5
-	QT5_QMAKE=/usr/bin/${CROSS_HOST}-qmake
-	QT5_MOC=/usr/bin/${CROSS_HOST}-moc
-	QT5_RCC=/usr/bin/${CROSS_HOST}-rcc
-	QT5_UIC=/usr/bin/${CROSS_HOST}-uic
+	QT5_QMAKE=/usr/bin/${CROSS_HOST}-qmake-qt5
+	QT5_MOC=/usr/bin/${CROSS_HOST}-moc-qt5
+	QT5_RCC=/usr/bin/${CROSS_HOST}-rcc-qt5
+	QT5_UIC=/usr/bin/${CROSS_HOST}-uic-qt5
 else
 	QT5_QTDIR=/usr/lib/qt5
 	QT5_BINDIR=${QT5_QTDIR}/bin

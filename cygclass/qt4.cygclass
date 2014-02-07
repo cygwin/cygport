@@ -83,14 +83,14 @@ if inherited cross
 then
 	QT4_QTDIR=${CROSS_PREFIX}
 	QT4_BINDIR=${QT4_QTDIR}/bin
-	QT4_INCLUDEDIR=${CROSS_INCLUDEDIR}
+	QT4_INCLUDEDIR=${CROSS_INCLUDEDIR}/qt4
 	QT4_LIBDIR=${CROSS_LIBDIR}
 	QT4_PLUGINSDIR=${CROSS_LIBDIR}/qt4/plugins
 	QT4_DATADIR=${CROSS_DATADIR}/qt4
-	QT4_QMAKE=/usr/bin/${CROSS_HOST}-qmake
-	QT4_MOC=/usr/bin/${CROSS_HOST}-moc
-	QT4_RCC=/usr/bin/${CROSS_HOST}-rcc
-	QT4_UIC=/usr/bin/${CROSS_HOST}-uic
+	QT4_QMAKE=/usr/bin/${CROSS_HOST}-qmake-qt4
+	QT4_MOC=/usr/bin/${CROSS_HOST}-moc-qt4
+	QT4_RCC=/usr/bin/${CROSS_HOST}-rcc-qt4
+	QT4_UIC=/usr/bin/${CROSS_HOST}-uic-qt4
 else
 	QT4_QTDIR=/usr/lib/qt4
 	QT4_BINDIR=${QT4_QTDIR}/bin
