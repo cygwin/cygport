@@ -110,6 +110,11 @@ __list_deps() {
 		fi
 	done
 
+	if inherited toolchain
+	then
+		PATH+="${D}${TOOLCHAIN_BINDIR}:${D}${TOOLCHAIN_LIBDIR}:"
+	fi
+
 	export PATH+="${D}$(__host_prefix)/bin:${os_path}";
 
 	# only on Cygwin: assure Windows\System32 is present for w32api DLLs
