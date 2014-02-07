@@ -135,8 +135,13 @@ cygcmake() {
 			-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY
 			-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY"
 		case ${CHOST} in *-cygwin*|*-mingw*)
-			crossargs+=" -DCMAKE_RC_COMPILER=$(which ${CHOST}-windres${exeext})" ;;
+			crossargs+=" -DCMAKE_RC_COMPILER=$(which ${CHOST}-windres${exeext})"
+			;;
 		esac
+		if check_prog ${CHOST}-pkg-config
+		then
+			crossargs+=" -DPKG_CONFIG_EXECUTABLE=$(which ${CHOST}-pkg-config)"
+		fi
 	else
 		crossargs=
 	fi

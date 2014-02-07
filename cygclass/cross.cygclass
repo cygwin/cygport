@@ -138,6 +138,7 @@ GCJ="${CHOST}-gcj"
 GOC="${CHOST}-gccgo"
 OBJC="${CHOST}-gcc"
 OBJCXX="${CHOST}-g++"
+PKG_CONFIG="${CHOST}-pkg-config"
 
 CC_SYSROOT=$(${CC} -print-sysroot)
 
@@ -175,17 +176,6 @@ if ! check_tool gcc || ! check_tool strip
 then
 	error "This package requires ${CHOST} binutils and gcc"
 fi
-
-# PKG_PROG_PKG_CONFIG looks for $host-pkg-config, but pkg-config is not
-# a "tool" that is built for each target like binutils or gcc.  Instead,
-# we set PKG_CONFIG_LIBDIR appropriately.
-# The PKG_CONFIG override silences a bogus warning during configure:
-# configure: WARNING: using cross tools not prefixed with host triplet
-export PKG_CONFIG="$(which pkg-config 2>/dev/null)"
-export PKG_CONFIG_LIBDIR="$(__host_prefix)/lib/pkgconfig:$(__host_prefix)/share/pkgconfig:/usr/share/pkgconfig"
-# since pkg-config 0.26
-export PKG_CONFIG_SYSTEM_INCLUDE_PATH=${CROSS_INCLUDEDIR}
-export PKG_CONFIG_SYSTEM_LIBRARY_PATH=${CROSS_LIBDIR}
 
 #****I* cross.cygclass/doelflib
 #  SYNOPSIS

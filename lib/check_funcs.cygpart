@@ -134,15 +134,15 @@ check_pkg_config() {
 	local modname=${1};
 	shift;
 
-	check_prog_req pkg-config;
+	check_prog_req ${PKG_CONFIG};
 
-	if ! pkg-config --exists ${*}
+	if ! ${PKG_CONFIG} --exists ${*}
 	then
 		return 1;
 	fi
 
-	export ${modname}_CFLAGS="$(pkg-config --cflags ${*})";
-	export ${modname}_LIBS="$(pkg-config --libs ${*})";
+	export ${modname}_CFLAGS="$(${PKG_CONFIG} --cflags ${*})";
+	export ${modname}_LIBS="$(${PKG_CONFIG} --libs ${*})";
 	return 0;
 }
 
@@ -163,15 +163,15 @@ check_girepository_module() {
 	local typelibdir;
 	local mod;
 
-	check_prog_req pkg-config;
+	check_prog_req ${PKG_CONFIG};
 
-	if ! pkg-config --exists gobject-introspection-1.0
+	if ! ${PKG_CONFIG} --exists gobject-introspection-1.0
 	then
 		error "gobject-introspection is required to build this package";
 	fi
 
-	girdir=$(pkg-config --variable=girdir gobject-introspection-1.0);
-	typelibdir=$(pkg-config --variable=typelibdir gobject-introspection-1.0);
+	girdir=$(${PKG_CONFIG} --variable=girdir gobject-introspection-1.0);
+	typelibdir=$(${PKG_CONFIG} --variable=typelibdir gobject-introspection-1.0);
 
 	for mod
 	do
@@ -551,8 +551,8 @@ __check_depends() {
 				|| failed_atoms+="${atom} "
 			;;
 		pkgconfig\(*)
-			check_prog_req pkg-config;
-			pkg-config --exists $(__deparenthesize ${atom}) \
+			check_prog_req ${PKG_CONFIG};
+			${PKG_CONFIG} --exists $(__deparenthesize ${atom}) \
 				|| failed_atoms+="${atom} "
 			;;
 		pypy\(*)
