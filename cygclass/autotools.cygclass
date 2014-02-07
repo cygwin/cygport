@@ -703,7 +703,11 @@ cygconf() {
 
 	if __config_equals with_libtool 1 && ! __host_is_embedded
 	then
-		confargs+=" --enable-shared --disable-static"
+		case ${CHOST} in
+		*-mingw*)
+			confargs+=" --enable-shared --enable-static" ;;
+		*)	confargs+=" --enable-shared --disable-static" ;;
+		esac
 	fi
 
 	# workaround lib-link.m4:AC_LIB_HAVE_LINKFLAGS's insistence on
