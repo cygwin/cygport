@@ -108,7 +108,7 @@ __qt5_qmakespec() {
 	local spec
 
 	# FIXME: -64 varieties, qws/*
-	case ${CHOST} in
+	case ${1} in
 	*-ibm-aix*)        spec="aix-g++" ;;
 	*-linux-android*)  spec="android-g++" ;;
 	*-*-cygwin*)       spec="cygwin-g++" ;;
@@ -133,7 +133,11 @@ __qt5_qmakespec() {
 	echo -n ${spec}
 }
 
-export QMAKESPEC=$(__qt5_qmakespec)
+QMAKESPEC=$(__qt5_qmakespec ${CBUILD})
+if cross_compiling
+then
+	XQMAKESPEC=$(__qt5_qmakespec ${CHOST})
+fi
 
 export PATH="${QT5_BINDIR}:${PATH}"
 

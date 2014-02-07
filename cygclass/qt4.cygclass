@@ -138,7 +138,7 @@ __qt4_qmakespec() {
 	echo -n ${spec}
 }
 
-export QMAKESPEC=$(__qt4_qmakespec)
+QMAKESPEC=$(__qt4_qmakespec)
 
 export PATH="${QT4_BINDIR}:${PATH}"
 

@@ -132,7 +132,7 @@ __qt3_qmakespec() {
 	echo -n ${spec}
 }
 
-export QMAKESPEC=$(__qt3_qmakespec)
+QMAKESPEC=$(__qt3_qmakespec)
 
 export PATH="/usr/lib/qt3/bin:${PATH}"
 
