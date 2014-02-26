@@ -983,7 +983,7 @@ __prepstrip() {
 		case ${CTARGET} in
 		x86_64-*-cygwin*)
 			case "${exe##*/}" in
-			cygwin1.dll|cyglsa64.dll) ;;
+			cygwin1.dll|cyglsa64.dll|cyglto_plugin.dll) ;;
 			*.dll|*.so|*.oct|*.cmxs)
 				if ${objdump} -p "${exe}" | sed -ne '/^ImageBase/s/.*\t/0x/gp' | gawk '{ exit (strtonum($1) <= 0x400000000 ? 0 : 1) }'
 				then
