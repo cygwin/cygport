@@ -78,6 +78,14 @@
 #  DESCRIPTION
 #  Absolute path to the Qt4 User Interface Compiler
 #****
+#****d* qt4.cygclass/QT4_UIC3
+#  DESCRIPTION
+#  Absolute path to the Qt4 Qt3Support User Interface Compiler
+#****
+#****d* qt4.cygclass/QT4_LRELEASE
+#  DESCRIPTION
+#  Absolute path to the Qt4 Linguist translation compiler
+#****
 
 if inherited cross
 then
@@ -91,6 +99,8 @@ then
 	QT4_MOC=/usr/bin/${CROSS_HOST}-moc-qt4
 	QT4_RCC=/usr/bin/${CROSS_HOST}-rcc-qt4
 	QT4_UIC=/usr/bin/${CROSS_HOST}-uic-qt4
+	QT4_UIC3=/usr/bin/${CROSS_HOST}-uic3-qt4
+	QT4_LRELEASE=/usr/bin/${CROSS_HOST}-lrelease-qt4
 else
 	QT4_QTDIR=/usr/lib/qt4
 	QT4_BINDIR=${QT4_QTDIR}/bin
@@ -102,13 +112,9 @@ else
 	QT4_MOC=${QT4_BINDIR}/moc
 	QT4_RCC=${QT4_BINDIR}/rcc
 	QT4_UIC=${QT4_BINDIR}/uic
+	QT4_UIC3=${QT4_BINDIR}/uic3
+	QT4_LRELEASE=${QT4_BINDIR}/lrelease
 fi
-
-#****d* qt4.cygclass/QT4_UIC3
-#  DESCRIPTION
-#  Absolute path to the Qt4 Qt3Support User Interface Compiler
-#****
-QT4_UIC3=/usr/lib/qt4/bin/uic3
 
 __qt4_qmakespec() {
 	local spec
