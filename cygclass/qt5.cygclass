@@ -78,6 +78,10 @@
 #  DESCRIPTION
 #  Absolute path to the Qt5 User Interface Compiler
 #****
+#****d* qt5.cygclass/QT5_LRELEASE
+#  DESCRIPTION
+#  Absolute path to the Qt5 Linguist translation compiler
+#****
 
 if inherited cross
 then
@@ -91,6 +95,7 @@ then
 	QT5_MOC=/usr/bin/${CROSS_HOST}-moc-qt5
 	QT5_RCC=/usr/bin/${CROSS_HOST}-rcc-qt5
 	QT5_UIC=/usr/bin/${CROSS_HOST}-uic-qt5
+	QT5_LRELEASE=/usr/bin/${CROSS_HOST}-lrelease-qt5
 else
 	QT5_QTDIR=/usr/lib/qt5
 	QT5_BINDIR=${QT5_QTDIR}/bin
@@ -102,6 +107,7 @@ else
 	QT5_MOC=${QT5_BINDIR}/moc
 	QT5_RCC=${QT5_BINDIR}/rcc
 	QT5_UIC=${QT5_BINDIR}/uic
+	QT5_LRELEASE=${QT5_BINDIR}/lrelease
 fi
 
 __qt5_qmakespec() {
