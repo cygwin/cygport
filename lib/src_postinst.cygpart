@@ -863,6 +863,7 @@ __prepstrip() {
 	local lib;
 	local objcopy;
 	local objdump;
+	local nm;
 	local lines;
 	local tmpvar;
 
@@ -929,6 +930,7 @@ __prepstrip() {
 			# built without cross.cygclass or toolchain.cygclass
 			objcopy="${arch_tree}-objcopy"
 			objdump="${arch_tree}-objdump"
+			nm="${arch_tree}-nm"
 			unset arch_tree
 		elif check_prog ${CTARGET}-objcopy && ${CTARGET}-size -f "${exe}" &>/dev/null
 		then
@@ -936,15 +938,18 @@ __prepstrip() {
 			# or non-cross packages built on non-Cygwin systems
 			objcopy="${CTARGET}-objcopy"
 			objdump="${CTARGET}-objdump"
+			nm="${CTARGET}-nm"
 		elif check_prog ${CHOST}-objcopy && ${CHOST}-size -f "${exe}" &>/dev/null
 		then
 			# for cross-compilers built on non-Cygwin systems
 			objcopy="${CHOST}-objcopy"
 			objdump="${CHOST}-objdump"
+			nm="${CHOST}-nm"
 		elif size -f "${exe}" &>/dev/null
 		then
 			objcopy="objcopy"
 			objdump="objdump"
+			nm="nm"
 		else
 			continue
 		fi
@@ -957,7 +962,7 @@ __prepstrip() {
 				echo "        ${exe}";
 				${objcopy} --strip-debug "${exe}";
 			else
-				${objdump} -dl "${exe}" 2>/dev/null | grep /usr/src/debug | sed -e 's/:[0-9]*$//g' | sort -u >> ${T}/.dbgsrc.out;
+				${nm} -l "${exe}" 2>/dev/null | sed -ne "s|.*\t\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u >> ${T}/.dbgsrc.out;
 			fi
 			continue
 			;;
@@ -1012,7 +1017,7 @@ __prepstrip() {
 		else
 			dbg="/usr/lib/debug/${exe}.dbg";
 
-			lines=$(${objdump} -dl "${exe}" 2>/dev/null | grep /usr/src/debug/${PF}/ | sed -e 's/:[0-9]*$//g' | sort -u | tee -a ${T}/.dbgsrc.out | wc -l);
+			lines=$(${nm} -l "${exe}" 2>/dev/null | sed -ne "s|.*\t\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u | tee -a ${T}/.dbgsrc.out | wc -l);
 
 			if (( lines == 0 ))
 			then
