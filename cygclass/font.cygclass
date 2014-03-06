@@ -44,11 +44,10 @@
 #    
 #    src_install() {
 #      cd ${S}
-#      insinto /etc/fonts/conf.d
-#      doins fontconfig/*.conf
-#    
 #      fontinto OTF
 #      dofont otf/*.otf
+#      
+#      dofontconf fontconfig/*.conf
 #    }
 #  NOTE
 #  Regardless of the usage of font.cygclass, cygport will compress all
@@ -144,4 +143,65 @@ dofont() {
 	done
 }
 
-readonly -f sfd2ttf fontinto dofont
+#****I* font.cygclass/dofontconf
+#  SYNOPSIS
+#  dofontconf CONFFILE [CONFFILE] ...
+#  DESCRIPTION
+#  Installs the given font configuration file(s) into the system fontconfig
+#  configuration directories.  If file is not named [0-9][0-9]*.conf, then
+#  use newfontconf instead to rename it.
+#****
+dofontconf() {
+	for i
+	do
+		if [ ! -e ${i} ]
+		then
+			error "dofontconf: ${i}: does not exist"
+		fi
+
+		case ${i##*/} in
+		[0-9][0-9]*.conf) ;;
+		*) error "dofontconf: ${i}: must be named [0-9][0-9]*.conf" ;;
+		esac
+
+		dodir /usr/share/fontconfig/conf.avail /etc/fonts/conf.d
+		__doinstall 0644 ${i} /usr/share/fontconfig/conf.avail || error "dofontconf ${i} failed"
+		dosym /usr/share/fontconfig/conf.avail/${i} /etc/fonts/conf.d/${i}
+	done
+}
+
+#****I* font.cygclass/newfontconf
+#  SYNOPSIS
+#  newfontconf CONFFILE DESIRED_NAME
+#  DESCRIPTION
+#  Installs the given font configuration file into the system fontconfig
+#  configuration directories as the given DESIRED_NAME, which must be of
+#  the form [0-9][0-9]*.conf:
+#  * 00 through 09: Font directories
+#  * 10 through 19: system rendering defaults (AA, etc)
+#  * 20 through 29: font rendering options
+#  * 30 through 39: family substitution
+#  * 40 through 49: generic identification, map family->generic
+#  * 50 through 59: alternate config file loading
+#  * 60 through 69: generic aliases, map generic->family
+#  * 70 through 79: select font (adjust which fonts are available)
+#  * 80 through 89: match target="scan" (modify scanned patterns)
+#  * 90 through 99: font synthesis
+#****
+newfontconf() {
+	if [ ! -e ${1} ]
+	then
+		error "newfontconf: ${1}: does not exist"
+	fi
+
+	case ${2} in
+	[0-9][0-9]*.conf) ;;
+	*) error "newfontconf: ${2}: must be named [0-9][0-9]*.conf" ;;
+	esac
+
+	dodir /usr/share/fontconfig/conf.avail /etc/fonts/conf.d
+	__doinstall 0644 ${1} /usr/share/fontconfig/conf.avail ${2} || error "newfontconf ${1} failed"
+	dosym /usr/share/fontconfig/conf.avail/${2} /etc/fonts/conf.d/${2}
+}
+
+readonly -f sfd2ttf fontinto dofont dofontconf newfontconf
