@@ -49,7 +49,7 @@ Cygwin package building tool.
 
 
 %build
-%configure --docdir=%{_docdir}/%{name}-%{version}
+%configure
 make %{?_smp_mflags}
 
 
@@ -57,7 +57,7 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 
 # First install all the files belonging to the shared build
-make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT doc_DATA=
 
 
 %clean
@@ -88,6 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Fri Mar  7 2014 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.15.0-1
 - Version bump.
+- Fix for compatibility with F20 unversioned docdirs.
 
 * Fri Nov 15 2013 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.14.1-1
 - Version bump.
