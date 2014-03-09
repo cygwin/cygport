@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.14.1
+Version:        0.15.0
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -17,9 +17,11 @@ Requires:       bzip2 gzip unzip
 Requires:       cygwin32-binutils
 Requires:       cygwin32-gcc
 Requires:       cygwin32-libtool
+Requires:       cygwin32-pkg-config
 Requires:       cygwin64-binutils
 Requires:       cygwin64-gcc
 Requires:       cygwin64-libtool
+Requires:       cygwin64-pkg-config
 Requires:       diffstat
 Requires:       diffutils
 Requires:       dos2unix
@@ -84,8 +86,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Mar  7 2014 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.15.0-1
+- Version bump.
+
 * Fri Nov 15 2013 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.14.1-1
 - Version bump.
+- Depend on cygwin*-pkg-config.
 
 * Wed Sep 11 2013 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.14.0-1
 - Version bump.

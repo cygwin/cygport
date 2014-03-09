@@ -1,3 +1,11 @@
+0.15.0:
+	* Greatly improved speed of debuginfo extraction.
+	* Relies on $host-pkg-config when cross-compiling
+	* autotools: both static and shared libs are built for mingw targets
+	* qt3/qt4/qt5: allow for parallel cross-compiling installation
+	* font: added dofontconf/newfontconf functions
+	* toolchain: added TOOLCHAIN_PREFIX, TOOLCHAIN_BINDIR, etc.
+
 0.14.1:
 	* $PAGER (e.g. less) is now used to display 'list', 'listdebug',
 	  and 'info' information.
