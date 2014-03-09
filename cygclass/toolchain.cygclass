@@ -93,7 +93,7 @@ esac
 #  be used in configure or cmake arguments to avoid dealing with different
 #  prefixes on various systems.
 #****
-TOOLCHAIN_PREFIX="${TOOLCHAIN_SYSROOT}/$(__target_prefix)"
+TOOLCHAIN_PREFIX="${TOOLCHAIN_SYSROOT}$(__target_prefix)"
 
 #****d* toolchain.cygclass/TOOLCHAIN_BINDIR
 #  DESCRIPTION
