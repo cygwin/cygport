@@ -237,21 +237,18 @@ __list_deps() {
 			| sort -u | xargs -r which || true)
 	fi
 
-	if [ -d ${D}/usr/share/gir-1.0 ]
-	then
-		alldeps+=" "$(find "${@//^_^/ }" -path 'usr/share/gir-1.0/*.gir' | xargs -r sed -n -e '/shared-library/s/,/ /g;s/.*shared-library="\([^"]*\).*/\1/gp' | xargs -r which | sort -u)
-		for girdep in $(find "${@//^_^/ }" -path 'usr/share/gir-1.0/*.gir' \
-				| xargs -r sed -n -e 's/.*<include *name="\([^"]*\)" *version="\([^"]*\)".*/\1-\2.gir/gp' \
-				| sort -u)
-		do
-			if [ -f ${D}/usr/share/gir-1.0/${girdep} ]
-			then
-				alldeps+=" "${D}/usr/share/gir-1.0/${girdep}
-			else
-				alldeps+=" "/usr/share/gir-1.0/${girdep}
-			fi
-		done
-	fi
+	alldeps+=" "$(find "${@//^_^/ }" -path 'usr/share*/gir-1.0/*.gir' | xargs -r sed -n -e '/shared-library/s/,/ /g;s/.*shared-library="\([^"]*\).*/\1/gp' | xargs -r which | sort -u)
+	for girdep in $(find "${@//^_^/ }" -path 'usr/share*/gir-1.0/*.gir' \
+			| xargs -r sed -n -e 's/.*<include *name="\([^"]*\)" *version="\([^"]*\)".*/\1-\2.gir/gp' \
+			| sort -u)
+	do
+		if [ -f ${D}/usr/share/gir-1.0/${girdep} ]
+		then
+			alldeps+=" "${D}/usr/share/gir-1.0/${girdep}
+		else
+			alldeps+=" "/usr/share/gir-1.0/${girdep}
+		fi
+	done
 
 	vapidir=/usr/share/vala/vapi
 	if [ -d ${D}${vapidir} ]
