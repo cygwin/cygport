@@ -284,14 +284,14 @@ __list_deps() {
 		for luadep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -name '*.lua' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*lua' '{}' + \
-				| xargs -r sed -ne "s|^[^#]*require *['\"]\([^'\"]*\)['\"].*|\1|gp" \
+				| xargs -r sed -ne "s|^[^#]*require[( ]*['\"]\([^'\"]*\)['\"].*|\1|gp" \
 				| sort -u)
 		do
 			for f in ${luapaths[*]/\//${D}/} ${luapaths[*]}
 			do
-				if [ -f ${f/\?/${luadep}} ]
+				if [ -f ${f/\?/${luadep//\.//}} ]
 				then
-					alldeps+=" "${f/\?/${luadep}};
+					alldeps+=" "${f/\?/${luadep//\.//}};
 					break;
 				fi
 			done
