@@ -130,6 +130,14 @@ gnome2_autoreconf() {
 		touch ${skip_d}/NO-AUTO-GEN
 	done
 
+	# sometimes ACLOCAL_AMFLAGS is defined but the given directory
+	# exists only in VCS (or is created by an autogen.sh) and is
+	# not shipped in the tarball
+	if [ -f Makefile.am ]
+	then
+		__parse_aclocal_amflags $(grep '^ACLOCAL_AMFLAGS' Makefile.am | sed 's/=/ = /') | xargs -r mkdir -p
+	fi
+
 	__config_set with_autoconf 1
 
 	if [ ! -f aclocal.m4 ] || $(head -n 1 aclocal.m4 | grep -q 'generated.* by aclocal')

@@ -159,6 +159,20 @@
 #  xfce4.cygclass, xorg.cygclass
 #****
 
+# utility function used in cygautoreconf, gnome2_autoreconf, mate_autoreconf
+__parse_aclocal_amflags() {
+	local arg;
+
+	for arg in $@
+	do
+		case $1 in
+		-I) echo $2 ;;
+		esac
+		shift
+	done
+}
+
+
 #****C* autotools.cygclass/gnuconfigize
 #  SYNOPSIS
 #  gnuconfigize DIRECTORY [DIRECTORY ...]
@@ -232,18 +246,6 @@ cygautoreconf() {
 	local config_h_in;
 	local gettext_version;
 	local sub_configure_ac;
-
-	__parse_aclocal_amflags() {
-		local arg;
-
-		for arg in $@
-		do
-			case $1 in
-				-I) echo $2 ;;
-			esac
-			shift
-		done
-	}
 
 	if [ -f configure.ac ]
 	then
@@ -568,8 +570,6 @@ cygautoreconf() {
 			done
 		fi
 	done
-
-	unset -f __parse_aclocal_amflags
 }
 
 #****C* autotools.cygclass/cygconf
@@ -756,5 +756,5 @@ src_compile() {
 
 if ! defined _autotools_CYGCLASS_stage1_
 then
-	readonly -f cygautoreconf cygconf gnuconfigize
+	readonly -f cygautoreconf cygconf gnuconfigize __parse_aclocal_amflags
 fi
