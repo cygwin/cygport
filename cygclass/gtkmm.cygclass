@@ -84,7 +84,7 @@ gtkmm_autoreconf() {
 
 	if [ -d scripts ]
 	then
-		ACLOCAL="aclocal -I scripts"
+		ACLOCAL_FLAGS+=" -I scripts"
 	fi
 	NO_AUTOHEADER=1
 	cygautoreconf
