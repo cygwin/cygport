@@ -41,7 +41,7 @@ inherit gnome.org
 
 #****o* gtkmm.cygclass/CATEGORY (gtkmm)
 #  DEFINITION
-CATEGORY="Gnome"
+CATEGORY="Libs"
 #****
 #****o* gtkmm.cygclass/SUMMARY (gtkmm)
 #  DEFINITION
