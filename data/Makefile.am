@@ -3,7 +3,6 @@ pkgdata_DATA =				\
 	data/mirrors			\
 	data/mono.snk			\
 	data/sample.cygport		\
-	data/uac-manifest.in		\
 	$(NULL)
 
 pkgdata_SCRIPTS =			\

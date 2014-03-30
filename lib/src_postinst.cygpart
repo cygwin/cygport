@@ -1090,34 +1090,6 @@ __prepdebugsrc() {
 	printf '\n'
 }
 
-#****P* Postinstall/Windows UAC
-#  DESCRIPTION
-#  Manifest files will be automatically generated to circumvent UAC for those
-#  32-bit executables whose names normally trigger UAC Installer Detection.
-#****
-
-__prepuac() {
-	local exe exename;
-
-	# UAC Installer Detection only applies to 32-bit executables:
-	# http://technet.microsoft.com/en-us/library/cc709628.aspx
-	case ${CHOST} in
-	i?86-*-cygwin*|i?86-*-mingw*|i?86-*-msys*) ;;
-	*)	return 0 ;;
-	esac
-
-	cd ${D};
-
-	echo "Preparing executables for UAC:";
-
-	find * -type f -executable -a \( -name '*instal*.exe' -o -name '*patch*.exe' -o -name '*setup*.exe' -o -name '*update*.exe' \) -print0 | \
-	while read -d $'\0' exe
-	do
-		echo "        ${exe}";
-		manifestize "${exe}"
-	done
-}
-
 __prep_symlinks() {
 	local l l_src
 
@@ -1460,7 +1432,6 @@ __src_postinst() {
 	__prep_libtool_modules;
 	__prepstrip;
 	__prepdebugsrc;
-	__prepuac;
 	__prep_empty_dirs;
 }
 
@@ -1470,5 +1441,5 @@ readonly -f __prep_fonts_dir __prep_freedesktop_mime __prep_gconf_schemas \
             __prep_mateconf_schemas __prep_texlive __prep_xsessions \
             __prepdoc __prepemacs __prepetc __prepman __prepinfo __prepperl \
             __prepvargames __prep_empty_dirs \
-            __prepstrip __prepdebugsrc __prepuac __prep_symlinks \
+            __prepstrip __prepdebugsrc __prep_symlinks \
             __prep_libtool_modules __src_postinst
