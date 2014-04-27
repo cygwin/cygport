@@ -29,6 +29,17 @@
 #  Individual source files maintained locally may also be used by adding
 #  their basenames to SRC_URI.
 #
+#  The basename of each URI is treated as the source filename, except that
+#  CGI query strings are dropped after downloading.  If this would not yield
+#  a usable filename, then the file can be renamed by appending an artificial
+#  URI fragment in the form of #/FILENAME to the URI.  Some examples where this
+#  may be useful or even necessary:
+#  * an unversioned source tarball
+#  * a file, patch, or snapshot from a gitweb interface (where all specific
+#    information is in the query string itself)
+#  * a patch from a cgit interface (normally /patch?id=COMMIT)
+#  * a file from a Bugzilla attachment (normally /attachment.cgi?id=NUMBER)
+#
 #  This variable is required, but many cygclasses automatically define
 #  a default SRC_URI based on the values of PN and PV.
 #  SEE ALSO
@@ -44,6 +55,8 @@
 #  Individual source patches maintained locally may also be used by adding
 #  their basenames to PATCH_URI.  This provides an easy way to carry
 #  Cygwin-specific patches forward between releases.
+#  NOTE
+#  See SRC_URI for details about URI handling in cygport.
 #****
 
 # downloads file(s) from Internet
@@ -51,8 +64,9 @@ fetch() {
 	local uri;
 	local urifile;
 
-	uri=${1};
-	urifile=${uri%\?*};
+	uri=${1%\#/*};
+	urifile=${1##*\#/};
+	urifile=${urifile%\?*};
 	urifile=${urifile##*/};
 
 	if defined __DL_ONLY_MISSING && defined DISTDIR && [ -f ${DISTDIR}/${urifile} ]
