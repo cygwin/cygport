@@ -8,6 +8,10 @@ and maintaining packages for the Cygwin distribution."
 HOMEPAGE="http://sourceware.org/cygwinports/"
 SRC_URI="mirror://sourceforge/cygwin-ports/${P}.tar.xz"
 
+# this package contains no compiled Cygwin binaries
+# REMOVE THE FOLLOWING LINE for packages which are to be compiled for each arch
+ARCH=noarch
+
 # Build dependencies only
 DEPEND="groff help2man robodoc"
 # runtime deps to go in setup.hint, and note the escaped newline

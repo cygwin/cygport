@@ -670,7 +670,7 @@ unset restrict
 #
 ################################################################################
 
-declare -r workdir="${top}/${PF}";
+declare -r workdir="${top}/${PF}.${ARCH}";
 declare -r srcdir="${workdir}/src";
 declare -r origsrcdir="${workdir}/origsrc";
 declare -r configdir="${workdir}/config";

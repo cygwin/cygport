@@ -22,7 +22,7 @@ cp -f ${top_srcdir}/data/sample.cygport ${PACKAGE}.cygport
 
 ${top_builddir}/bin/cygport-inplace ${PACKAGE}.cygport prep compile install pkg
 
-cp -r ${PACKAGE}-${VERSION}-1/dist/${PACKAGE} .
+cp -r ${PACKAGE}-${VERSION}-1.noarch/dist/${PACKAGE} .
 
 ${top_builddir}/bin/cygport-inplace ${PACKAGE}.cygport finish
 
