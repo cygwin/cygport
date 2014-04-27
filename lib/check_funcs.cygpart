@@ -263,6 +263,38 @@ check_perl_module() {
 	return 0;
 }
 
+#****f* Checks/check_php_module
+#  SYNOPSIS
+#  check_php_module MODULE [MODULE2] ...
+#  DESCRIPTION
+#  Checks the presence of the given PHP extension(s), either binary (PECL) or
+#  PHP (PEAR) extensions.  If all given module(s) are present, returns TRUE,
+#  else FALSE.
+#  NOTE
+#  check_php_module does not distinguish how the given module(s) were
+#  installed, whether they are from a Cygwin package or manually.
+#  REQUIRES
+#  php
+#****
+check_php_module() {
+	local mod;
+
+	check_prog_req php;
+
+	for mod
+	do
+		if ! php -r "exit(extension_loaded('${mod}') ? 0 : -1);" &> /dev/null
+		then
+			if ! php -r "require '${mod}';" &> /dev/null
+			then
+				return 2;
+			fi
+		fi
+	done
+
+	return 0;
+}
+
 #****f* Checks/check_python_module
 #  SYNOPSIS
 #  check_python_module MODULE [MODULE2] ...
@@ -510,6 +542,8 @@ check_vala_module() {
 #  * lua(foo): Lua extensions
 #  * ocaml(foo): Objective Caml libraries
 #  * perl(Foo::Bar): Perl modules
+#  * php(foo): PHP binary (PECL) extensions
+#  * php(Foo/Bar.php): PHP (PEAR) extensions
 #  * pkgconfig(foo-1.0): A -devel package providing this pkg-config file
 #  * pypy(foo): PyPy modules
 #  * python(foo): Python 2 modules
@@ -548,6 +582,10 @@ __check_depends() {
 			;;
 		perl\(*)
 			check_perl_module $(__deparenthesize ${atom//-/::}) \
+				|| failed_atoms+="${atom} "
+			;;
+		php\(*)
+			check_php_module $(__deparenthesize ${atom}) \
 				|| failed_atoms+="${atom} "
 			;;
 		pkgconfig\(*)
@@ -672,8 +710,9 @@ __version_at_least() {
 
 readonly -f check_prog check_prog_req check_tool check_target_tool \
             check_pkg_config check_girepository_module check_lua_module \
-            check_ocaml_module check_perl_module check_python_module \
-            check_python3_module check_pypy_module check_R_module check_ruby_module \
-            check_tcl_module check_vala_module \
+            check_ocaml_module check_perl_module check_php_module \
+            check_python_module check_python3_module check_pypy_module \
+            check_R_module check_ruby_module \
+            check_tcl_module check_tex_module check_vala_module \
             __check_depends __check_function __check_function_ro \
             __check_unstable __version_at_least
