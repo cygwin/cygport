@@ -676,7 +676,7 @@ declare -r origsrcdir="${workdir}/origsrc";
 declare -r configdir="${workdir}/config";
 declare -r logdir="${workdir}/log";
 declare -r patchdir="${workdir}/patch";
-declare -r spkgdir="${workdir}/spkg";
+declare -r spkgdir="${workdir}/spkg/${PF}.src";
 declare -r distdir="${workdir}/dist";
 
 SRC_DIR=${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}};

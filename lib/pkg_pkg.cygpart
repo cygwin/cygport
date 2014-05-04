@@ -460,8 +460,6 @@ __pkg_srcpkg() {
 		cp ${top}/${src} ${spkgdir};
 	done
 
-	cd ${spkgdir};
-
 	if __arg_bool SIG
 	then
 		if check_prog gpg
@@ -478,7 +476,9 @@ __pkg_srcpkg() {
 		fi
 	fi
 
-	tar Jcvf ${distdir}/${PN}/${PF}-src.tar.xz * || error "Source package creation failed"
+	cd ${spkgdir%/*};
+
+	tar Jcvf ${distdir}/${PN}/${PF}-src.tar.xz ${spkgdir##*/}/ || error "Source package creation failed"
 	echo;
 }
 
