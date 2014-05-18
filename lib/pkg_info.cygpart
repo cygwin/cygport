@@ -406,7 +406,7 @@ __list_deps() {
 
 	if check_prog perl
 	then
-		pldirs=($(perl -e 'print join(" ",@INC)'))
+		pldirs=($(perl -e 'my $inc=(exists $ENV{PERL_NO_VENDOR_DEPS}?"(vendor|site)":"(site)")."_perl";print join(" ",reverse grep !/$inc/,@INC)'))
 		pldirs+=" ${DEPS_PATH//:/ }"
 		for pldep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				${deps_prune} \
