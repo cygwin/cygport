@@ -161,8 +161,11 @@ texlive_install() {
 		for f in $(grep '^ ' $tlpobj)
 		do
 			case $f in
-			*.exe|*.mem)
+			*.exe|*.dll|*.mem)
 				# compiled from source in the 'texlive' package
+				continue ;;
+			*.bat)
+				# only needed for native Win32
 				continue ;;
 			bin/${TEXLIVE_ARCH}/*)
 				if [ ! -L ${f} ]
