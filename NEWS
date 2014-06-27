@@ -1,3 +1,17 @@
+0.16.0:
+	* UAC manifests are no longer generated now that the toolchain
+	itself handles these with binutils-2.24.51-4, gcc-4.8.3-1, and
+	windows-default-manifest-6.3-1 or newer.
+	* Working directories are now $ARCH-specific, so that packages
+	can be built for both i686 and x86_64 in the same directory
+	simultaneously.
+	* Source packages now unpack into a release-specific directory.
+	* SRC_URI and PATCH_URI entries can be renamed when downloading
+	by adding a URI fragment in the form <URI#/NEWNAME>.
+	* Improved dependency detection for gobject-introspection and lua.
+	* Updated for gettext-0.18.3.
+	* gnome/gtkmm/mate: fixes for autoreconf with latest releases
+
 0.15.0:
 	* Greatly improved speed of debuginfo extraction.
 	* Relies on $host-pkg-config when cross-compiling

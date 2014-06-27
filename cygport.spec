@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.15.0
+Version:        0.16.0
 Release:        1
 Summary:        Cygwin package building tool
 
@@ -9,7 +9,6 @@ License:        GPLv3+
 Group:          Development/Tools
 URL:            http://www.cygwinports.org
 Source0:        http://downloads.sourceforge.net/cygwin-ports/%{name}-%{version}.tar.xz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
 Requires:       autoconf automake libtool pkgconfig
@@ -54,14 +53,8 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 # First install all the files belonging to the shared build
 make install DESTDIR=$RPM_BUILD_ROOT doc_DATA=
-
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %post
@@ -73,7 +66,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root,-)
 %doc AUTHORS ChangeLog COPYING NEWS README TODO doc/cygport.1.html doc/manual.css doc/manual.html
 %config %{_sysconfdir}/bash_completion.d/cygport-bash-completion
 %config(noreplace) %{_sysconfdir}/cygport.conf
@@ -86,6 +78,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jun 26 2014 Yaakov Selkowitz <yselkowitz@cygwin.com> - 0.16.0-1
+- Version bump
+- Cleanup spec
+
 * Fri Mar  7 2014 Yaakov Selkowitz <cygwin-ports-general@lists.sourceforge.net> - 0.15.0-1
 - Version bump.
 - Fix for compatibility with F20 unversioned docdirs.
