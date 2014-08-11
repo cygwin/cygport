@@ -51,7 +51,7 @@ keepdir() {
 	for d
 	do
 		dodir ${d}
-		touch ${D}${d}/.keep-${PN}
+		touch ${D}${d}/.keep-${NAME}-${VERSION}-${RELEASE}
 	done
 }
 

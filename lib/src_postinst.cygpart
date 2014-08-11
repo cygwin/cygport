@@ -846,6 +846,9 @@ __prep_empty_dirs() {
 			rmdir "${d}";
 		done
 	done
+
+	# delete the .keep files once they have served their purpose
+	find ${D} -type f -name .keep-${NAME}-${VERSION}-${RELEASE} -delete
 }
 
 #****P* Postinstall/Strip Binaries
