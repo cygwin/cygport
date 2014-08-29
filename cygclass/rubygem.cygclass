@@ -122,26 +122,14 @@ rubygem_compile() {
 #  Installs the gem contents into $D.
 #****
 rubygem_install() {
-	dodir ${RUBYGEM_DIR}
-	rm -fr _gem_
 	gem install -V --local --ignore-dependencies --document=rdoc,ri \
-		--install-dir ./_gem_ \
+		--install-dir ${D}${RUBYGEM_DIR} --bindir ${D}/usr/bin \
 		${RUBYGEM_NAME}-${VERSION}.gem
-	find _gem_/gems/ -name '*.o' -delete
-	for so in $(find _gem_/gems/*/lib -name '*.so')
+	find ${D}${RUBYGEM_DIR}/gems/ -name '*.o' -delete
+	for so in $(find ${D}${RUBYGEM_DIR}/gems/*/lib -name '*.so')
 	do
-		find _gem_/gems/ -path '_gem_/gems/*/lib/*' -prune -o -name ${so##*/} -print | xargs rm -f
+		find ${D}${RUBYGEM_DIR}/gems/ -path '${D}${RUBYGEM_DIR}/gems/*/lib/*' -prune -o -name ${so##*/} -print | xargs rm -f
 	done
-	cp -r _gem_/{cache,gems,specifications}/ ${D}${RUBYGEM_DIR}/
-	if [ $(find _gem_/doc/*/ri -mindepth 1 -type d | wc -l) -gt 0 ]
-	then
-		cp -r _gem_/doc/ ${D}${RUBYGEM_DIR}/
-	fi
-	if [ -d _gem_/bin ]
-	then
-		rm -f _gem_/bin/*.bat
-		dobin _gem_/bin/*
-	fi
 }
 
 #****o* rubygem.cygclass/src_compile (rubygem)
