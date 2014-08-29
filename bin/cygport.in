@@ -619,6 +619,13 @@ declare -r  PV=(${PV} ${PVP[*]});
 declare -r  PV_MAJ=${PV[1]};
 declare -r  PV_MAJ_MIN="${PV[1]}.${PV[2]}";
 
+# http://www.rpm.org/max-rpm/s1-rpm-inside-scripts.html
+declare -rx CYGPORT_PACKAGE_NAME=${NAME}
+declare -rx CYGPORT_PACKAGE_VERSION=${VERSION}
+declare -rx CYGPORT_PACKAGE_RELEASE=${RELEASE}
+#declare -rx CYGPORT_DOC_DIR=/usr/share/doc
+
+
 _topdir=${argv[1]%/*};
 
 if [ "x${_topdir}" = "x${argv[1]}" ]
@@ -687,6 +694,7 @@ else
 	declare -r S=${srcdir}/${SRC_DIR};
 fi
 
+
 #****d* Globals/S
 #  DESCRIPTION
 #  The source directory.  Build tool regeneration (e.g. cygautoreconf) occurs
@@ -716,6 +724,14 @@ declare -r B="${workdir}/build";
 declare -r D="${workdir}/inst";
 declare -r T="${workdir}/temp";
 declare -r C="${S}/CYGWIN-PATCHES";
+
+# http://www.rpm.org/max-rpm/s1-rpm-inside-scripts.html
+declare -rx CYGPORT_ARCH=${ARCH}
+declare -rx CYGPORT_OS="Cygwin"
+#declare -rx CYGPORT_SOURCE_DIR=
+#declare -rx CYGPORT_BUILD_DIR=
+declare -rx CYGPORT_BUILD_ROOT=${D}
+declare -rx CYGPORT_OPT_FLAGS=${CFLAGS}
 
 declare -r compilelog="${logdir}/${PF}-compile.log";
 declare -r checklog="${logdir}/${PF}-check.log";
