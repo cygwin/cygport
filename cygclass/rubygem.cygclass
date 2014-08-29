@@ -124,7 +124,9 @@ rubygem_compile() {
 rubygem_install() {
 	dodir ${RUBYGEM_DIR}
 	rm -fr _gem_
-	gem install --local --force --rdoc --ri --install-dir ./_gem_ ${RUBYGEM_NAME}-${VERSION}.gem
+	gem install -V --local --ignore-dependencies --document=rdoc,ri \
+		--install-dir ./_gem_ \
+		${RUBYGEM_NAME}-${VERSION}.gem
 	find _gem_/gems/ -name '*.o' -delete
 	for so in $(find _gem_/gems/*/lib -name '*.so')
 	do
