@@ -139,6 +139,9 @@ rubygem_install() {
 	gem spec ${RUBYGEM_NAME}-${VERSION}.gem files --yaml \
 		| sed -e 's|^[- ]*|./|g' > ${B}/${RUBYGEM_NAME}-${VERSION}.gem.lst
 
+	# no need for a copy of the source gem in the binary package
+	rm -f ${D}${RUBYGEM_CACHE}
+
 	pushd ${D}${RUBYGEM_INSTDIR}
 
 	# clean up built files
