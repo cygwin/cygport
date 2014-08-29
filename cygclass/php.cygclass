@@ -85,7 +85,7 @@
 # cross-compiling is not (yet?) supported
 __cross_compiling_error
 
-check_prog_req php
+check_prog_req php-config php-devel
 
 #****d* php.cygclass/PHP
 #  DESCRIPTION

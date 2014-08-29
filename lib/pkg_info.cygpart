@@ -346,7 +346,7 @@ __list_deps() {
 		done
 	fi
 
-	if check_prog php
+	if check_prog php-config
 	then
 		phpmoddir=$(php-config  --extension-dir)
 		for phpdep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
