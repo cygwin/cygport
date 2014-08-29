@@ -70,6 +70,40 @@ SRC_URI="http://rubygems.org/downloads/${RUBYGEM_NAME}-${VERSION}.gem"
 
 SRC_DIR="${RUBYGEM_NAME}-${VERSION}"
 
+#****d* rubygem.cygclass/RUBYGEM_DIR
+#  DESCRIPTION
+#  The RubyGems system root directory, namely /usr/share/gems.
+#****
+RUBYGEM_DIR=$(${RUBY} -e 'print Gem.default_dirs[:system][:gem_dir]')
+
+#****d* rubygem.cygclass/RUBYGEM_INSTDIR
+#  DESCRIPTION
+#  The directory containing the original runtime content of this particular Gem.
+#****
+RUBYGEM_INSTDIR=${RUBYGEM_DIR}/gems/${RUBYGEM_NAME}-${VERSION}
+
+# this file is removed, no need for it in the binary package
+RUBYGEM_CACHE=${RUBYGEM_DIR}/cache/${RUBYGEM_NAME}-${VERSION}.gem
+
+#****d* rubygem.cygclass/RUBYGEM_SPEC
+#  DESCRIPTION
+#  The RubyGems specification file for this particular Gem.
+#****
+RUBYGEM_SPEC=${RUBYGEM_DIR}/specifications/${RUBYGEM_NAME}-${VERSION}.gemspec
+
+#****d* rubygem.cygclass/RUBYGEM_DOCDIR
+#  DESCRIPTION
+#  The directory containing the generated documentation of this particular Gem.
+#****
+RUBYGEM_DOCDIR=${RUBYGEM_DIR}/doc/${RUBYGEM_NAME}-${VERSION}
+
+#****d* rubygem.cygclass/RUBYGEM_EXTDIR
+#  DESCRIPTION
+#  The directory containing any native compiled extensions of this particular Gem.
+#****
+RUBYGEM_EXTDIR=$(${RUBY} -e 'print Gem.default_dirs[:system][:ext_dir]')/ruby/${RUBY_VERSION}/${RUBYGEM_NAME}-${VERSION}
+
+
 #****C* rubygem.cygclass/rubygem_compile
 #  SYNOPSIS
 #  rubygem_compile
@@ -90,17 +124,16 @@ rubygem_compile() {
 #  Installs the built gem into $D.
 #****
 rubygem_install() {
-	local gemdir=$(gem env gemdir)
-	dodir ${gemdir}
+	dodir ${RUBYGEM_DIR}
 	find _gem_/gems/ -name '*.o' -delete
 	for so in $(find _gem_/gems/*/lib -name '*.so')
 	do
 		find _gem_/gems/ -path '_gem_/gems/*/lib/*' -prune -o -name ${so##*/} -print | xargs rm -f
 	done
-	cp -r _gem_/{cache,gems,specifications}/ ${D}${gemdir}/
+	cp -r _gem_/{cache,gems,specifications}/ ${D}${RUBYGEM_DIR}/
 	if [ $(find _gem_/doc/*/ri -mindepth 1 -type d | wc -l) -gt 0 ]
 	then
-		cp -r _gem_/doc/ ${D}${gemdir}/
+		cp -r _gem_/doc/ ${D}${RUBYGEM_DIR}/
 	fi
 	if [ -d _gem_/bin ]
 	then
