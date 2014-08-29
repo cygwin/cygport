@@ -147,6 +147,16 @@ rubygem_install() {
 	rm -fr Rakefile *.gemspec depend extconf.rb install.rb setup.rb doc/ ext/ src/ test/
 
 	popd # ${D}${RUBYGEM_INSTDIR}
+
+	if [ -d ${D}${RUBYGEM_EXTDIR} ]
+	then
+		pushd ${D}${RUBYGEM_EXTDIR}
+
+		# these are not needed, but gem.build_complete must remain
+		rm -f gem_make.out mkmf.log
+
+		popd # ${D}${RUBYGEM_EXTDIR}
+	fi
 }
 
 #****o* rubygem.cygclass/src_compile (rubygem)
