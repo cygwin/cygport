@@ -117,12 +117,20 @@ rubygem_compile() {
 
 #****I* rubygem.cygclass/rubygem_install
 #  SYNOPSIS
-#  rubygem_install
+#  rubygem_install [CONFIGURE_FLAGS]
 #  DESCRIPTION
-#  Installs the gem contents into $D.
+#  Installs the gem contents into $D.  Any arguments are passed to extconf.rb
+#  as configure flags.
+#  SEE ALSO
+#  RUBYGEM_CONFIGURE_ARGS
 #****
 rubygem_install() {
-	CONFIGURE_ARGS="--with-cflags='${CFLAGS} -fdebug-prefix-map=${D}${RUBYGEM_INSTDIR}=/usr/src/debug/${NAME}-${VERSION}-${RELEASE}'" \
+#****v* rubygem.cygclass/RUBYGEM_CONFIGURE_ARGS
+#  DESCRIPTION
+#  Configure flags to be passed to extconf.rb when compiling Gems with
+#  C extensions.
+#****
+	CONFIGURE_ARGS="--with-cflags='${CFLAGS} -fdebug-prefix-map=${D}${RUBYGEM_INSTDIR}=/usr/src/debug/${NAME}-${VERSION}-${RELEASE}' $RUBYGEM_CONFIGURE_ARGS $@" \
 	gem install -V --local --ignore-dependencies --document=rdoc,ri \
 		--install-dir ${D}${RUBYGEM_DIR} --bindir ${D}/usr/bin \
 		${RUBYGEM_NAME}-${VERSION}.gem
