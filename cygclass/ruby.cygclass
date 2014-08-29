@@ -59,7 +59,7 @@ RUBY=/usr/bin/ruby
 #  DESCRIPTION
 #  The major.minor version of the Ruby interpreter.
 #****
-RUBY_VERSION=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["ruby_version"]')
+RUBY_VERSION=$(${RUBY} -e 'print RUBY_VERSION')
 
 #****d* ruby.cygclass/RUBY_LIB
 #  DESCRIPTION
