@@ -134,11 +134,19 @@ rubygem_install() {
 	gem install -V --local --ignore-dependencies --document=rdoc,ri \
 		--install-dir ${D}${RUBYGEM_DIR} --bindir ${D}/usr/bin \
 		${RUBYGEM_NAME}-${VERSION}.gem
-	find ${D}${RUBYGEM_DIR}/gems/ -name '*.o' -delete
-	for so in $(find ${D}${RUBYGEM_DIR}/gems/*/lib -name '*.so')
-	do
-		find ${D}${RUBYGEM_DIR}/gems/ -path '${D}${RUBYGEM_DIR}/gems/*/lib/*' -prune -o -name ${so##*/} -print | xargs rm -f
-	done
+
+	# used later to clean up RUBYGEM_INSTDIR
+	gem spec ${RUBYGEM_NAME}-${VERSION}.gem files --yaml \
+		| sed -e 's|^[- ]*|./|g' > ${B}/${RUBYGEM_NAME}-${VERSION}.gem.lst
+
+	pushd ${D}${RUBYGEM_INSTDIR}
+
+	# clean up built files
+	find -type f | grep -Fxvf ${B}/${RUBYGEM_NAME}-${VERSION}.gem.lst | xargs rm -f
+	# these are not needed once installed
+	rm -fr Rakefile *.gemspec depend extconf.rb install.rb setup.rb doc/ ext/ src/ test/
+
+	popd # ${D}${RUBYGEM_INSTDIR}
 }
 
 #****o* rubygem.cygclass/src_compile (rubygem)
