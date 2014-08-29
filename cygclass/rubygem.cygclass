@@ -108,23 +108,23 @@ RUBYGEM_EXTDIR=$(${RUBY} -e 'print Gem.default_dirs[:system][:ext_dir]')/ruby/${
 #  SYNOPSIS
 #  rubygem_compile
 #  DESCRIPTION
-#  Builds the gem (including any patches made to files in $S), compiles any
-#  native extensions, and prepares the gem for installation.
+#  Rebuilds the source gem (including any patches made to files in $S) and
+#  prepares it for installation.
 #****
 rubygem_compile() {
 	gem build ${RUBYGEM_NAME}.gemspec
-	rm -fr _gem_
-	gem install --local --force --rdoc --ri --install-dir ./_gem_ ${RUBYGEM_NAME}-${VERSION}.gem
 }
 
 #****I* rubygem.cygclass/rubygem_install
 #  SYNOPSIS
 #  rubygem_install
 #  DESCRIPTION
-#  Installs the built gem into $D.
+#  Installs the gem contents into $D.
 #****
 rubygem_install() {
 	dodir ${RUBYGEM_DIR}
+	rm -fr _gem_
+	gem install --local --force --rdoc --ri --install-dir ./_gem_ ${RUBYGEM_NAME}-${VERSION}.gem
 	find _gem_/gems/ -name '*.o' -delete
 	for so in $(find _gem_/gems/*/lib -name '*.so')
 	do
@@ -145,8 +145,7 @@ rubygem_install() {
 #****o* rubygem.cygclass/src_compile (rubygem)
 #  DEFINITION
 src_compile() {
-	lndirs
-	cd ${B}
+	cd ${S}
 	rubygem_compile
 }
 #****
@@ -154,7 +153,7 @@ src_compile() {
 #****o* rubygem.cygclass/src_install (rubygem)
 #  DEFINITION
 src_install() {
-	cd ${B}
+	cd ${S}
 	rubygem_install
 }
 #****
