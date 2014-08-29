@@ -77,6 +77,12 @@ RUBY_LIB=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["rubylibdir"]')
 #****
 RUBY_ARCH=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["archdir"]')
 
+#****d* ruby.cygclass/RUBY_HEADERDIR
+#  DESCRIPTION
+#  Path containing the Ruby API headers.
+#****
+RUBY_HEADERDIR=$(${RUBY} -r rbconfig -e "print RbConfig::CONFIG['rubyhdrdir']")
+
 # deprecated; use RUBY_VENDOR{LIB,ARCH} instead
 RUBY_SITELIB=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["sitelibdir"]')
 RUBY_SITEARCH=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["sitearchdir"]')
