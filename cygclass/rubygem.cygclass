@@ -195,4 +195,7 @@ src_install() {
 }
 #****
 
+# docs are already installed into RUBYGEM_INSTDIR
+_CYGPORT_RESTRICT_postinst_doc_=1
+
 readonly -f rubygem_compile rubygem_install
