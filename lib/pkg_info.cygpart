@@ -70,6 +70,7 @@ __list_deps() {
 	local alldeps girdep jar jpkg ladep luadep luapaths pcdep pidep
 	local mldep mldir mllib
 	local phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
+	local gemdir gemextdir gemspecdir
 	local tcldep tclpkgs vapidep vapidir
 	local tcgcclibdir tcgccsysroot
 	local dlltool="dlltool"
@@ -472,18 +473,23 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	then
 		rbdirs=($(ruby -e 'print($:.join(" "))'))
 		rbdirs+=" ${DEPS_PATH//:/ }"
-		if check_prog gem
+		gemdir=$(ruby -e 'print Gem.default_dirs[:system][:gem_dir]')
+		gemextdir=$(ruby -e 'print Gem.default_dirs[:system][:ext_dir]')
+		gemspecdir=${gemdir}/specifications
+		# gems depend only on other gems and stdlib
+		if [ ! -d ${D}${gemspecdir} ]
 		then
-			gemdir=$(gem env gemdir)
-			for d in ${D}${gemdir}/gems/*/lib ${gemdir}/gems/*/lib
+			for d in ${gemdir}/gems/*/lib ${gemextdir}/ruby/*/*
 			do
 				rbdirs[${#rbdirs[*]}]=${d}
 			done
 		fi
+
+		alldeps+=" "$(find "${@//^_^/ }" -path "${gemspecdir#/}/*.gemspec" -print \
+			      | xargs -r sed -ne "s|.*add_runtime_dependency(%q<\([^>]*\)>.*|${gemspecdir}/\1-[0-9]*.gemspec|gp")
+
 		for rbdep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
-				-o -path 'usr/lib/ruby/gems/*/gems/*/examples/*' -prune \
-				-o -path 'usr/lib/ruby/gems/*/gems/*/sample*' -prune \
-				-o -path 'usr/lib/ruby/gems/*/gems/*/test/*' -prune \
+				-o -path "${gemdir#/}/*" -prune \
 				-o -name '*.rb' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*ruby' '{}' + \
 				| xargs -r sed -ne "s|^[^#]*require ['\"]\([^'\"]*\)['\"].*|\1|gp" \
