@@ -144,6 +144,16 @@ rubygem_install() {
 
 	pushd ${D}${RUBYGEM_INSTDIR}
 
+	# Ruby-GNOME2 components
+	if [ -f ext/${RUBYGEM_NAME}/libruby-${RUBYGEM_NAME/-/_}.a ]
+	then
+		dolib ext/${RUBYGEM_NAME}/libruby-${RUBYGEM_NAME/-/_}.a
+	fi
+	if [ -f ext/${RUBYGEM_NAME}/ruby-${RUBYGEM_NAME/_/-}.pc ]
+	then
+		dopkgconfig ext/${RUBYGEM_NAME}/ruby-${RUBYGEM_NAME/_/-}.pc
+	fi
+
 	# clean up built files
 	find -type f | grep -Fxvf ${B}/${RUBYGEM_NAME}-${VERSION}.gem.lst | xargs rm -f
 	# these are not needed once installed
@@ -154,6 +164,13 @@ rubygem_install() {
 	if [ -d ${D}${RUBYGEM_EXTDIR} ]
 	then
 		pushd ${D}${RUBYGEM_EXTDIR}
+
+		# more Ruby-GNOME2 components
+		for h in $(find -name '*.h')
+		do
+			dodir ${RUBY_HEADERDIR}
+			mv ${h} ${D}${RUBY_HEADERDIR}/
+		done
 
 		# these are not needed, but gem.build_complete must remain
 		rm -f gem_make.out mkmf.log
