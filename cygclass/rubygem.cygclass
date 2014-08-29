@@ -38,7 +38,7 @@
 
 inherit ruby
 
-check_prog_req gem ruby
+check_prog_req gem rubygems
 
 #****o* rubygem.cygclass/ORIG_PN (rubygem)
 #  DESCRIPTION
