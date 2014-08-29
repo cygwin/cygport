@@ -163,7 +163,9 @@ __list_deps() {
 		cut -d ' ' -f 3 | xargs -r which || true)
 
 	# shebang script interpreters
-	alldeps+=" "$(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune -o -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' -print \
+	alldeps+=" "$(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+			-o -path 'usr/share/gems/*' -prune \
+			-o -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' -print \
 			| xargs -r sed -n -e '/^#!/s|/env *|/|g;s|^#! *\([^ ]*\).*|\1|gp' \
 			| sort -u)
 
