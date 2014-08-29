@@ -122,6 +122,7 @@ rubygem_compile() {
 #  Installs the gem contents into $D.
 #****
 rubygem_install() {
+	CONFIGURE_ARGS="--with-cflags='${CFLAGS} -fdebug-prefix-map=${D}${RUBYGEM_INSTDIR}=/usr/src/debug/${NAME}-${VERSION}-${RELEASE}'" \
 	gem install -V --local --ignore-dependencies --document=rdoc,ri \
 		--install-dir ${D}${RUBYGEM_DIR} --bindir ${D}/usr/bin \
 		${RUBYGEM_NAME}-${VERSION}.gem
