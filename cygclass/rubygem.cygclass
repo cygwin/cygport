@@ -40,12 +40,13 @@ inherit ruby
 
 check_prog_req gem rubygems
 
-#****o* rubygem.cygclass/ORIG_PN (rubygem)
+#****o* rubygem.cygclass/RUBYGEM_NAME
 #  DESCRIPTION
 #  The original package name of the package as listed on RubyGems.  The default
-#  value is PN without the leading "ruby-", which covers most RubyGems packages.
+#  value is NAME without the leading "ruby-", which covers most RubyGems packages.
+#  ORIG_PN is also supported for backwards compatibility.
 #****
-: ${ORIG_PN=${PN#ruby-}}
+: ${RUBYGEM_NAME=${ORIG_PN:-${NAME#ruby-}}}
 
 #****o* rubygem.cygclass/CATEGORY (rubygem)
 #  DEFINITION
@@ -53,19 +54,21 @@ CATEGORY="Ruby"
 #****
 #****o* rubygem.cygclass/SUMMARY (rubygem)
 #  DEFINITION
-SUMMARY="Ruby ${PN#ruby-} module"
+SUMMARY="Ruby ${NAME#ruby-} module"
 #****
 #****o* rubygem.cygclass/HOMEPAGE (rubygem)
 #  DESCRIPTION
 #  Default homepage of the Ruby module on RubyGems.
 #****
-HOMEPAGE="http://rubygems.org/gems/${ORIG_PN}"
+HOMEPAGE="http://rubygems.org/gems/${RUBYGEM_NAME}"
 
 #****o* rubygem.cygclass/SRC_URI (rubygem)
 #  DESCRIPTION
 #  Default download location of the Ruby module on RubyGems.
 #****
-SRC_URI="http://rubygems.org/downloads/${ORIG_PN}-${PV}.gem"
+SRC_URI="http://rubygems.org/downloads/${RUBYGEM_NAME}-${VERSION}.gem"
+
+SRC_DIR="${RUBYGEM_NAME}-${VERSION}"
 
 #****C* rubygem.cygclass/rubygem_compile
 #  SYNOPSIS
@@ -75,9 +78,9 @@ SRC_URI="http://rubygems.org/downloads/${ORIG_PN}-${PV}.gem"
 #  native extensions, and prepares the gem for installation.
 #****
 rubygem_compile() {
-	gem build ${ORIG_PN}.gemspec
+	gem build ${RUBYGEM_NAME}.gemspec
 	rm -fr _gem_
-	gem install --local --force --rdoc --ri --install-dir ./_gem_ ${ORIG_PN}-${PV}.gem
+	gem install --local --force --rdoc --ri --install-dir ./_gem_ ${RUBYGEM_NAME}-${VERSION}.gem
 }
 
 #****I* rubygem.cygclass/rubygem_install
