@@ -174,10 +174,12 @@ __pkg_binpkg() {
 	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -d ${D}/usr/src/debug ]
 	then
 		[ -d ${autoloaddir} ] || autoloaddir=
+		local dbg_contents_var=${PN//[-+\.]/_}_debuginfo_CONTENTS;
+
 		__step "${PN}-debuginfo-${PVR}.tar.xz";
 		mkdir -p ${distdir}/${PN}/${PN}-debuginfo;
 		tar Jcvf ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.tar.xz \
-			usr/*/debug/ ${autoloaddir} \
+			usr/*/debug/ ${autoloaddir} ${!dbg_contents_var} \
 			| tee ${T}/.${PN}-debuginfo.lst \
 			|| error "Debuginfo package creation failed: ${PN}-debuginfo"
 		echo;
