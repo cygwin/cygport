@@ -27,6 +27,7 @@ __pkg_binpkg() {
 	local pkg_docs_var;
 	local pkg_list;
 	local f;
+	local autoloaddir="usr/share/gdb/auto-load";
 
 #****v* Packaging/PKG_NAMES
 #  SYNOPSIS
@@ -154,7 +155,9 @@ __pkg_binpkg() {
 		then
 			mkdir -p ${distdir}/${PN}/${distsubdir};
 			tar Jcvf ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.tar.xz \
-				--exclude=usr/lib/debug --exclude=usr/src ${pkg_contents} \
+				--exclude=usr/lib/debug --exclude=usr/src \
+				--exclude=${autoloaddir} \
+				${pkg_contents} \
 				| tee ${T}/.${pkg_name[${n}]}.lst \
 				|| error "Binary package creation failed: ${pkg_name[${n}]}"
 		else
@@ -170,10 +173,11 @@ __pkg_binpkg() {
 
 	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -d ${D}/usr/src/debug ]
 	then
+		[ -d ${autoloaddir} ] || autoloaddir=
 		__step "${PN}-debuginfo-${PVR}.tar.xz";
 		mkdir -p ${distdir}/${PN}/${PN}-debuginfo;
 		tar Jcvf ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.tar.xz \
-			usr/*/debug/ \
+			usr/*/debug/ ${autoloaddir} \
 			| tee ${T}/.${PN}-debuginfo.lst \
 			|| error "Debuginfo package creation failed: ${PN}-debuginfo"
 		echo;
