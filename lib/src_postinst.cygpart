@@ -85,7 +85,7 @@ __prep_freedesktop_mime() {
 			dodir /etc/postinstall
 			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 				/usr/bin/update-desktop-database ${CROSS_PREFIX-/usr}/share/applications
-				/usr/bin/update-mime-database ${CROSS_PREFIX-/usr}/share/mime
+				/usr/bin/update-mime-database -n ${CROSS_PREFIX-/usr}/share/mime
 
 			_EOF
 		fi
@@ -102,7 +102,7 @@ __prep_freedesktop_mime() {
 		then
 			dodir /etc/postinstall
 			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-				/usr/bin/update-mime-database ${CROSS_PREFIX-/usr}/share/mime
+				/usr/bin/update-mime-database -n ${CROSS_PREFIX-/usr}/share/mime
 
 			_EOF
 		fi
