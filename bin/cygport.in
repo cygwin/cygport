@@ -85,7 +85,7 @@ set -e;
 
 # Make sure we are on 1.5 before proceeding
 case $(uname -r) in
-	1.5.*)	;;
+	1.5.*|1.6.*)	;;
 	1.7.*)	echo -e " \e[1;31m*\e[0;0m cygport 0.9 is required for Cygwin 1.7."; exit 127 ;;
 	*)		echo -e " \e[1;31m*\e[0;0m cygport: Unknown cygwin version: $(uname -r)"; exit 127 ;;
 esac
