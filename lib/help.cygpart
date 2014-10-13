@@ -46,6 +46,7 @@ __show_help() {
 		  test         run the package's test suite, if one exists
 		  install      install into a DESTDIR, and run post-installation steps
 		  package      create binary and source packages
+		  upload       upload finished packages to cygwin.com
 		  finish       delete the working directory
 		  all          run all of the above, excluding finish
 

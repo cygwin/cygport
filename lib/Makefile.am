@@ -8,6 +8,7 @@ cygpart_DATA = \
 	lib/pkg_cleanup.cygpart		\
 	lib/pkg_info.cygpart		\
 	lib/pkg_pkg.cygpart		\
+	lib/pkg_upload.cygpart		\
 	lib/src_compile.cygpart		\
 	lib/src_fetch.cygpart		\
 	lib/src_install.cygpart		\

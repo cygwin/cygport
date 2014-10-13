@@ -99,6 +99,7 @@ source ${_privlibdir}/syntax.cygpart
 #  * Installing
 #  * Postinstall
 #  * Packaging
+#  * Uploading
 #  * Cygclasses
 #****
 
@@ -108,8 +109,8 @@ source ${_privlibdir}/syntax.cygpart
 #  REQUIRES
 #  The following packages are required to build packages with cygport:
 #   autoconf, automake, bash, binutils, bzip2, coreutils, diffstat, diffutils,
-#   dos2unix, file, gawk, grep, gzip, libtool, lndir, make, patch, rsync, sed,
-#   tar, unzip, util-linux, wget, which, xz.
+#   dos2unix, file, gawk, grep, gzip, lftp, libtool, lndir, make, openssh,
+#   patch, rsync, sed, tar, unzip, util-linux, wget, which, xz.
 #  Other software packages are required by some Cygclasses, as indicated within.
 #****
 
@@ -291,6 +292,27 @@ unset conf;
 #  is desirable to create multiple binary packages from one source.
 #  cygport makes that very easy, by defining the variables described in this
 #  section.
+#****
+
+#****** Cygport/Uploading
+#  INTRODUCTION
+#  Once your binary and source packages are built, in order to distribute them
+#  to users you'll need to upload them to the Cygwin package archive.  Before
+#  you can upload packages, you'll need to do the following things:
+#  * Request upload privileges, and provide your ssh public key.  The
+#    |html <a href="https://sourceware.org/cygwin-apps/package-upload.html">Uploading Packages</a>
+#    page tells how to do that, and how to be notified in case of problems with
+#    your uploads.
+#  * Be listed on the
+#    |html <a href="https://cygwin.com/cygwin-pkg-maint">Cygwin package maintainers list</a>
+#    as the maintainer of your packages.  Ask on the cygwin-apps mailing list if
+#    you need help getting listed.
+#
+#  Once those things are done, running
+#  |html <tt>cygport upload</tt> (or <tt>cygport up</tt> for short)
+#  will upload your finished packages to the package archive on cygwin.com.
+#  From there, if everything goes well, the new files should appear on your
+#  local Cygwin mirror within about 12 hours.
 #****
 
 #****** Cygport/Cygclasses
@@ -518,6 +540,10 @@ source ${_privlibdir}/pkg_info.cygpart
 source ${_privlibdir}/pkg_pkg.cygpart
 ###
 
+### __pkg_upload
+source ${_privlibdir}/pkg_upload.cygpart
+###
+
 ### __finish
 source ${_privlibdir}/pkg_cleanup.cygpart
 ###
@@ -737,6 +763,7 @@ declare -r compilelog="${logdir}/${PF}-compile.log";
 declare -r checklog="${logdir}/${PF}-check.log";
 declare -r installlog="${logdir}/${PF}-install.log";
 declare -r pkglog="${logdir}/${PF}-pkg.log";
+declare -r uploadlog="${logdir}/${PF}-upload.log";
 
 if ! defined SRC_URI
 then
@@ -868,6 +895,12 @@ do
 			;;
 		diff|mkdiff|mkpatch)
 			__pkg_diff;
+			_status=$?;
+			;;
+		upload|up)
+			__stage Uploading;
+			__log_init ${uploadlog};
+			(__pkg_upload) 2>&1 | tee -a ${uploadlog};
 			_status=$?;
 			;;
 		clean|finish)

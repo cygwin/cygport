@@ -1,0 +1,118 @@
+################################################################################
+#
+# pkg_upload.cygpart - cygport package uploading functions
+#
+# Copyright (C) 2014 Andrew Schulman
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+__pkg_upload() {
+	local archdir
+	local connect_string
+	local dir
+	local file
+	local key_fingerprint
+	local -a pkg_files
+	local pn
+
+	cd "${distdir}"
+
+	# Check that binary and source package files exist
+	for pn in ${pkg_name[*]}
+	do
+		if [ "$pn" = "$NAME" ]
+		then
+			pkg_files=("${NAME}/${pn}-${PVR}.tar.xz" "${NAME}/${pn}-${PVR}-src.tar.xz")
+		else
+			pkg_files=("${NAME}/${pn}/${pn}-${PVR}.tar.xz")
+		fi
+
+		for file in "${pkg_files[@]}"
+		do
+			if [ ! -f "${file}" ]
+			then
+				error "Package file ${file} doesn't exist. Run \"cygport ${cygportfile} pkg\" to build it."
+			fi
+		done
+	done
+
+	if test -z "$SSH_KEY"
+	then
+		# SSH key isn't known.
+		# So let lftp prompt for a passphrase every time, in case it's needed.
+		connect_string='sftp://cygwin@cygwin.com'
+	else
+		# SSH key is known, so load it into an ssh-agent.
+		# Password prompting if any will be done when the key is loaded into the ssh-agent,
+		# so tell lftp not to prompt.
+		connect_string='sftp://cygwin:@cygwin.com'
+
+		if ssh-add -l >/dev/null 2>/dev/null
+		then
+			# ssh-agent is already running. Get key fingerprint:
+			key_fingerprint=$(ssh-keygen -l -f "$SSH_KEY" | egrep -o '[0-9a-f]{2}(:[0-9a-f]{2}){15}') \
+			|| error "Can't read key fingerprint of ${SSH_KEY}. Not a private key file, or corresponding public key file is missing?"
+
+			# Load key into ssh-agent, if it's not already loaded (prompts for passphrase):
+			if ! ssh-add -l | grep -q "${key_fingerprint}"
+			then
+				ssh-add "${SSH_KEY}" 2>/dev/null \
+				|| error "Couldn't load private key ${SSH_KEY}."
+				# Unload key on exit:
+				trap "ssh-add -d ${SSH_KEY} 2>/dev/null" EXIT
+			fi
+		else
+			# ssh-agent isn't running. Start one:
+			eval $(ssh-agent -s) >/dev/null || error "Couldn't start ssh-agent."
+			# Kill it again on exit:
+			trap 'eval $(ssh-agent -k) >/dev/null' EXIT
+
+			# Load the private key into it (prompts for passphrase):
+			ssh-add  "${SSH_KEY}" 2>/dev/null \
+			|| error "Couldn't load private key ${SSH_KEY}."
+		fi
+	fi
+
+	case ${ARCH} in
+	i686)	archdir=(x86) ;;
+	x86_64)	archdir=(x86_64) ;;
+	noarch) archdir=(x86 x86_64) ;;
+	*)  error "Don't know where to upload packages with architecture ${ARCH}" ;;
+	esac
+
+	__step "Running lftp ${connect_string}"
+
+	lftp -f <(
+		echo "set cmd:fail-exit on"
+		echo "set cmd:interactive on"
+		echo "set net:max-retries 1"
+		echo "open ${connect_string}"
+
+		for dir in ${archdir[*]}
+		do
+			echo "cd /${dir}/release"
+			echo "rm -f ${NAME}/!ready || echo -n"
+			echo "mirror -v -eR ${NAME}"
+			echo "put /dev/null -o ${NAME}/!ready"
+		done
+	) || error "Upload failed"
+
+	echo "Upload complete."
+}
+
+# protect functions
+readonly -f __pkg_upload

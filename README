@@ -144,6 +144,7 @@ to be processed.  All other arguments are interpreted as a COMMAND, which may be
     test      - run the package's test suite, if one exists
     install   - install into a DESTDIR, and run post-installation steps
     package   - create binary and source packages
+    upload    - upload finished packages to cygwin.com
     finish    - delete the working directory
     all       - run all of the above, including finish
     almostall - run all of the above, except for finish
@@ -197,9 +198,11 @@ addition to the packages own dependencies:
     gawk
     grep
     gzip
+    lftp
     libtool
     lndir
     make
+    openssh
     patch
     rsync
     sed
