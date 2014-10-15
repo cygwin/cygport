@@ -1016,7 +1016,8 @@ __prepstrip() {
 		esac
 
 		echo "        ${exe}";
-		chmod 0755 "${exe}";
+		# keep sticky bit if present
+		chmod u+w,a+x "${exe}";
 
 		if defined _CYGPORT_RESTRICT_debuginfo_
 		then
