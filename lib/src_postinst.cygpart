@@ -589,6 +589,12 @@ __prepetc() {
 		newexe ${C}/profile.d.csh ${PN}.csh;
 	fi
 
+	if [ -f ${C}/profile.d.fish ]
+	then
+		exeinto /etc/profile.d;
+		newexe ${C}/profile.d.fish ${PN}.fish;
+	fi
+
 	# System fonts
 	if [ -d ${D}/usr/share/fonts ]
 	then

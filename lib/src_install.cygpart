@@ -698,6 +698,11 @@ dotool() {
 #  doenv VARIABLE VALUE
 #  DESCRIPTION
 #  Creates profile.d scripts which set the given environment variable.
+#  NOTE
+#  If VALUE includes a reference to a variable which is meant to be expanded
+#  at runtime, then be sure to escape the leading dollar-sign and, for
+#  portability, do not use braces; for example:
+#    doenv PATH \$PATH:/foo/bar
 #****
 doenv() {
 	local var=${1}
@@ -709,6 +714,7 @@ doenv() {
 		if ( ! \$?${var} ) setenv ${var} ""
 		setenv ${var} "${*}"
 	_EOF
+	echo "set -x ${var} \"${*}\"" >> ${D}/etc/profile.d/${PN}.fish
 }
 
 #****I* Installing/make_autostart_entry
