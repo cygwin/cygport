@@ -168,6 +168,14 @@ declare -x LIBS="";
 #****
 AR="ar"
 
+#****d* Compiling/DLLTOOL
+#  DESCRIPTION
+#  The DLL import creation tool for the host platform.
+#  NOTE
+#  This tool is available only on Cygwin, Windows, and embedded PE hosts.
+#****
+DLLTOOL="dlltool";
+
 OBJDUMP="objdump"
 
 #****d* Compiling/RANLIB
@@ -259,6 +267,7 @@ then
 	OBJC=${CHOST}-gcc
 	OBJCXX=${CHOST}-g++
 	AR=${CHOST}-ar
+	DLLTOOL=${CHOST}-dlltool
 	OBJDUMP=${CHOST}-objdump
 	RANLIB=${CHOST}-ranlib
 	RC=${CHOST}-windres

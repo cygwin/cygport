@@ -158,9 +158,12 @@ case ${CHOST} in
 *-cygwin*|*-mingw*|*-msys*|*-*-pe*|*-wince*|*-cegcc*|*-netbsdpe)
 	if cross_compiling
 	then
+		DLLTOOL="${CHOST}-dlltool"
 		RC="${CHOST}-windres"
 	fi ;;
-*)	RC="false"
+*)	DLLTOOL="false"
+	RC="false"
+	;;
 esac
 
 case ${CHOST} in
