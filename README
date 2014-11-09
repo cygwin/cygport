@@ -137,7 +137,7 @@ The general format of a cygport command is:
     cygport CYGPORT_FILE COMMAND [COMMAND2]
 
 The first argument is the (relative or absolute) path to the .cygport file
-to be processed.  ll other arguments are interpreted as a COMMAND, which may be:
+to be processed.  All other arguments are interpreted as a COMMAND, which may be:
 
     prep      - create working directory, unpack the source and apply patches
     compile   - run all compilation steps
