@@ -371,7 +371,7 @@ __prep_texlive() {
 		_EOF
 	fi
 
-	for d in /usr/share/texmf{-dist,}/fonts/{opentype,truetype,type1}
+	for d in /usr/share/texmf-dist/fonts/{opentype,truetype,type1}
 	do
 		if [ -d ${D}${d} ]
 		then
@@ -655,14 +655,10 @@ __prepetc() {
 		__prep_freedesktop_mime || error "Shared Mime Info postinstall failed"
 	fi
 
-	for d in /usr/share/texmf{,-dist}
-	do
-		if [ -d ${D}${d} ]
-		then
-			__prep_texlive
-			break
-		fi
-	done
+	if [ -d ${D}/usr/share/texmf-dist ]
+	then
+	    __prep_texlive
+	fi
 
 	if [ -d ${D}/usr/share/xsessions ]
 	then
