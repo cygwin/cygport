@@ -370,8 +370,8 @@ __prep_texlive() {
 	do
 		if [ -d ${D}${d} ]
 		then
-			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-				/usr/bin/fc-cache -f $d
+			cat >> ${D}${markerdir}/${PN}.fc <<-_EOF
+				${d}
 			_EOF
 		fi
 	done
