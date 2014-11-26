@@ -327,12 +327,11 @@ __prep_mateconf_schemas() {
 
 __prep_texlive() {
 	local d fmt fmts map maps
+	local markerdir=/var/lib/texmf/postinstall
 
-	dodir /etc/postinstall /etc/preremove
+	dodir /etc/postinstall /etc/preremove ${markerdir}
 
-	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		/usr/bin/mktexlsr
-	_EOF
+	touch ${D}${markerdir}/${PN}.lsr
 
 	fmts=$(__config_get texlive_fmts)
 	maps=$(__config_get texlive_maps)
@@ -351,7 +350,6 @@ __prep_texlive() {
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 			/usr/bin/updmap-sys --nohash --syncwithtrees
 			/usr/bin/updmap-sys --nohash
-			/usr/bin/mktexlsr
 		_EOF
 	fi
 	if [ -n "${fmts#0}" ]
@@ -366,9 +364,6 @@ __prep_texlive() {
 				/usr/bin/fmtutil-sys --disablefmt $fmt
 			_EOF
 		done
-		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			/usr/bin/mktexlsr
-		_EOF
 	fi
 
 	for d in /usr/share/texmf-dist/fonts/{opentype,truetype,type1}
