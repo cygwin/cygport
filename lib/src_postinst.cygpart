@@ -388,7 +388,7 @@ __prep_texlive() {
 #  for packages which provide X sessions to manage Start Menu shortcuts which
 #  will launch the session.
 #  NOTE
-#  Packages providing X sessions must require the cygutils, dbus, run,
+#  Packages providing X sessions must require the cygutils, dbus-x11, run,
 #  and xinit packages.
 #****
 
@@ -407,7 +407,7 @@ _EOF
 		eval `grep ^Exec= ${s} | sed -e 's|=\(.*\)|="\1"|'`
 
 		cat >> ${D}/etc/postinstall/${PN}.sh <<_EOF
-/usr/bin/mkshortcut \$CYGWINFORALL -P -i /usr/bin/XWin.exe -n "Cygwin-X/${Name}" -a "/usr/bin/bash.exe -l -c \"/usr/bin/startx /usr/bin/dbus-launch ${Exec}\"" /usr/bin/run.exe
+/usr/bin/mkshortcut \$CYGWINFORALL -P -w / -i /usr/bin/XWin.exe -n "Cygwin-X/${Name}" -a "--quote /usr/bin/bash.exe -l -c \"cd; /usr/bin/startx /etc/X11/xinit/Xsession ${Exec}\"" /usr/bin/run.exe
 _EOF
 
 		cat >> ${D}/etc/preremove/${PN}.sh <<_EOF
