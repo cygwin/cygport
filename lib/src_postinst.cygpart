@@ -338,19 +338,19 @@ __prep_texlive() {
 
 	if [ -n "${maps#0}" ]
 	then
+		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+			/usr/bin/updmap-sys --nohash --nomkmap \\
+		_EOF
 		for map in $maps
 		do
-			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-				/usr/bin/updmap-sys --nohash --nomkmap --enable $map
-			_EOF
 			cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-				/usr/bin/updmap-sys --nohash --nomkmap --disable ${map#*=}
+				--disable ${map#*=} \\
+			_EOF
+			cat >> ${D}${markerdir}/${PN}.map <<-_EOF
+				--enable $map
 			_EOF
 		done
-		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			/usr/bin/updmap-sys --nohash --syncwithtrees
-			/usr/bin/updmap-sys --nohash
-		_EOF
+		echo >> ${D}/etc/preremove/${PN}.sh
 	fi
 	if [ -n "${fmts#0}" ]
 	then
