@@ -838,7 +838,7 @@ make_etc_defaults() {
 		# if passed a directory, then process all files therein
 		if [ -d ${D}${etc} ]
 		then
-			for f in $(find ${D}${etc} -type f)
+			for f in $(find ${D}${etc} -type f ! -name '.keep-*')
 			do
 				make_etc_defaults ${f#${D}}
 			done
