@@ -730,6 +730,9 @@ cygconf() {
 		export ac_cv_func_mmap_fixed_mapped=yes ;;
 	esac
 
+	# packages that use intltool w/o glib-gettext get this wrong
+	export DATADIRNAME="share"
+
 #****v* cygconf/CYGCONF_ARGS
 #  DESCRIPTION
 #  Additional flags to pass to configure, as a string.
