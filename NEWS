@@ -1,3 +1,9 @@
+0.17.1:
+	* Add support for fish shell scripts
+	* Update X session shortcut generation
+	* Add DLLTOOL definition for cross-compiling
+	* Various bugfixes
+
 0.17.0:
 	* .keep files used to preserve empty directories are not shipped
 	* Refined dependency detection for rubygem packages
