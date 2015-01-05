@@ -930,7 +930,7 @@ __prepstrip() {
 			tmpvar="${exe#usr/}"
 			arch_tree="${tmpvar%%/*}"
 			;;
-		usr/lib/gcc/*/lib*)
+		usr/lib/gcc/*/lib*|usr/lib/gcc/*/*.o)
 			tmpvar="${exe#usr/lib/gcc/}"
 			arch_tree="${tmpvar%%/*}"
 			;;
