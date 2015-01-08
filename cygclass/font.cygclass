@@ -166,7 +166,7 @@ dofontconf() {
 
 		dodir /usr/share/fontconfig/conf.avail /etc/fonts/conf.d
 		__doinstall 0644 ${i} /usr/share/fontconfig/conf.avail || error "dofontconf ${i} failed"
-		dosym /usr/share/fontconfig/conf.avail/${i} /etc/fonts/conf.d/${i}
+		dosym /usr/share/fontconfig/conf.avail/${i##*/} /etc/fonts/conf.d/${i##*/}
 	done
 }
 
