@@ -393,9 +393,9 @@ __prep_texlive() {
 #****
 
 __prep_xsessions() {
-	local s Exec Name
+	local s sname Exec Name DesktopNames
 
-	dodir /etc/postinstall /etc/preremove
+	dodir /etc/postinstall /etc/preremove /etc/X11/xinit/Xclients.d
 
 	cat >> ${D}/etc/postinstall/${PN}.sh <<_EOF
 /usr/bin/mkdir -p "\$(/usr/bin/cygpath \$CYGWINFORALL -P)/Cygwin-X"
@@ -403,11 +403,23 @@ _EOF
 
 	for s in ${D}/usr/share/xsessions/*.desktop
 	do
+		DesktopNames=  # this one isn't set by all sessions
 		eval `grep ^Name= ${s} | sed -e 's|=\(.*\)|="\1"|;s|/|-|g'`
 		eval `grep ^Exec= ${s} | sed -e 's|=\(.*\)|="\1"|'`
+		eval `grep ^DesktopNames= ${s} | sed -e 's|=\(.*\)|="\1"|;s|;|:|g'`
+		sname=$(basename ${s} .desktop)
+
+		cat > ${D}/etc/X11/xinit/Xclients.d/Xclients.${sname}.sh <<_EOF
+#! /bin/sh
+export DESKTOP_SESSION=${sname};
+export XDG_SESSION_DESKTOP=${sname};
+${DesktopNames:+export XDG_CURRENT_DESKTOP=${DesktopNames%:};}
+exec ${Exec}
+_EOF
+		chmod +x ${D}/etc/X11/xinit/Xclients.d/Xclients.${sname}.sh
 
 		cat >> ${D}/etc/postinstall/${PN}.sh <<_EOF
-/usr/bin/mkshortcut \$CYGWINFORALL -P -w / -i /usr/bin/XWin.exe -n "Cygwin-X/${Name}" -a "--quote /usr/bin/bash.exe -l -c \"cd; /usr/bin/startx /etc/X11/xinit/Xsession ${Exec}\"" /usr/bin/run.exe
+/usr/bin/mkshortcut \$CYGWINFORALL -P -w / -i /usr/bin/XWin.exe -n "Cygwin-X/${Name}" -a "--quote /usr/bin/bash.exe -l -c \"cd; /usr/bin/startx /etc/X11/xinit/Xsession ${sname}\"" /usr/bin/run.exe
 _EOF
 
 		cat >> ${D}/etc/preremove/${PN}.sh <<_EOF
