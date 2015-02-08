@@ -398,12 +398,12 @@ __prep_xsessions() {
 	dodir /etc/postinstall /etc/preremove /etc/X11/xinit/Xclients.d
 
 	cat >> ${D}/etc/postinstall/${PN}.sh <<_EOF
-case \$(uname -s) in *-WOW64) wow64=" (32-bit)" ;; esac
+case \$(uname -s) in *-WOW*) wow64=" (32-bit)" ;; esac
 /usr/bin/mkdir -p "\$(/usr/bin/cygpath \$CYGWINFORALL -P)/Cygwin-X\${wow64}"
 _EOF
 
 	cat >> ${D}/etc/preremove/${PN}.sh <<_EOF
-case \$(uname -s) in *-WOW64) wow64=" (32-bit)" ;; esac
+case \$(uname -s) in *-WOW*) wow64=" (32-bit)" ;; esac
 _EOF
 
 	for s in ${D}/usr/share/xsessions/*.desktop
