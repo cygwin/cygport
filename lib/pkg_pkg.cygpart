@@ -465,7 +465,16 @@ __pkg_srcpkg() {
 
 	for src in ${_src_orig_pkgs} ${_src_orig_patches}
 	do
-		cp ${top}/${src} ${spkgdir};
+		if [ -f ${DISTDIR}/${src} -a ! -f ${top}/${src} ]
+		then
+			src=${DISTDIR}/${src};
+		elif [ -f ${top}/${src##*/} -a ! -f ${top}/${src} ]
+		then
+			src=${top}/${src##*/};
+		else
+			src=${top}/${src};
+		fi
+		cp ${src} ${spkgdir};
 	done
 
 	if __arg_bool SIG

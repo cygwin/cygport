@@ -71,8 +71,7 @@ fetch() {
 
 	if defined __DL_ONLY_MISSING && defined DISTDIR && [ -f ${DISTDIR}/${urifile} ]
 	then
-		cp -f ${DISTDIR}/${urifile} .
-		inform "Copying ${urifile} from DISTDIR"
+		inform "Using ${urifile} from DISTDIR"
 		return 0
 	elif check_prog wget
 	then
@@ -99,7 +98,7 @@ fetch() {
 	if defined DISTDIR && [ -f ${urifile} ]
 	then
 		[ -d ${DISTDIR} ] || mkdir -p ${DISTDIR}
-		cp -fp ${urifile} ${DISTDIR}/
+		mv ${urifile} ${DISTDIR}/
 	fi
 }
 
@@ -165,9 +164,9 @@ __src_fetch() {
 		case ${uri%%//*} in
 			mirror:)	__mirror_fetch ${uri} ;;
 			http:|https:|ftp:)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
-			file:)		cp -f ${uri#file://} . || error "Copying ${uri##*/} failed" ;;
+			file:)		[ -f ${uri#file://} ] || error "${uri##*/}: does not exist" ;;
 			*:)		error "Unsupported download protocol ${uri%%//*}" ;;
-			*/*)		cp -f ${uri#file://} . || error "Copying ${uri##*/} failed" ;;
+			*/*)		[ -f ${uri#file://} ] || error "${uri##*/}: does not exist" ;;
 			${uri})		;; # file in working directory
 			*)		error "Invalid download URI ${uri}" ;;
 		esac

@@ -279,6 +279,13 @@ __src_prep() {
 
 	for src_pkg in ${_src_orig_pkgs}
 	do
+		if [ -f ${DISTDIR}/${src_pkg} -a ! -f ${top}/${src_pkg} ]
+		then
+			src_pkg=${DISTDIR}/${src_pkg};
+		elif [ -f ${top}/${src_pkg##*/} -a ! -f ${top}/${src_pkg} ]
+		then
+			src_pkg=${src_pkg##*/};
+		fi
 		for sigext in ${sig_exts}
 		do
 			if [ -f ${src_pkg}.${sigext} ]
@@ -288,13 +295,20 @@ __src_prep() {
 		done
 	done
 
-	for src_orig_patch in ${_src_orig_patches}
+	for src_patch in ${_src_orig_patches}
 	do
+		if [ -f ${DISTDIR}/${src_patch} -a ! -f ${top}/${src_patch} ]
+		then
+			src_patch=${DISTDIR}/${src_patch};
+		elif [ -f ${top}/${src_patch##*/} -a ! -f ${src_patch} ]
+		then
+			src_patch=${src_patch##*/};
+		fi
 		for sigext in ${sig_exts}
 		do
-			if [ -f ${src_orig_patch}.${sigext} ]
+			if [ -f ${src_patch}.${sigext} ]
 			then
-				__gpg_verify ${src_orig_patch} "PATCH $((n++))" ${sigext};
+				__gpg_verify ${src_patch} "PATCH $((n++))" ${sigext};
 			fi
 		done
 	done
@@ -313,7 +327,16 @@ __src_prep() {
 
 	for src_pkg in ${_src_orig_pkgs}
 	do
-		unpack ${top}/${src_pkg};
+		if [ -f ${DISTDIR}/${src_pkg} -a ! -f ${top}/${src_pkg} ]
+		then
+			src_pkg=${DISTDIR}/${src_pkg};
+		elif [ -f ${top}/${src_pkg##*/} -a ! -f ${top}/${src_pkg} ]
+		then
+			src_pkg=${top}/${src_pkg##*/};
+		else
+			src_pkg=${top}/${src_pkg};
+		fi
+		unpack ${src_pkg};
 	done
 
 #****v* Preparation/SRC_DIR
@@ -358,19 +381,28 @@ __src_prep() {
 
 	for src_patch in ${_src_orig_patches}
 	do
+		if [ -f ${DISTDIR}/${src_patch} -a ! -f ${top}/${src_patch} ]
+		then
+			src_patch=${DISTDIR}/${src_patch};
+		elif [ -f ${top}/${src_patch##*/} -a ! -f ${top}/${src_patch} ]
+		then
+			src_patch=${top}/${src_patch##*/};
+		else
+			src_patch=${top}/${src_patch};
+		fi
 		case ${src_patch} in
 			*.tar.gz|*.tgz|*.tar.bz2|*.tbz2)
 				pushd ${T};
-				unpack ${top}/${src_patch};
+				unpack ${src_patch};
 				popd;
 
-				for tar_patch in $(tar tf ${top}/${src_patch} | sort | grep -E '(diff|patch)$')
+				for tar_patch in $(tar tf ${src_patch} | sort | grep -E '(diff|patch)$')
 				do
 					cygpatch ${T}/${tar_patch};
 				done
 				;;
 			*)
-				cygpatch ${top}/${src_patch};
+				cygpatch ${src_patch};
 				;;
 		esac
 	done

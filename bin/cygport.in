@@ -745,6 +745,11 @@ fi
 
 for _src_uri in ${SRC_URI}
 do
+	if [ -f ${top}/${_src_uri} ]
+	then
+		_src_orig_pkgs+=" ${_src_uri}";
+		continue;
+	fi
 	_src_uri="${_src_uri##*\#/}"
 	_src_uri="${_src_uri%\?*}"
 	_src_orig_pkgs+=" ${_src_uri##*/}";
@@ -754,6 +759,11 @@ unset _src_uri;
 
 for _patch_uri in ${PATCH_URI}
 do
+	if [ -f ${top}/${_patch_uri} ]
+	then
+		_src_orig_patches+=" ${_patch_uri}";
+		continue;
+	fi
 	_patch_uri="${_patch_uri##*\#/}"
 	_patch_uri="${_patch_uri%\?*}"
 	_src_orig_patches+=" ${_patch_uri##*/}";
