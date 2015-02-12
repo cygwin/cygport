@@ -2,7 +2,7 @@
 #
 # pkg_upload.cygpart - cygport package uploading functions
 #
-# Copyright (C) 2014 Andrew Schulman
+# Copyright (C) 2014-2015 Andrew Schulman, Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -21,44 +21,50 @@
 ################################################################################
 
 __pkg_upload() {
-	local archdir
+	local -a archdir
 	local connect_string
 	local dir
+	local distsubdir
 	local file
 	local key_fingerprint
+	local -i n=0
 	local -a pkg_files
-	local pn
 
 	cd "${distdir}"
 
 	# Check that binary and source package files exist
-	for pn in ${pkg_name[*]}
-	do
-		if [ "$pn" = "$NAME" ]
-		then
-			pkg_files=("${NAME}/${pn}-${PVR}.tar.xz" "${NAME}/${pn}-${PVR}-src.tar.xz")
-		else
-			pkg_files=("${NAME}/${pn}/${pn}-${PVR}.tar.xz")
-		fi
 
-		for file in "${pkg_files[@]}"
-		do
-			if [ ! -f "${file}" ]
-			then
-				error "Package file ${file} doesn't exist. Run \"cygport ${cygportfile} pkg\" to build it."
-			fi
-		done
+	pkg_files=("${NAME}/${pn}-${PVR}-src.tar.xz" "${NAME}/setup.hint")
+
+	while (( n < pkg_count ))
+	do
+		case ${pkg_name[${n}]} in
+		${PN})  distsubdir= ;;
+		*)      distsubdir=${pkg_name[${n}]} ;;
+		esac
+
+		pkg_files+=("${NAME}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.tar.xz" "${NAME}/${PN}/${distsubdir}/setup.hint")
+		n+=1
 	done
 
-	if test -z "$SSH_KEY"
+	for file in "${pkg_files[@]}"
+	do
+		if [ ! -f "${file}" ]
+		then
+			error "Package file ${file} doesn't exist. Run \"cygport ${cygportfile} pkg\" to build it."
+		fi
+	done
+
+	if ! defined SSH_KEY
 	then
+
 		# SSH key isn't known.
-		# So let lftp prompt for a passphrase every time, in case it's needed.
+		# So let lftp prompt for a passphrase every time if needed.
 		connect_string='sftp://cygwin@cygwin.com'
 	else
 		# SSH key is known, so load it into an ssh-agent.
-		# Password prompting if any will be done when the key is loaded into the ssh-agent,
-		# so tell lftp not to prompt.
+		# Password prompting if any will be done when the key is loaded
+		# into the ssh-agent, so tell lftp not to prompt.
 		connect_string='sftp://cygwin:@cygwin.com'
 
 		if ssh-add -l >/dev/null 2>/dev/null
