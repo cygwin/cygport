@@ -69,7 +69,12 @@ case ${TOOLCHAIN_TARGET} in
 	;;
 *)	__check_triplet ${TOOLCHAIN_TARGET}
 	CTARGET=${TOOLCHAIN_TARGET}
-	TOOLCHAIN_SYSROOT="/usr/${CTARGET}/sys-root"
+	if __target_is_embedded
+	then
+		TOOLCHAIN_SYSROOT="/usr/${CTARGET}"
+	else
+		TOOLCHAIN_SYSROOT="/usr/${CTARGET}/sys-root"
+	fi
 	;;
 esac
 
@@ -149,7 +154,7 @@ fi
 toolchain_compile() {
 	local sysroot
 
-	if test ${CTARGET} != ${CHOST}
+	if test ${CTARGET} != ${CHOST} && ! __target_is_embedded
 	then
 		sysroot="--with-sysroot=${TOOLCHAIN_SYSROOT} --with-build-sysroot=${TOOLCHAIN_SYSROOT}"
 	fi
