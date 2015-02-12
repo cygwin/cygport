@@ -648,21 +648,18 @@ cygconf() {
 	prefix=$(__host_prefix)
 
 	# Set default configure arguments
-	confargs="--prefix=${prefix} --exec-prefix=${prefix} --bindir=${prefix}/bin \
-		  --sbindir=${prefix}/sbin --libexecdir=${prefix}/libexec \
-		  --datadir=${prefix}/share --localstatedir=${prefix%/usr}/var \
+	confargs="--prefix=${prefix} --exec-prefix=${prefix} \
+		  --localstatedir=${prefix%/usr}/var \
 		  --sysconfdir=${prefix%/usr}/etc"
 
 	if inherited multilib
 	then
 		confargs+=" --libdir=${prefix}/${MULTILIB_LIBDIR}"
-	else
-		confargs+=" --libdir=${prefix}/lib"
 	fi
 
 	case "x${confver}" in
 		x2.6[0-9]*)
-			confargs+=" --datarootdir=${prefix}/share --docdir=/usr/share/doc/${PN} --htmldir=/usr/share/doc/${PN}/html"
+			confargs+=" --docdir=/usr/share/doc/${PN} --htmldir=/usr/share/doc/${PN}/html"
 			;;
 		*)
 			confargs+=" --infodir=${prefix}/share/info --mandir=${prefix}/share/man"
