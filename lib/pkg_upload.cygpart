@@ -34,7 +34,7 @@ __pkg_upload() {
 
 	# Check that binary and source package files exist
 
-	pkg_files=("${NAME}/${pn}-${PVR}-src.tar.xz" "${NAME}/setup.hint")
+	pkg_files=("${NAME}/${NAME}-${PVR}-src.tar.xz" "${NAME}/setup.hint")
 
 	while (( n < pkg_count ))
 	do
@@ -43,9 +43,14 @@ __pkg_upload() {
 		*)      distsubdir=${pkg_name[${n}]} ;;
 		esac
 
-		pkg_files+=("${NAME}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.tar.xz" "${NAME}/${PN}/${distsubdir}/setup.hint")
+		pkg_files+=("${NAME}/${distsubdir}/${pkg_name[${n}]}-${PVR}.tar.xz" "${NAME}/${distsubdir}/setup.hint")
 		n+=1
 	done
+
+	if [ -d ${NAME}/${NAME}-debuginfo ]
+	then
+		pkg_files+=("${NAME}/${NAME}-debuginfo/${NAME}-debuginfo-${PVR}.tar.xz" "${NAME}/${NAME}-debuginfo/setup.hint")
+	fi
 
 	for file in "${pkg_files[@]}"
 	do
@@ -57,7 +62,6 @@ __pkg_upload() {
 
 	if ! defined SSH_KEY
 	then
-
 		# SSH key isn't known.
 		# So let lftp prompt for a passphrase every time if needed.
 		connect_string='sftp://cygwin@cygwin.com'
