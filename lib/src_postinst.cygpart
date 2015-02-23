@@ -1053,7 +1053,7 @@ __prepstrip() {
 			if ! ${objdump} -h "${exe}" | grep -q '\.gnu_deb'
 			then
 				dodir "${dbg%/*}";
-				${objcopy} --long-section-names enable --add-gnu-debuglink=/dev/null --only-keep-debug "${exe}" "${D}${dbg}";
+				${objcopy} --long-section-names enable --add-gnu-debuglink=/dev/null --only-keep-debug --compress-debug-sections "${exe}" "${D}${dbg}";
 				chmod 0644 "${D}${dbg}";
 				${objcopy} --strip-all "${exe}";
 				${objcopy} --long-section-names enable --add-gnu-debuglink="${D}${dbg}" "${exe}" 2>/dev/null;
