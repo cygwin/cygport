@@ -23,6 +23,4 @@ verbose ${S}/configure \
 	--srcdir=${S} \
 	--enable-maintainer-mode \
 	--prefix=/usr \
-	--sysconfdir=/etc \
-	--datarootdir=/usr/share \
 	"${@}"
