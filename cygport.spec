@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.17.1
+Version:        0.18.0
 Release:        1%{?dist}
 Summary:        Cygwin package building tool
 
@@ -80,6 +80,9 @@ make install DESTDIR=$RPM_BUILD_ROOT doc_DATA=
 
 
 %changelog
+* Wed Mar 4 2015 Yaakov Selkowitz <yselkowitz@cygwin.com> - 0.18.0-1
+- new version
+
 * Fri Aug 29 2014 Yaakov Selkowitz <yselkowitz@cygwin.com> - 0.17.0-1
 - Version bump
 

@@ -1,3 +1,12 @@
+0.18.0:
+	* New upload command for cygwin package maintainers
+	* Update X session shortcut generation again
+	* Split debuginfo symbol files are now compressed
+	* cygconf relies on config.site to minimize directory flags
+	* texlive: speed up postinstall scripts
+	* toolchain: do not use sysroots for embedded targets
+	* wxWidgets: update for 3.0
+
 0.17.1:
 	* Add support for fish shell scripts
 	* Update X session shortcut generation
