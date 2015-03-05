@@ -648,7 +648,9 @@ cygconf() {
 	prefix=$(__host_prefix)
 
 	# Set default configure arguments
-	confargs="--prefix=${prefix}"
+	confargs="--prefix=${prefix} --exec-prefix=${prefix} \
+		  --localstatedir=${prefix%/usr}/var \
+		  --sysconfdir=${prefix%/usr}/etc"
 
 	if inherited multilib
 	then
