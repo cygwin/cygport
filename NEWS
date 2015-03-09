@@ -1,3 +1,6 @@
+0.18.1:
+	* Revert split debuginfo compression due to PR binutils/18087.
+
 0.18.0:
 	* New upload command for cygwin package maintainers
 	* Update X session shortcut generation again
