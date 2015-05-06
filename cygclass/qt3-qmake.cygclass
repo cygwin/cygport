@@ -66,6 +66,7 @@ cygqmake3() {
 		QMAKE_RANLIB=${RANLIB} \
 		QMAKE_STRIP=: \
 		QMAKE_RPATH= \
+		QMAKE_PROJECT_DEPTH=0 \
 		${CYGQMAKE3_ARGS} "${@}" \
 		|| error "qmake failed"
 }

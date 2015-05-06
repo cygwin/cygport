@@ -51,6 +51,7 @@ cygqmake5() {
 		QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
 		QMAKE_LFLAGS_RPATH= \
 		QMAKE_STRIP=: \
+		QMAKE_PROJECT_DEPTH=0 \
 		${CYGQMAKE5_ARGS} "${@}" \
 		|| error "qmake failed"
 }

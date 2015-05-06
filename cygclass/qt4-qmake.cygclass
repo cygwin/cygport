@@ -53,6 +53,7 @@ cygqmake4() {
 		QMAKE_LFLAGS="${LDFLAGS}" \
 		QMAKE_LFLAGS_RPATH= \
 		QMAKE_STRIP=: \
+		QMAKE_PROJECT_DEPTH=0 \
 		${CYGQMAKE4_ARGS} "${@}" \
 		|| error "qmake failed"
 }
