@@ -97,7 +97,7 @@ __cmake_system() {
 #  cmake
 #****
 cygcmake() {
-	local cmdir crossargs exeext;
+	local buildtype cmdir crossargs exeext;
 
 	check_prog_req cmake;
 
@@ -125,6 +125,13 @@ cygcmake() {
 		cmdir=${S};
 	else
 		error "cygcmake: cmake directory not found";
+	fi
+
+	if defined _CYGPORT_RESTRICT_debuginfo_
+	then
+		buildtype=Release
+	else
+		buildtype=RelWithDebInfo
 	fi
 
 	if cross_compiling
@@ -157,7 +164,7 @@ cygcmake() {
 	cmake -Wno-dev \
 		${cmdir} \
 		-DCMAKE_BINARY_DIR=. \
-		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+		-DCMAKE_BUILD_TYPE=${buildtype} \
 		-DCMAKE_C_COMPILER=$(which ${CC}${exeext}) \
 		-DCMAKE_C_FLAGS="${CFLAGS} ${CPPFLAGS}" \
 		-DCMAKE_CXX_COMPILER=$(which ${CXX}${exeext}) \
