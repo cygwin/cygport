@@ -176,6 +176,12 @@ AR="ar"
 #****
 DLLTOOL="dlltool";
 
+#****d* Compiling/NM
+#  DESCRIPTION
+#  The symbol listing utility for the host platform.
+#****
+NM="nm"
+
 OBJDUMP="objdump"
 
 #****d* Compiling/RANLIB
@@ -268,6 +274,7 @@ then
 	OBJCXX=${CHOST}-g++
 	AR=${CHOST}-ar
 	DLLTOOL=${CHOST}-dlltool
+	NM=${CHOST}-nm
 	OBJDUMP=${CHOST}-objdump
 	RANLIB=${CHOST}-ranlib
 	RC=${CHOST}-windres

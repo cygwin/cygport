@@ -148,6 +148,7 @@ CC_SYSROOT=$(${CC} -print-sysroot)
 if cross_compiling
 then
 	AR="${CHOST}-ar"
+	NM="${CHOST}-nm"
 	OBJDUMP="${CHOST}-objdump"
 	RANLIB="${CHOST}-ranlib"
 	STRIP="${CHOST}-strip"
