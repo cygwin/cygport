@@ -396,6 +396,8 @@ unset conf;
 #    For GNUstep packages.
 #  * kde4.cygclass -
 #    For KDE 4.x packages.
+#  * kf5.cygclass -
+#    For KDE Frameworks 5.x packages.
 #  * mate.cygclass -
 #    For MATE Desktop packages.
 #  * rox.cygclass -

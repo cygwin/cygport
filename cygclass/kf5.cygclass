@@ -1,0 +1,126 @@
+################################################################################
+#
+# kf5.cygclass - functions for building KDE Frameworks 5.x packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2015 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/kf5.cygclass
+#  SYNOPSIS
+#  inherit kf5
+#  DESCRIPTION
+#  The KDE project provides a full-featured X desktop with a wide variety
+#  of applications, built on a library stack all based on the Qt C++ libraries.
+#  Most packages are written in C++ and are built with CMake.
+#
+#  This cygclass manages the building of most KF5-based packages.
+#  INHERITS
+#  cmake.cygclass, qt5.cygclass
+#****
+
+inherit cmake qt5
+
+: ${KF5_PACKAGE=${ORIG_PN:-${PN#kf5-}}}
+
+#****o* kf5.cygclass/HOMEPAGE (kf5)
+#  DEFINITION
+HOMEPAGE="http://www.kde.org/"
+#****
+
+#****o* kf5.cygclass/SRC_URI (kf5)
+#  DESCRIPTION
+#  Download location for the release tarball.
+#  SEE ALSO
+#  mirror_kde
+#****
+case ${PV} in
+	*.*.[56789]?)	_stable="unstable" ;;
+	*)		_stable="stable" ;;
+esac
+SRC_URI="mirror://kde/${_stable}/frameworks/${VERSION%\.*}/${KF5_PACKAGE}-${VERSION}.tar.xz"
+SRC_DIR="${KF5_PACKAGE}-${VERSION}"
+unset _stable
+
+if ! defined GIT_URI
+then
+#****o* kf5.cygclass/GIT_URI (kf5)
+#  NOTE
+#  git.cygclass should be inherit()ed last for this to be of use.
+#  DEFINITION
+GIT_URI="git://anongit.kde.org/${KF5_PACKAGE}"
+#****
+fi
+
+export QTDIR=${QT5_QTDIR}
+export QT_PLUGIN_PATH=${QT5_PLUGINSDIR}
+
+#****C* kf5.cygclass/kf5_compile
+#  SYNOPSIS
+#  kf5_compile [OPTIONS]
+#  DESCRIPTION
+#  Runs cygcmake to configure the package with several Cygwin- and KF5-specific
+#  options, then runs cygmake to compile.  Options, in the form of -DVARIABLE=VALUE,
+#  are passed on to cygcmake.
+#  REQUIRES
+#  cmake, extra-cmake-modules, libQt5Core-devel, libQt5Gui-devel
+#****
+kf5_compile() {
+	cygcmake \
+		-DPLUGIN_INSTALL_DIR=${QT5_PLUGINSDIR} \
+		-DQT_PLUGIN_INSTALL_DIR=${QT5_PLUGINSDIR} \
+		-DIMPORTS_INSTALL_DIR=${QT5_IMPORTSDIR} \
+		-DQML_INSTALL_DIR=${QT5_QMLDIR} \
+		-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
+		-DKDE_INSTALL_LIBEXECDIR=$(__host_prefix)/libexec \
+		-DECM_MKSPECS_INSTALL_DIR=${QT5_MKSPECSDIR}/modules \
+		"${@}"
+
+	cygmake
+}
+
+#****I* kf5.cygclass/kf5_install
+#  SYNOPSIS
+#  kf5_install [OPTIONS]
+#  DESCRIPTION
+#  Installs a KF5 package with cyginstall into $D, with the following addition:
+#  * Import libraries for libkdeinit5_* libraries are removed, as they are never used.
+#  Options, if any, are passed on to cyginstall.
+#****
+kf5_install() {
+	cyginstall "${@}"
+	rm -f ${D}/usr/lib/libkdeinit5_*
+}
+
+#****o* kf5.cygclass/src_compile (kf5)
+#  DEFINITION
+src_compile() {
+	cd ${B}
+	kf5_compile
+}
+#****
+
+#****o* kf5.cygclass/src_install (kf5)
+#  DEFINITION
+src_install() {
+	cd ${B}
+	kf5_install
+}
+#****
+
+readonly -f kf5_compile kf5_install

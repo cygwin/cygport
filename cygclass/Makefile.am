@@ -33,6 +33,7 @@ cygclass_DATA =					\
 	cygclass/hg.cygclass			\
 	cygclass/java.cygclass			\
 	cygclass/kde4.cygclass			\
+	cygclass/kf5.cygclass			\
 	cygclass/lua.cygclass			\
 	cygclass/mate.cygclass			\
 	cygclass/mono.cygclass			\
