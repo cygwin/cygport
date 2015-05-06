@@ -62,6 +62,10 @@
 #  DESCRIPTION
 #  Directory containing Qt5 documentation, and translation data.
 #****
+#****d* qt5.cygclass/QT5_MKSPECSDIR
+#  DESCRIPTION
+#  Installation path for Qt5 QMake specs files.
+#****
 #****d* qt5.cygclass/QT5_QMAKE
 #  DESCRIPTION
 #  Absolute path to the Qt5 project and Makefile generator
@@ -86,29 +90,25 @@
 if inherited cross
 then
 	QT5_QTDIR=${CROSS_PREFIX}
-	QT5_BINDIR=${QT5_QTDIR}/bin
-	QT5_INCLUDEDIR=${CROSS_INCLUDEDIR}/qt5
-	QT5_LIBDIR=${CROSS_LIBDIR}
-	QT5_PLUGINSDIR=${CROSS_LIBDIR}/qt5/plugins
-	QT5_DATADIR=${CROSS_DATADIR}/qt5
 	QT5_QMAKE=/usr/bin/${CROSS_HOST}-qmake-qt5
-	QT5_MOC=/usr/bin/${CROSS_HOST}-moc-qt5
-	QT5_RCC=/usr/bin/${CROSS_HOST}-rcc-qt5
-	QT5_UIC=/usr/bin/${CROSS_HOST}-uic-qt5
-	QT5_LRELEASE=/usr/bin/${CROSS_HOST}-lrelease-qt5
 else
 	QT5_QTDIR=/usr/lib/qt5
-	QT5_BINDIR=${QT5_QTDIR}/bin
-	QT5_INCLUDEDIR=/usr/include/qt5
-	QT5_LIBDIR=/usr/lib
-	QT5_PLUGINSDIR=${QT5_QTDIR}/plugins
-	QT5_DATADIR=/usr/share/qt5
-	QT5_QMAKE=${QT5_BINDIR}/qmake
-	QT5_MOC=${QT5_BINDIR}/moc
-	QT5_RCC=${QT5_BINDIR}/rcc
-	QT5_UIC=${QT5_BINDIR}/uic
-	QT5_LRELEASE=${QT5_BINDIR}/lrelease
+	QT5_QMAKE=/usr/bin/qmake-qt5
 fi
+
+QT5_BINDIR=$(${QT5_QMAKE} -query QT_HOST_BINS)
+QT5_INCLUDEDIR=$(${QT5_QMAKE} -query QT_INSTALL_HEADERS)
+QT5_LIBDIR=$(${QT5_QMAKE} -query QT_INSTALL_LIBS)
+QT5_PLUGINSDIR=$(${QT5_QMAKE} -query QT_INSTALL_PLUGINS)
+QT5_IMPORTSDIR=$(${QT5_QMAKE} -query QT_INSTALL_IMPORTS)
+QT5_QMLDIR=$(${QT5_QMAKE} -query QT_INSTALL_QML)
+QT5_DATADIR=$(${QT5_QMAKE} -query QT_INSTALL_DATA)
+QT5_MKSPECSDIR=$(${QT5_QMAKE} -query QT_HOST_DATA)/mkspecs
+QT5_MOC=${QT5_BINDIR}/moc
+QT5_RCC=${QT5_BINDIR}/rcc
+QT5_UIC=${QT5_BINDIR}/uic
+QT5_LRELEASE=${QT5_BINDIR}/lrelease
+
 
 __qt5_qmakespec() {
 	local spec
