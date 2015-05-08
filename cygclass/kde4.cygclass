@@ -119,11 +119,18 @@ case "${PN}:${PV}" in
 		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.xz"
 		SRC_DIR="kde-l10n-ca@valencia-${PV}"
 		;;
+	kde-l10n-ca?valencia:[1-9][0-9].*)
+		SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.xz"
+		SRC_DIR="kde-l10n-ca@valencia-${PV}"
+		;;
 	kde-l10n-*:4.[0-7].*|kde-l10n-*:4.8.[01])
 		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/${P}.tar.bz2"
 		;;
 	kde-l10n-*:4.*)
 		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/${P}.tar.xz"
+		;;
+	kde-l10n-*:[1-9][0-9].*)
+		SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/kde-l10n/${P}.tar.xz"
 		;;
 	# setup cannot handle '@' in PN
 	calligra-l10n-ca?valencia:2.*|koffice-l10n-ca?valencia:2.*)
@@ -138,6 +145,9 @@ case "${PN}:${PV}" in
 		;;
 	*:4.*)
 		SRC_URI="mirror://kde/${_stable}/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
+		;;
+	*:[1-9][0-9].*)
+		SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
 		;;
 esac
 unset _stable
