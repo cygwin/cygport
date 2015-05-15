@@ -349,11 +349,12 @@ unset _autotools_CYGCLASS_ _autotools_CYGCLASS_stage1_
 ################################################################################
 
 unset NAME VERSION RELEASE
-if [ -f ${argv[1]} ]
+declare cygportfile="${argv[1]%.cygport}.cygport"
+if [ -f "${cygportfile}" ]
 then
-	eval $(grep '^NAME=' ${argv[1]})
-	eval $(grep '^VERSION=' ${argv[1]})
-	eval $(grep '^RELEASE=' ${argv[1]})
+	eval $(grep '^NAME='    ${cygportfile})
+	eval $(grep '^VERSION=' ${cygportfile})
+	eval $(grep '^RELEASE=' ${cygportfile})
 fi
 
 if [ "${NAME+y}${VERSION+y}${RELEASE+y}" = "yyy" ]
@@ -362,9 +363,10 @@ declare -r  PN=${NAME}
 declare     PV=${VERSION}
 declare -r  PR=${RELEASE}
 declare -r  PF=${PN}-${PV}-${PR}
-declare -r  cygportfile=${argv[1]##*/}
+declare -r  cygportfile=${cygportfile##*/}
 else
-# file must be named PN-PV-PR.cygport, but the extension is optional in argv[1]
+# if we didn't get NAME VERSION and RELEASE from the .cygport, the file itself
+# must be named PN-PV-PR.cygport, but the extension is optional in argv[1]
             PF=${argv[1]##*/}
 declare -r  PF=${PF%.cygport}
 declare -r  PN=${PF%%-[0-9]*};
