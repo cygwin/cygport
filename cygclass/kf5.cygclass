@@ -31,41 +31,10 @@
 #
 #  This cygclass manages the building of most KF5-based packages.
 #  INHERITS
-#  cmake.cygclass, qt5.cygclass
+#  cmake.cygclass, kde.org.cygclass, qt5.cygclass
 #****
 
-inherit cmake qt5
-
-: ${KF5_PACKAGE=${ORIG_PN:-${PN#kf5-}}}
-
-#****o* kf5.cygclass/HOMEPAGE (kf5)
-#  DEFINITION
-HOMEPAGE="http://www.kde.org/"
-#****
-
-#****o* kf5.cygclass/SRC_URI (kf5)
-#  DESCRIPTION
-#  Download location for the release tarball.
-#  SEE ALSO
-#  mirror_kde
-#****
-case ${PV} in
-	*.*.[56789]?)	_stable="unstable" ;;
-	*)		_stable="stable" ;;
-esac
-SRC_URI="mirror://kde/${_stable}/frameworks/${VERSION%\.*}/${KF5_PACKAGE}-${VERSION}.tar.xz"
-SRC_DIR="${KF5_PACKAGE}-${VERSION}"
-unset _stable
-
-if ! defined GIT_URI
-then
-#****o* kf5.cygclass/GIT_URI (kf5)
-#  NOTE
-#  git.cygclass should be inherit()ed last for this to be of use.
-#  DEFINITION
-GIT_URI="git://anongit.kde.org/${KF5_PACKAGE}"
-#****
-fi
+inherit cmake qt5 kde.org
 
 export QTDIR=${QT5_QTDIR}
 export QT_PLUGIN_PATH=${QT5_PLUGINSDIR}

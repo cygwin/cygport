@@ -340,6 +340,8 @@ unset conf;
 #    For downloading sources from GNOME mirrors.
 #  * hg.cygclass -
 #    For downloading sources from Mercurial repositories.
+#  * kde.org.cygclass -
+#    For downloading sources from KDE mirrors.
 #  * mtn.cygclass -
 #    For downloading sources from Monotone repositories.
 #  * svn.cygclass -

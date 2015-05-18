@@ -31,10 +31,10 @@
 #
 #  This cygclass manages the building of most KDE4-based packages.
 #  INHERITS
-#  cmake.cygclass, qt4.cygclass
+#  cmake.cygclass, kde.org.cygclass, qt4.cygclass
 #****
 
-inherit cmake qt4
+inherit cmake qt4 kde.org
 
 #****v* kde4.cygclass/KDE4_EXTRAGEAR_VERSION
 #  DESCRIPTION
@@ -47,132 +47,11 @@ inherit cmake qt4
 #  NOTE
 #  If needed, this must be defined before inherit()ing kde4.cygclass.
 #****
-
-#****o* kde4.cygclass/HOMEPAGE (kde4)
-#  DEFINITION
-HOMEPAGE="http://www.kde.org/"
-#****
-
-#****o* kde4.cygclass/SRC_URI (kde4)
-#  DESCRIPTION
-#  Download location for the release tarball.
-#  SEE ALSO
-#  mirror_kde
-#****
 if defined KDE4_EXTRAGEAR_VERSION
 then
 	HOMEPAGE="http://extragear.kde.org/apps/${PN}/"
 	SRC_URI="mirror://kde/stable/${KDE4_EXTRAGEAR_VERSION}/src/extragear/${P}-kde${KDE4_EXTRAGEAR_VERSION}.tar.bz2"
 	SRC_DIR="${P}-kde${KDE4_EXTRAGEAR_VERSION}"
-else
-case ${PV} in
-	*.*.[789]?)	_stable="unstable" ;;
-	*)		_stable="stable" ;;
-esac
-case "${PN}:${PV}" in
-	automoc4:0.9.8[89])
-		SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.bz2"
-		;;
-	amarok:2.*)
-		SRC_URI="mirror://kde/${_stable}/${PN}/${PV}/src/${P}.tar.bz2"
-		;;
-	kdevplatform:1.*|kdevelop:4.*|kdevelop-*:1.*)
-		SRC_URI="mirror://kde/${_stable}/kdevelop/4.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
-		;;
-	# KDE-PIM 4.5 never happened, 4.6 was out of sync with KDE SC 4.6
-	kdepim:4.4.[6-9]|kdepim-runtime:4.4.[6-9]|kdepim:4.6.*|kdepim-runtime:4.6.*)
-		SRC_URI="mirror://kde/stable/kdepim-${PV}/src/${P}.tar.bz2"
-		;;
-	calligra:2.*|koffice:2.*)
-		SRC_URI="mirror://kde/${_stable}/${PN}-${PV}/${P}.tar.bz2"
-		;;
-	phonon:4.*.[789]?)
-		SRC_URI="mirror://kde/unstable/phonon/${P}.tar.bz2"
-		;;
-	phonon:4.4.4|phonon:4.5.0)
-		SRC_URI="mirror://kde/stable/phonon/${PV}/src/${P}.tar.bz2"
-		;;
-	phonon:4.[0-4].*)
-		SRC_URI="mirror://kde/stable/phonon/${PV}/${P}.tar.bz2"
-		;;
-	phonon:4.*)
-		SRC_URI="mirror://kde/stable/phonon/${PV}/src/${P}.tar.xz"
-		;;
-	phonon-backend-gstreamer:4.[4-5].*)
-		SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.bz2"
-		;;
-	phonon-backend-gstreamer:4.*)
-		SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.xz"
-		;;
-	phonon-backend-vlc:0.[3-4].*)
-		SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/${P}.tar.bz2"
-		;;
-	phonon-backend-vlc:0.*)
-		SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.xz"
-		;;
-	# setup cannot handle '@' in PN
-	kde-l10n-ca?valencia:4.[0-7].*|kde-l10n-ca?valencia:4.8.[01])
-		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.bz2"
-		SRC_DIR="kde-l10n-ca@valencia-${PV}"
-		;;
-	kde-l10n-ca?valencia:4.*)
-		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.xz"
-		SRC_DIR="kde-l10n-ca@valencia-${PV}"
-		;;
-	kde-l10n-ca?valencia:[1-9][0-9].*)
-		SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.xz"
-		SRC_DIR="kde-l10n-ca@valencia-${PV}"
-		;;
-	kde-l10n-*:4.[0-7].*|kde-l10n-*:4.8.[01])
-		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/${P}.tar.bz2"
-		;;
-	kde-l10n-*:4.*)
-		SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/${P}.tar.xz"
-		;;
-	kde-l10n-*:[1-9][0-9].*)
-		SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/kde-l10n/${P}.tar.xz"
-		;;
-	# setup cannot handle '@' in PN
-	calligra-l10n-ca?valencia:2.*|koffice-l10n-ca?valencia:2.*)
-		SRC_URI="mirror://kde/${_stable}/${PN%%-*}-${PV}/${PN%%-*}-l10n/${PN%%-*}-l10n-ca@valencia-${PV}.tar.bz2"
-		SRC_DIR="${PN%%-*}-l10n-ca@valencia-${PV}"
-		;;
-	calligra-l10n-*:2.*|koffice-l10n-*:2.*)
-		SRC_URI="mirror://kde/${_stable}/${PN%-l10n*}-${PV}/${PN%-l10n*}-l10n/${P}.tar.bz2"
-		;;
-	*:4.[0-7].*|*:4.8.[01])
-		SRC_URI="mirror://kde/${_stable}/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
-		;;
-	*:4.*)
-		SRC_URI="mirror://kde/${_stable}/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
-		;;
-	*:[1-9][0-9].*)
-		SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
-		;;
-esac
-unset _stable
-fi	# !KDE4_EXTRAGEAR_VERSION
-
-if ! defined SVN_URI
-then
-#****o* kde4.cygclass/SVN_URI (kde4)
-#  NOTE
-#  svn.cygclass should be inherit()ed last for this to be of use.
-#  DEFINITION
-SVN_URI="svn://anonsvn.kde.org/home/kde"
-#****
-
-SVN_MODULE=${SVN_MODULE:-${ORIG_PN:-${PN}}}
-fi
-
-if ! defined GIT_URI
-then
-#****o* kde4.cygclass/GIT_URI (kde4)
-#  NOTE
-#  git.cygclass should be inherit()ed last for this to be of use.
-#  DEFINITION
-GIT_URI="git://anongit.kde.org/${ORIG_PN:-${PN}}"
-#****
 fi
 
 export QTDIR=${QT4_QTDIR}

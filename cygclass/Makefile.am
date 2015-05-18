@@ -32,6 +32,7 @@ cygclass_DATA =					\
 	cygclass/gtkmm.cygclass			\
 	cygclass/hg.cygclass			\
 	cygclass/java.cygclass			\
+	cygclass/kde.org.cygclass		\
 	cygclass/kde4.cygclass			\
 	cygclass/kf5.cygclass			\
 	cygclass/lua.cygclass			\
