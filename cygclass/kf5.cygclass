@@ -68,12 +68,21 @@ kf5_compile() {
 #  kf5_install [OPTIONS]
 #  DESCRIPTION
 #  Installs a KF5 package with cyginstall into $D, with the following addition:
-#  * Import libraries for libkdeinit5_* libraries are removed, as they are never used.
+#  * Import libraries for plugins and libkdeinit5_* libraries are removed.
 #  Options, if any, are passed on to cyginstall.
 #****
 kf5_install() {
 	cyginstall "${@}"
 	rm -f ${D}/usr/lib/libkdeinit5_*
+
+	# QML plugins are built as SHARED, *not* MODULE because ECM sets
+	# CMAKE_SHARED_MODULE_PREFIX to empty (for full-fledged KDE plugins).
+	# QML/Quick plugins still need the prefix however, but that results
+	# in the installation of import libraries which we don't need.
+	if [ -d ${D}${QT5_QMLDIR} ]
+	then
+		find ${D}${QT5_QMLDIR} -type f -name '*.dll.a' -delete
+	fi
 }
 
 #****o* kf5.cygclass/src_compile (kf5)
