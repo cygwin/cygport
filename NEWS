@@ -1,3 +1,9 @@
+0.19.0:
+	* New definition: NM.
+	* kde.org: new cygclass for KDE SRC_URIs, updated for YY.MM.z releases
+	* kf5: new cygclass for KF5 packages
+	* ruby, rubygem: updated for 2.1+ versioning scheme
+
 0.18.1:
 	* Revert split debuginfo compression due to PR binutils/18087.
 
