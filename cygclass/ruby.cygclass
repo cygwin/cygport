@@ -57,7 +57,10 @@ RUBY=/usr/bin/ruby
 
 #****d* ruby.cygclass/RUBY_VERSION
 #  DESCRIPTION
-#  The major.minor version of the Ruby interpreter.
+#  The version of the Ruby interpreter.
+#  NOTE
+#  Since Ruby 2.1, this changes with every point release.  For the API version
+#  of Ruby, use ${RUBY_VERSION%.*}.0.
 #****
 RUBY_VERSION=$(${RUBY} -e 'print RUBY_VERSION')
 
@@ -103,7 +106,7 @@ RUBY_VENDORARCH=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["vendorarchdir"
 #  DESCRIPTION
 #  Installation path for RI docs for third-party Ruby extensions.
 #****
-RI_SITEDIR=/usr/share/ri/${RUBY_VERSION}/site
+RI_SITEDIR=/usr/share/ri/${RUBY_VERSION%.*}.0/site
 
 #****d* ruby.cygclass/LIBRUBY
 #  DESCRIPTION

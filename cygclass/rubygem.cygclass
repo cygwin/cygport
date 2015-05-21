@@ -101,7 +101,7 @@ RUBYGEM_DOCDIR=${RUBYGEM_DIR}/doc/${RUBYGEM_NAME}-${VERSION}
 #  DESCRIPTION
 #  The directory containing any native compiled extensions of this particular Gem.
 #****
-RUBYGEM_EXTDIR=$(${RUBY} -e 'print Gem.default_dirs[:system][:ext_dir]')/ruby/${RUBY_VERSION}/${RUBYGEM_NAME}-${VERSION}
+RUBYGEM_EXTDIR=$(${RUBY} -e 'print Gem.default_dirs[:system][:ext_dir]')/ruby/${RUBY_VERSION%.*}.0/${RUBYGEM_NAME}-${VERSION}
 
 
 #****C* rubygem.cygclass/rubygem_compile
