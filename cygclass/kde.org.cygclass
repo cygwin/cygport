@@ -1,0 +1,162 @@
+################################################################################
+#
+# kde.org.cygclass - sets SRC_URI for kde.org packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2014 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/kde.org.cygclass
+#  SYNOPSIS
+#  inherit kde.org
+#  DESCRIPTION
+#  This cygclass is to be used for packages which are part of KDE
+#  or which are hosted on KDE FTP or Git servers.
+#
+#  In most cases, you do not need to directly inherit this cygclass;
+#  most KDE packages will anyway use one of the cygclasses listed below
+#  which already inherit this cygclass.
+#
+#  If PN does not match the name of the original source tarball,
+#  define ORIG_PN before inherit()ing.
+#  INHERITED BY
+#  kde4.cygclass, kf5.cygclass
+#  SEE ALSO
+#  mirror_kde
+#****
+
+#****o* kde.org.cygclass/HOMEPAGE (kde.org)
+#  DEFINITION
+HOMEPAGE="http://www.kde.org/"
+#****
+
+#****o* kde.org.cygclass/SRC_URI (kde.org)
+#  DESCRIPTION
+#  Download location for the release tarball.
+#****
+case ${PV} in
+*.*.[56789]?)	_stable="unstable" ;;
+*)		_stable="stable" ;;
+esac
+case "${PN}:${PV}" in
+automoc4:0.9.8[89])
+	SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.bz2"
+	;;
+amarok:2.*)
+	SRC_URI="mirror://kde/${_stable}/${PN}/${PV}/src/${P}.tar.bz2"
+	;;
+kdevplatform:1.*|kdevelop:4.*|kdevelop-*:1.*)
+	SRC_URI="mirror://kde/${_stable}/kdevelop/4.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
+	;;
+# KDE-PIM 4.5 never happened, 4.6 was out of sync with KDE SC 4.6
+kdepim:4.4.[6-9]|kdepim-runtime:4.4.[6-9]|kdepim:4.6.*|kdepim-runtime:4.6.*)
+	SRC_URI="mirror://kde/stable/kdepim-${PV}/src/${P}.tar.bz2"
+	;;
+calligra:2.*|koffice:2.*)
+	SRC_URI="mirror://kde/${_stable}/${PN}-${PV}/${P}.tar.bz2"
+	;;
+phonon:4.*.[789]?)
+	SRC_URI="mirror://kde/unstable/phonon/${P}.tar.bz2"
+	;;
+phonon:4.4.4|phonon:4.5.0)
+	SRC_URI="mirror://kde/stable/phonon/${PV}/src/${P}.tar.bz2"
+	;;
+phonon:4.[0-4].*)
+	SRC_URI="mirror://kde/stable/phonon/${PV}/${P}.tar.bz2"
+	;;
+phonon:4.*)
+	SRC_URI="mirror://kde/stable/phonon/${PV}/src/${P}.tar.xz"
+	;;
+phonon-backend-gstreamer:4.[4-5].*)
+	SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.bz2"
+	;;
+phonon-backend-gstreamer:4.*)
+	SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.xz"
+	;;
+phonon-backend-vlc:0.[3-4].*)
+	SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/${P}.tar.bz2"
+	;;
+phonon-backend-vlc:0.*)
+	SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.xz"
+	;;
+# setup cannot handle '@' in PN
+kde-l10n-ca?valencia:4.[0-7].*|kde-l10n-ca?valencia:4.8.[01])
+	SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.bz2"
+	SRC_DIR="kde-l10n-ca@valencia-${PV}"
+	;;
+kde-l10n-ca?valencia:4.*)
+	SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.xz"
+	SRC_DIR="kde-l10n-ca@valencia-${PV}"
+	;;
+kde-l10n-ca?valencia:[1-9][0-9].*)
+	SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.xz"
+	SRC_DIR="kde-l10n-ca@valencia-${PV}"
+	;;
+kde-l10n-*:4.[0-7].*|kde-l10n-*:4.8.[01])
+	SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/${P}.tar.bz2"
+	;;
+kde-l10n-*:4.*)
+	SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/${P}.tar.xz"
+	;;
+kde-l10n-*:[1-9][0-9].*)
+	SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/kde-l10n/${P}.tar.xz"
+	;;
+# setup cannot handle '@' in PN
+calligra-l10n-ca?valencia:2.*|koffice-l10n-ca?valencia:2.*)
+	SRC_URI="mirror://kde/${_stable}/${PN%%-*}-${PV}/${PN%%-*}-l10n/${PN%%-*}-l10n-ca@valencia-${PV}.tar.bz2"
+	SRC_DIR="${PN%%-*}-l10n-ca@valencia-${PV}"
+	;;
+calligra-l10n-*:2.*|koffice-l10n-*:2.*)
+	SRC_URI="mirror://kde/${_stable}/${PN%-l10n*}-${PV}/${PN%-l10n*}-l10n/${P}.tar.bz2"
+	;;
+kf5-*)
+	SRC_URI="mirror://kde/${_stable}/frameworks/${VERSION%\.*}/${ORIG_PN:-${PN#kf5-}}-${PV}.tar.xz"
+	SRC_DIR="${ORIG_PN:-${PN#kf5-}}-${PV}"
+	;;
+*:4.[0-7].*|*:4.8.[01])
+	SRC_URI="mirror://kde/${_stable}/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
+	;;
+*:4.*)
+	SRC_URI="mirror://kde/${_stable}/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
+	;;
+*:[1-9][0-9].*)
+	SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
+	;;
+esac
+unset _stable
+
+if ! defined SVN_URI
+then
+#****o* kde.org.cygclass/SVN_URI (kde.org)
+#  NOTE
+#  svn.cygclass should be inherit()ed last for this to be of use.
+#  DEFINITION
+SVN_URI="svn://anonsvn.kde.org/home/kde"
+#****
+SVN_MODULE=${SVN_MODULE:-${ORIG_PN:-${PN}}}
+fi
+
+if ! defined GIT_URI
+then
+#****o* kde.org.cygclass/GIT_URI (kde.org)
+#  NOTE
+#  git.cygclass should be inherit()ed last for this to be of use.
+#  DEFINITION
+GIT_URI="git://anongit.kde.org/${ORIG_PN:-${PN}}"
+#****
+fi
