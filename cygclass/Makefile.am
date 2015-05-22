@@ -31,6 +31,7 @@ cygclass_DATA =					\
 	cygclass/gtk2-perl.cygclass		\
 	cygclass/gtkmm.cygclass			\
 	cygclass/hg.cygclass			\
+	cygclass/httpd.cygclass			\
 	cygclass/java.cygclass			\
 	cygclass/kde.org.cygclass		\
 	cygclass/kde4.cygclass			\

@@ -410,8 +410,6 @@ unset conf;
 #    For Xfce Desktop packages.
 #
 #  These Cygclasses are used for packaging specific groups of software:
-#  * apache2.cygclass -
-#    For Apache 2.x DSO packages.
 #  * aspell-dict.cygclass -
 #    For Aspell dictionary packages.
 #  * claws-mail.cygclass -
@@ -428,6 +426,8 @@ unset conf;
 #    For Perl bindings of GTK+/GNOME libraries.
 #  * gtkmm.cygclass -
 #    For GTKmm C++ bindings of GTK+/GNOME libraries.
+#  * httpd.cygclass -
+#    For Apache HTTP Server DSO packages.
 #  * pygtk.cygclass -
 #    For Python bindings of GTK+/GNOME libraries.
 #  * texlive.cygclass -
@@ -488,6 +488,7 @@ unset conf;
 #
 #  The following Cygclasses are deprecated and should not be used in new code:
 #  * apache.cygclass
+#  * apache2.cygclass
 #  * berkdb.cygclass
 #  * distutils.cygclass
 #  * distutils-multi.cygclass
