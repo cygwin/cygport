@@ -336,13 +336,16 @@ dohttpdconf() {
 #  but may also be a .so DLL if built without libtool.
 #****
 dohttpdmod() {
-	local mod
+	local mod modf
+
+	dodir ${HTTPD_LIBEXECDIR}
 
 	for mod
 	do
 		case ${mod##*.} in
-			${mod})	mod=${mod}.la ;;
+		${mod})	mod=${mod}.la ;;
 		esac
+		modf=${mod##*/}
 
 		if [ ! -f ${mod} ]
 		then
@@ -350,8 +353,14 @@ dohttpdmod() {
 		fi
 
 		case ${mod} in
-		*.la|*.so)
-			dodir ${HTTPD_LIBEXECDIR}
+		*.la)
+			__doinstall 0755 ${mod} ${HTTPD_LIBEXECDIR} \
+				|| error "install ${mod} failed"
+			[ -f ${D}${HTTPD_LIBEXECDIR}/${modf%.la}.so ] \
+				|| error "install ${mod} was incorrectly linked, ${modf%.la}.so not found"
+			rm -f ${D}${HTTPD_LIBEXECDIR}/${modf%.*}.{a,dll.a,la}
+			;;
+		*.so)
 			__doinstall 0755 ${mod} ${HTTPD_LIBEXECDIR} \
 				|| error "install ${mod} failed"
 			;;
