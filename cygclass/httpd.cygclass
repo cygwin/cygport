@@ -156,6 +156,12 @@ HTTPD_LIBEXECDIR="$(${HTTPD_APXS} -q LIBEXECDIR 2>/dev/null)"  # /usr/lib/httpd/
 #****
 HTTPD_SYSCONFDIR="$(${HTTPD_APXS} -q SYSCONFDIR 2>/dev/null).d"  # /etc/httpd/conf.d
 
+#****d* httpd.cygclass/HTTPD_SYSCONFMODULESDIR
+#  DESCRIPTION
+#  Installation path for Apache HTTP Server LoadModule directives
+#****
+HTTPD_SYSCONFMODULESDIR="$(${HTTPD_APXS} -q SYSCONFDIR 2>/dev/null).modules.d"  # /etc/httpd/conf.modules.d
+
 #****d* httpd.cygclass/HTTPD_CFLAGS
 #  DESCRIPTION
 #  Compile flags for building Apache HTTP Server DSOs.
@@ -358,15 +364,15 @@ dohttpdmod() {
 #  SYNOPSIS
 #  httpd_loadmodules
 #  DESCRIPTION
-#  Creates a LoadModule configuration snippet.  This means that users need not
-#  do anything more than install the package in order to enable the DSO.  For
-#  modules which require further configuration, create a complete file and
-#  use dohttpdconf to install it.
+#  Creates a LoadModule configuration snippet in HTTPD_SYSCONFMODULESDIR.
+#  This means that users need not do anything more than install the package in
+#  order to enable the DSO.  For modules which require further configuration,
+#  create a complete file and use dohttpdconf to install it.
 #****
 httpd_loadmodules() {
 	local dso imp mod sym
 
-	dodir ${HTTPD_SYSCONFDIR}
+	dodir ${HTTPD_SYSCONFMODULESDIR}
 
 	for mod in ${D}${HTTPD_LIBEXECDIR}/*.so
 	do
@@ -397,7 +403,7 @@ httpd_loadmodules() {
 			error "Cannot determine module symbol name for ${mod##*/}"
 		fi
 
-		cat >> ${D}${HTTPD_SYSCONFDIR}/${HTTPD_MOD_NAME}.conf <<-_EOF
+		cat >> ${D}${HTTPD_SYSCONFMODULESDIR}/${dso}.conf <<-_EOF
 			LoadModule ${sym} modules/${mod##*/}
 			_EOF
 
