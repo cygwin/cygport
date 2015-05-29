@@ -1,3 +1,6 @@
+0.20.0:
+	* httpd: new cygclass for httpd-2.4 DSOs
+
 0.19.0:
 	* New definition: NM.
 	* kde.org: new cygclass for KDE SRC_URIs, updated for YY.MM.z releases
