@@ -4,9 +4,9 @@ man_MANS = doc/cygport.1
 
 if HAVE_HELP2MAN
 
-doc/cygport.1: $(top_srcdir)/configure $(top_srcdir)/lib/help.cygpart
+doc/cygport.1: bin/cygport-inplace $(top_srcdir)/lib/help.cygpart
 	$(AM_V_GEN)test -d doc || $(MKDIR_P) doc ; \
-	$(HELP2MAN) -o $@ --no-info --name="Cygwin source packaging tool" $(top_builddir)/bin/cygport-inplace
+	$(HELP2MAN) -o $@ --no-info --name="Cygwin source packaging tool" $<
 
 if HAVE_GROFF
 
