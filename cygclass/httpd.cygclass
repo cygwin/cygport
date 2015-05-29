@@ -112,11 +112,11 @@ CATEGORY="Web"
 #****
 #****o* httpd.cygclass/SUMMARY (httpd)
 #  DEFINITION
-SUMMARY="Apache HTTP Server ${HTTPD_MOD_NAME} module"
+SUMMARY="Apache HTTP Server ${PN#httpd-mod_} module"
 #****
 ;;
 esac
-HTTPD_MOD_NAME=${HTTPD_MOD_NAME:-${PN#httpd-mod_}}
+HTTPD_MOD_NAME=${HTTPD_MOD_NAME:-${PN#httpd-}}
 
 #****d* httpd.cygclass/HTTPD_APXS
 #  DESCRIPTION
