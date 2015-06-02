@@ -303,6 +303,13 @@ unset conf;
 #    |html <a href="https://sourceware.org/cygwin-apps/package-upload.html">Uploading Packages</a>
 #    page tells how to do that, and how to be notified in case of problems with
 #    your uploads.
+#  * After your key is approved, connect once to cygwin.com by
+#    |html <tt>sftp cygwin@cygwin.com</tt>.
+#    Verify that the host key fingerprint for cygwin.com matches one of the ones posted on the
+#    |html <a href="https://sourceware.org/cygwin-apps/package-upload.html">Uploading Packages</a>
+#    page. If it does, answer "yes" to continue connecting.  Then exit sftp.
+#    This will store the host key fingerprint in your ~/.known_hosts file.
+#    You have to do this once before uploading, or the upload will fail.
 #  * Be listed on the
 #    |html <a href="https://cygwin.com/cygwin-pkg-maint">Cygwin package maintainers list</a>
 #    as the maintainer of your packages.  Ask on the cygwin-apps mailing list if
