@@ -60,7 +60,11 @@
 #****
 #****d* qt4.cygclass/QT4_DATADIR
 #  DESCRIPTION
-#  Directory containing Qt4 makespecs, documentation, and translation data.
+#  Directory containing Qt4 documentation and translation data.
+#****
+#****d* qt4.cygclass/QT4_MKSPECSDIR
+#  DESCRIPTION
+#  Directory containing Qt4 QMake specs files.
 #****
 #****d* qt4.cygclass/QT4_QMAKE
 #  DESCRIPTION
@@ -90,31 +94,24 @@
 if inherited cross
 then
 	QT4_QTDIR=${CROSS_PREFIX}
-	QT4_BINDIR=${QT4_QTDIR}/bin
-	QT4_INCLUDEDIR=${CROSS_INCLUDEDIR}/qt4
-	QT4_LIBDIR=${CROSS_LIBDIR}
-	QT4_PLUGINSDIR=${CROSS_LIBDIR}/qt4/plugins
-	QT4_DATADIR=${CROSS_DATADIR}/qt4
 	QT4_QMAKE=/usr/bin/${CROSS_HOST}-qmake-qt4
-	QT4_MOC=/usr/bin/${CROSS_HOST}-moc-qt4
-	QT4_RCC=/usr/bin/${CROSS_HOST}-rcc-qt4
-	QT4_UIC=/usr/bin/${CROSS_HOST}-uic-qt4
-	QT4_UIC3=/usr/bin/${CROSS_HOST}-uic3-qt4
-	QT4_LRELEASE=/usr/bin/${CROSS_HOST}-lrelease-qt4
 else
 	QT4_QTDIR=/usr/lib/qt4
-	QT4_BINDIR=${QT4_QTDIR}/bin
-	QT4_INCLUDEDIR=/usr/include/qt4
-	QT4_LIBDIR=/usr/lib
-	QT4_PLUGINSDIR=${QT4_QTDIR}/plugins
-	QT4_DATADIR=/usr/share/qt4
-	QT4_QMAKE=${QT4_BINDIR}/qmake
-	QT4_MOC=${QT4_BINDIR}/moc
-	QT4_RCC=${QT4_BINDIR}/rcc
-	QT4_UIC=${QT4_BINDIR}/uic
-	QT4_UIC3=${QT4_BINDIR}/uic3
-	QT4_LRELEASE=${QT4_BINDIR}/lrelease
+	QT4_QMAKE=/usr/bin/qmake-qt4
 fi
+
+QT4_BINDIR=$(dirname $(readlink -f ${QT4_QMAKE}))
+QT4_INCLUDEDIR=$(${QT4_QMAKE} -query QT_INSTALL_HEADERS)
+QT4_LIBDIR=$(${QT4_QMAKE} -query QT_INSTALL_LIBS)
+QT4_PLUGINSDIR=$(${QT4_QMAKE} -query QT_INSTALL_PLUGINS)
+QT4_IMPORTSDIR=$(${QT4_QMAKE} -query QT_INSTALL_IMPORTS)
+QT4_DATADIR=$(${QT4_QMAKE} -query QT_INSTALL_DATA)
+QT4_MKSPECSDIR=$(${QT4_QMAKE} -query QMAKE_MKSPECS)
+QT4_MOC=${QT4_BINDIR}/moc
+QT4_RCC=${QT4_BINDIR}/rcc
+QT4_UIC=${QT4_BINDIR}/uic
+QT4_UIC3=${QT4_BINDIR}/uic3
+QT4_LRELEASE=${QT4_BINDIR}/lrelease
 
 __qt4_qmakespec() {
 	local spec
