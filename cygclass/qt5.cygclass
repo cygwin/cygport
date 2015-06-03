@@ -58,6 +58,14 @@
 #  DESCRIPTION
 #  Installation path for Qt5 plugins.
 #****
+#****d* qt5.cygclass/QT5_IMPORTSDIR
+#  DESCRIPTION
+#  Installation path for Qt5 Quick 1 extensions.
+#****
+#****d* qt5.cygclass/QT5_QMLDIR
+#  DESCRIPTION
+#  Installation path for Qt5 Quick 2 extensions.
+#****
 #****d* qt5.cygclass/QT5_DATADIR
 #  DESCRIPTION
 #  Directory containing Qt5 documentation, and translation data.
