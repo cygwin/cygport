@@ -3,7 +3,7 @@ noinst_SCRIPTS = bin/cygport-inplace
 
 bin/cygport: bin/cygport.in $(top_srcdir)/configure Makefile
 	$(AM_V_GEN)test -d bin || $(MKDIR_P) bin ;		\
-	_version=$(shell cd $(top_srcdir) && git describe --dirty || echo $(VERSION));	\
+	_version=$(shell cd $(top_srcdir) && git describe --dirty 2>/dev/null || echo $(VERSION));	\
 	sed	-e "s!\@VERSION\@!$$_version!"			\
 		-e "s!\@cygclassdir\@!$(cygclassdir)!"		\
 		-e "s!\@cygpartdir\@!$(cygpartdir)!"		\
@@ -15,7 +15,7 @@ bin/cygport: bin/cygport.in $(top_srcdir)/configure Makefile
 
 bin/cygport-inplace: bin/cygport.in $(top_srcdir)/configure Makefile
 	$(AM_V_GEN)test -d bin || $(MKDIR_P) bin ;			\
-	_version=$(shell cd $(top_srcdir) && git describe --dirty || echo $(VERSION));	\
+	_version=$(shell cd $(top_srcdir) && git describe --dirty 2>/dev/null || echo $(VERSION));	\
 	sed	-e "s!\@VERSION\@!$$_version!"				\
 		-e "s!\@cygclassdir\@!$(abs_top_srcdir)/cygclass!"	\
 		-e "s!\@cygpartdir\@!$(abs_top_srcdir)/lib!"		\
