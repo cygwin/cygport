@@ -58,6 +58,10 @@
 #  DESCRIPTION
 #  Installation path for Qt4 plugins.
 #****
+#****d* qt4.cygclass/QT4_IMPORTSDIR
+#  DESCRIPTION
+#  Installation path for Qt4 Quick extensions.
+#****
 #****d* qt4.cygclass/QT4_DATADIR
 #  DESCRIPTION
 #  Directory containing Qt4 documentation and translation data.
