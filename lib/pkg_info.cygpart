@@ -283,7 +283,7 @@ __list_deps() {
 
 	if check_prog lua
 	then
-		luapaths=($(lua -e 'print(package.path.."\;"..package.cpath)' | tr '\;' ' '))
+		luapaths=($(lua -e 'print(package.path..";"..package.cpath)' | tr '\;' ' '))
 		luapaths+=" ${DEPS_PATH//:/ }"
 		for luadep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				-o -path 'usr/share/help/*' -prune \
