@@ -460,7 +460,8 @@ cygautoreconf() {
 #****
 
 		ACLOCAL=aclocal
-		AUTOPOINT=autopoint
+		# not all packages require gettext-devel
+		AUTOPOINT=$(which autopoint 2>/dev/null)
 
 		if cross_compiling || inherited toolchain
 		then
@@ -484,12 +485,15 @@ cygautoreconf() {
 
 		# libtool 2.2+ is incompatible with gettext before 0.17
 		# config.rpath is broken wrt dynamic linkage before 0.17
-		eval gettext_$(grep ^version= $(which ${AUTOPOINT}))
-		if ! __version_at_least 0.17 ${gettext_version}
+		if defined AUTOPOINT
 		then
-			error "cygautoreconf: at least gettext 0.17 required"
+			eval gettext_$(grep ^version= ${AUTOPOINT})
+			if ! __version_at_least 0.17 ${gettext_version}
+			then
+				error "cygautoreconf: at least gettext 0.17 required"
+			fi
+			AUTOPOINT+=" -V ${gettext_version}"
 		fi
-		AUTOPOINT+=" -V ${gettext_version}"
 
 		for tool in ACLOCAL LIBTOOLIZE AUTOCONF AUTOHEADER AUTOPOINT AUTOMAKE
 		do
