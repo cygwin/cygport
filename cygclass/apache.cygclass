@@ -1,6 +1,6 @@
 ################################################################################
 #
-# apache.cygclass - wrapper for versioned apache cygclasses
+# apache.cygclass - compatibility wrapper for httpd.cygclass
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006-2015 Yaakov Selkowitz
@@ -25,55 +25,62 @@
 #  SYNOPSIS
 #  inherit apache
 #  DESCRIPTION
-#  Deprecated compatibility wrapper for apache2.cygclass.
+#  Deprecated compatibility wrapper for httpd.cygclass.
 #  INHERITS
-#  apache2.cygclass
+#  httpd.cygclass
 #****
 
-inherit apache2
+case ${PN} in apache2-*)
+ORIG_PN=${ORIG_PN:-${PN#apache2-}}
+ORIG_P=${ORIG_PN}-${PV}
+HTTPD_MOD_NAME=${APACHE_MOD_NAME:-${PN#apache2-}}
+;;
+esac
+
+inherit httpd
 
 #****C* apache.cygclass/apache_compile
 #  DESCRIPTION
-#  Alias for apache2_compile
+#  Deprecated alias for httpd_mod_compile.
 #****
 apache_compile() {
-	apache2_compile "$@"
+	httpd_mod_compile "$@"
 }
 
 #****C* apache.cygclass/apache_apxs_compile
 #  DESCRIPTION
-#  Alias for apache2_apxs_compile
+#  Deprecated alias for httpd_apxs_compile.
 #****
 apache_apxs_compile() {
-	apache2_apxs_compile "$@"
+	httpd_apxs_compile "$@"
 }
 
 apxs_compile() {
-	apache2_apxs_compile "$@"
+	httpd_apxs_compile "$@"
 }
 
 #****I* apache.cygclass/doapacheconf
 #  DESCRIPTION
-#  Alias for doapache2conf
+#  Deprecated alias for dohttpdconf.
 #****
 doapacheconf() {
-	doapache2conf "$@"
+	dohttpdconf "$@"
 }
 
 #****I* apache.cygclass/doapachemod
 #  DESCRIPTION
-#  Alias for doapache2mod
+#  Deprecated alias for dohttpdmod.
 #****
 doapachemod() {
-	doapache2mod "$@"
+	dohttpdmod "$@"
 }
 
 #****I* apache.cygclass/apache_postinst
 #  DESCRIPTION
-#  Alias for apache2_postinst
+#  Deprecated alias for httpd_loadmodules.
 #****
 apache_postinst() {
-	apache2_postinst
+	httpd_loadmodules
 }
 
 readonly -f apache_compile apache_apxs_compile apxs_compile doapacheconf \
