@@ -1,3 +1,6 @@
+0.20.1:
+	* Fixes for Lua 5.2, OpenSSH 6.8, and httpd.cygclass.
+
 0.20.0:
 	* httpd: new cygclass for httpd-2.4 DSOs
 
