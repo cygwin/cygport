@@ -1,6 +1,6 @@
 ################################################################################
 #
-# apache2.cygclass - functions for building Apache 2.x mod_* modules
+# apache2.cygclass - compatibility wrapper for httpd.cygclass
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006-2015 Yaakov Selkowitz
@@ -25,391 +25,106 @@
 #  SYNOPSIS
 #  inherit apache2
 #  DESCRIPTION
-#  The Apache Web Server is an HTTP server which can be extended through
-#  plugins, known as DSOs, to support all sorts of tasks, scripting languages,
-#  and more.  In version 2.x, DSOs use the ".so" extension, even on platforms
-#  which use DLLs.
-#
-#  The purpose of apache2.cygclass is to provide functions and definitions
-#  for building DSOs for the Cygwin Apache 2.x packages.  Cygwin packages
-#  doing so should use the "apache2-" prefix before the canonical package name.
-#  Because there is no consistent DSO source buildsystem, src_compile and
-#  src_install must be defined yourself.
-#  EXAMPLES
-#  Apache module source packages do not have a single system.  Some packages
-#  are autoconf-based:
-#    inherit apache2
-#    
-#    NAME="apache2-mod_clamav"
-#    VERSION=0.23
-#    RELEASE=1
-#    CATEGORY="Web"
-#    SUMMARY="Apache 2 ClamAV filter module"
-#    DESCRIPTION="mod_clamav is an Apache 2 filter which scans the content
-#    delivered by the proxy module (mod_proxy) for viruses using the Clamav
-#    virus scanning engine."
-#    HOMEPAGE="http://software.othello.ch/mod_clamav/"
-#    SRC_URI="http://software.othello.ch/mod_clamav/mod_clamav-${VERSION}.tar.gz"
-#    SRC_DIR="mod_clamav-${VERSION}"
-#    PATCH_URI="0.22-cygwin-layout.patch"
-#    
-#    src_compile() {
-#      cd ${S}
-#      cygautoreconf
-#      cd ${B}
-#      apache2_compile
-#    }
-#    
-#    src_install() {
-#      cd ${B}
-#      doapache2mod mod_clamav
-#      doapache2conf ${S}/sample.conf ${S}/safepatterns.conf
-#      apache2_postinst
-#    }
-#
-#  Other simple module just ship the sources without a build system:
-#
-#    inherit apache2
-#    
-#    NAME="apache2-mod_geoip"
-#    VERSION=1.2.8
-#    RELEASE=1
-#    CATEGORY="Web"
-#    SUMMARY="Apache 2.x GeoIP module"
-#    DESCRIPTION="mod_geoip2 is an Apache 2.0 module for finding the country and
-#    city that a web request originated from.  It uses the GeoIP library and
-#    database to perform the lookup."
-#    HOMEPAGE="http://www.maxmind.com/app/mod_geoip"
-#    SRC_URI="http://www.maxmind.com/download/geoip/api/mod_geoip2/mod_geoip2_${VERSION}.tar.gz"
-#    SRC_DIR="mod_geoip2_${VERSION}"
-#    
-#    src_compile() {
-#      lndirs
-#      cd ${B}
-#      apache2_apxs_compile *.c -lGeoIP
-#    }
-#    
-#    src_install() {
-#      cd ${B}
-#      doapache2mod mod_geoip
-#      apache2_postinst
-#      dodoc README.php
-#    }
-#
-#  REQUIRES
-#  apache2-devel, libapr1-devel, libaprutil1-devel
-#  SEE ALSO
-#  mirror_apache
+#  Deprecated compatibility wrapper for httpd.cygclass.
+#  INHERITS
+#  httpd.cygclass
 #****
-
-# cross-compiling is not (yet?) supported
-__cross_compiling_error
 
 case ${PN} in apache2-*)
 ORIG_PN=${ORIG_PN:-${PN#apache2-}}
 ORIG_P=${ORIG_PN}-${PV}
-APACHE_MOD_NAME=${APACHE_MOD_NAME:-${PN#apache2-}}
-#****o* apache2.cygclass/CATEGORY (apache2)
-#  DEFINITION
-CATEGORY="Web"
-#****
-#****o* apache2.cygclass/SUMMARY (apache2)
-#  DEFINITION
-SUMMARY="Apache 2.x ${APACHE_MOD_NAME} module"
-#****
+HTTPD_MOD_NAME=${APACHE_MOD_NAME:-${PN#apache2-}}
 ;;
 esac
 
+inherit httpd
+
 #****d* apache2.cygclass/APXS2
 #  DESCRIPTION
-#  Path to apxs2(8), the APache eXtenSion tool.
+#  Deprecated alias for HTTPD_APXS.
 #****
-APXS2=/usr/sbin/apxs2
-
-check_prog_req ${APXS2} apache2-devel
+APXS2=${HTTPD_APXS}
 
 #****d* apache2.cygclass/HTTPD2
 #  DESCRIPTION
-#  Path to the Apache 2.x server.
+#  Deprecated alias for HTTPD.
 #****
-HTTPD2=$(${APXS2} -q SBINDIR)/$(${APXS2} -q TARGET)
+HTTPD2=${HTTPD}
 
 #****d* apache2.cygclass/APACHE2_VERSION
 #  DESCRIPTION
-#  Full version of the Apache 2.x server.
+#  Deprecated alias for HTTPD_VERSION.
 #****
-APACHE2_VERSION=$(${HTTPD2} -v | cut -d ' ' -f 3 | cut -d / -f 2)
+APACHE2_VERSION=${HTTPD_VERSION}
 
 #****d* apache2.cygclass/APACHE2_INCLUDEDIR
 #  DESCRIPTION
-#  Location of Apache 2.x headers.
+#  Deprecated alias for HTTPD_INCLUDEDIR.
 #****
-APACHE2_INCLUDEDIR="$(${APXS2} -q INCLUDEDIR)"  # /usr/include/apache2
 
 #****d* apache2.cygclass/APACHE2_LIBEXECDIR
 #  DESCRIPTION
-#  Installation path for Apache 2.x DSOs.
+#  Deprecated alias for HTTPD_LIBEXECDIR.
 #****
-APACHE2_LIBEXECDIR="$(${APXS2} -q LIBEXECDIR)"  # /usr/lib/apache2
+APACHE2_LIBEXECDIR=${HTTPD_LIBEXECDIR}
 
 #****d* apache2.cygclass/APACHE2_SYSCONFDIR
 #  DESCRIPTION
-#  Installation path for Apache 2.x configuration files.
+#  Deprecated alias for HTTPD_SYSCONFDIR.
 #****
-APACHE2_SYSCONFDIR="$(${APXS2} -q SYSCONFDIR)/conf.d"  # /etc/apache2/conf.d
+APACHE2_SYSCONFDIR=${HTTPD_SYSCONFDIR}
 
 #****d* apache2.cygclass/APACHE2_CFLAGS
 #  DESCRIPTION
-#  Compile flags for building Apache 2.x DSOs.
+#  Deprecated alias for HTTPD_CFLAGS.
 #****
-APACHE2_CFLAGS="-I${APACHE2_INCLUDEDIR} $(${APXS2} -q CFLAGS)"
+APACHE2_CFLAGS=${HTTPD_CFLAGS}
 
 #****d* apache2.cygclass/APACHE2_LIBS
 #  DESCRIPTION
-#  Link flags for building Apache 2.x DSOs.
-#  NOTE
-#  This is Cygwin specific due to the linking requirements of PE/COFF DLLs.
+#  Deprecated alias for HTTPD_LIBS.
 #****
-APACHE2_LIBS="-lhttpd2core"
-
-
-#****d* apache2.cygclass/APR_VERSION
-#  DESCRIPTION
-#  Major version of APR libraries used by the Apache 2.x server.
-#****
-case ${APACHE2_VERSION:0:3} in
-	2.2)	APR_VERSION=1 ;;
-	*)		error "Don't know anything about Apache ${APACHE2_VERSION}" ;;
-esac
-
-#****d* apache2.cygclass/APR_CONFIG
-#  DESCRIPTION
-#  Path to matching APR_VERSION-specific apr-config script
-#****
-
-#****d* apache2.cygclass/APU_CONFIG
-#  DESCRIPTION
-#  Path to matching APR_VERSION-specific apu-config script
-#****
-
-case ${APR_VERSION} in
-	1)	APR_CONFIG=/usr/bin/apr-${APR_VERSION}-config
-		APU_CONFIG=/usr/bin/apu-${APR_VERSION}-config
-		;;
-	*)	error "Illegal value ${APR_VERSION} for APR_VERSION" ;;
-esac
-
-check_prog_req ${APR_CONFIG##*/} libapr${APR_VERSION}-devel
-check_prog_req ${APU_CONFIG##*/} libaprutil${APR_VERSION}-devel
-
-#****d* apache2.cygclass/APR_CFLAGS
-#  DESCRIPTION
-#  Compile flags for building against APR libraries
-#****
-APR_CFLAGS="$(${APU_CONFIG} --includes) $(${APR_CONFIG} --cppflags --includes)"
-
-#****d* apache2.cygclass/APR_LIBS
-#  DESCRIPTION
-#  Link flags for building against APR libraries
-#****
-APR_LIBS="$(${APU_CONFIG} --link-ld) $(${APR_CONFIG} --link-ld --libs)"
-
-#****d* apache2.cygclass/APR_LIBTOOL
-#  DESCRIPTION
-#  Path to libtool script used by APR-dependent packages
-#****
-APR_LIBTOOL="$(${APR_CONFIG} --apr-libtool)"
-
-# Make APACHE2_* contain all required flags
-APACHE2_CFLAGS+=" ${APR_CFLAGS}"
-APACHE2_LIBS+=" ${APR_LIBS}"
-
-if check_prog apreq2-config
-then
-
-#****d* apache2.cygclass/APREQ2_CONFIG
-#  DESCRIPTION
-#  Path to apreq2-config script
-#****
-APREQ2_CONFIG=/usr/bin/apreq2-config
-
-#****d* apache2.cygclass/APREQ2_CFLAGS
-#  DESCRIPTION
-#  Compile flags for building against libapreq2
-#  REQUIRES
-#  libapreq2-devel
-#****
-APREQ2_CFLAGS="$(${APREQ2_CONFIG} --includes)"
-
-#****d* apache2.cygclass/APREQ2_LIBS
-#  DESCRIPTION
-#  Link flags for building against libapreq2
-#  REQUIRES
-#  libapreq2-devel
-#****
-APREQ2_LIBS="$(${APREQ2_CONFIG} --link-ld)"
-
-fi  #  check_prog apreq2-config  #
+APACHE2_LIBS=${HTTPD_LIBS}
 
 
 #****C* apache2.cygclass/apache2_compile
-#  SYNOPSIS
-#  apache2_compile [CONFIGURE_FLAGS]
 #  DESCRIPTION
-#  Build a DSO which uses an autoconf/libtool buildsystem by calling cygconf
-#  and cygmake with some Apache-specific flags.  Arguments, if any, are passed
-#  as configure flags.
-#  NOTE
-#  This is very generic and may not work in all cases.
+#  Deprecated alias for httpd_mod_compile.
 #****
 apache2_compile() {
-	if ! defined APACHE_MOD_NAME
-	then
-		error "define APACHE_MOD_NAME before calling apache_compile"
-	fi
-
-	cygconf \
-		--with-apxs=${APXS2} \
-		--with-apr-config=${APR_CONFIG} \
-		"${@}"
-
-	cygmake \
-		${APACHE_MOD_NAME}_la_CPPFLAGS="${APACHE2_CFLAGS}" \
-		${APACHE_MOD_NAME}_la_LDFLAGS="-module -avoid-version -no-undefined -shrext .so" \
-		${APACHE_MOD_NAME}_la_LIBADD="${APACHE2_LIBS}"
+	httpd_mod_compile "${@}"
 }
 
 #****C* apache2.cygclass/apache2_apxs_compile
-#  SYNOPSIS
-#  apache2_apxs_compile [CFLAGS] SOURCES [LIBS]
 #  DESCRIPTION
-#  Uses APXS2 to build a DSO from one or more .c source files which ship without
-#  their own build system.
-#  ARGUMENTS
-#  - CFLAGS -- Additional CFLAGS required for compiling this DSO.
-#  - SOURCES -- One or more .c sources.
-#  - LIBS -- Additional libraries required for linking this DSO.  Must be last.
+#  Deprecated alias for httpd_apxs_compile.
 #****
 apache2_apxs_compile() {
-	if ! defined APACHE_MOD_NAME
-	then
-		error "define APACHE_MOD_NAME before calling apache2_apxs_compile"
-	fi
-
-	${APXS2} -c -o ${APACHE_MOD_NAME}.la "${@:-*.c}" \
-		|| error "apxs compile failed"
+	httpd_apxs_compile "${@}"
 }
 
 #****I* apache2.cygclass/doapache2conf
-#  SYNOPSIS
-#  doapache2conf CONF_FILE [CONF_FILE] ...
 #  DESCRIPTION
-#  Installs additional Apache configuration files.
-#  NOTE
-#  All files passed to doapache2conf will be concenated into one file named
-#  APACHE_MOD_NAME.conf.  Therefore, this must only be called once.
+#  Deprecated alias for dohttpdconf.
 #****
 doapache2conf() {
-	local f
-
-	dodir ${APACHE2_SYSCONFDIR}
-
-	for f
-	do
-		if [ -e ${f} ]
-		then
-			cat ${f} >> ${D}${APACHE2_SYSCONFDIR}/${APACHE_MOD_NAME}.conf
-		fi
-	done
+	dohttpdconf "${@}"
 }
 
 #****I* apache2.cygclass/doapache2mod
-#  SYNOPSIS
-#  doapache2mod DSO [DSO] ...
 #  DESCRIPTION
-#  Installs one or more DSOs into $D/APACHE2_LIBEXECDIR.  DSOs are usually
-#  a .la libtool library (whether build with apache2_compile or apache2_apxs_compile),
-#  but may also be a .so DLL if built without libtool.
+#  Deprecated alias for dohttpdmod.
 #****
 doapache2mod() {
-	local mod
-
-	for mod
-	do
-		case ${mod##*.} in
-			${mod})	mod=${mod}.la ;;
-		esac
-
-		if [ ! -f ${mod} ]
-		then
-			error "doapache2mod: ${mod}: File not found"
-		fi
-
-		case ${mod} in
-			*.la|*.so)
-				dodir ${APACHE2_LIBEXECDIR}
-				__doinstall 0755 ${mod} ${APACHE2_LIBEXECDIR} \
-					|| error "install ${mod} failed"
-				;;
-			*)	error "doapache2mod: ${mod##*/}: Unknown file type"
-		esac
-	done
+	dohttpdmod "${@}"
 }
 
 #****I* apache2.cygclass/apache2_postinst
-#  SYNOPSIS
-#  apache2_postinst
 #  DESCRIPTION
-#  Creates postinstall and preremove scripts which automatically add/remove
-#  the necessary lines in httpd.conf for loading this package's DSOs.  This
-#  means that users need not do anything more than install the package in
-#  order to use the DSO.
+#  Deprecated alias for httpd_loadmodules.
 #****
 apache2_postinst() {
-	local dso imp mod sym
-
-	dodir /etc/postinstall /etc/preremove
-
-	for mod in ${D}${APACHE2_LIBEXECDIR}/*.so
-	do
-		imp=${mod%.so}.dll.a
-
-		if [ -f ${imp} ]
-		then
-			sym=$(nm ${imp} 2>/dev/null | sed -n -e 's|.* I __nm_${ARCH_i686+_}\(.*\)_module$|\1|p')
-		fi
-
-		if ! defined sym
-		then
-			sym=$(nm -C ${mod} 2>/dev/null | sed -n -e 's|.* D \(.*\)_module$|\1|p')
-		fi
-
-		if ! defined sym
-		then
-			dso=${mod##*/}
-			dso=${dso%.*}
-
-			case ${dso} in
-				mod_*)	sym=${dso:4} ;;
-				cyg*|lib*)	sym=${dso:3} ;;
-			esac
-		fi
-
-		if ! ${OBJDUMP} -p ${mod} 2> /dev/null | grep -q "\] ${sym}_module$"
-		then
-			error "Cannot determine module symbol name for ${mod##*/}"
-		fi
-
-		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			${APXS2} -e -a -n ${sym%_module} ${mod#${D}}
-			_EOF
-
-		# No option exists to remove a module from httpd.conf;
-		# this will comment out the relevant line(s) instead
-		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-			${APXS2} -e -A -n ${sym%_module} ${mod#${D}}
-			_EOF
-	done
+	httpd_loadmodules
 }
 
 readonly -f apache2_compile apache2_apxs_compile doapache2conf \
