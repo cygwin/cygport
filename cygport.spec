@@ -57,6 +57,7 @@ make %{?_smp_mflags}
 %install
 # First install all the files belonging to the shared build
 make install DESTDIR=$RPM_BUILD_ROOT doc_DATA=
+install -D -m0644 data/cygport.conf $RPM_BUILD_ROOT%{_sysconfdir}/cygport.conf
 
 
 %post
