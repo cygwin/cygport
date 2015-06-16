@@ -330,7 +330,7 @@ __prep_mateconf_schemas() {
 #****
 
 __prep_texlive() {
-	local d fmt fmts map maps
+	local d fmt fmts format formats map maps
 	local markerdir=/var/lib/texmf/postinstall
 
 	dodir /etc/postinstall /etc/preremove ${markerdir}
@@ -356,16 +356,27 @@ __prep_texlive() {
 		done
 		echo >> ${D}/etc/preremove/${PN}.sh
 	fi
+
+	# Each element of $fmts is an expression "format/engine"; we
+	# need to use the entire expression for --enablefmt and
+	# --disablefmt, but only the "format" part for --byfmt.
+	formats=$(for fmt in $fmts; do echo ${fmt%/*}; done | sort -u)
+
 	if [ -n "${fmts#0}" ]
 	then
 		for fmt in $fmts
 		do
 			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 				/usr/bin/fmtutil-sys --enablefmt $fmt
-				/usr/bin/fmtutil-sys --byfmt $fmt
 			_EOF
 			cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
 				/usr/bin/fmtutil-sys --disablefmt $fmt
+			_EOF
+		done
+		for format in $formats
+		do
+			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+				/usr/bin/fmtutil-sys --byfmt ${format}
 			_EOF
 		done
 	fi

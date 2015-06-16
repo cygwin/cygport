@@ -209,7 +209,7 @@ texlive_install() {
 		done
 
 		for fmt in $(grep -E 'execute AddFormat' $tlpobj \
-		             | sed '/mode=disabled/d;s/.* name=\([^ ]*\).*/\1/g')
+		             | sed '/mode=disabled/d;s|.* name=\([^ ]*\).* engine=\([^ ]*\).*|\1/\2|')
 		do
 			__config_set texlive_fmts "$(__config_get texlive_fmts) $fmt"
 		done
