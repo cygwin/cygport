@@ -57,12 +57,12 @@ fi
 export QTDIR=${QT4_QTDIR}
 export QT_PLUGIN_PATH=${QT4_PLUGINSDIR}
 
-#****C* kde4.cygclass/kde4_compile
+#****C* kde4.cygclass/kde4_cmake
 #  SYNOPSIS
-#  kde4_compile [OPTIONS]
+#  kde4_cmake [OPTIONS]
 #  DESCRIPTION
 #  Runs cygcmake to configure the package with several Cygwin- and KDE-specific
-#  options, then runs cygmake to compile.  Options, in the form of -DVARIABLE=VALUE,
+#  options.  Options, in the form of -DVARIABLE=VALUE,
 #  are passed on to cygcmake.
 #  NOTE
 #  Source subdirectories which are declared with macro_optional_add_subdirectory()
@@ -70,7 +70,7 @@ export QT_PLUGIN_PATH=${QT4_PLUGINSDIR}
 #  REQUIRES
 #  automoc4, cmake, libQtCore4-devel, libQtGui4-devel
 #****
-kde4_compile() {
+kde4_cmake() {
 	local skip skipargs
 
 	# for backwards compatibility with KDE3
@@ -93,7 +93,17 @@ kde4_compile() {
 		-D__KDE_HAVE_GCC_VISIBILITY=NO \
 		${skipargs} \
 		"${@}"
+}
 
+#****C* kde4.cygclass/kde4_compile
+#  SYNOPSIS
+#  kde4_compile [OPTIONS]
+#  DESCRIPTION
+#  Runs kde4_cmake, followed by cygmake to compile.  Options, in the form of
+#  -DVARIABLE=VALUE, are passed on to kde4_cmake.
+#****
+kde4_compile() {
+	kde4_cmake "${@}"
 	cygmake
 }
 
@@ -132,7 +142,8 @@ kde4_install() {
 #  DEFINITION
 src_compile() {
 	cd ${B}
-	kde4_compile
+	kde4_cmake
+	cygmake
 }
 #****
 
@@ -144,4 +155,4 @@ src_install() {
 }
 #****
 
-readonly -f kde4_compile kde4_install
+readonly -f kde4_cmake kde4_compile kde4_install
