@@ -221,9 +221,6 @@ fi
 #
 ################################################################################
 
-#****** Cygport/Information
-#****
-
 ### import check_prog and friends
 source ${_privlibdir}/check_funcs.cygpart
 ###
