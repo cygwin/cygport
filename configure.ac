@@ -9,6 +9,8 @@ AM_INIT_AUTOMAKE([1.11 foreign dist-xz no-dist-gzip])
 AM_MAINTAINER_MODE
 AM_SILENT_RULES([yes])
 
+AC_PROG_LN_S
+
 AC_PATH_PROG(HELP2MAN, help2man)
 AM_CONDITIONAL(HAVE_HELP2MAN, test "x$HELP2MAN" != "x")
 

@@ -13,11 +13,9 @@ test-driver
 
 cygport
 cygport.1
-cygport.1.html
 cygport-*.tar.xz
 cygport-inplace
-manual.css
-manual.html
+doc/manual/
 
 patches
 *.orig
