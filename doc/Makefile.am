@@ -21,18 +21,23 @@ if HAVE_ROBODOC
 
 doc/manual/toc_index.html: Makefile.in $(top_srcdir)/doc/robodoc.rc $(top_srcdir)/bin/cygport.in $(cygclass_DATA) $(cygpart_DATA) $(pkgdata_DATA)
 	$(AM_V_GEN)test -d doc || $(MKDIR_P) doc ; \
-		cd $(top_srcdir) && \
-		$(ROBODOC) --src $(abs_top_srcdir) --doc $(abs_top_builddir)/doc/manual --rc $(abs_top_srcdir)/doc/robodoc.rc --html --multidoc && \
+		(cd $(top_srcdir) && \
+		$(ROBODOC) --src $(abs_top_srcdir) --doc $(abs_top_builddir)/doc/manual --rc $(abs_top_srcdir)/doc/robodoc.rc --html --multidoc) && \
 		$(SED) -i -e "s|$(abs_top_srcdir)|cygport|g" doc/manual/*.html
 
 doc/manual/index.html: doc/index.html doc/manual/toc_index.html
-	$(AM_V_at)cp -a $< $@
+	$(AM_V_at)$(INSTALL_DATA) $< $@
 
 install-manual:
 	$(MKDIR_P) $(DESTDIR)$(htmldir)/manual/
 	$(INSTALL_DATA) doc/manual/* $(DESTDIR)$(htmldir)/manual/
 
 install-data-local:  install-manual
+
+uninstall-manual:
+	rm -fr $(DESTDIR)$(htmldir)/manual/
+
+uninstall-local:  uninstall-manual
 
 clean-manual:
 	rm -fr doc/manual/
