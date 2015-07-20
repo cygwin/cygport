@@ -7,15 +7,15 @@ cd ${top_builddir}/tests
 
 rm -f ${PACKAGE}-${VERSION}-1-src.tar.xz ${PACKAGE}-${VERSION}-1.tar.xz
 
-if [ -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.xz ]
+if [ -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.gz ]
 then
 	# running under make distcheck
 	# make dist during make distcheck won't work because all files in
 	# DISTDIR are read-only
-	cp -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.xz .
+	cp -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.gz .
 else
-	${MAKE} -C ${top_builddir} dist-xz > /dev/null
-	cp -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.xz .
+	${MAKE} -C ${top_builddir} dist-gzip > /dev/null
+	cp -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.gz .
 fi
 
 cp -f ${top_srcdir}/data/sample.cygport ${PACKAGE}.cygport
@@ -26,4 +26,4 @@ cp -r ${PACKAGE}-${VERSION}-1.noarch/dist/${PACKAGE} .
 
 ${top_builddir}/bin/cygport-inplace ${PACKAGE}.cygport finish
 
-rm -f ${PACKAGE}-${VERSION}.tar.xz ${PACKAGE}.cygport
+rm -f ${PACKAGE}-${VERSION}.tar.gz ${PACKAGE}.cygport

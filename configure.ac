@@ -5,7 +5,7 @@ AC_PREREQ([2.60])
 
 AC_CONFIG_SRCDIR([bin/cygport.in])
 
-AM_INIT_AUTOMAKE([1.11 foreign dist-xz no-dist-gzip])
+AM_INIT_AUTOMAKE([1.11 foreign])
 AM_MAINTAINER_MODE
 AM_SILENT_RULES([yes])
 

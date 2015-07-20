@@ -69,7 +69,7 @@ install -D -m0644 data/cygport.conf $RPM_BUILD_ROOT%{_sysconfdir}/cygport.conf
 
 
 %files
-%doc AUTHORS ChangeLog COPYING NEWS README TODO doc/cygport.1.html doc/manual.css doc/manual.html
+%doc AUTHORS ChangeLog COPYING NEWS README TODO doc/manual/
 %config %{_sysconfdir}/bash_completion.d/cygport-bash-completion
 %config(noreplace) %{_sysconfdir}/cygport.conf
 %config(noreplace) %{_sysconfdir}/X11/cygport-xvfb.conf

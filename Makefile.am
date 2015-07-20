@@ -21,7 +21,7 @@ EXTRA_DIST +=				\
 	cygport.spec			\
 	$(NULL)
 
-dist-hook:
+dist-hook: doc/manual/cygport.1.html doc/manual/index.html
 	@if test -d "$(srcdir)/.git"; \
 	then \
 		echo Creating ChangeLog && \
@@ -33,4 +33,5 @@ dist-hook:
 		     echo Failed to generate ChangeLog >&2 ); \
 	else \
 		echo A git clone is required to generate a ChangeLog >&2; \
-	fi
+	fi ; \
+	cp -r doc/manual/ $(top_distdir)/doc/
