@@ -32,6 +32,7 @@ items:
 	INPUT
 	INPUTS
 	INTRODUCTION
+	LICENSE
 	METHODS
 	MIRROR LIST
 	NAME
@@ -61,6 +62,7 @@ preformatted items:
 	SYNOPSIS
 source items:
 	DEFINITION
+	LICENSE
 headertypes:
 	*  "Concepts" cygport_concepts
 	-  "Chapters" cygport_chapters
