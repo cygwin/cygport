@@ -422,7 +422,7 @@ _EOF
 		chmod +x ${D}/etc/X11/xinit/Xclients.d/Xclients.${sname}.sh
 
 		cat >> ${D}/etc/postinstall/${PN}.sh <<_EOF
-/usr/bin/mkshortcut \$CYGWINFORALL -P -w / -i /usr/bin/XWin.exe -n "Cygwin-X\${wow64}/${Name}" -a "--quote /usr/bin/bash.exe -l -c \"cd; /usr/bin/startx /etc/X11/xinit/Xsession ${sname}\"" /usr/bin/run.exe
+/usr/bin/mkshortcut \$CYGWINFORALL -P -w / -i /usr/bin/XWin.exe -n "Cygwin-X\${wow64}/${Name}" -a "--quote /usr/bin/bash.exe -l -c \"cd; exec /usr/bin/startx /etc/X11/xinit/Xsession ${sname}\"" /usr/bin/run.exe
 _EOF
 
 		cat >> ${D}/etc/preremove/${PN}.sh <<_EOF
