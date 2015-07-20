@@ -20,6 +20,9 @@
 #
 ################################################################################
 
+#****** Chapter 7/Checks
+#****
+
 #****f* Checks/check_prog
 #  SYNOPSIS
 #  check_prog PROGRAM [PROGRAM2] ...
