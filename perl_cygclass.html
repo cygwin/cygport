@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/perl.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/perl.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo459">perl.cygclass</a></li>
+<ul>
+<li><a href="#robo460">PERL</a></li>
+<li><a href="#robo461">PERL_VERSION</a></li>
+<li><a href="#robo462">PERL_LIB</a></li>
+<li><a href="#robo463">PERL_ARCHLIB</a></li>
+<li><a href="#robo464">PERL_VENDORLIB</a></li>
+<li><a href="#robo465">PERL_VENDORARCH</a></li>
+<li><a href="#robo466">LIBPERL</a></li>
+<li><a href="#robo467">CPAN_AUTHOR</a></li>
+<li><a href="#robo468">CATEGORY (perl)</a></li>
+<li><a href="#robo469">SUMMARY (perl)</a></li>
+<li><a href="#robo470">HOMEPAGE (perl)</a></li>
+<li><a href="#robo471">SRC_URI (perl)</a></li>
+<li><a href="#robo472">perl_compile</a></li>
+<li><a href="#robo473">perl_test</a></li>
+<li><a href="#robo474">perl_install</a></li>
+<li><a href="#robo475">perl_fix_shebang</a></li>
+<li><a href="#robo476">perl_sax_parser_register</a></li>
+<li><a href="#robo477">src_compile (perl)</a></li>
+<li><a href="#robo478">src_test (perl)</a></li>
+<li><a href="#robo479">src_install (perl)</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fperl2ecygclass"></a>
+<a name="robo459"></a><h2>perl.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  [<a href="#robo467">CPAN_AUTHOR</a>="username"]
+  <a href="./inheritance_cygpart.html#robo638">inherit</a> perl
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Perl is an interpreted programming language used in a variety of software,
+  particularly text processing, network programming, system administration,
+  and CGI scripting.  It is easily extendible with modules written in Perl
+  and/or <a href="./syntax_cygpart.html#robo101">C</a>/<a href="./syntax_cygpart.html#robo101">C</a>++.  Thousands of such modules are centrally hosted on the
+  Comprehensive Perl Archive Network (CPAN).
+</p>
+
+<p>  This cygclass provides definitions for building Perl dependent packages,
+  and functions for building Perl module packages.
+</p>
+<p class="item_name">EXAMPLES</p>
+<p>  A typical CPAN extension package looks like this:
+</p>
+
+<pre>    <a href="#robo467">CPAN_AUTHOR</a>=adamk
+    <a href="./inheritance_cygpart.html#robo638">inherit</a> perl
+    
+    <a href="./syntax_cygpart.html#robo90">NAME</a>="perl-Archive-Zip"
+    <a href="./syntax_cygpart.html#robo91">VERSION</a>=1.30
+    <a href="./syntax_cygpart.html#robo92">RELEASE</a>=1
+    <a href="./pkg_pkg_cygpart.html#robo423">CATEGORY</a>="Perl"
+    <a href="./pkg_pkg_cygpart.html#robo425">SUMMARY</a>="Perl module for working with Zip archives"
+    <a href="./pkg_pkg_cygpart.html#robo427">DESCRIPTION</a>="This module allows a Perl program to create, manipulate, read,
+    and write Zip archive files. Zip archives can be created, or you can read
+    from existing zip files. Once created, they can be written to files, streams,
+    or strings."
+</pre>
+<p>
+  Occasionaly, a CPAN module tries to ask questions while configuring the
+  build, in which case you can override that in <a href="./src_compile_cygpart.html#robo194">src_compile</a>:
+</p>
+
+<pre>    <a href="./src_compile_cygpart.html#robo194">src_compile</a>() {
+      <a href="./src_compile_cygpart.html#robo191">lndirs</a>
+      cd ${<a href="./syntax_cygpart.html#robo100">B</a>}
+      # answer 'y' to all questions from Makefile.PL
+      yes | <a href="#robo472">perl_compile</a>
+    }
+</pre>
+<p>
+  Perl modules which provide XML::SAX parser engines require an additional
+  step during <a href="./src_install_cygpart.html#robo187">src_install</a>, e.g.:
+</p>
+
+<pre>    <a href="./src_install_cygpart.html#robo187">src_install</a>() {
+      cd ${<a href="./syntax_cygpart.html#robo100">B</a>}
+      <a href="#robo474">perl_install</a>
+      <a href="#robo476">perl_sax_parser_register</a> XML::LibXML::SAX
+    }
+</pre>
+<p></p>
+<p class="item_name">INHERITED BY</p>
+<p>  <a href="./gtk2-perl_cygclass.html#robo_top_of_doc">gtk2-perl.cygclass</a>
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  perl
+</p>
+
+<hr />
+<a name="perl2ecygclass2fPERL"></a>
+<a name="robo460"></a><h2>PERL</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Perl interpreter.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fPERL5fVERSION"></a>
+<a name="robo461"></a><h2>PERL_VERSION</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The major.minor version of the Perl interpreter.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fPERL5fLIB"></a>
+<a name="robo462"></a><h2>PERL_LIB</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Perl arch-independent standard library.
+</p>
+<p class="item_name">NOTE</p>
+<p>  Third-party packages must not be installed here; use <a href="#robo464">PERL_VENDORLIB</a> instead.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fPERL5fARCHLIB"></a>
+<a name="robo463"></a><h2>PERL_ARCHLIB</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Perl arch-specific standard library.
+</p>
+<p class="item_name">NOTE</p>
+<p>  Third-party packages must not be installed here; use <a href="#robo465">PERL_VENDORARCH</a> instead.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fPERL5fVENDORLIB"></a>
+<a name="robo464"></a><h2>PERL_VENDORLIB</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for third-party arch-independent Perl modules.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fPERL5fVENDORARCH"></a>
+<a name="robo465"></a><h2>PERL_VENDORARCH</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for third-party arch-specific Perl modules.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fLIBPERL"></a>
+<a name="robo466"></a><h2>LIBPERL</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Link flags for the Perl <a href="./syntax_cygpart.html#robo101">C</a> library.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fCPAN5fAUTHOR"></a>
+<a name="robo467"></a><h2>CPAN_AUTHOR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The CPAN username of the Perl module's author.  This variable must be set
+  before <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing <a href="#robo459">perl.cygclass</a> to have any effect.  If set, the package
+  <a href="./pkg_info_cygpart.html#robo434">HOMEPAGE</a> and <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a> are set to their usual locations on CPAN.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fCATEGORY2028perl29"></a>
+<a name="robo468"></a><h2>CATEGORY (perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo423">CATEGORY</a><span class="sign">=</span><span class="quote">"Perl"</span>
+</pre>
+<p class="item_name">NOTE</p>
+<p>  This variable is set only if <a href="#robo467">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo79">defined</a> before <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing
+  <a href="#robo459">perl.cygclass</a>.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fSUMMARY2028perl29"></a>
+<a name="robo469"></a><h2>SUMMARY (perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo425">SUMMARY</a><span class="sign">=</span><span class="quote">"Perl ${ORIG_PN//-/::} module"</span>
+</pre>
+<p class="item_name">NOTE</p>
+<p>  This variable is set only if <a href="#robo467">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo79">defined</a> before <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing
+  <a href="#robo459">perl.cygclass</a>.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fHOMEPAGE2028perl29"></a>
+<a name="robo470"></a><h2>HOMEPAGE (perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Web address for the Perl module on CPAN.
+</p>
+<p class="item_name">NOTE</p>
+<p>  This variable is set only if <a href="#robo467">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo79">defined</a> before <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing
+  <a href="#robo459">perl.cygclass</a>.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fSRC5fURI2028perl29"></a>
+<a name="robo471"></a><h2>SRC_URI (perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Download location for the Perl module on CPAN.
+</p>
+<p class="item_name">NOTE</p>
+<p>  This variable is set only if <a href="#robo467">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo79">defined</a> before <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing
+  <a href="#robo459">perl.cygclass</a>.
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./mirrors.html#robo557">mirror_cpan</a>
+</p>
+
+<hr />
+<a name="perl2ecygclass2fperl5fcompile"></a>
+<a name="robo472"></a><h2>perl_compile</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  cd $<a href="./syntax_cygpart.html#robo100">B</a>
+  <strong>perl_compile</strong> [OPTIONS]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Configures and builds a Perl module package.  Options, if any, are passed
+  during the configure phase.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fperl5ftest"></a>
+<a name="robo473"></a><h2>perl_test</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_testsuite_functions.html#robo_top_of_doc">Testsuite Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  cd $<a href="./syntax_cygpart.html#robo100">B</a>
+  <strong>perl_test</strong>
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs the test suite for the Perl module.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fperl5finstall"></a>
+<a name="robo474"></a><h2>perl_install</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  cd $<a href="./syntax_cygpart.html#robo100">B</a>
+  <strong>perl_install</strong> [OPTIONS]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the Perl module into $<a href="./syntax_cygpart.html#robo102">D</a>.  Options, if any, are passed to the
+  install command.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fperl5ffix5fshebang"></a>
+<a name="robo475"></a><h2>perl_fix_shebang</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>perl_fix_shebang</strong> SCRIPT [SCRIPT ...]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Fixes the designated interpreter of SCRIPT to <a href="#robo460">PERL</a>.  This would be necessary
+  if the original uses an incorrect path (e.g. /usr/local/bin) or an
+  incorrectly versioned binary.  SCRIPT need not be prefixed by $<a href="./syntax_cygpart.html#robo102">D</a>.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fperl5fsax5fparser5fregister"></a>
+<a name="robo476"></a><h2>perl_sax_parser_register</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>perl_sax_parser_register</strong> PARSER_CLASS [PARSER_CLASS ...]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Generates postinstall and preremove scripts to handle registration of
+  XML::SAX parser drivers with XML::SAX's ParserDetails.ini file.
+</p>
+
+<hr />
+<a name="perl2ecygclass2fsrc5fcompile2028perl29"></a>
+<a name="robo477"></a><h2>src_compile (perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_compile_cygpart.html#robo194">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        <a href="./src_compile_cygpart.html#robo191">lndirs</a>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo472">perl_compile</a>
+<span class="sign">}</span>
+</pre>
+
+<hr />
+<a name="perl2ecygclass2fsrc5ftest2028perl29"></a>
+<a name="robo478"></a><h2>src_test (perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_test_cygpart.html#robo119">src_test</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo473">perl_test</a>
+<span class="sign">}</span>
+</pre>
+
+<hr />
+<a name="perl2ecygclass2fsrc5finstall2028perl29"></a>
+<a name="robo479"></a><h2>src_install (perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo459">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_install_cygpart.html#robo187">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo474">perl_install</a>
+<span class="sign">}</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/perl.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

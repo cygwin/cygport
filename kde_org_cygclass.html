@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/kde.org.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/kde.org.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo612">kde.org.cygclass</a></li>
+<ul>
+<li><a href="#robo613">HOMEPAGE (kde.org)</a></li>
+<li><a href="#robo614">SRC_URI (kde.org)</a></li>
+<li><a href="#robo615">SVN_URI (kde.org)</a></li>
+<li><a href="#robo616">GIT_URI (kde.org)</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fkde2eorg2ecygclass"></a>
+<a name="robo612"></a><h2>kde.org.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> kde.org
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This cygclass is to be used for packages which are part of KDE
+  or which are hosted on KDE FTP or Git servers.
+</p>
+
+<p>  In most cases, you do not need to directly <a href="./inheritance_cygpart.html#robo638">inherit</a> this cygclass;
+  most KDE packages will anyway use one of the cygclasses listed below
+  which already <a href="./inheritance_cygpart.html#robo638">inherit</a> this cygclass.
+</p>
+
+<p>  If <a href="./syntax_cygpart.html#robo93">PN</a> does not match the name of the original source tarball,
+  define ORIG_PN before <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing.
+</p>
+<p class="item_name">INHERITED BY</p>
+<p>  <a href="./kde4_cygclass.html#robo_top_of_doc">kde4.cygclass</a>, <a href="./kf5_cygclass.html#robo600">kf5.cygclass</a>
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./mirrors.html#robo566">mirror_kde</a>
+</p>
+
+<hr />
+<a name="kde2eorg2ecygclass2fHOMEPAGE2028kde2eorg29"></a>
+<a name="robo613"></a><h2>HOMEPAGE (kde.org)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo612">kde.org.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_info_cygpart.html#robo434">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://www.kde.org/"</span>
+</pre>
+
+<hr />
+<a name="kde2eorg2ecygclass2fSRC5fURI2028kde2eorg29"></a>
+<a name="robo614"></a><h2>SRC_URI (kde.org)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo612">kde.org.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Download location for the release tarball.
+</p>
+
+<hr />
+<a name="kde2eorg2ecygclass2fSVN5fURI2028kde2eorg29"></a>
+<a name="robo615"></a><h2>SVN_URI (kde.org)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo612">kde.org.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">NOTE</p>
+<p>  <a href="./svn_cygclass.html#robo103">svn.cygclass</a> should be <a href="./inheritance_cygpart.html#robo638">inherit</a>()ed last for this to be of use.
+</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./svn_cygclass.html#robo104">SVN_URI</a><span class="sign">=</span><span class="quote">"svn://anonsvn.kde.org/home/kde"</span>
+</pre>
+
+<hr />
+<a name="kde2eorg2ecygclass2fGIT5fURI2028kde2eorg29"></a>
+<a name="robo616"></a><h2>GIT_URI (kde.org)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo612">kde.org.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">NOTE</p>
+<p>  <a href="./git_cygclass.html#robo_top_of_doc">git.cygclass</a> should be <a href="./inheritance_cygpart.html#robo638">inherit</a>()ed last for this to be of use.
+</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./git_cygclass.html#robo724">GIT_URI</a><span class="sign">=</span><span class="quote">"git://anongit.kde.org/${ORIG_PN:-${<a href="./syntax_cygpart.html#robo93">PN</a>}}"</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/kde.org.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

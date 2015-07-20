@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/data/mirrors</title>
+<!-- Source: /home/Yaakov/src/cygport/data/mirrors -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo554">Mirrors</a></li>
+<ul>
+<li><a href="#robo555">mirror_apache</a></li>
+<li><a href="#robo556">mirror_berlios</a></li>
+<li><a href="#robo557">mirror_cpan</a></li>
+<li><a href="#robo558">mirror_cran</a></li>
+<li><a href="#robo559">mirror_ctan</a></li>
+<li><a href="#robo560">mirror_debian</a></li>
+<li><a href="#robo561">mirror_gcc</a></li>
+<li><a href="#robo562">mirror_gentoo</a></li>
+<li><a href="#robo563">mirror_gnome</a></li>
+<li><a href="#robo564">mirror_gnu</a></li>
+<li><a href="#robo565">mirror_gnustep</a></li>
+<li><a href="#robo566">mirror_kde</a></li>
+<li><a href="#robo567">mirror_mplayer</a></li>
+<li><a href="#robo568">mirror_mysql</a></li>
+<li><a href="#robo569">mirror_portage</a></li>
+<li><a href="#robo570">mirror_rubyforge</a></li>
+<li><a href="#robo571">mirror_savannah</a></li>
+<li><a href="#robo572">mirror_sourceforge</a></li>
+<li><a href="#robo573">mirror_sourceware</a></li>
+<li><a href="#robo574">mirror_qt</a></li>
+<li><a href="#robo575">mirror_trolltech</a></li>
+<li><a href="#robo576">mirror_vim</a></li>
+<li><a href="#robo577">mirror_xfce</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Downloading2fMirrors"></a>
+<a name="robo554"></a><h2>Mirrors</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./src_fetch_cygpart.html#robo188">Downloading</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p class="item_name">INTRODUCTION</p>
+<p>  Many large software projects and hosting sites provide multiple download
+  <a href="#robo_top_of_doc">mirrors</a> for their projects, allowing users to choose a site closer to them
+  and to help distribute the bandwidth demands around the world.
+</p>
+
+<p>  Within cygport, the mirror:// notation can be used in <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a> and <a href="./src_fetch_cygpart.html#robo190">PATCH_URI</a>
+  to allow package maintainers both the ability to choose their favourite
+  <a href="#robo_top_of_doc">mirrors</a> and use an abbreviated URI for common sites.
+</p>
+
+<p>  The default <a href="#robo_top_of_doc">mirrors</a> are usually the central download site or a redirector.
+  Users can select their favourite <a href="#robo_top_of_doc">mirrors</a> by redefining the mirror_*
+  variables listed below (as a string containing one or more mirror sites)
+  in their <a href="./cygport_conf.html#robo801">cygport.conf</a>.
+</p>
+<p class="item_name">HINT</p>
+<p>  Custom per-package "<a href="#robo_top_of_doc">mirrors</a>" can also be <a href="./syntax_cygpart.html#robo79">defined</a> in a .cygport file.  This
+  can be useful if <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a> or <a href="./src_fetch_cygpart.html#robo190">PATCH_URI</a> contain a large number of long URIs.
+</p>
+<p class="item_name">NOTE</p>
+<p>  Mirror providers change frequently.  If you define your own default mirror,
+  you may experience errors or delays downloading if your mirror goes offline.
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fapache"></a>
+<a name="robo555"></a><h2>mirror_apache</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Apache Software Foundation project hosting
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://apache/projectname/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.bz2"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://www.apache.org/dist">http://www.apache.org/dist</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://www.apache.org/mirrors/index.html">http://www.apache.org/mirrors/index.html</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fberlios"></a>
+<a name="robo556"></a><h2>mirror_berlios</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  BerliOS project hosting
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://berlios/projectname/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.gz"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://download.berlios.de">http://download.berlios.de</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://developer.berlios.de/mirrors/">http://developer.berlios.de/mirrors/</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fcpan"></a>
+<a name="robo557"></a><h2>mirror_cpan</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Comprehensive Perl Archive Network
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://cpan/authors/id/A/AU/AUTHOR/${ORIG_PN}-${<a href="./syntax_cygpart.html#robo94">PV</a>}.tar.gz"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://search.cpan.org/CPAN">http://search.cpan.org/CPAN</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://www.cpan.org/SITES.html">http://www.cpan.org/SITES.html</a>
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./perl_cygclass.html#robo459">perl.cygclass</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fcran"></a>
+<a name="robo558"></a><h2>mirror_cran</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Comprehensive <a href="./R_cygclass.html#robo260">R</a> Archive Network
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://cran/src/contrib/${ORIG_PN}_${<a href="./syntax_cygpart.html#robo94">PV</a>/_/-}.tar.gz"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://cran.r-project.org/">http://cran.r-project.org/</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://cran.r-project.org/mirrors.html">http://cran.r-project.org/mirrors.html</a>
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./R_cygclass.html#robo_top_of_doc">R.cygclass</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fctan"></a>
+<a name="robo559"></a><h2>mirror_ctan</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Comprehensive TeX Archive Network
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://ctan/macros/latex/contrib/${ORIG_PN}.zip"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://mirror.ctan.org/">http://mirror.ctan.org/</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://mirror.ctan.org/tex-archive/CTAN.sites">http://mirror.ctan.org/tex-archive/CTAN.sites</a>
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./texlive_cygclass.html#robo_top_of_doc">texlive.cygclass</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fdebian"></a>
+<a name="robo560"></a><h2>mirror_debian</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Debian package pool
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://debian/pool/main/${<a href="./syntax_cygpart.html#robo93">PN</a>:0:1}/${<a href="./syntax_cygpart.html#robo93">PN</a>}/${<a href="./syntax_cygpart.html#robo93">PN</a>}_${<a href="./syntax_cygpart.html#robo94">PV</a>}.orig.tar.gz"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://ftp.debian.org/debian">http://ftp.debian.org/debian</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://www.debian.org/mirror/list">http://www.debian.org/mirror/list</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fgcc"></a>
+<a name="robo561"></a><h2>mirror_gcc</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  GCC releases and snapshots
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://gcc/releases/gcc-${<a href="./syntax_cygpart.html#robo94">PV</a>}/gcc-core-${<a href="./syntax_cygpart.html#robo94">PV</a>}.tar.bz2"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  ftp://gcc.gnu.org/pub/gcc/
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://gcc.gnu.org/mirrors.html">http://gcc.gnu.org/mirrors.html</a>
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="#robo564">mirror_gnu</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fgentoo"></a>
+<a name="robo562"></a><h2>mirror_gentoo</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Gentoo Linux distfiles
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://gentoo/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.bz2"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://gentoo.osuosl.org/distfiles">http://gentoo.osuosl.org/distfiles</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://www.gentoo.org/main/en/mirrors.xml">http://www.gentoo.org/main/en/mirrors.xml</a>
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="#robo569">mirror_portage</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fgnome"></a>
+<a name="robo563"></a><h2>mirror_gnome</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  GNOME FTP
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://gnome/sources/${<a href="./syntax_cygpart.html#robo93">PN</a>}/${<a href="./syntax_cygpart.html#robo94">PV</a>}/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.bz2"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://ftp.gnome.org/pub/gnome">http://ftp.gnome.org/pub/gnome</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://ftp.gnome.org/pub/GNOME/MIRRORS">http://ftp.gnome.org/pub/GNOME/MIRRORS</a>
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./gnome_org_cygclass.html#robo_top_of_doc">gnome.org.cygclass</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fgnu"></a>
+<a name="robo564"></a><h2>mirror_gnu</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  GNU projects FTP hosting
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://gnu/projectname/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.gz"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://ftpmirror.gnu.org">http://ftpmirror.gnu.org</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://www.gnu.org/order/ftp.html">http://www.gnu.org/order/ftp.html</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fgnustep"></a>
+<a name="robo565"></a><h2>mirror_gnustep</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  GNUstep packages
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://gnustep/usr-apps/${ORIG_PN}-${<a href="./syntax_cygpart.html#robo94">PV</a>}.tar.gz"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://ftp.gnustep.org/pub/gnustep">http://ftp.gnustep.org/pub/gnustep</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://www.gnustep.org/resources/sources.html">http://www.gnustep.org/resources/sources.html</a>
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./gnustep_cygclass.html#robo_top_of_doc">gnustep.cygclass</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fkde"></a>
+<a name="robo566"></a><h2>mirror_kde</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  KDE FTP
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://kde/stable/${<a href="./syntax_cygpart.html#robo94">PV</a>}/src/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.bz2"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://download.kde.org">http://download.kde.org</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://download.kde.org/extra/mirrors.html">http://download.kde.org/extra/mirrors.html</a>
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./kde4_cygclass.html#robo_top_of_doc">kde4.cygclass</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fmplayer"></a>
+<a name="robo567"></a><h2>mirror_mplayer</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  MPlayer releases and skins
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://mplayer/releases/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.bz2"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://www1.mplayerhq.hu/MPlayer">http://www1.mplayerhq.hu/MPlayer</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://www.mplayerhq.hu/dload.html">http://www.mplayerhq.hu/dload.html</a>
+</p>
+<p class="item_name">NOTE</p>
+<p>  MPlayer releases are often outdated; using a SVN checkout is recommended.
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fmysql"></a>
+<a name="robo568"></a><h2>mirror_mysql</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  MySQL server and connector downloads
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://mysql/Downloads/MySQL-5.1/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.gz"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://mirrors.dotsrc.org/mysql">http://mirrors.dotsrc.org/mysql</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://www.mysql.com/downloads/mirrors.html">http://www.mysql.com/downloads/mirrors.html</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fportage"></a>
+<a name="robo569"></a><h2>mirror_portage</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Gentoo Linux Portage tree (via ViewCVS)
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo190">PATCH_URI</a>="mirror://portage/cat-egory/packagename/files/${<a href="./syntax_cygpart.html#robo96">P</a>}-whatever.patch"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86">http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  None
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="#robo562">mirror_gentoo</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5frubyforge"></a>
+<a name="robo570"></a><h2>mirror_rubyforge</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  RubyForge project hosting
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://rubyforge/projectname/${ORIG_PN}-${<a href="./syntax_cygpart.html#robo94">PV</a>}.tar.gz"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://files.rubyforge.vm.bytemark.co.uk">http://files.rubyforge.vm.bytemark.co.uk</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://api.rubyforge.org/">http://api.rubyforge.org/</a>
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./ruby_cygclass.html#robo_top_of_doc">ruby.cygclass</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fsavannah"></a>
+<a name="robo571"></a><h2>mirror_savannah</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Savannah GNU project hosting
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://savannah/projectname/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.gz"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://download.savannah.nongnu.org/releases">http://download.savannah.nongnu.org/releases</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://download.savannah.nongnu.org/releases-noredirect/00_MIRRORS.txt">http://download.savannah.nongnu.org/releases-noredirect/00_MIRRORS.txt</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fsourceforge"></a>
+<a name="robo572"></a><h2>mirror_sourceforge</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  SourceForge project hosting
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://sourceforge/projectname/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.bz2"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://downloads.sourceforge.net">http://downloads.sourceforge.net</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  https://sourceforge.net/apps/trac/sourceforge/wiki/<a href="#robo554">Mirrors</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fsourceware"></a>
+<a name="robo573"></a><h2>mirror_sourceware</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Sourceware.org (aka sources.redhat.com) hosting
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://sourceware/projectname/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.bz2"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  ftp://ftp.sourceware.org/pub (frequently unavailable)
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://sourceware.org/mirrors.html">http://sourceware.org/mirrors.html</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fqt"></a>
+<a name="robo574"></a><h2>mirror_qt</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Qt, QtCreator, and PySide downloads
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://qt/offical_releases/qt/${<a href="./syntax_cygpart.html#robo91">VERSION</a>%.*}/${<a href="./syntax_cygpart.html#robo91">VERSION</a>}/qt-everywhere-opensource-src-${<a href="./syntax_cygpart.html#robo91">VERSION</a>}.tar.gz"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://download.qt-project.org/">http://download.qt-project.org/</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://download.qt-project.org/static/mirrorlist/">http://download.qt-project.org/static/mirrorlist/</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5ftrolltech"></a>
+<a name="robo575"></a><h2>mirror_trolltech</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">NOTE</p>
+<p>  This mirror is deprecated and remains only for backwards compatibility.
+  New code should use <a href="#robo574">mirror_qt</a>.
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fvim"></a>
+<a name="robo576"></a><h2>mirror_vim</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Vim downloads
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://vim/unix/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.bz2 mirror://vim/extra/${<a href="./syntax_cygpart.html#robo96">P</a>}-extra.tar.gz"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://ftp.vim.org/pub/vim">http://ftp.vim.org/pub/vim</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://vim.sourceforge.net/mirrors.php">http://vim.sourceforge.net/mirrors.php</a>
+</p>
+
+<hr />
+<a name="Mirrors2fmirror5fxfce"></a>
+<a name="robo577"></a><h2>mirror_xfce</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo554">Mirrors</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Xfce sources
+</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://xfce/src/xfce/${<a href="./syntax_cygpart.html#robo93">PN</a>}/${<a href="./syntax_cygpart.html#robo94">PV</a>[1]}.${<a href="./syntax_cygpart.html#robo94">PV</a>[2]}/${<a href="./syntax_cygpart.html#robo96">P</a>}.tar.bz2"
+</pre>
+<p class="item_name">DEFAULT MIRROR</p>
+<p>  <a href="http://archive.xfce.org">http://archive.xfce.org</a>
+</p>
+<p class="item_name">MIRROR LIST</p>
+<p>  <a href="http://www.xfce.org/download/">http://www.xfce.org/download/</a>
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./xfce4_cygclass.html#robo_top_of_doc">xfce4.cygclass</a>
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/data/mirrors with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

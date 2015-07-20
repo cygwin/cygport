@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/lib/src_compile.cygpart</title>
+<!-- Source: /home/Yaakov/src/cygport/lib/src_compile.cygpart -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo191">lndirs</a></li>
+<li><a href="#robo192">manifestize</a></li>
+<li><a href="#robo193">cygmake</a></li>
+<li><a href="#robo194">src_compile</a></li>
+</ul>
+<hr />
+<a name="Compiling2flndirs"></a>
+<a name="robo191"></a><h2>lndirs</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo825">Compiling</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>lndirs</strong> [SOURCE_DIRECTORY [BUILD_DIRECTORY]]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Replicates the given source directory into the given build directory by
+  creating subdirectories and symlinking files.  This is to be used in order
+  to build in $<a href="./syntax_cygpart.html#robo100">B</a> where the build system does not natively support out-of-path
+  builds.
+</p>
+
+<p>  If only the source directory is given, the current working directory is
+  used for the build directory.  If no arguments are given, $<a href="./syntax_cygpart.html#robo99">S</a> is linked
+  into $<a href="./syntax_cygpart.html#robo100">B</a>.
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  lndir
+</p>
+
+<hr />
+<a name="Compiling2fmanifestize"></a>
+<a name="robo192"></a><h2>manifestize</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo825">Compiling</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function is obsolete with binutils-2.24.51 (20140326) or newer, which
+  provides a default manifest for all PE applications at link time.
+</p>
+
+<hr />
+<a name="Compiling2fcygmake"></a>
+<a name="robo193"></a><h2>cygmake</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo825">Compiling</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>cygmake</strong> [OPTIONS]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Calls 'make', passing <a href="./cygport_conf.html#robo803">MAKEOPTS</a> and any options given.
+</p>
+<p class="item_name">NOTE</p>
+<p>  By default, <a href="./cygport_conf.html#robo803">MAKEOPTS</a> is set to use parallel make based on the number
+  of CPU cores on the system.  If the package's Makefiles do not support
+  parallel builds, append "-j1" to <a href="./cygport_conf.html#robo803">MAKEOPTS</a> or call "<strong>cygmake</strong> -j1".
+</p>
+
+<hr />
+<a name="Compiling2fsrc5fcompile"></a>
+<a name="robo194"></a><h2>src_compile</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo825">Compiling</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  This function must be <a href="./syntax_cygpart.html#robo79">defined</a> in the .cygport file, or in <a href="./inheritance_cygpart.html#robo638">inherit</a>()ed
+  cygclasses, containing all steps necessary to configure and compile
+  the package.
+</p>
+
+<p>  The default <strong>src_compile</strong> function is provided by <a href="./autotools_cygclass.html#robo903">autotools.cygclass</a>.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/lib/src_compile.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

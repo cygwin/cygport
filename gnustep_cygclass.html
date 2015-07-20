@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/gnustep.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/gnustep.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo700">gnustep.cygclass</a></li>
+<ul>
+<li><a href="#robo701">CATEGORY (gnustep)</a></li>
+<li><a href="#robo702">SUMMARY (gnustep)</a></li>
+<li><a href="#robo703">HOMEPAGE (gnustep)</a></li>
+<li><a href="#robo704">SVN_URI (gnustep)</a></li>
+<li><a href="#robo705">gnustep_env</a></li>
+<li><a href="#robo706">gnustep_compile</a></li>
+<li><a href="#robo707">gnustep_install</a></li>
+<li><a href="#robo708">gnustep_pkg_apps</a></li>
+<li><a href="#robo709">gnustep_pkg_frameworks</a></li>
+<li><a href="#robo710">src_compile (gnustep)</a></li>
+<li><a href="#robo711">src_install (gnustep)</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fgnustep2ecygclass"></a>
+<a name="robo700"></a><h2>gnustep.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  GNUstep is an open-source implementation of the NeXT/OpenStep and Apple's
+  Cocoa API frameworks, written in Objective-<a href="./syntax_cygpart.html#robo101">C</a>.  A number of additional
+  libraries (known as Frameworks) and programs, both console and GUI are
+  available, including some ported from Mac OS X.  GNUstep packages are built
+  with GNUmakefiles which use templates included in the gnustep-make package.
+</p>
+
+<p>  This cygclass builds packages which use the GNUstep framework and build system.
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  gnustep-make
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./mirrors.html#robo565">mirror_gnustep</a>
+</p>
+
+<hr />
+<a name="gnustep2ecygclass2fCATEGORY2028gnustep29"></a>
+<a name="robo701"></a><h2>CATEGORY (gnustep)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo700">gnustep.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo423">CATEGORY</a><span class="sign">=</span><span class="quote">"GNUstep"</span>
+</pre>
+
+<hr />
+<a name="gnustep2ecygclass2fSUMMARY2028gnustep29"></a>
+<a name="robo702"></a><h2>SUMMARY (gnustep)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo700">gnustep.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo425">SUMMARY</a><span class="sign">=</span><span class="quote">"GNUstep ${ORIG_PN:-${<a href="./syntax_cygpart.html#robo93">PN</a>#gnustep-}} component"</span>
+</pre>
+
+<hr />
+<a name="gnustep2ecygclass2fHOMEPAGE2028gnustep29"></a>
+<a name="robo703"></a><h2>HOMEPAGE (gnustep)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo700">gnustep.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_info_cygpart.html#robo434">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://www.gnustep.org/"</span>
+</pre>
+
+<hr />
+<a name="gnustep2ecygclass2fSVN5fURI2028gnustep29"></a>
+<a name="robo704"></a><h2>SVN_URI (gnustep)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo700">gnustep.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">NOTE</p>
+<p>  <a href="./svn_cygclass.html#robo103">svn.cygclass</a> must be <a href="./inheritance_cygpart.html#robo638">inherit</a>()ed last for this to have any effect.
+</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./svn_cygclass.html#robo104">SVN_URI</a><span class="sign">=</span><span class="quote">"svn://svn.gna.org/svn/gnustep"</span>
+</pre>
+
+<hr />
+<a name="gnustep2ecygclass2fgnustep5fenv"></a>
+<a name="robo705"></a><h2>gnustep_env</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo700">gnustep.cygclass</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Loads the GNUstep environment variables.  This must be run before calling
+  <a href="#robo706">gnustep_compile</a> or <a href="#robo707">gnustep_install</a>.
+</p>
+
+<hr />
+<a name="gnustep2ecygclass2fgnustep5fcompile"></a>
+<a name="robo706"></a><h2>gnustep_compile</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo700">gnustep.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  cd $<a href="./syntax_cygpart.html#robo100">B</a>
+  <strong>gnustep_compile</strong> [MAKEFILE_ARGUMENTS]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Builds a GNUstep package with the following steps:
+</p>
+<ul><li>  <a href="./autotools_cygclass.html#robo915">cygconf</a>, if a configure script is present (usually not).
+</li>
+<li>  <a href="./src_compile_cygpart.html#robo193">cygmake</a>
+</li>
+<li>  <a href="./src_compile_cygpart.html#robo193">cygmake</a> in the Documentation directory, if present.
+</li>
+</ul>
+<p>  Arguments to <strong>gnustep_compile</strong> are passed to both <a href="./src_compile_cygpart.html#robo193">cygmake</a> calls.
+</p>
+<p class="item_name">NOTE</p>
+<p>  <a href="#robo705">gnustep_env</a> must be called before <strong>gnustep_compile</strong>.
+</p>
+
+<hr />
+<a name="gnustep2ecygclass2fgnustep5finstall"></a>
+<a name="robo707"></a><h2>gnustep_install</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo700">gnustep.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  cd $<a href="./syntax_cygpart.html#robo100">B</a>
+  <strong>gnustep_install</strong> [MAKEFILE_ARGUMENTS]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs a GNUstep package under $<a href="./syntax_cygpart.html#robo102">D</a>.  Arguments to <strong>gnustep_install</strong> are
+  passed to <a href="./src_install_cygpart.html#robo185">cyginstall</a>.
+</p>
+<p class="item_name">NOTE</p>
+<p>  <a href="#robo705">gnustep_env</a> must be called before <strong>gnustep_install</strong>.
+</p>
+
+<hr />
+<a name="gnustep2ecygclass2fgnustep5fpkg5fapps"></a>
+<a name="robo708"></a><h2>gnustep_pkg_apps</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo700">gnustep.cygclass</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>gnustep_pkg_apps</strong> APP_NAME [APP_NAME] ...
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Create a binary subpackage $APP_NAME.app containing the given application(s).
+</p>
+
+<hr />
+<a name="gnustep2ecygclass2fgnustep5fpkg5fframeworks"></a>
+<a name="robo709"></a><h2>gnustep_pkg_frameworks</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo700">gnustep.cygclass</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>gnustep_pkg_frameworks</strong> FRAMEWORK_NAME:<a href="./syntax_cygpart.html#robo91">VERSION</a> [FRAMEWORK_NAME:<a href="./syntax_cygpart.html#robo91">VERSION</a>] ...
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Create binary subpackages lib$FRAMEWORK_NAME$<a href="./syntax_cygpart.html#robo91">VERSION</a> and lib$FRAMEWORK_NAME-devel
+  containing the runtime and development components of the given frameworks(s).
+</p>
+
+<hr />
+<a name="gnustep2ecygclass2fsrc5fcompile2028gnustep29"></a>
+<a name="robo710"></a><h2>src_compile (gnustep)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo700">gnustep.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_compile_cygpart.html#robo194">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        <a href="./src_compile_cygpart.html#robo191">lndirs</a>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo705">gnustep_env</a>
+        <a href="#robo706">gnustep_compile</a>
+<span class="sign">}</span>
+</pre>
+
+<hr />
+<a name="gnustep2ecygclass2fsrc5finstall2028gnustep29"></a>
+<a name="robo711"></a><h2>src_install (gnustep)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo700">gnustep.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_install_cygpart.html#robo187">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo705">gnustep_env</a>
+        <a href="#robo707">gnustep_install</a>
+<span class="sign">}</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/gnustep.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

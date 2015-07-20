@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/lua.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/lua.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo588">lua.cygclass</a></li>
+<ul>
+<li><a href="#robo589">LUA</a></li>
+<li><a href="#robo590">LUAC</a></li>
+<li><a href="#robo591">LUA_VERSION</a></li>
+<li><a href="#robo592">LUA_INCLUDEDIR</a></li>
+<li><a href="#robo593">LUA_LIBDIR</a></li>
+<li><a href="#robo594">LUA_SCRIPTDIR</a></li>
+<li><a href="#robo595">LUA_CFLAGS</a></li>
+<li><a href="#robo596">LUA_LIBS</a></li>
+<li><a href="#robo597">luainto</a></li>
+<li><a href="#robo598">dolua</a></li>
+<li><a href="#robo599">lua_fix_shebang</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2flua2ecygclass"></a>
+<a name="robo588"></a><h2>lua.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> lua
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Lua is a lightweight programming language commonly used for embedded scripting
+  support in a variety of programs.  It is extensible through <a href="./syntax_cygpart.html#robo101">C</a>/<a href="./syntax_cygpart.html#robo101">C</a>++ modules
+  and lua scripts.
+</p>
+
+<p>  This cygclass provides definitions used by packages depending on Lua.
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  lua, pkg-config
+</p>
+
+<hr />
+<a name="lua2ecygclass2fLUA"></a>
+<a name="robo589"></a><h2>LUA</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo588">lua.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Lua interpreter.
+</p>
+
+<hr />
+<a name="lua2ecygclass2fLUAC"></a>
+<a name="robo590"></a><h2>LUAC</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo588">lua.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Lua bytecode compiler.
+</p>
+
+<hr />
+<a name="lua2ecygclass2fLUA5fVERSION"></a>
+<a name="robo591"></a><h2>LUA_VERSION</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo588">lua.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The major.minor version of the Lua interpreter.
+</p>
+
+<hr />
+<a name="lua2ecygclass2fLUA5fINCLUDEDIR"></a>
+<a name="robo592"></a><h2>LUA_INCLUDEDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo588">lua.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Path containing the Lua <a href="./syntax_cygpart.html#robo101">C</a> library headers.
+</p>
+
+<hr />
+<a name="lua2ecygclass2fLUA5fLIBDIR"></a>
+<a name="robo593"></a><h2>LUA_LIBDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo588">lua.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for Lua <a href="./syntax_cygpart.html#robo101">C</a> modules.
+</p>
+
+<hr />
+<a name="lua2ecygclass2fLUA5fSCRIPTDIR"></a>
+<a name="robo594"></a><h2>LUA_SCRIPTDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo588">lua.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for Lua script modules.
+</p>
+
+<hr />
+<a name="lua2ecygclass2fLUA5fCFLAGS"></a>
+<a name="robo595"></a><h2>LUA_CFLAGS</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo588">lua.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Compile flags for the Lua <a href="./syntax_cygpart.html#robo101">C</a> library.
+</p>
+
+<hr />
+<a name="lua2ecygclass2fLUA5fLIBS"></a>
+<a name="robo596"></a><h2>LUA_LIBS</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo588">lua.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Link flags for the Lua <a href="./syntax_cygpart.html#robo101">C</a> library.
+</p>
+
+<hr />
+<a name="lua2ecygclass2fluainto"></a>
+<a name="robo597"></a><h2>luainto</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo588">lua.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>luainto</strong> SUBDIRECTORY
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Subdirectory of <a href="#robo593">LUA_LIBDIR</a> or <a href="#robo594">LUA_SCRIPTDIR</a> into which <a href="#robo598">dolua</a> should install.
+  This is usually unnecessary.
+</p>
+
+<hr />
+<a name="lua2ecygclass2fdolua"></a>
+<a name="robo598"></a><h2>dolua</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo588">lua.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  [<a href="#robo597">luainto</a> SUBDIRECTORY]
+  <strong>dolua</strong> MODULE1 [MODULE2] ...
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the given Lua module(s) (.lua or .dll) into <a href="#robo593">LUA_LIBDIR</a> or
+  <a href="#robo594">LUA_SCRIPTDIR</a> under $<a href="./syntax_cygpart.html#robo102">D</a>, depending on filetype, or a subdirectory thereof
+  if <a href="#robo597">luainto</a> was previously called.
+</p>
+
+<hr />
+<a name="lua2ecygclass2flua5ffix5fshebang"></a>
+<a name="robo599"></a><h2>lua_fix_shebang</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo588">lua.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>lua_fix_shebang</strong> SCRIPT [SCRIPT ...]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Fixes the designated interpreter of SCRIPT to <a href="#robo589">LUA</a>.  This would be necessary
+  if the original uses an incorrect path (e.g. /usr/local/bin) or an
+  incorrectly versioned binary.  SCRIPT need not be prefixed by $<a href="./syntax_cygpart.html#robo102">D</a>.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/lua.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

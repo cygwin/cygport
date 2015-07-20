@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/gtk2-perl.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/gtk2-perl.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo678">gtk2-perl.cygclass</a></li>
+<ul>
+<li><a href="#robo679">CATEGORY (gtk2-perl)</a></li>
+<li><a href="#robo680">SUMMARY (gtk2-perl)</a></li>
+<li><a href="#robo681">HOMEPAGE (gtk2-perl)</a></li>
+<li><a href="#robo682">SRC_URI (gtk2-perl)</a></li>
+<li><a href="#robo683">DEPS_PATH (gtk2-perl)</a></li>
+<li><a href="#robo684">gtk2_perl_compile</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fgtk22dperl2ecygclass"></a>
+<a name="robo678"></a><h2>gtk2-perl.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  [<a href="./perl_cygclass.html#robo467">CPAN_AUTHOR</a>=username]
+  <a href="./inheritance_cygpart.html#robo638">inherit</a> gtk2-perl
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The Gtk2-Perl project provides Perl bindings for the GLib, GTK+, and GNOME
+  libraries, allowing full-fledged GNOME programs to be written in the Perl
+  programming language.  Source packages are based on the ExtUtils::MakeMaker
+  system with some additions to handle the unique requirements of inter-module
+  dependencies and POD generation from XS.  Several third-party modules are
+  also available on CPAN which use the same system to bind libraries not yet
+  covered by the Gtk2-Perl project.
+</p>
+
+<p>  This cygclass builds both official and third-party Gtk2-Perl binding packages.
+</p>
+<p class="item_name">INHERITS</p>
+<p>  <a href="./perl_cygclass.html#robo459">perl.cygclass</a>
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  perl-ExtUtils-Depends, perl-ExtUtils-PkgConfig
+</p>
+
+<hr />
+<a name="gtk22dperl2ecygclass2fCATEGORY2028gtk22dperl29"></a>
+<a name="robo679"></a><h2>CATEGORY (gtk2-perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo678">gtk2-perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo423">CATEGORY</a><span class="sign">=</span><span class="quote">"Perl"</span>
+</pre>
+
+<hr />
+<a name="gtk22dperl2ecygclass2fSUMMARY2028gtk22dperl29"></a>
+<a name="robo680"></a><h2>SUMMARY (gtk2-perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo678">gtk2-perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo425">SUMMARY</a><span class="sign">=</span><span class="quote">"Perl ${ORIG_PN//-/::} bindings"</span>
+</pre>
+
+<hr />
+<a name="gtk22dperl2ecygclass2fHOMEPAGE2028gtk22dperl29"></a>
+<a name="robo681"></a><h2>HOMEPAGE (gtk2-perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo678">gtk2-perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Homepage of the Gtk2-Perl project.
+</p>
+<p class="item_name">NOTE</p>
+<p>  If <a href="./perl_cygclass.html#robo467">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo79">defined</a>, the value set by <a href="./perl_cygclass.html#robo459">perl.cygclass</a> is used instead.
+</p>
+
+<hr />
+<a name="gtk22dperl2ecygclass2fSRC5fURI2028gtk22dperl29"></a>
+<a name="robo682"></a><h2>SRC_URI (gtk2-perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo678">gtk2-perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Download location of the release tarball from the Gtk2-Perl project.
+</p>
+<p class="item_name">NOTE</p>
+<p>  If <a href="./perl_cygclass.html#robo467">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo79">defined</a>, the value set by <a href="./perl_cygclass.html#robo459">perl.cygclass</a> is used instead.
+</p>
+
+<hr />
+<a name="gtk22dperl2ecygclass2fDEPS5fPATH2028gtk22dperl29"></a>
+<a name="robo683"></a><h2>DEPS_PATH (gtk2-perl)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo678">gtk2-perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Gtk2-Perl modules are unique that they are not only linked against the <a href="./syntax_cygpart.html#robo101">C</a>
+  libraries which they bind, but also expose an API to bindings higher up in
+  the stack which link against them as well.  Therefore, <a href="./pkg_info_cygpart.html#robo435">DEPS_PATH</a> is set to
+  catch these inter-module link dependencies.
+</p>
+
+<hr />
+<a name="gtk22dperl2ecygclass2fgtk25fperl5fcompile"></a>
+<a name="robo684"></a><h2>gtk2_perl_compile</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo678">gtk2-perl.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  An alias for <a href="./perl_cygclass.html#robo472">perl_compile</a>.
+</p>
+<p class="item_name">HISTORY</p>
+<p>  Gtk2-Perl's build system originally posed some challenges on Cygwin:
+</p>
+<ul><li>  Inter-module linking.  ExtUtils-Depends did not support this for quite
+    some time, so the necessary link libraries had to be specially added.
+</li>
+<li>  POD manpages.  On other *NIX systems, POD manpages are generated from
+    hand-written POD files and include '::' in their filename, which was
+    illegal on Cygwin until 1.7, so perl and man are patched to substitute
+    '::' with '.'.  Gtk2-Perl uses its own system to first build POD files
+    from XS, then build manpages from those, so the 's/::/./g' substitution
+    was not available and intervention was required to create the manpages.
+    Since Cygwin 1.7, however, technically this would no longer necessary, as
+    filenames can include ':', but man still makes the substitution.
+</li>
+</ul>
+<p>  Therefore, this function no longer serves a purpose. Now, the manpages
+  are built and installed with '::' as on other platforms, but are renamed
+  during postinstall so that man can find them.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/gtk2-perl.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

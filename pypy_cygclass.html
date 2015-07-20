@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/pypy.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/pypy.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo389">pypy.cygclass</a></li>
+<ul>
+<li><a href="#robo390">PYPY</a></li>
+<li><a href="#robo391">PYPY_VERSION</a></li>
+<li><a href="#robo392">PYPY_INCLUDEDIR</a></li>
+<li><a href="#robo393">PYPY_SITELIB</a></li>
+<li><a href="#robo395">pypyinto</a></li>
+<li><a href="#robo396">dopypy</a></li>
+<li><a href="#robo397">pypy_optimize</a></li>
+<li><a href="#robo398">pypy_fix_shebang</a></li>
+</ul>
+<li><a href="#robo394">LIBPYPY</a></li>
+</ul>
+<hr />
+<a name="Cygclasses2fpypy2ecygclass"></a>
+<a name="robo389"></a><h2>pypy.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> pypy
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  PyPy is an alternative implementation of the Python general-purpose
+  interpreted programming language which includes a Just-In-Time compiler.
+  It is mostly compatible with Python 2.7 and most pure Python programs and
+  libraries; support for <a href="./syntax_cygpart.html#robo101">C</a> extensions is experimental.
+</p>
+
+<p>  This cygclass provides definitions and some install helpers which can be used
+  by any PyPy-based package.  PyPy modules and programs are built in a number
+  of ways, so this cygclass does not provide any build functions.  The two
+  most common build systems for PyPy packages are Distutils and autotools.
+</p>
+<p class="item_name">INHERITED BY</p>
+<p>  <a href="./pypy-distutils_cygclass.html#robo399">pypy-distutils.cygclass</a>
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  pypy
+</p>
+
+<hr />
+<a name="pypy2ecygclass2fPYPY"></a>
+<a name="robo390"></a><h2>PYPY</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo389">pypy.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the PyPy interpreter.
+</p>
+
+<hr />
+<a name="pypy2ecygclass2fPYPY5fVERSION"></a>
+<a name="robo391"></a><h2>PYPY_VERSION</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo389">pypy.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The major.minor version of the current PyPy interpreter.
+</p>
+
+<hr />
+<a name="pypy2ecygclass2fPYPY5fINCLUDEDIR"></a>
+<a name="robo392"></a><h2>PYPY_INCLUDEDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo389">pypy.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Path containing the PyPy <a href="./syntax_cygpart.html#robo101">C</a> library headers.
+</p>
+
+<hr />
+<a name="pypy2ecygclass2fPYPY5fSITELIB"></a>
+<a name="robo393"></a><h2>PYPY_SITELIB</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo389">pypy.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for all PyPy extension modules.
+</p>
+
+<hr />
+<a name="python2ecygclass2fLIBPYPY"></a>
+<a name="robo394"></a><h2>LIBPYPY</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./python_cygclass.html#robo371">python.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Link flags for the PyPy import library.  This definition must be properly quoted.
+</p>
+
+<hr />
+<a name="pypy2ecygclass2fpypyinto"></a>
+<a name="robo395"></a><h2>pypyinto</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo389">pypy.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>pypyinto</strong> SUBDIRECTORY
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Subdirectory of <a href="#robo393">PYPY_SITELIB</a> into which <a href="#robo396">dopypy</a> should install.  This is
+  usually unnecessary.
+</p>
+
+<hr />
+<a name="pypy2ecygclass2fdopypy"></a>
+<a name="robo396"></a><h2>dopypy</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo389">pypy.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  [<a href="#robo395">pypyinto</a> SUBDIRECTORY]
+  <strong>dopypy</strong> MODULE1 [MODULE2] ...
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the given PyPy module(s) (.py or .dll) into <a href="#robo393">PYPY_SITELIB</a> under $<a href="./syntax_cygpart.html#robo102">D</a>,
+  or a subdirectory thereof if <a href="#robo395">pypyinto</a> was previously called.
+</p>
+
+<hr />
+<a name="pypy2ecygclass2fpypy5foptimize"></a>
+<a name="robo397"></a><h2>pypy_optimize</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo389">pypy.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>pypy_optimize</strong> [DIRECTORY1] [DIRECTORY2] ...
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Bytecode-compile all PyPy modules found in the given directories under $<a href="./syntax_cygpart.html#robo102">D</a>.
+  If no directories are specified, <a href="#robo393">PYPY_SITELIB</a> under $<a href="./syntax_cygpart.html#robo102">D</a> is assumed.
+</p>
+<p class="item_name">NOTE</p>
+<p>  PyPy modules installed with <a href="./distutils_cygclass.html#robo779">distutils_install</a> are automatically compiled,
+  as are those installed by automake-based packages *if* they have been declared
+  as _<a href="./python_cygclass.html#robo372">PYTHON</a> files (in which case a py-compile script will be present in $<a href="./syntax_cygpart.html#robo99">S</a>).
+  Some automake-based packages mistakenly declare these as _DATA instead, in
+  which case either the <a href="./Makefile_am.html#robo_top_of_doc">Makefile.am</a> must be patched or this function called
+  after <a href="./src_install_cygpart.html#robo185">cyginstall</a>.
+</p>
+
+<hr />
+<a name="pypy2ecygclass2fpypy5ffix5fshebang"></a>
+<a name="robo398"></a><h2>pypy_fix_shebang</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo389">pypy.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>pypy_fix_shebang</strong> SCRIPT [SCRIPT ...]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Fixes the designated interpreter of SCRIPT to <a href="#robo390">PYPY</a>.  This would be necessary
+  if the original uses an incorrect path (e.g. /usr/local/bin) or defaults
+  to the CPython interpreter.  SCRIPT need not be prefixed by $<a href="./syntax_cygpart.html#robo102">D</a>.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/pypy.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

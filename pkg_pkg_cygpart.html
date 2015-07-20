@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/lib/pkg_pkg.cygpart</title>
+<!-- Source: /home/Yaakov/src/cygport/lib/pkg_pkg.cygpart -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo417">Packaging</a></li>
+<ul>
+<li><a href="#robo418">PKG_NAMES</a></li>
+<li><a href="#robo419">PKG_HINTS</a></li>
+<li><a href="#robo420">PKG_CONTENTS</a></li>
+<li><a href="#robo421">PKG_IGNORE</a></li>
+<li><a href="#robo422">DIFF_EXCLUDES</a></li>
+<li><a href="#robo423">CATEGORY</a></li>
+<li><a href="#robo424">PKG_CATEGORY</a></li>
+<li><a href="#robo425">SUMMARY</a></li>
+<li><a href="#robo426">PKG_SUMMARY</a></li>
+<li><a href="#robo427">DESCRIPTION</a></li>
+<li><a href="#robo428">PKG_DESCRIPTION</a></li>
+<li><a href="#robo429">REQUIRES</a></li>
+<li><a href="#robo430">PKG_REQUIRES</a></li>
+<li><a href="#robo431">OBSOLETES</a></li>
+<li><a href="#robo432">PKG_OBSOLETES</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Chapter20122fPackaging"></a>
+<a name="robo417"></a><h2>Packaging</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo796">Chapter 12</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p class="item_name">INTRODUCTION</p>
+<p>  In most cases, only one binary package is created from a source package,
+  including all files installed into $<a href="./syntax_cygpart.html#robo102">D</a>.  This is the default, and if
+  this applies to your package, the rest of this section is irrelevant.
+</p>
+
+<p>  However, there are many cases -- often with library packages -- that it
+  is desirable to create multiple binary packages from one source.
+  cygport makes that very easy, by defining the variables described in this
+  section.
+</p>
+
+<hr />
+<a name="Packaging2fPKG5fNAMES"></a>
+<a name="robo418"></a><h2>PKG_NAMES</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>PKG_NAMES</strong>="foo libfoo1 libfoo-devel libfoo-doc"
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  A list of binary packages to create from the files installed into <a href="./syntax_cygpart.html#robo102">D</a>.
+  The exact contents of these packages are specified in <a href="#robo420">PKG_CONTENTS</a>
+  variables or .list files.
+</p>
+<p class="item_name">NOTES</p>
+<ul><li>  <a href="./syntax_cygpart.html#robo93">PN</a> does not need to be listed in <strong>PKG_NAMES</strong> if there are no files to
+    go into a corresponding binary package.  This is common with packages
+    providing only libraries.
+</li>
+<li>  Any packages listed in <strong>PKG_NAMES</strong> which do not have a corresponding
+    <a href="#robo420">PKG_CONTENTS</a> variable or .list file will be created as an empty package.
+    This can be useful to provide upgrade helpers for renamed packages.
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="Packaging2fPKG5fHINTS"></a>
+<a name="robo419"></a><h2>PKG_HINTS</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="#robo418">PKG_NAMES</a>="foo libfoo1 libfoo-devel libfoo-doc"
+  <strong>PKG_HINTS</strong>="setup runtime devel doc"
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  A list of unsuffixed .hint files which should be used for each given
+  binary package in <a href="#robo418">PKG_NAMES</a>.
+</p>
+<p class="item_name">NOTES</p>
+<ul><li>  If <a href="./syntax_cygpart.html#robo93">PN</a> is not included in <a href="#robo418">PKG_NAMES</a>, a file named $<a href="./syntax_cygpart.html#robo93">PN</a>.hint or setup.hint
+    is still required for the source package, but should not be listed in
+    <strong>PKG_HINTS</strong>.
+</li>
+<li>  If the .hint filenames (minus the .hint suffix) match <a href="#robo418">PKG_NAMES</a>, <strong>PKG_HINTS</strong>
+    need not be <a href="./syntax_cygpart.html#robo79">defined</a>.
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="Packaging2fPKG5fCONTENTS"></a>
+<a name="robo420"></a><h2>PKG_CONTENTS</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="#robo418">PKG_NAMES</a>="foo libfoo1 libfoo-devel libfoo-doc"
+  foo_CONTENTS="--exclude=html usr/bin/foo.exe usr/share/doc/ usr/share/locale/"
+  libfoo1_CONTENTS="usr/bin/cygfoo-1.dll"
+  libfoo_devel_CONTENTS="usr/include/ usr/lib/ usr/share/aclocal/"
+  libfoo_doc_CONTENTS="usr/share/doc/${<a href="./syntax_cygpart.html#robo90">NAME</a>}/html/"
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  A list of files to be included in each binary package.  The <strong>PKG_CONTENTS</strong>
+  name is descriptive rather than literal, where "PKG" should be
+  substituted with the name of the binary package whose contents it
+  describes.  When a package contains a character which cannot be used
+  in a shell variable name (namely '+', '-', and '.'), that character
+  must be substituted with an underscore ('_'), such as libfoo-devel above.
+</p>
+<p class="item_name">NOTES</p>
+<ul><li>  Be sure to omit the leading forward slash from file contents.
+</li>
+<li>  Patterns to be excluded from a given package may be specified with
+    an --exclude= argument (as above).  All such arguments must precede
+    all file or directory names which are being included.
+</li>
+<li>  Early versions of cygport only supported a literal <strong>PKG_CONTENTS</strong>, in
+    form of an array.  This form should be considered deprecated in favour
+    of explicitly-named variables as described above.
+</li>
+<li>  If the contents of a package are too many or complicated to easily
+    describe in this form, a <a href="./syntax_cygpart.html#robo93">PN</a>.list file can be used instead and placed
+    in <a href="./syntax_cygpart.html#robo101">C</a> before the packaging stage.
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="Packaging2fPKG5fIGNORE"></a>
+<a name="robo421"></a><h2>PKG_IGNORE</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A list of files that should not be included in any package, in the same
+  form as <a href="#robo420">PKG_CONTENTS</a>.  This will silence warnings on these files not
+  being included in any package, and <a href="./syntax_cygpart.html#robo83">error</a> if they are included in a package.
+</p>
+
+<hr />
+<a name="Packaging2fDIFF5fEXCLUDES"></a>
+<a name="robo422"></a><h2>DIFF_EXCLUDES</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A list of file names, directory names, or glob patterns in <a href="./syntax_cygpart.html#robo99">S</a> which will
+  be excluded when creating the .src.patch file.  This should be used for
+  files automatically generated in <a href="./syntax_cygpart.html#robo99">S</a> to avoid polluting the patch.
+</p>
+<p class="item_name">NOTE</p>
+<p>  Files generated by various buildsystem infrastructures, such as autoconf,
+  automake, gettext, and libtool are already excluded automatically and
+  need not be listed here.
+</p>
+
+<hr />
+<a name="Packaging2fCATEGORY"></a>
+<a name="robo423"></a><h2>CATEGORY</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A string containing one or more setup package categories.  This will be
+  used as the category: field of auto-generated setup.hint files.
+</p>
+<p class="item_name">NOTE</p>
+<p>  A list of official categories is available on the
+<a href="http://cygwin.com/setup.html#setup.hint">Cygwin website</a>.
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="#robo424">PKG_CATEGORY</a>
+</p>
+
+<hr />
+<a name="Packaging2fPKG5fCATEGORY"></a>
+<a name="robo424"></a><h2>PKG_CATEGORY</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A string containing one or more setup package categories.  This will be
+  used as the category: field of the corresponding auto-generated setup.hint
+  file.
+</p>
+
+<p>  Note that the <strong>PKG_CATEGORY</strong> name is descriptive rather than literal,
+  where "PKG" should be substituted with the name of the binary package
+  whose contents it describes.  When a package contains a character which
+  cannot be used in a shell variable name (namely '+', '-', and '.'),
+  that character must be substituted with an underscore ('_'), e.g.
+  libfoo-devel will use libfoo_devel_CATEGORY.
+</p>
+<p class="item_name">NOTE</p>
+<p>  A list of official categories is available on the
+<a href="http://cygwin.com/setup.html#setup.hint">Cygwin website</a>.
+</p>
+
+<hr />
+<a name="Packaging2fSUMMARY"></a>
+<a name="robo425"></a><h2>SUMMARY</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A one-line summary of the package.  This will be used as the sdesc: field
+  of auto-generated setup.hint files.
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="#robo426">PKG_SUMMARY</a>
+</p>
+
+<hr />
+<a name="Packaging2fPKG5fSUMMARY"></a>
+<a name="robo426"></a><h2>PKG_SUMMARY</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A one-line summary of the subpackage.  This will be used as the sdesc:
+  field of the corresponding auto-generated setup.hint file.
+</p>
+
+<p>  Note that the <strong>PKG_SUMMARY</strong> name is descriptive rather than literal,
+  where "PKG" should be substituted with the name of the binary package
+  whose contents it describes.  When a package contains a character which
+  cannot be used in a shell variable name (namely '+', '-', and '.'),
+  that character must be substituted with an underscore ('_'), e.g.
+  libfoo-devel will use libfoo_devel_SUMMARY.
+</p>
+
+<hr />
+<a name="Packaging2fDESCRIPTION"></a>
+<a name="robo427"></a><h2>DESCRIPTION</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A short paragraph description of the package.  This will be used as the
+  ldesc: field of auto-generated setup.hint files.
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="#robo428">PKG_DESCRIPTION</a>
+</p>
+
+<hr />
+<a name="Packaging2fPKG5fDESCRIPTION"></a>
+<a name="robo428"></a><h2>PKG_DESCRIPTION</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A short paragraph description of the subpackage.  This will be used as the
+  ldesc: field of the corresponding auto-generated setup.hint file.
+</p>
+
+<p>  Note that the <strong>PKG_DESCRIPTION</strong> name is descriptive rather than literal,
+  where "PKG" should be substituted with the name of the binary package
+  whose contents it describes.  When a package contains a character which
+  cannot be used in a shell variable name (namely '+', '-', and '.'),
+  that character must be substituted with an underscore ('_'), e.g.
+  libfoo-devel will use libfoo_devel_DESCRIPTION.
+</p>
+
+<hr />
+<a name="Packaging2fREQUIRES"></a>
+<a name="robo429"></a><h2>REQUIRES</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A single-line strings containing a list of packages on which this
+  package depends. This will be added to the requires: field of the
+  auto-generated setup.hint file.
+</p>
+<p class="item_name">NOTES</p>
+<ul><li>  cygport attempts to automatically detect many types of package
+    dependencies, which do not need to be listed in <strong>REQUIRES</strong>.  This is still
+    needed for commands called by scripts or in code with fork(), libraries
+    which are accessed by dlopen(), or data used by your package at runtime.
+</li>
+<li>  If there is more than one package in <a href="#robo418">PKG_NAMES</a>, this variable will be
+    ignored; you must use <a href="#robo430">PKG_REQUIRES</a> instead.
+</li>
+<li>  Any newlines in this variable must be escaped.
+</li>
+</ul>
+<p></p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="#robo430">PKG_REQUIRES</a>
+</p>
+
+<hr />
+<a name="Packaging2fPKG5fREQUIRES"></a>
+<a name="robo430"></a><h2>PKG_REQUIRES</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A single-line strings containing a list of packages on which this
+  package depends. This will be added to the requires: field of the
+  auto-generated setup.hint file.
+</p>
+
+<p>  Note that the <strong>PKG_REQUIRES</strong> name is descriptive rather than literal,
+  where "PKG" should be substituted with the name of the binary package
+  whose contents it describes.  When a package contains a character which
+  cannot be used in a shell variable name (namely '+', '-', and '.'),
+  that character must be substituted with an underscore ('_'), e.g.
+  libfoo-devel will use libfoo_devel_REQUIRES.
+</p>
+<p class="item_name">NOTES</p>
+<ul><li>  cygport attempts to automatically detect many types of package
+    dependencies, which do not need to be listed in <a href="#robo429">REQUIRES</a>.  This is still
+    needed for commands called by scripts or in code with fork(), libraries
+    which are accessed by dlopen(), or data used by your package at runtime.
+</li>
+<li>  Any newlines in this variable must be escaped.
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="Packaging2fOBSOLETES"></a>
+<a name="robo431"></a><h2>OBSOLETES</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A single-line string containing a list of package(s) which this
+  package replaces.  An empty package will be created for each listed
+  obsoletion which will cause this package to be installed in its place.
+</p>
+<p class="item_name">NOTE</p>
+<p>  If there is more than one package in <a href="#robo418">PKG_NAMES</a>, this variable will be
+  ignored; you must use <a href="#robo432">PKG_OBSOLETES</a> instead.
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="#robo432">PKG_OBSOLETES</a>
+</p>
+
+<hr />
+<a name="Packaging2fPKG5fOBSOLETES"></a>
+<a name="robo432"></a><h2>PKG_OBSOLETES</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo417">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A single-line string containing a list of package(s) which this
+  package replaces.  An empty package will be created for each listed
+  obsoletion which will cause PKG to be installed in its place.
+</p>
+
+<p>  Note that the <a href="#robo430">PKG_REQUIRES</a> name is descriptive rather than literal,
+  where "PKG" should be substituted with the name of the binary package
+  whose contents it describes.  When a package contains a character which
+  cannot be used in a shell variable name (namely '+', '-', and '.'),
+  that character must be substituted with an underscore ('_'), e.g.
+  libfoo-devel will use libfoo_devel_OBSOLETES.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/lib/pkg_pkg.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

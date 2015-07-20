@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/vim.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/vim.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo35">vim.cygclass</a></li>
+<ul>
+<li><a href="#robo36">VIM</a></li>
+<li><a href="#robo37">VIMRUNTIME</a></li>
+<li><a href="#robo38">VIMFILES</a></li>
+<li><a href="#robo39">viminto</a></li>
+<li><a href="#robo40">dovim</a></li>
+<li><a href="#robo41">newvim</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fvim2ecygclass"></a>
+<a name="robo35"></a><h2>vim.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Vim is a text editor which is extensible through scripts written in its
+  own Vimscript language.
+</p>
+
+<p>  This cygclass includes functions for installing Vim scripts.
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  vim
+</p>
+
+<hr />
+<a name="vim2ecygclass2fVIM"></a>
+<a name="robo36"></a><h2>VIM</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo35">vim.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Root data directory for the Vim editor.
+</p>
+<p class="item_name">NOTE</p>
+<p>  This is NOT the path to the Vim editor.
+</p>
+
+<hr />
+<a name="vim2ecygclass2fVIMRUNTIME"></a>
+<a name="robo37"></a><h2>VIMRUNTIME</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo35">vim.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Directory containing scripts shipped with the Vim editor.
+</p>
+<p class="item_name">NOTE</p>
+<p>  Third-party Vim scripts should not be installed here; use <a href="#robo38">VIMFILES</a> instead.
+</p>
+
+<hr />
+<a name="vim2ecygclass2fVIMFILES"></a>
+<a name="robo38"></a><h2>VIMFILES</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo35">vim.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for third-party Vim scripts.
+</p>
+
+<hr />
+<a name="vim2ecygclass2fviminto"></a>
+<a name="robo39"></a><h2>viminto</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo35">vim.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>viminto</strong> SUBDIRECTORY
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Subdirectory into which <a href="#robo40">dovim</a> and <a href="#robo41">newvim</a> should install.  Subdirectories
+  supported by Vim are:
+</p>
+<ul><li>  autoload: automatically loaded functions
+</li>
+<li>  colors: color scheme scripts
+</li>
+<li>  compiler: compiler scripts
+</li>
+<li>  doc: documentation
+</li>
+<li>  ftplugin: filetype plugins
+</li>
+<li>  indent: indentation scripts
+</li>
+<li>  keymap: key mapping scripts
+</li>
+<li>  lang: translations
+</li>
+<li>  plugin: automatically loaded plugins
+</li>
+<li>  print: print encodings
+</li>
+<li>  spell: spell checking dictionaries
+</li>
+<li>  syntax: syntax highlighting scripts
+</li>
+</ul>
+<p>  A subdirectory may also be prefixed by "after/" if the scripts to be
+  installed are meant to override those included in Vim.
+</p>
+
+<hr />
+<a name="vim2ecygclass2fdovim"></a>
+<a name="robo40"></a><h2>dovim</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo35">vim.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="#robo39">viminto</a> SUBDIRECTORY
+  <strong>dovim</strong> SCRIPT [SCRIPT2] ...
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the given Vim script(s) into the subdirectory of <a href="#robo38">VIMFILES</a> declared
+  by the preceding call to <a href="#robo39">viminto</a>.
+</p>
+
+<hr />
+<a name="vim2ecygclass2fnewvim"></a>
+<a name="robo41"></a><h2>newvim</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo35">vim.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="#robo39">viminto</a> SUBDIRECTORY
+  <strong>newvim</strong> SCRIPT_FILE NEW_SCRIPT_NAME
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the given Vim script into the subdirectory of <a href="#robo38">VIMFILES</a> declared
+  by the preceding call to <a href="#robo39">viminto</a>, renaming it as indicated by the second
+  argument.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/vim.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

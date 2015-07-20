@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/docbook.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/docbook.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo765">docbook.cygclass</a></li>
+<ul>
+<li><a href="#robo766">CATEGORY (docbook)</a></li>
+<li><a href="#robo767">SUMMARY (docbook)</a></li>
+<li><a href="#robo768">DESCRIPTION (docbook)</a></li>
+<li><a href="#robo769">HOMEPAGE (docbook)</a></li>
+<li><a href="#robo770">SRC_URI (docbook)</a></li>
+<li><a href="#robo771">docbook_install</a></li>
+<li><a href="#robo772">docbook_dsssl_postinst</a></li>
+<li><a href="#robo773">docbook_sgml_postinst</a></li>
+<li><a href="#robo774">docbook_xml_postinst</a></li>
+<li><a href="#robo775">src_compile (docbook)</a></li>
+<li><a href="#robo776">src_install (docbook)</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fdocbook2ecygclass"></a>
+<a name="robo765"></a><h2>docbook.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> docbook
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  DocBook is a schema for SGML and XML documents meant for formatting
+  documents and books, and is sometimes used for software documentation.
+  It is generally processed through the (Open)Jade parser, either
+  directly or through the jw/docbook2* wrappers.
+</p>
+
+<p>  This cygclass handles downloading, installation and registration of
+  DocBook SGML, XML, and Simplified XML DTDs, as well as the DSSSL and
+  XSL stylesheets.
+</p>
+
+<hr />
+<a name="docbook2ecygclass2fCATEGORY2028docbook29"></a>
+<a name="robo766"></a><h2>CATEGORY (docbook)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo765">docbook.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo423">CATEGORY</a><span class="sign">=</span><span class="quote">"Text"</span>
+</pre>
+
+<hr />
+<a name="docbook2ecygclass2fSUMMARY2028docbook29"></a>
+<a name="robo767"></a><h2>SUMMARY (docbook)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo765">docbook.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo425">SUMMARY</a><span class="sign">=</span><span class="quote">"DocBook ${dtd_type} DTD, version ${<a href="./syntax_cygpart.html#robo94">PV</a>}"</span>
+</pre>
+
+<hr />
+<a name="docbook2ecygclass2fDESCRIPTION2028docbook29"></a>
+<a name="robo768"></a><h2>DESCRIPTION (docbook)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo765">docbook.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo427">DESCRIPTION</a><span class="sign">=</span><span class="quote">"DocBook is a schema maintained by the DocBook Technical Committee
+of OASIS. It is particularly well suited to books and papers about computer
+hardware and software (though it is by no means limited to these applications).
+This package provides version ${<a href="./syntax_cygpart.html#robo94">PV</a>} of the DocBook DTDs for ${dtd_type}."</span>
+</pre>
+
+<hr />
+<a name="docbook2ecygclass2fHOMEPAGE2028docbook29"></a>
+<a name="robo769"></a><h2>HOMEPAGE (docbook)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo765">docbook.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_info_cygpart.html#robo434">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://www.oasis-open.org/docbook/"</span>
+</pre>
+
+<hr />
+<a name="docbook2ecygclass2fSRC5fURI2028docbook29"></a>
+<a name="robo770"></a><h2>SRC_URI (docbook)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo765">docbook.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Download location for the DocBook package.
+</p>
+
+<hr />
+<a name="docbook2ecygclass2fdocbook5finstall"></a>
+<a name="robo771"></a><h2>docbook_install</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo765">docbook.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  cd $<a href="./syntax_cygpart.html#robo99">S</a>
+  <strong>docbook_install</strong>
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the DocBook package into $<a href="./syntax_cygpart.html#robo102">D</a>.
+</p>
+
+<hr />
+<a name="docbook2ecygclass2fdocbook5fdsssl5fpostinst"></a>
+<a name="robo772"></a><h2>docbook_dsssl_postinst</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo765">docbook.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Creates postinstall/preremove scripts to de/register the DSSSL stylesheets
+  with the system SGML catalog.
+</p>
+
+<hr />
+<a name="docbook2ecygclass2fdocbook5fsgml5fpostinst"></a>
+<a name="robo773"></a><h2>docbook_sgml_postinst</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo765">docbook.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Creates postinstall/preremove scripts to de/register the SGML/XML DTDs
+  with the system SGML catalog.
+</p>
+<p class="item_name">NOTE</p>
+<p>  XML DTDs must also be registered in the SGML catalog.
+</p>
+
+<hr />
+<a name="docbook2ecygclass2fdocbook5fxml5fpostinst"></a>
+<a name="robo774"></a><h2>docbook_xml_postinst</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo765">docbook.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Creates postinstall/preremove scripts to de/register the XML DTDs or
+  XSL stylesheets with the system XML catalog.
+</p>
+
+<hr />
+<a name="docbook2ecygclass2fsrc5fcompile2028docbook29"></a>
+<a name="robo775"></a><h2>src_compile (docbook)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo765">docbook.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_compile_cygpart.html#robo194">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span> <span class="sign">:</span><span class="sign">;</span> <span class="sign">}</span>
+</pre>
+
+<hr />
+<a name="docbook2ecygclass2fsrc5finstall2028docbook29"></a>
+<a name="robo776"></a><h2>src_install (docbook)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo765">docbook.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs <a href="#robo771">docbook_install</a> followed by the appropriate combination of
+  <a href="#robo772">docbook_dsssl_postinst</a>, <a href="#robo773">docbook_sgml_postinst</a>, and/or <a href="#robo774">docbook_xml_postinst</a>.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/docbook.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

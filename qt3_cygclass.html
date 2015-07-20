@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/qt3.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/qt3.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo331">qt3.cygclass</a></li>
+<ul>
+<li><a href="#robo332">QTDIR</a></li>
+<li><a href="#robo333">QT3_BINDIR</a></li>
+<li><a href="#robo334">QT3_INCLUDEDIR</a></li>
+<li><a href="#robo335">QT3_LIBDIR</a></li>
+<li><a href="#robo336">QT3_PLUGINSDIR</a></li>
+<li><a href="#robo337">QT3_DATADIR</a></li>
+<li><a href="#robo338">QT3_QMAKE</a></li>
+<li><a href="#robo339">QT3_MOC</a></li>
+<li><a href="#robo340">QT3_UIC</a></li>
+<li><a href="#robo341">doqt3inc</a></li>
+<li><a href="#robo342">doqt3lib</a></li>
+<li><a href="#robo343">qt3pluginto</a></li>
+<li><a href="#robo344">doqt3plugin</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fqt32ecygclass"></a>
+<a name="robo331"></a><h2>qt3.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> qt3
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Qt is a <a href="./syntax_cygpart.html#robo101">C</a>++ cross-platform application framework for writing desktop GUI
+  applications.  Qt is the underlying toolkit used by the KDE desktop
+  environment.
+</p>
+
+<p>  This cygclass provides definitions and install functions which can be used
+  by all Qt3-based packages, regardless of the build system being used.
+</p>
+<p class="item_name">NOTES</p>
+<ul><li>  Packages based on the newer 4.x or 5.x versions of Qt must use
+    <a href="./qt4_cygclass.html#robo_top_of_doc">qt4.cygclass</a> or <a href="./qt5_cygclass.html#robo_top_of_doc">qt5.cygclass</a>, respectively.
+</li>
+<li>  The 3.x version of Qt is deprecated.  Support for Qt3 may be dropped in
+    the near future.
+</li>
+</ul>
+<p></p>
+<p class="item_name">INHERITED BY</p>
+<p>  <a href="./qt3-qmake_cygclass.html#robo345">qt3-qmake.cygclass</a>
+</p>
+
+<hr />
+<a name="qt32ecygclass2fQTDIR"></a>
+<a name="robo332"></a><h2>QTDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Root directory of the Qt3 installation.  This variable is exported to the
+  build environment.
+</p>
+
+<hr />
+<a name="qt32ecygclass2fQT35fBINDIR"></a>
+<a name="robo333"></a><h2>QT3_BINDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Directory containing the Qt3 development tools.
+</p>
+
+<hr />
+<a name="qt32ecygclass2fQT35fINCLUDEDIR"></a>
+<a name="robo334"></a><h2>QT3_INCLUDEDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Directory containing the Qt3 library headers.
+</p>
+
+<hr />
+<a name="qt32ecygclass2fQT35fLIBDIR"></a>
+<a name="robo335"></a><h2>QT3_LIBDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Directory containing the Qt3 link libraries.
+</p>
+
+<hr />
+<a name="qt32ecygclass2fQT35fPLUGINSDIR"></a>
+<a name="robo336"></a><h2>QT3_PLUGINSDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for Qt3 plugins.
+</p>
+
+<hr />
+<a name="qt32ecygclass2fQT35fDATADIR"></a>
+<a name="robo337"></a><h2>QT3_DATADIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Directory containing the Qt3 documentation and translation data.
+</p>
+
+<hr />
+<a name="qt32ecygclass2fQT35fQMAKE"></a>
+<a name="robo338"></a><h2>QT3_QMAKE</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Qt3 project and Makefile generator.
+</p>
+
+<hr />
+<a name="qt32ecygclass2fQT35fMOC"></a>
+<a name="robo339"></a><h2>QT3_MOC</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Qt3 Meta-Object Compiler.
+</p>
+
+<hr />
+<a name="qt32ecygclass2fQT35fUIC"></a>
+<a name="robo340"></a><h2>QT3_UIC</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Qt3 User Interface Compiler.
+</p>
+
+<hr />
+<a name="qt32ecygclass2fdoqt3inc"></a>
+<a name="robo341"></a><h2>doqt3inc</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>doqt3inc</strong> HEADERS
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs headers into <a href="#robo334">QT3_INCLUDEDIR</a> under $<a href="./syntax_cygpart.html#robo102">D</a>.
+</p>
+
+<hr />
+<a name="qt32ecygclass2fdoqt3lib"></a>
+<a name="robo342"></a><h2>doqt3lib</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>doqt3lib</strong> LIBRARIES
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs link libraries into <a href="#robo335">QT3_LIBDIR</a> under $<a href="./syntax_cygpart.html#robo102">D</a>.
+</p>
+
+<hr />
+<a name="qt32ecygclass2fqt3pluginto"></a>
+<a name="robo343"></a><h2>qt3pluginto</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>qt3pluginto</strong> SUBDIRECTORY
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Sets the subdirectory of QT3_PLUGINDIR in which <a href="#robo344">doqt3plugin</a> should install.
+  Supported subdirectores include:
+</p>
+<ul><li>  crypto: Qt Cryptographic Architecture backends
+</li>
+<li>  designer: Qt Designer widgets
+</li>
+<li>  imageformats: image format handlers
+</li>
+<li>  sqldrivers: SQL datbase backends
+</li>
+<li>  styles: GUI style engines
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="qt32ecygclass2fdoqt3plugin"></a>
+<a name="robo344"></a><h2>doqt3plugin</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo331">qt3.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="#robo343">qt3pluginto</a> SUBDIRECTORY
+  <strong>doqt3plugin</strong> PLUGINS
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the given plugins into the subdirectory of QT3_PLUGINDIR passed
+  to the previous call to <a href="#robo343">qt3pluginto</a>.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/qt3.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

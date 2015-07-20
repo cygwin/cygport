@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/bzr.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/bzr.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo886">bzr.cygclass</a></li>
+<ul>
+<li><a href="#robo887">BZR_URI</a></li>
+<li><a href="#robo888">BZR_REV</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fbzr2ecygclass"></a>
+<a name="robo886"></a><h2>bzr.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="#robo887">BZR_URI</a>="..."
+  [<a href="#robo888">BZR_REV</a>="..."]
+  <a href="./inheritance_cygpart.html#robo638">inherit</a> bzr
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Developed by Canonical Ltd., the company behind Ubuntu Linux,
+<a href="http://bazaar.canonical.com/">Bazaar</a> is a distributed
+  version control system which is most commonly used by software hosted on
+<a href="http://launchpad.net/projects">Launchpad</a>.
+</p>
+
+<p>  This cygclass creates source tarballs from Bazaar checkouts.
+</p>
+<p class="item_name">NOTES</p>
+<p>  This cygclass sets a special <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a> for the tarball it creates.  If
+  additional sources are required, be sure to _add_ to <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a> rather than
+  outright setting it.
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  bzr
+</p>
+
+<hr />
+<a name="bzr2ecygclass2fBZR5fURI"></a>
+<a name="robo887"></a><h2>BZR_URI</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">bzr.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  URI of upstream Bazaar repository/branch
+</p>
+<p class="item_name">NOTES</p>
+<p>  This variable is required when <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing bzr.
+</p>
+
+<p>  Software hosted on Launchpad will have a special URI beginning with "lp:";
+  see `bzr help launchpad' for details.
+</p>
+
+<hr />
+<a name="bzr2ecygclass2fBZR5fREV"></a>
+<a name="robo888"></a><h2>BZR_REV</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">bzr.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Specific revision to checkout
+</p>
+<p class="item_name">NOTES</p>
+<p>  This variable is optional.  If unset, the latest revision for the branch
+  specified in <a href="#robo887">BZR_URI</a> will be fetched.
+</p>
+
+<p>  See `bzr help revisionspec' for possible forms of revision identifiers.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/bzr.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:41
+</p>
+</div> <!-- footer -->
+</body>
+</html>

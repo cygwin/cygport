@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/ocaml.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/ocaml.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo504">ocaml.cygclass</a></li>
+<ul>
+<li><a href="#robo505">OCAML</a></li>
+<li><a href="#robo506">OCAMLC</a></li>
+<li><a href="#robo507">OCAMLDOC</a></li>
+<li><a href="#robo508">OCAMLFIND</a></li>
+<li><a href="#robo509">OCAMLLEX</a></li>
+<li><a href="#robo510">OCAMLMKLIB</a></li>
+<li><a href="#robo511">OCAMLMKTOP</a></li>
+<li><a href="#robo512">OCAMLOPT</a></li>
+<li><a href="#robo513">OCAML_LIBDIR</a></li>
+<li><a href="#robo514">OCAML_INCLUDEDIR</a></li>
+<li><a href="#robo515">OCAML_SITEDIR</a></li>
+<li><a href="#robo516">OCAML_STUBDIR</a></li>
+<li><a href="#robo517">LIBCAMLRUN</a></li>
+<li><a href="#robo518">ocaml_install</a></li>
+<li><a href="#robo519">src_install (ocaml)</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2focaml2ecygclass"></a>
+<a name="robo504"></a><h2>ocaml.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> ocaml
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  OCaml (previously known as Objective Caml) is an object-oriented dialect
+  of the ML programming language. Individual scripts can be run as with
+  interpreted languages, but most commonly code is compiled into bytecode
+  and/or stand-alone native code.  A number of extension libraries are
+  available in addition to the standard library.
+</p>
+
+<p>  This cygclass provides definitions for OCaml-based packages, and an install
+  function for OCaml library packages which use <a href="#robo508">OCAMLFIND</a>.
+</p>
+<p class="item_name">NOTE</p>
+<p>  OCaml bytecode executables, while behaving like an ordinary .exe, cannot be
+  stripped.  Cygport will automatically detect these and will not strip them
+  during the automatic postinstall phase.
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  ocaml, ocaml-findlib
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAML"></a>
+<a name="robo505"></a><h2>OCAML</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the OCaml interactive toplevel (interpreter).
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAMLC"></a>
+<a name="robo506"></a><h2>OCAMLC</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the OCaml byte compiler.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAMLDOC"></a>
+<a name="robo507"></a><h2>OCAMLDOC</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the OCaml documentation generator.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAMLFIND"></a>
+<a name="robo508"></a><h2>OCAMLFIND</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the OCaml library package manager.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAMLLEX"></a>
+<a name="robo509"></a><h2>OCAMLLEX</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the OCaml lexer generator.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAMLMKLIB"></a>
+<a name="robo510"></a><h2>OCAMLMKLIB</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the OCaml library linker.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAMLMKTOP"></a>
+<a name="robo511"></a><h2>OCAMLMKTOP</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the OCaml custom toplevel linker.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAMLOPT"></a>
+<a name="robo512"></a><h2>OCAMLOPT</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the OCaml native-code compiler.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAML5fLIBDIR"></a>
+<a name="robo513"></a><h2>OCAML_LIBDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for OCaml included libraries.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAML5fINCLUDEDIR"></a>
+<a name="robo514"></a><h2>OCAML_INCLUDEDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the directory containing the OCaml <a href="./syntax_cygpart.html#robo101">C</a> headers.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAML5fSITEDIR"></a>
+<a name="robo515"></a><h2>OCAML_SITEDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for OCaml third-party libraries.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fOCAML5fSTUBDIR"></a>
+<a name="robo516"></a><h2>OCAML_STUBDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for OCaml <a href="./syntax_cygpart.html#robo101">C</a> stub libraries.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fLIBCAMLRUN"></a>
+<a name="robo517"></a><h2>LIBCAMLRUN</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Link flags for the OCaml shared <a href="./syntax_cygpart.html#robo101">C</a> library.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2focaml5finstall"></a>
+<a name="robo518"></a><h2>ocaml_install</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Defines some variables for <a href="#robo508">OCAMLFIND</a> before calling <a href="./src_install_cygpart.html#robo185">cyginstall</a>.
+</p>
+
+<hr />
+<a name="ocaml2ecygclass2fsrc5finstall2028ocaml29"></a>
+<a name="robo519"></a><h2>src_install (ocaml)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo504">ocaml.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_install_cygpart.html#robo187">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo518">ocaml_install</a>
+<span class="sign">}</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/ocaml.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/qt5.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/qt5.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo275">qt5.cygclass</a></li>
+<ul>
+<li><a href="#robo276">QT5_QTDIR</a></li>
+<li><a href="#robo277">QT5_BINDIR</a></li>
+<li><a href="#robo278">QT5_INCLUDEDIR</a></li>
+<li><a href="#robo279">QT5_LIBDIR</a></li>
+<li><a href="#robo280">QT5_PLUGINSDIR</a></li>
+<li><a href="#robo281">QT5_IMPORTSDIR</a></li>
+<li><a href="#robo282">QT5_QMLDIR</a></li>
+<li><a href="#robo283">QT5_DATADIR</a></li>
+<li><a href="#robo284">QT5_MKSPECSDIR</a></li>
+<li><a href="#robo285">QT5_QMAKE</a></li>
+<li><a href="#robo286">QT5_MOC</a></li>
+<li><a href="#robo287">QT5_RCC</a></li>
+<li><a href="#robo288">QT5_UIC</a></li>
+<li><a href="#robo289">QT5_LRELEASE</a></li>
+<li><a href="#robo290">doqt5inc</a></li>
+<li><a href="#robo291">qt5pluginto</a></li>
+<li><a href="#robo292">doqt5plugin</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fqt52ecygclass"></a>
+<a name="robo275"></a><h2>qt5.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> qt5
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Qt is a <a href="./syntax_cygpart.html#robo101">C</a>++ cross-platform application framework for writing desktop GUI
+  applications.  Qt is the underlying toolkit used by the KDE desktop
+  environment.
+</p>
+
+<p>  This cygclass provides definitions and install functions which can be used
+  by all Qt5-based packages, regardless of the build system being used.
+</p>
+<p class="item_name">NOTES</p>
+<ul><li>  Packages based on the previous 3.x or 4.x versions of Qt must use
+    <a href="./qt3_cygclass.html#robo331">qt3.cygclass</a> or <a href="./qt4_cygclass.html#robo_top_of_doc">qt4.cygclass</a>, respectively.
+</li>
+</ul>
+<p></p>
+<p class="item_name">INHERITED BY</p>
+<p>  <a href="./qt5-qmake_cygclass.html#robo293">qt5-qmake.cygclass</a>
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fQTDIR"></a>
+<a name="robo276"></a><h2>QT5_QTDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Root directory for the Qt5 installation.
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fBINDIR"></a>
+<a name="robo277"></a><h2>QT5_BINDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Directory containing the Qt5 build tools.
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fINCLUDEDIR"></a>
+<a name="robo278"></a><h2>QT5_INCLUDEDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Directory containing the Qt5 library headers.
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fLIBDIR"></a>
+<a name="robo279"></a><h2>QT5_LIBDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Directory containing the Qt5 link libraries.
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fPLUGINSDIR"></a>
+<a name="robo280"></a><h2>QT5_PLUGINSDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for Qt5 plugins.
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fIMPORTSDIR"></a>
+<a name="robo281"></a><h2>QT5_IMPORTSDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for Qt5 Quick 1 extensions.
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fQMLDIR"></a>
+<a name="robo282"></a><h2>QT5_QMLDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for Qt5 Quick 2 extensions.
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fDATADIR"></a>
+<a name="robo283"></a><h2>QT5_DATADIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Directory containing Qt5 documentation, and translation data.
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fMKSPECSDIR"></a>
+<a name="robo284"></a><h2>QT5_MKSPECSDIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for Qt5 QMake specs files.
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fQMAKE"></a>
+<a name="robo285"></a><h2>QT5_QMAKE</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Qt5 project and Makefile generator
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fMOC"></a>
+<a name="robo286"></a><h2>QT5_MOC</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Qt5 Meta-Object Compiler
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fRCC"></a>
+<a name="robo287"></a><h2>QT5_RCC</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Qt5 resource compiler
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fUIC"></a>
+<a name="robo288"></a><h2>QT5_UIC</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Qt5 User Interface Compiler
+</p>
+
+<hr />
+<a name="qt52ecygclass2fQT55fLRELEASE"></a>
+<a name="robo289"></a><h2>QT5_LRELEASE</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the Qt5 Linguist translation compiler
+</p>
+
+<hr />
+<a name="qt52ecygclass2fdoqt5inc"></a>
+<a name="robo290"></a><h2>doqt5inc</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>doqt5inc</strong> HEADERS
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs headers into <a href="#robo278">QT5_INCLUDEDIR</a> under $<a href="./syntax_cygpart.html#robo102">D</a>.
+</p>
+
+<hr />
+<a name="qt52ecygclass2fqt5pluginto"></a>
+<a name="robo291"></a><h2>qt5pluginto</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>qt5pluginto</strong> SUBDIRECTORY
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Sets the subdirectory of QT5_PLUGINDIR in which <a href="#robo292">doqt5plugin</a> should install.
+  Supported subdirectories include:
+</p>
+<ul><li>  designer: Qt Designer widgets
+</li>
+<li>  imageformats: image format handlers
+</li>
+<li>  platformthemes: GUI style engines
+</li>
+<li>  sqldrivers: SQL datbase backends
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="qt52ecygclass2fdoqt5plugin"></a>
+<a name="robo292"></a><h2>doqt5plugin</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo275">qt5.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="#robo291">qt5pluginto</a> SUBDIRECTORY
+  <strong>doqt5plugin</strong> PLUGINS
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the given plugins into the subdirectory of QT5_PLUGINDIR passed
+  to the previous call to <a href="#robo291">qt5pluginto</a>.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/qt5.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

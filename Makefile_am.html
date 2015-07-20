@@ -1,0 +1,1244 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/Makefile.am</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/Makefile.am -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo587">Cygclasses</a></li>
+<ul>
+<li><a href="./xvfb_cygclass.html#robo0">xvfb.cygclass</a></li>
+<ul>
+<li><a href="./xvfb_cygclass.html#robo1">xvfb_run</a></li>
+</ul>
+<li><a href="./xorg_cygclass.html#robo2">xorg.cygclass</a></li>
+<ul>
+<li><a href="./xorg_cygclass.html#robo3">CATEGORY (xorg)</a></li>
+<li><a href="./xorg_cygclass.html#robo4">SUMMARY (xorg)</a></li>
+<li><a href="./xorg_cygclass.html#robo5">HOMEPAGE (xorg)</a></li>
+<li><a href="./xorg_cygclass.html#robo6">SRC_URI (xorg)</a></li>
+<li><a href="./xorg_cygclass.html#robo7">GIT_URI (xorg)</a></li>
+</ul>
+<li><a href="./xfce4_cygclass.html#robo8">xfce4.cygclass</a></li>
+<ul>
+<li><a href="./xfce4_cygclass.html#robo9">HOMEPAGE (xfce4)</a></li>
+<li><a href="./xfce4_cygclass.html#robo10">SRC_URI (xfce4)</a></li>
+<li><a href="./xfce4_cygclass.html#robo11">GIT_URI (xfce4)</a></li>
+<li><a href="./xfce4_cygclass.html#robo12">xfce4_autoreconf</a></li>
+<li><a href="./xfce4_cygclass.html#robo13">xfce4_compile</a></li>
+<li><a href="./xfce4_cygclass.html#robo14">src_compile (xfce4)</a></li>
+</ul>
+<li><a href="./wxwidgets_cygclass.html#robo15">wxwidgets.cygclass</a></li>
+<ul>
+<li><a href="./wxwidgets_cygclass.html#robo16">WX_VERSION</a></li>
+<li><a href="./wxwidgets_cygclass.html#robo17">WX_TOOLKIT</a></li>
+<li><a href="./wxwidgets_cygclass.html#robo18">WX_CODESET</a></li>
+<li><a href="./wxwidgets_cygclass.html#robo19">WX_CONFIG</a></li>
+<li><a href="./wxwidgets_cygclass.html#robo20">WX_CFLAGS</a></li>
+<li><a href="./wxwidgets_cygclass.html#robo21">WX_LIBS</a></li>
+<li><a href="./wxwidgets_cygclass.html#robo22">wx-config</a></li>
+</ul>
+<li><a href="./waf_cygclass.html#robo23">waf.cygclass</a></li>
+<ul>
+<li><a href="./waf_cygclass.html#robo24">WAF_USE_BUNDLED</a></li>
+<li><a href="./waf_cygclass.html#robo25">WAF</a></li>
+<li><a href="./waf_cygclass.html#robo26">waf_compile</a></li>
+<ul>
+<li><a href="./waf_cygclass.html#robo27">WAF_CONFIGURE_FLAGS</a></li>
+<li><a href="./waf_cygclass.html#robo28">WAF_BUILD_FLAGS</a></li>
+</ul>
+<li><a href="./waf_cygclass.html#robo29">waf_test</a></li>
+<ul>
+<li><a href="./waf_cygclass.html#robo30">WAF_TEST_FLAGS</a></li>
+</ul>
+<li><a href="./waf_cygclass.html#robo31">waf_install</a></li>
+<ul>
+<li><a href="./waf_cygclass.html#robo32">WAF_INSTALL_FLAGS</a></li>
+</ul>
+<li><a href="./waf_cygclass.html#robo33">src_compile (waf)</a></li>
+<li><a href="./waf_cygclass.html#robo34">src_install (waf)</a></li>
+</ul>
+<li><a href="./vim_cygclass.html#robo35">vim.cygclass</a></li>
+<ul>
+<li><a href="./vim_cygclass.html#robo36">VIM</a></li>
+<li><a href="./vim_cygclass.html#robo37">VIMRUNTIME</a></li>
+<li><a href="./vim_cygclass.html#robo38">VIMFILES</a></li>
+<li><a href="./vim_cygclass.html#robo39">viminto</a></li>
+<li><a href="./vim_cygclass.html#robo40">dovim</a></li>
+<li><a href="./vim_cygclass.html#robo41">newvim</a></li>
+</ul>
+<li><a href="./utils_cygclass.html#robo42">utils.cygclass</a></li>
+<li><a href="./toolchain_cygclass.html#robo45">toolchain.cygclass</a></li>
+<ul>
+<li><a href="./toolchain_cygclass.html#robo46">TOOLCHAIN_TARGET</a></li>
+<li><a href="./toolchain_cygclass.html#robo47">TOOLCHAIN_SYSROOT</a></li>
+<li><a href="./toolchain_cygclass.html#robo48">TOOLCHAIN_PREFIX</a></li>
+<li><a href="./toolchain_cygclass.html#robo49">TOOLCHAIN_BINDIR</a></li>
+<li><a href="./toolchain_cygclass.html#robo50">TOOLCHAIN_INCLUDEDIR</a></li>
+<li><a href="./toolchain_cygclass.html#robo51">TOOLCHAIN_LIBDIR</a></li>
+<li><a href="./toolchain_cygclass.html#robo52">TOOLCHAIN_DATADIR</a></li>
+<li><a href="./toolchain_cygclass.html#robo53">toolchain_compile</a></li>
+<li><a href="./toolchain_cygclass.html#robo54">src_compile (toolchain)</a></li>
+</ul>
+<li><a href="./texlive_cygclass.html#robo55">texlive.cygclass</a></li>
+<ul>
+<li><a href="./texlive_cygclass.html#robo56">TEXLIVE_TEXMF_PKGS</a></li>
+<li><a href="./texlive_cygclass.html#robo57">TEXLIVE_ARCH_PKGS</a></li>
+<li><a href="./texlive_cygclass.html#robo58">TEXLIVE_DOC_PKGS</a></li>
+<li><a href="./texlive_cygclass.html#robo59">TEXLIVE_PRETEST</a></li>
+<li><a href="./texlive_cygclass.html#robo60">CATEGORY (texlive)</a></li>
+<li><a href="./texlive_cygclass.html#robo61">SUMMARY (texlive)</a></li>
+<li><a href="./texlive_cygclass.html#robo62">DESCRIPTION (texlive)</a></li>
+<li><a href="./texlive_cygclass.html#robo63">HOMEPAGE (texlive)</a></li>
+<li><a href="./texlive_cygclass.html#robo64">SRC_URI (texlive)</a></li>
+<li><a href="./texlive_cygclass.html#robo65">texlive_install</a></li>
+<li><a href="./texlive_cygclass.html#robo66">src_compile (texlive)</a></li>
+<li><a href="./texlive_cygclass.html#robo67">src_install (texlive)</a></li>
+</ul>
+<li><a href="./tcl_cygclass.html#robo68">tcl.cygclass</a></li>
+<ul>
+<li><a href="./tcl_cygclass.html#robo69">TCLSH</a></li>
+<li><a href="./tcl_cygclass.html#robo70">TCL_VERSION</a></li>
+<li><a href="./tcl_cygclass.html#robo71">TCL_INCLUDEDIR</a></li>
+<li><a href="./tcl_cygclass.html#robo72">TCL_LIBDIR</a></li>
+<li><a href="./tcl_cygclass.html#robo73">TK_INCLUDEDIR</a></li>
+<li><a href="./tcl_cygclass.html#robo74">TK_LIBDIR</a></li>
+<li><a href="./tcl_cygclass.html#robo75">LIBTCL</a></li>
+<li><a href="./tcl_cygclass.html#robo76">LIBTK</a></li>
+</ul>
+<li><a href="./svn_cygclass.html#robo103">svn.cygclass</a></li>
+<ul>
+<li><a href="./svn_cygclass.html#robo104">SVN_URI</a></li>
+<li><a href="./svn_cygclass.html#robo105">SVN_BRANCH</a></li>
+<li><a href="./svn_cygclass.html#robo106">SVN_REV</a></li>
+<li><a href="./svn_cygclass.html#robo107">SVN_DATE</a></li>
+</ul>
+<li><a href="./sugar_cygclass.html#robo108">sugar.cygclass</a></li>
+<ul>
+<li><a href="./sugar_cygclass.html#robo109">CATEGORY (sugar)</a></li>
+<li><a href="./sugar_cygclass.html#robo110">SUMMARY (sugar)</a></li>
+<li><a href="./sugar_cygclass.html#robo111">DESCRIPTION (sugar)</a></li>
+<li><a href="./sugar_cygclass.html#robo112">HOMEPAGE (sugar)</a></li>
+<li><a href="./sugar_cygclass.html#robo113">SUGAR_TYPE</a></li>
+<li><a href="./sugar_cygclass.html#robo114">sugar_install</a></li>
+<li><a href="./sugar_cygclass.html#robo115">src_compile (sugar)</a></li>
+<li><a href="./sugar_cygclass.html#robo116">src_install (sugar)</a></li>
+</ul>
+<li><a href="./rubygem_cygclass.html#robo195">rubygem.cygclass</a></li>
+<ul>
+<li><a href="./rubygem_cygclass.html#robo196">RUBYGEM_NAME</a></li>
+<li><a href="./rubygem_cygclass.html#robo197">CATEGORY (rubygem)</a></li>
+<li><a href="./rubygem_cygclass.html#robo198">SUMMARY (rubygem)</a></li>
+<li><a href="./rubygem_cygclass.html#robo199">HOMEPAGE (rubygem)</a></li>
+<li><a href="./rubygem_cygclass.html#robo200">SRC_URI (rubygem)</a></li>
+<li><a href="./rubygem_cygclass.html#robo201">RUBYGEM_DIR</a></li>
+<li><a href="./rubygem_cygclass.html#robo202">RUBYGEM_INSTDIR</a></li>
+<li><a href="./rubygem_cygclass.html#robo203">RUBYGEM_SPEC</a></li>
+<li><a href="./rubygem_cygclass.html#robo204">RUBYGEM_DOCDIR</a></li>
+<li><a href="./rubygem_cygclass.html#robo205">RUBYGEM_EXTDIR</a></li>
+<li><a href="./rubygem_cygclass.html#robo206">rubygem_compile</a></li>
+<li><a href="./rubygem_cygclass.html#robo207">rubygem_install</a></li>
+<li><a href="./rubygem_cygclass.html#robo208">RUBYGEM_CONFIGURE_ARGS</a></li>
+<li><a href="./rubygem_cygclass.html#robo209">src_compile (rubygem)</a></li>
+<li><a href="./rubygem_cygclass.html#robo210">src_install (rubygem)</a></li>
+</ul>
+<li><a href="./ruby_cygclass.html#robo211">ruby.cygclass</a></li>
+<ul>
+<li><a href="./ruby_cygclass.html#robo212">RUBY</a></li>
+<li><a href="./ruby_cygclass.html#robo213">RUBY_VERSION</a></li>
+<li><a href="./ruby_cygclass.html#robo214">RUBY_LIB</a></li>
+<li><a href="./ruby_cygclass.html#robo215">RUBY_ARCH</a></li>
+<li><a href="./ruby_cygclass.html#robo216">RUBY_HEADERDIR</a></li>
+<li><a href="./ruby_cygclass.html#robo217">RUBY_VENDORLIB</a></li>
+<li><a href="./ruby_cygclass.html#robo218">RUBY_VENDORARCH</a></li>
+<li><a href="./ruby_cygclass.html#robo219">RI_SITEDIR</a></li>
+<li><a href="./ruby_cygclass.html#robo220">LIBRUBY</a></li>
+<li><a href="./ruby_cygclass.html#robo221">CATEGORY (ruby)</a></li>
+<li><a href="./ruby_cygclass.html#robo222">SUMMARY (ruby)</a></li>
+<li><a href="./ruby_cygclass.html#robo223">ruby_compile</a></li>
+<ul>
+<li><a href="./ruby_cygclass.html#robo224">RDOC_SOURCE</a></li>
+</ul>
+<li><a href="./ruby_cygclass.html#robo225">ruby_ext_compile</a></li>
+<li><a href="./ruby_cygclass.html#robo226">ruby_install</a></li>
+<ul>
+<li><a href="./ruby_cygclass.html#robo227">RDOC_MODULE</a></li>
+</ul>
+<li><a href="./ruby_cygclass.html#robo228">rubyinto</a></li>
+<li><a href="./ruby_cygclass.html#robo229">doruby</a></li>
+<li><a href="./ruby_cygclass.html#robo230">ruby_fix_shebang</a></li>
+<li><a href="./ruby_cygclass.html#robo231">src_compile (ruby)</a></li>
+<li><a href="./ruby_cygclass.html#robo232">src_install (ruby)</a></li>
+</ul>
+<li><a href="./ruby-gnome2_cygclass.html#robo233">ruby-gnome2.cygclass</a></li>
+<ul>
+<li><a href="./ruby-gnome2_cygclass.html#robo234">RUBY_GNOME2_MODULES</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo235">CATEGORY (ruby-gnome2)</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo236">SUMMARY (ruby-gnome2)</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo237">HOMEPAGE (ruby-gnome2)</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo238">SRC_URI (ruby-gnome2)</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo239">SVN_URI (ruby-gnome2)</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo240">SVN_REV (ruby-gnome2)</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo241">MAKEOPTS (ruby-gnome2)</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo242">DEPS_PATH (ruby-gnome2)</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo243">ruby_gnome2_compile</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo244">ruby_gnome2_install</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo245">src_compile (ruby-gnome2)</a></li>
+<li><a href="./ruby-gnome2_cygclass.html#robo246">src_install (ruby-gnome2)</a></li>
+</ul>
+<li><a href="./rox_cygclass.html#robo247">rox.cygclass</a></li>
+<ul>
+<li><a href="./rox_cygclass.html#robo248">CATEGORY (rox)</a></li>
+<li><a href="./rox_cygclass.html#robo249">SUMMARY (rox)</a></li>
+<li><a href="./rox_cygclass.html#robo250">DESCRIPTION (rox)</a></li>
+<li><a href="./rox_cygclass.html#robo251">HOMEPAGE (rox)</a></li>
+<li><a href="./rox_cygclass.html#robo252">ROX_APP</a></li>
+<li><a href="./rox_cygclass.html#robo253">ROX_WRAPPER</a></li>
+<li><a href="./rox_cygclass.html#robo254">rox_autoreconf</a></li>
+<li><a href="./rox_cygclass.html#robo255">rox_compile</a></li>
+<li><a href="./rox_cygclass.html#robo256">rox_install</a></li>
+<li><a href="./rox_cygclass.html#robo257">src_compile (rox)</a></li>
+<li><a href="./rox_cygclass.html#robo258">src_install (rox)</a></li>
+</ul>
+<li><a href="./R_cygclass.html#robo259">R.cygclass</a></li>
+<ul>
+<li><a href="./R_cygclass.html#robo260">R</a></li>
+<li><a href="./R_cygclass.html#robo261">R_CFLAGS</a></li>
+<li><a href="./R_cygclass.html#robo262">R_LIBS</a></li>
+<li><a href="./R_cygclass.html#robo263">R_HOME</a></li>
+<li><a href="./R_cygclass.html#robo264">R_INCLUDEDIR</a></li>
+<li><a href="./R_cygclass.html#robo265">R_SITELIB</a></li>
+<li><a href="./R_cygclass.html#robo266">CATEGORY (R)</a></li>
+<li><a href="./R_cygclass.html#robo267">SUMMARY (R)</a></li>
+<li><a href="./R_cygclass.html#robo268">HOMEPAGE (R)</a></li>
+<li><a href="./R_cygclass.html#robo269">SRC_URI (R)</a></li>
+<li><a href="./R_cygclass.html#robo270">R_CONFIGURE_ARGS</a></li>
+<li><a href="./R_cygclass.html#robo271">R_compile</a></li>
+<li><a href="./R_cygclass.html#robo272">R_install</a></li>
+<li><a href="./R_cygclass.html#robo273">src_compile (R)</a></li>
+<li><a href="./R_cygclass.html#robo274">src_install (R)</a></li>
+</ul>
+<li><a href="./qt5_cygclass.html#robo275">qt5.cygclass</a></li>
+<ul>
+<li><a href="./qt5_cygclass.html#robo276">QT5_QTDIR</a></li>
+<li><a href="./qt5_cygclass.html#robo277">QT5_BINDIR</a></li>
+<li><a href="./qt5_cygclass.html#robo278">QT5_INCLUDEDIR</a></li>
+<li><a href="./qt5_cygclass.html#robo279">QT5_LIBDIR</a></li>
+<li><a href="./qt5_cygclass.html#robo280">QT5_PLUGINSDIR</a></li>
+<li><a href="./qt5_cygclass.html#robo281">QT5_IMPORTSDIR</a></li>
+<li><a href="./qt5_cygclass.html#robo282">QT5_QMLDIR</a></li>
+<li><a href="./qt5_cygclass.html#robo283">QT5_DATADIR</a></li>
+<li><a href="./qt5_cygclass.html#robo284">QT5_MKSPECSDIR</a></li>
+<li><a href="./qt5_cygclass.html#robo285">QT5_QMAKE</a></li>
+<li><a href="./qt5_cygclass.html#robo286">QT5_MOC</a></li>
+<li><a href="./qt5_cygclass.html#robo287">QT5_RCC</a></li>
+<li><a href="./qt5_cygclass.html#robo288">QT5_UIC</a></li>
+<li><a href="./qt5_cygclass.html#robo289">QT5_LRELEASE</a></li>
+<li><a href="./qt5_cygclass.html#robo290">doqt5inc</a></li>
+<li><a href="./qt5_cygclass.html#robo291">qt5pluginto</a></li>
+<li><a href="./qt5_cygclass.html#robo292">doqt5plugin</a></li>
+</ul>
+<li><a href="./qt5-qmake_cygclass.html#robo293">qt5-qmake.cygclass</a></li>
+<ul>
+<li><a href="./qt5-qmake_cygclass.html#robo294">cygqmake5</a></li>
+<li><a href="./qt5-qmake_cygclass.html#robo295">qt5_qmake_compile</a></li>
+<li><a href="./qt5-qmake_cygclass.html#robo296">qt5_qmake_install</a></li>
+<li><a href="./qt5-qmake_cygclass.html#robo297">src_compile (qt5-qmake)</a></li>
+<li><a href="./qt5-qmake_cygclass.html#robo298">src_install (qt5-qmake)</a></li>
+</ul>
+<li><a href="./qt4_cygclass.html#robo299">qt4.cygclass</a></li>
+<ul>
+<li><a href="./qt4_cygclass.html#robo300">QT4_QTDIR</a></li>
+<li><a href="./qt4_cygclass.html#robo301">QT4_BINDIR</a></li>
+<li><a href="./qt4_cygclass.html#robo302">QT4_INCLUDEDIR</a></li>
+<li><a href="./qt4_cygclass.html#robo303">QT4_LIBDIR</a></li>
+<li><a href="./qt4_cygclass.html#robo304">QT4_PLUGINSDIR</a></li>
+<li><a href="./qt4_cygclass.html#robo305">QT4_IMPORTSDIR</a></li>
+<li><a href="./qt4_cygclass.html#robo306">QT4_DATADIR</a></li>
+<li><a href="./qt4_cygclass.html#robo307">QT4_MKSPECSDIR</a></li>
+<li><a href="./qt4_cygclass.html#robo308">QT4_QMAKE</a></li>
+<li><a href="./qt4_cygclass.html#robo309">QT4_MOC</a></li>
+<li><a href="./qt4_cygclass.html#robo310">QT4_RCC</a></li>
+<li><a href="./qt4_cygclass.html#robo311">QT4_UIC</a></li>
+<li><a href="./qt4_cygclass.html#robo312">QT4_UIC3</a></li>
+<li><a href="./qt4_cygclass.html#robo313">QT4_LRELEASE</a></li>
+<li><a href="./qt4_cygclass.html#robo314">doqt4inc</a></li>
+<li><a href="./qt4_cygclass.html#robo315">doqt4lib</a></li>
+<li><a href="./qt4_cygclass.html#robo316">qt4pluginto</a></li>
+<li><a href="./qt4_cygclass.html#robo317">doqt4plugin</a></li>
+</ul>
+<li><a href="./qt4-qmake_cygclass.html#robo318">qt4-qmake.cygclass</a></li>
+<ul>
+<li><a href="./qt4-qmake_cygclass.html#robo319">cygqmake4</a></li>
+<li><a href="./qt4-qmake_cygclass.html#robo320">qt4_qmake_compile</a></li>
+<li><a href="./qt4-qmake_cygclass.html#robo321">qt4_qmake_install</a></li>
+<li><a href="./qt4-qmake_cygclass.html#robo322">src_compile (qt4-qmake)</a></li>
+<li><a href="./qt4-qmake_cygclass.html#robo323">src_install (qt4-qmake)</a></li>
+</ul>
+<li><a href="./qt4-qconf_cygclass.html#robo324">qt4-qconf.cygclass</a></li>
+<ul>
+<li><a href="./qt4-qconf_cygclass.html#robo325">cygqconf4</a></li>
+<li><a href="./qt4-qconf_cygclass.html#robo326">qt4_qconf_compile</a></li>
+<li><a href="./qt4-qconf_cygclass.html#robo327">src_compile (qt4-qconf)</a></li>
+</ul>
+<li><a href="./qt4-cmake_cygclass.html#robo328">qt4-cmake.cygclass</a></li>
+<ul>
+<li><a href="./qt4-cmake_cygclass.html#robo329">qt4_cmake_compile</a></li>
+<li><a href="./qt4-cmake_cygclass.html#robo330">src_compile (qt4-cmake)</a></li>
+</ul>
+<li><a href="./qt3_cygclass.html#robo331">qt3.cygclass</a></li>
+<ul>
+<li><a href="./qt3_cygclass.html#robo332">QTDIR</a></li>
+<li><a href="./qt3_cygclass.html#robo333">QT3_BINDIR</a></li>
+<li><a href="./qt3_cygclass.html#robo334">QT3_INCLUDEDIR</a></li>
+<li><a href="./qt3_cygclass.html#robo335">QT3_LIBDIR</a></li>
+<li><a href="./qt3_cygclass.html#robo336">QT3_PLUGINSDIR</a></li>
+<li><a href="./qt3_cygclass.html#robo337">QT3_DATADIR</a></li>
+<li><a href="./qt3_cygclass.html#robo338">QT3_QMAKE</a></li>
+<li><a href="./qt3_cygclass.html#robo339">QT3_MOC</a></li>
+<li><a href="./qt3_cygclass.html#robo340">QT3_UIC</a></li>
+<li><a href="./qt3_cygclass.html#robo341">doqt3inc</a></li>
+<li><a href="./qt3_cygclass.html#robo342">doqt3lib</a></li>
+<li><a href="./qt3_cygclass.html#robo343">qt3pluginto</a></li>
+<li><a href="./qt3_cygclass.html#robo344">doqt3plugin</a></li>
+</ul>
+<li><a href="./qt3-qmake_cygclass.html#robo345">qt3-qmake.cygclass</a></li>
+<ul>
+<li><a href="./qt3-qmake_cygclass.html#robo346">cygqmake3</a></li>
+<li><a href="./qt3-qmake_cygclass.html#robo347">qt3_qmake_compile</a></li>
+<li><a href="./qt3-qmake_cygclass.html#robo348">qt3_qmake_install</a></li>
+<li><a href="./qt3-qmake_cygclass.html#robo349">src_compile (qt3-qmake)</a></li>
+<li><a href="./qt3-qmake_cygclass.html#robo350">src_install (qt3-qmake)</a></li>
+</ul>
+<li><a href="./python3_cygclass.html#robo351">python3.cygclass</a></li>
+<ul>
+<li><a href="./python3_cygclass.html#robo352">PYTHON3</a></li>
+<li><a href="./python3_cygclass.html#robo353">PYTHON3_CONFIG</a></li>
+<li><a href="./python3_cygclass.html#robo354">PYTHON3_VERSION</a></li>
+<li><a href="./python3_cygclass.html#robo355">PYTHON3_ABIFLAGS</a></li>
+<li><a href="./python3_cygclass.html#robo356">PYTHON3_INCLUDEDIR</a></li>
+<li><a href="./python3_cygclass.html#robo357">PYTHON3_LIB</a></li>
+<li><a href="./python3_cygclass.html#robo358">PYTHON3_SITELIB</a></li>
+<li><a href="./python3_cygclass.html#robo359">LIBPYTHON3</a></li>
+<li><a href="./python3_cygclass.html#robo360">python3into</a></li>
+<li><a href="./python3_cygclass.html#robo361">dopython3</a></li>
+<li><a href="./python3_cygclass.html#robo362">python3_optimize</a></li>
+<li><a href="./python3_cygclass.html#robo363">python3_fix_shebang</a></li>
+</ul>
+<li><a href="./python3-distutils_cygclass.html#robo364">python3-distutils.cygclass</a></li>
+<ul>
+<li><a href="./python3-distutils_cygclass.html#robo365">HOMEPAGE (python3-distutils)</a></li>
+<li><a href="./python3-distutils_cygclass.html#robo366">SRC_URI (python3-distutils)</a></li>
+<li><a href="./python3-distutils_cygclass.html#robo367">python3_distutils_compile</a></li>
+<li><a href="./python3-distutils_cygclass.html#robo368">python3_distutils_install</a></li>
+<li><a href="./python3-distutils_cygclass.html#robo369">src_compile (python3-distutils)</a></li>
+<li><a href="./python3-distutils_cygclass.html#robo370">src_install (python3-distutils)</a></li>
+</ul>
+<li><a href="./python_cygclass.html#robo371">python.cygclass</a></li>
+<ul>
+<li><a href="./python_cygclass.html#robo372">PYTHON</a></li>
+<li><a href="./python_cygclass.html#robo373">PYTHON_VERSION</a></li>
+<li><a href="./python_cygclass.html#robo374">PYTHON_INCLUDEDIR</a></li>
+<li><a href="./python_cygclass.html#robo375">PYTHON_LIB</a></li>
+<li><a href="./python_cygclass.html#robo376">PYTHON_SITELIB</a></li>
+<li><a href="./python_cygclass.html#robo377">LIBPYTHON</a></li>
+<li><a href="./python_cygclass.html#robo378">pythoninto</a></li>
+<li><a href="./python_cygclass.html#robo379">dopython</a></li>
+<li><a href="./python_cygclass.html#robo380">python_optimize</a></li>
+<li><a href="./python_cygclass.html#robo381">python_fix_shebang</a></li>
+<li><a href="./pypy_cygclass.html#robo394">LIBPYPY</a></li>
+</ul>
+<li><a href="./python-distutils_cygclass.html#robo382">python-distutils.cygclass</a></li>
+<ul>
+<li><a href="./python-distutils_cygclass.html#robo383">HOMEPAGE (python-distutils)</a></li>
+<li><a href="./python-distutils_cygclass.html#robo384">SRC_URI (python-distutils)</a></li>
+<li><a href="./python-distutils_cygclass.html#robo385">python_distutils_compile</a></li>
+<li><a href="./python-distutils_cygclass.html#robo386">python_distutils_install</a></li>
+<li><a href="./python-distutils_cygclass.html#robo387">src_compile (python-distutils)</a></li>
+<li><a href="./python-distutils_cygclass.html#robo388">src_install (python-distutils)</a></li>
+</ul>
+<li><a href="./pypy_cygclass.html#robo389">pypy.cygclass</a></li>
+<ul>
+<li><a href="./pypy_cygclass.html#robo390">PYPY</a></li>
+<li><a href="./pypy_cygclass.html#robo391">PYPY_VERSION</a></li>
+<li><a href="./pypy_cygclass.html#robo392">PYPY_INCLUDEDIR</a></li>
+<li><a href="./pypy_cygclass.html#robo393">PYPY_SITELIB</a></li>
+<li><a href="./pypy_cygclass.html#robo395">pypyinto</a></li>
+<li><a href="./pypy_cygclass.html#robo396">dopypy</a></li>
+<li><a href="./pypy_cygclass.html#robo397">pypy_optimize</a></li>
+<li><a href="./pypy_cygclass.html#robo398">pypy_fix_shebang</a></li>
+</ul>
+<li><a href="./pypy-distutils_cygclass.html#robo399">pypy-distutils.cygclass</a></li>
+<ul>
+<li><a href="./pypy-distutils_cygclass.html#robo400">HOMEPAGE (pypy-distutils)</a></li>
+<li><a href="./pypy-distutils_cygclass.html#robo401">SRC_URI (pypy-distutils)</a></li>
+<li><a href="./pypy-distutils_cygclass.html#robo402">pypy_distutils_compile</a></li>
+<li><a href="./pypy-distutils_cygclass.html#robo403">pypy_distutils_install</a></li>
+<li><a href="./pypy-distutils_cygclass.html#robo404">src_compile (pypy-distutils)</a></li>
+<li><a href="./pypy-distutils_cygclass.html#robo405">src_install (pypy-distutils)</a></li>
+</ul>
+<li><a href="./pygtk_cygclass.html#robo406">pygtk.cygclass</a></li>
+<ul>
+<li><a href="./pygtk_cygclass.html#robo407">PYGTK_INCLUDEDIR</a></li>
+<li><a href="./pygtk_cygclass.html#robo408">PYGTK_LIBDIR</a></li>
+<li><a href="./pygtk_cygclass.html#robo409">PYGTK_DATADIR</a></li>
+<li><a href="./pygtk_cygclass.html#robo410">PYGTK_CODEGEN</a></li>
+<li><a href="./pygtk_cygclass.html#robo411">CATEGORY (pygtk)</a></li>
+<li><a href="./pygtk_cygclass.html#robo412">SUMMARY (pygtk)</a></li>
+<li><a href="./pygtk_cygclass.html#robo413">HOMEPAGE (pygtk)</a></li>
+<li><a href="./pygtk_cygclass.html#robo414">pygtk_compile</a></li>
+<li><a href="./pygtk_cygclass.html#robo415">src_compile (pygtk)</a></li>
+</ul>
+<li><a href="./php_cygclass.html#robo436">php.cygclass</a></li>
+<ul>
+<li><a href="./php_cygclass.html#robo437">PHP</a></li>
+<li><a href="./php_cygclass.html#robo438">PHP_CONFIG</a></li>
+<li><a href="./php_cygclass.html#robo439">PHPIZE</a></li>
+<li><a href="./php_cygclass.html#robo440">PEAR</a></li>
+<li><a href="./php_cygclass.html#robo441">PECL</a></li>
+<li><a href="./php_cygclass.html#robo442">PHP_VERSION</a></li>
+<li><a href="./php_cygclass.html#robo443">PHP_INI_DIR</a></li>
+<li><a href="./php_cygclass.html#robo444">PHP_EXTENSION_DIR</a></li>
+<li><a href="./php_cygclass.html#robo445">PHP_PEAR_DIR</a></li>
+<li><a href="./php_cygclass.html#robo446">LIBPHP</a></li>
+<li><a href="./php_cygclass.html#robo447">PHP_CHANNEL</a></li>
+<li><a href="./php_cygclass.html#robo448">CATEGORY (php)</a></li>
+<li><a href="./php_cygclass.html#robo449">SUMMARY (php)</a></li>
+<li><a href="./php_cygclass.html#robo450">HOMEPAGE (php)</a></li>
+<li><a href="./php_cygclass.html#robo451">SRC_URI (php)</a></li>
+<li><a href="./php_cygclass.html#robo452">php_autoreconf</a></li>
+<li><a href="./php_cygclass.html#robo453">php_compile</a></li>
+<li><a href="./php_cygclass.html#robo454">php_install</a></li>
+<li><a href="./php_cygclass.html#robo455">php_postinst</a></li>
+<li><a href="./php_cygclass.html#robo456">php_fix_shebang</a></li>
+<li><a href="./php_cygclass.html#robo457">src_compile (php)</a></li>
+<li><a href="./php_cygclass.html#robo458">src_install (php)</a></li>
+</ul>
+<li><a href="./perl_cygclass.html#robo459">perl.cygclass</a></li>
+<ul>
+<li><a href="./perl_cygclass.html#robo460">PERL</a></li>
+<li><a href="./perl_cygclass.html#robo461">PERL_VERSION</a></li>
+<li><a href="./perl_cygclass.html#robo462">PERL_LIB</a></li>
+<li><a href="./perl_cygclass.html#robo463">PERL_ARCHLIB</a></li>
+<li><a href="./perl_cygclass.html#robo464">PERL_VENDORLIB</a></li>
+<li><a href="./perl_cygclass.html#robo465">PERL_VENDORARCH</a></li>
+<li><a href="./perl_cygclass.html#robo466">LIBPERL</a></li>
+<li><a href="./perl_cygclass.html#robo467">CPAN_AUTHOR</a></li>
+<li><a href="./perl_cygclass.html#robo468">CATEGORY (perl)</a></li>
+<li><a href="./perl_cygclass.html#robo469">SUMMARY (perl)</a></li>
+<li><a href="./perl_cygclass.html#robo470">HOMEPAGE (perl)</a></li>
+<li><a href="./perl_cygclass.html#robo471">SRC_URI (perl)</a></li>
+<li><a href="./perl_cygclass.html#robo472">perl_compile</a></li>
+<li><a href="./perl_cygclass.html#robo473">perl_test</a></li>
+<li><a href="./perl_cygclass.html#robo474">perl_install</a></li>
+<li><a href="./perl_cygclass.html#robo475">perl_fix_shebang</a></li>
+<li><a href="./perl_cygclass.html#robo476">perl_sax_parser_register</a></li>
+<li><a href="./perl_cygclass.html#robo477">src_compile (perl)</a></li>
+<li><a href="./perl_cygclass.html#robo478">src_test (perl)</a></li>
+<li><a href="./perl_cygclass.html#robo479">src_install (perl)</a></li>
+</ul>
+<li><a href="./opensync_cygclass.html#robo480">opensync.cygclass</a></li>
+<ul>
+<li><a href="./opensync_cygclass.html#robo481">HOMEPAGE (opensync)</a></li>
+<li><a href="./opensync_cygclass.html#robo482">SRC_URI (opensync)</a></li>
+<li><a href="./opensync_cygclass.html#robo483">OPENSYNC_VERSION</a></li>
+<li><a href="./opensync_cygclass.html#robo484">OPENSYNC_CONFIGDIR</a></li>
+<li><a href="./opensync_cygclass.html#robo485">OPENSYNC_PLUGINDIR</a></li>
+<li><a href="./opensync_cygclass.html#robo486">OPENSYNC_PYTHON_PLUGINDIR</a></li>
+<li><a href="./opensync_cygclass.html#robo487">opensync_plugin_compile</a></li>
+<li><a href="./opensync_cygclass.html#robo488">opensync_doconfig</a></li>
+<li><a href="./opensync_cygclass.html#robo489">opensync_doplugin</a></li>
+<li><a href="./opensync_cygclass.html#robo490">src_compile (opensync)</a></li>
+</ul>
+<li><a href="./octave_cygclass.html#robo491">octave.cygclass</a></li>
+<ul>
+<li><a href="./octave_cygclass.html#robo492">OCTAVE</a></li>
+<li><a href="./octave_cygclass.html#robo493">MKOCTFILE</a></li>
+<li><a href="./octave_cygclass.html#robo494">OCTAVE_CONFIG</a></li>
+<li><a href="./octave_cygclass.html#robo495">OCTAVE_VERSION</a></li>
+<li><a href="./octave_cygclass.html#robo496">OCTAVE_INCLUDEDIR</a></li>
+<li><a href="./octave_cygclass.html#robo497">OCTAVE_LIBDIR</a></li>
+<li><a href="./octave_cygclass.html#robo498">OCTAVE_CFLAGS</a></li>
+<li><a href="./octave_cygclass.html#robo499">OCTAVE_LIBS</a></li>
+<li><a href="./octave_cygclass.html#robo500">OCTAVE_M_DIR</a></li>
+<li><a href="./octave_cygclass.html#robo501">OCTAVE_OCTDIR</a></li>
+<li><a href="./octave_cygclass.html#robo502">OCTAVE_M_SITEDIR</a></li>
+<li><a href="./octave_cygclass.html#robo503">OCTAVE_OCT_SITEDIR</a></li>
+</ul>
+<li><a href="./ocaml_cygclass.html#robo504">ocaml.cygclass</a></li>
+<ul>
+<li><a href="./ocaml_cygclass.html#robo505">OCAML</a></li>
+<li><a href="./ocaml_cygclass.html#robo506">OCAMLC</a></li>
+<li><a href="./ocaml_cygclass.html#robo507">OCAMLDOC</a></li>
+<li><a href="./ocaml_cygclass.html#robo508">OCAMLFIND</a></li>
+<li><a href="./ocaml_cygclass.html#robo509">OCAMLLEX</a></li>
+<li><a href="./ocaml_cygclass.html#robo510">OCAMLMKLIB</a></li>
+<li><a href="./ocaml_cygclass.html#robo511">OCAMLMKTOP</a></li>
+<li><a href="./ocaml_cygclass.html#robo512">OCAMLOPT</a></li>
+<li><a href="./ocaml_cygclass.html#robo513">OCAML_LIBDIR</a></li>
+<li><a href="./ocaml_cygclass.html#robo514">OCAML_INCLUDEDIR</a></li>
+<li><a href="./ocaml_cygclass.html#robo515">OCAML_SITEDIR</a></li>
+<li><a href="./ocaml_cygclass.html#robo516">OCAML_STUBDIR</a></li>
+<li><a href="./ocaml_cygclass.html#robo517">LIBCAMLRUN</a></li>
+<li><a href="./ocaml_cygclass.html#robo518">ocaml_install</a></li>
+<li><a href="./ocaml_cygclass.html#robo519">src_install (ocaml)</a></li>
+</ul>
+<li><a href="./nant_cygclass.html#robo520">nant.cygclass</a></li>
+<ul>
+<li><a href="./nant_cygclass.html#robo521">NANT</a></li>
+<li><a href="./nant_cygclass.html#robo522">NANT_BUILD_FILE</a></li>
+<li><a href="./nant_cygclass.html#robo523">cygnant</a></li>
+<li><a href="./nant_cygclass.html#robo524">donanttask</a></li>
+<li><a href="./nant_cygclass.html#robo525">NANT_BUILD_ARGS</a></li>
+<li><a href="./nant_cygclass.html#robo526">NANT_BUILD_TARGETS</a></li>
+<li><a href="./nant_cygclass.html#robo527">src_compile (nant)</a></li>
+<li><a href="./nant_cygclass.html#robo528">NANT_TEST_ARGS</a></li>
+<li><a href="./nant_cygclass.html#robo529">NANT_TEST_TARGETS</a></li>
+<li><a href="./nant_cygclass.html#robo530">src_test (nant)</a></li>
+</ul>
+<li><a href="./multilib_cygclass.html#robo531">multilib.cygclass</a></li>
+<ul>
+<li><a href="./multilib_cygclass.html#robo532">multilib_precompile</a></li>
+<li><a href="./multilib_cygclass.html#robo533">multilib_compile</a></li>
+<li><a href="./multilib_cygclass.html#robo534">multilib_install</a></li>
+<li><a href="./multilib_cygclass.html#robo535">multilib_postinstall</a></li>
+</ul>
+<li><a href="./mtn_cygclass.html#robo536">mtn.cygclass</a></li>
+<ul>
+<li><a href="./mtn_cygclass.html#robo537">MTN_URI</a></li>
+<li><a href="./mtn_cygclass.html#robo538">MTN_BRANCH</a></li>
+<li><a href="./mtn_cygclass.html#robo539">MTN_REV</a></li>
+</ul>
+<li><a href="./mono_cygclass.html#robo540">mono.cygclass</a></li>
+<ul>
+<li><a href="./mono_cygclass.html#robo541">MONO</a></li>
+<li><a href="./mono_cygclass.html#robo542">MCS</a></li>
+<li><a href="./mono_cygclass.html#robo543">GMCS</a></li>
+<li><a href="./mono_cygclass.html#robo544">DMCS</a></li>
+<li><a href="./mono_cygclass.html#robo545">GACUTIL</a></li>
+<li><a href="./mono_cygclass.html#robo546">MONO_SNK</a></li>
+<li><a href="./mono_cygclass.html#robo547">HOMEPAGE (mono)</a></li>
+<li><a href="./mono_cygclass.html#robo548">SRC_URI (mono)</a></li>
+<li><a href="./mono_cygclass.html#robo549">GIT_URI (mono)</a></li>
+<li><a href="./mono_cygclass.html#robo550">gacinto</a></li>
+<li><a href="./mono_cygclass.html#robo551">dogac</a></li>
+<li><a href="./mono_cygclass.html#robo552">mono_create_policy</a></li>
+<li><a href="./mono_cygclass.html#robo553">mono_wrapper</a></li>
+</ul>
+<li><a href="./mate_cygclass.html#robo578">mate.cygclass</a></li>
+<ul>
+<li><a href="./mate_cygclass.html#robo579">HOMEPAGE (mate)</a></li>
+<li><a href="./mate_cygclass.html#robo580">SRC_URI (mate)</a></li>
+<li><a href="./mate_cygclass.html#robo581">GIT_URI (mate)</a></li>
+<li><a href="./mate_cygclass.html#robo582">mate_autoreconf</a></li>
+<li><a href="./mate_cygclass.html#robo583">MATE_NO_AUTOGEN</a></li>
+<li><a href="./mate_cygclass.html#robo584">mate_configure</a></li>
+<li><a href="./mate_cygclass.html#robo585">mate_compile</a></li>
+<li><a href="./mate_cygclass.html#robo586">src_compile (mate)</a></li>
+</ul>
+<li><a href="./lua_cygclass.html#robo588">lua.cygclass</a></li>
+<ul>
+<li><a href="./lua_cygclass.html#robo589">LUA</a></li>
+<li><a href="./lua_cygclass.html#robo590">LUAC</a></li>
+<li><a href="./lua_cygclass.html#robo591">LUA_VERSION</a></li>
+<li><a href="./lua_cygclass.html#robo592">LUA_INCLUDEDIR</a></li>
+<li><a href="./lua_cygclass.html#robo593">LUA_LIBDIR</a></li>
+<li><a href="./lua_cygclass.html#robo594">LUA_SCRIPTDIR</a></li>
+<li><a href="./lua_cygclass.html#robo595">LUA_CFLAGS</a></li>
+<li><a href="./lua_cygclass.html#robo596">LUA_LIBS</a></li>
+<li><a href="./lua_cygclass.html#robo597">luainto</a></li>
+<li><a href="./lua_cygclass.html#robo598">dolua</a></li>
+<li><a href="./lua_cygclass.html#robo599">lua_fix_shebang</a></li>
+</ul>
+<li><a href="./kf5_cygclass.html#robo600">kf5.cygclass</a></li>
+<ul>
+<li><a href="./kf5_cygclass.html#robo601">kf5_compile</a></li>
+<li><a href="./kf5_cygclass.html#robo602">kf5_install</a></li>
+<li><a href="./kf5_cygclass.html#robo603">src_compile (kf5)</a></li>
+<li><a href="./kf5_cygclass.html#robo604">src_install (kf5)</a></li>
+</ul>
+<li><a href="./kde4_cygclass.html#robo605">kde4.cygclass</a></li>
+<ul>
+<li><a href="./kde4_cygclass.html#robo606">KDE4_EXTRAGEAR_VERSION</a></li>
+<li><a href="./kde4_cygclass.html#robo607">kde4_cmake</a></li>
+<li><a href="./kde4_cygclass.html#robo608">kde4_compile</a></li>
+<li><a href="./kde4_cygclass.html#robo609">kde4_install</a></li>
+<li><a href="./kde4_cygclass.html#robo610">src_compile (kde4)</a></li>
+<li><a href="./kde4_cygclass.html#robo611">src_install (kde4)</a></li>
+</ul>
+<li><a href="./kde_org_cygclass.html#robo612">kde.org.cygclass</a></li>
+<ul>
+<li><a href="./kde_org_cygclass.html#robo613">HOMEPAGE (kde.org)</a></li>
+<li><a href="./kde_org_cygclass.html#robo614">SRC_URI (kde.org)</a></li>
+<li><a href="./kde_org_cygclass.html#robo615">SVN_URI (kde.org)</a></li>
+<li><a href="./kde_org_cygclass.html#robo616">GIT_URI (kde.org)</a></li>
+</ul>
+<li><a href="./java_cygclass.html#robo617">java.cygclass</a></li>
+<ul>
+<li><a href="./java_cygclass.html#robo618">JAR</a></li>
+<li><a href="./java_cygclass.html#robo619">JAVA</a></li>
+<li><a href="./java_cygclass.html#robo620">JAVAC</a></li>
+<li><a href="./java_cygclass.html#robo621">JAVADOC</a></li>
+<li><a href="./java_cygclass.html#robo622">JAVAH</a></li>
+<li><a href="./java_cygclass.html#robo623">JAVA_HOME</a></li>
+<li><a href="./java_cygclass.html#robo624">JAVA_DIR</a></li>
+<li><a href="./java_cygclass.html#robo625">JAVADOC_DIR</a></li>
+<li><a href="./java_cygclass.html#robo626">JAVA_CLASSPATH</a></li>
+<li><a href="./java_cygclass.html#robo627">cygjar</a></li>
+<li><a href="./java_cygclass.html#robo628">cygjava</a></li>
+<li><a href="./java_cygclass.html#robo629">cygjavac</a></li>
+<li><a href="./java_cygclass.html#robo630">cygjavadoc</a></li>
+<li><a href="./java_cygclass.html#robo631">cygjavah</a></li>
+<li><a href="./java_cygclass.html#robo632">cygjunit</a></li>
+<li><a href="./java_cygclass.html#robo633">dojar</a></li>
+<li><a href="./java_cygclass.html#robo634">newjar</a></li>
+<li><a href="./java_cygclass.html#robo635">dojavadoc</a></li>
+<li><a href="./java_cygclass.html#robo636">newjavadoc</a></li>
+<li><a href="./java_cygclass.html#robo637">java_wrapper</a></li>
+</ul>
+<li><a href="./httpd_cygclass.html#robo640">httpd.cygclass</a></li>
+<ul>
+<li><a href="./httpd_cygclass.html#robo641">CATEGORY (httpd)</a></li>
+<li><a href="./httpd_cygclass.html#robo642">SUMMARY (httpd)</a></li>
+<li><a href="./httpd_cygclass.html#robo643">HTTPD_APXS</a></li>
+<li><a href="./httpd_cygclass.html#robo644">HTTPD</a></li>
+<li><a href="./httpd_cygclass.html#robo645">HTTPD_VERSION</a></li>
+<li><a href="./httpd_cygclass.html#robo646">HTTPD_INCLUDEDIR</a></li>
+<li><a href="./httpd_cygclass.html#robo647">HTTPD_LIBEXECDIR</a></li>
+<li><a href="./httpd_cygclass.html#robo648">HTTPD_SYSCONFDIR</a></li>
+<li><a href="./httpd_cygclass.html#robo649">HTTPD_SYSCONFMODULESDIR</a></li>
+<li><a href="./httpd_cygclass.html#robo650">HTTPD_CFLAGS</a></li>
+<li><a href="./httpd_cygclass.html#robo651">HTTPD_LIBS</a></li>
+<li><a href="./httpd_cygclass.html#robo652">APR_VERSION</a></li>
+<li><a href="./httpd_cygclass.html#robo653">APR_CONFIG</a></li>
+<li><a href="./httpd_cygclass.html#robo654">APU_CONFIG</a></li>
+<li><a href="./httpd_cygclass.html#robo655">APR_CFLAGS</a></li>
+<li><a href="./httpd_cygclass.html#robo656">APR_LIBS</a></li>
+<li><a href="./httpd_cygclass.html#robo657">APR_LIBTOOL</a></li>
+<li><a href="./httpd_cygclass.html#robo658">APREQ2_CONFIG</a></li>
+<li><a href="./httpd_cygclass.html#robo659">APREQ2_CFLAGS</a></li>
+<li><a href="./httpd_cygclass.html#robo660">APREQ2_LIBS</a></li>
+<li><a href="./httpd_cygclass.html#robo661">httpd_mod_compile</a></li>
+<li><a href="./httpd_cygclass.html#robo662">httpd_apxs_compile</a></li>
+<li><a href="./httpd_cygclass.html#robo663">dohttpdconf</a></li>
+<li><a href="./httpd_cygclass.html#robo664">dohttpdmod</a></li>
+<li><a href="./httpd_cygclass.html#robo665">httpd_loadmodules</a></li>
+</ul>
+<li><a href="./hg_cygclass.html#robo666">hg.cygclass</a></li>
+<ul>
+<li><a href="./hg_cygclass.html#robo667">HG_URI</a></li>
+<li><a href="./hg_cygclass.html#robo668">HG_REV</a></li>
+</ul>
+<li><a href="./gtkmm_cygclass.html#robo669">gtkmm.cygclass</a></li>
+<ul>
+<li><a href="./gtkmm_cygclass.html#robo670">CATEGORY (gtkmm)</a></li>
+<li><a href="./gtkmm_cygclass.html#robo671">SUMMARY (gtkmm)</a></li>
+<li><a href="./gtkmm_cygclass.html#robo672">HOMEPAGE (gtkmm)</a></li>
+<li><a href="./gtkmm_cygclass.html#robo673">gtkmm_autoreconf</a></li>
+<li><a href="./gtkmm_cygclass.html#robo674">gtkmm_compile</a></li>
+<li><a href="./gtkmm_cygclass.html#robo675">gtkmm_test</a></li>
+<li><a href="./gtkmm_cygclass.html#robo676">src_compile (gtkmm)</a></li>
+<li><a href="./gtkmm_cygclass.html#robo677">src_test (gtkmm)</a></li>
+</ul>
+<li><a href="./gtk2-perl_cygclass.html#robo678">gtk2-perl.cygclass</a></li>
+<ul>
+<li><a href="./gtk2-perl_cygclass.html#robo679">CATEGORY (gtk2-perl)</a></li>
+<li><a href="./gtk2-perl_cygclass.html#robo680">SUMMARY (gtk2-perl)</a></li>
+<li><a href="./gtk2-perl_cygclass.html#robo681">HOMEPAGE (gtk2-perl)</a></li>
+<li><a href="./gtk2-perl_cygclass.html#robo682">SRC_URI (gtk2-perl)</a></li>
+<li><a href="./gtk2-perl_cygclass.html#robo683">DEPS_PATH (gtk2-perl)</a></li>
+<li><a href="./gtk2-perl_cygclass.html#robo684">gtk2_perl_compile</a></li>
+</ul>
+<li><a href="./gstreamer_cygclass.html#robo685">gstreamer.cygclass</a></li>
+<ul>
+<li><a href="./gstreamer_cygclass.html#robo686">HOMEPAGE (gstreamer)</a></li>
+<li><a href="./gstreamer_cygclass.html#robo687">SRC_URI (gstreamer)</a></li>
+<li><a href="./gstreamer_cygclass.html#robo688">GIT_URI (gstreamer)</a></li>
+<li><a href="./gstreamer_cygclass.html#robo689">GST_PLUGINDIR</a></li>
+<li><a href="./gstreamer_cygclass.html#robo690">gstreamer_autoreconf</a></li>
+</ul>
+<li><a href="./gst-plugins_cygclass.html#robo691">gst-plugins.cygclass</a></li>
+<ul>
+<li><a href="./gst-plugins_cygclass.html#robo692">GST_PLUGINS_ENABLE</a></li>
+<li><a href="./gst-plugins_cygclass.html#robo693">GST_PLUGINS_DISABLE</a></li>
+<li><a href="./gst-plugins_cygclass.html#robo694">SUMMARY (gst-plugins)</a></li>
+<li><a href="./gst-plugins_cygclass.html#robo695">gst_plugins_autoreconf</a></li>
+<li><a href="./gst-plugins_cygclass.html#robo696">gst_plugins_compile</a></li>
+<li><a href="./gst-plugins_cygclass.html#robo697">gst_plugins_install</a></li>
+<li><a href="./gst-plugins_cygclass.html#robo698">src_compile (gst-plugins)</a></li>
+<li><a href="./gst-plugins_cygclass.html#robo699">src_install (gst-plugins)</a></li>
+</ul>
+<li><a href="./gnustep_cygclass.html#robo700">gnustep.cygclass</a></li>
+<ul>
+<li><a href="./gnustep_cygclass.html#robo701">CATEGORY (gnustep)</a></li>
+<li><a href="./gnustep_cygclass.html#robo702">SUMMARY (gnustep)</a></li>
+<li><a href="./gnustep_cygclass.html#robo703">HOMEPAGE (gnustep)</a></li>
+<li><a href="./gnustep_cygclass.html#robo704">SVN_URI (gnustep)</a></li>
+<li><a href="./gnustep_cygclass.html#robo705">gnustep_env</a></li>
+<li><a href="./gnustep_cygclass.html#robo706">gnustep_compile</a></li>
+<li><a href="./gnustep_cygclass.html#robo707">gnustep_install</a></li>
+<li><a href="./gnustep_cygclass.html#robo708">gnustep_pkg_apps</a></li>
+<li><a href="./gnustep_cygclass.html#robo709">gnustep_pkg_frameworks</a></li>
+<li><a href="./gnustep_cygclass.html#robo710">src_compile (gnustep)</a></li>
+<li><a href="./gnustep_cygclass.html#robo711">src_install (gnustep)</a></li>
+</ul>
+<li><a href="./gnome2_cygclass.html#robo712">gnome2.cygclass</a></li>
+<ul>
+<li><a href="./gnome2_cygclass.html#robo713">gnome2_autoreconf</a></li>
+<li><a href="./gnome2_cygclass.html#robo714">GNOME2_NO_AUTOGEN</a></li>
+<li><a href="./gnome2_cygclass.html#robo715">gnome2_configure</a></li>
+<li><a href="./gnome2_cygclass.html#robo716">gnome2_compile</a></li>
+<li><a href="./gnome2_cygclass.html#robo717">src_compile (gnome2)</a></li>
+</ul>
+<li><a href="./gnome_org_cygclass.html#robo718">gnome.org.cygclass</a></li>
+<ul>
+<li><a href="./gnome_org_cygclass.html#robo719">GNOME_ORG_TARBALL_SUFFIX</a></li>
+<li><a href="./gnome_org_cygclass.html#robo720">HOMEPAGE (gnome.org)</a></li>
+<li><a href="./gnome_org_cygclass.html#robo721">SRC_URI (gnome.org)</a></li>
+<li><a href="./gnome_org_cygclass.html#robo722">GIT_URI (gnome.org)</a></li>
+</ul>
+<li><a href="./git_cygclass.html#robo723">git.cygclass</a></li>
+<ul>
+<li><a href="./git_cygclass.html#robo724">GIT_URI</a></li>
+<li><a href="./git_cygclass.html#robo725">GIT_BRANCH</a></li>
+<li><a href="./git_cygclass.html#robo726">GIT_REV</a></li>
+<li><a href="./git_cygclass.html#robo727">GIT_TAG</a></li>
+</ul>
+<li><a href="./ggz_cygclass.html#robo728">ggz.cygclass</a></li>
+<ul>
+<li><a href="./ggz_cygclass.html#robo729">CATEGORY (ggz)</a></li>
+<li><a href="./ggz_cygclass.html#robo730">SUMMARY (ggz)</a></li>
+<li><a href="./ggz_cygclass.html#robo731">HOMEPAGE (ggz)</a></li>
+<li><a href="./ggz_cygclass.html#robo732">SRC_URI (ggz)</a></li>
+<li><a href="./ggz_cygclass.html#robo733">GGZ_MODULES_DIR</a></li>
+<li><a href="./ggz_cygclass.html#robo734">ggz_postinst</a></li>
+<li><a href="./ggz_cygclass.html#robo735">doggzmod</a></li>
+<li><a href="./ggz_cygclass.html#robo736">src_install (ggz)</a></li>
+</ul>
+<li><a href="./fox_cygclass.html#robo737">fox.cygclass</a></li>
+<ul>
+<li><a href="./fox_cygclass.html#robo738">FOX_VERSION</a></li>
+<li><a href="./fox_cygclass.html#robo739">FOX_CONFIG</a></li>
+<li><a href="./fox_cygclass.html#robo740">FOX_CFLAGS</a></li>
+<li><a href="./fox_cygclass.html#robo741">FOX_LIBS</a></li>
+<li><a href="./fox_cygclass.html#robo742">fox-config</a></li>
+</ul>
+<li><a href="./fossil_cygclass.html#robo743">fossil.cygclass</a></li>
+<ul>
+<li><a href="./fossil_cygclass.html#robo744">FOSSIL_URI</a></li>
+<li><a href="./fossil_cygclass.html#robo745">FOSSIL_REV</a></li>
+</ul>
+<li><a href="./font_cygclass.html#robo746">font.cygclass</a></li>
+<ul>
+<li><a href="./font_cygclass.html#robo747">FONTSDIR</a></li>
+<li><a href="./font_cygclass.html#robo748">sfd2ttf</a></li>
+<li><a href="./font_cygclass.html#robo749">fontinto</a></li>
+<li><a href="./font_cygclass.html#robo750">dofont</a></li>
+<li><a href="./font_cygclass.html#robo751">dofontconf</a></li>
+<li><a href="./font_cygclass.html#robo752">newfontconf</a></li>
+</ul>
+<li><a href="./emacs_cygclass.html#robo753">emacs.cygclass</a></li>
+<ul>
+<li><a href="./emacs_cygclass.html#robo754">EMACS</a></li>
+<li><a href="./emacs_cygclass.html#robo755">EMACS_SITE</a></li>
+<li><a href="./emacs_cygclass.html#robo756">doemacs</a></li>
+</ul>
+<li><a href="./ebook_cygclass.html#robo757">ebook.cygclass</a></li>
+<ul>
+<li><a href="./ebook_cygclass.html#robo758">CATEGORY (ebook)</a></li>
+<li><a href="./ebook_cygclass.html#robo759">SUMMARY (ebook)</a></li>
+<li><a href="./ebook_cygclass.html#robo760">HOMEPAGE (ebook)</a></li>
+<li><a href="./ebook_cygclass.html#robo761">SRC_URI (ebook)</a></li>
+<li><a href="./ebook_cygclass.html#robo762">ebook_install</a></li>
+<li><a href="./ebook_cygclass.html#robo763">src_compile (ebook)</a></li>
+<li><a href="./ebook_cygclass.html#robo764">src_install (ebook)</a></li>
+</ul>
+<li><a href="./docbook_cygclass.html#robo765">docbook.cygclass</a></li>
+<ul>
+<li><a href="./docbook_cygclass.html#robo766">CATEGORY (docbook)</a></li>
+<li><a href="./docbook_cygclass.html#robo767">SUMMARY (docbook)</a></li>
+<li><a href="./docbook_cygclass.html#robo768">DESCRIPTION (docbook)</a></li>
+<li><a href="./docbook_cygclass.html#robo769">HOMEPAGE (docbook)</a></li>
+<li><a href="./docbook_cygclass.html#robo770">SRC_URI (docbook)</a></li>
+<li><a href="./docbook_cygclass.html#robo771">docbook_install</a></li>
+<li><a href="./docbook_cygclass.html#robo772">docbook_dsssl_postinst</a></li>
+<li><a href="./docbook_cygclass.html#robo773">docbook_sgml_postinst</a></li>
+<li><a href="./docbook_cygclass.html#robo774">docbook_xml_postinst</a></li>
+<li><a href="./docbook_cygclass.html#robo775">src_compile (docbook)</a></li>
+<li><a href="./docbook_cygclass.html#robo776">src_install (docbook)</a></li>
+</ul>
+<li><a href="./distutils_cygclass.html#robo777">distutils.cygclass</a></li>
+<ul>
+<li><a href="./distutils_cygclass.html#robo778">distutils_compile</a></li>
+<li><a href="./distutils_cygclass.html#robo779">distutils_install</a></li>
+</ul>
+<li><a href="./distutils-multi_cygclass.html#robo780">distutils-multi.cygclass</a></li>
+<ul>
+<li><a href="./distutils-multi_cygclass.html#robo781">src_compile (distutils-multi)</a></li>
+<li><a href="./distutils-multi_cygclass.html#robo782">src_install (distutils-multi)</a></li>
+</ul>
+<li><a href="./cvs_cygclass.html#robo808">cvs.cygclass</a></li>
+<ul>
+<li><a href="./cvs_cygclass.html#robo809">CVS_URI</a></li>
+<li><a href="./cvs_cygclass.html#robo810">CVS_BRANCH</a></li>
+<li><a href="./cvs_cygclass.html#robo811">CVS_DATE</a></li>
+<li><a href="./cvs_cygclass.html#robo812">CVS_MODULE</a></li>
+</ul>
+<li><a href="./cross_cygclass.html#robo813">cross.cygclass</a></li>
+<ul>
+<li><a href="./cross_cygclass.html#robo814">CROSS_HOST</a></li>
+<li><a href="./cross_cygclass.html#robo815">CROSS_SYSROOT</a></li>
+<li><a href="./cross_cygclass.html#robo816">CROSS_PREFIX</a></li>
+<li><a href="./cross_cygclass.html#robo817">CROSS_BINDIR</a></li>
+<li><a href="./cross_cygclass.html#robo818">CROSS_INCLUDEDIR</a></li>
+<li><a href="./cross_cygclass.html#robo819">CROSS_LIBDIR</a></li>
+<li><a href="./cross_cygclass.html#robo820">CROSS_DATADIR</a></li>
+<li><a href="./cross_cygclass.html#robo821">doelflib</a></li>
+<li><a href="./cross_cygclass.html#robo822">cross_sysrootize</a></li>
+<li><a href="./cross_cygclass.html#robo823">cross_desysrootize</a></li>
+</ul>
+<li><a href="./cmake_cygclass.html#robo855">cmake.cygclass</a></li>
+<ul>
+<li><a href="./cmake_cygclass.html#robo856">cygcmake</a></li>
+<ul>
+<li><a href="./cmake_cygclass.html#robo857">CYGCMAKE_SOURCE</a></li>
+<li><a href="./cmake_cygclass.html#robo858">CYGCMAKE_ARGS</a></li>
+</ul>
+<li><a href="./cmake_cygclass.html#robo859">src_compile (cmake)</a></li>
+</ul>
+<li><a href="./claws-mail_cygclass.html#robo860">claws-mail.cygclass</a></li>
+<ul>
+<li><a href="./claws-mail_cygclass.html#robo861">CATEGORY (claws-mail)</a></li>
+<li><a href="./claws-mail_cygclass.html#robo862">SUMMARY (claws-mail)</a></li>
+<li><a href="./claws-mail_cygclass.html#robo863">HOMEPAGE (claws-mail)</a></li>
+<li><a href="./claws-mail_cygclass.html#robo864">SRC_URI (claws-mail)</a></li>
+</ul>
+<li><a href="./clang_cygclass.html#robo865">clang.cygclass</a></li>
+<li><a href="./bzr_cygclass.html#robo886">bzr.cygclass</a></li>
+<ul>
+<li><a href="./bzr_cygclass.html#robo887">BZR_URI</a></li>
+<li><a href="./bzr_cygclass.html#robo888">BZR_REV</a></li>
+</ul>
+<li><a href="./berkdb_cygclass.html#robo889">berkdb.cygclass</a></li>
+<ul>
+<li><a href="./berkdb_cygclass.html#robo890">CATEGORY (berkdb)</a></li>
+<li><a href="./berkdb_cygclass.html#robo891">SUMMARY (berkdb)</a></li>
+<li><a href="./berkdb_cygclass.html#robo892">DESCRIPTION (berkdb)</a></li>
+<li><a href="./berkdb_cygclass.html#robo893">HOMEPAGE (berkdb)</a></li>
+<li><a href="./berkdb_cygclass.html#robo894">SRC_URI (berkdb)</a></li>
+<li><a href="./berkdb_cygclass.html#robo895">PATCH_URI (berkdb)</a></li>
+<li><a href="./berkdb_cygclass.html#robo896">PKG_NAMES (berkdb)</a></li>
+<li><a href="./berkdb_cygclass.html#robo897">berkdb_autoreconf</a></li>
+<li><a href="./berkdb_cygclass.html#robo898">berkdb_compile</a></li>
+<li><a href="./berkdb_cygclass.html#robo899">berkdb_install</a></li>
+<li><a href="./berkdb_cygclass.html#robo900">berkdb_postinst</a></li>
+<li><a href="./berkdb_cygclass.html#robo901">src_compile (berkdb)</a></li>
+<li><a href="./berkdb_cygclass.html#robo902">src_install (berkdb)</a></li>
+</ul>
+<li><a href="./autotools_cygclass.html#robo903">autotools.cygclass</a></li>
+<ul>
+<li><a href="./autotools_cygclass.html#robo904">gnuconfigize</a></li>
+<li><a href="./autotools_cygclass.html#robo905">cygautoreconf</a></li>
+<ul>
+<li><a href="./autotools_cygclass.html#robo906">WANT_AUTOCONF</a></li>
+<li><a href="./autotools_cygclass.html#robo907">WANT_AUTOMAKE</a></li>
+<li><a href="./autotools_cygclass.html#robo908">NO_ACLOCAL</a></li>
+<li><a href="./autotools_cygclass.html#robo909">NO_LIBTOOLIZE</a></li>
+<li><a href="./autotools_cygclass.html#robo910">NO_AUTOCONF</a></li>
+<li><a href="./autotools_cygclass.html#robo911">NO_AUTOHEADER</a></li>
+<li><a href="./autotools_cygclass.html#robo912">NO_AUTOMAKE</a></li>
+<li><a href="./autotools_cygclass.html#robo913">NO_AUTOPOINT</a></li>
+<li><a href="./autotools_cygclass.html#robo914">ACLOCAL_FLAGS</a></li>
+</ul>
+<li><a href="./autotools_cygclass.html#robo915">cygconf</a></li>
+<ul>
+<li><a href="./autotools_cygclass.html#robo916">CYGCONF_SOURCE</a></li>
+<li><a href="./autotools_cygclass.html#robo917">CYGCONF_ARGS</a></li>
+</ul>
+<li><a href="./autotools_cygclass.html#robo918">src_compile (autotools)</a></li>
+</ul>
+<li><a href="./aspell-dict_cygclass.html#robo919">aspell-dict.cygclass</a></li>
+<ul>
+<li><a href="./aspell-dict_cygclass.html#robo920">ASPELL_COMPAT</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo921">ASPELL_DATADIR</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo922">ASPELL_DICTDIR</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo923">ASPELL_LANG</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo924">ASPELL_LANG_FULL</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo925">CATEGORY (aspell-dict)</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo926">SUMMARY (aspell-dict)</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo927">DESCRIPTION (aspell-dict)</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo928">HOMEPAGE (aspell-dict)</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo929">SRC_URI (aspell-dict)</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo930">aspell_dict_compile</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo931">doaspelldict</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo932">doaspelldata</a></li>
+<li><a href="./aspell-dict_cygclass.html#robo933">src_compile (aspell-dict)</a></li>
+</ul>
+<li><a href="./apache2_cygclass.html#robo934">apache2.cygclass</a></li>
+<ul>
+<li><a href="./apache2_cygclass.html#robo935">APXS2</a></li>
+<li><a href="./apache2_cygclass.html#robo936">HTTPD2</a></li>
+<li><a href="./apache2_cygclass.html#robo937">APACHE2_VERSION</a></li>
+<li><a href="./apache2_cygclass.html#robo938">APACHE2_INCLUDEDIR</a></li>
+<li><a href="./apache2_cygclass.html#robo939">APACHE2_LIBEXECDIR</a></li>
+<li><a href="./apache2_cygclass.html#robo940">APACHE2_SYSCONFDIR</a></li>
+<li><a href="./apache2_cygclass.html#robo941">APACHE2_CFLAGS</a></li>
+<li><a href="./apache2_cygclass.html#robo942">APACHE2_LIBS</a></li>
+<li><a href="./apache2_cygclass.html#robo943">apache2_compile</a></li>
+<li><a href="./apache2_cygclass.html#robo944">apache2_apxs_compile</a></li>
+<li><a href="./apache2_cygclass.html#robo945">doapache2conf</a></li>
+<li><a href="./apache2_cygclass.html#robo946">doapache2mod</a></li>
+<li><a href="./apache2_cygclass.html#robo947">apache2_postinst</a></li>
+</ul>
+<li><a href="./apache_cygclass.html#robo948">apache.cygclass</a></li>
+<ul>
+<li><a href="./apache_cygclass.html#robo949">apache_compile</a></li>
+<li><a href="./apache_cygclass.html#robo950">apache_apxs_compile</a></li>
+<li><a href="./apache_cygclass.html#robo951">doapacheconf</a></li>
+<li><a href="./apache_cygclass.html#robo952">doapachemod</a></li>
+<li><a href="./apache_cygclass.html#robo953">apache_postinst</a></li>
+</ul>
+<li><a href="./ant_cygclass.html#robo954">ant.cygclass</a></li>
+<ul>
+<li><a href="./ant_cygclass.html#robo955">ANT</a></li>
+<li><a href="./ant_cygclass.html#robo956">ANT_HOME</a></li>
+<li><a href="./ant_cygclass.html#robo957">ANT_OPTS</a></li>
+<li><a href="./ant_cygclass.html#robo958">ANT_BUILD_XML</a></li>
+<li><a href="./ant_cygclass.html#robo959">cygant</a></li>
+<li><a href="./ant_cygclass.html#robo960">doanttask</a></li>
+<li><a href="./ant_cygclass.html#robo961">ANT_BUILD_ARGS</a></li>
+<li><a href="./ant_cygclass.html#robo962">ANT_BUILD_TARGETS</a></li>
+<li><a href="./ant_cygclass.html#robo963">src_compile (ant)</a></li>
+<li><a href="./ant_cygclass.html#robo964">ANT_TEST_ARGS</a></li>
+<li><a href="./ant_cygclass.html#robo965">ANT_TEST_TARGETS</a></li>
+<li><a href="./ant_cygclass.html#robo966">src_test (ant)</a></li>
+<li><a href="./ant_cygclass.html#robo967">ANT_INSTALL_JARS</a></li>
+<li><a href="./ant_cygclass.html#robo968">ANT_INSTALL_JAVADOC</a></li>
+<li><a href="./ant_cygclass.html#robo969">ANT_INSTALL_TASKS</a></li>
+<li><a href="./ant_cygclass.html#robo970">ANT_INSTALL_WRAPPERS</a></li>
+<li><a href="./ant_cygclass.html#robo971">ant_install</a></li>
+<li><a href="./ant_cygclass.html#robo972">src_install (ant)</a></li>
+</ul>
+</ul>
+</ul>
+<hr />
+<a name="Chapter20142fCygclasses"></a>
+<a name="robo587"></a><h2>Cygclasses</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo798">Chapter 14</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  <strong>Cygclasses</strong> serve as cygport's standard library, allowing cygport to support
+  so many different types of packaging scenarios.  They may accept variables
+  to control their behaviour, provide definitions and/or functions for use in
+  .cygport files, and some can completely control the build process without
+  further intervention.
+</p>
+
+<p>  <strong>Cygclasses</strong> are imported via the <a href="./inheritance_cygpart.html#robo638">inherit</a> command at the top of your .cygport
+  file.  Because of the predominance of GNU autotools, the <a href="./autotools_cygclass.html#robo903">autotools.cygclass</a>
+  is automatically imported (as explained there).
+</p>
+
+<p>  These <strong>Cygclasses</strong> allow downloading from various servers and repositories:
+</p>
+<ul><li>  <a href="./bzr_cygclass.html#robo886">bzr.cygclass</a> -
+    For downloading sources from Bazaar repositories.
+</li>
+<li>  <a href="./cvs_cygclass.html#robo_top_of_doc">cvs.cygclass</a> -
+    For downloading sources from CVS repositories.
+</li>
+<li>  <a href="./fossil_cygclass.html#robo_top_of_doc">fossil.cygclass</a> -
+    For downloading sources from Fossil repositories.
+</li>
+<li>  <a href="./git_cygclass.html#robo_top_of_doc">git.cygclass</a> -
+    For downloading sources from Git repositories.
+</li>
+<li>  <a href="./gnome_org_cygclass.html#robo_top_of_doc">gnome.org.cygclass</a> -
+    For downloading sources from GNOME <a href="./mirrors.html#robo_top_of_doc">mirrors</a>.
+</li>
+<li>  <a href="./hg_cygclass.html#robo666">hg.cygclass</a> -
+    For downloading sources from Mercurial repositories.
+</li>
+<li>  <a href="./kde_org_cygclass.html#robo_top_of_doc">kde.org.cygclass</a> -
+    For downloading sources from KDE <a href="./mirrors.html#robo_top_of_doc">mirrors</a>.
+</li>
+<li>  <a href="./mtn_cygclass.html#robo536">mtn.cygclass</a> -
+    For downloading sources from Monotone repositories.
+</li>
+<li>  <a href="./svn_cygclass.html#robo103">svn.cygclass</a> -
+    For downloading sources from Subversion repositories.
+</li>
+</ul>
+<p>
+  These <strong>Cygclasses</strong> handle various buildsystems:
+</p>
+<ul><li>  <a href="./ant_cygclass.html#robo_top_of_doc">ant.cygclass</a> -
+    For Java packages which use the Ant buildsystem.
+</li>
+<li>  <a href="./autotools_cygclass.html#robo903">autotools.cygclass</a> -
+    For packages using the autoconf/automake/libtool buildsystem.
+</li>
+<li>  <a href="./cmake_cygclass.html#robo_top_of_doc">cmake.cygclass</a> -
+    For packages using the CMake buildsystem.
+</li>
+<li>  <a href="./nant_cygclass.html#robo520">nant.cygclass</a> -
+    For Mono packages which use the NAnt buildsystem.
+</li>
+<li>  <a href="./qt3-qmake_cygclass.html#robo345">qt3-qmake.cygclass</a> -
+    For packages which depend on Qt 3.x and use the qmake buildsystem.
+</li>
+<li>  <a href="./qt4-cmake_cygclass.html#robo_top_of_doc">qt4-cmake.cygclass</a> -
+    For packages which depend on Qt 4.x and use the CMake buildsystem.
+</li>
+<li>  <a href="./qt4-qconf_cygclass.html#robo324">qt4-qconf.cygclass</a> -
+    For packages which depend on Qt 4.x and use the QConf buildsystem.
+</li>
+<li>  <a href="./qt4-qmake_cygclass.html#robo_top_of_doc">qt4-qmake.cygclass</a> -
+    For packages which depend on Qt 4.x and use the qmake buildsystem.
+</li>
+<li>  <a href="./qt5-qmake_cygclass.html#robo293">qt5-qmake.cygclass</a> -
+    For packages which depend on Qt 5.x and use the qmake buildsystem.
+</li>
+<li>  <a href="./waf_cygclass.html#robo_top_of_doc">waf.cygclass</a> -
+    For packages which use the Waf buildsystem.
+</li>
+</ul>
+<p>
+  These <strong>Cygclasses</strong> deal with certain types of dependencies:
+</p>
+<ul><li>  <a href="./fox_cygclass.html#robo737">fox.cygclass</a> -
+    For packages which depend on the FOX Toolkit.
+</li>
+<li>  <a href="./java_cygclass.html#robo617">java.cygclass</a> -
+    For packages which depend on Java.
+</li>
+<li>  <a href="./pypy_cygclass.html#robo_top_of_doc">pypy.cygclass</a> -
+    For packages which depend on PyPy.
+</li>
+<li>  <a href="./python_cygclass.html#robo_top_of_doc">python.cygclass</a> -
+    For packages which depend on Python 2.x.
+</li>
+<li>  <a href="./python3_cygclass.html#robo351">python3.cygclass</a> -
+    For packages which depend on Python 3.x.
+</li>
+<li>  <a href="./qt3_cygclass.html#robo331">qt3.cygclass</a> -
+    For packages which depend on Qt 3.x.
+</li>
+<li>  <a href="./qt4_cygclass.html#robo_top_of_doc">qt4.cygclass</a> -
+    For packages which depend on Qt 4.x.
+</li>
+<li>  <a href="./qt5_cygclass.html#robo_top_of_doc">qt5.cygclass</a> -
+    For packages which depend on Qt 5.x.
+</li>
+<li>  <a href="./tcl_cygclass.html#robo68">tcl.cygclass</a> -
+    For packages which depend on Tcl.
+</li>
+<li>  <a href="./wxwidgets_cygclass.html#robo15">wxwidgets.cygclass</a> -
+    For packages which depend on wxWidgets.
+</li>
+</ul>
+<p>
+  These <strong>Cygclasses</strong> are used for packaging desktop software components:
+</p>
+<ul><li>  <a href="./gnome2_cygclass.html#robo_top_of_doc">gnome2.cygclass</a> -
+    For GNOME 2.x/3.x packages.
+</li>
+<li>  <a href="./gnustep_cygclass.html#robo_top_of_doc">gnustep.cygclass</a> -
+    For GNUstep packages.
+</li>
+<li>  <a href="./kde4_cygclass.html#robo_top_of_doc">kde4.cygclass</a> -
+    For KDE 4.x packages.
+</li>
+<li>  <a href="./kf5_cygclass.html#robo600">kf5.cygclass</a> -
+    For KDE Frameworks 5.x packages.
+</li>
+<li>  <a href="./mate_cygclass.html#robo_top_of_doc">mate.cygclass</a> -
+    For MATE Desktop packages.
+</li>
+<li>  <a href="./rox_cygclass.html#robo_top_of_doc">rox.cygclass</a> -
+    For ROX Desktop packages.
+</li>
+<li>  <a href="./sugar_cygclass.html#robo108">sugar.cygclass</a> -
+    For Sugar Desktop packages.
+</li>
+<li>  <a href="./xfce4_cygclass.html#robo_top_of_doc">xfce4.cygclass</a> -
+    For Xfce Desktop packages.
+</li>
+</ul>
+<p>
+  These <strong>Cygclasses</strong> are used for packaging specific groups of software:
+</p>
+<ul><li>  <a href="./aspell-dict_cygclass.html#robo_top_of_doc">aspell-dict.cygclass</a> -
+    For Aspell dictionary packages.
+</li>
+<li>  <a href="./claws-mail_cygclass.html#robo860">claws-mail.cygclass</a> -
+    For Claws Mail plugin packages.
+</li>
+<li>  <a href="./docbook_cygclass.html#robo_top_of_doc">docbook.cygclass</a> -
+    For packaging DocBook SGML/XML DTDs.
+</li>
+<li>  <a href="./ebook_cygclass.html#robo_top_of_doc">ebook.cygclass</a> -
+    For packaging HTML Help Books for viewing in DevHelp.
+</li>
+<li>  <a href="./gst-plugins_cygclass.html#robo691">gst-plugins.cygclass</a> -
+    For GStreamer plugin packages.
+</li>
+<li>  <a href="./gstreamer_cygclass.html#robo_top_of_doc">gstreamer.cygclass</a> -
+    For GStreamer core packages.
+</li>
+<li>  <a href="./gtk2-perl_cygclass.html#robo_top_of_doc">gtk2-perl.cygclass</a> -
+    For Perl bindings of GTK+/GNOME libraries.
+</li>
+<li>  <a href="./gtkmm_cygclass.html#robo_top_of_doc">gtkmm.cygclass</a> -
+    For GTKmm <a href="./syntax_cygpart.html#robo101">C</a>++ bindings of GTK+/GNOME libraries.
+</li>
+<li>  <a href="./httpd_cygclass.html#robo_top_of_doc">httpd.cygclass</a> -
+    For Apache HTTP Server DSO packages.
+</li>
+<li>  <a href="./pygtk_cygclass.html#robo406">pygtk.cygclass</a> -
+    For Python bindings of GTK+/GNOME libraries.
+</li>
+<li>  <a href="./texlive_cygclass.html#robo_top_of_doc">texlive.cygclass</a> -
+    For TeX Live packages.
+</li>
+<li>  <a href="./xorg_cygclass.html#robo_top_of_doc">xorg.cygclass</a> -
+    For X.Org X11 components.
+</li>
+</ul>
+<p>
+  These <strong>Cygclasses</strong> are used for building extension modules for various subsystems:
+</p>
+<ul><li>  <a href="./lua_cygclass.html#robo_top_of_doc">lua.cygclass</a> -
+    For packages which depend on Lua or provide Lua modules.
+</li>
+<li>  <a href="./mono_cygclass.html#robo540">mono.cygclass</a> -
+    For packages which depend on Mono or provide Mono assemblies.
+</li>
+<li>  <a href="./ocaml_cygclass.html#robo_top_of_doc">ocaml.cygclass</a> -
+    For packages which depend on OCaml or provide OCaml libraries.
+</li>
+<li>  <a href="./octave_cygclass.html#robo_top_of_doc">octave.cygclass</a> -
+    For packages which depend on Octave or provide Octave modules.
+</li>
+<li>  <a href="./perl_cygclass.html#robo459">perl.cygclass</a> -
+    For packages which depend on Perl or provide Perl (CPAN) modules.
+</li>
+<li>  <a href="./php_cygclass.html#robo_top_of_doc">php.cygclass</a> -
+    For packages which depend on <a href="./php_cygclass.html#robo437">PHP</a> or provide <a href="./php_cygclass.html#robo437">PHP</a> (<a href="./php_cygclass.html#robo440">PEAR</a>/<a href="./php_cygclass.html#robo441">PECL</a>) modules.
+</li>
+<li>  <a href="./pypy-distutils_cygclass.html#robo399">pypy-distutils.cygclass</a> -
+    For PyPy packages which use the Distutils buildsystem.
+</li>
+<li>  <a href="./python-distutils_cygclass.html#robo_top_of_doc">python-distutils.cygclass</a> -
+    For Python 2.x packages which use the Distutils buildsystem.
+</li>
+<li>  <a href="./python3-distutils_cygclass.html#robo_top_of_doc">python3-distutils.cygclass</a> -
+    For Python 3.x packages which use the Distutils buildsystem.
+</li>
+<li>  <a href="./R_cygclass.html#robo_top_of_doc">R.cygclass</a> -
+    For packages which depend on <a href="./R_cygclass.html#robo260">R</a> or provide <a href="./R_cygclass.html#robo260">R</a> modules.
+</li>
+<li>  <a href="./ruby_cygclass.html#robo_top_of_doc">ruby.cygclass</a> -
+    For packages which depend on Ruby or provide non-gem Ruby modules.
+</li>
+<li>  <a href="./rubygem_cygclass.html#robo195">rubygem.cygclass</a> -
+    For Ruby modules which use the RubyGems buildsystem.
+</li>
+</ul>
+<p>
+  These <strong>Cygclasses</strong> deal with compiler and cross-compiler toolchains:
+</p>
+<ul><li>  <a href="./clang_cygclass.html#robo865">clang.cygclass</a> -
+    For using Clang as a compiler instead of GCC.
+</li>
+<li>  <a href="./cross_cygclass.html#robo_top_of_doc">cross.cygclass</a> -
+    For packaging libraries to be used with cross-compiler toolchains.
+</li>
+<li>  <a href="./multilib_cygclass.html#robo_top_of_doc">multilib.cygclass</a> -
+    For packaging libraries for cross-compiler toolchains which support
+    multiple ABIs.
+</li>
+<li>  <a href="./toolchain_cygclass.html#robo_top_of_doc">toolchain.cygclass</a> -
+    For creating compilers and cross-compilers (binutils, gcc, gdb, <a href="./src_install_cygpart.html#robo170">newlib</a>).
+</li>
+</ul>
+<p>
+  These <strong>Cygclasses</strong> provide install commands for certain types of data:
+</p>
+<ul><li>  <a href="./emacs_cygclass.html#robo753">emacs.cygclass</a> -
+    For manual installation of Emacs modes.
+</li>
+<li>  <a href="./font_cygclass.html#robo746">font.cygclass</a> -
+    For manual installation of fonts.
+</li>
+<li>  <a href="./vim_cygclass.html#robo_top_of_doc">vim.cygclass</a> -
+    For manual installation of Vim macros.
+</li>
+</ul>
+<p>
+  These <strong>Cygclasses</strong> provide utility functions:
+</p>
+<ul><li>  <a href="./utils_cygclass.html#robo_top_of_doc">utils.cygclass</a> -
+    Assorted checking functions.
+</li>
+<li>  <a href="./xvfb_cygclass.html#robo0">xvfb.cygclass</a> -
+    For executing commands which require a running X server.
+</li>
+</ul>
+<p>
+  The following <strong>Cygclasses</strong> are deprecated and should not be used in new code:
+</p>
+<ul><li>  <a href="./apache_cygclass.html#robo948">apache.cygclass</a>
+</li>
+<li>  <a href="./apache2_cygclass.html#robo_top_of_doc">apache2.cygclass</a>
+</li>
+<li>  <a href="./berkdb_cygclass.html#robo_top_of_doc">berkdb.cygclass</a>
+</li>
+<li>  <a href="./distutils_cygclass.html#robo_top_of_doc">distutils.cygclass</a>
+</li>
+<li>  <a href="./distutils-multi_cygclass.html#robo_top_of_doc">distutils-multi.cygclass</a>
+</li>
+<li>  <a href="./ggz_cygclass.html#robo_top_of_doc">ggz.cygclass</a>
+</li>
+<li>  <a href="./opensync_cygclass.html#robo_top_of_doc">opensync.cygclass</a>
+</li>
+<li>  <a href="./ruby-gnome2_cygclass.html#robo233">ruby-gnome2.cygclass</a>
+</li>
+</ul>
+<p></p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/Makefile.am with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/claws-mail.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/claws-mail.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo860">claws-mail.cygclass</a></li>
+<ul>
+<li><a href="#robo861">CATEGORY (claws-mail)</a></li>
+<li><a href="#robo862">SUMMARY (claws-mail)</a></li>
+<li><a href="#robo863">HOMEPAGE (claws-mail)</a></li>
+<li><a href="#robo864">SRC_URI (claws-mail)</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fclaws2dmail2ecygclass"></a>
+<a name="robo860"></a><h2>claws-mail.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> claws-mail
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Claws Mail is an email client for GTK+ which has support for plugins.
+</p>
+
+<p>  This cygclass sets several variables for building Claws Mail plugin
+  packages.  The build process is handled through <a href="./gnome2_cygclass.html#robo_top_of_doc">gnome2.cygclass</a>.
+</p>
+<p class="item_name">NOTE</p>
+<p>  <a href="./syntax_cygpart.html#robo93">PN</a> should be set to claws-mail-&lt;plugin_name&gt;.
+</p>
+<p class="item_name">INHERITS</p>
+<p>  <a href="./gnome2_cygclass.html#robo_top_of_doc">gnome2.cygclass</a>
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  claws-mail-devel
+</p>
+
+<hr />
+<a name="claws2dmail2ecygclass2fCATEGORY2028claws2dmail29"></a>
+<a name="robo861"></a><h2>CATEGORY (claws-mail)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo860">claws-mail.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo423">CATEGORY</a><span class="sign">=</span><span class="quote">"Mail"</span>
+</pre>
+
+<hr />
+<a name="claws2dmail2ecygclass2fSUMMARY2028claws2dmail29"></a>
+<a name="robo862"></a><h2>SUMMARY (claws-mail)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo860">claws-mail.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo425">SUMMARY</a><span class="sign">=</span><span class="quote">"Claws Mail ${CLAWS_MAIL_PLUGIN} plugin"</span>
+</pre>
+
+<hr />
+<a name="claws2dmail2ecygclass2fHOMEPAGE2028claws2dmail29"></a>
+<a name="robo863"></a><h2>HOMEPAGE (claws-mail)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo860">claws-mail.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_info_cygpart.html#robo434">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://www.claws-mail.org/plugins.php"</span>
+</pre>
+
+<hr />
+<a name="claws2dmail2ecygclass2fSRC5fURI2028claws2dmail29"></a>
+<a name="robo864"></a><h2>SRC_URI (claws-mail)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo860">claws-mail.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_fetch_cygpart.html#robo189">SRC_URI</a><span class="sign">=</span><span class="quote">"http://www.claws-mail.org/downloads/plugins/${ORIG_PN}-${<a href="./syntax_cygpart.html#robo94">PV</a>}.tar.gz"</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/claws-mail.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:41
+</p>
+</div> <!-- footer -->
+</body>
+</html>

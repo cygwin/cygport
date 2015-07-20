@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/java.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/java.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo617">java.cygclass</a></li>
+<ul>
+<li><a href="#robo618">JAR</a></li>
+<li><a href="#robo619">JAVA</a></li>
+<li><a href="#robo620">JAVAC</a></li>
+<li><a href="#robo621">JAVADOC</a></li>
+<li><a href="#robo622">JAVAH</a></li>
+<li><a href="#robo623">JAVA_HOME</a></li>
+<li><a href="#robo624">JAVA_DIR</a></li>
+<li><a href="#robo625">JAVADOC_DIR</a></li>
+<li><a href="#robo626">JAVA_CLASSPATH</a></li>
+<li><a href="#robo627">cygjar</a></li>
+<li><a href="#robo628">cygjava</a></li>
+<li><a href="#robo629">cygjavac</a></li>
+<li><a href="#robo630">cygjavadoc</a></li>
+<li><a href="#robo631">cygjavah</a></li>
+<li><a href="#robo632">cygjunit</a></li>
+<li><a href="#robo633">dojar</a></li>
+<li><a href="#robo634">newjar</a></li>
+<li><a href="#robo635">dojavadoc</a></li>
+<li><a href="#robo636">newjavadoc</a></li>
+<li><a href="#robo637">java_wrapper</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fjava2ecygclass"></a>
+<a name="robo617"></a><h2>java.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> java
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  GNU Classpath provides an open-source implementation of a Java runtime
+  which is mostly compatibly with JDK 1.5.  Driven by a compatible Java
+  Virtual Machine, its runtime and tools together with the OpenJDK and Eclipse
+  compiler tools provide a Java environment which can build and run a wide
+  variety of Java programs.
+</p>
+
+<p>  This cygclass provides definitions and functions for building packages
+  which use the GNU Classpath Java environment.
+</p>
+<p class="item_name">INHERITED BY</p>
+<p>  <a href="./ant_cygclass.html#robo_top_of_doc">ant.cygclass</a>
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  gij/jamvm, ecj/jdk6-langtools/classpath-tools, fastjar, gcc4-java.
+</p>
+
+<hr />
+<a name="java2ecygclass2fJAR"></a>
+<a name="robo618"></a><h2>JAR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to a 'jar' de/compression tool, provided by fastjar or gjar.
+</p>
+
+<hr />
+<a name="java2ecygclass2fJAVA"></a>
+<a name="robo619"></a><h2>JAVA</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to a Java interpreter, provided by jamvm or gij-4.
+</p>
+
+<hr />
+<a name="java2ecygclass2fJAVAC"></a>
+<a name="robo620"></a><h2>JAVAC</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to a Java compiler, provided by javac or ecj.
+</p>
+
+<hr />
+<a name="java2ecygclass2fJAVADOC"></a>
+<a name="robo621"></a><h2>JAVADOC</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to a Java API documentation generator, provided by javadoc or gjdoc.
+</p>
+
+<hr />
+<a name="java2ecygclass2fJAVAH"></a>
+<a name="robo622"></a><h2>JAVAH</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to a JNI header generator, provided by javah or gjavah.
+</p>
+
+<hr />
+<a name="java2ecygclass2fJAVA5fHOME"></a>
+<a name="robo623"></a><h2>JAVA_HOME</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Prefix of the Java installation.
+</p>
+
+<hr />
+<a name="java2ecygclass2fJAVA5fDIR"></a>
+<a name="robo624"></a><h2>JAVA_DIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for Java .jar files.
+</p>
+
+<hr />
+<a name="java2ecygclass2fJAVADOC5fDIR"></a>
+<a name="robo625"></a><h2>JAVADOC_DIR</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installation path for Javadoc API documentation.
+</p>
+
+<hr />
+<a name="java2ecygclass2fJAVA5fCLASSPATH"></a>
+<a name="robo626"></a><h2>JAVA_CLASSPATH</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  A colon-separated list of directories and .jar files to pass to Java's
+  CLASSPATH environment variable.  Any .jar files which are listed by
+  basename only are assumed to be installed in <a href="#robo624">JAVA_DIR</a>.
+</p>
+<p class="item_name">NOTE</p>
+<p>  The user CLASSPATH variable is ignored so as to prevent interference
+  from a native Windows installation of Java.
+</p>
+
+<hr />
+<a name="java2ecygclass2fcygjar"></a>
+<a name="robo627"></a><h2>cygjar</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>cygjar</strong> OPTIONS JAR_FILE [MANIFEST_FILE] [-<a href="./syntax_cygpart.html#robo101">C</a> DIRECTORY] [FILES] ...
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs the <a href="#robo618">JAR</a> command with the provided options, catching any errors if
+  they occur.  Please see the <a href="#robo618">JAR</a> --help text for a complete list of options.
+</p>
+
+<hr />
+<a name="java2ecygclass2fcygjava"></a>
+<a name="robo628"></a><h2>cygjava</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>cygjava</strong> [-jar JAR_FILE] [-classpath CLASSPATH] [OPTIONS] CLASS [ARGUMENTS]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs the <a href="#robo619">JAVA</a> command with the provided options, catching any errors if
+  they occur.  Please see the <a href="#robo619">JAVA</a> -help text for a complete list of options.
+</p>
+
+<hr />
+<a name="java2ecygclass2fcygjavac"></a>
+<a name="robo629"></a><h2>cygjavac</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>cygjavac</strong> [-classpath CLASSPATH] [OPTIONS] SOURCE_FILES|DIRECTORIES
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs the <a href="#robo620">JAVAC</a> command with the provided options, catching any errors if
+  they occur.  Please see the <a href="#robo620">JAVAC</a> -help text for a complete list of options.
+</p>
+
+<hr />
+<a name="java2ecygclass2fcygjavadoc"></a>
+<a name="robo630"></a><h2>cygjavadoc</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>cygjavadoc</strong> [OPTIONS] [-d OUTPUT_PATH] PACKAGES
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs the <a href="#robo621">JAVADOC</a> command with the provided options, catching any errors if
+  they occur.  Please see the <a href="#robo621">JAVADOC</a> -help text for a complete list of options.
+</p>
+
+<hr />
+<a name="java2ecygclass2fcygjavah"></a>
+<a name="robo631"></a><h2>cygjavah</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>cygjavah</strong> [-classpath CLASSPATH] [-d OUTPUT_PATH] [-jni] CLASSES
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs the <a href="#robo622">JAVAH</a> command with the provided options, catching any errors if
+  they occur.  Please see the <a href="#robo622">JAVAH</a> -help text for a complete list of options.
+</p>
+
+<hr />
+<a name="java2ecygclass2fcygjunit"></a>
+<a name="robo632"></a><h2>cygjunit</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_testsuite_functions.html#robo_top_of_doc">Testsuite Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>cygjunit</strong> [-classpath CLASSPATH] CLASSES
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs the JUnit tests <a href="./syntax_cygpart.html#robo79">defined</a> in the given class(es).
+</p>
+
+<hr />
+<a name="java2ecygclass2fdojar"></a>
+<a name="robo633"></a><h2>dojar</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>dojar</strong> JAR_FILES
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the given .jar files into <a href="#robo624">JAVA_DIR</a> under $<a href="./syntax_cygpart.html#robo102">D</a>.  If the name of the
+  .jar includes a version number, an unversioned symlink is created alongside
+  the .jar file.
+</p>
+
+<hr />
+<a name="java2ecygclass2fnewjar"></a>
+<a name="robo634"></a><h2>newjar</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>newjar</strong> JAR_FILE NEW_JAR_FILE_NAME
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the given .jar file into <a href="#robo624">JAVA_DIR</a> under $<a href="./syntax_cygpart.html#robo102">D</a>, renaming it per the
+  second argument.  If the new name of the .jar includes a version number,
+  an unversioned symlink is created alongside the .jar file.
+</p>
+
+<hr />
+<a name="java2ecygclass2fdojavadoc"></a>
+<a name="robo635"></a><h2>dojavadoc</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>dojavadoc</strong> DIRECTORY
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the Javadoc documentation in the given directory into a subdirectory
+  of <a href="#robo625">JAVADOC_DIR</a> based on the name of the package.
+</p>
+
+<hr />
+<a name="java2ecygclass2fnewjavadoc"></a>
+<a name="robo636"></a><h2>newjavadoc</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>newjavadoc</strong> DIRECTORY DESTINATION_SUBDIR
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the Javadoc documentation in the given directory into a subdirectory
+  of <a href="#robo625">JAVADOC_DIR</a> based on DESTINATION_SUBDIR.  This is useful if a package
+  builds more than one set of Javadocs.
+</p>
+
+<hr />
+<a name="java2ecygclass2fjava5fwrapper"></a>
+<a name="robo637"></a><h2>java_wrapper</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">java.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>java_wrapper</strong> [JAVA_OPTIONS] WRAPPER_NAME JAR_FILE [MAIN_CLASS]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Creates a wrapper script for the given .jar file.  If the .jar file is
+  installed into <a href="#robo624">JAVA_DIR</a>, its basename can be used instead of a path.
+  If the jar file manifest defines a Main-Class, then the third argument
+  (the class providing the main() function) can be omitted.
+</p>
+
+<p>  Options to be passed to the <a href="#robo619">JAVA</a> runtime (rather than the Java
+  program) can be added before the wrapper name.  These arguments must
+  begin with a hyphen.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/java.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

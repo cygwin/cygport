@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/distutils-multi.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/distutils-multi.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo780">distutils-multi.cygclass</a></li>
+<ul>
+<li><a href="#robo781">src_compile (distutils-multi)</a></li>
+<li><a href="#robo782">src_install (distutils-multi)</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fdistutils2dmulti2ecygclass"></a>
+<a name="robo780"></a><h2>distutils-multi.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> distutils-multi
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This cygclass provides a shortcut for building a module for both Python2 and
+  Python3 from one source package.  While not required, this saves the time involved
+  with maintaining separate builds for each, and also saves bandwidth by avoiding
+  the duplicate source tarball.
+</p>
+
+<p>  Sources built in this fashion should be divided into two binary packages, one
+  for each Python version, as so:
+</p>
+<pre>    <a href="./pkg_pkg_cygpart.html#robo418">PKG_NAMES</a>="python-foo python3-foo"
+    python_foo_CONTENTS="usr/bin/ ${<a href="./python_cygclass.html#robo376">PYTHON_SITELIB</a>#/} usr/share/doc/"
+    python3_foo_CONTENTS=${<a href="./python3_cygclass.html#robo358">PYTHON3_SITELIB</a>#/}
+</pre>
+<p></p>
+<p class="item_name">NOTES</p>
+<ul><li>  Some modules include scripts which are installed into /usr/bin.  With very
+    few exceptions, these scripts are unversioned; this cygclass installs in such
+    a way that they will use the Python2 interpreter, and therefore should be
+    packaged with the 2.x module.
+</li>
+<li>  Not all Python module sources are compatible with 2.x and 3.x simultaneously.
+    Those that are not may have a separate source tarball for each version, which
+    should be treated as completely separate packages.
+</li>
+</ul>
+<p></p>
+<p class="item_name">INHERITS</p>
+<p>  <a href="./python-distutils_cygclass.html#robo_top_of_doc">python-distutils.cygclass</a>, <a href="./python3-distutils_cygclass.html#robo_top_of_doc">python3-distutils.cygclass</a>.
+</p>
+
+<hr />
+<a name="distutils2dmulti2ecygclass2fsrc5fcompile2028distutils2dmulti29"></a>
+<a name="robo781"></a><h2>src_compile (distutils-multi)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo780">distutils-multi.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Creates separate build trees for each version of Python and runs the distutils
+  build steps for each.
+</p>
+
+<hr />
+<a name="distutils2dmulti2ecygclass2fsrc5finstall2028distutils2dmulti29"></a>
+<a name="robo782"></a><h2>src_install (distutils-multi)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo780">distutils-multi.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs the distutils install steps for each version of Python.  The distro
+  default version of Python (currently 2.x) is run last so that unversioned
+  scripts use the default version.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/distutils-multi.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

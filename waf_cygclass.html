@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/waf.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/waf.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo23">waf.cygclass</a></li>
+<ul>
+<li><a href="#robo24">WAF_USE_BUNDLED</a></li>
+<li><a href="#robo25">WAF</a></li>
+<li><a href="#robo26">waf_compile</a></li>
+<ul>
+<li><a href="#robo27">WAF_CONFIGURE_FLAGS</a></li>
+<li><a href="#robo28">WAF_BUILD_FLAGS</a></li>
+</ul>
+<li><a href="#robo29">waf_test</a></li>
+<ul>
+<li><a href="#robo30">WAF_TEST_FLAGS</a></li>
+</ul>
+<li><a href="#robo31">waf_install</a></li>
+<ul>
+<li><a href="#robo32">WAF_INSTALL_FLAGS</a></li>
+</ul>
+<li><a href="#robo33">src_compile (waf)</a></li>
+<li><a href="#robo34">src_install (waf)</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fwaf2ecygclass"></a>
+<a name="robo23"></a><h2>waf.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  [<a href="#robo24">WAF_USE_BUNDLED</a>=1]
+  <a href="./inheritance_cygpart.html#robo638">inherit</a> waf
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Waf is a general-purpose build system written in Python used by XMMS2, a
+  few GTK+ programs, and some other projects.  The build system is <a href="./syntax_cygpart.html#robo79">defined</a>
+  by a 'wscript' file in the top source directory and 'wscript_build' files
+  in subdirectories, both of which are also written in Python.
+</p>
+
+<p>  Waf is designed to create a completely self-sufficient package, with the
+  waf command and library shipped together with the sources.  The issue with
+  that is only a recent of Waf will correctly build libraries on Cygwin, and
+  patches may be required.  Therefore, this cygclass can use a (patched)
+  system-installed waf command to drive the build instead if the bundled copy
+  does not work.
+</p>
+<p class="item_name">NOTE</p>
+<p>  Packages which ship with very old versions of Waf may not be compatible
+  with the current Waf API.  In that case, if the bundled waf does not work,
+  you will need to patch 'wscript' and/or 'wscript_build' for the API provided
+  by the system-installed copy.  A link to the Waf Book and API documentation
+  can be found on the
+<a href="http://code.google.com/p/waf/">Waf project page</a>.
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  python, waf
+</p>
+
+<hr />
+<a name="waf2ecygclass2fWAF5fUSE5fBUNDLED"></a>
+<a name="robo24"></a><h2>WAF_USE_BUNDLED</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo23">waf.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>WAF_USE_BUNDLED</strong>=1
+  <a href="./inheritance_cygpart.html#robo638">inherit</a> waf
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Define this variable prior to <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing <a href="#robo_top_of_doc">waf.cygclass</a> in order to use the
+  copy of Waf bundled in the sources.
+</p>
+
+<hr />
+<a name="waf2ecygclass2fWAF"></a>
+<a name="robo25"></a><h2>WAF</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo23">waf.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Path to the Waf command.
+</p>
+
+<hr />
+<a name="waf2ecygclass2fwaf5fcompile"></a>
+<a name="robo26"></a><h2>waf_compile</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo23">waf.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>waf_compile</strong> [OPTIONS]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs 'waf configure' to configure the package, followed by 'waf build' to
+  compile it.  <a href="#robo27">WAF_CONFIGURE_FLAGS</a> and <a href="#robo28">WAF_BUILD_FLAGS</a> can be <a href="./syntax_cygpart.html#robo79">defined</a> to pass
+  additional arguments to the configure and build commands, respectively.
+  Any arguments to <strong>waf_compile</strong> are passed as configure flags to the 'waf
+  configure' command.  <strong>waf_compile</strong> must be run from the directory containing
+  'wscript'.
+</p>
+
+<hr />
+<a name="waf5fcompile2fWAF5fCONFIGURE5fFLAGS"></a>
+<a name="robo27"></a><h2>WAF_CONFIGURE_FLAGS</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo26">waf_compile</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  String containing additional arguments to pass to 'waf configure'.
+</p>
+
+<hr />
+<a name="waf5fcompile2fWAF5fBUILD5fFLAGS"></a>
+<a name="robo28"></a><h2>WAF_BUILD_FLAGS</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo26">waf_compile</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  String containing additional arguments to pass to 'waf build'.
+</p>
+
+<hr />
+<a name="waf2ecygclass2fwaf5ftest"></a>
+<a name="robo29"></a><h2>waf_test</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo23">waf.cygclass</a> ] [ <a href="./cygport_testsuite_functions.html#robo_top_of_doc">Testsuite Functions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs the package's test suite with 'waf check'.  <a href="#robo30">WAF_TEST_FLAGS</a> can be
+  <a href="./syntax_cygpart.html#robo79">defined</a> to pass additional arguments to the check command.  Any arguments
+  to <strong>waf_test</strong> are passed as well. <strong>waf_test</strong> must be run from the directory
+  containing 'wscript'.
+</p>
+
+<hr />
+<a name="waf5ftest2fWAF5fTEST5fFLAGS"></a>
+<a name="robo30"></a><h2>WAF_TEST_FLAGS</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo29">waf_test</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  String containing additional arguments to pass to 'waf check'.
+</p>
+
+<hr />
+<a name="waf2ecygclass2fwaf5finstall"></a>
+<a name="robo31"></a><h2>waf_install</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo23">waf.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the package into $<a href="./syntax_cygpart.html#robo102">D</a> with 'waf install'.  <a href="#robo32">WAF_INSTALL_FLAGS</a> can be
+  <a href="./syntax_cygpart.html#robo79">defined</a> to pass additional arguments to the install command.  Any arguments
+  to <strong>waf_install</strong> are passed as well. <strong>waf_install</strong> must be run from the directory
+  containing 'wscript'.
+</p>
+
+<hr />
+<a name="waf5finstall2fWAF5fINSTALL5fFLAGS"></a>
+<a name="robo32"></a><h2>WAF_INSTALL_FLAGS</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo31">waf_install</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  String containing additional arguments to pass to 'waf install'.
+</p>
+
+<hr />
+<a name="waf2ecygclass2fsrc5fcompile2028waf29"></a>
+<a name="robo33"></a><h2>src_compile (waf)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo23">waf.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_compile_cygpart.html#robo194">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        <a href="./src_compile_cygpart.html#robo191">lndirs</a>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo26">waf_compile</a>
+<span class="sign">}</span>
+</pre>
+
+<hr />
+<a name="waf2ecygclass2fsrc5finstall2028waf29"></a>
+<a name="robo34"></a><h2>src_install (waf)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo23">waf.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_install_cygpart.html#robo187">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo31">waf_install</a>
+<span class="sign">}</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/waf.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

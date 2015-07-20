@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/lib/src_fetch.cygpart</title>
+<!-- Source: /home/Yaakov/src/cygport/lib/src_fetch.cygpart -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo188">Downloading</a></li>
+<ul>
+<li><a href="#robo189">SRC_URI</a></li>
+<li><a href="#robo190">PATCH_URI</a></li>
+<li><a href="./mirrors.html#robo554">Mirrors</a></li>
+<ul>
+<li><a href="./mirrors.html#robo555">mirror_apache</a></li>
+<li><a href="./mirrors.html#robo556">mirror_berlios</a></li>
+<li><a href="./mirrors.html#robo557">mirror_cpan</a></li>
+<li><a href="./mirrors.html#robo558">mirror_cran</a></li>
+<li><a href="./mirrors.html#robo559">mirror_ctan</a></li>
+<li><a href="./mirrors.html#robo560">mirror_debian</a></li>
+<li><a href="./mirrors.html#robo561">mirror_gcc</a></li>
+<li><a href="./mirrors.html#robo562">mirror_gentoo</a></li>
+<li><a href="./mirrors.html#robo563">mirror_gnome</a></li>
+<li><a href="./mirrors.html#robo564">mirror_gnu</a></li>
+<li><a href="./mirrors.html#robo565">mirror_gnustep</a></li>
+<li><a href="./mirrors.html#robo566">mirror_kde</a></li>
+<li><a href="./mirrors.html#robo567">mirror_mplayer</a></li>
+<li><a href="./mirrors.html#robo568">mirror_mysql</a></li>
+<li><a href="./mirrors.html#robo569">mirror_portage</a></li>
+<li><a href="./mirrors.html#robo570">mirror_rubyforge</a></li>
+<li><a href="./mirrors.html#robo571">mirror_savannah</a></li>
+<li><a href="./mirrors.html#robo572">mirror_sourceforge</a></li>
+<li><a href="./mirrors.html#robo573">mirror_sourceware</a></li>
+<li><a href="./mirrors.html#robo574">mirror_qt</a></li>
+<li><a href="./mirrors.html#robo575">mirror_trolltech</a></li>
+<li><a href="./mirrors.html#robo576">mirror_vim</a></li>
+<li><a href="./mirrors.html#robo577">mirror_xfce</a></li>
+</ul>
+</ul>
+</ul>
+<hr />
+<a name="Chapter2052fDownloading"></a>
+<a name="robo188"></a><h2>Downloading</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo789">Chapter 5</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+
+<hr />
+<a name="Downloading2fSRC5fURI"></a>
+<a name="robo189"></a><h2>SRC_URI</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo188">Downloading</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Download address(es) for the package source file(s), as a string.
+  The first file in <strong>SRC_URI</strong> will be considered the primary source file
+  and will determine the default <a href="./src_prep_cygpart.html#robo121">SRC_DIR</a>.
+</p>
+
+<p>  Individual source files maintained locally may also be used by adding
+  their basenames to <strong>SRC_URI</strong>.
+</p>
+
+<p>  The basename of each URI is treated as the source filename, except that
+  CGI query strings are dropped after downloading.  If this would not yield
+  a usable filename, then the file can be renamed by appending an artificial
+  URI fragment in the form of #/FILENAME to the URI.  Some examples where this
+  may be useful or even necessary:
+</p>
+<ul><li>  an unversioned source tarball
+</li>
+<li>  a file, patch, or snapshot from a gitweb interface (where all specific
+    information is in the query string itself)
+</li>
+<li>  a patch from a cgit interface (normally /patch?id=COMMIT)
+</li>
+<li>  a file from a Bugzilla attachment (normally /attachment.cgi?id=NUMBER)
+</li>
+</ul>
+<p>
+  This variable is required, but many cygclasses automatically define
+  a default <strong>SRC_URI</strong> based on the values of <a href="./syntax_cygpart.html#robo93">PN</a> and <a href="./syntax_cygpart.html#robo94">PV</a>.
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./bzr_cygclass.html#robo886">bzr.cygclass</a>, <a href="./cvs_cygclass.html#robo_top_of_doc">cvs.cygclass</a>, <a href="./fossil_cygclass.html#robo_top_of_doc">fossil.cygclass</a>, <a href="./git_cygclass.html#robo_top_of_doc">git.cygclass</a>, <a href="./hg_cygclass.html#robo666">hg.cygclass</a>,
+  <a href="./mtn_cygclass.html#robo536">mtn.cygclass</a>, <a href="./svn_cygclass.html#robo103">svn.cygclass</a>, <a href="./mirrors.html#robo554">Mirrors</a>.
+</p>
+
+<hr />
+<a name="Downloading2fPATCH5fURI"></a>
+<a name="robo190"></a><h2>PATCH_URI</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo188">Downloading</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Download address(es) for source patches which are to be applied immediately
+  after unpacking sources, as a string.
+</p>
+
+<p>  Individual source patches maintained locally may also be used by adding
+  their basenames to <strong>PATCH_URI</strong>.  This provides an easy way to carry
+  Cygwin-specific patches forward between releases.
+</p>
+<p class="item_name">NOTE</p>
+<p>  See <a href="#robo189">SRC_URI</a> for details about URI handling in cygport.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/lib/src_fetch.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

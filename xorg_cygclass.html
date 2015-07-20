@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/xorg.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/xorg.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo2">xorg.cygclass</a></li>
+<ul>
+<li><a href="#robo3">CATEGORY (xorg)</a></li>
+<li><a href="#robo4">SUMMARY (xorg)</a></li>
+<li><a href="#robo5">HOMEPAGE (xorg)</a></li>
+<li><a href="#robo6">SRC_URI (xorg)</a></li>
+<li><a href="#robo7">GIT_URI (xorg)</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fxorg2ecygclass"></a>
+<a name="robo2"></a><h2>xorg.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> xorg
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  X.Org provides the reference implementation of the X11 protocol. Since
+  X11R7.0, packages have been released in a "modular" format, with the server
+  and each library, application, set of headers, and font shipping in it's
+  own autotools-based tarball.
+</p>
+
+<p>  This cygclass defines the variables necessary to download X.Org packages,
+  either as tarballs (default) or from Git (if <a href="./git_cygclass.html#robo_top_of_doc">git.cygclass</a> is <a href="./inheritance_cygpart.html#robo638">inherit</a>()ed
+  afterwards).
+</p>
+<p class="item_name">HISTORY</p>
+<p>  Previous versions of Cygwin and X11 required some additional build steps:
+</p>
+<ul><li>  Cygwin 1.5 did not have proper locale support, so -DX_LOCALE was added to
+    <a href="./compilers_cygpart.html#robo828">CPPFLAGS</a> to force usage of X11's own locale implementation instead.
+</li>
+<li>  Each font package had to be told where to install its fonts during configure.
+</li>
+</ul>
+<p>  As of X11R7.5 for Cygwin 1.7, neither of these are necessary, so <strong>xorg.cygclass</strong>
+  relies solely on the build functions provided by <a href="./autotools_cygclass.html#robo903">autotools.cygclass</a>.
+</p>
+<p class="item_name">INHERITS</p>
+<p>  <a href="./autotools_cygclass.html#robo903">autotools.cygclass</a>
+</p>
+
+<hr />
+<a name="xorg2ecygclass2fCATEGORY2028xorg29"></a>
+<a name="robo3"></a><h2>CATEGORY (xorg)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">xorg.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo423">CATEGORY</a><span class="sign">=</span><span class="quote">"X11"</span>
+</pre>
+
+<hr />
+<a name="xorg2ecygclass2fSUMMARY2028xorg29"></a>
+<a name="robo4"></a><h2>SUMMARY (xorg)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">xorg.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo425">SUMMARY</a><span class="sign">=</span><span class="quote">"X.Org ${ORIG_PN} component"</span>
+</pre>
+
+<hr />
+<a name="xorg2ecygclass2fHOMEPAGE2028xorg29"></a>
+<a name="robo5"></a><h2>HOMEPAGE (xorg)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">xorg.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./pkg_info_cygpart.html#robo434">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://xorg.freedesktop.org/"</span>
+</pre>
+
+<hr />
+<a name="xorg2ecygclass2fSRC5fURI2028xorg29"></a>
+<a name="robo6"></a><h2>SRC_URI (xorg)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">xorg.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Download location of the release tarball.
+</p>
+
+<hr />
+<a name="xorg2ecygclass2fGIT5fURI2028xorg29"></a>
+<a name="robo7"></a><h2>GIT_URI (xorg)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">xorg.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Git repository for the package.
+</p>
+<p class="item_name">NOTE</p>
+<p>  <a href="./git_cygclass.html#robo_top_of_doc">git.cygclass</a> should be <a href="./inheritance_cygpart.html#robo638">inherit</a>()ed last for this to be of use.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/xorg.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

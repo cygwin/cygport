@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/wxwidgets.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/wxwidgets.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo15">wxwidgets.cygclass</a></li>
+<ul>
+<li><a href="#robo16">WX_VERSION</a></li>
+<li><a href="#robo17">WX_TOOLKIT</a></li>
+<li><a href="#robo18">WX_CODESET</a></li>
+<li><a href="#robo19">WX_CONFIG</a></li>
+<li><a href="#robo20">WX_CFLAGS</a></li>
+<li><a href="#robo21">WX_LIBS</a></li>
+<li><a href="#robo22">wx-config</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fwxwidgets2ecygclass"></a>
+<a name="robo15"></a><h2>wxwidgets.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="#robo16">WX_VERSION</a>="X.Y"
+  [<a href="#robo18">WX_CODESET</a>="..."]
+  [<a href="#robo17">WX_TOOLKIT</a>="..."]
+  <a href="./inheritance_cygpart.html#robo638">inherit</a> wxwidgets
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The wxWidgets toolkit is a cross-platform, <a href="./syntax_cygpart.html#robo101">C</a>++ GUI toolkit which is built
+  on top of other GUI toolkits for a native look on all platforms.  Each
+  combination of major.minor version, backend toolkit, and choice of ANSI or
+  Unicode text codesets are parallel-installable.  Packages which depend on
+  the wxWidgets toolkit will only build against one or two versions at any
+  given time, and may require a particular codeset or toolkit.
+</p>
+
+<p>  This cygclass selects the <a href="#robo22">wx-config</a> script for the desired version, backend
+  tookit, and codeset of the wxWidgets toolkit.
+</p>
+<p class="item_name">NOTE</p>
+<p>  When cross-compiling, <a href="./cross_cygclass.html#robo_top_of_doc">cross.cygclass</a> must be <a href="./inheritance_cygpart.html#robo638">inherit</a>()ed BEFORE
+  <strong>wxwidgets.cygclass</strong>.
+</p>
+
+<hr />
+<a name="wxwidgets2ecygclass2fWX5fVERSION"></a>
+<a name="robo16"></a><h2>WX_VERSION</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo15">wxwidgets.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The desired major.minor branch of the wxWidgets toolkit.  This variable must
+  be set before <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing the <a href="#robo15">wxwidgets.cygclass</a>.
+</p>
+<p class="item_name">NOTE</p>
+<p>  Even minor version numbers represent stable branches; versions 2.6, 2.8
+  and 3.0 are supported.
+</p>
+
+<hr />
+<a name="wxwidgets2ecygclass2fWX5fTOOLKIT"></a>
+<a name="robo17"></a><h2>WX_TOOLKIT</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo15">wxwidgets.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The desired backend toolkit version of the wxWidgets toolkit.  Possible
+  values are:
+</p>
+<ul><li>  cocoa: (until 2.8) for Mac OS X Cocoa
+</li>
+<li>  dfb: for DirectFB (usually Linux embedded)
+</li>
+<li>  gtk2: the default for modern X11 desktop platforms, including Cygwin
+</li>
+<li>  gtk3: a newer alternative for modern X11 desktop platforms
+</li>
+<li>  gtk: for older X11 platforms with the deprecated 1.x version of GTK+
+</li>
+<li>  mac: (until 2.8) for Mac OS X Carbon
+</li>
+<li>  mgl: for SciTech MGL cross-platform graphics library (default on DJGPP)
+</li>
+<li>  microwin: for Microwindows (aka Nano X)
+</li>
+<li>  motif: for X11 systems using Motif/LessTif (default on older UNIXes)
+</li>
+<li>  msw: for Microsoft Windows (default on MinGW)
+</li>
+<li>  osx_carbon: (since 3.0) for Mac OS X Carbon interface
+</li>
+<li>  osx_cocoa: (since 3.0) for Mac OS X Cocoa interface
+</li>
+<li>  osx_iphone: (since 3.0) for iOS devices (iPhone/iPod Touch)
+</li>
+<li>  pm: for OS/2 EMX
+</li>
+<li>  x11: for X11 systems without another GUI toolkit
+</li>
+</ul>
+<p>
+  This variable must be set before <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing the <a href="#robo15">wxwidgets.cygclass</a>.
+  If undefined, the default is "gtk2" on Cygwin; when cross-compiling,
+  the default depends on <a href="./cross_cygclass.html#robo814">CROSS_HOST</a> as indicated above.
+</p>
+
+<hr />
+<a name="wxwidgets2ecygclass2fWX5fCODESET"></a>
+<a name="robo18"></a><h2>WX_CODESET</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo15">wxwidgets.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The choice of text codeset of the wxWidgets toolkit.  Possible values are
+  "ansi" and "unicode", however the "gtk" (1.x) and "motif" <a href="#robo17">WX_TOOLKIT</a> options
+  do not support "unicode".
+</p>
+
+<p>  This variable must be set before <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing the <a href="#robo15">wxwidgets.cygclass</a>.
+  If undefined, "unicode" is the default if supported by the given <a href="#robo17">WX_TOOLKIT</a>.
+</p>
+
+<hr />
+<a name="wxwidgets2ecygclass2fWX5fCONFIG"></a>
+<a name="robo19"></a><h2>WX_CONFIG</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo15">wxwidgets.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Absolute path to the <a href="#robo22">wx-config</a> script for the given <a href="#robo16">WX_VERSION</a>, <a href="#robo17">WX_TOOLKIT</a>,
+  and <a href="#robo18">WX_CODESET</a> (and <a href="./cross_cygclass.html#robo814">CROSS_HOST</a> if cross-compiling).  This definition is
+  exported to the build environment.
+</p>
+
+<hr />
+<a name="wxwidgets2ecygclass2fWX5fCFLAGS"></a>
+<a name="robo20"></a><h2>WX_CFLAGS</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo15">wxwidgets.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Compile flags for the specified version/toolkit/codeset of wxWidgets.  This
+  is equivalent to `$<a href="#robo19">WX_CONFIG</a> --cflags`.
+</p>
+
+<hr />
+<a name="wxwidgets2ecygclass2fWX5fLIBS"></a>
+<a name="robo21"></a><h2>WX_LIBS</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo15">wxwidgets.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Link flags for the specified version/toolkit/codeset of wxWidgets.  This
+  is equivalent to `$<a href="#robo19">WX_CONFIG</a> --libs`.
+</p>
+<p class="item_name">NOTE</p>
+<p>  This will contain the standard, non-"contrib" link libraries shipped with
+  wxWidgets.  If you need to link against one of the "contrib" libraries, you
+  need to call `$<a href="#robo19">WX_CONFIG</a> --libs library1,library2,...`.  In this form,
+  <a href="#robo19">WX_CONFIG</a> will automatically add 'base', but not 'core', which almost all
+  wxWidgets GUI applications will need.  Third-party link library flags cannot
+  be determined by <a href="#robo19">WX_CONFIG</a> and will need to be added manually.
+</p>
+
+<hr />
+<a name="wxwidgets2ecygclass2fwx2dconfig"></a>
+<a name="robo22"></a><h2>wx-config</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo15">wxwidgets.cygclass</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Wrapper function for calling <a href="#robo19">WX_CONFIG</a>.
+</p>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/wxwidgets.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

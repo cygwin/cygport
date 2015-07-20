@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/kf5.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/kf5.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo600">kf5.cygclass</a></li>
+<ul>
+<li><a href="#robo601">kf5_compile</a></li>
+<li><a href="#robo602">kf5_install</a></li>
+<li><a href="#robo603">src_compile (kf5)</a></li>
+<li><a href="#robo604">src_install (kf5)</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fkf52ecygclass"></a>
+<a name="robo600"></a><h2>kf5.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> kf5
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  The KDE project provides a full-featured X desktop with a wide variety
+  of applications, built on a library stack all based on the Qt <a href="./syntax_cygpart.html#robo101">C</a>++ libraries.
+  Most packages are written in <a href="./syntax_cygpart.html#robo101">C</a>++ and are built with CMake.
+</p>
+
+<p>  This cygclass manages the building of most KF5-based packages.
+</p>
+<p class="item_name">INHERITS</p>
+<p>  <a href="./cmake_cygclass.html#robo_top_of_doc">cmake.cygclass</a>, <a href="./kde_org_cygclass.html#robo_top_of_doc">kde.org.cygclass</a>, <a href="./qt5_cygclass.html#robo_top_of_doc">qt5.cygclass</a>
+</p>
+
+<hr />
+<a name="kf52ecygclass2fkf55fcompile"></a>
+<a name="robo601"></a><h2>kf5_compile</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo600">kf5.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>kf5_compile</strong> [OPTIONS]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Runs <a href="./cmake_cygclass.html#robo856">cygcmake</a> to configure the package with several Cygwin- and KF5-specific
+  options, then runs <a href="./src_compile_cygpart.html#robo193">cygmake</a> to compile.  Options, in the form of -DVARIABLE=VALUE,
+  are passed on to <a href="./cmake_cygclass.html#robo856">cygcmake</a>.
+</p>
+<p class="item_name">REQUIRES</p>
+<p>  cmake, extra-cmake-modules, libQt5Core-devel, libQt5Gui-devel
+</p>
+
+<hr />
+<a name="kf52ecygclass2fkf55finstall"></a>
+<a name="robo602"></a><h2>kf5_install</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo600">kf5.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>kf5_install</strong> [OPTIONS]
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs a KF5 package with <a href="./src_install_cygpart.html#robo185">cyginstall</a> into $<a href="./syntax_cygpart.html#robo102">D</a>, with the following addition:
+</p>
+<ul><li>  Import libraries for plugins and libkdeinit5_* libraries are removed.
+</li>
+</ul>
+<p>  Options, if any, are passed on to <a href="./src_install_cygpart.html#robo185">cyginstall</a>.
+</p>
+
+<hr />
+<a name="kf52ecygclass2fsrc5fcompile2028kf529"></a>
+<a name="robo603"></a><h2>src_compile (kf5)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo600">kf5.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_compile_cygpart.html#robo194">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo601">kf5_compile</a>
+<span class="sign">}</span>
+</pre>
+
+<hr />
+<a name="kf52ecygclass2fsrc5finstall2028kf529"></a>
+<a name="robo604"></a><h2>src_install (kf5)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo600">kf5.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_install_cygpart.html#robo187">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo602">kf5_install</a>
+<span class="sign">}</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/kf5.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>

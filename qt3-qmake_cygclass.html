@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./robodoc.css" type="text/css" />
+<title>/home/Yaakov/src/cygport/cygclass/qt3-qmake.cygclass</title>
+<!-- Source: /home/Yaakov/src/cygport/cygclass/qt3-qmake.cygclass -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">Cygport Reference Manual</a>
+</div> <!-- logo -->
+<div id="navigation">
+<a class="menuitem" href="./toc_index.html#top">Table of Contents</a>
+<a class="menuitem" href="./robo_sourcefiles.html#top">Sourcefiles</a>
+<a class="menuitem" href="./masterindex.html#top">Index</a>
+<a class="menuitem" href="./cygport_concepts.html#top">Concepts</a>
+<a class="menuitem" href="./cygport_chapters.html#top">Chapters</a>
+<a class="menuitem" href="./cygport_compile_functions.html#top">Compile Functions</a>
+<a class="menuitem" href="./cygport_install_functions.html#top">Install Functions</a>
+<a class="menuitem" href="./cygport_postinstall_steps.html#top">Postinstall Steps</a>
+<a class="menuitem" href="./cygport_testsuite_functions.html#top">Testsuite Functions</a>
+<a class="menuitem" href="./cygport_definitions.html#top">Definitions</a>
+<a class="menuitem" href="./cygport_general_functions.html#top">General Functions</a>
+<a class="menuitem" href="./cygport_cygclasses.html#top">Cygclasses</a>
+<a class="menuitem" href="./cygport_overloads.html#top">Overloads</a>
+<a class="menuitem" href="./cygport_variables.html#top">Variables</a>
+</div> <!-- navigation -->
+<div id="content">
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo345">qt3-qmake.cygclass</a></li>
+<ul>
+<li><a href="#robo346">cygqmake3</a></li>
+<li><a href="#robo347">qt3_qmake_compile</a></li>
+<li><a href="#robo348">qt3_qmake_install</a></li>
+<li><a href="#robo349">src_compile (qt3-qmake)</a></li>
+<li><a href="#robo350">src_install (qt3-qmake)</a></li>
+</ul>
+</ul>
+<hr />
+<a name="Cygclasses2fqt32dqmake2ecygclass"></a>
+<a name="robo345"></a><h2>qt3-qmake.cygclass</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> qt3-qmake
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  This cygclass builds Qt3-based packages which use the qmake build system.
+</p>
+<p class="item_name">INHERITS</p>
+<p>  <a href="./qt3_cygclass.html#robo331">qt3.cygclass</a>
+</p>
+
+<hr />
+<a name="qt32dqmake2ecygclass2fcygqmake3"></a>
+<a name="robo346"></a><h2>cygqmake3</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo345">qt3-qmake.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  cd $<a href="./syntax_cygpart.html#robo100">B</a>
+  <strong>cygqmake3</strong>
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Generates Makefiles from the package's qmake project files.
+</p>
+
+<hr />
+<a name="qt32dqmake2ecygclass2fqt35fqmake5fcompile"></a>
+<a name="robo347"></a><h2>qt3_qmake_compile</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo345">qt3-qmake.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><strong>qt3_qmake_compile</strong><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        <a href="#robo346">cygqmake3</a>
+        <a href="./src_compile_cygpart.html#robo193">cygmake</a>
+<span class="sign">}</span>
+</pre>
+
+<hr />
+<a name="qt32dqmake2ecygclass2fqt35fqmake5finstall"></a>
+<a name="robo348"></a><h2>qt3_qmake_install</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo345">qt3-qmake.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  cd $<a href="./syntax_cygpart.html#robo100">B</a>
+  <strong>qt3_qmake_install</strong>
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the package into $<a href="./syntax_cygpart.html#robo102">D</a> and fixes some common installation issues.
+</p>
+<p class="item_name">WARNING</p>
+<p>  Many qmake projects do not define correct install rules, if any at all.
+  <strong>qt3_qmake_install</strong> is of no use in such cases; you must use manual
+  installation commands instead.
+</p>
+
+<hr />
+<a name="qt32dqmake2ecygclass2fsrc5fcompile2028qt32dqmake29"></a>
+<a name="robo349"></a><h2>src_compile (qt3-qmake)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo345">qt3-qmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_compile_cygpart.html#robo194">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        <a href="./src_compile_cygpart.html#robo191">lndirs</a>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo347">qt3_qmake_compile</a>
+<span class="sign">}</span>
+</pre>
+
+<hr />
+<a name="qt32dqmake2ecygclass2fsrc5finstall2028qt32dqmake29"></a>
+<a name="robo350"></a><h2>src_install (qt3-qmake)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo345">qt3-qmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><a href="./src_install_cygpart.html#robo187">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo348">qt3_qmake_install</a>
+<span class="sign">}</span>
+</pre>
+
+</div> <!-- content -->
+<div id="footer">
+<p>Generated from /home/Yaakov/src/cygport/cygclass/qt3-qmake.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 00:13:40
+</p>
+</div> <!-- footer -->
+</body>
+</html>
