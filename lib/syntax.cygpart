@@ -20,6 +20,26 @@
 #
 ################################################################################
 
+#****** Chapter 3/Format
+#  INTRODUCTION
+#  If the .cygport file defines NAME, VERSION, and RELEASE, the filename may
+#  be anything, but is conventionally NAME.cygport.  Otherwise, the filename
+#  must be in the form NAME-VERSION-RELEASE.cygport, and the values of NAME,
+#  VERSION, and RELEASE will be determined automatically.
+#
+#  A .cygport file must conform to bash shell syntax.  Comments may be included,
+#  beginning with '#' until end-of-line; all comments are ignored during
+#  execution of cygport.
+#
+#  Since a .cygport file is itself not a functioning script, the she-bang
+#  header (#!/bin/bash) should be omitted, and the file should not be executable.
+#
+#  The bare minimum for a working .cygport file includes a SRC_URI definition,
+#  and src_compile and src_install functions.  Note that several Cygclasses
+#  provide some or all of these, so in some cases a single line inherit
+#  command will suffice.
+#****
+
 #****** Format/Syntax
 #  DESCRIPTION
 #  This section includes functions which provide some syntactical sugar.
@@ -246,6 +266,73 @@ __target_is_embedded() {
 	esac
 	return ${ret}
 }
+
+#****** Format/Globals
+#****
+#****v* Globals/NAME
+#  DESCRIPTION
+#  The Cygwin (primary) package name.  Generally, this is the same as the
+#  upstream package name, but need not be.  A common reason for deviating from
+#  the upstream name is to append a version "slot" where multiple versions of
+#  a package are completely parallel installable (e.g. gtk1.2 and gtk2.0, both
+#  from gtk+).  In this case, define ORIG_PN to the upstream package name.
+#****
+#****v* Globals/VERSION
+#  DESCRIPTION
+#  The upstream package version number.  PV must begin with a digit 0-9, and
+#  subsequent characters can be a digit, letter, dot, hyphen, or underscore.
+#****
+#****v* Globals/RELEASE
+#  DESCRIPTION
+#  The Cygwin package release number, e.g. the "1" in foo-2.3.4-1.  The first
+#  release of a new version is usually 1, and is incremented if subsequent
+#  releases are made of the same version.  PR must be an integer.
+#****
+#****d* Globals/PN
+#  DESCRIPTION
+#  A read-only alias for NAME.
+#****
+#****d* Globals/PV
+#  DESCRIPTION
+#  A read-only alias for VERSION.
+#****
+#****d* Globals/PR
+#  DESCRIPTION
+#  A read-only alias for RELEASE.
+#****
+#****d* Globals/P
+#  DESCRIPTION
+#  A read-only alias for NAME-VERSION (PN-PV).
+#****
+#****d* Globals/PVR
+#  DESCRIPTION
+#  A read-only alias for VERSION-RELEASE (PV-PR).
+#****
+#****d* Globals/PF
+#  DESCRIPTION
+#  A read-only alias for NAME-VERSION-RELEASE (PN-PV-PR).
+#****
+#****d* Globals/S
+#  DESCRIPTION
+#  The source directory.  Build tool regeneration (e.g. cygautoreconf) occurs
+#  in this directory, but other build steps should occur in B.
+#****
+#****d* Globals/B
+#  DESCRIPTION
+#  The build directory.  All configuring and compiling steps should occur in
+#  this directory.
+#****
+#****d* Globals/C
+#  DESCRIPTION
+#  The CYGWIN-PATCHES directory where Cygwin READMEs, setup.hint files,
+#  custom postinstall scripts, and other Cygwin-specific files are placed
+#  before packaging.
+#****
+#****d* Globals/D
+#  DESCRIPTION
+#  The installation staging directory.  All installation and postinstall steps
+#  occur in or into this directory.
+#****
 
 readonly -f defined pushd popd error warning inform verbose __stage __step \
 	__log_init __check_triplet cross_compiling __cross_compiling_error \
