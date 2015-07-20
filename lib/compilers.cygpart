@@ -20,6 +20,9 @@
 #
 ################################################################################
 
+#****** Chapter 8/Compiling
+#****
+
 #****d* Compiling/CC
 #  DESCRIPTION
 #  The GCC C compiler.
