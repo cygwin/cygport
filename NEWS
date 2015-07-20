@@ -1,3 +1,7 @@
+0.20.2:
+	* Moved hosting to GitHub.
+	* Reorganized documentation into multidoc form.
+
 0.20.1:
 	* Fixes for Lua 5.2, OpenSSH 6.8, and httpd.cygclass.
 
