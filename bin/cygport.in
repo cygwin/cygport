@@ -276,13 +276,6 @@ unset conf;
 #
 ################################################################################
 
-#****** Cygport/Installing
-#  NOTE
-#  In the context of cygport, "installing" always means into the DESTDIR $D.
-#  However, the syntax of the convenience functions is as if one were
-#  installing to the system.
-#****
-
 #****** Cygport/Postinstall
 #****
 
