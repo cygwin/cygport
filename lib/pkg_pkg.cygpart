@@ -20,6 +20,18 @@
 #
 ################################################################################
 
+#****** Chapter 12/Packaging
+#  INTRODUCTION
+#  In most cases, only one binary package is created from a source package,
+#  including all files installed into $D.  This is the default, and if
+#  this applies to your package, the rest of this section is irrelevant.
+#
+#  However, there are many cases -- often with library packages -- that it
+#  is desirable to create multiple binary packages from one source.
+#  cygport makes that very easy, by defining the variables described in this
+#  section.
+#****
+
 __pkg_binpkg() {
 	local -i n=0;
 	local pkg_contents;
