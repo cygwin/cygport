@@ -221,9 +221,6 @@ fi
 #
 ################################################################################
 
-#****** Cygport/Configuration
-#****
-
 #****** Cygport/Format
 #  INTRODUCTION
 #  If the .cygport file defines NAME, VERSION, and RELEASE, the filename may
