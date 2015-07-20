@@ -78,6 +78,7 @@ __list_deps() {
 	local tcgcclibdir tcgccsysroot
 	local dlltool="dlltool"
 	local os_path="${PATH}"
+	local deps_prune
 
 	# if file list is empty, there are obviously no dependencies
 	(( $# > 0 )) || return 0
@@ -112,6 +113,11 @@ __list_deps() {
 		then
 			PATH+="${D}${CROSS_SYSROOT}${d}:${CROSS_SYSROOT}${d}:"
 		fi
+	done
+
+	for d in ${REQUIRES_EXCLUDE_FROM//:/ }
+	do
+		deps_prune+=" -o -path ${d#/} -prune"
 	done
 
 	if inherited toolchain
@@ -168,6 +174,7 @@ __list_deps() {
 
 	# shebang script interpreters
 	alldeps+=" "$(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+			${deps_prune} \
 			-o -path 'usr/share/gems/*' -prune \
 			-o -path 'usr/share/help/*' -prune \
 			-o -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' -print \
@@ -289,6 +296,7 @@ __list_deps() {
 		luapaths=($(lua -e 'print(package.path..";"..package.cpath)' | tr '\;' ' '))
 		luapaths+=" ${DEPS_PATH//:/ }"
 		for luadep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+				${deps_prune} \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.lua' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*lua' '{}' + \
@@ -338,6 +346,7 @@ __list_deps() {
 		pldirs=($(perl -e 'print join(" ",@INC)'))
 		pldirs+=" ${DEPS_PATH//:/ }"
 		for pldep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+				${deps_prune} \
 				-o -path 'usr/share/help/*' -prune \
 				-o \( -name '*.pl' -o -name '*.pm' \) -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*perl.*' '{}' + \
@@ -359,6 +368,7 @@ __list_deps() {
 	then
 		phpmoddir=$(php-config  --extension-dir)
 		for phpdep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+				${deps_prune} \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.php' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*php*' '{}' + \
@@ -393,6 +403,7 @@ __list_deps() {
 		pyexts=$(python -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+				${deps_prune} \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python3.*' -prune \
 				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
 				-o -path 'usr/share/help/*' -prune \
@@ -424,6 +435,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		pyexts=$(pypy -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+				${deps_prune} \
 				-o -path 'usr/lib/python[23].*' -prune \
 				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
 				-o -path 'usr/share/help/*' -prune \
@@ -455,6 +467,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		pyexts=$(python3 -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+				${deps_prune} \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python2.*' -prune \
 				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
 				-o -path 'usr/share/help/*' -prune \
@@ -499,6 +512,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 			      | xargs -r sed -ne "s|.*add_runtime_dependency(%q<\([^>]*\)>.*|${gemspecdir}/\1-[0-9]*.gemspec|gp")
 
 		for rbdep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+				${deps_prune} \
 				-o -path 'usr/share/help/*' -prune \
 				-o -path "${gemdir#/}/*" -prune \
 				-o -name '*.rb' -print \
@@ -521,6 +535,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	fi
 
 	if [ $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+		${deps_prune} \
 		-o -path 'usr/share/help/*' -prune \
 		-o -type f -name '*.tcl' ! -name 'pkgIndex.tcl' -print \
 		-o -type f ! -name '*.*' -executable -exec grep -l '^\(#!.*\|exec \)\(tcl\|wi\)sh*' '{}' + \
@@ -528,6 +543,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	then
 		tclpkgs=$(find ${D} /usr/lib/*/ -type f -name 'pkgIndex.tcl')
 		for tcldep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+				${deps_prune} \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.tcl' ! -name 'pkgIndex.tcl' -print \
 				-o -type f ! -name '*.*' -executable -exec grep -l '^\(#!.*\|exec \)\(tcl\|wi\)sh*' '{}' + \
