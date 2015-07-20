@@ -20,6 +20,9 @@
 #
 ################################################################################
 
+#****** Chapter 5/Downloading
+#****
+
 #****v* Downloading/SRC_URI
 #  DESCRIPTION
 #  Download address(es) for the package source file(s), as a string.
@@ -44,10 +47,10 @@
 #  a default SRC_URI based on the values of PN and PV.
 #  SEE ALSO
 #  bzr.cygclass, cvs.cygclass, fossil.cygclass, git.cygclass, hg.cygclass,
-#  mtn.cygclass, svn.cygclass
+#  mtn.cygclass, svn.cygclass, Mirrors.
 #****
 
-#****v* Preparation/PATCH_URI
+#****v* Downloading/PATCH_URI
 #  DESCRIPTION
 #  Download address(es) for source patches which are to be applied immediately
 #  after unpacking sources, as a string.
