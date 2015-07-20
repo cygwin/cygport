@@ -8,7 +8,7 @@ Summary:        Cygwin package building tool
 License:        GPLv3+
 Group:          Development/Tools
 URL:            http://www.cygwinports.org
-Source0:        http://downloads.sourceforge.net/cygwin-ports/%{name}-%{version}.tar.xz
+Source0:        https://github.com/cygwinports/cygport/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 Requires:       autoconf automake libtool pkgconfig
