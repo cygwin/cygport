@@ -20,6 +20,9 @@
 #
 ################################################################################
 
+#****** Chapter 11/Postinstall
+#****
+
 #****P* Postinstall/ Fonts
 #  DESCRIPTION
 #  If fonts are installed into the standard font directory under $D, the

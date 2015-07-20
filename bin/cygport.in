@@ -276,9 +276,6 @@ unset conf;
 #
 ################################################################################
 
-#****** Cygport/Postinstall
-#****
-
 #****** Cygport/Packaging
 #  INTRODUCTION
 #  In most cases, only one binary package is created from a source package,
