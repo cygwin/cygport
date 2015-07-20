@@ -20,6 +20,9 @@
 #
 ################################################################################
 
+#****** Chapter 6/Preparation
+#****
+
 __cpio_gz_extract() {
 	check_prog_req cpio;
 	gzip -dc ${1} | cpio -midu --quiet;
