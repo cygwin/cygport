@@ -769,7 +769,7 @@ make_autostart_entry() {
 #    entire command must be quoted.
 #  * NAME: the application name to be shown in the menu.
 #  * ICON: (optional) the icon name, excluding the file extension.
-#  * CATEGORIES: (optional) a colon-separated list of categories and subcategories per
+#  * CATEGORIES: (optional) a semicolon-separated list of categories and subcategories per
 #    |html the <a href="http://standards.freedesktop.org/menu-spec/latest/apa.html">Desktop Menu Specification</a>.
 #  * COMMENT: (optional) description of the program
 #  * ADDITIONAL_FIELDS: (optional) additional menu entry fields per
