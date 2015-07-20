@@ -99,6 +99,10 @@ if inherited cross
 then
 	QT5_QTDIR=${CROSS_PREFIX}
 	QT5_QMAKE=/usr/bin/${CROSS_HOST}-qmake-qt5
+elif inherited toolchain
+then
+	QT5_QTDIR=${TOOLCHAIN_PREFIX}
+	QT5_QMAKE=/usr/bin/${TOOLCHAIN_TARGET}-qmake-qt5
 else
 	QT5_QTDIR=/usr/lib/qt5
 	QT5_QMAKE=/usr/bin/qmake-qt5
@@ -148,7 +152,10 @@ __qt5_qmakespec() {
 }
 
 QMAKESPEC=$(__qt5_qmakespec ${CBUILD})
-if cross_compiling
+if inherited toolchain
+then
+	XQMAKESPEC=$(__qt5_qmakespec ${CTARGET})
+elif cross_compiling
 then
 	XQMAKESPEC=$(__qt5_qmakespec ${CHOST})
 fi
