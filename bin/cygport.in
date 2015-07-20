@@ -87,19 +87,62 @@ source ${_privlibdir}/syntax.cygpart
 #  manager.
 #
 #  This manual is divided into the following chapters:
+#****
+
+#****-* Cygport/Chapter 1
+#  CHAPTER
 #  * Usage
+#****
+#****-* Cygport/Chapter 2
+#  CHAPTER
 #  * Configuration
+#****
+#****-* Cygport/Chapter 3
+#  CHAPTER
 #  * Format
+#****
+#****-* Cygport/Chapter 4
+#  CHAPTER
 #  * Information
+#****
+#****-* Cygport/Chapter 5
+#  CHAPTER
 #  * Downloading
+#****
+#****-* Cygport/Chapter 6
+#  CHAPTER
 #  * Preparation
+#****
+#****-* Cygport/Chapter 7
+#  CHAPTER
 #  * Checks
+#****
+#****-* Cygport/Chapter 8
+#  CHAPTER
 #  * Compiling
+#****
+#****-* Cygport/Chapter 9
+#  CHAPTER
 #  * Testing
+#****
+#****-* Cygport/Chapter 10
+#  CHAPTER
 #  * Installing
+#****
+#****-* Cygport/Chapter 11
+#  CHAPTER
 #  * Postinstall
+#****
+#****-* Cygport/Chapter 12
+#  CHAPTER
 #  * Packaging
+#****
+#****-* Cygport/Chapter 13
+#  CHAPTER
 #  * Uploading
+#****
+#****-* Cygport/Chapter 14
+#  CHAPTER
 #  * Cygclasses
 #****
 

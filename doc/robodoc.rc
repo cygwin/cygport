@@ -1,7 +1,6 @@
 options:
 	--documenttitle "Cygport Reference Manual"
 	--index
-	--masterindex "Index,index"
 	--nopre
 	--nosort
 	--no_subdirectories
@@ -13,6 +12,7 @@ items:
 	ARGUMENTS
 	AUTHOR
 	BUGS
+	CHAPTER
 	COMMANDS
 	DEFAULT MIRROR
 	DEFAULT VALUE
@@ -63,6 +63,7 @@ source items:
 	DEFINITION
 headertypes:
 	*  "Concepts" cygport_concepts
+	-  "Chapters" cygport_chapters
 	d  "Definitions" cygport_definitions
 	h  "Cygclasses" cygport_cygclasses
 	o  "Overloads" cygport_overloads
