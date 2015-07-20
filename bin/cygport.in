@@ -52,7 +52,7 @@ source ${_privlibdir}/syntax.cygpart
 #
 ################################################################################
 
-#****** Cygport/Title
+#****** Cygport/ Title
 #  OVERVIEW
 #  The Cygport Reference Manual documents cygport, a utility for creating and
 #  building software packages for the Cygwin platform.
@@ -67,8 +67,8 @@ source ${_privlibdir}/syntax.cygpart
 #  along with this manual. If not, see http://www.gnu.org/licenses/.
 #****
 
-#****** Cygport/Introduction
-#  INTRODUCTION
+#****** Cygport/ Introduction
+#  OVERVIEW
 #  cygport is a utility for creating and building software packages for the
 #  software platform.  It is designed to minimize the amount of code and
 #  effort for individual packages, automating common processes while leaving
@@ -146,9 +146,11 @@ source ${_privlibdir}/syntax.cygpart
 #  * Cygclasses
 #****
 
-#****** Cygport/Usage
+#****** Chapter 1/Usage
 #  USAGE
-#  See href:cygport.1.html for command line options.
+#  See
+#  |html <a href="cygport.1.html">the manpage</a>
+#  for command line options.
 #  REQUIRES
 #  The following packages are required to build packages with cygport:
 #   autoconf, automake, bash, binutils, bzip2, coreutils, diffstat, diffutils,
