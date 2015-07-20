@@ -24,8 +24,8 @@ doc/manual/toc_index.html: Makefile.in $(top_srcdir)/doc/robodoc.rc $(top_srcdir
 		cd $(top_srcdir) && \
 		$(ROBODOC) --src $(abs_top_srcdir) --doc $(abs_top_builddir)/doc/manual --rc $(abs_top_srcdir)/doc/robodoc.rc --html --multidoc
 
-doc/manual/index.html: doc/manual/toc_index.html
-	$(AM_V_at)(cd doc/manual && $(LN_S) -f toc_index.html index.html)
+doc/manual/index.html: doc/index.html doc/manual/toc_index.html
+	$(AM_V_at)cp -a $< $@
 
 install-manual:
 	$(MKDIR_P) $(DESTDIR)$(htmldir)/manual/
@@ -45,4 +45,5 @@ CLEANFILES += $(man_MANS)
 EXTRA_DIST += \
 	$(doc_DATA) \
 	$(man_MANS) \
+	doc/index.html \
 	doc/robodoc.rc
