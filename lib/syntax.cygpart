@@ -227,7 +227,7 @@ __host_prefix() {
 	# FIXME: certainly other exceptions exist?
 	case ${CHOST} in
 		*-*-mingw*)	prefix=${sysroot}/mingw ;;
-		avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|*-msdosdjgpp*|msp430|*-rdos*)
+		avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|mmix|*-msdosdjgpp*|msp430|*-rdos*)
 				prefix=${sysroot} ;;
 		*)		prefix=${sysroot}/usr ;;
 	esac
@@ -238,7 +238,7 @@ __host_prefix() {
 __host_is_embedded() {
 	local ret=1;
 	case ${CHOST} in
-	avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|*-msdosdjgpp*|msp430|*-rdos*)
+	avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|mmix|*-msdosdjgpp*|msp430|*-rdos*)
 		ret=0 ;;
 	esac
 	return ${ret}
@@ -250,7 +250,7 @@ __target_prefix() {
 	# FIXME: certainly other exceptions exist?
 	case ${CTARGET} in
 		*-*-mingw*)	prefix=/mingw ;;
-		avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|*-msdosdjgpp*|msp430|*-rdos*)
+		avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|mmix|*-msdosdjgpp*|msp430|*-rdos*)
 				prefix=/ ;;
 		*)		prefix=/usr ;;
 	esac
@@ -261,7 +261,7 @@ __target_prefix() {
 __target_is_embedded() {
 	local ret=1;
 	case ${CTARGET} in
-	avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|*-msdosdjgpp*|msp430|*-rdos*)
+	avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|mmix|*-msdosdjgpp*|msp430|*-rdos*)
 		ret=0 ;;
 	esac
 	return ${ret}
