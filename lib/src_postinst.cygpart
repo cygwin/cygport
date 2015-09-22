@@ -29,39 +29,40 @@
 #  following steps will occur automatically:
 #  * PCF fonts are gzip-compressed
 #  * Script(s) will be created to register the fonts with the X11 core font
-#    system and with fontconfig.
+#    system (where applicable) and with fontconfig.
 #  NOTE
-#  Packages including fonts must depend on the font-encodings, fontconfig,
-#  mkfontdir, and mkfontscale packages.
+#  Packages including fonts must depend on fontconfig.
 #****
 
 # these are called conditionally by __prepetc
 __prep_fonts_dir() {
-	fontsdir=/usr/share/fonts
+	local fontrootdir=/usr/share/fonts
+	local cataloguedir=/etc/X11/fontpath.d
+	local catalogue fontdir
 
-	find ${D}${fontsdir} -name '*.pcf' -exec gzip -q '{}' +
+	find ${D}${fontrootdir} -name '*.pcf' -exec gzip -q '{}' +
 
 	dodir /etc/postinstall
 
-	for d in $(find ${D}${fontsdir}/ -mindepth 1 -type d)
+	if [ -d ${D}${cataloguedir} ]
+	then
+		check_prog_req mkfontscale
+		check_prog_req mkfontdir
+
+		for catalogue in ${D}${cataloguedir}/*
+		do
+			fontdir=$(readlink -f ${catalogue})
+
+			mkfontscale ${D}${fontdir}
+			mkfontdir ${D}${fontdir}
+		done
+	fi
+
+	for d in $(find ${D}${fontrootdir}/ -mindepth 1 -type d)
 	do
-		fonttype=${d#${D}${fontsdir}/}
-		fontsubdir=${fontsdir}/${fonttype}
-
-		case ${fonttype} in
-		encodings|encodings/large|util) ;;
-		*)
-			rm -f ${D}${fontsubdir}/encodings.dir ${D}${fontsubdir}/fonts.{dir,scale}
-
-			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-				/usr/bin/rm -f ${fontsubdir}/encodings.dir ${fontsubdir}/fonts.{dir,scale}
-				/usr/bin/mkfontscale ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/fonts.scale
-				/usr/bin/mkfontdir -e ${fontsdir}/encodings -e ${fontsdir}/encodings/large ${fontsubdir} || /usr/bin/rm -f ${fontsubdir}/{encodings,fonts}.dir
-				/usr/bin/fc-cache -f ${fontsubdir}
-
-			_EOF
-		;;
-		esac
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			/usr/bin/fc-cache ${d#${D}}
+		_EOF
 	done
 }
 
