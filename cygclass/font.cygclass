@@ -83,6 +83,27 @@ sfd2ttf() {
 	done
 }
 
+#****C* font.cygclass/sfd2otf
+#  SYNOPSIS
+#  sfd2otf SFD_FILE[S] ...
+#  DESCRIPTION
+#  Creates OpenType Font (OTF) files and a sample page in PDF format from
+#  FontForge Spline Font Database (SFD) sources.
+#****
+sfd2otf() {
+	local f
+
+	check_prog_req fontforge
+
+	for f in $@
+	do
+		[ -e $f ] || error "sfd2otf: $f: File not found"
+		echo -n "Converting ${f##*/} to OTF... "
+		fontforge -lang=ff -c 'Open($1);Generate($fontname+".otf","otf");PrintSetup(5);PrintFont(0,0,"",$fontname+"-sample.pdf");Close()' $f &> /dev/null || error "fontforge: $f: Generate failed"
+		echo "Done."
+	done
+}
+
 #****I* font.cygclass/fontinto
 #  SYNOPSIS
 #  fontinto SUBDIR
@@ -191,4 +212,4 @@ newfontconf() {
 	dosym /usr/share/fontconfig/conf.avail/${2} /etc/fonts/conf.d/${2}
 }
 
-readonly -f sfd2ttf fontinto dofont dofontconf newfontconf
+readonly -f sfd2ttf sfd2otf fontinto dofont dofontconf newfontconf
