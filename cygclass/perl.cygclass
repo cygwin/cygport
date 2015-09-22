@@ -191,11 +191,11 @@ fi	# defined CPAN_AUTHOR
 perl_compile() {
 	if [ -e Build.PL ]
 	then
-		${PERL} Build.PL --installdirs=vendor ${@} || error "Module::Build creation failed"
+		${PERL} Build.PL --installdirs=vendor "${@}" || error "Module::Build creation failed"
 		${PERL} Build || error "Module::Build build failed"
 	elif [ -e Makefile.PL ]
 	then
-		${PERL} Makefile.PL ${@} PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
+		${PERL} Makefile.PL "${@}" PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
 		cygmake all manifypods OPTIMIZE="${CFLAGS}"
 	else
 		error "No Perl module detected"
@@ -232,7 +232,7 @@ perl_test() {
 perl_install() {
 	if [ -f Build ]
 	then
-		${PERL} Build install --destdir=${D} ${@} || error "Module::Build install failed"
+		${PERL} Build install --destdir=${D} "${@}" || error "Module::Build install failed"
 	elif [ -f Makefile ]
 	then
 		cyginstall ${@}
