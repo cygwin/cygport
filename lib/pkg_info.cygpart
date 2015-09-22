@@ -405,6 +405,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				${deps_prune} \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python3.*' -prune \
+				-o -path 'usr/lib/python*/site-packages/gi/overrides/*' -prune \
 				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.py' ! -executable -print \
@@ -469,6 +470,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				${deps_prune} \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python2.*' -prune \
+				-o -path 'usr/lib/python*/site-packages/gi/overrides/*' -prune \
 				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.py' ! -executable -print \
