@@ -66,8 +66,8 @@ FONTSDIR="/usr/share/fonts"
 #  SYNOPSIS
 #  sfd2ttf SFD_FILE[S] ...
 #  DESCRIPTION
-#  Creates TrueType Font (TTF) files from FontForge Spline Font Database
-#  (SFD) sources.
+#  Creates TrueType Font (TTF) files and a sample page in PDF format from
+#  FontForge Spline Font Database (SFD) sources.
 #****
 sfd2ttf() {
 	local f
@@ -78,7 +78,7 @@ sfd2ttf() {
 	do
 		[ -e $f ] || error "sfd2ttf: $f: File not found"
 		echo -n "Converting ${f##*/} to TTF... "
-		fontforge -lang=ff -c 'Open($1);Generate($fontname+".ttf","ttf")' $f &> /dev/null || error "fontforge: $f: Generate failed"
+		fontforge -lang=ff -c 'Open($1);Generate($fontname+".ttf","ttf");PrintSetup(5);PrintFont(0,0,"",$fontname+"-sample.pdf");Close()' $f &> /dev/null || error "fontforge: $f: Generate failed"
 		echo "Done."
 	done
 }
