@@ -27,10 +27,9 @@
 #  will be found by the X server (for Xaw/Motif applications) and fontconfig
 #  (used by most modern GUI toolkits).
 #  EXAMPLE
-#    ORIG_PN="cantarell-fonts"
 #    inherit gnome.org font
 #    
-#    NAME="font-cantarell-otf"
+#    NAME="cantarell-fonts"
 #    VERSION=0.0.12
 #    RELEASE=1
 #    CATEGORY="X11"
@@ -44,7 +43,7 @@
 #    
 #    src_install() {
 #      cd ${S}
-#      fontinto OTF
+#      fontinto cantarell
 #      dofont otf/*.otf
 #      
 #      dofontconf fontconfig/*.conf
