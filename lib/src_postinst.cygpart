@@ -938,7 +938,7 @@ __prepstrip() {
 		esac
 
 		case "${exe}" in
-		usr/*/lib*/lib*|usr/*/sys-root/*)
+		usr/*/lib*/*.[ao]|usr/*/sys-root/*)
 			tmpvar="${exe#usr/}"
 			arch_tree="${tmpvar%%/*}"
 			;;
