@@ -17,7 +17,8 @@ DEPEND="groff help2man robodoc"
 # runtime deps to go in setup.hint, and note the escaped newline
 REQUIRES="autoconf automake binutils bzip2 coreutils diffstat diffutils \
 dos2unix findutils file gawk gcc-core gcc-g++ grep gzip lftp libtool lndir \
-make openssh patch rsync sed tar texinfo unzip util-linux wget which xz"
+make openssh patch perl-Authen-SASL perl-MIME-tools perl-Net-SMTP-SSL rsync \
+sed tar texinfo unzip util-linux wget which xz"
 
 # We use the standard src_compile and src_test.
 

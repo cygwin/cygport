@@ -32,6 +32,9 @@ Requires:       lftp
 Requires:       make
 Requires:       openssh
 Requires:       patch
+Requires:       perl(Authen::SASL)
+Requires:       perl(MIME::Parser)
+Requires:       perl(Net::SMTP::SSL)
 Requires:       rsync
 Requires:       shared-mime-info
 Requires:       util-linux
