@@ -44,8 +44,16 @@
 #  Once those things are done, running
 #  |html <tt>cygport upload</tt> (or <tt>cygport up</tt> for short)
 #  will upload your finished packages to the package archive on cygwin.com.
-#  From there, if everything goes well, the new files should appear on your
-#  local Cygwin mirror within about 12 hours.
+#  After confirming that your package was successfully uploaded and merged
+#  into the distribution, you should send an announcement email to
+#  |html <tt>&lt;cygwin-announce AT cygwin.com&gt;</tt>
+#  with information about your package and the changes therein.  The
+#  |html <tt>cygport announce</tt> command will create a template announcement,
+#  to which you can add release-specific details, and then send the email
+#  if an SMTP server is configured.
+#  SEE ALSO
+#  SSH_KEY, EDITOR, SMTP_SENDER, SMTP_SERVER, SMTP_SERVER_PORT, SMTP_ENCRYPTION,
+#  SMTP_USER, SMTP_PASS.
 #****
 
 __pkg_upload() {
@@ -157,5 +165,77 @@ __pkg_upload() {
 	echo "Upload complete."
 }
 
+__pkg_announce() {
+	local msg=$(mktemp -t cygwin-announce-${PF}.XXXXXX)
+	local -i n=0
+
+	cat > ${msg} <<_EOF
+From cygwin-announce-${PF} $(date '+%a %b %d %H:%M:%S %Y')
+From: ${SMTP_SENDER}
+To: cygwin-announce@cygwin.com
+Date: $(date -R)
+Subject: ${NAME} ${PVR}
+
+The following packages have been uploaded to the Cygwin distribution:
+
+_EOF
+
+	while (( n < pkg_count ))
+	do
+		echo "* ${pkg_name[$n]}-${PVR}" >> ${msg}
+		let n+=1
+	done
+
+	cat >> ${msg} <<_EOF
+
+${DESCRIPTION}
+_EOF
+
+	${EDITOR:-vi} $msg || error "Editor exited abormally, aborting annoucement"
+
+	perl <(cat <<EOF
+use strict;
+use MIME::Parser;
+use Net::SMTP;
+
+my \$smtp_server = "${SMTP_SERVER:-localhost}";
+my \$smtp_encryption = "${SMTP_ENCRYPTION:-none}";
+my \$smtp_user${SMTP_USER+ = '$SMTP_USER'};
+my \$smtp_pass${SMTP_PASS+ = '$SMTP_PASS'};
+
+my \$parser = new MIME::Parser;
+\$parser->output_to_core(1);
+my \$entity = \$parser->parse_open("$msg");
+
+print "Sending announcement of ${NAME}-${PVR} via \$smtp_server\n";
+
+my \$smtp = new Net::SMTP(\$smtp_server,
+			  ${SMTP_SERVER_PORT+Port => ${SMTP_SERVER_PORT},}
+			  SSL => \$smtp_encryption eq 'ssl')
+	 or die "No mailserver at ".\$smtp_server;
+if (\$smtp_encryption eq 'tls') {
+	require Net::SMTP::SSL;
+	\$smtp->command('STARTTLS');
+	\$smtp->response();
+	\$smtp->code == 220 or die "$server does not support STARTTLS";
+	\$smtp = Net::SMTP::SSL->start_SSL(\$smtp) or die "STARTTLS failed";
+	\$smtp->hello(\$smtp_server);
+}
+if (defined \$smtp_user) {
+	use Authen::SASL qw(Perl);
+	\$smtp->auth(\$smtp_user, \$smtp_pass)
+		or die "unable to set username and password";
+}
+\$smtp->mail(\$entity->head->get('From')) or die "unable to set sender";
+\$smtp->to(\$entity->head->get('To')) or die "unable to address message";
+\$smtp->data() or die "unable to start data send";
+\$smtp->datasend(\$entity->as_string()) or die "Message send failed";
+\$smtp->dataend() or die "Message end failed";
+\$smtp->quit();
+print "Announcement sent\n";
+EOF
+) && rm $msg || error "Sending announcement failed, mbox is $msg"
+}
+
 # protect functions
-readonly -f __pkg_upload
+readonly -f __pkg_upload __pkg_announce

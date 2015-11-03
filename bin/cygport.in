@@ -615,6 +615,11 @@ do
 			(__pkg_upload) 2>&1 | tee -a ${uploadlog};
 			_status=$?;
 			;;
+		announce)
+			__stage "Preparing announcement";
+			__pkg_announce;
+			_status=$?;
+			;;
 		clean|finish)
 			__finish;
 			_status=$?;

@@ -47,6 +47,7 @@ __show_help() {
 		  install      install into a DESTDIR, and run post-installation steps
 		  package      create binary and source packages
 		  upload       upload finished packages to cygwin.com
+		  announce     send an announcement email to cygwin.com
 		  finish       delete the working directory
 		  all          run all of the above, excluding finish
 
