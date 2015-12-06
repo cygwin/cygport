@@ -178,7 +178,7 @@ __list_deps() {
 			-o -path 'usr/share/gems/*' -prune \
 			-o -path 'usr/share/help/*' -prune \
 			-o -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' -print \
-			| xargs -r sed -n -e '/^#!/s|/env *|/|g;s|^#! *\([^ ]*\).*|\1|gp' \
+			| xargs -r sed -n -e '1{/^#!/s|/env *|/|g;s|^#! *\([^ ]*\).*|\1|gp}' \
 			| sort -u)
 
 	# implib devel->dll subpackage dependencies
@@ -299,7 +299,7 @@ __list_deps() {
 				${deps_prune} \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.lua' -print \
-				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*lua' '{}' + \
+				-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*lua/F}' '{}' + \
 				| xargs -r sed -ne "s|^[^#]*require[( ]*['\"]\([^'\"]*\)['\"].*|\1|gp" \
 				| sort -u)
 		do
@@ -349,7 +349,7 @@ __list_deps() {
 				${deps_prune} \
 				-o -path 'usr/share/help/*' -prune \
 				-o \( -name '*.pl' -o -name '*.pm' \) -print \
-				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*perl.*' '{}' + \
+				-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*perl.*/F}' '{}' + \
 				| xargs -r sed -ne "s/^[^#]*use \(base\|parent\) ['\"]*\(qw( *\)*\([A-Z][^-)'\";]*\).*/\3/gp;s/^[^#]*\(use\|require\) ['\"]*\([A-Z][^ '\";]*\).*/\2/gp" \
 				| sort -u)
 		do
@@ -371,7 +371,7 @@ __list_deps() {
 				${deps_prune} \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.php' -print \
-				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*php*' '{}' + \
+				-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*php*/F}' '{}' + \
 				| xargs -r sed -ne "s/^ *\(include\|require\)\(_once\)* '\([^'\"]*\).*\;/\3/gp;s/.*loadExtension *( *[^$]\([^)'\"]*\).*/\1.dll/gp" \
 				| sort -u)
 		do
@@ -409,8 +409,8 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.py' ! -executable -print \
-				-o -name '*.py' -executable -exec grep -l '^#!.*python\([^3]\|$\)' '{}' + \
-				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python\([^3]\|$\)' '{}' + \
+				-o -name '*.py' -executable -exec sed -sne '1{/^#!.*python\([^3]\|$\)/F}' '{}' + \
+				-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*python\([^3]\|$\)/F}' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
 				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
 				| sort -u)
@@ -441,8 +441,8 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.py' ! -executable -print \
-				-o -name '*.py' -executable -exec grep -l '^#!.*pypy' '{}' + \
-				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*pypy' '{}' + \
+				-o -name '*.py' -executable -exec sed -sne '1{/^#!.*pypy/F}' '{}' + \
+				-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*pypy/F}' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
 				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
 				| sort -u)
@@ -474,8 +474,8 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.py' ! -executable -print \
-				-o -name '*.py' -executable -exec grep -l '^#!.*python3' '{}' + \
-				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*python3' '{}' + \
+				-o -name '*.py' -executable -exec sed -sne '1{/^#!.*python3/F}' '{}' + \
+				-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*python3/F}' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
 				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
 				| sort -u)
@@ -518,7 +518,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				-o -path 'usr/share/help/*' -prune \
 				-o -path "${gemdir#/}/*" -prune \
 				-o -name '*.rb' -print \
-				-o -type f ! -name '*.*' -executable -exec grep -l '^#!.*ruby' '{}' + \
+				-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*ruby/F}' '{}' + \
 				| xargs -r sed -ne "s|^[^#]*require ['\"]\([^'\"]*\)['\"].*|\1|gp" \
 				| sort -u)
 		do
@@ -540,7 +540,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		${deps_prune} \
 		-o -path 'usr/share/help/*' -prune \
 		-o -type f -name '*.tcl' ! -name 'pkgIndex.tcl' -print \
-		-o -type f ! -name '*.*' -executable -exec grep -l '^\(#!.*\|exec \)\(tcl\|wi\)sh*' '{}' + \
+		-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*\(tcl\|wi\)sh*/F};1,5{/^[[:space:]]*exec[[:space:]]\+\(tcl\|wi\)sh*/F}' '{}' + \
 		| wc -l) -gt 0 ]
 	then
 		tclpkgs=$(find ${D} /usr/lib/*/ -type f -name 'pkgIndex.tcl')
@@ -548,7 +548,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				${deps_prune} \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.tcl' ! -name 'pkgIndex.tcl' -print \
-				-o -type f ! -name '*.*' -executable -exec grep -l '^\(#!.*\|exec \)\(tcl\|wi\)sh*' '{}' + \
+				-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*\(tcl\|wi\)sh*/F};1,5{/^[[:space:]]*exec[[:space:]]\+\(tcl\|wi\)sh*/F}' '{}' + \
 				| xargs -r sed -n -e 's|^[^#]*package require \([^ }]*\).*|\1|gp' \
 				| sort -u)
 		do
