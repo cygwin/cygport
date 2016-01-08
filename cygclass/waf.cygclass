@@ -23,60 +23,32 @@
 
 #****h* Cygclasses/waf.cygclass
 #  SYNOPSIS
-#  [WAF_USE_BUNDLED=1]
 #  inherit waf
 #  DESCRIPTION
 #  Waf is a general-purpose build system written in Python used by XMMS2, a
-#  few GTK+ programs, and some other projects.  The build system is defined
+#  few GTK+ programs, and some other projects.  The build system is provided
+#  by a bundled 'waf' script in the top source directory, and is driven
 #  by a 'wscript' file in the top source directory and 'wscript_build' files
 #  in subdirectories, both of which are also written in Python.
-#
-#  Waf is designed to create a completely self-sufficient package, with the
-#  waf command and library shipped together with the sources.  The issue with
-#  that is only a recent of Waf will correctly build libraries on Cygwin, and
-#  patches may be required.  Therefore, this cygclass can use a (patched)
-#  system-installed waf command to drive the build instead if the bundled copy
-#  does not work.
 #  NOTE
-#  Packages which ship with very old versions of Waf may not be compatible
-#  with the current Waf API.  In that case, if the bundled waf does not work,
-#  you will need to patch 'wscript' and/or 'wscript_build' for the API provided
-#  by the system-installed copy.  A link to the Waf Book and API documentation
-#  can be found on the
-#  |html <a href="http://code.google.com/p/waf/">Waf project page</a>.
+#  Previous versions uses to allow use of a system installed waf.  This is no
+#  longer supported, as waf does not have a stable API and is therefore not
+#  feasibly used in this way.  Fortunately, by now most packages do include
+#  a recent enough waf to build properly with at most only patches to 'wscript'
+#  and/or 'wscript_build' files.
 #  REQUIRES
-#  python, waf
+#  python
 #****
 
 # cross-compiling is not (yet?) supported
 __cross_compiling_error
 
-#****v* waf.cygclass/WAF_USE_BUNDLED
-#  SYNOPSIS
-#  WAF_USE_BUNDLED=1
-#  inherit waf
-#  DESCRIPTION
-#  Define this variable prior to inherit()ing waf.cygclass in order to use the
-#  copy of Waf bundled in the sources.
-#****
-
 #****d* waf.cygclass/WAF
 #  DESCRIPTION
 #  Path to the Waf command.
 #****
-WAF="/usr/bin/waf"
+WAF="./waf"
 
-if defined WAF_USE_BUNDLED
-then
-	inform "Using bundled waf"
-	WAF="./waf"
-else
-	inform "Using system waf"
-	if [ ! -x ${WAF} ]
-	then
-		error "waf must be installed in order to build this package"
-	fi
-fi
 
 #****C* waf.cygclass/waf_compile
 #  SYNOPSIS
