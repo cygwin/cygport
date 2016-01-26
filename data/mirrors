@@ -287,17 +287,17 @@ mirror_mysql+="
 
 #****d* Mirrors/mirror_portage
 #  DESCRIPTION
-#  Gentoo Linux Portage tree (via ViewCVS)
+#  Gentoo Linux Portage tree (via GitWeb)
 #  SYNOPSIS
 #  PATCH_URI="mirror://portage/cat-egory/packagename/files/${P}-whatever.patch"
 #  DEFAULT MIRROR
-#  http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86
+#  https://gitweb.gentoo.org/repo/gentoo.git/plain
 #  MIRROR LIST
 #  None
 #  SEE ALSO
 #  mirror_gentoo
 #****
-mirror_portage+=" http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86"
+mirror_portage+=" https://gitweb.gentoo.org/repo/gentoo.git/plain"
 
 
 #****d* Mirrors/mirror_rubyforge
