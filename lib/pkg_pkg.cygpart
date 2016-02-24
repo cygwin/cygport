@@ -690,7 +690,7 @@ __pkg_dist() {
 			if [ "${CBUILD##*-}" = "cygwin" ]
 			then
 				pkg_bin_requires=$(__list_deps $(sort -fu ${T}/.${pkg_name[${n}]}.lst | sed -e '\|/$|d;s| |^_^|g') \
-						   | sort -fu | sed -e "/^cygwin-1/d;/^${pkg_name[${n}]}-[0-9].*$/d;s/-[0-9].*$//g" \
+						   | sort -fu | sed -e "/^${pkg_name[${n}]}-[0-9].*$/d;s/-[0-9].*$//g" \
 						   | sed -e ':a;N;$!ba;s/\n/ /g')
 				__step "${pkg_name[${n}]} requires: ${pkg_bin_requires} ${!pkg_requires_var}"
 			else
