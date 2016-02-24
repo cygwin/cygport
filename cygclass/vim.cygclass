@@ -27,11 +27,7 @@
 #  own Vimscript language.
 #
 #  This cygclass includes functions for installing Vim scripts.
-#  REQUIRES
-#  vim
 #****
-
-check_prog_req vim
 
 #****d* vim.cygclass/VIM
 #  DESCRIPTION
@@ -40,14 +36,6 @@ check_prog_req vim
 #  This is NOT the path to the Vim editor.
 #****
 VIM="/usr/share/vim"
-
-#****d* vim.cygclass/VIMRUNTIME
-#  DESCRIPTION
-#  Directory containing scripts shipped with the Vim editor.
-#  NOTE
-#  Third-party Vim scripts should not be installed here; use VIMFILES instead.
-#****
-VIMRUNTIME=$(/usr/bin/vim -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIMRUNTIME|quit' | tr -d '\015')
 
 #****d* vim.cygclass/VIMFILES
 #  DESCRIPTION
