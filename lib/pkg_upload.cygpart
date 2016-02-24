@@ -58,6 +58,11 @@ __pkg_upload() {
 	local -i n=0
 	local -a pkg_files
 
+	if defined _CYGPORT_RESTRICT_upload_
+	then
+		error "Package ${NAME} may not be uploaded"
+	fi
+
 	cd "${distdir}"
 
 	# Check that binary and source package files exist

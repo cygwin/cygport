@@ -1446,10 +1446,12 @@ __prep_libtool_modules() {
 #  * postinst-gconf: do not create postinstall commands for GConf schemas.
 #  * postinst-mateconf: do not create postinstall commands for MATEConf schemas.
 #  * strip: do not strip binaries.
+#  * upload: do not allow uploading binary packages to cygwin.com.
 #  Of these, "diff" is the only one that should be considered useful, e.g.
 #  with very large data-only packages which will have no useful diff.
 #  "debuginfo" is useful on a temporary, per-build basis to debug a package
-#  in the build tree (e.g. a noinst test package).
+#  in the build tree (e.g. a noinst test package).  "upload" makes it safer
+#  for cygport to be used for building private packages.
 #
 #  If you find yourself using any of the others to work around cygport's
 #  default behaviour, in all likelyhood it is either a bug in cygport or in
