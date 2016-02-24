@@ -933,21 +933,6 @@ __prepstrip() {
 			continue
 		fi
 
-		# OCaml bytecode must not be stripped
-		# Magic number is at end of file:
-		# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=256900#74
-		# http://cygwin.com/ml/cygwin-apps/2010-10/msg00057.html
-		case $(tail -c 12 "${exe}") in
-			Caml1999X0[0-9][0-9])  continue ;;
-		esac
-
-		# Perl Archive (PAR) binaries must not be stripped
-		# https://rt.cpan.org/Public/Bug/Display.html?id=18536
-		# http://cygwin.com/ml/cygwin-apps/2012-07/msg00088.html
-		case $(tail -c 8 "${exe}" | tr '\012' '%') in
-			%PAR\.pm%)  continue ;;
-		esac
-
 		case "${exe}" in
 		usr/*/lib*/*.[ao]|usr/*/sys-root/*)
 			tmpvar="${exe#usr/}"
@@ -1042,6 +1027,21 @@ __prepstrip() {
 				fi ;;
 			esac
 			;;
+		esac
+
+		# OCaml bytecode must not be stripped
+		# Magic number is at end of file:
+		# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=256900#74
+		# http://cygwin.com/ml/cygwin-apps/2010-10/msg00057.html
+		case $(tail -c 12 "${exe}") in
+			Caml1999X0[0-9][0-9])  continue ;;
+		esac
+
+		# Perl Archive (PAR) binaries must not be stripped
+		# https://rt.cpan.org/Public/Bug/Display.html?id=18536
+		# http://cygwin.com/ml/cygwin-apps/2012-07/msg00088.html
+		case $(tail -c 8 "${exe}" | tr '\012' '%') in
+			%PAR\.pm%)  continue ;;
 		esac
 
 		echo "        ${exe}";
