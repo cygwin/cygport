@@ -2,7 +2,7 @@
 #
 # src_postinst.cygpart - cygport source post-installation functions
 #
-# Copyright (C) 2006-2015 Yaakov Selkowitz
+# Copyright (C) 2006-2016 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify

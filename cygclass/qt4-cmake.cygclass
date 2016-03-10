@@ -3,7 +3,7 @@
 # qt4-cmake.cygclass - functions for building CMake-based Qt4 packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006-2015 Yaakov Selkowitz
+# Copyright (C) 2006-2016 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
