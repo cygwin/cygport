@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.20.2
+Version:        0.21.0
 Release:        1%{?dist}
 Summary:        Cygwin package building tool
 
@@ -84,6 +84,9 @@ install -D -m0644 data/cygport.conf $RPM_BUILD_ROOT%{_sysconfdir}/cygport.conf
 
 
 %changelog
+* Thu Mar 10 2015 Yaakov Selkowitz <yselkowitz@cygwin.com> - 0.21.0-1
+- new version
+
 * Mon Jul 20 2015 Yaakov Selkowitz <yselkowitz@cygwin.com> - 0.20.2-1
 - new version
 

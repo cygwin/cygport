@@ -1,3 +1,15 @@
+0.21.0:
+	* New 'announce' command for composing cygwin-announce messages
+	* Dropped postinstall script dependencies for packages with
+	  fonts, XDG desktop menu entries, MIME info, GIO modules, and/or
+	  GSettings schemas; all replaced by perpetual postinstalls.
+	* Improved pkg-config dependencies
+	* Various cross-compiling improvements
+	* font: new sfd2ttf and sfd2otf functions
+	* texlive: updated for changes in TeX Live 2015
+	* vim: drop build-time dependency
+	* waf: drop support for system waf
+
 0.20.2:
 	* Moved hosting to GitHub.
 	* Reorganized documentation into multidoc form.
