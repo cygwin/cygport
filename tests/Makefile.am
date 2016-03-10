@@ -12,4 +12,4 @@ CLEANFILES += \
 	tests/$(PACKAGE)-$(VERSION).tar.xz
 
 clean-local:
-	-rm -fr tests/$(PACKAGE)/ tests/$(PACKAGE)-$(VERSION)-1/
+	-rm -fr tests/$(PACKAGE).cygport tests/$(PACKAGE)-$(VERSION)-1.noarch/

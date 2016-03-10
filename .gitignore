@@ -17,6 +17,9 @@ cygport-*.tar.xz
 cygport-inplace
 doc/manual/
 
+/tests/cygport.cygport
+/tests/cygport-*.noarch/
+
 patches
 *.orig
 *.rej
