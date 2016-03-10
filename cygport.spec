@@ -36,7 +36,6 @@ Requires:       perl(Authen::SASL)
 Requires:       perl(MIME::Parser)
 Requires:       perl(Net::SMTP::SSL)
 Requires:       rsync
-Requires:       shared-mime-info
 Requires:       util-linux
 Requires:       vim-filesystem
 Requires:       wget
@@ -64,11 +63,17 @@ install -D -m0644 data/cygport.conf $RPM_BUILD_ROOT%{_sysconfdir}/cygport.conf
 
 
 %post
-/usr/bin/update-mime-database ${_datadir}/mime &> /dev/null || :
+/bin/touch --no-create %{_datadir}/mime/packages &>/dev/null || :
 
 
 %postun
-/usr/bin/update-mime-database ${_datadir}/mime &> /dev/null || :
+if [ $1 -eq 0 ] ; then
+  /usr/bin/update-mime-database %{_datadir}/mime &> /dev/null || :
+fi
+
+
+%posttrans
+/usr/bin/update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %files
