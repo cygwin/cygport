@@ -50,9 +50,8 @@
 #    }
 #  NOTE
 #  Regardless of the usage of font.cygclass, cygport will compress all
-#  bitmap fonts (.pcf) and create postinstall scripts for all fonts
-#  installed in FONTSDIR in order to register them with the X server and
-#  fontconfig.
+#  bitmap fonts (.pcf) and create the files required for fonts which are
+#  registered with the X server font catalogue.
 #****
 
 #****d* font.cygclass/FONTSDIR
