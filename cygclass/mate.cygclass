@@ -226,8 +226,6 @@ mate_autoreconf() {
 #  DESCRIPTION
 #  Calls cygconf with the following options:
 #  * --enable-gtk-doc: create and install API docs (native builds only)
-#  * --disable-schemas-install: MateConf schemas are still installed, but are
-#    registered with postinstall and preremove scripts
 #  * --disable-scrollkeeper: Scrollkeeper is obsolete
 #  All arguments to mate_configure are passed to cygconf as configure flags.
 #****
@@ -246,7 +244,6 @@ mate_configure() {
 
 	cygconf \
 		${gtk_doc} \
-		--disable-schemas-install \
 		--disable-scrollkeeper \
 		"${@}"
 }

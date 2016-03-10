@@ -238,42 +238,6 @@ __prep_gtk_icon_theme() {
 	done
 }
 
-#****P* Postinstall/MATEConf Schemas
-#  DESCRIPTION
-#  Package postinstall and preremove scripts will be automatically generated
-#  to un/register MATEConf schemas into the system MATEConf database.
-#  NOTE
-#  Packages providing MATEConf schemas must require the mate-conf package.
-#  SEE ALSO
-#  RESTRICT
-#****
-
-__prep_mateconf_schemas() {
-	dodir /etc/postinstall /etc/preremove
-
-	cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-		export MATECONF_CONFIG_SOURCE="$(mateconftool-2 --get-default-source)"
-	_EOF
-
-	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-		export MATECONF_CONFIG_SOURCE="$(mateconftool-2 --get-default-source)"
-	_EOF
-
-	for schema in ${D}/etc/mateconf/schemas/*.schemas
-	do
-		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			/usr/bin/mateconftool-2 --makefile-install-rule /etc/mateconf/schemas/${schema##*/} > /dev/null 2>&1
-		_EOF
-
-		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
-			/usr/bin/mateconftool-2 --makefile-uninstall-rule /etc/mateconf/schemas/${schema##*/} > /dev/null 2>&1
-		_EOF
-	done
-
-	echo >> ${D}/etc/postinstall/${PN}.sh
-	echo >> ${D}/etc/preremove/${PN}.sh
-}
-
 #****P* Postinstall/TeX Live
 #  DESCRIPTION
 #  Package postinstall and preremove scripts will be automatically generated
@@ -624,12 +588,6 @@ __prepetc() {
 	if [ -d ${D}${CROSS_PREFIX-/usr}/share/glib-2.0/schemas ]
 	then
 		__prep_gsettings_schemas || error "GSettings schemas postinstall failed"
-	fi
-
-	# MateConf schemas
-	if [ -d ${D}/etc/mateconf/schemas ] && ! defined _CYGPORT_RESTRICT_postinst_mateconf_
-	then
-		__prep_mateconf_schemas || error "MateConf schemas postinstall failed"
 	fi
 
 	# Freedesktop.org Shared Mime Info
@@ -1400,7 +1358,6 @@ __prep_libtool_modules() {
 #  * diff: do not generate a .src.patch file of changes made in $S.
 #  * postinst-doc: do not install standard documentation files.
 #  * postinst-gconf: do not create postinstall commands for GConf schemas.
-#  * postinst-mateconf: do not create postinstall commands for MATEConf schemas.
 #  * strip: do not strip binaries.
 #  * upload: do not allow uploading binary packages to cygwin.com.
 #  Of these, "diff" is the only one that should be considered useful, e.g.
@@ -1432,7 +1389,7 @@ __src_postinst() {
 readonly -f __prep_fonts_dir __prep_freedesktop_mime __prep_gconf_schemas \
             __prep_gsettings_schemas __prep_gio_modules __prep_gdk_pixbuf_modules \
             __prep_gtk2_modules __prep_gtk3_modules __prep_gtk_icon_theme \
-            __prep_mateconf_schemas __prep_texlive __prep_xsessions \
+            __prep_texlive __prep_xsessions \
             __prepdoc __prepemacs __prepetc __prepman __prepinfo __prepperl \
             __prepvargames __prep_empty_dirs \
             __prepstrip __prepdebugsrc __prep_symlinks \
