@@ -240,6 +240,7 @@ cygautoreconf() {
 	local ac_config_headers;
 	local ac_subdirs;
 	local ac_ver;
+	local autoreconf_args;
 	local auxdir;
 	local configure_ac;
 	local config_h;
@@ -307,6 +308,7 @@ cygautoreconf() {
 			then
 				__parse_aclocal_amflags $(grep '^ACLOCAL_AMFLAGS' Makefile.am | sed 's/=/ = /') | xargs -r mkdir -p
 			fi
+			grep '^[^\#]*AC_CONFIG_MACRO_DIR' ${sub_configure_ac} | sed -e "s!.*AC_CONFIG_MACRO_DIR(\[*\(.*\))!${d}/\1!g" -e 's!\]*!!g' | xargs -r mkdir -p
 
 			if [ ! -f ${d}/aclocal.m4 ] || $(head -n 1 ${d}/aclocal.m4 | grep -q 'generated.* by aclocal')
 			then
@@ -477,10 +479,6 @@ cygautoreconf() {
 			then
 				AUTOPOINT=${sysrootgtize}
 			fi
-			if [ -d ${sysrootaclocaldir} ]
-			then
-				ACLOCAL+=" -I ${sysrootaclocaldir}"
-			fi
 		fi
 
 		# libtool 2.2+ is incompatible with gettext before 0.17
@@ -525,7 +523,15 @@ cygautoreconf() {
 		;;
 	esac
 
-	autoreconf --force -i --verbose || error "autoreconf failed"
+	for d in ${sysrootaclocaldir} ${ACLOCAL_PATH//:/ }
+	do
+		if [ -d $d ]
+		then
+			autoreconf_args+=" -I $d"
+		fi
+	done
+
+	autoreconf --force -i --verbose ${autoreconf_args} || error "autoreconf failed"
 
 	for d in . ${ac_subdirs}
 	do
