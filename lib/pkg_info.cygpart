@@ -70,7 +70,7 @@ __list_debug_files() {
 
 __list_deps() {
 	local d f ext
-	local alldeps girdep jar jpkg ladep luadep luapaths pcdep pidep
+	local alldeps girdep jar jpkg ladep luadep luapaths pcdep pctgt pidep
 	local mldep mldir mllib
 	local phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
 	local gemdir gemextdir gemspecdir
@@ -201,6 +201,21 @@ __list_deps() {
 				break
 			fi
 		done
+	done
+
+	for pcdep in $(find "${@//^_^/ }" -type f -name '*.pc')
+	do
+		pctgt=
+		case $pcdep in
+		usr/lib/pkgconfig/*|usr/share/pkgconfig/*)
+			alldeps+=" /usr/bin/pkg-config"
+			;;
+		usr/*/sys-root/*/*/pkgconfig/*)
+			pctgt=${pcdep#usr/}
+			pctgt=${pctgt%%/*}
+			alldeps+=" /usr/bin/${pctgt}-pkg-config"
+			;;
+		esac
 	done
 
 	# pkg-config dependencies on other devel packages
