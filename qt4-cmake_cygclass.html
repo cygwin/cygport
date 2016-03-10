@@ -33,57 +33,57 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo328">qt4-cmake.cygclass</a></li>
+<li><a href="#robo323">qt4-cmake.cygclass</a></li>
 <ul>
-<li><a href="#robo329">qt4_cmake_compile</a></li>
-<li><a href="#robo330">src_compile (qt4-cmake)</a></li>
+<li><a href="#robo324">qt4_cmake_compile</a></li>
+<li><a href="#robo325">src_compile (qt4-cmake)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fqt42dcmake2ecygclass"></a>
-<a name="robo328"></a><h2>qt4-cmake.cygclass</h2>
+<a name="robo323"></a><h2>qt4-cmake.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo599">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> qt4-cmake
+<pre>  <a href="./inheritance_cygpart.html#robo650">inherit</a> qt4-cmake
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  This cygclass builds Qt4-based packages which use the CMake build system.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./cmake_cygclass.html#robo_top_of_doc">cmake.cygclass</a>, <a href="./qt4_cygclass.html#robo_top_of_doc">qt4.cygclass</a>
+<p>  <a href="./cmake_cygclass.html#robo875">cmake.cygclass</a>, <a href="./qt4_cygclass.html#robo_top_of_doc">qt4.cygclass</a>
 </p>
 
 <hr />
 <a name="qt42dcmake2ecygclass2fqt45fcmake5fcompile"></a>
-<a name="robo329"></a><h2>qt4_cmake_compile</h2>
+<a name="robo324"></a><h2>qt4_cmake_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo328">qt4-cmake.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo323">qt4-cmake.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  cd $<a href="./syntax_cygpart.html#robo100">B</a>
+<pre>  cd $<a href="./syntax_cygpart.html#robo98">B</a>
   <strong>qt4_cmake_compile</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Calls <a href="./cmake_cygclass.html#robo856">cygcmake</a> with options to tell CMake where the Qt4 development tools
+<p>  Calls <a href="./cmake_cygclass.html#robo876">cygcmake</a> with options to tell CMake where the Qt4 development tools
   are found, followed by cmake to compile the package.  Options, in the form
-  of -DVARIABLE=VALUE, are passed on to <a href="./cmake_cygclass.html#robo856">cygcmake</a>.
+  of -DVARIABLE=VALUE, are passed on to <a href="./cmake_cygclass.html#robo876">cygcmake</a>.
 </p>
 
 <hr />
 <a name="qt42dcmake2ecygclass2fsrc5fcompile2028qt42dcmake29"></a>
-<a name="robo330"></a><h2>src_compile (qt4-cmake)</h2>
+<a name="robo325"></a><h2>src_compile (qt4-cmake)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo328">qt4-cmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo323">qt4-cmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo194">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
-        <a href="#robo329">qt4_cmake_compile</a>
+<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
+        <a href="#robo324">qt4_cmake_compile</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/qt4-cmake.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 01:41:50
+<p>Generated from cygport/cygclass/qt4-cmake.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:19
 </p>
 </div> <!-- footer -->
 </body>

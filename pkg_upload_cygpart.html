@@ -33,13 +33,13 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo416">Uploading</a></li>
+<li><a href="#robo411">Uploading</a></li>
 </ul>
 <hr />
 <a name="Chapter20132fUploading"></a>
-<a name="robo416"></a><h2>Uploading</h2>
+<a name="robo411"></a><h2>Uploading</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo797">Chapter 13</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo810">Chapter 13</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
 <p class="item_name">INTRODUCTION</p>
 <p>  Once your binary and source packages are built, in order to distribute them
   to users you'll need to upload them to the Cygwin package archive.  Before
@@ -68,13 +68,22 @@
   Once those things are done, running
 <tt>cygport upload</tt> (or <tt>cygport up</tt> for short)
   will upload your finished packages to the package archive on cygwin.com.
-  From there, if everything goes well, the new files should appear on your
-  local Cygwin mirror within about 12 hours.
+  After confirming that your package was successfully uploaded and merged
+  into the distribution, you should send an announcement email to
+<tt>&lt;cygwin-announce AT cygwin.com&gt;</tt>
+  with information about your package and the changes therein.  The
+<tt>cygport announce</tt> command will create a template announcement,
+  to which you can add release-specific details, and then send the email
+  if an SMTP server is configured.
+</p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="./cygport_conf.html#robo817">SSH_KEY</a>, <a href="./cygport_conf.html#robo820">EDITOR</a>, <a href="./cygport_conf.html#robo822">SMTP_SENDER</a>, <a href="./cygport_conf.html#robo823">SMTP_SERVER</a>, <a href="./cygport_conf.html#robo824">SMTP_SERVER_PORT</a>, <a href="./cygport_conf.html#robo825">SMTP_ENCRYPTION</a>,
+  <a href="./cygport_conf.html#robo826">SMTP_USER</a>, <a href="./cygport_conf.html#robo827">SMTP_PASS</a>.
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/lib/pkg_upload.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 01:41:50
+<p>Generated from cygport/lib/pkg_upload.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:19
 </p>
 </div> <!-- footer -->
 </body>

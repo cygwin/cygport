@@ -33,23 +33,23 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo536">mtn.cygclass</a></li>
+<li><a href="#robo531">mtn.cygclass</a></li>
 <ul>
-<li><a href="#robo537">MTN_URI</a></li>
-<li><a href="#robo538">MTN_BRANCH</a></li>
-<li><a href="#robo539">MTN_REV</a></li>
+<li><a href="#robo532">MTN_URI</a></li>
+<li><a href="#robo533">MTN_BRANCH</a></li>
+<li><a href="#robo534">MTN_REV</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fmtn2ecygclass"></a>
-<a name="robo536"></a><h2>mtn.cygclass</h2>
+<a name="robo531"></a><h2>mtn.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo599">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo537">MTN_URI</a>="..."
-  [<a href="#robo538">MTN_BRANCH</a>="..."]
-  [<a href="#robo539">MTN_REV</a>="..."]
-  <a href="./inheritance_cygpart.html#robo638">inherit</a> mtn
+<pre>  <a href="#robo532">MTN_URI</a>="..."
+  [<a href="#robo533">MTN_BRANCH</a>="..."]
+  [<a href="#robo534">MTN_REV</a>="..."]
+  <a href="./inheritance_cygpart.html#robo650">inherit</a> mtn
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Monotone is one of the earlier distributed version control systems.  It
@@ -59,8 +59,8 @@
 <p>  This cygclass creates source tarballs from Monotone checkouts.
 </p>
 <p class="item_name">NOTE</p>
-<p>  This cygclass sets a special <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a> for the tarball it creates.  If
-  additional sources are required, be sure to _add_ to <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a> rather than
+<p>  This cygclass sets a special <a href="./src_fetch_cygpart.html#robo184">SRC_URI</a> for the tarball it creates.  If
+  additional sources are required, be sure to _add_ to <a href="./src_fetch_cygpart.html#robo184">SRC_URI</a> rather than
   outright setting it.
 </p>
 <p class="item_name">REQUIRES</p>
@@ -69,30 +69,30 @@
 
 <hr />
 <a name="mtn2ecygclass2fMTN5fURI"></a>
-<a name="robo537"></a><h2>MTN_URI</h2>
+<a name="robo532"></a><h2>MTN_URI</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo536">mtn.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo531">mtn.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Address of Monotone repository from which to clone.  Must be <a href="./syntax_cygpart.html#robo79">defined</a> before
-  <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing <a href="#robo536">mtn.cygclass</a>.
+<p>  Address of Monotone repository from which to clone.  Must be <a href="./syntax_cygpart.html#robo77">defined</a> before
+  <a href="./inheritance_cygpart.html#robo650">inherit</a>()ing <a href="#robo_top_of_doc">mtn.cygclass</a>.
 </p>
 
 <hr />
 <a name="mtn2ecygclass2fMTN5fBRANCH"></a>
-<a name="robo538"></a><h2>MTN_BRANCH</h2>
+<a name="robo533"></a><h2>MTN_BRANCH</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo536">mtn.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo531">mtn.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Branch from which to clone, usually in the form of a "Reverse-DNS".  Must
-  be <a href="./syntax_cygpart.html#robo79">defined</a> before <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing <a href="#robo536">mtn.cygclass</a>; if undefined, the "Reverse-DNS"
-  of <a href="#robo537">MTN_URI</a> is used.
+  be <a href="./syntax_cygpart.html#robo77">defined</a> before <a href="./inheritance_cygpart.html#robo650">inherit</a>()ing <a href="#robo_top_of_doc">mtn.cygclass</a>; if undefined, the "Reverse-DNS"
+  of <a href="#robo532">MTN_URI</a> is used.
 </p>
 
 <hr />
 <a name="mtn2ecygclass2fMTN5fREV"></a>
-<a name="robo539"></a><h2>MTN_REV</h2>
+<a name="robo534"></a><h2>MTN_REV</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo536">mtn.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo531">mtn.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Specific revision to clone, in the form of a SHA1 hash (a 40-digit hexadecimal)
   or an abbreviation thereof (customarily the first 8 hexadecimal digits).
@@ -101,7 +101,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/mtn.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 01:41:50
+<p>Generated from cygport/cygclass/mtn.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:20
 </p>
 </div> <!-- footer -->
 </body>

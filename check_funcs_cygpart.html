@@ -33,101 +33,101 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo866">Checks</a></li>
+<li><a href="#robo886">Checks</a></li>
 <ul>
-<li><a href="./utils_cygclass.html#robo43">check_header</a></li>
-<li><a href="./utils_cygclass.html#robo44">check_lib</a></li>
-<li><a href="#robo867">check_prog</a></li>
-<li><a href="#robo868">check_prog_req</a></li>
-<li><a href="#robo869">check_tool</a></li>
-<li><a href="#robo870">check_target_tool</a></li>
-<li><a href="#robo871">check_pkg_config</a></li>
-<li><a href="#robo872">check_girepository_module</a></li>
-<li><a href="#robo873">check_lua_module</a></li>
-<li><a href="#robo874">check_ocaml_module</a></li>
-<li><a href="#robo875">check_perl_module</a></li>
-<li><a href="#robo876">check_php_module</a></li>
-<li><a href="#robo877">check_python_module</a></li>
-<li><a href="#robo878">check_python3_module</a></li>
-<li><a href="#robo879">check_pypy_module</a></li>
-<li><a href="#robo880">check_R_module</a></li>
-<li><a href="#robo881">check_ruby_module</a></li>
-<li><a href="#robo882">check_tcl_module</a></li>
-<li><a href="#robo883">check_tex_module</a></li>
-<li><a href="#robo884">check_vala_module</a></li>
+<li><a href="./utils_cygclass.html#robo41">check_header</a></li>
+<li><a href="./utils_cygclass.html#robo42">check_lib</a></li>
+<li><a href="#robo887">check_prog</a></li>
+<li><a href="#robo888">check_prog_req</a></li>
+<li><a href="#robo889">check_tool</a></li>
+<li><a href="#robo890">check_target_tool</a></li>
+<li><a href="#robo891">check_pkg_config</a></li>
+<li><a href="#robo892">check_girepository_module</a></li>
+<li><a href="#robo893">check_lua_module</a></li>
+<li><a href="#robo894">check_ocaml_module</a></li>
+<li><a href="#robo895">check_perl_module</a></li>
+<li><a href="#robo896">check_php_module</a></li>
+<li><a href="#robo897">check_python_module</a></li>
+<li><a href="#robo898">check_python3_module</a></li>
+<li><a href="#robo899">check_pypy_module</a></li>
+<li><a href="#robo900">check_R_module</a></li>
+<li><a href="#robo901">check_ruby_module</a></li>
+<li><a href="#robo902">check_tcl_module</a></li>
+<li><a href="#robo903">check_tex_module</a></li>
+<li><a href="#robo904">check_vala_module</a></li>
 </ul>
-<li><a href="#robo885">DEPEND</a></li>
+<li><a href="#robo905">DEPEND</a></li>
 </ul>
 <hr />
 <a name="Chapter2072fChecks"></a>
-<a name="robo866"></a><h2>Checks</h2>
+<a name="robo886"></a><h2>Checks</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo791">Chapter 7</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo804">Chapter 7</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
 
 <hr />
 <a name="Checks2fcheck5fprog"></a>
-<a name="robo867"></a><h2>check_prog</h2>
+<a name="robo887"></a><h2>check_prog</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_prog</strong> PROGRAM [PROGRAM2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> for the presence of the given program(s) in PATH.  Returns TRUE
+<p>  <a href="#robo886">Checks</a> for the presence of the given program(s) in PATH.  Returns TRUE
   if all programs are present, else FALSE.
 </p>
 
 <hr />
 <a name="Checks2fcheck5fprog5freq"></a>
-<a name="robo868"></a><h2>check_prog_req</h2>
+<a name="robo888"></a><h2>check_prog_req</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_prog_req</strong> PROGRAM [PACKAGE]
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Check that the given required program is present in PATH.  If not, call
-  <a href="./syntax_cygpart.html#robo83">error</a>() indicating which package contains the program that needs to be
+  <a href="./syntax_cygpart.html#robo81">error</a>() indicating which package contains the program that needs to be
   installed.  If only the program name is given, the package is assumed
   to be eponymous.
 </p>
 
 <hr />
 <a name="Checks2fcheck5ftool"></a>
-<a name="robo869"></a><h2>check_tool</h2>
+<a name="robo889"></a><h2>check_tool</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_tool</strong> TOOL [TOOL] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> for the presence of the given host compiler tool(s) in PATH.
+<p>  <a href="#robo886">Checks</a> for the presence of the given host compiler tool(s) in PATH.
   Returns TRUE if all tools are present, else FALSE.
 </p>
 
 <hr />
 <a name="Checks2fcheck5ftarget5ftool"></a>
-<a name="robo870"></a><h2>check_target_tool</h2>
+<a name="robo890"></a><h2>check_target_tool</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_target_tool</strong> TOOL [TOOL] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> for the presence of the given target compiler tool(s) in PATH.
+<p>  <a href="#robo886">Checks</a> for the presence of the given target compiler tool(s) in PATH.
   Returns TRUE if all tools are present, else FALSE.
 </p>
 
 <hr />
 <a name="Checks2fcheck5fpkg5fconfig"></a>
-<a name="robo871"></a><h2>check_pkg_config</h2>
+<a name="robo891"></a><h2>check_pkg_config</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <strong>check_pkg_config</strong> <a href="./syntax_cygpart.html#robo90">NAME</a> "PKG_CONFIG_SPEC"
+<pre>  <strong>check_pkg_config</strong> <a href="./syntax_cygpart.html#robo88">NAME</a> "PKG_CONFIG_SPEC"
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> for the presence of the given development packages with pkg-config.
+<p>  <a href="#robo886">Checks</a> for the presence of the given development packages with pkg-config.
   If given pkg-config spec is found, return TRUE and defines NAME_CFLAGS
   and NAME_LIBS.  If not found, returns FALSE.
 </p>
@@ -137,14 +137,14 @@
 
 <hr />
 <a name="Checks2fcheck5fgirepository5fmodule"></a>
-<a name="robo872"></a><h2>check_girepository_module</h2>
+<a name="robo892"></a><h2>check_girepository_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_girepository_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given GObject Introspection module(s).  If all
+<p>  <a href="#robo886">Checks</a> the presence of the given GObject Introspection module(s).  If all
   given module(s) are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTE</p>
@@ -157,14 +157,14 @@
 
 <hr />
 <a name="Checks2fcheck5flua5fmodule"></a>
-<a name="robo873"></a><h2>check_lua_module</h2>
+<a name="robo893"></a><h2>check_lua_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_lua_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given Lua module(s).  If all given module(s)
+<p>  <a href="#robo886">Checks</a> the presence of the given Lua module(s).  If all given module(s)
   are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTE</p>
@@ -177,14 +177,14 @@
 
 <hr />
 <a name="Checks2fcheck5focaml5fmodule"></a>
-<a name="robo874"></a><h2>check_ocaml_module</h2>
+<a name="robo894"></a><h2>check_ocaml_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_ocaml_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given Objective Caml module(s).  If all given
+<p>  <a href="#robo886">Checks</a> the presence of the given Objective Caml module(s).  If all given
   module(s) are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTE</p>
@@ -197,14 +197,14 @@
 
 <hr />
 <a name="Checks2fcheck5fperl5fmodule"></a>
-<a name="robo875"></a><h2>check_perl_module</h2>
+<a name="robo895"></a><h2>check_perl_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_perl_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given Perl module(s).  If all given module(s)
+<p>  <a href="#robo886">Checks</a> the presence of the given Perl module(s).  If all given module(s)
   are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTE</p>
@@ -217,15 +217,15 @@
 
 <hr />
 <a name="Checks2fcheck5fphp5fmodule"></a>
-<a name="robo876"></a><h2>check_php_module</h2>
+<a name="robo896"></a><h2>check_php_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_php_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given <a href="./php_cygclass.html#robo437">PHP</a> extension(s), either binary (<a href="./php_cygclass.html#robo441">PECL</a>) or
-  <a href="./php_cygclass.html#robo437">PHP</a> (<a href="./php_cygclass.html#robo440">PEAR</a>) extensions.  If all given module(s) are present, returns TRUE,
+<p>  <a href="#robo886">Checks</a> the presence of the given <a href="./php_cygclass.html#robo432">PHP</a> extension(s), either binary (<a href="./php_cygclass.html#robo436">PECL</a>) or
+  <a href="./php_cygclass.html#robo432">PHP</a> (<a href="./php_cygclass.html#robo435">PEAR</a>) extensions.  If all given module(s) are present, returns TRUE,
   else FALSE.
 </p>
 <p class="item_name">NOTE</p>
@@ -238,23 +238,23 @@
 
 <hr />
 <a name="Checks2fcheck5fpython5fmodule"></a>
-<a name="robo877"></a><h2>check_python_module</h2>
+<a name="robo897"></a><h2>check_python_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_python_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given Python2 module(s).  If all given module(s)
+<p>  <a href="#robo886">Checks</a> the presence of the given Python2 module(s).  If all given module(s)
   are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTES</p>
 <ul><li>  <strong>check_python_module</strong> does not distinguish how the given module(s) were
     installed, whether they are from a Cygwin package or manually.
 </li>
-<li>  For Python 3 modules, use <a href="#robo878">check_python3_module</a>.
+<li>  For Python 3 modules, use <a href="#robo898">check_python3_module</a>.
 </li>
-<li>  For PyPy modules, use <a href="#robo879">check_pypy_module</a>.
+<li>  For PyPy modules, use <a href="#robo899">check_pypy_module</a>.
 </li>
 </ul>
 <p></p>
@@ -264,23 +264,23 @@
 
 <hr />
 <a name="Checks2fcheck5fpython35fmodule"></a>
-<a name="robo878"></a><h2>check_python3_module</h2>
+<a name="robo898"></a><h2>check_python3_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_python3_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given Python3 module(s).  If all given module(s)
+<p>  <a href="#robo886">Checks</a> the presence of the given Python3 module(s).  If all given module(s)
   are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTES</p>
 <ul><li>  <strong>check_python3_module</strong> does not distinguish how the given module(s) were
     installed, whether they are from a Cygwin package or manually.
 </li>
-<li>  For Python 2 modules, use <a href="#robo877">check_python_module</a>.
+<li>  For Python 2 modules, use <a href="#robo897">check_python_module</a>.
 </li>
-<li>  For PyPy modules, use <a href="#robo879">check_pypy_module</a>.
+<li>  For PyPy modules, use <a href="#robo899">check_pypy_module</a>.
 </li>
 </ul>
 <p></p>
@@ -290,21 +290,21 @@
 
 <hr />
 <a name="Checks2fcheck5fpypy5fmodule"></a>
-<a name="robo879"></a><h2>check_pypy_module</h2>
+<a name="robo899"></a><h2>check_pypy_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_pypy_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given PyPy module(s).  If all given module(s)
+<p>  <a href="#robo886">Checks</a> the presence of the given PyPy module(s).  If all given module(s)
   are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTES</p>
 <ul><li>  <strong>check_pypy_module</strong> does not distinguish how the given module(s) were
     installed, whether they are from a Cygwin package or manually.
 </li>
-<li>  For CPython modules, use <a href="#robo877">check_python_module</a> or <a href="#robo878">check_python3_module</a>.
+<li>  For CPython modules, use <a href="#robo897">check_python_module</a> or <a href="#robo898">check_python3_module</a>.
 </li>
 </ul>
 <p></p>
@@ -314,14 +314,14 @@
 
 <hr />
 <a name="Checks2fcheck5fR5fmodule"></a>
-<a name="robo880"></a><h2>check_R_module</h2>
+<a name="robo900"></a><h2>check_R_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_R_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given <a href="./R_cygclass.html#robo260">R</a> module(s).  If all given module(s)
+<p>  <a href="#robo886">Checks</a> the presence of the given <a href="./R_cygclass.html#robo255">R</a> module(s).  If all given module(s)
   are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTE</p>
@@ -329,19 +329,19 @@
   installed, whether they are from a Cygwin package or manually.
 </p>
 <p class="item_name">REQUIRES</p>
-<p>  <a href="./R_cygclass.html#robo260">R</a>
+<p>  <a href="./R_cygclass.html#robo255">R</a>
 </p>
 
 <hr />
 <a name="Checks2fcheck5fruby5fmodule"></a>
-<a name="robo881"></a><h2>check_ruby_module</h2>
+<a name="robo901"></a><h2>check_ruby_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_ruby_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given Ruby module(s).  If all given module(s)
+<p>  <a href="#robo886">Checks</a> the presence of the given Ruby module(s).  If all given module(s)
   are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTE</p>
@@ -354,14 +354,14 @@
 
 <hr />
 <a name="Checks2fcheck5ftcl5fmodule"></a>
-<a name="robo882"></a><h2>check_tcl_module</h2>
+<a name="robo902"></a><h2>check_tcl_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_tcl_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given Tcl module(s).  If all given module(s)
+<p>  <a href="#robo886">Checks</a> the presence of the given Tcl module(s).  If all given module(s)
   are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTE</p>
@@ -374,14 +374,14 @@
 
 <hr />
 <a name="Checks2fcheck5ftex5fmodule"></a>
-<a name="robo883"></a><h2>check_tex_module</h2>
+<a name="robo903"></a><h2>check_tex_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_tex_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given TeX module(s).  If all given module(s)
+<p>  <a href="#robo886">Checks</a> the presence of the given TeX module(s).  If all given module(s)
   are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTE</p>
@@ -394,14 +394,14 @@
 
 <hr />
 <a name="Checks2fcheck5fvala5fmodule"></a>
-<a name="robo884"></a><h2>check_vala_module</h2>
+<a name="robo904"></a><h2>check_vala_module</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo866">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo886">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>check_vala_module</strong> MODULE [MODULE2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo866">Checks</a> the presence of the given Vala module(s).  If all given module(s)
+<p>  <a href="#robo886">Checks</a> the presence of the given Vala module(s).  If all given module(s)
   are present, returns TRUE, else FALSE.
 </p>
 <p class="item_name">NOTE</p>
@@ -414,15 +414,15 @@
 
 <hr />
 <a name="Information2fDEPEND"></a>
-<a name="robo885"></a><h2>DEPEND</h2>
+<a name="robo905"></a><h2>DEPEND</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./pkg_info_cygpart.html#robo433">Information</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./pkg_info_cygpart.html#robo428">Information</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>DEPEND</strong>="ATOM [ATOM] ..."
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of build-time (not runtime) dependencies to be checked before calling
-  <a href="./src_compile_cygpart.html#robo194">src_compile</a>.  Each ATOM can be in one of the following forms:
+  <a href="./src_compile_cygpart.html#robo189">src_compile</a>.  Each ATOM can be in one of the following forms:
 </p>
 <ul><li>  girepository(Foo-1.0): GObject Introspection modules
 </li>
@@ -432,9 +432,9 @@
 </li>
 <li>  perl(Foo::Bar): Perl modules
 </li>
-<li>  php(foo): <a href="./php_cygclass.html#robo437">PHP</a> binary (<a href="./php_cygclass.html#robo441">PECL</a>) extensions
+<li>  php(foo): <a href="./php_cygclass.html#robo432">PHP</a> binary (<a href="./php_cygclass.html#robo436">PECL</a>) extensions
 </li>
-<li>  php(Foo/Bar.php): <a href="./php_cygclass.html#robo437">PHP</a> (<a href="./php_cygclass.html#robo440">PEAR</a>) extensions
+<li>  php(Foo/Bar.php): <a href="./php_cygclass.html#robo432">PHP</a> (<a href="./php_cygclass.html#robo435">PEAR</a>) extensions
 </li>
 <li>  pkgconfig(foo-1.0): A -devel package providing this pkg-config file
 </li>
@@ -444,7 +444,7 @@
 </li>
 <li>  python3(foo): Python 3 modules
 </li>
-<li>  <a href="./R_cygclass.html#robo260">R</a>(foo): <a href="./R_cygclass.html#robo260">R</a> packages
+<li>  <a href="./R_cygclass.html#robo255">R</a>(foo): <a href="./R_cygclass.html#robo255">R</a> packages
 </li>
 <li>  ruby(foo): Ruby modules
 </li>
@@ -461,7 +461,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/lib/check_funcs.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 01:41:50
+<p>Generated from cygport/lib/check_funcs.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:20
 </p>
 </div> <!-- footer -->
 </body>

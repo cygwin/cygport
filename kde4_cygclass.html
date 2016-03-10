@@ -33,65 +33,65 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo605">kde4.cygclass</a></li>
+<li><a href="#robo617">kde4.cygclass</a></li>
 <ul>
-<li><a href="#robo606">KDE4_EXTRAGEAR_VERSION</a></li>
-<li><a href="#robo607">kde4_cmake</a></li>
-<li><a href="#robo608">kde4_compile</a></li>
-<li><a href="#robo609">kde4_install</a></li>
-<li><a href="#robo610">src_compile (kde4)</a></li>
-<li><a href="#robo611">src_install (kde4)</a></li>
+<li><a href="#robo618">KDE4_EXTRAGEAR_VERSION</a></li>
+<li><a href="#robo619">kde4_cmake</a></li>
+<li><a href="#robo620">kde4_compile</a></li>
+<li><a href="#robo621">kde4_install</a></li>
+<li><a href="#robo622">src_compile (kde4)</a></li>
+<li><a href="#robo623">src_install (kde4)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fkde42ecygclass"></a>
-<a name="robo605"></a><h2>kde4.cygclass</h2>
+<a name="robo617"></a><h2>kde4.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo599">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo638">inherit</a> kde4
+<pre>  <a href="./inheritance_cygpart.html#robo650">inherit</a> kde4
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  The KDE project provides a full-featured X desktop with a wide variety
-  of applications, built on a library stack all based on the Qt <a href="./syntax_cygpart.html#robo101">C</a>++ libraries.
-  Most packages are written in <a href="./syntax_cygpart.html#robo101">C</a>++ and are built with CMake.
+  of applications, built on a library stack all based on the Qt <a href="./syntax_cygpart.html#robo99">C</a>++ libraries.
+  Most packages are written in <a href="./syntax_cygpart.html#robo99">C</a>++ and are built with CMake.
 </p>
 
 <p>  This cygclass manages the building of most KDE4-based packages.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./cmake_cygclass.html#robo_top_of_doc">cmake.cygclass</a>, <a href="./kde_org_cygclass.html#robo_top_of_doc">kde.org.cygclass</a>, <a href="./qt4_cygclass.html#robo_top_of_doc">qt4.cygclass</a>
+<p>  <a href="./cmake_cygclass.html#robo875">cmake.cygclass</a>, <a href="./kde_org_cygclass.html#robo624">kde.org.cygclass</a>, <a href="./qt4_cygclass.html#robo_top_of_doc">qt4.cygclass</a>
 </p>
 
 <hr />
 <a name="kde42ecygclass2fKDE45fEXTRAGEAR5fVERSION"></a>
-<a name="robo606"></a><h2>KDE4_EXTRAGEAR_VERSION</h2>
+<a name="robo618"></a><h2>KDE4_EXTRAGEAR_VERSION</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo605">kde4.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">kde4.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  KDE Extragear is a collection of software which is part of the KDE project
   but which is not included in the main KDE Software Compilation modules.
   Some of these applications are released in tandem with a KDE SC release but
   use their own versioning system.  Such packages should use their own version
-  number as <a href="./syntax_cygpart.html#robo94">PV</a> and define <strong>KDE4_EXTRAGEAR_VERSION</strong> to indicate with which
+  number as <a href="./syntax_cygpart.html#robo92">PV</a> and define <strong>KDE4_EXTRAGEAR_VERSION</strong> to indicate with which
   version of KDE SC they were released.
 </p>
 <p class="item_name">NOTE</p>
-<p>  If needed, this must be <a href="./syntax_cygpart.html#robo79">defined</a> before <a href="./inheritance_cygpart.html#robo638">inherit</a>()ing <a href="#robo_top_of_doc">kde4.cygclass</a>.
+<p>  If needed, this must be <a href="./syntax_cygpart.html#robo77">defined</a> before <a href="./inheritance_cygpart.html#robo650">inherit</a>()ing <a href="#robo_top_of_doc">kde4.cygclass</a>.
 </p>
 
 <hr />
 <a name="kde42ecygclass2fkde45fcmake"></a>
-<a name="robo607"></a><h2>kde4_cmake</h2>
+<a name="robo619"></a><h2>kde4_cmake</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo605">kde4.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">kde4.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>kde4_cmake</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Runs <a href="./cmake_cygclass.html#robo856">cygcmake</a> to configure the package with several Cygwin- and KDE-specific
+<p>  Runs <a href="./cmake_cygclass.html#robo876">cygcmake</a> to configure the package with several Cygwin- and KDE-specific
   options.  Options, in the form of -DVARIABLE=VALUE,
-  are passed on to <a href="./cmake_cygclass.html#robo856">cygcmake</a>.
+  are passed on to <a href="./cmake_cygclass.html#robo876">cygcmake</a>.
 </p>
 <p class="item_name">NOTE</p>
 <p>  Source subdirectories which are declared with macro_optional_add_subdirectory()
@@ -103,65 +103,65 @@
 
 <hr />
 <a name="kde42ecygclass2fkde45fcompile"></a>
-<a name="robo608"></a><h2>kde4_compile</h2>
+<a name="robo620"></a><h2>kde4_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo605">kde4.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">kde4.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>kde4_compile</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Runs <a href="#robo607">kde4_cmake</a>, followed by <a href="./src_compile_cygpart.html#robo193">cygmake</a> to compile.  Options, in the form of
-  -DVARIABLE=VALUE, are passed on to <a href="#robo607">kde4_cmake</a>.
+<p>  Runs <a href="#robo619">kde4_cmake</a>, followed by <a href="./src_compile_cygpart.html#robo188">cygmake</a> to compile.  Options, in the form of
+  -DVARIABLE=VALUE, are passed on to <a href="#robo619">kde4_cmake</a>.
 </p>
 
 <hr />
 <a name="kde42ecygclass2fkde45finstall"></a>
-<a name="robo609"></a><h2>kde4_install</h2>
+<a name="robo621"></a><h2>kde4_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo605">kde4.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">kde4.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>kde4_install</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installs a KDE4 package with <a href="./src_install_cygpart.html#robo185">cyginstall</a> into $<a href="./syntax_cygpart.html#robo102">D</a> with some additional steps:
+<p>  Installs a KDE4 package with <a href="./src_install_cygpart.html#robo180">cyginstall</a> into $<a href="./syntax_cygpart.html#robo100">D</a> with some additional steps:
 </p>
 <ul><li>  Import libraries for libkdeinit4_* libraries are removed, as they are never used.
 </li>
-<li>  README docs for subpackages in <a href="./pkg_pkg_cygpart.html#robo418">PKG_NAMES</a> are installed into their own
-    subdirectories of /usr/share/doc/ under $<a href="./syntax_cygpart.html#robo102">D</a>.
+<li>  README docs for subpackages in <a href="./pkg_pkg_cygpart.html#robo413">PKG_NAMES</a> are installed into their own
+    subdirectories of /usr/share/doc/ under $<a href="./syntax_cygpart.html#robo100">D</a>.
 </li>
 </ul>
-<p>  Options, if any, are passed on to <a href="./src_install_cygpart.html#robo185">cyginstall</a>.
+<p>  Options, if any, are passed on to <a href="./src_install_cygpart.html#robo180">cyginstall</a>.
 </p>
 
 <hr />
 <a name="kde42ecygclass2fsrc5fcompile2028kde429"></a>
-<a name="robo610"></a><h2>src_compile (kde4)</h2>
+<a name="robo622"></a><h2>src_compile (kde4)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo605">kde4.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">kde4.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo194">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
-        <a href="#robo607">kde4_cmake</a>
-        <a href="./src_compile_cygpart.html#robo193">cygmake</a>
+<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
+        <a href="#robo619">kde4_cmake</a>
+        <a href="./src_compile_cygpart.html#robo188">cygmake</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="kde42ecygclass2fsrc5finstall2028kde429"></a>
-<a name="robo611"></a><h2>src_install (kde4)</h2>
+<a name="robo623"></a><h2>src_install (kde4)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo605">kde4.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo617">kde4.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo187">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
-        <a href="#robo609">kde4_install</a>
+<pre class="source"><a href="./src_install_cygpart.html#robo182">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
+        <a href="#robo621">kde4_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/kde4.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 01:41:50
+<p>Generated from cygport/cygclass/kde4.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:20
 </p>
 </div> <!-- footer -->
 </body>

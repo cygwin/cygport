@@ -33,27 +33,27 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo55">texlive.cygclass</a></li>
+<li><a href="#robo53">texlive.cygclass</a></li>
 <ul>
-<li><a href="#robo56">TEXLIVE_TEXMF_PKGS</a></li>
-<li><a href="#robo57">TEXLIVE_ARCH_PKGS</a></li>
-<li><a href="#robo58">TEXLIVE_DOC_PKGS</a></li>
-<li><a href="#robo59">TEXLIVE_PRETEST</a></li>
-<li><a href="#robo60">CATEGORY (texlive)</a></li>
-<li><a href="#robo61">SUMMARY (texlive)</a></li>
-<li><a href="#robo62">DESCRIPTION (texlive)</a></li>
-<li><a href="#robo63">HOMEPAGE (texlive)</a></li>
-<li><a href="#robo64">SRC_URI (texlive)</a></li>
-<li><a href="#robo65">texlive_install</a></li>
-<li><a href="#robo66">src_compile (texlive)</a></li>
-<li><a href="#robo67">src_install (texlive)</a></li>
+<li><a href="#robo54">TEXLIVE_TEXMF_PKGS</a></li>
+<li><a href="#robo55">TEXLIVE_ARCH_PKGS</a></li>
+<li><a href="#robo56">TEXLIVE_DOC_PKGS</a></li>
+<li><a href="#robo57">TEXLIVE_PRETEST</a></li>
+<li><a href="#robo58">CATEGORY (texlive)</a></li>
+<li><a href="#robo59">SUMMARY (texlive)</a></li>
+<li><a href="#robo60">DESCRIPTION (texlive)</a></li>
+<li><a href="#robo61">HOMEPAGE (texlive)</a></li>
+<li><a href="#robo62">SRC_URI (texlive)</a></li>
+<li><a href="#robo63">texlive_install</a></li>
+<li><a href="#robo64">src_compile (texlive)</a></li>
+<li><a href="#robo65">src_install (texlive)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2ftexlive2ecygclass"></a>
-<a name="robo55"></a><h2>texlive.cygclass</h2>
+<a name="robo53"></a><h2>texlive.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo599">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  TeX is an extensible typesetting system used to produce documentation
   in many formats.  TeX Live is the primary TeX distribution for *NIX systems,
@@ -67,14 +67,14 @@
 <p>  This cygclass creates Cygwin packages from one or more TeX Live packages.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="./mirrors.html#robo559">mirror_ctan</a>
+<p>  <a href="./mirrors.html#robo554">mirror_ctan</a>
 </p>
 
 <hr />
 <a name="texlive2ecygclass2fTEXLIVE5fTEXMF5fPKGS"></a>
-<a name="robo56"></a><h2>TEXLIVE_TEXMF_PKGS</h2>
+<a name="robo54"></a><h2>TEXLIVE_TEXMF_PKGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of one or more TeX Live arch-independent packages consisting of TeX
   macros, fonts, language support, and other files which are not documentation.
@@ -82,32 +82,32 @@
 
 <hr />
 <a name="texlive2ecygclass2fTEXLIVE5fARCH5fPKGS"></a>
-<a name="robo57"></a><h2>TEXLIVE_ARCH_PKGS</h2>
+<a name="robo55"></a><h2>TEXLIVE_ARCH_PKGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of one or more TeX Live arch-specific packages, consisting of scripts
   and symlinks which are to be installed into the system PATH.
 </p>
 <p class="item_name">NOTE</p>
 <p>  All arch-specific packages also provide an arch-independent component, which
-  will be included and need not be listed separately in <a href="#robo56">TEXLIVE_TEXMF_PKGS</a>.
+  will be included and need not be listed separately in <a href="#robo54">TEXLIVE_TEXMF_PKGS</a>.
 </p>
 
 <hr />
 <a name="texlive2ecygclass2fTEXLIVE5fDOC5fPKGS"></a>
-<a name="robo58"></a><h2>TEXLIVE_DOC_PKGS</h2>
+<a name="robo56"></a><h2>TEXLIVE_DOC_PKGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of one or more TeX Live documentation packages.
 </p>
 
 <hr />
 <a name="texlive2ecygclass2fTEXLIVE5fPRETEST"></a>
-<a name="robo59"></a><h2>TEXLIVE_PRETEST</h2>
+<a name="robo57"></a><h2>TEXLIVE_PRETEST</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Define if packages should be downloaded from a pretest package repository
   mirror instead of from stable release repository <a href="./mirrors.html#robo_top_of_doc">mirrors</a>, which are frozen
@@ -116,29 +116,29 @@
 
 <hr />
 <a name="texlive2ecygclass2fCATEGORY2028texlive29"></a>
-<a name="robo60"></a><h2>CATEGORY (texlive)</h2>
+<a name="robo58"></a><h2>CATEGORY (texlive)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo423">CATEGORY</a><span class="sign">=</span><span class="quote">"Publishing"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo418">CATEGORY</a><span class="sign">=</span><span class="quote">"Publishing"</span>
 </pre>
 
 <hr />
 <a name="texlive2ecygclass2fSUMMARY2028texlive29"></a>
-<a name="robo61"></a><h2>SUMMARY (texlive)</h2>
+<a name="robo59"></a><h2>SUMMARY (texlive)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  The default <a href="./pkg_pkg_cygpart.html#robo425">SUMMARY</a> depends on the value of <a href="./syntax_cygpart.html#robo93">PN</a>.
+<p>  The default <a href="./pkg_pkg_cygpart.html#robo420">SUMMARY</a> depends on the value of <a href="./syntax_cygpart.html#robo91">PN</a>.
 </p>
 
 <hr />
 <a name="texlive2ecygclass2fDESCRIPTION2028texlive29"></a>
-<a name="robo62"></a><h2>DESCRIPTION (texlive)</h2>
+<a name="robo60"></a><h2>DESCRIPTION (texlive)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo427">DESCRIPTION</a><span class="sign">=</span><span class="quote">"TeX Live is an easy way to get up and running with the TeX
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo422">DESCRIPTION</a><span class="sign">=</span><span class="quote">"TeX Live is an easy way to get up and running with the TeX
 document production system.  It includes all the major TeX-related
 programs, macro packages, and fonts that are free software, including
 support for many languages around the world."</span>
@@ -146,28 +146,28 @@ support for many languages around the world."</span>
 
 <hr />
 <a name="texlive2ecygclass2fHOMEPAGE2028texlive29"></a>
-<a name="robo63"></a><h2>HOMEPAGE (texlive)</h2>
+<a name="robo61"></a><h2>HOMEPAGE (texlive)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_info_cygpart.html#robo434">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://www.tug.org/texlive/"</span>
+<pre class="source"><a href="./pkg_info_cygpart.html#robo429">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://www.tug.org/texlive/"</span>
 </pre>
 
 <hr />
 <a name="texlive2ecygclass2fSRC5fURI2028texlive29"></a>
-<a name="robo64"></a><h2>SRC_URI (texlive)</h2>
+<a name="robo62"></a><h2>SRC_URI (texlive)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a> is constructed automatically based on the value of <a href="#robo56">TEXLIVE_TEXMF_PKGS</a>,
-  <a href="#robo57">TEXLIVE_ARCH_PKGS</a>, <a href="#robo58">TEXLIVE_DOC_PKGS</a>, and <a href="#robo59">TEXLIVE_PRETEST</a>.
+<p>  <a href="./src_fetch_cygpart.html#robo184">SRC_URI</a> is constructed automatically based on the value of <a href="#robo54">TEXLIVE_TEXMF_PKGS</a>,
+  <a href="#robo55">TEXLIVE_ARCH_PKGS</a>, <a href="#robo56">TEXLIVE_DOC_PKGS</a>, and <a href="#robo57">TEXLIVE_PRETEST</a>.
 </p>
 
 <hr />
 <a name="texlive2ecygclass2ftexlive5finstall"></a>
-<a name="robo65"></a><h2>texlive_install</h2>
+<a name="robo63"></a><h2>texlive_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>texlive_install</strong>
 </pre>
@@ -178,28 +178,28 @@ support for many languages around the world."</span>
 
 <hr />
 <a name="texlive2ecygclass2fsrc5fcompile2028texlive29"></a>
-<a name="robo66"></a><h2>src_compile (texlive)</h2>
+<a name="robo64"></a><h2>src_compile (texlive)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo194">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span> <span class="sign">:</span><span class="sign">;</span> <span class="sign">}</span>
+<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span> <span class="sign">:</span><span class="sign">;</span> <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="texlive2ecygclass2fsrc5finstall2028texlive29"></a>
-<a name="robo67"></a><h2>src_install (texlive)</h2>
+<a name="robo65"></a><h2>src_install (texlive)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo55">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo53">texlive.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo187">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">S</a><span class="sign">}</span>
-        <a href="#robo65">texlive_install</a>
+<pre class="source"><a href="./src_install_cygpart.html#robo182">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo97">S</a><span class="sign">}</span>
+        <a href="#robo63">texlive_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/texlive.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 01:41:50
+<p>Generated from cygport/cygclass/texlive.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:19
 </p>
 </div> <!-- footer -->
 </body>

@@ -33,34 +33,34 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo903">autotools.cygclass</a></li>
+<li><a href="#robo923">autotools.cygclass</a></li>
 <ul>
-<li><a href="#robo904">gnuconfigize</a></li>
-<li><a href="#robo905">cygautoreconf</a></li>
+<li><a href="#robo924">gnuconfigize</a></li>
+<li><a href="#robo925">cygautoreconf</a></li>
 <ul>
-<li><a href="#robo906">WANT_AUTOCONF</a></li>
-<li><a href="#robo907">WANT_AUTOMAKE</a></li>
-<li><a href="#robo908">NO_ACLOCAL</a></li>
-<li><a href="#robo909">NO_LIBTOOLIZE</a></li>
-<li><a href="#robo910">NO_AUTOCONF</a></li>
-<li><a href="#robo911">NO_AUTOHEADER</a></li>
-<li><a href="#robo912">NO_AUTOMAKE</a></li>
-<li><a href="#robo913">NO_AUTOPOINT</a></li>
-<li><a href="#robo914">ACLOCAL_FLAGS</a></li>
+<li><a href="#robo926">WANT_AUTOCONF</a></li>
+<li><a href="#robo927">WANT_AUTOMAKE</a></li>
+<li><a href="#robo928">NO_ACLOCAL</a></li>
+<li><a href="#robo929">NO_LIBTOOLIZE</a></li>
+<li><a href="#robo930">NO_AUTOCONF</a></li>
+<li><a href="#robo931">NO_AUTOHEADER</a></li>
+<li><a href="#robo932">NO_AUTOMAKE</a></li>
+<li><a href="#robo933">NO_AUTOPOINT</a></li>
+<li><a href="#robo934">ACLOCAL_FLAGS</a></li>
 </ul>
-<li><a href="#robo915">cygconf</a></li>
+<li><a href="#robo935">cygconf</a></li>
 <ul>
-<li><a href="#robo916">CYGCONF_SOURCE</a></li>
-<li><a href="#robo917">CYGCONF_ARGS</a></li>
+<li><a href="#robo936">CYGCONF_SOURCE</a></li>
+<li><a href="#robo937">CYGCONF_ARGS</a></li>
 </ul>
-<li><a href="#robo918">src_compile (autotools)</a></li>
+<li><a href="#robo938">src_compile (autotools)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fautotools2ecygclass"></a>
-<a name="robo903"></a><h2>autotools.cygclass</h2>
+<a name="robo923"></a><h2>autotools.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo587">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo599">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  GNU Autotools (comprising of Gettext, Autoconf, Automake, and Libtool)
   comprise the build system of many source packages of all types.
@@ -69,60 +69,60 @@
 <p>  This Cygclass provides the functions necessary to configure and build
   autotool-based packages.  Since these are so widespread, this is the
   assumed build system if no other is specified, and provides the default
-  <a href="./src_compile_cygpart.html#robo194">src_compile</a> accordingly.
+  <a href="./src_compile_cygpart.html#robo189">src_compile</a> accordingly.
 </p>
 <p class="item_name">EXAMPLES</p>
 <p>  A basic autotool-based program package can be as simple as:
 </p>
 
-<pre>    <a href="./syntax_cygpart.html#robo90">NAME</a>="grep"
-    <a href="./syntax_cygpart.html#robo91">VERSION</a>=2.14
-    <a href="./syntax_cygpart.html#robo92">RELEASE</a>=1
-    <a href="./pkg_pkg_cygpart.html#robo423">CATEGORY</a>="Base"
-    <a href="./pkg_pkg_cygpart.html#robo425">SUMMARY</a>="Searches files for text patterns"
-    <a href="./pkg_pkg_cygpart.html#robo427">DESCRIPTION</a>="The grep command searches one or more input files for lines
+<pre>    <a href="./syntax_cygpart.html#robo88">NAME</a>="grep"
+    <a href="./syntax_cygpart.html#robo89">VERSION</a>=2.14
+    <a href="./syntax_cygpart.html#robo90">RELEASE</a>=1
+    <a href="./pkg_pkg_cygpart.html#robo418">CATEGORY</a>="Base"
+    <a href="./pkg_pkg_cygpart.html#robo420">SUMMARY</a>="Searches files for text patterns"
+    <a href="./pkg_pkg_cygpart.html#robo422">DESCRIPTION</a>="The grep command searches one or more input files for lines
     containing a match to a specified pattern. By default, grep prints the
     matching lines."
-    <a href="./pkg_info_cygpart.html#robo434">HOMEPAGE</a>="<a href="http://www.gnu.org/software/grep/"">http://www.gnu.org/software/grep/"</a>
-    <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="mirror://gnu/grep/grep-${<a href="./syntax_cygpart.html#robo91">VERSION</a>}.tar.xz"
+    <a href="./pkg_info_cygpart.html#robo429">HOMEPAGE</a>="<a href="http://www.gnu.org/software/grep/"">http://www.gnu.org/software/grep/"</a>
+    <a href="./src_fetch_cygpart.html#robo184">SRC_URI</a>="mirror://gnu/grep/grep-${<a href="./syntax_cygpart.html#robo89">VERSION</a>}.tar.xz"
 </pre>
 <p>
-  If the only customization needed is to add configure flags, use <a href="#robo917">CYGCONF_ARGS</a>:
+  If the only customization needed is to add configure flags, use <a href="#robo937">CYGCONF_ARGS</a>:
 </p>
 
-<pre>    <a href="./syntax_cygpart.html#robo90">NAME</a>="nano"
-    <a href="./syntax_cygpart.html#robo91">VERSION</a>=2.2.6
-    <a href="./syntax_cygpart.html#robo92">RELEASE</a>=1
-    <a href="./pkg_pkg_cygpart.html#robo423">CATEGORY</a>="Editors"
-    <a href="./pkg_pkg_cygpart.html#robo425">SUMMARY</a>="Enhanced clone of Pico editor"
-    <a href="./pkg_pkg_cygpart.html#robo427">DESCRIPTION</a>="GNU nano is a small and friendly console-mode text editor, based
+<pre>    <a href="./syntax_cygpart.html#robo88">NAME</a>="nano"
+    <a href="./syntax_cygpart.html#robo89">VERSION</a>=2.2.6
+    <a href="./syntax_cygpart.html#robo90">RELEASE</a>=1
+    <a href="./pkg_pkg_cygpart.html#robo418">CATEGORY</a>="Editors"
+    <a href="./pkg_pkg_cygpart.html#robo420">SUMMARY</a>="Enhanced clone of Pico editor"
+    <a href="./pkg_pkg_cygpart.html#robo422">DESCRIPTION</a>="GNU nano is a small and friendly console-mode text editor, based
     on and mostly compatible with UW Pico. Besides basic text editing, nano offers
     many extra features like an interactive search and replace, go to line and
     column number, auto-indentation, feature toggles, internationalization support,
     and filename tab completion."
-    <a href="./pkg_info_cygpart.html#robo434">HOMEPAGE</a>="<a href="http://www.nano-editor.org/"">http://www.nano-editor.org/"</a>
-    <a href="./src_fetch_cygpart.html#robo189">SRC_URI</a>="<a href="http://www.nano-editor.org/dist/v${VERSION%.*}/nano-${VERSION}.tar.gz"">http://www.nano-editor.org/dist/v${VERSION%.*}/nano-${VERSION}.tar.gz"</a>
-    <a href="./src_fetch_cygpart.html#robo190">PATCH_URI</a>="2.2.4-wchar.patch"
+    <a href="./pkg_info_cygpart.html#robo429">HOMEPAGE</a>="<a href="http://www.nano-editor.org/"">http://www.nano-editor.org/"</a>
+    <a href="./src_fetch_cygpart.html#robo184">SRC_URI</a>="<a href="http://www.nano-editor.org/dist/v${VERSION%.*}/nano-${VERSION}.tar.gz"">http://www.nano-editor.org/dist/v${VERSION%.*}/nano-${VERSION}.tar.gz"</a>
+    <a href="./src_fetch_cygpart.html#robo185">PATCH_URI</a>="2.2.4-wchar.patch"
     
-    <a href="./pkg_pkg_cygpart.html#robo422">DIFF_EXCLUDES</a>="nano.spec"
+    <a href="./pkg_pkg_cygpart.html#robo417">DIFF_EXCLUDES</a>="nano.spec"
     
-    <a href="#robo917">CYGCONF_ARGS</a>="--without-slang"
+    <a href="#robo937">CYGCONF_ARGS</a>="--without-slang"
 </pre>
 <p>
   Packages providing libraries need a bit more to handle split lib/devel
   packaging:
 </p>
 
-<pre>    <a href="./syntax_cygpart.html#robo90">NAME</a>="libdatrie"
-    <a href="./syntax_cygpart.html#robo91">VERSION</a>=0.2.6
-    <a href="./syntax_cygpart.html#robo92">RELEASE</a>=1
-    <a href="./pkg_pkg_cygpart.html#robo423">CATEGORY</a>="Libs"
-    <a href="./pkg_pkg_cygpart.html#robo425">SUMMARY</a>="Double-array digital search tree library"
-    <a href="./pkg_pkg_cygpart.html#robo427">DESCRIPTION</a>="This is an implementation of double-array structure for
+<pre>    <a href="./syntax_cygpart.html#robo88">NAME</a>="libdatrie"
+    <a href="./syntax_cygpart.html#robo89">VERSION</a>=0.2.6
+    <a href="./syntax_cygpart.html#robo90">RELEASE</a>=1
+    <a href="./pkg_pkg_cygpart.html#robo418">CATEGORY</a>="Libs"
+    <a href="./pkg_pkg_cygpart.html#robo420">SUMMARY</a>="Double-array digital search tree library"
+    <a href="./pkg_pkg_cygpart.html#robo422">DESCRIPTION</a>="This is an implementation of double-array structure for
     representing trie, as proposed by Junichi Aoe."
     
-    <a href="./pkg_pkg_cygpart.html#robo418">PKG_NAMES</a>="${<a href="./syntax_cygpart.html#robo90">NAME</a>}1 ${<a href="./syntax_cygpart.html#robo90">NAME</a>}-devel ${<a href="./syntax_cygpart.html#robo90">NAME</a>}-doc"
-    # see <a href="./pkg_pkg_cygpart.html#robo420">PKG_CONTENTS</a>
+    <a href="./pkg_pkg_cygpart.html#robo413">PKG_NAMES</a>="${<a href="./syntax_cygpart.html#robo88">NAME</a>}1 ${<a href="./syntax_cygpart.html#robo88">NAME</a>}-devel ${<a href="./syntax_cygpart.html#robo88">NAME</a>}-doc"
+    # see <a href="./pkg_pkg_cygpart.html#robo415">PKG_CONTENTS</a>
     libdatrie1_CONTENTS="usr/bin/cygdatrie-1.dll"
     # trietool is a dev-util
     libdatrie_devel_CONTENTS="usr/bin/trietool* usr/include/ usr/lib/ usr/share/man/"
@@ -131,97 +131,97 @@
 <p>
   Sometimes a package uses its own aclocal macros but does not ship them,
   or uses an older autoconf which is incompatible with the current version,
-  making <a href="#robo905">cygautoreconf</a> impossible.  In that case, as long as the package does
-  not use libtool, you may be able to skip <a href="#robo905">cygautoreconf</a>:
+  making <a href="#robo925">cygautoreconf</a> impossible.  In that case, as long as the package does
+  not use libtool, you may be able to skip <a href="#robo925">cygautoreconf</a>:
 </p>
 
-<pre>    <a href="./src_compile_cygpart.html#robo194">src_compile</a>() {
+<pre>    <a href="./src_compile_cygpart.html#robo189">src_compile</a>() {
       # cannot autoreconf: undefined macro: AC_ACVERSION
-      cd ${<a href="./syntax_cygpart.html#robo100">B</a>}
-      <a href="#robo915">cygconf</a> --enable-iconv
-      <a href="./src_compile_cygpart.html#robo193">cygmake</a>
+      cd ${<a href="./syntax_cygpart.html#robo98">B</a>}
+      <a href="#robo935">cygconf</a> --enable-iconv
+      <a href="./src_compile_cygpart.html#robo188">cygmake</a>
     }
 </pre>
 <p>
   For more complicated packages, additional compile and/or install steps
-  may be necessary, in which case you should override the default <a href="./src_compile_cygpart.html#robo194">src_compile</a>
-  and/or <a href="./src_install_cygpart.html#robo187">src_install</a>:
+  may be necessary, in which case you should override the default <a href="./src_compile_cygpart.html#robo189">src_compile</a>
+  and/or <a href="./src_install_cygpart.html#robo182">src_install</a>:
 </p>
 
-<pre>    <a href="./src_compile_cygpart.html#robo194">src_compile</a>() {
+<pre>    <a href="./src_compile_cygpart.html#robo189">src_compile</a>() {
       # the configure script is not distributed, and VPATH builds aren't supported
-      cd ${<a href="./syntax_cygpart.html#robo99">S</a>}
-      <a href="./src_compile_cygpart.html#robo193">cygmake</a> configure
-      <a href="./src_compile_cygpart.html#robo191">lndirs</a>
-      cd ${<a href="./syntax_cygpart.html#robo100">B</a>}
-      <a href="#robo915">cygconf</a> --htmldir=/usr/share/doc/${<a href="./syntax_cygpart.html#robo90">NAME</a>}/html --mandir=/usr/share/man
-      <a href="./src_compile_cygpart.html#robo193">cygmake</a> all
+      cd ${<a href="./syntax_cygpart.html#robo97">S</a>}
+      <a href="./src_compile_cygpart.html#robo188">cygmake</a> configure
+      <a href="./src_compile_cygpart.html#robo186">lndirs</a>
+      cd ${<a href="./syntax_cygpart.html#robo98">B</a>}
+      <a href="#robo935">cygconf</a> --htmldir=/usr/share/doc/${<a href="./syntax_cygpart.html#robo88">NAME</a>}/html --mandir=/usr/share/man
+      <a href="./src_compile_cygpart.html#robo188">cygmake</a> all
       # these can't be built in parallel
-      <a href="./src_compile_cygpart.html#robo193">cygmake</a> html
-      <a href="./src_compile_cygpart.html#robo193">cygmake</a> man
-      <a href="./src_compile_cygpart.html#robo193">cygmake</a> info
-      <a href="./src_compile_cygpart.html#robo193">cygmake</a> pdf
+      <a href="./src_compile_cygpart.html#robo188">cygmake</a> html
+      <a href="./src_compile_cygpart.html#robo188">cygmake</a> man
+      <a href="./src_compile_cygpart.html#robo188">cygmake</a> info
+      <a href="./src_compile_cygpart.html#robo188">cygmake</a> pdf
     }
     
-    <a href="./src_install_cygpart.html#robo187">src_install</a>() {
-      cd ${<a href="./syntax_cygpart.html#robo100">B</a>}
-      <a href="./src_install_cygpart.html#robo185">cyginstall</a> install-html install-man install-info install-pdf pdfdir=/usr/share/doc/${<a href="./syntax_cygpart.html#robo90">NAME</a>}
+    <a href="./src_install_cygpart.html#robo182">src_install</a>() {
+      cd ${<a href="./syntax_cygpart.html#robo98">B</a>}
+      <a href="./src_install_cygpart.html#robo180">cyginstall</a> install-html install-man install-info install-pdf pdfdir=/usr/share/doc/${<a href="./syntax_cygpart.html#robo88">NAME</a>}
     
       # ship bash completion
-      <a href="./src_install_cygpart.html#robo162">insinto</a> /etc/bash_completion.d
-      <a href="./src_install_cygpart.html#robo163">doins</a> ${<a href="./syntax_cygpart.html#robo99">S</a>}/contrib/completion/*.bash
+      <a href="./src_install_cygpart.html#robo157">insinto</a> /etc/bash_completion.d
+      <a href="./src_install_cygpart.html#robo158">doins</a> ${<a href="./syntax_cygpart.html#robo97">S</a>}/contrib/completion/*.bash
     }
 </pre>
 <p>
-  As noted below, <a href="#robo915">cygconf</a> is only intended for autoconf-compatible configure
+  As noted below, <a href="#robo935">cygconf</a> is only intended for autoconf-compatible configure
   scripts.  Some packages use a custom configure script which is not compatible,
   in which case you need to call configure yourself:
 </p>
 
-<pre>    <a href="./src_compile_cygpart.html#robo194">src_compile</a>() {
+<pre>    <a href="./src_compile_cygpart.html#robo189">src_compile</a>() {
       # package is not VPATH aware
-      <a href="./src_compile_cygpart.html#robo191">lndirs</a>
-      cd ${<a href="./syntax_cygpart.html#robo100">B</a>}
+      <a href="./src_compile_cygpart.html#robo186">lndirs</a>
+      cd ${<a href="./syntax_cygpart.html#robo98">B</a>}
       # custom configure incompatible with autoconf
-      ./configure --prefix=/usr || <a href="./syntax_cygpart.html#robo83">error</a> "configure failed"
-      <a href="./src_compile_cygpart.html#robo193">cygmake</a>
+      ./configure --prefix=/usr || <a href="./syntax_cygpart.html#robo81">error</a> "configure failed"
+      <a href="./src_compile_cygpart.html#robo188">cygmake</a>
    }
 </pre>
 <p></p>
 <p class="item_name">NOTES</p>
 <p>  These functions were previously part of cygport itself, but were moved
   out for easier maintainability.  For backwards compatibility, this
-  cygclass is automatically <a href="./inheritance_cygpart.html#robo638">inherit</a>()ed, so these functions are always
+  cygclass is automatically <a href="./inheritance_cygpart.html#robo650">inherit</a>()ed, so these functions are always
   available as before.
 </p>
 
-<p>  Normally, a cygclass can only be <a href="./inheritance_cygpart.html#robo639">inherited</a> once.  Even though this
-  is auto-<a href="./inheritance_cygpart.html#robo638">inherit</a>()ed, it can still be manually <a href="./inheritance_cygpart.html#robo638">inherit</a>()ed once more if desired.
-  In most cases this is unnecessary, but it can be useful if you <a href="./inheritance_cygpart.html#robo638">inherit</a>
-  other cygclasses but still want the default <a href="./src_compile_cygpart.html#robo194">src_compile</a>().  For example:
+<p>  Normally, a cygclass can only be <a href="./inheritance_cygpart.html#robo651">inherited</a> once.  Even though this
+  is auto-<a href="./inheritance_cygpart.html#robo650">inherit</a>()ed, it can still be manually <a href="./inheritance_cygpart.html#robo650">inherit</a>()ed once more if desired.
+  In most cases this is unnecessary, but it can be useful if you <a href="./inheritance_cygpart.html#robo650">inherit</a>
+  other cygclasses but still want the default <a href="./src_compile_cygpart.html#robo189">src_compile</a>().  For example:
 </p>
-<pre>    <a href="./inheritance_cygpart.html#robo638">inherit</a> perl autotools
+<pre>    <a href="./inheritance_cygpart.html#robo650">inherit</a> perl autotools
 </pre>
 <p>  provides all the PERL_* definitions and perl_*() functions, but will build
-  with <a href="#robo915">cygconf</a>/<a href="./src_compile_cygpart.html#robo193">cygmake</a> by default instead of with perl's ExtUtils::MakeMaker
+  with <a href="#robo935">cygconf</a>/<a href="./src_compile_cygpart.html#robo188">cygmake</a> by default instead of with perl's ExtUtils::MakeMaker
   or Module::Build.
 </p>
 <p class="item_name">INHERITED BY</p>
-<p>  No Cygclass actually <a href="./inheritance_cygpart.html#robo638">inherit</a>()s <strong>autotools.cygclass</strong> for the reasons stated above,
-  but the functions <a href="./syntax_cygpart.html#robo79">defined</a> herein are used by a number of <a href="./Makefile_am.html#robo587">Cygclasses</a>:
+<p>  No Cygclass actually <a href="./inheritance_cygpart.html#robo650">inherit</a>()s <strong>autotools.cygclass</strong> for the reasons stated above,
+  but the functions <a href="./syntax_cygpart.html#robo77">defined</a> herein are used by a number of <a href="./Makefile_am.html#robo599">Cygclasses</a>:
 </p>
 
-<p>  <a href="./berkdb_cygclass.html#robo_top_of_doc">berkdb.cygclass</a>, <a href="./ggz_cygclass.html#robo_top_of_doc">ggz.cygclass</a>, <a href="./gnome2_cygclass.html#robo_top_of_doc">gnome2.cygclass</a>, <a href="./gnustep_cygclass.html#robo_top_of_doc">gnustep.cygclass</a>,
-  <a href="./gst-plugins_cygclass.html#robo691">gst-plugins.cygclass</a>, <a href="./gtkmm_cygclass.html#robo_top_of_doc">gtkmm.cygclass</a>, <a href="./httpd_cygclass.html#robo_top_of_doc">httpd.cygclass</a>,
-  <a href="./mate_cygclass.html#robo_top_of_doc">mate.cygclass</a>, <a href="./opensync_cygclass.html#robo_top_of_doc">opensync.cygclass</a>, <a href="./php_cygclass.html#robo_top_of_doc">php.cygclass</a>, <a href="./pygtk_cygclass.html#robo406">pygtk.cygclass</a>, <a href="./toolchain_cygclass.html#robo_top_of_doc">toolchain.cygclass</a>,
-  <a href="./xfce4_cygclass.html#robo_top_of_doc">xfce4.cygclass</a>, <a href="./xorg_cygclass.html#robo_top_of_doc">xorg.cygclass</a>
+<p>  <a href="./berkdb_cygclass.html#robo909">berkdb.cygclass</a>, <a href="./ggz_cygclass.html#robo740">ggz.cygclass</a>, <a href="./gnome2_cygclass.html#robo_top_of_doc">gnome2.cygclass</a>, <a href="./gnustep_cygclass.html#robo_top_of_doc">gnustep.cygclass</a>,
+  <a href="./gst-plugins_cygclass.html#robo703">gst-plugins.cygclass</a>, <a href="./gtkmm_cygclass.html#robo681">gtkmm.cygclass</a>, <a href="./httpd_cygclass.html#robo652">httpd.cygclass</a>,
+  <a href="./mate_cygclass.html#robo590">mate.cygclass</a>, <a href="./opensync_cygclass.html#robo475">opensync.cygclass</a>, <a href="./php_cygclass.html#robo_top_of_doc">php.cygclass</a>, <a href="./pygtk_cygclass.html#robo_top_of_doc">pygtk.cygclass</a>, <a href="./toolchain_cygclass.html#robo_top_of_doc">toolchain.cygclass</a>,
+  <a href="./xfce4_cygclass.html#robo8">xfce4.cygclass</a>, <a href="./xorg_cygclass.html#robo_top_of_doc">xorg.cygclass</a>
 </p>
 
 <hr />
 <a name="autotools2ecygclass2fgnuconfigize"></a>
-<a name="robo904"></a><h2>gnuconfigize</h2>
+<a name="robo924"></a><h2>gnuconfigize</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo903">autotools.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo923">autotools.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>gnuconfigize</strong> DIRECTORY [DIRECTORY ...]
 </pre>
@@ -231,17 +231,17 @@
   which is not recognized by older versions of this file.
 </p>
 <p class="item_name">NOTE</p>
-<p>  This function is called automatically during <a href="#robo905">cygautoreconf</a>; it need only
+<p>  This function is called automatically during <a href="#robo925">cygautoreconf</a>; it need only
   be called directly for packages which install their copies of this file
-  (e.g. the autotools themselves) or in the unusual case where <a href="#robo905">cygautoreconf</a>
+  (e.g. the autotools themselves) or in the unusual case where <a href="#robo925">cygautoreconf</a>
   absolutely cannot be used.
 </p>
 
 <hr />
 <a name="autotools2ecygclass2fcygautoreconf"></a>
-<a name="robo905"></a><h2>cygautoreconf</h2>
+<a name="robo925"></a><h2>cygautoreconf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo903">autotools.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo923">autotools.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>cygautoreconf</strong>
 </pre>
@@ -249,10 +249,10 @@
 <p>  Updates the autotool build system with autoreconf, which runs the tools
   from autoconf, automake, gettext-devel, and libtool to update their
   respective components.  Must be run in the directory containing the top-level
-  configure.ac or configure.in (usually $<a href="./syntax_cygpart.html#robo99">S</a>).
+  configure.ac or configure.in (usually $<a href="./syntax_cygpart.html#robo97">S</a>).
 </p>
 <p class="item_name">NOTE</p>
-<p>  If, during <strong>cygautoreconf</strong>, you get a <a href="./syntax_cygpart.html#robo84">warning</a> such as:
+<p>  If, during <strong>cygautoreconf</strong>, you get a <a href="./syntax_cygpart.html#robo82">warning</a> such as:
 </p>
 <pre>     Warning: ./configure.ac may require LT_OUTPUT macro
 </pre>
@@ -287,9 +287,9 @@
 
 <hr />
 <a name="cygautoreconf2fWANT5fAUTOCONF"></a>
-<a name="robo906"></a><h2>WANT_AUTOCONF</h2>
+<a name="robo926"></a><h2>WANT_AUTOCONF</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo905">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo925">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  This variable controls the version of autoconf to be used.  Valid settings
   are "2.1" (for the 2.13 version) and "2.5" (the default, for the 2.5x/2.6x
@@ -298,9 +298,9 @@
 
 <hr />
 <a name="cygautoreconf2fWANT5fAUTOMAKE"></a>
-<a name="robo907"></a><h2>WANT_AUTOMAKE</h2>
+<a name="robo927"></a><h2>WANT_AUTOMAKE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo905">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo925">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  This variable controls the version of automake to be used.  Valid settings
   are currently "1.4", "1.5", etc. through "1.14".  If undefined, the version
@@ -310,12 +310,12 @@
 
 <hr />
 <a name="cygautoreconf2fNO5fACLOCAL"></a>
-<a name="robo908"></a><h2>NO_ACLOCAL</h2>
+<a name="robo928"></a><h2>NO_ACLOCAL</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo905">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo925">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Define this variable to a <a href="./syntax_cygpart.html#robo87">boolean</a> true value to skip running aclocal
-  during <a href="#robo905">cygautoreconf</a>.
+<p>  Define this variable to a <a href="./syntax_cygpart.html#robo85">boolean</a> true value to skip running aclocal
+  during <a href="#robo925">cygautoreconf</a>.
 </p>
 <p class="item_name">WARNING</p>
 <p>  This is strongly discouraged, and should only be used when a package uses
@@ -325,12 +325,12 @@
 
 <hr />
 <a name="cygautoreconf2fNO5fLIBTOOLIZE"></a>
-<a name="robo909"></a><h2>NO_LIBTOOLIZE</h2>
+<a name="robo929"></a><h2>NO_LIBTOOLIZE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo905">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo925">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Define this variable to a <a href="./syntax_cygpart.html#robo87">boolean</a> true value to skip running libtoolize
-  during <a href="#robo905">cygautoreconf</a>.
+<p>  Define this variable to a <a href="./syntax_cygpart.html#robo85">boolean</a> true value to skip running libtoolize
+  during <a href="#robo925">cygautoreconf</a>.
 </p>
 <p class="item_name">WARNING</p>
 <p>  This is strongly discouraged.  Cygwin's libtool usually includes patches
@@ -340,12 +340,12 @@
 
 <hr />
 <a name="cygautoreconf2fNO5fAUTOCONF"></a>
-<a name="robo910"></a><h2>NO_AUTOCONF</h2>
+<a name="robo930"></a><h2>NO_AUTOCONF</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo905">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo925">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Define this variable to a <a href="./syntax_cygpart.html#robo87">boolean</a> true value to skip running autoconf
-  during <a href="#robo905">cygautoreconf</a>.
+<p>  Define this variable to a <a href="./syntax_cygpart.html#robo85">boolean</a> true value to skip running autoconf
+  during <a href="#robo925">cygautoreconf</a>.
 </p>
 <p class="item_name">WARNING</p>
 <p>  This is strongly discouraged.  Running libtoolize, changes to aclocal macros,
@@ -355,24 +355,24 @@
 
 <hr />
 <a name="cygautoreconf2fNO5fAUTOHEADER"></a>
-<a name="robo911"></a><h2>NO_AUTOHEADER</h2>
+<a name="robo931"></a><h2>NO_AUTOHEADER</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo905">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo925">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Sometimes autoreconf thinks a package uses autoheader when in fact it does
-  not, in which case <a href="#robo905">cygautoreconf</a> will fail during the autoheader stage.
+  not, in which case <a href="#robo925">cygautoreconf</a> will fail during the autoheader stage.
   In such cases, provided you have not patched any AC_DEFINEs, set this
-  variable to a <a href="./syntax_cygpart.html#robo87">boolean</a> true value to skip the autoheader step.
+  variable to a <a href="./syntax_cygpart.html#robo85">boolean</a> true value to skip the autoheader step.
 </p>
 
 <hr />
 <a name="cygautoreconf2fNO5fAUTOMAKE"></a>
-<a name="robo912"></a><h2>NO_AUTOMAKE</h2>
+<a name="robo932"></a><h2>NO_AUTOMAKE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo905">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo925">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Define this variable to a <a href="./syntax_cygpart.html#robo87">boolean</a> true value to skip running automake
-  during <a href="#robo905">cygautoreconf</a>.
+<p>  Define this variable to a <a href="./syntax_cygpart.html#robo85">boolean</a> true value to skip running automake
+  during <a href="#robo925">cygautoreconf</a>.
 </p>
 <p class="item_name">WARNING</p>
 <p>  This is strongly discouraged.  If aclocal and/or autoconf have been run,
@@ -381,12 +381,12 @@
 
 <hr />
 <a name="cygautoreconf2fNO5fAUTOPOINT"></a>
-<a name="robo913"></a><h2>NO_AUTOPOINT</h2>
+<a name="robo933"></a><h2>NO_AUTOPOINT</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo905">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo925">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Define this variable to a <a href="./syntax_cygpart.html#robo87">boolean</a> true value to skip running autopoint
-  during <a href="#robo905">cygautoreconf</a>.
+<p>  Define this variable to a <a href="./syntax_cygpart.html#robo85">boolean</a> true value to skip running autopoint
+  during <a href="#robo925">cygautoreconf</a>.
 </p>
 <p class="item_name">WARNING</p>
 <p>  This is strongly discouraged.  Cygwin's gettext package often has patches
@@ -396,21 +396,21 @@
 
 <hr />
 <a name="cygautoreconf2fACLOCAL5fFLAGS"></a>
-<a name="robo914"></a><h2>ACLOCAL_FLAGS</h2>
+<a name="robo934"></a><h2>ACLOCAL_FLAGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo905">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo925">cygautoreconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Set this variable when a package ships with its own aclocal macros but
-  their directory is not included when running aclocal during <a href="#robo905">cygautoreconf</a>.
+  their directory is not included when running aclocal during <a href="#robo925">cygautoreconf</a>.
   If needed, usually in the form "-I DIR" (where DIR is the relative subdirectory
   containing the aclocal macros, often m4/).
 </p>
 
 <hr />
 <a name="autotools2ecygclass2fcygconf"></a>
-<a name="robo915"></a><h2>cygconf</h2>
+<a name="robo935"></a><h2>cygconf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo903">autotools.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo923">autotools.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>cygconf</strong> [CONFIGURE_FLAG] [CONFIGURE_FLAG] ...
 </pre>
@@ -420,13 +420,13 @@
 <a href="http://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
 <a href="http://cygwin.com/setup.html#package_contents">Cygwin package guidelines</a>.
   In addition, all arguments to <strong>cygconf</strong> are passed to configure, followed by
-  <a href="#robo917">CYGCONF_ARGS</a>, if set.
+  <a href="#robo937">CYGCONF_ARGS</a>, if set.
 </p>
 <p class="item_name">NOTES</p>
-<ul><li>  <strong>cygconf</strong> should be run in or under $<a href="./syntax_cygpart.html#robo100">B</a>, as it defines the build directory of
+<ul><li>  <strong>cygconf</strong> should be run in or under $<a href="./syntax_cygpart.html#robo98">B</a>, as it defines the build directory of
     the package and creates numerous files.
 </li>
-<li>  If the configure script is not in $<a href="./syntax_cygpart.html#robo99">S</a>, see <a href="#robo916">CYGCONF_SOURCE</a>.
+<li>  If the configure script is not in $<a href="./syntax_cygpart.html#robo97">S</a>, see <a href="#robo936">CYGCONF_SOURCE</a>.
 </li>
 <li>  <strong>cygconf</strong> is intended for configure scripts generated by, or compatible with,
     autoconf.  Packages with handwritten configure scripts may not accept all
@@ -438,48 +438,48 @@
 
 <hr />
 <a name="cygconf2fCYGCONF5fSOURCE"></a>
-<a name="robo916"></a><h2>CYGCONF_SOURCE</h2>
+<a name="robo936"></a><h2>CYGCONF_SOURCE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo915">cygconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo935">cygconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Set this variable to the directory containing the configure script.  This
-  is only necessary when configure is not in $<a href="./syntax_cygpart.html#robo99">S</a> and <a href="#robo915">cygconf</a> is not being run
-  in the same subdirectory of $<a href="./syntax_cygpart.html#robo100">B</a> which under $<a href="./syntax_cygpart.html#robo99">S</a> contains configure.  (IOW if
-  the configure script is in $<a href="./syntax_cygpart.html#robo99">S</a>/unix and <a href="#robo915">cygconf</a> is run from $<a href="./syntax_cygpart.html#robo100">B</a>/unix, setting
+  is only necessary when configure is not in $<a href="./syntax_cygpart.html#robo97">S</a> and <a href="#robo935">cygconf</a> is not being run
+  in the same subdirectory of $<a href="./syntax_cygpart.html#robo98">B</a> which under $<a href="./syntax_cygpart.html#robo97">S</a> contains configure.  (IOW if
+  the configure script is in $<a href="./syntax_cygpart.html#robo97">S</a>/unix and <a href="#robo935">cygconf</a> is run from $<a href="./syntax_cygpart.html#robo98">B</a>/unix, setting
   <strong>CYGCONF_SOURCE</strong> would not be necessary.)
 </p>
 
 <hr />
 <a name="cygconf2fCYGCONF5fARGS"></a>
-<a name="robo917"></a><h2>CYGCONF_ARGS</h2>
+<a name="robo937"></a><h2>CYGCONF_ARGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo915">cygconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo935">cygconf</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Additional flags to pass to configure, as a string.
 </p>
 <p class="item_name">NOTE</p>
 <p>  Flags in <strong>CYGCONF_ARGS</strong> follow, and therefore override, flags passed by default
-  and as arguments to <a href="#robo915">cygconf</a>.
+  and as arguments to <a href="#robo935">cygconf</a>.
 </p>
 
 <hr />
 <a name="autotools2ecygclass2fsrc5fcompile2028autotools29"></a>
-<a name="robo918"></a><h2>src_compile (autotools)</h2>
+<a name="robo938"></a><h2>src_compile (autotools)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo903">autotools.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo923">autotools.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo194">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">S</a><span class="sign">}</span>
-        <a href="#robo905">cygautoreconf</a>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
-        <a href="#robo915">cygconf</a>
-        <a href="./src_compile_cygpart.html#robo193">cygmake</a>
+<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo97">S</a><span class="sign">}</span>
+        <a href="#robo925">cygautoreconf</a>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
+        <a href="#robo935">cygconf</a>
+        <a href="./src_compile_cygpart.html#robo188">cygmake</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/autotools.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jul 20 2015 01:41:50
+<p>Generated from cygport/cygclass/autotools.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:20
 </p>
 </div> <!-- footer -->
 </body>
