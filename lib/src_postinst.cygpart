@@ -228,7 +228,7 @@ __prep_gtk_icon_theme() {
 #****
 
 __prep_texlive() {
-	local d fmt fmts format formats map maps
+	local fmt fmts format formats map maps
 	local markerdir=/var/lib/texmf/postinstall
 
 	dodir /etc/postinstall /etc/preremove ${markerdir}
@@ -278,16 +278,6 @@ __prep_texlive() {
 			_EOF
 		done
 	fi
-
-	for d in /usr/share/texmf-dist/fonts/{opentype,truetype,type1}
-	do
-		if [ -d ${D}${d} ]
-		then
-			cat >> ${D}${markerdir}/${PN}.fc <<-_EOF
-				${d}
-			_EOF
-		fi
-	done
 }
 
 #****P* Postinstall/X Sessions
