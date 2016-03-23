@@ -284,10 +284,6 @@ then
 	STRIP=${CHOST}-strip
 	PKG_CONFIG=${CHOST}-pkg-config
 
-	CC_SYSROOT=$(${CC} -print-sysroot)
-
-	if ! check_tool gcc || ! check_tool strip
-	then
-	        error "Cross-compiling this package requires ${CHOST} binutils and gcc"
-	fi
+	# CC need not be installed for some steps (e.g. upload)
+	CC_SYSROOT=$(${CC} -print-sysroot 2>/dev/null || :)
 fi
