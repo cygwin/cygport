@@ -178,7 +178,7 @@ __list_deps() {
 			-o -path 'usr/share/gems/*' -prune \
 			-o -path 'usr/share/help/*' -prune \
 			-o -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' -print \
-			| xargs -r sed -n -e '1{/^#!/s|/env *|/|g;s|^#! *\([^ ]*\).*|\1|gp}' \
+			| xargs -r sed -sne '1{/^#!/s|/env *|/|g;s|^#! *\([^ ]*\).*|\1|gp}' \
 			| sort -u)
 
 	# implib devel->dll subpackage dependencies
