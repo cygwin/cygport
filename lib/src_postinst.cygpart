@@ -228,7 +228,7 @@ __prep_gtk_icon_theme() {
 #****
 
 __prep_texlive() {
-	local fmt fmts format formats map maps
+	local fmt fmts format formats map maps tlp tlps
 	local markerdir=/var/lib/texmf/postinstall
 
 	dodir /etc/postinstall /etc/preremove ${markerdir}
@@ -277,6 +277,29 @@ __prep_texlive() {
 				/usr/bin/fmtutil-sys --byfmt ${format}
 			_EOF
 		done
+	fi
+
+	if [ -d ${D}/usr/share/tlpkg/tlpobj ]
+	then
+		pushd ${D}/usr/share/tlpkg/tlpobj
+		tlps=$(ls *.tlpobj 2>/dev/null | sed -e 's/\.tlpobj//')
+		popd
+	fi
+	if [ -n "${tlps}" ]
+	then
+		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+			/usr/libexec/update_tlpdb remove \\
+		_EOF
+		for tlp in $tlps
+		do
+			cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+				$tlp \\
+			_EOF
+			cat >> ${D}${markerdir}/${PN}.tlp <<-_EOF
+				$tlp
+			_EOF
+		done
+		echo >> ${D}/etc/preremove/${PN}.sh
 	fi
 }
 
