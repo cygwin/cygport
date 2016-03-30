@@ -1,5 +1,5 @@
-This is cygport, a revolutionary new method for building and maintaining
-packages for the Cygwin distribution[1].
+cygport is the standard method for building and maintaining packages for
+the Cygwin distribution.
 
 
 1. BACKGROUND

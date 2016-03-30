@@ -3,8 +3,8 @@ VERSION=0.21.1
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Cygwin source packaging tool"
-DESCRIPTION="This is cygport, a revolutionary new method for building
-and maintaining packages for the Cygwin distribution."
+DESCRIPTION="cygport is the standard method for building and maintaining
+packages for the Cygwin distribution."
 HOMEPAGE="http://sourceware.org/cygwinports/"
 SRC_URI="https://github.com/cygwinports/cygport/${VERSION}/cygport-${VERSION}.tar.gz"
 
