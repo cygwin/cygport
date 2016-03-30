@@ -1,3 +1,8 @@
+0.21.1:
+	* Build-time dependencies on cross-cygwin gcc are only checked then,
+	  not during upload etc.
+	* Fixed regression in shebang dependency detection
+
 0.21.0:
 	* New 'announce' command for composing cygwin-announce messages
 	* Dropped postinstall script dependencies for packages with
