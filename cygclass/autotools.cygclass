@@ -463,7 +463,7 @@ cygautoreconf() {
 
 		ACLOCAL=aclocal
 		# not all packages require gettext-devel
-		AUTOPOINT=$(which autopoint 2>/dev/null)
+		AUTOPOINT=$(which autopoint 2>/dev/null || :)
 
 		if cross_compiling || inherited toolchain
 		then
