@@ -561,19 +561,19 @@ do
 			__log_init ${compilelog};
 			__check_depends && \
 			src_compile 2>&1 | tee -a ${compilelog};
-			_status=$?;
+			_status=${PIPESTATUS[0]};
 			;;
 		check|test)
 			__stage Testing;
 			__log_init ${checklog};
 			src_test 2>&1 | tee -a ${checklog};
-			_status=$?;
+			_status=${PIPESTATUS[0]};
 			;;
 		inst*)
 			__stage Installing;
 			__log_init ${installlog};
 			(__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog};
-			_status=$?;
+			_status=${PIPESTATUS[0]};
 			;;
 		postinst*)
 			__src_postinst;
@@ -603,7 +603,7 @@ do
 			__stage Packaging;
 			__log_init ${pkglog};
 			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog};
-			_status=$?;
+			_status=${PIPESTATUS[0]};
 			;;
 		diff|mkdiff|mkpatch)
 			__pkg_diff;
@@ -613,7 +613,7 @@ do
 			__stage Uploading;
 			__log_init ${uploadlog};
 			(__pkg_upload) 2>&1 | tee -a ${uploadlog};
-			_status=$?;
+			_status=${PIPESTATUS[0]};
 			;;
 		announce)
 			__stage "Preparing announcement";
@@ -629,10 +629,13 @@ do
 			__log_init ${compilelog} && \
 			__check_depends && \
 			__stage Compiling && src_compile 2>&1 | tee -a ${compilelog} && \
+			test ${PIPESTATUS[0]} -eq 0 && \
 			__log_init ${installlog} && \
 			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
+			test ${PIPESTATUS[0]} -eq 0 && \
 			__log_init ${pkglog} && \
-			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog}
+			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog} && \
+			test ${PIPESTATUS[0]} -eq 0
 			_status=$?;
 			;;
 		help)
