@@ -58,10 +58,13 @@
 #  mirror instead of from stable release repository mirrors, which are frozen
 #  during the pretest phase.
 #****
-if ! defined TEXLIVE_TEXMF_PKGS && ! defined TEXLIVE_ARCH_PKGS && ! defined TEXLIVE_DOC_PKGS
-then
-	TEXLIVE_TEXMF_PKGS=${PN#texlive-}
-fi
+
+# For the sake of tlmgr we want to include the .tlpobj file for the
+# collection.
+case ${PN} in
+*-doc)	;;
+*)	TEXLIVE_TEXMF_PKGS+=" ${PN#texlive-}" ;;
+esac
 
 #****o* texlive.cygclass/CATEGORY (texlive)
 #  DEFINITION
