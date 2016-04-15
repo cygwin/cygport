@@ -180,26 +180,37 @@ __prep_gtk3_modules() {
 
 #****P* Postinstall/Icon Themes
 #  DESCRIPTION
-#  Packages postinstall scripts will be automatically generated for packages
-#  providing an icon theme, or additional icons for a given theme, to update
-#  that icon theme's cache.
+#  Perpetual postinstall scripts will be automatically generated for packages
+#  providing an icon theme, and postinstall triggers for those adding additional
+#  icons for a given theme to update that icon theme's cache.
 #****
 
 __prep_gtk_icon_theme() {
+	local cache
 	local icondir
 
 	find ${D}${CROSS_PREFIX-/usr}/share/icons -mindepth 1 -maxdepth 1 -type d -print0 | \
 	while read -d $'\0' icondir
 	do
-		if [ -f ${icondir}/index.theme -o -f ${icondir#${D}}/index.theme ]
-		then
-			dodir /etc/postinstall
-			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-				if [ -x /usr/bin/gtk-update-icon-cache.exe ]
-				then
-				    /usr/bin/gtk-update-icon-cache --force ${icondir#${D}}
-				fi
+		cache=${icondir#${D}}/icon-theme.cache
 
+		dodir /etc/postinstall
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			rm -f ${cache}
+		_EOF
+
+		if [ -f ${icondir}/index.theme ]
+		then
+			cat >> ${D}/etc/postinstall/zp_${PN}.sh <<-_EOF
+				if [ ! -f ${cache} ]
+				then
+				    /usr/bin/gtk-update-icon-cache --force ${icondir#${D}} || :
+				fi
+			_EOF
+
+			dodir /etc/preremove
+			cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+				rm -f ${cache}
 			_EOF
 		fi
 	done
