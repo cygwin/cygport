@@ -652,6 +652,8 @@ __prepman() {
 #  The following cleanup steps will occur if info pages are installed:
 #  * Info pages will be gzip-compressed.
 #  * Errant info/dir files will be deleted.
+#  SEE ALSO
+#  RESTRICT
 #****
 
 __prepinfo() {
@@ -669,6 +671,12 @@ __prepinfo() {
 	if [ -d ${D}$(__host_prefix)/share/info ]
 	then
 		rm -f ${D}$(__host_prefix)/share/info/dir
+
+		if defined _CYGPORT_RESTRICT_postinst_info_
+		then
+			inform "Skipping compression of info pages by request";
+			return 0;
+		fi
 
 		echo "Compressing info pages:";
 
@@ -1337,6 +1345,7 @@ __prep_libtool_modules() {
 #  * diff: do not generate a .src.patch file of changes made in $S.
 #  * postinst-doc: do not install standard documentation files.
 #  * postinst-gconf: do not create postinstall commands for GConf schemas.
+#  * postinst-info: do not compress info documentation.
 #  * strip: do not strip binaries.
 #  * upload: do not allow uploading binary packages to cygwin.com.
 #  Of these, "diff" is the only one that should be considered useful, e.g.
