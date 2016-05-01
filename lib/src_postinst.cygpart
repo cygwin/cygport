@@ -234,6 +234,9 @@ __prep_texlive() {
 	dodir /etc/postinstall /etc/preremove ${markerdir}
 
 	touch ${D}${markerdir}/${PN}.lsr
+	cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+		/usr/bin/touch ${markerdir}/${PN}_rm.lsr
+	_EOF
 
 	fmts=$(__config_get texlive_fmts)
 	maps=$(__config_get texlive_maps)
