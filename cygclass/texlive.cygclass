@@ -137,10 +137,11 @@ ARCH=noarch
 #  queues the necessary postinstall steps.
 #****
 texlive_install() {
-	local f pkg pkgs tlpobj dst src fmt map perm
+	local f pkg pkgs tlpobj dst src fmt map perm lang
 
 	__config_set texlive_fmts
 	__config_set texlive_maps
+	__config_set texlive_langs
 
 	for pkg in ${TEXLIVE_TEXMF_PKGS//,/ }
 	do
@@ -223,6 +224,13 @@ texlive_install() {
 		do
 			__config_set texlive_maps "$(__config_get texlive_maps) $map"
 		done
+
+		for lang in $(grep -E 'execute AddHyphen' $tlpobj \
+		             | sed 's/.*[ \t]name=\([^ \t]*\).*/\1/')
+		do
+			__config_set texlive_langs "$(__config_get texlive_langs) $lang"
+		done
+
 	done
 }
 

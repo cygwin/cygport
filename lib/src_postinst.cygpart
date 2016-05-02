@@ -228,7 +228,7 @@ __prep_gtk_icon_theme() {
 #****
 
 __prep_texlive() {
-	local fmt fmts format formats map maps tlp tlps
+	local fmt fmts format formats map maps tlp tlps lang langs
 	local markerdir=/var/lib/texmf/postinstall
 
 	dodir /etc/postinstall /etc/preremove ${markerdir}
@@ -240,6 +240,7 @@ __prep_texlive() {
 
 	fmts=$(__config_get texlive_fmts)
 	maps=$(__config_get texlive_maps)
+	langs=$(__config_get texlive_langs)
 
 	if [ -n "${maps#0}" ]
 	then
@@ -274,10 +275,30 @@ __prep_texlive() {
 				/usr/bin/fmtutil-sys --disablefmt $fmt
 			_EOF
 		done
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			if [ ! -f ${markerdir}/texlive.rebuild_all_fmts ]
+			then
+		_EOF
 		for format in $formats
 		do
 			cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
 				/usr/bin/fmtutil-sys --byfmt ${format}
+			_EOF
+		done
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			fi
+		_EOF
+	fi
+
+	if [ -n "${langs#0}" ]
+	then
+		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+			/usr/bin/touch ${markerdir}/${PN}_rm.lang
+		_EOF
+		for lang in $langs
+		do
+			cat >> ${D}${markerdir}/${PN}.lang <<-_EOF
+				$lang
 			_EOF
 		done
 	fi
