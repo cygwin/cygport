@@ -57,9 +57,8 @@
 #****
 
 __pkg_upload() {
-	local -a archdir
+	local archdir
 	local connect_string
-	local dir
 	local distsubdir
 	local file
 	local key_fingerprint
@@ -139,27 +138,24 @@ __pkg_upload() {
 	fi
 
 	case ${ARCH} in
-	i686)	archdir=(x86) ;;
-	x86_64)	archdir=(x86_64) ;;
-	noarch) archdir=(x86 x86_64) ;;
+	i686)	archdir=x86 ;;
+	x86_64)	archdir=x86_64 ;;
+	noarch) archdir=noarch ;;
 	*)  error "Don't know where to upload packages with architecture ${ARCH}" ;;
 	esac
 
 	__step "Running lftp ${connect_string}"
 
-	lftp -f <(
-		echo "set cmd:fail-exit on"
-		echo "set cmd:interactive on"
-		echo "set net:max-retries 1"
-		echo "open ${connect_string}"
-
-		for dir in ${archdir[*]}
-		do
-			echo "cd /${dir}/release"
-			echo "rm -f ${NAME}/!ready || echo -n"
-			echo "mirror -v -eR ${NAME}"
-			echo "put /dev/null -o ${NAME}/!ready"
-		done
+	lftp -f <(cat <<-EOF
+		set cmd:fail-exit on
+		set cmd:interactive on
+		set net:max-retries 1
+		open ${connect_string}
+		cd /${archdir}/release
+		rm -f ${NAME}/!ready || echo -n
+		mirror -v -eR ${NAME}
+		put /dev/null -o ${NAME}/!ready
+EOF
 	) || error "Upload failed"
 
 	echo "Upload complete."
