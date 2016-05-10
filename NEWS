@@ -1,3 +1,9 @@
+0.22.0:
+	* Update upload location for ARCH=noarch packages
+	* Exit status is now properly propogated
+	* Switched to perpetual postinstalls for icon theme cache updating
+	* texlive: fixes for tlmgr
+
 0.21.1:
 	* Build-time dependencies on cross-cygwin gcc are only checked then,
 	  not during upload etc.

@@ -1,4 +1,4 @@
-AC_INIT(cygport, 0.21.1,
+AC_INIT(cygport, 0.22.0,
 	[cygwin-ports-general@lists.sourceforge.net])
 
 AC_PREREQ([2.60])
