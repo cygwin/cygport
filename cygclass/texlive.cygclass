@@ -98,11 +98,6 @@ support for many languages around the world."
 HOMEPAGE="http://www.tug.org/texlive/"
 #****
 
-case ${ARCH} in
-i686)	TEXLIVE_ARCH="i386-cygwin" ;;
-x86_64)	TEXLIVE_ARCH="x86_64-cygwin" ;;
-esac
-
 #****o* texlive.cygclass/SRC_URI (texlive)
 #  DESCRIPTION
 #  SRC_URI is constructed automatically based on the value of TEXLIVE_TEXMF_PKGS,
@@ -121,7 +116,8 @@ done
 for pkg in ${TEXLIVE_ARCH_PKGS//,/ }
 do
 	SRC_URI+=" ${tlnet}/archive/$pkg.tar.xz"
-	SRC_URI+=" ${tlnet}/archive/$pkg.${TEXLIVE_ARCH}.tar.xz"
+	SRC_URI+=" ${tlnet}/archive/$pkg.i386-cygwin.tar.xz"
+	SRC_URI+=" ${tlnet}/archive/$pkg.x86_64-cygwin.tar.xz"
 done
 for pkg in ${TEXLIVE_DOC_PKGS//,/ }
 do
@@ -131,6 +127,7 @@ unset pkg tlnet
 
 SRC_DIR="."
 
+ARCH=noarch
 
 #****I* texlive.cygclass/texlive_install
 #  SYNOPSIS
@@ -151,7 +148,7 @@ texlive_install() {
 	done
 	for pkg in ${TEXLIVE_ARCH_PKGS//,/ }
 	do
-		pkgs+="$pkg $pkg.${TEXLIVE_ARCH} "
+		pkgs+="$pkg $pkg.i386-cygwin $pkg.x86_64-cygwin "
 	done
 	for pkg in ${TEXLIVE_DOC_PKGS//,/ }
 	do
@@ -172,7 +169,7 @@ texlive_install() {
 			*.bat)
 				# only needed for native Win32
 				continue ;;
-			bin/${TEXLIVE_ARCH}/*)
+			bin/i386-cygwin/*)
 				if [ ! -L ${f} ]
 				then
 					dobin $f
@@ -184,6 +181,9 @@ texlive_install() {
 					*) dosym ${dst} /usr/bin/${f##*/} ;;
 					esac
 				fi
+				continue ;;
+			bin/x86_64-cygwin/*)
+				# duplicate to i386-cygwin handled above
 				continue ;;
 			*doc/info/dir)
 				# system-managed file
