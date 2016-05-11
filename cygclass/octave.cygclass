@@ -27,7 +27,8 @@
 #  DESCRIPTION
 #  GNU Octave is a programming language primarily designed for numerical
 #  computations, and is mostly compatible with MATLAB.  It is extendible
-#  with both scripts (.m) and dynamic modules (.oct, but are ordinary DLLs).
+#  with both scripts (.m) and dynamic modules (.oct or .mex, but are ordinary
+#  DLLs).
 #
 #  This cygclass provides definitions for packages dependent on Octave.
 #  REQUIRES
@@ -47,7 +48,7 @@ OCTAVE=/usr/bin/octave
 
 #****d* octave.cygclass/MKOCTFILE
 #  DESCRIPTION
-#  Absolute path to the Octave dynamic module (.oct) compiler/linker.
+#  Absolute path to the Octave dynamic module (.oct/.mex) compiler/linker.
 #****
 MKOCTFILE=/usr/bin/mkoctfile
 
@@ -113,6 +114,6 @@ OCTAVE_M_SITEDIR=$(${OCTAVE_CONFIG} --m-site-dir)
 
 #****d* octave.cygclass/OCTAVE_OCT_SITEDIR
 #  DESCRIPTION
-#  Installation path for third-party Octave dynamic modules (.oct).
+#  Installation path for third-party Octave dynamic modules (.oct/.mex).
 #****
 OCTAVE_OCT_SITEDIR=$(${OCTAVE_CONFIG} --oct-site-dir)

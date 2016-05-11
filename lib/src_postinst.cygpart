@@ -841,10 +841,11 @@ __prepstrip() {
 
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
+	# *.mex: Octave MATLAB-compatible MEX modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
 	find * -type f ! -name '*.dll.a' ! -name '*.lib' \
-		-a \( -name '*.a' -o -name '*.o' -o -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.so.*' -o -name '*.oct' -o -name '*.cmxs' \) -print0 \
-		-o -type f -executable ! -name '*.dll' ! -name '*.exe' ! -name '*.so' ! -name '*.so.[0-9]*' ! -name '*.oct' ! -name '*.cmxs' ! -name '*.a' ! -name '*.la' ! -name '*.lib' ! -name '*.exe.manifest' ! -name '*.exe.config' ! -name '*.dll.config' ! -name '*.mdb' ! -name '*-config' ! -name '*.csh' ! -name '*.sh' ! -name '*.fish' ! -name '*.pl' ! -name '*.pm' ! -name '*.py' ! -name '*.rb' ! -name '*.tcl' -print0 | \
+		-a \( -name '*.a' -o -name '*.o' -o -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.so.*' -o -name '*.oct' -o -name '*.mex' -o -name '*.cmxs' \) -print0 \
+		-o -type f -executable ! -name '*.dll' ! -name '*.exe' ! -name '*.so' ! -name '*.so.[0-9]*' ! -name '*.oct' ! -name '*.mex' ! -name '*.cmxs' ! -name '*.a' ! -name '*.la' ! -name '*.lib' ! -name '*.exe.manifest' ! -name '*.exe.config' ! -name '*.dll.config' ! -name '*.mdb' ! -name '*-config' ! -name '*.csh' ! -name '*.sh' ! -name '*.fish' ! -name '*.pl' ! -name '*.pm' ! -name '*.py' ! -name '*.rb' ! -name '*.tcl' -print0 | \
 	while read -d $'\0' exe
 	do
 		# assure this is actually a binary object
@@ -930,7 +931,7 @@ __prepstrip() {
 		x86_64-*-cygwin*)
 			case "${exe##*/}" in
 			cygwin1.dll|cyglsa64.dll|cyglto_plugin.dll) ;;
-			*.dll|*.so|*.oct|*.cmxs)
+			*.dll|*.so|*.oct|*.mex|*.cmxs)
 				if ${objdump} -p "${exe}" | sed -ne '/^ImageBase/s/.*\t/0x/gp' | gawk '{ exit (strtonum($1) <= 0x400000000 ? 0 : 1) }'
 				then
 					warning "${exe} was not linked with -Wl,--enable-auto-image-base"
@@ -943,7 +944,7 @@ __prepstrip() {
 		case ${CHOST} in
 		*-*-cygwin*|*-*-mingw*|*-*-msys*)
 			case "${exe##*/}" in
-			*.dll|*.exe|*.sfx|*.so|*.so.[0-9]*|*.oct|*.cmxs) ;;
+			*.dll|*.exe|*.sfx|*.so|*.so.[0-9]*|*.oct|*.mex|*.cmxs) ;;
 			# make sure this isn't some oddly named DLL
 			*)	if LC_ALL=C ${objdump} -f "${exe}" | grep -Eq '^start address 0x(0000000[01])?00401[0-9a-e][0-9a-e]0'
 				then

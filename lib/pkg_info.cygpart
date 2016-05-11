@@ -167,8 +167,9 @@ __list_deps() {
 
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
+	# *.mex: Octave MATLAB-compatible MEX modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
-	alldeps+=" "$(LC_ALL=C find "${@//^_^/ }" -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.cmxs' \) \
+	alldeps+=" "$(LC_ALL=C find "${@//^_^/ }" -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.mex' -o -name '*.cmxs' \) \
 		-exec ${OBJDUMP} -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
 		cut -d ' ' -f 3 | xargs -r which || true)
 
@@ -177,7 +178,7 @@ __list_deps() {
 			${deps_prune} \
 			-o -path 'usr/share/gems/*' -prune \
 			-o -path 'usr/share/help/*' -prune \
-			-o -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' -print \
+			-o -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' ! -name '*.mex' -print \
 			| xargs -r sed -sne '1{/^#!/s|/env *|/|g;s|^#! *\([^ ]*\).*|\1|gp}' \
 			| sort -u)
 
