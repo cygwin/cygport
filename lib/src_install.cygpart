@@ -877,6 +877,60 @@ make_etc_defaults() {
 	done
 }
 
+#****I* Installing/update_etc_shells
+#  SYNOPSIS
+#  update_etc_shells PATH_TO_SHELL [PATH_TO_SHELL] ...
+#  DESCRIPTION
+#  Indicates that the given fully-qualified path(s) are shells which should be
+#  listed in /etc/shells.  update_etc_shells creates a postinstall script to
+#  add this listing if it doesn't already exist, and a preremove script which
+#  removes it when uninstalling.
+#  NOTES
+#  * Only one of the /bin or /usr/bin paths should be specified for any given
+#    shell; the other will be added automatically.
+#  * Generic aliases should be listed as well, e.g. tcsh would use
+#    update_etc_shells /bin/tcsh /bin/csh
+#  * Shells which are part of the Base install (namely, bash/sh and dash/ash)
+#    should not use this function, as they are already included in the default
+#    /etc/shells.
+#****
+update_etc_shells() {
+	local alt sh
+
+	for sh in ${@}
+	do
+		case ${sh} in
+		/bin/*)		alt=/usr${sh} ;;
+		/usr/bin/*)	alt=${sh#/usr} ;;
+		*)		alt= ;;
+		esac
+
+		if [ ! -e ${D}${sh} ] && [ ! -e ${D}${alt:-${sh}} ]
+		then
+			error "shell ${sh} does not exist"
+		fi
+
+		dodir /etc/postinstall
+		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
+			if [ ! -f /etc/shells ] || ! grep -q "^${sh}$" /etc/shells
+			then
+			    echo -e "${sh}${alt:+\n}${alt}" >> /etc/shells
+			fi
+
+		_EOF
+
+		dodir /etc/preremove
+		cat >> ${D}/etc/preremove/${PN}.sh <<-_EOF
+			if [ -f /etc/shells ]
+			then
+			    sed -i -e '\|^${sh}$|d' /etc/shells
+			    ${alt:+sed -i -e '\|^${alt}$|d' /etc/shells}
+			fi
+
+		_EOF
+	done
+}
+
 __prepinstalldirs() {
 	rm -fr ${D}/*;
 }
@@ -950,4 +1004,4 @@ readonly -f __doinstall __fix_shebang \
             exeinto doexe newexe insinto doins newins doicon newicon \
             dolib doman newman domenu newmenu dosbin newsbin dosym \
             make_autostart_entry make_desktop_entry make_etc_defaults \
-            __prepinstalldirs cyginstall
+            update_etc_shells __prepinstalldirs cyginstall
