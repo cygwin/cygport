@@ -536,7 +536,7 @@ __pkg_dist() {
 #****v* Packaging/CATEGORY
 #  DESCRIPTION
 #  A string containing one or more setup package categories.  This will be
-#  used as the category: field of auto-generated setup.hint files.
+#  used as the category: field of auto-generated .hint files.
 #  NOTE
 #  A list of official categories is available on the
 #  |html <a href="http://cygwin.com/setup.html#setup.hint">Cygwin website</a>.
@@ -546,7 +546,7 @@ __pkg_dist() {
 #****v* Packaging/PKG_CATEGORY
 #  DESCRIPTION
 #  A string containing one or more setup package categories.  This will be
-#  used as the category: field of the corresponding auto-generated setup.hint
+#  used as the category: field of the corresponding auto-generated .hint
 #  file.
 #
 #  Note that the PKG_CATEGORY name is descriptive rather than literal,
@@ -562,14 +562,14 @@ __pkg_dist() {
 #****v* Packaging/SUMMARY
 #  DESCRIPTION
 #  A one-line summary of the package.  This will be used as the sdesc: field
-#  of auto-generated setup.hint files.
+#  of auto-generated .hint files.
 #  SEE ALSO
 #  PKG_SUMMARY
 #****
 #****v* Packaging/PKG_SUMMARY
 #  DESCRIPTION
 #  A one-line summary of the subpackage.  This will be used as the sdesc:
-#  field of the corresponding auto-generated setup.hint file.
+#  field of the corresponding auto-generated .hint file.
 #
 #  Note that the PKG_SUMMARY name is descriptive rather than literal,
 #  where "PKG" should be substituted with the name of the binary package
@@ -581,14 +581,14 @@ __pkg_dist() {
 #****v* Packaging/DESCRIPTION
 #  DESCRIPTION
 #  A short paragraph description of the package.  This will be used as the
-#  ldesc: field of auto-generated setup.hint files.
+#  ldesc: field of auto-generated .hint files.
 #  SEE ALSO
 #  PKG_DESCRIPTION
 #****
 #****v* Packaging/PKG_DESCRIPTION
 #  DESCRIPTION
 #  A short paragraph description of the subpackage.  This will be used as the
-#  ldesc: field of the corresponding auto-generated setup.hint file.
+#  ldesc: field of the corresponding auto-generated .hint file.
 #
 #  Note that the PKG_DESCRIPTION name is descriptive rather than literal,
 #  where "PKG" should be substituted with the name of the binary package
@@ -601,7 +601,7 @@ __pkg_dist() {
 #  DESCRIPTION
 #  A single-line strings containing a list of packages on which this
 #  package depends. This will be added to the requires: field of the
-#  auto-generated setup.hint file.
+#  auto-generated .hint file.
 #  NOTES
 #  * cygport attempts to automatically detect many types of package
 #    dependencies, which do not need to be listed in REQUIRES.  This is still
@@ -617,7 +617,7 @@ __pkg_dist() {
 #  DESCRIPTION
 #  A single-line strings containing a list of packages on which this
 #  package depends. This will be added to the requires: field of the
-#  auto-generated setup.hint file.
+#  auto-generated .hint file.
 #
 #  Note that the PKG_REQUIRES name is descriptive rather than literal,
 #  where "PKG" should be substituted with the name of the binary package
@@ -684,7 +684,7 @@ __pkg_dist() {
 
 		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
 		then
-			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/setup.hint;
+			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint;
 		elif [ -n "${!pkg_category_var:-${CATEGORY}}" -a -n "${!pkg_summary_var:-${SUMMARY}}" ]
 		then
 			if [ "${CBUILD##*-}" = "cygwin" ]
@@ -695,10 +695,10 @@ __pkg_dist() {
 				__step "${pkg_name[${n}]} requires: ${pkg_bin_requires} ${!pkg_requires_var}"
 			else
 				pkg_bin_requires=
-				inform "ADD ${distsubdir:-${PN}} DLL DEPENDENCIES TO ${PN}${distsubdir:+/}${distsubdir}/setup.hint"
+				inform "ADD ${distsubdir:-${PN}} DLL DEPENDENCIES TO ${PN}${distsubdir:+/}${distsubdir}/${pkg_name[${n}]}-${PVR}.hint"
 			fi
 
-			cat > ${distdir}/${PN}/${distsubdir}/setup.hint <<-_EOF
+			cat > ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
 category: ${!pkg_category_var:-${CATEGORY}}
 requires: ${pkg_bin_requires} ${!pkg_requires_var}
 sdesc: "${!pkg_summary_var:-${SUMMARY}}"
@@ -706,13 +706,13 @@ ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}
 _EOF
 			if defined distsubdir
 			then
-				cat >> ${distdir}/${PN}/${distsubdir}/setup.hint <<-_EOF
+				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
 external-source: ${PN}
 _EOF
 			fi
 			if defined ${pkg_message_var}
 			then
-				cat >> ${distdir}/${PN}/${distsubdir}/setup.hint <<-_EOF
+				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
 message: ${pkg_name[${n}]} "${!pkg_message_var}"
 _EOF
 			fi
@@ -727,7 +727,7 @@ _EOF
 
 			__step "${pkg_name[${n}]} OBSOLETES: ${obspkg}"
 
-			cat > ${distdir}/${PN}/${obspkg}/setup.hint <<-_EOF
+			cat > ${distdir}/${PN}/${obspkg}/${obspkg}-${PVR}.hint <<-_EOF
 category: _obsolete
 requires: ${pkg_name[${n}]}
 sdesc: "Obsoleted by ${pkg_name[${n}]}"
@@ -745,16 +745,16 @@ _EOF
 	then
 		if [ -f ${C}/${PN}-debuginfo.hint ]
 		then
-			cp ${C}/${PN}-debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/setup.hint
+			cp ${C}/${PN}-debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.hint
 		elif [ -f ${C}/debuginfo.hint ]
 		then
-			cp ${C}/debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/setup.hint
+			cp ${C}/debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.hint
 		else
 			if [ "${PN}" != "cygwin-debuginfo" ]
 			then
 				pkg_debug_requires=cygwin-debuginfo
 			fi
-			cat > ${distdir}/${PN}/${PN}-debuginfo/setup.hint <<-_EOF
+			cat > ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.hint <<-_EOF
 category: Debug
 requires: ${pkg_debug_requires}
 external-source: ${PN}
@@ -766,7 +766,7 @@ _EOF
 	fi
 
 	# e.g. split library package w/o PN in PKG_NAMES
-	if [ ! -f ${distdir}/${PN}/setup.hint ]
+	if [ ! -f ${distdir}/${PN}/${PN}-${PVR}.hint ]
 	then
 		pkg_category_var=${PN//[-+\.]/_}_CATEGORY;
 		pkg_summary_var=${PN//[-+\.]/_}_SUMMARY;
@@ -774,14 +774,20 @@ _EOF
 
 		if [ -f ${C}/${PN}.hint ]
 		then
-			cp ${C}/${PN}.hint ${distdir}/${PN}/setup.hint
+			cp ${C}/${PN}.hint ${distdir}/${PN}/${PN}-${PVR}.hint
 		elif [ -f ${C}/setup.hint ]
 		then
-			cp ${C}/setup.hint ${distdir}/${PN}/setup.hint
+			cp ${C}/setup.hint ${distdir}/${PN}/${PN}-${PVR}.hint
 		elif [ -n "${!pkg_category_var:-${CATEGORY}}" \
 			-a -n "${!pkg_summary_var:-${SUMMARY}}${!pkg_description_var:-${DESCRIPTION}}" ]
 		then
-			echo "skip:" > ${distdir}/${PN}/setup.hint
+			cat > ${distdir}/${PN}/${PN}-${PVR}.hint <<-_EOF
+category: ${!pkg_category_var:-${CATEGORY}}
+requires:
+sdesc: "${!pkg_summary_var:-${SUMMARY}}"
+ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
+skip:
+_EOF
 		else
 			warning "${PN}.hint is missing";
 		fi
