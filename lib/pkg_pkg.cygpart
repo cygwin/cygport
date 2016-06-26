@@ -175,7 +175,7 @@ __pkg_binpkg() {
 		else
 			inform "Creating empty package"
 			mkdir -p ${distdir}/${PN}/${distsubdir};
-			xz < /dev/null > ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.tar.xz \
+			tar -Jcf ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.tar.xz --files-from /dev/null \
 				|| error "Empty package creation failed"
 			> ${T}/.${pkg_name[${n}]}.lst
 		fi
@@ -724,7 +724,7 @@ _EOF
 		for obspkg in ${!pkg_obsoletes_var}
 		do
 			mkdir -p ${distdir}/${PN}/${obspkg};
-			xz < /dev/null > ${distdir}/${PN}/${obspkg}/${obspkg}-${PVR}.tar.xz
+			tar -Jcf ${distdir}/${PN}/${obspkg}/${obspkg}-${PVR}.tar.xz --files-from /dev/null
 
 			__step "${pkg_name[${n}]} OBSOLETES: ${obspkg}"
 
