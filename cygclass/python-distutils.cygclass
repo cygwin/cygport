@@ -49,7 +49,7 @@ HOMEPAGE="http://pypi.python.org/pypi/${ORIG_PN}"
 #  DESCRIPTION
 #  Download location of the Python module on the Python Package Index.
 #****
-SRC_URI="http://pypi.python.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
+SRC_URI="https://files.pythonhosted.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
 
 #****C* python-distutils.cygclass/python_distutils_compile
 #  SYNOPSIS
