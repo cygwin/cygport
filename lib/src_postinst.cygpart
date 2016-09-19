@@ -338,7 +338,7 @@ __prep_texlive() {
 #****
 
 __prep_xsessions() {
-	local s sname Exec Name DesktopNames
+	local s sname ico Exec Name Icon DesktopNames
 
 	dodir /etc/postinstall /etc/preremove /etc/X11/xinit/Xclients.d
 
@@ -354,10 +354,17 @@ _EOF
 	for s in ${D}/usr/share/xsessions/*.desktop
 	do
 		DesktopNames=  # this one isn't set by all sessions
+		Icon=	# this neither
 		eval `grep ^Name= ${s} | sed -e 's|=\(.*\)|="\1"|;s|/|-|g'`
 		eval `grep ^Exec= ${s} | sed -e 's|=\(.*\)|="\1"|'`
+		eval `grep ^Icon= ${s} | sed -e 's|=\(.*\)|="\1"|'`
 		eval `grep ^DesktopNames= ${s} | sed -e 's|=\(.*\)|="\1"|;s|;|:|g'`
 		sname=$(basename ${s} .desktop)
+		ico=/usr/share/pixmaps/xwin/${Icon}.ico
+		if [ ! -f ${ico} -a ! -f ${D}${ico} ]
+		then
+			ico=/usr/bin/XWin.exe
+		fi
 
 		cat > ${D}/etc/X11/xinit/Xclients.d/Xclients.${sname}.sh <<_EOF
 #! /bin/sh
@@ -369,7 +376,7 @@ _EOF
 		chmod +x ${D}/etc/X11/xinit/Xclients.d/Xclients.${sname}.sh
 
 		cat >> ${D}/etc/postinstall/${PN}.sh <<_EOF
-/usr/bin/mkshortcut \$CYGWINFORALL -P -w / -i /usr/bin/XWin.exe -n "Cygwin-X\${wow64}/${Name}" -a "--quote /usr/bin/bash.exe -l -c \"cd; exec /usr/bin/startx /etc/X11/xinit/Xsession ${sname}\"" /usr/bin/run.exe
+/usr/bin/mkshortcut \$CYGWINFORALL -P -w / -i ${ico} -n "Cygwin-X\${wow64}/${Name}" -a "--quote /usr/bin/bash.exe -l -c \"cd; XSESSION_ICON=${Icon} exec /usr/bin/startx /etc/X11/xinit/Xsession ${sname}\"" /usr/bin/run.exe
 _EOF
 
 		cat >> ${D}/etc/preremove/${PN}.sh <<_EOF
