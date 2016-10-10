@@ -58,8 +58,6 @@ GIT_URI="git://github.com/mate-desktop/${ORIG_PN:-${PN}}.git"
 #****
 fi
 
-KEEP_LA_FILES="none"
-
 #****C* mate.cygclass/mate_autoreconf
 #  SYNOPSIS
 #  mate_autoreconf

@@ -70,5 +70,3 @@ case ${CHOST} in *-cygwin*|*-mingw*)
     LDFLAGS+=" -no-undefined"
     LIBS+=" -lclaws-mail"
 esac
-
-KEEP_LA_FILES="none"

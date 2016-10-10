@@ -78,8 +78,6 @@ case ${PV} in
 *)		GST_PLUGINDIR="$(__host_prefix)/lib/gstreamer-${PV[1]}.0" ;;
 esac
 
-KEEP_LA_FILES="none"
-
 #****C* gstreamer.cygclass/gstreamer_autoreconf
 #  SYNOPSIS
 #  cd $S

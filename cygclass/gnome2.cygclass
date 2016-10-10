@@ -37,8 +37,6 @@
 
 inherit gnome.org
 
-KEEP_LA_FILES="none"
-
 #****C* gnome2.cygclass/gnome2_autoreconf
 #  SYNOPSIS
 #  gnome2_autoreconf

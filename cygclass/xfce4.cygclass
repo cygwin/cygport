@@ -172,8 +172,6 @@ xfce4_compile() {
 	cygmake
 }
 
-KEEP_LA_FILES="none"
-
 #****o* xfce4.cygclass/src_compile (xfce4)
 #  DEFINITION
 src_compile() {
