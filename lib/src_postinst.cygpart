@@ -1140,29 +1140,18 @@ __prep_symlinks() {
 #
 #  Whether and which .la files are removed during automatic postinstall
 #  is based on the value of this variable, which can be one of:
-#  * none: deletes all .la files (the default behaviour on x86_64)
+#  * none: deletes all .la files (the default behaviour)
 #  * module: keep only those .la files for modules meant to be dlopen()ed
 #  * shared: keep only those .la files for non-module shared libraries
 #  * static: keep only those .la files for static-only libraries
-#  * all: keep all of the above (the default behaviour on i686)
+#  * all: keep all of the above
 #
 #  Some suggested guidelines:
 #  * If modules are to be loaded via libltdl or GModule, you may (but not
 #    always) need to set this to 'module'.
 #  * If a shared library is meant to be a dlopen()ed module but is linked
-#    without -module, then 'shared' may be necessary in order for the DLL
-#    to be found.
-#  * Some shared libraries imply the use of other libraries (e.g. GTK+ apps
-#    will always use GLib/GObject).  If these libraries are not listed in
-#    the corresponding .pc pkg-config file, then 'shared' will help.
-#  * When static libraries depend on other libraries, 'static' is recommended.
-#    If the static library depends only on libc, there is no need to keep it.
-#
-#  NOTE
-#  Deleting .la files for an import library which other libtool libraries were
-#  linked against will cause build errors when yet another libtool library
-#  tries to link against the second.  In this case, 'shared' is necessary
-#  to avoid breaking other users' installations.
+#    without -module, then 'shared' (or 'all') may be necessary in order for
+#    the DLL to be found.
 #****
 
 __prep_libtool_modules() {
@@ -1170,7 +1159,7 @@ __prep_libtool_modules() {
 	local dlname origdlname library_names old_library inherited_linker_flags \
 	      dependency_libs weak_library_names current age revision \
 		  installed shouldnotlink dlopen dlpreopen libdir rep_requires
-	local keep
+	local keep=${KEEP_LA_FILES:-none}
 
 	pushd ${D}
 
@@ -1180,16 +1169,6 @@ __prep_libtool_modules() {
 	then
 		# nothing to do
 		return 0
-	fi
-
-	if defined KEEP_LA_FILES
-	then
-		keep=${KEEP_LA_FILES}
-	elif defined ARCH_i686
-	then
-		keep="all"
-	else
-		keep="none"
 	fi
 
 	echo "Fixing libtool modules:"
