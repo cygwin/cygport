@@ -94,23 +94,6 @@ declare -x FC="gfortran";
 #****
 declare -x FCFLAGS="-ggdb -O2 -pipe";
 
-#****d* Compiling/GCJ
-#  DESCRIPTION
-#  The GCC Java native-code compiler.
-#  SEE ALSO
-#  java.cygclass
-#****
-declare -x GCJ="gcj";
-
-#****v* Compiling/GCJFLAGS
-#  DESCRIPTION
-#  Flags passed to GCJ when native-compiling Java code.  Individual packages may
-#  append or override this value if they will not build correctly without it.
-#  DEFAULT VALUE
-#  -ggdb -O2 -pipe
-#****
-declare -x GCJFLAGS="-ggdb -O2 -pipe";
-
 #****d* Compiling/GOC
 #  DESCRIPTION
 #  The GCC Go native-code compiler.
@@ -271,7 +254,6 @@ then
 	CXX=${CHOST}-g++
 	F77=${CHOST}-gfortran
 	FC=${CHOST}-gfortran
-	GCJ=${CHOST}-gcj
 	GOC=${CHOST}-gccgo
 	OBJC=${CHOST}-gcc
 	OBJCXX=${CHOST}-g++

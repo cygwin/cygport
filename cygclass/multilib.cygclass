@@ -133,7 +133,7 @@ done
 
 src_compile() {
 	local opt dirname osdirname n
-	local orig_CC orig_CXX orig_F77 orig_FC orig_GCJ orig_GOC orig_OBJC orig_OBJCXX
+	local orig_CC orig_CXX orig_F77 orig_FC orig_GOC orig_OBJC orig_OBJCXX
 
 	if __check_function multilib_precompile
 	then
@@ -156,7 +156,6 @@ src_compile() {
 		orig_CXX="${CXX}"
 		orig_F77="${F77}"
 		orig_FC="${FC}"
-		orig_GCJ="${GCJ}"
 		orig_GOC="${GOC}"
 		orig_OBJC="${OBJC}"
 		orig_OBJCXX="${OBJCXX}"
@@ -164,7 +163,6 @@ src_compile() {
 		CXX+="${opt//@/ -}"
 		F77+="${opt//@/ -}"
 		FC+="${opt//@/ -}"
-		GCJ+="${opt//@/ -}"
 		GOC+="${opt//@/ -}"
 		OBJC+="${opt//@/ -}"
 		OBJCXX+="${opt//@/ -}"
@@ -187,7 +185,6 @@ src_compile() {
 		CXX="${orig_CXX}"
 		F77="${orig_F77}"
 		FC="${orig_FC}"
-		GCJ="${orig_GCJ}"
 		GOC="${orig_GOC}"
 		OBJC="${orig_OBJC}"
 		OBJCXX="${orig_OBJCXX}"

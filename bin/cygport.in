@@ -519,7 +519,7 @@ declare -r  pkg_count=${#pkg_name[*]};
 # this requires S and B to be already defined
 if ! defined _CYGPORT_RESTRICT_debuginfo_
 then
-	for flags in {C,CXX,F,FC,GCJ,GO,OBJC,OBJCXX}FLAGS
+	for flags in {C,CXX,F,FC,GO,OBJC,OBJCXX}FLAGS
 	do
 		for map in ${DEBUG_PREFIX_MAPS[*]}
 		do
