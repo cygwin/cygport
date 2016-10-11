@@ -490,6 +490,9 @@ cygautoreconf() {
 			then
 				error "cygautoreconf: at least gettext 0.17 required"
 			fi
+			case ${gettext_version} in
+			*.*.*.*) gettext_version=${gettext_version%.*} ;;
+			esac
 			AUTOPOINT+=" -V ${gettext_version}"
 		fi
 
