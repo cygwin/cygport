@@ -186,19 +186,19 @@ dodoc() {
 				__doinstall 0644 "${f}" ${docdir}/${f%/*} || error "dodoc -r ${d} failed"
 			done
 			popd
-		elif [ -f "${i}" -o -L "${i}" ]
+		elif [ -s "${i}" ]
 		then
 			if [ -s "${i}" -a ! -f "${D}${docdir}/${i}" ]
 			then
 				__doinstall 0644 "${i}" ${docdir} || error "dodoc ${i} failed"
 			fi
-		elif [ -f "${i}.md" -o -L "${i}.md" ]
+		elif [ -s "${i}.md" ]
 		then
 			if [ -s "${i}.md" -a ! -f "${D}${docdir}/${i}.md" ]
 			then
 				__doinstall 0644 "${i}.md" ${docdir} || error "dodoc ${i}.md failed"
 			fi
-		elif [ -f "${i}.txt" -o -L "${i}.txt" ]
+		elif [ -s "${i}.txt" ]
 		then
 			if [ -s "${i}.txt" -a ! -f "${D}${docdir}/${i}.txt" ]
 			then
