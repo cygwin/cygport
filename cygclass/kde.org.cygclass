@@ -129,7 +129,7 @@ kf5-*:5.*|breeze-icons*|oxygen-icons*)
 	SRC_DIR="${ORIG_PN:-${PN#kf5-}}-${PV}"
 	;;
 kf5-*:1[5-9].*|kf5-*:[2-9][0-9].*)
-	SRC_URI="mirror://kde/${_stable}/applications/${VERSION%\.*}/src/${ORIG_PN:-${PN#kf5-}}-${PV}.tar.xz"
+	SRC_URI="mirror://kde/${_stable}/applications/${VERSION}/src/${ORIG_PN:-${PN#kf5-}}-${PV}.tar.xz"
 	SRC_DIR="${ORIG_PN:-${PN#kf5-}}-${PV}"
 	;;
 *:4.[0-7].*|*:4.8.[01])
