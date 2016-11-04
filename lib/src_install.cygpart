@@ -792,7 +792,6 @@ make_desktop_entry() {
 
 	cat > ${D}${dtfile} <<-_EOF
 		[Desktop Entry]
-		Encoding=UTF-8
 		Version=1.0
 		Name=${2}
 		Exec=${1}
