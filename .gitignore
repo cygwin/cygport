@@ -21,6 +21,7 @@ doc/manual/
 /tests/cygport-*.noarch/
 
 patches
+*.patch
 *.orig
 *.rej
 
