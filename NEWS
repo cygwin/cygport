@@ -1,3 +1,17 @@
+0.23.0:
+	* Per-release .hint files are now created
+	* Libtool .la files are removed by default on all arches
+	* X session shortcuts use icons when available
+	* Octave .mex extensions are handled as DLLs
+	* Removed GCJ support
+	* ${NAME}_debuginfo_OBSOLETES is now accepted
+	* New function: update_etc_shells
+	* autotools: fix for gettext nano version releases
+	* kde.org: updated SRC_URIs for 5.x components
+	* kde4: cross-compiling improvements
+	* py*-distutils: updated PyPI URIs
+	* texlive: assorted fixes
+
 0.22.0:
 	* Update upload location for ARCH=noarch packages
 	* Exit status is now properly propogated
