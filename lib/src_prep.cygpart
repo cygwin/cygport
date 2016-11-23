@@ -436,6 +436,12 @@ __src_prep() {
 	then
 		cygpatch ${top}/${src_patchfile};
 	fi
+
+	if __check_function src_prep_fini_hook
+	then
+		__check_unstable src_prep_fini_hook;
+		cd ${origsrcdir}/${SRC_DIR};
+	fi
 }
 
 readonly -f __cpio_gz_extract __gem_extract __srpm_extract unpack \
