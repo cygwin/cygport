@@ -125,9 +125,9 @@ PHP_VERSION=$(${PHP_CONFIG} --version)
 
 #****d* php.cygclass/PHP_INI_DIR
 #  DESCRIPTION
-#  Path to the PHP configuration file.
+#  Path to the PHP configuration snippets directory.
 #****
-PHP_INI_DIR=/etc/php5
+PHP_INI_DIR=/etc/php.d
 
 #****d* php.cygclass/PHP_EXTENSION_DIR
 #  DESCRIPTION
