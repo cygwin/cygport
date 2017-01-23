@@ -45,6 +45,7 @@ __show_help() {
 		  compile       run all compilation steps
 		  test          run the package's test suite, if one exists
 		  install       install into a DESTDIR, and run post-installation steps
+		  srcpackage    create source package
 		  package       create binary and source packages
 		  package-test  create binary and source packages, marked as test
 		  upload        upload finished packages to cygwin.com

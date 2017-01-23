@@ -641,6 +641,12 @@ do
 			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog};
 			_status=${PIPESTATUS[0]};
 			;;
+		srcpackage|srcpkg)
+			__stage Packaging Source;
+			__log_init ${pkglog};
+			(__pkg_srcpkg) 2>&1 | tee -a ${pkglog};
+			_status=${PIPESTATUS[0]};
+			;;
 		diff|mkdiff|mkpatch)
 			__pkg_diff;
 			_status=$?;

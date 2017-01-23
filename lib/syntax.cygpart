@@ -151,6 +151,7 @@ __step() {
 
 __log_init() {
 	local log=${1}
+	mkdir -p ${logdir}
 	rm -f ${log}
 
 	echo -e cygport ${_cygport_version} '\n' >> ${log}

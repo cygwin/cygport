@@ -462,12 +462,16 @@ __gpg_sign() {
 __pkg_srcpkg() {
 	local src;
 
+	mkdir -p ${spkgdir};
 	rm -fr ${spkgdir}/*;
 
-	echo;
-	__step "Creating source patches";
+	if [ -d ${patchdir} ]
+	then
+		echo;
+		__step "Creating source patches";
 
-	__pkg_diff;
+		__pkg_diff;
+	fi
 
 	if [ -s ${patchdir}/${cygwin_patchfile} ]
 	then
@@ -519,8 +523,44 @@ __pkg_srcpkg() {
 
 	cd ${spkgdir%/*};
 
+	mkdir -p ${distdir}/${PN};
 	tar Jcvf ${distdir}/${PN}/${PF}-src.tar.xz ${spkgdir##*/}/ || error "Source package creation failed"
 	echo;
+
+	# source package hint
+	if [ ! -f ${distdir}/${PN}/${PN}-${PVR}-src.hint ]
+	then
+		pkg_category_var=${PN//[-+\.]/_}_CATEGORY;
+		pkg_summary_var=${PN//[-+\.]/_}_SUMMARY;
+		pkg_description_var=${PN//[-+\.]/_}_DESCRIPTION;
+
+		if [ -f ${C}/${PN}-src.hint ]
+		then
+			cp ${C}/${PN}-src.hint ${distdir}/${PN}/${PN}-${PVR}-src.hint
+		elif [ -f ${C}/setup.hint ]
+		then
+			cp ${C}/setup.hint ${distdir}/${PN}/${PN}-${PVR}-src.hint
+		elif [ -n "${!pkg_category_var:-${CATEGORY}}" \
+			-a -n "${!pkg_summary_var:-${SUMMARY}}${!pkg_description_var:-${DESCRIPTION}}" ]
+		then
+			cat > ${distdir}/${PN}/${PN}-${PVR}-src.hint <<-_EOF
+category: ${!pkg_category_var:-${CATEGORY}}
+build-depends: cygport ${BUILD_REQUIRES}
+sdesc: "${!pkg_summary_var:-${SUMMARY}}"
+ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
+skip:
+${pkg_tag}
+_EOF
+			if [ -n "${HOMEPAGE}" ]
+			then
+				cat >> ${distdir}/${PN}/${PN}-${PVR}-src.hint <<-_EOF
+homepage: ${HOMEPAGE}
+_EOF
+			fi
+		else
+			warning "${PN}-src.hint is missing";
+		fi
+	fi
 }
 
 __pkg_dist() {
@@ -849,41 +889,6 @@ _EOF
 obsoletes: ${!dbg_obsoletes_var}
 _EOF
 			fi
-		fi
-	fi
-
-	# source package hint
-	if [ ! -f ${distdir}/${PN}/${PN}-${PVR}-src.hint ]
-	then
-		pkg_category_var=${PN//[-+\.]/_}_CATEGORY;
-		pkg_summary_var=${PN//[-+\.]/_}_SUMMARY;
-		pkg_description_var=${PN//[-+\.]/_}_DESCRIPTION;
-
-		if [ -f ${C}/${PN}-src.hint ]
-		then
-			cp ${C}/${PN}-src.hint ${distdir}/${PN}/${PN}-${PVR}-src.hint
-		elif [ -f ${C}/setup.hint ]
-		then
-			cp ${C}/setup.hint ${distdir}/${PN}/${PN}-${PVR}-src.hint
-		elif [ -n "${!pkg_category_var:-${CATEGORY}}" \
-			-a -n "${!pkg_summary_var:-${SUMMARY}}${!pkg_description_var:-${DESCRIPTION}}" ]
-		then
-			cat > ${distdir}/${PN}/${PN}-${PVR}-src.hint <<-_EOF
-category: ${!pkg_category_var:-${CATEGORY}}
-build-depends: cygport ${BUILD_REQUIRES}
-sdesc: "${!pkg_summary_var:-${SUMMARY}}"
-ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
-skip:
-${pkg_tag}
-_EOF
-			if [ -n "${HOMEPAGE}" ]
-			then
-				cat >> ${distdir}/${PN}/${PN}-${PVR}-src.hint <<-_EOF
-homepage: ${HOMEPAGE}
-_EOF
-			fi
-		else
-			warning "${PN}-src.hint is missing";
 		fi
 	fi
 }
