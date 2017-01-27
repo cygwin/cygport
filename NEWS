@@ -1,3 +1,7 @@
+0.23.1:
+	* Fix compatibility with bash 4.4
+	* php: change PHP_INI_DIR for new layout in php 7 packages
+
 0.23.0:
 	* Per-release .hint files are now created
 	* Libtool .la files are removed by default on all arches
