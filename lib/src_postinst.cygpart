@@ -429,6 +429,7 @@ __prepdoc() {
 	local doc;
 	local html;
 	local -i n=0;
+	local p;
 	local pkg_docs_var;
 	local pkg_hint;
 	local default_docs="\
@@ -447,6 +448,14 @@ __prepdoc() {
 	if defined _CYGPORT_RESTRICT_postinst_doc_
 	then
 		inform "Skipping package doc installation per request";
+	elif defined _CYGPORT_INTERNAL_multi_doc_
+	then
+		for p in ${PKG_NAMES}
+		do
+			_docinto_dir=/$p
+			dodoc ${default_docs} ${DOCS};
+		done
+		unset _docinto_dir;
 	else
 
 #****v* Documentation Files/DOCS
@@ -468,12 +477,12 @@ __prepdoc() {
 			docinto html;
 			dodoc ${html};
 		done
-	fi
 
-	if [ -e ${C}/README ]
-	then
-		insinto /usr/share/doc/Cygwin;
-		newins ${C}/README ${PN}.README;
+		if [ -e ${C}/README ]
+		then
+			insinto /usr/share/doc/Cygwin;
+			newins ${C}/README ${PN}.README;
+		fi
 	fi
 
 	pkg_hint=(${PKG_HINTS})
