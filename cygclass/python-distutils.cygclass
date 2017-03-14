@@ -31,25 +31,13 @@
 #
 #  This cygclass handles the building of Python 2.x distutils-based packages.
 #  INHERITS
-#  python.cygclass
+#  python.org.cygclass, python.cygclass
 #  REQUIRES
 #  python
 #****
-inherit python
-
 ORIG_PN=${ORIG_PN:-${PN#python-}}
 
-#****o* python-distutils.cygclass/HOMEPAGE (python-distutils)
-#  DESCRIPTION
-#  Default homepage of the Python module on the Python Package Index.
-#****
-HOMEPAGE="http://pypi.python.org/pypi/${ORIG_PN}"
-
-#****o* python-distutils.cygclass/SRC_URI (python-distutils)
-#  DESCRIPTION
-#  Download location of the Python module on the Python Package Index.
-#****
-SRC_URI="https://files.pythonhosted.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
+inherit python.org python
 
 #****C* python-distutils.cygclass/python_distutils_compile
 #  SYNOPSIS
