@@ -54,6 +54,104 @@ then
 	SRC_DIR="${P}-kde${KDE4_EXTRAGEAR_VERSION}"
 fi
 
+case ${PN} in
+kde-l10n-*)
+CYGPORT_USE_UNSTABLE_API=1
+src_unpack_hook() {
+  local i=${PN#kde-l10n-}
+  local j jj;
+  for jj in 4/. 4/${i}/${i}@* ; do
+    j=$(basename ${jj})
+    if [ -d 4/${i}/${j} ] ; then
+      # skip kdewebdev for now, because we're still shipping kdewebdev 3 due to Quanta
+#      sed -i -e 's/add_subdirectory( *kdewebdev *)/#add_subdirectory(kdewebdev)/g' 4/$i/$j/messages/CMakeLists.txt
+#      if [ -e 4/$i/$j/docs/CMakeLists.txt ] ; then
+#        sed -i -e 's/add_subdirectory( *kdewebdev *)/#add_subdirectory(kdewebdev)/g' 4/$i/$j/docs/CMakeLists.txt
+#      fi
+      # remove lilo-config, conflicts with 3.5.10
+      rm -fv 4/$i/$j/messages/kdeadmin/kcmlilo.po
+      if [ -e 4/$i/$j/docs/kdeadmin/CMakeLists.txt ] ; then
+        sed -i -e 's/add_subdirectory( *lilo-config *)/#add_subdirectory(lilo-config)/g' 4/$i/$j/docs/kdeadmin/CMakeLists.txt
+      fi
+      # remove bogus duplicated kdepim stuff from kdenetwork
+      if [ -e 4/$i/$j/docs/kdenetwork/CMakeLists.txt ] ; then
+        sed -i -e 's/add_subdirectory( *korn *)/#add_subdirectory(korn)/g' -e 's/add_subdirectory( *kmail *)/#add_subdirectory(kmail)/g' -e 's/add_subdirectory( *knode *)/#add_subdirectory(knode)/g' 4/$i/$j/docs/kdenetwork/CMakeLists.txt
+      fi
+      # some languages still ship the kpilot stuff
+      # zap it so the kpilot package can ship all translations itself
+      rm -fv 4/$i/$j/messages/kdepim/kpilot.po
+      if [ -e 4/$i/$j/docs/kdepim/CMakeLists.txt ] ; then
+        sed -i -e 's/add_subdirectory( *kpilot *)/#add_subdirectory(kpilot)/g' 4/$i/$j/docs/kdepim/CMakeLists.txt
+      fi
+      # kdegraphics
+      if [ -e 4/$i/$j/docs/kdegraphics/CMakeLists.txt ] ; then
+        sed -i -e 's/add_subdirectory( *ksnapshot *)/#add_subdirectory(ksnapshot)/g' 4/$i/$j/docs/kdegraphics/CMakeLists.txt
+      fi
+      # omit conflict(s) with plasma-5.6.x
+      rm -fv 4/$i/$j/messages/kdelibs/kcm_activities.po
+      # kdenlive
+      rm -fv 5/$i/$j/messages/kdemultimedia/kdenlive.po
+      if [ -e 5/$i/$j/docs/kdemultimedia/CMakeLists.txt ] ; then
+        sed -i -e 's/^add_subdirectory( *kdenlive *)/#add_subdirectory(kdenlive)/g' 5/$i/$j/docs/kdemultimedia/CMakeLists.txt
+      fi
+
+      # Remove translations shipped by Plasma 5 and KDE Frameworks 5
+      # Each Plasma 5 and KF5 app/library ship their own translations in their tarballs, so they
+      # often conflict with kde-l10n, since most of the catalogs still have the same name
+
+      # Provided by plasma-workspace and plasma-desktop
+      sed -i -e 's/add_subdirectory( *kde-workspace *)/#add_subdirectory(kde-workspace)/g' 4/$i/$j/messages/CMakeLists.txt
+      if [ -e 4/$i/$j/docs/CMakeLists.txt ]; then
+        sed -i -e 's/add_subdirectory( *kde-workspace *)/#add_subdirectory(kde-workspace)/g' 4/$i/$j/docs/CMakeLists.txt
+      fi
+      rm -fv 4/$i/$j/messages/kde-runtime/{attica_kde,knetattach,drkonqi,phonon_kde,soliduiserver}.po
+      rm -fv 4/$i/$j/messages/kde-runtime/kcm{_device_automounter,_emoticons,_phonon,componentchooser,icons,kded,notify}.po
+      rm -fv 4/$i/$j/messages/kde-runtime/kio_{applications,remote}.po
+      rm -fv 4/$i/$j/messages/kdelibs/{kcm_baloofile,plasma_runner_baloosearchrunner}.po
+      rm -fv 4/$i/$j/messages/applications/useraccount.po
+      if [ -e 4/$i/$j/docs/kde-runtime/CMakeLists.txt ]; then
+        sed -i -e 's/add_subdirectory( *fundamentals *)/#add_subdirectory(fundamentals)/g' 4/$i/$j/docs/kde-runtime/CMakeLists.txt
+        sed -i -e 's/add_subdirectory( *kcontrol *)/#add_subdirectory(kcontrol)/g' 4/$i/$j/docs/kde-runtime/CMakeLists.txt
+        sed -i -e 's/add_subdirectory( *kdesu *)/#add_subdirectory(kdesu)/g' 4/$i/$j/docs/kde-runtime/CMakeLists.txt
+        sed -i -e 's/add_subdirectory( *khelpcenter *)/#add_subdirectory(khelpcenter)/g' 4/$i/$j/docs/kde-runtime/CMakeLists.txt
+        sed -i -e 's/add_subdirectory( *knetattach *)/#add_subdirectory(knetattach)/g' 4/$i/$j/docs/kde-runtime/CMakeLists.txt
+        sed -i -e 's/add_subdirectory( *onlinehelp *)/#add_subdirectory(onlinehelp)/g' 4/$i/$j/docs/kde-runtime/CMakeLists.txt
+      fi
+      # Provided by kdeplasma-addons
+      sed -i -e 's/add_subdirectory( *kdeplasma-addons *)/#add_subdirectory(kdeplasma-addons)/g' 4/$i/$j/messages/CMakeLists.txt
+      # Provided by kf5-kfilemetada
+      rm -fv 4/$i/$j/messages/kdelibs/kfilemetadata.po
+      # Provided by kf5-baloo
+      rm -fv 4/$i/$j/messages/kdelibs/kio_{baloosearch,tags,timeline}.po
+      rm -fv 4/$i/$j/messages/kdelibs/baloo{search,show,_file,_file_extractor}.po
+      # Provided by kio-extras
+      rm -fv 4/$i/$j/messages/kde-runtime/kio_{archive,bookmarks,fish,info,man,nfs,recentdocuments,sftp,smb,thumbnail}.po
+      # Provided by kde-cli-tools
+      rm -fv 4/$i/$j/messages/kde-runtime/{filetypes,kcmshell,kdesu,kioclient,kmimetypefinder,kstart,ktraderclient}.po
+      # Provided by khelpcenter
+      rm -fv 4/$i/$j/messages/kde-runtime/{htmlsearch,kcmhtmlsearch,khelpcenter}.po
+      # Provided by ktp-desktop-applets
+      rm -fv 4/$i/$j/messages/kdenetwork/plasma_applet_org.kde.ktp-{contact,presence}.po
+
+      # Programs which we do not build on Cygwin
+      rm -f 4/$i/$j/messages/kdegraphics/ksaneplugin.po
+      rm -f 4/$i/$j/messages/kdemultimedia/kscd.po
+      rm -f 4/$i/$j/messages/kdenetwork/kppp*.po
+      if [ -e 4/$i/$j/docs/kdenetwork/CMakeLists.txt ] ; then
+        sed -e 's/add_subdirectory( *kppp *)/#add_subdirectory(kppp)/g' \
+            -i 4/$i/$j/docs/kdenetwork/CMakeLists.txt
+      fi
+      rm -f 5/$i/$j/messages/kdeutils/kfloppy.po
+      if [ -e 5/$i/$j/docs/kdeutils/CMakeLists.txt ] ; then
+        sed -e 's/add_subdirectory( *kfloppy *)/#add_subdirectory(kfloppy)/g' \
+            -i 5/$i/$j/docs/kdeutils/CMakeLists.txt
+      fi
+    fi
+  done
+}
+;;
+esac # kde-l10n-*
+
 export QTDIR=${QT4_QTDIR}
 export QT_PLUGIN_PATH=${QT4_PLUGINSDIR}
 
