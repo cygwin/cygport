@@ -1,6 +1,6 @@
 ################################################################################
 #
-# python-distutils.cygclass - for building Python 2.x modules with Distutils
+# python-distutils.cygclass - compatibility wrapper for python2-distutils.cygclass
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006-2016 Yaakov Selkowitz
@@ -23,68 +23,28 @@
 
 #****h* Cygclasses/python-distutils.cygclass
 #  DESCRIPTION
-#  Distutils is the most common method for building and installing Python
-#  libraries and programs.  The build is defined by a setup.py file in the
-#  top source directory, which controls the installation of files and the
-#  building of C Python extensions.  Many such packages are hosted on the
-#  Python Package Index (PyPI, previously known as Cheeseshop).
-#
-#  This cygclass handles the building of Python 2.x distutils-based packages.
+#  Deprecated compatibility wrapper for python2-distutils.cygclass.
 #  INHERITS
-#  python.org.cygclass, python.cygclass
-#  REQUIRES
-#  python
+#  python2-distutils.cygclass
 #****
 ORIG_PN=${ORIG_PN:-${PN#python-}}
 
-inherit python.org python
+inherit python2-distutils
 
 #****C* python-distutils.cygclass/python_distutils_compile
-#  SYNOPSIS
-#  python_distutils_compile [OPTIONS]
 #  DESCRIPTION
-#  Runs the setup.py 'build' command, to which any arguments are passed.
+#  Deprecated compatibility wrapper for python2_distutils_compile.
 #****
 python_distutils_compile() {
-	if [ ! -e setup.py ]
-	then
-		error "No Python Distutils module detected"
-	fi
-
-	${PYTHON} setup.py build "${@}" || error "setup.py build failed"
+	python2_distutils_compile "$@"
 }
 
 #****I* python-distutils.cygclass/python_distutils_install
-#  SYNOPSIS
-#  python_distutils_install [OPTIONS]
 #  DESCRIPTION
-#  Runs the setup.py 'install' phase, setting the root argument to install
-#  into $D.  All arguments are passed to the setup.py 'install' command.
+#  Deprecated compatibility wrapper for python2_distutils_install.
 #****
 python_distutils_install() {
-	if [ ! -e setup.py ]
-	then
-		error "No Python Distutils module detected"
-	fi
-
-	${PYTHON} setup.py "${@}" install --no-compile --root=${D} || error "setup.py install failed"
+	python2_distutils_install "$@"
 }
-
-#****o* python-distutils.cygclass/src_compile (python-distutils)
-#  DEFINITION
-src_compile() {
-	lndirs
-	cd ${B}
-	python_distutils_compile
-}
-#****
-
-#****o* python-distutils.cygclass/src_install (python-distutils)
-#  DEFINITION
-src_install() {
-	cd ${B}
-	python_distutils_install
-}
-#****
 
 readonly -f python_distutils_compile python_distutils_install
