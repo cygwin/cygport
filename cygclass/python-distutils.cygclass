@@ -55,8 +55,7 @@ SRC_URI="https://files.pythonhosted.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN
 #  SYNOPSIS
 #  python_distutils_compile [OPTIONS]
 #  DESCRIPTION
-#  Runs the setup.py 'config' and 'build' commands.  All arguments are passed
-#  to the setup.py 'build' command.
+#  Runs the setup.py 'build' command, to which any arguments are passed.
 #****
 python_distutils_compile() {
 	if [ ! -e setup.py ]
@@ -64,7 +63,6 @@ python_distutils_compile() {
 		error "No Python Distutils module detected"
 	fi
 
-	${PYTHON} setup.py config || error "setup.py config failed"
 	${PYTHON} setup.py build "${@}" || error "setup.py build failed"
 }
 
