@@ -146,10 +146,9 @@ dopython() {
 
 #****I* python.cygclass/python_optimize
 #  SYNOPSIS
-#  python_optimize [DIRECTORY1] [DIRECTORY2] ...
+#  python_optimize DIRECTORY [DIRECTORY] ...
 #  DESCRIPTION
 #  Bytecode-compile all Python modules found in the given directories under $D.
-#  If no directories are specified, PYTHON_SITELIB under $D is assumed.
 #  NOTE
 #  Python modules installed with distutils_install are automatically compiled,
 #  as are those installed by automake-based packages *if* they have been declared
@@ -161,7 +160,7 @@ dopython() {
 python_optimize() {
 	local pyd
 
-	for pyd in "${@:-${PYTHON_SITELIB}}"
+	for pyd
 	do
 		if [ ! -d ${D}${pyd} ]
 		then
