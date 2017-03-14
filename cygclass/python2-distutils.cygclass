@@ -1,0 +1,90 @@
+################################################################################
+#
+# python2-distutils.cygclass - for building Python 2.x modules with Distutils
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2016 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/python2-distutils.cygclass
+#  DESCRIPTION
+#  Distutils is the most common method for building and installing Python
+#  libraries and programs.  The build is defined by a setup.py file in the
+#  top source directory, which controls the installation of files and the
+#  building of C Python extensions.  Many such packages are hosted on the
+#  Python Package Index (PyPI, previously known as Cheeseshop).
+#
+#  This cygclass handles the building of Python 2.x distutils-based packages.
+#  INHERITS
+#  python.org.cygclass, python2.cygclass
+#  REQUIRES
+#  python2
+#****
+ORIG_PN=${ORIG_PN:-${PN#python2-}}
+
+inherit python.org python2
+
+#****C* python2-distutils.cygclass/python2_distutils_compile
+#  SYNOPSIS
+#  python2_distutils_compile [OPTIONS]
+#  DESCRIPTION
+#  Runs the setup.py 'build' command, to which any arguments are passed.
+#****
+python2_distutils_compile() {
+	if [ ! -e setup.py ]
+	then
+		error "No Python Distutils module detected"
+	fi
+
+	${PYTHON2} setup.py build "${@}" || error "setup.py build failed"
+}
+
+#****I* python2-distutils.cygclass/python2_distutils_install
+#  SYNOPSIS
+#  python2_distutils_install [OPTIONS]
+#  DESCRIPTION
+#  Runs the setup.py 'install' phase, setting the root argument to install
+#  into $D.  All arguments are passed to the setup.py 'install' command.
+#****
+python2_distutils_install() {
+	if [ ! -e setup.py ]
+	then
+		error "No Python Distutils module detected"
+	fi
+
+	${PYTHON2} setup.py "${@}" install --no-compile --root=${D} || error "setup.py install failed"
+}
+
+#****o* python2-distutils.cygclass/src_compile (python2-distutils)
+#  DEFINITION
+src_compile() {
+	lndirs
+	cd ${B}
+	python2_distutils_compile
+}
+#****
+
+#****o* python2-distutils.cygclass/src_install (python2-distutils)
+#  DEFINITION
+src_install() {
+	cd ${B}
+	python2_distutils_install
+}
+#****
+
+readonly -f python2_distutils_compile python2_distutils_install

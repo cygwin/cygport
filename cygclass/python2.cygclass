@@ -1,0 +1,188 @@
+################################################################################
+#
+# python2.cygclass - functions for installing Python 2 modules
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2016 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/python2.cygclass
+#  SYNOPSIS
+#  inherit python2
+#  DESCRIPTION
+#  Python is a general-purpose, interpreted programming language used in a
+#  wide variety of software.  It comes with a large standard library, and is
+#  easily extendible with modules written in Python and/or C/C++.  Programs
+#  can also embed a Python interpreter for use with their own extensions.
+#
+#  This cygclass provides definitions and some install helpers which can be used
+#  by any Python-based package.  Python modules and programs are built in a
+#  number of ways, so this cygclass does not provide any build functions.  The
+#  two most common build systems for Python packages are Distutils and autotools.
+#  NOTE
+#  python2.cygclass is for the 2.x versions of CPython. For the 3.x versions,
+#  see python3.cygclass; for PyPy, see pypy.cygclass.
+#  INHERITED BY
+#  python2-distutils.cygclass, pygtk.cygclass, rox.cygclass
+#  REQUIRES
+#  python2
+#****
+
+# cross-compiling is not (yet?) supported
+__cross_compiling_error
+
+check_prog_req python2
+
+#****d* python2.cygclass/PYTHON2
+#  DESCRIPTION
+#  Absolute path to the Python interpreter.
+#****
+PYTHON2=/usr/bin/python2
+
+#****d* python2.cygclass/PYTHON2_VERSION
+#  DESCRIPTION
+#  The major.minor version of the current Python interpreter.
+#****
+PYTHON2_VERSION=$(${PYTHON2} -c 'from distutils.sysconfig import * ; print get_python_version();')
+
+#****d* python2.cygclass/PYTHON2_INCLUDEDIR
+#  DESCRIPTION
+#  Path containing the Python C library headers.
+#****
+PYTHON2_INCLUDEDIR=$(${PYTHON2} -c 'from distutils.sysconfig import * ; print get_python_inc();')
+
+#****d* python2.cygclass/PYTHON2_LIB
+#  DESCRIPTION
+#  Path containing the Python standard library.
+#  NOTE
+#  Never install third-party extensions into PYTHON2_LIB; use PYTHON2_SITELIB instead.
+#****
+PYTHON2_LIB=$(${PYTHON2} -c 'from distutils.sysconfig import * ; print get_python_lib(0,1);')
+
+#****d* python2.cygclass/PYTHON2_SITELIB
+#  DESCRIPTION
+#  Installation path for all Python extension modules.
+#****
+PYTHON2_SITELIB=$(${PYTHON2} -c 'from distutils.sysconfig import * ; print get_python_lib(0,0);')
+
+#****d* python2.cygclass/LIBPYTHON2
+#  DESCRIPTION
+#  Link flags for the Python C library.  This definition must be properly quoted.
+#****
+LIBPYTHON2="-L${PYTHON2_LIB}/config -lpython${PYTHON2_VERSION}"
+
+#****I* python2.cygclass/python2into
+#  SYNOPSIS
+#  python2into SUBDIRECTORY
+#  DESCRIPTION
+#  Subdirectory of PYTHON2_SITELIB into which dopython2 should install.  This is
+#  usually unnecessary.
+#****
+python2into() {
+	if (( $# != 1 ))
+	then
+	    error "python2into accepts exactly one argument";
+	fi
+
+	case ${1} in
+    	/*) error "python2into argument should be only a subdirectory" ;;
+	esac
+
+	_python2into_dir=${1};
+}
+
+#****I* python2.cygclass/dopython2
+#  SYNOPSIS
+#  [python2into SUBDIRECTORY]
+#  dopython2 MODULE1 [MODULE2] ...
+#  DESCRIPTION
+#  Installs the given Python module(s) (.py or .dll) into PYTHON2_SITELIB under $D,
+#  or a subdirectory thereof if python2into was previously called.
+#****
+dopython2() {
+	local pydir
+	local i
+	local mode
+
+	if defined _python2into_dir
+	then
+		pydir=${PYTHON2_SITELIB}/${_python2into_dir}
+	else
+		pydir=${PYTHON2_SITELIB}
+	fi
+
+	dodir ${pydir}
+
+	for i
+	do
+		if [ ! -e ${i} ]
+		then
+			error "dopython2: ${i}: file not found"
+		fi
+
+		case ${i} in
+			*.dll|*.la)	mode=0755 ;;
+			*)	mode=0644 ;;
+		esac
+
+		__doinstall ${mode} ${i} ${pydir} || error "dopython2 ${i} failed"
+	done
+}
+
+#****I* python2.cygclass/python2_optimize
+#  SYNOPSIS
+#  python2_optimize DIRECTORY [DIRECTORY] ...
+#  DESCRIPTION
+#  Bytecode-compile all Python modules found in the given directories under $D.
+#  NOTE
+#  Python modules installed with distutils_install are automatically compiled,
+#  as are those installed by automake-based packages *if* they have been declared
+#  as _PYTHON files (in which case a py-compile script will be present in $S).
+#  Some automake-based packages mistakenly declare these as _DATA instead, in
+#  which case either the Makefile.am must be patched or this function called
+#  after cyginstall.
+#****
+python2_optimize() {
+	local pyd
+
+	for pyd
+	do
+		if [ ! -d ${D}${pyd} ]
+		then
+			error "directory ${pyd} does not exist"
+		fi
+
+		inform "Compiling ${pyd}..."
+		${PYTHON2} ${PYTHON2_LIB}/compileall.py -f -q -d ${pyd} ${D}${pyd}
+		${PYTHON2} -O ${PYTHON2_LIB}/compileall.py -f -q -d ${pyd} ${D}${pyd}
+	done
+}
+
+#****I* python2.cygclass/python2_fix_shebang
+#  SYNOPSIS
+#  python2_fix_shebang SCRIPT [SCRIPT ...]
+#  DESCRIPTION
+#  Fixes the designated interpreter of SCRIPT to PYTHON2.  This would be necessary
+#  if the original uses an incorrect path (e.g. /usr/local/bin) or an
+#  incorrectly versioned binary.  SCRIPT need not be prefixed by $D.
+#****
+python2_fix_shebang() {
+    __fix_shebang ${PYTHON2} ${D}/${@#${D}}
+}
+
+readonly -f python2into dopython2 python2_optimize python2_fix_shebang

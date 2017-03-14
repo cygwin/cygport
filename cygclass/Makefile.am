@@ -61,7 +61,7 @@
 #    For packages which depend on Java.
 #  * pypy.cygclass -
 #    For packages which depend on PyPy.
-#  * python.cygclass -
+#  * python2.cygclass -
 #    For packages which depend on Python 2.x.
 #  * python3.cygclass -
 #    For packages which depend on Python 3.x.
@@ -135,7 +135,7 @@
 #    For packages which depend on PHP or provide PHP (PEAR/PECL) modules.
 #  * pypy-distutils.cygclass -
 #    For PyPy packages which use the Distutils buildsystem.
-#  * python-distutils.cygclass -
+#  * python2-distutils.cygclass -
 #    For Python 2.x packages which use the Distutils buildsystem.
 #  * python3-distutils.cygclass -
 #    For Python 3.x packages which use the Distutils buildsystem.
@@ -179,6 +179,8 @@
 #  * distutils-multi.cygclass
 #  * ggz.cygclass
 #  * opensync.cygclass
+#  * python.cygclass
+#  * python-distutils.cygclass
 #  * ruby-gnome2.cygclass
 #****
 
@@ -237,6 +239,8 @@ cygclass_DATA =					\
 	cygclass/python.org.cygclass		\
 	cygclass/python.cygclass		\
 	cygclass/python-distutils.cygclass	\
+	cygclass/python2.cygclass		\
+	cygclass/python2-distutils.cygclass	\
 	cygclass/python3.cygclass		\
 	cygclass/python3-distutils.cygclass	\
 	cygclass/qt3.cygclass			\
