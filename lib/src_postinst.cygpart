@@ -216,6 +216,31 @@ __prep_gtk_icon_theme() {
 	done
 }
 
+#****P* Postinstall/Python Bytecompiling
+#  DESCRIPTION
+#  All Python modules installed into the system site-packages directories
+#  (/usr/lib/pythonX.Y) are automatically byte-compiled.
+#****
+
+__prep_python_bytecompile() {
+	py=/usr/bin/$1
+	pyd=/usr/lib/$1
+
+	if [ -x $py ] && [ ! -x ${D}$py ]
+	then
+		find ${d} -name '*.py[co]' -delete
+
+		inform "Byte-compiling ${pyd}..."
+		${py} ${pyd}/compileall.py -f -q -d ${pyd} ${D}${pyd}
+		${py} -O ${pyd}/compileall.py -f -q -d ${pyd} ${D}${pyd}
+		case "$1" in
+		python2.*|python3.[01234]) ;;
+		# PEP 488 was first implemented in 3.5
+		*)  ${py} -OO ${pyd}/compileall.py -f -q -d ${pyd} ${D}${pyd} ;;
+		esac
+	fi
+}
+
 #****P* Postinstall/TeX Live
 #  DESCRIPTION
 #  Package postinstall and preremove scripts will be automatically generated
@@ -606,6 +631,14 @@ __prepetc() {
 	then
 		__prep_freedesktop_mime || error "Shared Mime Info postinstall failed"
 	fi
+
+	for d in ${D}/usr/lib/python[2-9].*
+	do
+		if [ -d "$d" ]
+		then
+			__prep_python_bytecompile ${d#${D}/usr/lib/}
+		fi
+	done
 
 	if [ -d ${D}/usr/share/texmf-dist ]
 	then
@@ -1387,7 +1420,7 @@ __src_postinst() {
 readonly -f __prep_fonts_dir __prep_freedesktop_mime __prep_gconf_schemas \
             __prep_gdk_pixbuf_modules \
             __prep_gtk2_modules __prep_gtk3_modules __prep_gtk_icon_theme \
-            __prep_texlive __prep_xsessions \
+            __prep_python_bytecompile __prep_texlive __prep_xsessions \
             __prepdoc __prepemacs __prepetc __prepman __prepinfo __prepperl \
             __prepvargames __prep_empty_dirs \
             __prepstrip __prepdebugsrc __prep_symlinks \
