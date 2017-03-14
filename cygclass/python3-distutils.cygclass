@@ -31,25 +31,13 @@
 #
 #  This cygclass handles the building of Python 3.x distutils-based packages.
 #  INHERITS
-#  python3.cygclass
+#  python.org.cygclass, python3.cygclass
 #  REQUIRES
 #  python3
 #****
-inherit python3
-
 ORIG_PN=${ORIG_PN:-${PN#python3-}}
 
-#****o* python3-distutils.cygclass/HOMEPAGE (python3-distutils)
-#  DESCRIPTION
-#  Default homepage of the Python3 module on the Python Package Index.
-#****
-HOMEPAGE="http://pypi.python.org/pypi/${ORIG_PN}"
-
-#****o* python3-distutils.cygclass/SRC_URI (python3-distutils)
-#  DESCRIPTION
-#  Download location of the Python3 module on the Python Package Index.
-#****
-SRC_URI="https://files.pythonhosted.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
+inherit python.org python3
 
 #****C* python3-distutils.cygclass/python3_distutils_compile
 #  SYNOPSIS
