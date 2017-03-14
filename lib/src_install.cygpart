@@ -164,7 +164,7 @@ docinto() {
 #  subdirectory thereof specified by the previous call to docinto.
 #****
 dodoc() {
-	local docdir d f i
+	local docdir d f i x
 
 	case "${_docinto_dir}" in
 		'')	docdir=/usr/share/doc/${PN} ;;
@@ -186,24 +186,15 @@ dodoc() {
 				__doinstall 0644 "${f}" ${docdir}/${f%/*} || error "dodoc -r ${d} failed"
 			done
 			popd
-		elif [ -s "${i}" ]
-		then
-			if [ -s "${i}" -a ! -f "${D}${docdir}/${i}" ]
-			then
-				__doinstall 0644 "${i}" ${docdir} || error "dodoc ${i} failed"
-			fi
-		elif [ -s "${i}.md" ]
-		then
-			if [ -s "${i}.md" -a ! -f "${D}${docdir}/${i}.md" ]
-			then
-				__doinstall 0644 "${i}.md" ${docdir} || error "dodoc ${i}.md failed"
-			fi
-		elif [ -s "${i}.txt" ]
-		then
-			if [ -s "${i}.txt" -a ! -f "${D}${docdir}/${i}.txt" ]
-			then
-				__doinstall 0644 "${i}.txt" ${docdir} || error "dodoc ${i}.txt failed"
-			fi
+		else
+			for x in '' .md .rst .txt
+			do
+				if [ -s "${i}${x}" -a ! -f "${D}${docdir}/${i}${x}" ]
+				then
+					__doinstall 0644 "${i}${x}" ${docdir} || error "dodoc ${i} failed"
+					break
+				fi
+			done
 		fi
 	done
 }
