@@ -31,25 +31,14 @@
 #
 #  This cygclass handles the building of PyPy distutils-based packages.
 #  INHERITS
-#  pypy.cygclass
+#  python.org.cygclass, pypy.cygclass
 #  REQUIRES
 #  pypy
 #****
-inherit pypy
 
 ORIG_PN=${ORIG_PN:-${PN#pypy-}}
 
-#****o* pypy-distutils.cygclass/HOMEPAGE (pypy-distutils)
-#  DESCRIPTION
-#  Default homepage of the module on the Python Package Index.
-#****
-HOMEPAGE="http://pypi.python.org/pypi/${ORIG_PN}"
-
-#****o* pypy-distutils.cygclass/SRC_URI (pypy-distutils)
-#  DESCRIPTION
-#  Download location of the module on the Python Package Index.
-#****
-SRC_URI="https://files.pythonhosted.org/packages/source/${ORIG_PN:0:1}/${ORIG_PN}/${ORIG_PN}-${PV}.tar.gz"
+inherit python.org pypy
 
 #****C* pypy-distutils.cygclass/pypy_distutils_compile
 #  SYNOPSIS
