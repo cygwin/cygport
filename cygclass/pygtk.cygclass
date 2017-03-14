@@ -33,7 +33,7 @@
 #
 #  This package provides definitions and functions for building PyGTK bindings.
 #  INHERITS
-#  gnome.org.cygclass (unless mate.cygclass has been inherit()ed), python.cygclass
+#  gnome.org.cygclass (unless mate.cygclass has been inherit()ed), python2.cygclass
 #****
 
 case ${PN#python-} in
@@ -64,7 +64,7 @@ case ${PN#python-} in
 esac
 
 inherited mate || inherit gnome.org
-inherit python
+inherit python2
 
 #****d* pygtk.cygclass/PYGTK_INCLUDEDIR
 #  DESCRIPTION
@@ -76,7 +76,7 @@ PYGTK_INCLUDEDIR="/usr/include/pygtk-2.0"
 #  DESCRIPTION
 #  Installation path for PyGTK bindings.
 #****
-PYGTK_LIBDIR="${PYTHON_SITELIB}/gtk-2.0"
+PYGTK_LIBDIR="${PYTHON2_SITELIB}/gtk-2.0"
 
 #****d* pygtk.cygclass/PYGTK_DATADIR
 #  DESCRIPTION
@@ -99,7 +99,7 @@ CATEGORY="Python"
 #****
 #****o* pygtk.cygclass/SUMMARY (pygtk)
 #  DEFINITION
-SUMMARY="Python ${pygtk_mod} bindings"
+SUMMARY="Python 2 ${pygtk_mod} bindings"
 #****
 #****o* pygtk.cygclass/HOMEPAGE (pygtk)
 #  DEFINITION
@@ -122,7 +122,7 @@ pygtk_compile() {
 	else
 		cygconf "${@}"
 	fi
-	cygmake LIBS="-no-undefined ${LIBPYTHON}"
+	cygmake LIBS="-no-undefined ${LIBPYTHON2}"
 }
 
 #****o* pygtk.cygclass/src_compile (pygtk)
