@@ -28,10 +28,14 @@
 #  The PyGTK project provides a series of bindings for the GTK+ and GNOME
 #  libraries.  APIs are defined in .defs files, from which C binding code
 #  is generated with PYGTK_CODEGEN.  These bindings allow full-featured
-#  GNOME programs to be written in the Python language, and are among one
-#  of the most commonly used GNOME language bindings.
+#  GNOME programs to be written in the Python language.
 #
 #  This package provides definitions and functions for building PyGTK bindings.
+#  NOTE
+#  These bindings are limited to both GTK+ 2 and Python 2, both of which are
+#  in long-term maintenance mode.  For support of GTK+ 3 and/or Python 3,
+#  GObject Introspection (python*-gi plus girepository-* packages) must be used
+#  instead.  Therefore, these bindings are considered obsolete.
 #  INHERITS
 #  gnome.org.cygclass (unless mate.cygclass has been inherit()ed), python2.cygclass
 #****
