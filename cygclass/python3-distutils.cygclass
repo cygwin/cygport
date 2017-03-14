@@ -71,8 +71,7 @@ python3_distutils_compile() {
 #  python3_distutils_install [OPTIONS]
 #  DESCRIPTION
 #  Runs the setup.py 'install' phase, setting the root argument to install
-#  into $D, followed by python3_optimize.  All arguments are passed to the
-#  setup.py 'install' command.
+#  into $D.  All arguments are passed to the setup.py 'install' command.
 #****
 python3_distutils_install() {
 	if [ ! -e setup.py ]
@@ -80,12 +79,7 @@ python3_distutils_install() {
 		error "No Python Distutils module detected"
 	fi
 
-	${PYTHON3} setup.py "${@}" install -O0 --root=${D} || error "setup.py install failed"
-
-	if [ -d ${D}${PYTHON3_SITELIB} ]
-	then
-		python3_optimize ${PYTHON3_SITELIB}
-	fi
+	${PYTHON3} setup.py "${@}" install --no-compile --root=${D} || error "setup.py install failed"
 }
 
 #****o* python3-distutils.cygclass/src_compile (python3-distutils)
