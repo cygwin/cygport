@@ -69,7 +69,7 @@ PYPY_INCLUDEDIR=$(${PYPY} -c 'from distutils.sysconfig import * ; print get_pyth
 #****
 PYPY_SITELIB=$(${PYPY} -c 'from distutils.sysconfig import * ; print get_python_lib(0,0);')
 
-#****d* python.cygclass/LIBPYPY
+#****d* pypy.cygclass/LIBPYPY
 #  DESCRIPTION
 #  Link flags for the PyPy import library.  This definition must be properly quoted.
 #****
