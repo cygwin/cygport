@@ -162,15 +162,14 @@ dopython3() {
 
 #****I* python3.cygclass/python3_optimize
 #  SYNOPSIS
-#  python3_optimize [DIRECTORY1] [DIRECTORY2] ...
+#  python3_optimize DIRECTORY [DIRECTORY] ...
 #  DESCRIPTION
 #  Bytecode-compile all Python3 modules found in the given directories under $D.
-#  If no directories are specified, PYTHON3_SITELIB under $D is assumed.
 #****
 python3_optimize() {
 	local pyd
 
-	for pyd in "${@:-${PYTHON3_SITELIB}}"
+	for pyd
 	do
 		if [ ! -d ${D}${pyd} ]
 		then
