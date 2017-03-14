@@ -515,7 +515,7 @@ __pkg_dist() {
 	local -i n;
 	local -a pkg_hint;
 	local distsubdir;
-	local obspkg;
+	local obssubdir obspkg;
 	local pkg_category_var pkg_requires_var pkg_summary_var;
 	local pkg_description_var pkg_message_var pkg_obsoletes_var;
 
@@ -723,19 +723,26 @@ _EOF
 
 		for obspkg in ${!pkg_obsoletes_var}
 		do
-			mkdir -p ${distdir}/${PN}/${obspkg};
-			tar -Jcf ${distdir}/${PN}/${obspkg}/${obspkg}-${PVR}.tar.xz --files-from /dev/null
+			if [ ${obspkg} = ${PN} ]
+			then
+				obssubdir= ;
+			else
+				obssubdir=${obspkg};
+			fi
+
+			mkdir -p ${distdir}/${PN}/${obssubdir};
+			tar -Jcf ${distdir}/${PN}/${obssubdir}/${obspkg}-${PVR}.tar.xz --files-from /dev/null
 
 			__step "${pkg_name[${n}]} OBSOLETES: ${obspkg}"
 
-			cat > ${distdir}/${PN}/${obspkg}/${obspkg}-${PVR}.hint <<-_EOF
+			cat > ${distdir}/${PN}/${obssubdir}/${obspkg}-${PVR}.hint <<-_EOF
 category: _obsolete
 requires: ${pkg_name[${n}]}
 sdesc: "Obsoleted by ${pkg_name[${n}]}"
 ldesc: "The ${obspkg} package is obsolete.  Selecting this package for
 installation will cause the ${pkg_name[${n}]} package, which replaces this
 one, to be installed instead."
-external-source: ${PN}
+${obssubdir:+external-source: ${PN}}
 _EOF
 		done
 
