@@ -152,7 +152,10 @@ dolua() {
 #  incorrectly versioned binary.  SCRIPT need not be prefixed by $D.
 #****
 lua_fix_shebang() {
-    __fix_shebang ${LUA} ${D}/${@#${D}}
+	for f
+	do
+		__fix_shebang ${LUA} ${D}/${f#${D}}
+	done
 }
 
 readonly -f luainto dolua lua_fix_shebang

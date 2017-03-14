@@ -98,7 +98,7 @@ __fix_shebang() {
 
 	for x
 	do
-		if [ $(head -c 2 ${x}) != "#!" ]
+		if [ "$(head -c 2 ${x})" != "#!" ]
 		then
 			continue
 		fi

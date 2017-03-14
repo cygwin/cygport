@@ -182,7 +182,10 @@ python2_optimize() {
 #  incorrectly versioned binary.  SCRIPT need not be prefixed by $D.
 #****
 python2_fix_shebang() {
-    __fix_shebang ${PYTHON2} ${D}/${@#${D}}
+	for f
+	do
+		__fix_shebang ${PYTHON2} ${D}/${f#${D}}
+	done
 }
 
 readonly -f python2into dopython2 python2_optimize python2_fix_shebang

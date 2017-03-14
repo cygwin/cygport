@@ -173,7 +173,10 @@ pypy_optimize() {
 #  to the CPython interpreter.  SCRIPT need not be prefixed by $D.
 #****
 pypy_fix_shebang() {
-    __fix_shebang ${PYPY} ${D}/${@#${D}}
+	for f
+	do
+		__fix_shebang ${PYPY} ${D}/${f#${D}}
+	done
 }
 
 readonly -f pypyinto dopypy pypy_optimize pypy_fix_shebang

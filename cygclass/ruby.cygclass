@@ -324,7 +324,10 @@ doruby() {
 #  incorrectly versioned binary.  SCRIPT need not be prefixed by $D.
 #****
 ruby_fix_shebang() {
-    __fix_shebang ${RUBY} ${D}/${@#${D}}
+	for f
+	do
+		__fix_shebang ${RUBY} ${D}/${f#${D}}
+	done
 }
 
 #****o* ruby.cygclass/src_compile (ruby)

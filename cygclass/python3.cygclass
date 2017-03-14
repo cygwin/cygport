@@ -191,7 +191,10 @@ python3_optimize() {
 #  incorrectly versioned binary.  SCRIPT need not be prefixed by $D.
 #****
 python3_fix_shebang() {
-    __fix_shebang ${PYTHON3} ${D}/${@#${D}}
+	for f
+	do
+		__fix_shebang ${PYTHON3} ${D}/${f#${D}}
+	done
 }
 
 readonly -f python3into dopython3 python3_optimize python3_fix_shebang

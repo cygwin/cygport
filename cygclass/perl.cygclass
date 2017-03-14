@@ -253,7 +253,10 @@ perl_postinst() { :; }
 #  incorrectly versioned binary.  SCRIPT need not be prefixed by $D.
 #****
 perl_fix_shebang() {
-    __fix_shebang ${PERL} ${D}/${@#${D}}
+	for f
+	do
+		__fix_shebang ${PERL} ${D}/${f#${D}}
+	done
 }
 
 #****I* perl.cygclass/perl_sax_parser_register

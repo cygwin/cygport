@@ -426,7 +426,10 @@ php_postinst() {
 #  incorrectly versioned binary.  SCRIPT need not be prefixed by $D.
 #****
 php_fix_shebang() {
-    __fix_shebang ${PHP} ${D}/${@#${D}}
+	for f
+	do
+		__fix_shebang ${PHP} ${D}/${f#${D}}
+	done
 }
 
 #****o* php.cygclass/src_compile (php)
