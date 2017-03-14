@@ -135,6 +135,8 @@
 #    For packages which depend on PHP or provide PHP (PEAR/PECL) modules.
 #  * pypy-distutils.cygclass -
 #    For PyPy packages which use the Distutils buildsystem.
+#  * python-wheel.cygclass -
+#    For Python 2 and 3 packages which are built and installed as wheels.
 #  * python2-distutils.cygclass -
 #    For Python 2.x packages which use the Distutils buildsystem.
 #  * python3-distutils.cygclass -
@@ -239,6 +241,7 @@ cygclass_DATA =					\
 	cygclass/python.org.cygclass		\
 	cygclass/python.cygclass		\
 	cygclass/python-distutils.cygclass	\
+	cygclass/python-wheel.cygclass		\
 	cygclass/python2.cygclass		\
 	cygclass/python2-distutils.cygclass	\
 	cygclass/python3.cygclass		\

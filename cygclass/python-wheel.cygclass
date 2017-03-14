@@ -1,0 +1,157 @@
+################################################################################
+#
+# python-wheel.cygclass - for building Wheels for Python 2 and 3
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2016 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/python-wheel.cygclass
+#  DESCRIPTION
+#  Wheels are the new standard for installing Python libraries and programs.
+#  The build is defined by a setup.py file in the top source directory, which
+#  controls the installation of files and the building of C Python extensions.
+#  Many such packages are hosted on the Python Package Index (PyPI).
+#
+#  This cygclass handles the building of wheel-based Python packages for both
+#  Python 2 and 3 simultaneously.
+#  EXAMPLE
+#    inherit python-wheel
+#    
+#    NAME="python-six"
+#    VERSION=1.10.0
+#    RELEASE=1
+#    CATEGORY="Python"
+#    SUMMARY="Python 2 and 3 compatibility library"
+#    DESCRIPTION="Six is a Python 2 and 3 compatibility library. It provides
+#    utility functions for smoothing over the differences between the Python
+#    versions with the goal of writing Python code that is compatible on both
+#    Python versions."
+#    
+#    ARCH=noarch
+#  INHERITS
+#  python2.cygclass, python3.cygclass
+#  REQUIRES
+#  python2, python2-pip, python3, python3-pip
+#****
+ORIG_PN=${ORIG_PN:-${PN#python-}}
+PYTHON_WHEEL_NAME=${NAME#python-}
+
+inherit python.org python2 python3
+
+check_prog_req pip2 python2-pip
+check_prog_req pip3 python3-pip
+
+_CYGPORT_INTERNAL_multi_doc_=1
+
+#****o* python-wheel.cygclass/PKG_NAMES (python-wheel)
+#  DESCRIPTION
+#  For a NAME of python-foo, the following two binary packages are created
+#  automatically:
+#  * python2-foo, containing PYTHON2_SITELIB
+#  * python3-foo, containing PYTHON3_SITELIB
+#  Each package also includes its own independent copy of the automatically
+#  installed documentation (COPYING, README, etc.).  For those packages which
+#  install scripts into /usr/bin, these should be added to python2_foo_CONTENTS
+#  and/or python3_foo_CONTENTS.
+#****
+PKG_NAMES="python2-${PYTHON_WHEEL_NAME} python3-${PYTHON_WHEEL_NAME}"
+declare -g python2_${PYTHON_WHEEL_NAME//[-\.]/_}_OBSOLETES="python-${PYTHON_WHEEL_NAME}"
+declare -g python2_${PYTHON_WHEEL_NAME//[-\.]/_}_CONTENTS="${PYTHON2_SITELIB#/} usr/share/doc/python2-${PYTHON_WHEEL_NAME}"
+declare -g python3_${PYTHON_WHEEL_NAME//[-\.]/_}_CONTENTS="${PYTHON3_SITELIB#/} usr/share/doc/python3-${PYTHON_WHEEL_NAME}"
+
+#****C* python-wheel.cygclass/python_wheel_compile
+#  SYNOPSIS
+#  python_wheel_compile [OPTIONS]
+#  DESCRIPTION
+#  Runs the setup.py 'bdist_wheel' command, to which any arguments are passed.
+#****
+python_wheel_compile() {
+	if [ ! -e setup.py ]
+	then
+		error "No Python Distutils module detected"
+	fi
+
+	${PYTHON3} setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
+	# Universal wheels can be installed on both versions of Python
+	if [ ! -f dist/*-py2.py3-none-any.whl ]
+	then
+		${PYTHON2} setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
+	fi
+}
+
+#****I* python-wheel.cygclass/python_wheel_install
+#  SYNOPSIS
+#  python_wheel_install [OPTIONS]
+#  DESCRIPTION
+#  Installs the previously built wheel into $D with 'pip3 install'.
+#****
+python_wheel_install() {
+	local whl2 whl3
+
+	if [ ! -e setup.py ]
+	then
+		error "No Python Distutils module detected"
+	fi
+
+	if [ -f dist/*-py2.py3-none-any.whl ]
+	then
+		# Universal wheels can be installed on both versions of Python
+		whl2="*-py2.py3-none-any.whl"
+		whl3="*-py2.py3-none-any.whl"
+	elif [ -f dist/*-py2-none-any.whl ] && [ -f dist/*-py3-none-any.whl ]
+	then
+		# not all noarch wheels are officially universal
+		whl2="*-py2-none-any.whl"
+		whl3="*-py3-none-any.whl"
+	elif [ -f dist/*-cp${PYTHON2_VERSION/.}-*cygwin_*_${ARCH}.whl ]
+	then
+		whl2="*-cp${PYTHON2_VERSION/.}-*cygwin_*_${ARCH}.whl"
+		whl3="*-cp${PYTHON3_VERSION/.}-*cygwin_*_${ARCH}.whl"
+	else
+		error "unknown wheel filename"
+	fi
+
+	# ENSUREPIP_OPTIONS not present: pip, pipX, pipX.Y, easy_install, easy_install-X.Y
+	# ENSUREPIP_OPTIONS=altinstall: pipX.Y, easy_install-X.Y
+	# ENSUREPIP_OPTIONS=install: pipX, pipX.Y, easy_install-X.Y
+
+	ENSUREPIP_OPTIONS="install" \
+	pip2 install -I dist/${whl2} --root ${D} --prefix /usr --no-compile --no-deps || error "pip2 install failed"
+	ENSUREPIP_OPTIONS="install" \
+	pip3 install -I dist/${whl3} --root ${D} --prefix /usr --no-compile --no-deps || error "pip3 install failed"
+}
+
+#****o* python-wheel.cygclass/src_compile (python-wheel)
+#  DEFINITION
+src_compile() {
+	lndirs
+	cd ${B}
+	python_wheel_compile
+}
+#****
+
+#****o* python-wheel.cygclass/src_install (python-wheel)
+#  DEFINITION
+src_install() {
+	cd ${B}
+	python_wheel_install
+}
+#****
+
+readonly -f python_wheel_compile python_wheel_install

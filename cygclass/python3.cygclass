@@ -40,7 +40,9 @@
 #  two most common build systems for Python3 packages are Distutils and autotools.
 #  NOTE
 #  python3.cygclass is for the 3.x versions of Python; for the 2.x versions,
-#  see python.cygclass.
+#  see python2.cygclass.
+#  INHERITED BY
+#  python-wheel.cygclass
 #  REQUIRES
 #  python3
 #****

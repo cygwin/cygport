@@ -35,7 +35,7 @@
 #  If PN does not match the name of the original source tarball,
 #  define ORIG_PN before inherit()ing.
 #  INHERITED BY
-#  python2-distutils.cygclass, python3-distutils.cygclass
+#  python-wheel.cygclass, python2-distutils.cygclass, python3-distutils.cygclass
 #****
 
 PYTHON_ORG_NAME=${ORIG_PN:-${PN}}
