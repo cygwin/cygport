@@ -27,6 +27,8 @@
 #    For downloading sources from KDE mirrors.
 #  * mtn.cygclass -
 #    For downloading sources from Monotone repositories.
+#  * python.org.cygclass -
+#    For downloading sources from PyPI.
 #  * svn.cygclass -
 #    For downloading sources from Subversion repositories.
 #
@@ -232,6 +234,7 @@ cygclass_DATA =					\
 	cygclass/pygtk.cygclass			\
 	cygclass/pypy.cygclass			\
 	cygclass/pypy-distutils.cygclass	\
+	cygclass/python.org.cygclass		\
 	cygclass/python.cygclass		\
 	cygclass/python-distutils.cygclass	\
 	cygclass/python3.cygclass		\

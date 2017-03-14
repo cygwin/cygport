@@ -1,0 +1,53 @@
+################################################################################
+#
+# python.org.cygclass - sets SRC_URI for PyPI packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2016 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/python.org.cygclass
+#  SYNOPSIS
+#  inherit python.org
+#  DESCRIPTION
+#  This cygclass is to be used for packages which are shipped in PyPI
+#  (the Python Package Index).
+#
+#  In most cases, you do not need to directly inherit this cygclass;
+#  most Python packages will anyway use one of the cygclasses listed below
+#  which already inherit this cygclass.
+#
+#  If PN does not match the name of the original source tarball,
+#  define ORIG_PN before inherit()ing.
+#  INHERITED BY
+#  python2-distutils.cygclass, python3-distutils.cygclass
+#****
+
+PYTHON_ORG_NAME=${ORIG_PN:-${PN}}
+
+#****o* python.org.cygclass/HOMEPAGE (python.org)
+#  DESCRIPTION
+#  Default homepage of the Python module on the Python Package Index.
+#****
+HOMEPAGE="http://pypi.python.org/pypi/${PYTHON_ORG_NAME}"
+
+#****o* python.org.cygclass/SRC_URI (python.org)
+#  DESCRIPTION
+#  Download location of the Python module on the Python Package Index.
+#****
+SRC_URI="https://files.pythonhosted.org/packages/source/${PYTHON_ORG_NAME:0:1}/${PYTHON_ORG_NAME}/${PYTHON_ORG_NAME}-${PV}.tar.gz"
