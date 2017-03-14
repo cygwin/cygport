@@ -180,6 +180,7 @@ python3_optimize() {
 
 		inform "Compiling ${pyd}..."
 		${PYTHON3} ${PYTHON3_LIB}/compileall.py -f -q -d ${pyd} ${D}${pyd}
+		${PYTHON3} -O ${PYTHON3_LIB}/compileall.py -f -q -d ${pyd} ${D}${pyd}
 		${PYTHON3} -OO ${PYTHON3_LIB}/compileall.py -f -q -d ${pyd} ${D}${pyd}
 	done
 }
