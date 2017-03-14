@@ -299,27 +299,35 @@ check_php_module() {
 }
 
 #****f* Checks/check_python_module
+#  DESCRIPTION
+#  Deprecated compatibility wrapper for check_python2_module.
+#****
+check_python_module() {
+	check_python2_module "$@"
+}
+
+#****f* Checks/check_python2_module
 #  SYNOPSIS
-#  check_python_module MODULE [MODULE2] ...
+#  check_python2_module MODULE [MODULE2] ...
 #  DESCRIPTION
 #  Checks the presence of the given Python2 module(s).  If all given module(s)
 #  are present, returns TRUE, else FALSE.
 #  NOTES
-#  * check_python_module does not distinguish how the given module(s) were
+#  * check_python2_module does not distinguish how the given module(s) were
 #    installed, whether they are from a Cygwin package or manually.
 #  * For Python 3 modules, use check_python3_module.
 #  * For PyPy modules, use check_pypy_module.
 #  REQUIRES
-#  python
+#  python2
 #****
-check_python_module() {
+check_python2_module() {
 	local mod;
 
-	check_prog_req python;
+	check_prog_req python2;
 
 	for mod
 	do
-		if ! python -c "import ${mod}" &> /dev/null
+		if ! python2 -c "import ${mod}" &> /dev/null
 		then
 			return 2;
 		fi
@@ -337,7 +345,7 @@ check_python_module() {
 #  NOTES
 #  * check_python3_module does not distinguish how the given module(s) were
 #    installed, whether they are from a Cygwin package or manually.
-#  * For Python 2 modules, use check_python_module.
+#  * For Python 2 modules, use check_python2_module.
 #  * For PyPy modules, use check_pypy_module.
 #  REQUIRES
 #  python3
@@ -367,7 +375,7 @@ check_python3_module() {
 #  NOTES
 #  * check_pypy_module does not distinguish how the given module(s) were
 #    installed, whether they are from a Cygwin package or manually.
-#  * For CPython modules, use check_python_module or check_python3_module.
+#  * For CPython modules, use check_python2_module or check_python3_module.
 #  REQUIRES
 #  pypy
 #****
@@ -605,8 +613,8 @@ __check_depends() {
 			check_pypy_module $(__deparenthesize ${atom}) \
 				|| failed_atoms+="${atom} "
 			;;
-		python\(*)
-			check_python_module $(__deparenthesize ${atom}) \
+		python\(*|python2\(*)
+			check_python2_module $(__deparenthesize ${atom}) \
 				|| failed_atoms+="${atom} "
 			;;
 		python3\(*)
@@ -719,8 +727,8 @@ __version_at_least() {
 readonly -f check_prog check_prog_req check_tool check_target_tool \
             check_pkg_config check_girepository_module check_lua_module \
             check_ocaml_module check_perl_module check_php_module \
-            check_python_module check_python3_module check_pypy_module \
-            check_R_module check_ruby_module \
+            check_python_module check_python2_module check_python3_module \
+            check_pypy_module check_R_module check_ruby_module \
             check_tcl_module check_tex_module check_vala_module \
             __check_depends __check_function __check_function_ro \
             __check_unstable __version_at_least
