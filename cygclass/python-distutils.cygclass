@@ -71,8 +71,7 @@ python_distutils_compile() {
 #  python_distutils_install [OPTIONS]
 #  DESCRIPTION
 #  Runs the setup.py 'install' phase, setting the root argument to install
-#  into $D, followed by python_optimize.  All arguments are passed to the
-#  setup.py 'install' command.
+#  into $D.  All arguments are passed to the setup.py 'install' command.
 #****
 python_distutils_install() {
 	if [ ! -e setup.py ]
@@ -80,12 +79,7 @@ python_distutils_install() {
 		error "No Python Distutils module detected"
 	fi
 
-	${PYTHON} setup.py "${@}" install -O0 --root=${D} || error "setup.py install failed"
-
-	if [ -d ${D}${PYTHON_SITELIB} ]
-	then
-		python_optimize ${PYTHON_SITELIB}
-	fi
+	${PYTHON} setup.py "${@}" install --no-compile --root=${D} || error "setup.py install failed"
 }
 
 #****o* python-distutils.cygclass/src_compile (python-distutils)
