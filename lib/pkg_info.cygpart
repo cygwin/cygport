@@ -428,7 +428,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				-o -name '*.py' -executable -exec sed -sne '1{/^#!.*python\([^3]\|$\)/F}' '{}' + \
 				-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*python\([^3]\|$\)/F}' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
-				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
+				| sed -e 's/^from \([^ ]*\) import .*/\1/g;s/^import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
 				| sort -u)
 		do
 			for d in ${pydirs[*]/\//${D}/} ${pydirs[*]}
@@ -460,7 +460,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				-o -name '*.py' -executable -exec sed -sne '1{/^#!.*pypy/F}' '{}' + \
 				-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*pypy/F}' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
-				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
+				| sed -e 's/^from \([^ ]*\) import .*/\1/g;s/^import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
 				| sort -u)
 		do
 			for d in ${pydirs[*]/\//${D}/} ${pydirs[*]}
@@ -493,7 +493,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				-o -name '*.py' -executable -exec sed -sne '1{/^#!.*python3/F}' '{}' + \
 				-o -type f ! -name '*.*' -executable -exec sed -sne '1{/^#!.*python3/F}' '{}' + \
 				| xargs -r grep -h '^[^#]*import ' \
-				| sed -e 's/.*from \([^ ]*\) import .*/\1/g;s/.*import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
+				| sed -e 's/^from \([^ ]*\) import .*/\1/g;s/^import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
 				| sort -u)
 		do
 			for d in ${pydirs[*]/\//${D}/} ${pydirs[*]}
