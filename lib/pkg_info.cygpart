@@ -411,12 +411,12 @@ __list_deps() {
 		done
 	fi
 
-	if check_prog python && ! inherited python3 && ! inherited pypy \
-	   && [ ${PN} != "python3" ] && [ ${PN} != "pypy" ] || inherited python
+	if check_prog python2 && ! inherited python3 && ! inherited pypy \
+	   && [ ${PN} != "python3" ] && [ ${PN} != "pypy" ] || inherited python2
 	then
-		pydirs=($(python -c 'import sys; print(" ".join(sys.path))'))
+		pydirs=($(python2 -c 'import sys; print(" ".join(sys.path))'))
 		pydirs+=" ${DEPS_PATH//:/ }"
-		pyexts=$(python -c 'import imp
+		pyexts=$(python2 -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				${deps_prune} \
@@ -444,8 +444,8 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 			done
 		done
 	fi
-	if check_prog pypy && ! inherited python && ! inherited python3 \
-	   && [ ${PN} != "python" ] && [ ${PN} != "python3" ] || inherited pypy
+	if check_prog pypy && ! inherited python2 && ! inherited python3 \
+	   && [ ${PN} != "python2" ] && [ ${PN} != "python3" ] || inherited pypy
 	then
 		pydirs=($(pypy -c 'import sys; print(" ".join(sys.path))'))
 		pydirs+=" ${DEPS_PATH//:/ }"
@@ -476,8 +476,8 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 			done
 		done
 	fi
-	if check_prog python3 && ! inherited python && ! inherited pypy \
-	   && [ ${PN} != "python" ] && [ ${PN} != "pypy" ] || inherited python3
+	if check_prog python3 && ! inherited python2 && ! inherited pypy \
+	   && [ ${PN} != "python2" ] && [ ${PN} != "pypy" ] || inherited python3
 	then
 		pydirs=($(python3 -c 'import sys; print(" ".join(sys.path))'))
 		pydirs+=" ${DEPS_PATH//:/ }"
