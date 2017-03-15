@@ -37,13 +37,13 @@
 #  This cygclass handles the building and installing of ROX packages.
 #  AppDirs are installed under /usr/lib/rox.
 #  INHERITS
-#  python2.cygclass
+#  python.cygclass
 #****
 
 # cross-compiling is not (yet?) supported
 __cross_compiling_error
 
-inherit python2
+inherit python
 
 ORIG_PN=${ORIG_PN:-${PN#rox-}}
 
@@ -149,7 +149,7 @@ rox_install() {
 	cp -LR ${ROX_APP} ${D}/usr/lib/rox/
 	rm -fr ${D}/usr/lib/rox/${ROX_APP}/{=build,build,src,.cvsignore}
 
-	python2_optimize /usr/lib/rox/${ROX_APP}
+	python_optimize /usr/lib/rox/${ROX_APP}
 
 	if [ "${wrapper}" != "none" ]
 	then
