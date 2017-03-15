@@ -37,7 +37,7 @@
 #  GObject Introspection (python*-gi plus girepository-* packages) must be used
 #  instead.  Therefore, these bindings are considered obsolete.
 #  INHERITS
-#  gnome.org.cygclass (unless mate.cygclass has been inherit()ed), python2.cygclass
+#  gnome.org.cygclass (unless mate.cygclass has been inherit()ed), python.cygclass
 #****
 
 case ${PN#python-} in
@@ -68,7 +68,7 @@ case ${PN#python-} in
 esac
 
 inherited mate || inherit gnome.org
-inherit python2
+inherit python
 
 #****d* pygtk.cygclass/PYGTK_INCLUDEDIR
 #  DESCRIPTION
@@ -80,7 +80,7 @@ PYGTK_INCLUDEDIR="/usr/include/pygtk-2.0"
 #  DESCRIPTION
 #  Installation path for PyGTK bindings.
 #****
-PYGTK_LIBDIR="${PYTHON2_SITELIB}/gtk-2.0"
+PYGTK_LIBDIR="${PYTHON_SITELIB}/gtk-2.0"
 
 #****d* pygtk.cygclass/PYGTK_DATADIR
 #  DESCRIPTION
@@ -103,7 +103,7 @@ CATEGORY="Python"
 #****
 #****o* pygtk.cygclass/SUMMARY (pygtk)
 #  DEFINITION
-SUMMARY="Python 2 ${pygtk_mod} bindings"
+SUMMARY="Python ${pygtk_mod} bindings"
 #****
 #****o* pygtk.cygclass/HOMEPAGE (pygtk)
 #  DEFINITION
@@ -126,7 +126,7 @@ pygtk_compile() {
 	else
 		cygconf "${@}"
 	fi
-	cygmake LIBS="-no-undefined ${LIBPYTHON2}"
+	cygmake LIBS="-no-undefined ${LIBPYTHON}"
 }
 
 #****o* pygtk.cygclass/src_compile (pygtk)
