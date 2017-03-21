@@ -89,7 +89,7 @@ python_wheel_compile() {
 
 	${PYTHON3} setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
 	# Universal wheels can be installed on both versions of Python
-	if [ ! -f dist/*-py2.py3-none-any.whl ]
+	if [ ! -f dist/*-py2.py3*-none-any.whl ]
 	then
 		${PYTHON2} setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
 	fi
@@ -109,11 +109,11 @@ python_wheel_install() {
 		error "No Python Distutils module detected"
 	fi
 
-	if [ -f dist/*-py2.py3-none-any.whl ]
+	if [ -f dist/*-py2.py3*-none-any.whl ]
 	then
 		# Universal wheels can be installed on both versions of Python
-		whl2="*-py2.py3-none-any.whl"
-		whl3="*-py2.py3-none-any.whl"
+		whl2="*-py2.py3*-none-any.whl"
+		whl3="*-py2.py3*-none-any.whl"
 	elif [ -f dist/*-py2-none-any.whl ] && [ -f dist/*-py3-none-any.whl ]
 	then
 		# not all noarch wheels are officially universal
