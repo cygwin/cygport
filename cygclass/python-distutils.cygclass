@@ -27,8 +27,6 @@
 #  INHERITS
 #  python2-distutils.cygclass, python.cygclass
 #****
-ORIG_PN=${ORIG_PN:-${PN#python-}}
-
 inherit python2-distutils python
 
 #****C* python-distutils.cygclass/python_distutils_compile

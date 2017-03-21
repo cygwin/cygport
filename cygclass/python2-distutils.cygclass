@@ -35,7 +35,10 @@
 #  REQUIRES
 #  python2
 #****
-ORIG_PN=${ORIG_PN:-${PN#python2-}}
+case "${PN}" in
+python-*)   ORIG_PN=${ORIG_PN:-${PN#python-}} ;;
+python2-*)  ORIG_PN=${ORIG_PN:-${PN#python2-}} ;;
+esac
 
 inherit python.org python2
 
