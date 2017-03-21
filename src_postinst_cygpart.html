@@ -41,37 +41,38 @@
 <li><a href="#robo125">GdkPixbuf Loaders</a></li>
 <li><a href="#robo126">GTK+ Input Method Modules</a></li>
 <li><a href="#robo127">Icon Themes</a></li>
-<li><a href="#robo128">TeX Live</a></li>
-<li><a href="#robo129">X Sessions</a></li>
-<li><a href="#robo130">Documentation Files</a></li>
+<li><a href="#robo128">Python Bytecompiling</a></li>
+<li><a href="#robo129">TeX Live</a></li>
+<li><a href="#robo130">X Sessions</a></li>
+<li><a href="#robo131">Documentation Files</a></li>
 <ul>
-<li><a href="#robo131">DOCS</a></li>
-<li><a href="#robo132">HTMLDOCS</a></li>
-<li><a href="#robo133">PKG_DOCS</a></li>
+<li><a href="#robo132">DOCS</a></li>
+<li><a href="#robo133">HTMLDOCS</a></li>
+<li><a href="#robo134">PKG_DOCS</a></li>
 </ul>
-<li><a href="#robo134">Emacs Lisp</a></li>
-<li><a href="#robo135">Man Pages</a></li>
-<li><a href="#robo136">Info Pages</a></li>
-<li><a href="#robo137">Perl Modules</a></li>
-<li><a href="#robo138">Game Data</a></li>
-<li><a href="#robo139">Empty Directories</a></li>
+<li><a href="#robo135">Emacs Lisp</a></li>
+<li><a href="#robo136">Man Pages</a></li>
+<li><a href="#robo137">Info Pages</a></li>
+<li><a href="#robo138">Perl Modules</a></li>
+<li><a href="#robo139">Game Data</a></li>
+<li><a href="#robo140">Empty Directories</a></li>
 <ul>
-<li><a href="#robo140">KEEPDIRS</a></li>
+<li><a href="#robo141">KEEPDIRS</a></li>
 </ul>
-<li><a href="#robo141">Strip Binaries</a></li>
-<li><a href="#robo142">Split Debugging Information</a></li>
-<li><a href="#robo143">Libtool Libraries</a></li>
+<li><a href="#robo142">Strip Binaries</a></li>
+<li><a href="#robo143">Split Debugging Information</a></li>
+<li><a href="#robo144">Libtool Libraries</a></li>
 <ul>
-<li><a href="#robo144">KEEP_LA_FILES</a></li>
+<li><a href="#robo145">KEEP_LA_FILES</a></li>
 </ul>
-<li><a href="#robo145">RESTRICT</a></li>
+<li><a href="#robo146">RESTRICT</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Chapter20112fPostinstall"></a>
 <a name="robo121"></a><h2>Postinstall</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo808">Chapter 11</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo810">Chapter 11</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
 
 <hr />
 <a name="Postinstall2fCore20X1120Fonts"></a>
@@ -111,7 +112,7 @@
 <p>  Packages providing GConf schemas must require the GConf2 package.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="#robo145">RESTRICT</a>
+<p>  <a href="#robo146">RESTRICT</a>
 </p>
 
 <hr />
@@ -147,20 +148,30 @@
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Packages postinstall scripts will be automatically generated for packages
-  providing an icon theme, or additional icons for a given theme, to update
-  that icon theme's cache.
+<p>  Perpetual postinstall scripts will be automatically generated for packages
+  providing an icon theme, and postinstall triggers for those adding additional
+  icons for a given theme to update that icon theme's cache.
+</p>
+
+<hr />
+<a name="Postinstall2fPython20Bytecompiling"></a>
+<a name="robo128"></a><h2>Python Bytecompiling</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  All Python modules installed into the system site-packages directories
+  (/usr/lib/pythonX.Y) are automatically byte-compiled.
 </p>
 
 <hr />
 <a name="Postinstall2fTeX20Live"></a>
-<a name="robo128"></a><h2>TeX Live</h2>
+<a name="robo129"></a><h2>TeX Live</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Package postinstall and preremove scripts will be automatically generated
   for packages installing TeX files into the system TEXMF tree, which will
-  update the ls-<a href="./R_cygclass.html#robo255">R</a> databases, TeX font maps, and TeX format files.
+  update the ls-<a href="./R_cygclass.html#robo257">R</a> databases, TeX font maps, and TeX format files.
 </p>
 <p class="item_name">NOTE</p>
 <p>  Packages providing TeX files must require the texlive-collection-basic
@@ -170,7 +181,7 @@
 
 <hr />
 <a name="Postinstall2fX20Sessions"></a>
-<a name="robo129"></a><h2>X Sessions</h2>
+<a name="robo130"></a><h2>X Sessions</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -185,7 +196,7 @@
 
 <hr />
 <a name="Postinstall2fDocumentation20Files"></a>
-<a name="robo130"></a><h2>Documentation Files</h2>
+<a name="robo131"></a><h2>Documentation Files</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -193,14 +204,14 @@
   $<a href="./syntax_cygpart.html#robo100">D</a>/usr/share/doc/<a href="./syntax_cygpart.html#robo91">PN</a>.  Empty files will be skipped.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="#robo145">RESTRICT</a>
+<p>  <a href="#robo146">RESTRICT</a>
 </p>
 
 <hr />
 <a name="Documentation20Files2fDOCS"></a>
-<a name="robo131"></a><h2>DOCS</h2>
+<a name="robo132"></a><h2>DOCS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo130">Documentation Files</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo131">Documentation Files</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of documentation files, relative to $<a href="./syntax_cygpart.html#robo97">S</a>, to be installed.  Note
   that most standard documentation files are installed automatically and
@@ -209,9 +220,9 @@
 
 <hr />
 <a name="Documentation20Files2fHTMLDOCS"></a>
-<a name="robo132"></a><h2>HTMLDOCS</h2>
+<a name="robo133"></a><h2>HTMLDOCS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo130">Documentation Files</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo131">Documentation Files</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of HTML documentation files, relative to $<a href="./syntax_cygpart.html#robo97">S</a>, to be installed in
   the html subdirectory of the standard docdir.
@@ -219,9 +230,9 @@
 
 <hr />
 <a name="Documentation20Files2fPKG5fDOCS"></a>
-<a name="robo133"></a><h2>PKG_DOCS</h2>
+<a name="robo134"></a><h2>PKG_DOCS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo130">Documentation Files</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo131">Documentation Files</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of documentation files, relative to $<a href="./syntax_cygpart.html#robo97">S</a>, to be installed in a
   PKG-specific docdir and automatically included in the PKG subpackage.
@@ -234,13 +245,13 @@
 </p>
 <p class="item_name">NOTE</p>
 <p>  When using <strong>PKG_DOCS</strong>, usr/share/doc/PKG should not be included in the
-  corresponding <a href="./pkg_pkg_cygpart.html#robo415">PKG_CONTENTS</a>; the specified files will be added to the
+  corresponding <a href="./pkg_pkg_cygpart.html#robo434">PKG_CONTENTS</a>; the specified files will be added to the
   package automatically.
 </p>
 
 <hr />
 <a name="Postinstall2fEmacs20Lisp"></a>
-<a name="robo134"></a><h2>Emacs Lisp</h2>
+<a name="robo135"></a><h2>Emacs Lisp</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -249,7 +260,7 @@
 
 <hr />
 <a name="Postinstall2fMan20Pages"></a>
-<a name="robo135"></a><h2>Man Pages</h2>
+<a name="robo136"></a><h2>Man Pages</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -266,7 +277,7 @@
 
 <hr />
 <a name="Postinstall2fInfo20Pages"></a>
-<a name="robo136"></a><h2>Info Pages</h2>
+<a name="robo137"></a><h2>Info Pages</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -278,10 +289,13 @@
 </li>
 </ul>
 <p></p>
+<p class="item_name">SEE ALSO</p>
+<p>  <a href="#robo146">RESTRICT</a>
+</p>
 
 <hr />
 <a name="Postinstall2fPerl20Modules"></a>
-<a name="robo137"></a><h2>Perl Modules</h2>
+<a name="robo138"></a><h2>Perl Modules</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -291,7 +305,7 @@
     as they are only of use to CPAN.
 </li>
 <li>  If the module(s) were installed under the 'site_perl' tree (which they
-    should not be if <a href="./perl_cygclass.html#robo467">perl_compile</a> is used), they will be relocated under the
+    should not be if <a href="./perl_cygclass.html#robo486">perl_compile</a> is used), they will be relocated under the
     'vendor_perl' tree.
 </li>
 </ul>
@@ -299,40 +313,40 @@
 
 <hr />
 <a name="Postinstall2fGame20Data"></a>
-<a name="robo138"></a><h2>Game Data</h2>
+<a name="robo139"></a><h2>Game Data</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Game data installed into /var/games will be handled with <a href="./src_install_cygpart.html#robo179">make_etc_defaults</a>.
+<p>  Game data installed into /var/games will be handled with <a href="./src_install_cygpart.html#robo180">make_etc_defaults</a>.
 </p>
 
 <hr />
 <a name="Postinstall2fEmpty20Directories"></a>
-<a name="robo139"></a><h2>Empty Directories</h2>
+<a name="robo140"></a><h2>Empty Directories</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Empty directories will be removed automatically, unless marked for saving
-  with <a href="./src_install_cygpart.html#robo148">keepdir</a> or <a href="#robo140">KEEPDIRS</a>.
+  with <a href="./src_install_cygpart.html#robo149">keepdir</a> or <a href="#robo141">KEEPDIRS</a>.
 </p>
 
 <hr />
 <a name="Empty20Directories2fKEEPDIRS"></a>
-<a name="robo140"></a><h2>KEEPDIRS</h2>
+<a name="robo141"></a><h2>KEEPDIRS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo139">Empty Directories</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo140">Empty Directories</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>KEEPDIRS</strong>="DIRECTORY [DIRECTORY...]"
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  The equivalent of calling <a href="./src_install_cygpart.html#robo148">keepdir</a> on the given directories.  This variable
-  can be used for convenience to avoid defining a custom <a href="./src_install_cygpart.html#robo182">src_install</a> solely
-  in order to add a <a href="./src_install_cygpart.html#robo148">keepdir</a> command.
+<p>  The equivalent of calling <a href="./src_install_cygpart.html#robo149">keepdir</a> on the given directories.  This variable
+  can be used for convenience to avoid defining a custom <a href="./src_install_cygpart.html#robo184">src_install</a> solely
+  in order to add a <a href="./src_install_cygpart.html#robo149">keepdir</a> command.
 </p>
 
 <hr />
 <a name="Postinstall2fStrip20Binaries"></a>
-<a name="robo141"></a><h2>Strip Binaries</h2>
+<a name="robo142"></a><h2>Strip Binaries</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -341,12 +355,12 @@
   be stripped.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="#robo145">RESTRICT</a>
+<p>  <a href="#robo146">RESTRICT</a>
 </p>
 
 <hr />
 <a name="Postinstall2fSplit20Debugging20Information"></a>
-<a name="robo142"></a><h2>Split Debugging Information</h2>
+<a name="robo143"></a><h2>Split Debugging Information</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -354,15 +368,15 @@
   as split debuginfo files, and sources referenced therein are automatically
   installed into a package-specific location.  A <a href="./syntax_cygpart.html#robo91">PN</a>-debuginfo package will
   be automatically created with split debugging symbols and source files when
-  present; inclusion in <a href="./pkg_pkg_cygpart.html#robo413">PKG_NAMES</a> and <a href="./pkg_pkg_cygpart.html#robo415">PKG_CONTENTS</a> is not necessary.
+  present; inclusion in <a href="./pkg_pkg_cygpart.html#robo432">PKG_NAMES</a> and <a href="./pkg_pkg_cygpart.html#robo434">PKG_CONTENTS</a> is not necessary.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="#robo145">RESTRICT</a>
+<p>  <a href="#robo146">RESTRICT</a>
 </p>
 
 <hr />
 <a name="Postinstall2fLibtool20Libraries"></a>
-<a name="robo143"></a><h2>Libtool Libraries</h2>
+<a name="robo144"></a><h2>Libtool Libraries</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_postinstall_steps.html#robo_top_of_doc">Postinstall Steps</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -382,16 +396,16 @@
 <li>  static and import libraries are removed from modules
 </li>
 <li>  DLLs from non-module libraries will be moved to $<a href="./syntax_cygpart.html#robo100">D</a>/usr/bin or
-    $<a href="./syntax_cygpart.html#robo100">D</a>/$<a href="./cross_cygclass.html#robo837">CROSS_BINDIR</a> as appropriate.
+    $<a href="./syntax_cygpart.html#robo100">D</a>/$<a href="./cross_cygclass.html#robo839">CROSS_BINDIR</a> as appropriate.
 </li>
 </ul>
 <p></p>
 
 <hr />
 <a name="Libtool20Libraries2fKEEP5fLA5fFILES"></a>
-<a name="robo144"></a><h2>KEEP_LA_FILES</h2>
+<a name="robo145"></a><h2>KEEP_LA_FILES</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo143">Libtool Libraries</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo144">Libtool Libraries</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>KEEP_LA_FILES</strong>=[all|module|shared|static|none]
 </pre>
@@ -405,7 +419,7 @@
 <p>  Whether and which .la files are removed during automatic postinstall
   is based on the value of this variable, which can be one of:
 </p>
-<ul><li>  none: deletes all .la files (the default behaviour on x86_64)
+<ul><li>  none: deletes all .la files (the default behaviour)
 </li>
 <li>  module: keep only those .la files for modules meant to be dlopen()ed
 </li>
@@ -413,7 +427,7 @@
 </li>
 <li>  static: keep only those .la files for static-only libraries
 </li>
-<li>  all: keep all of the above (the default behaviour on i686)
+<li>  all: keep all of the above
 </li>
 </ul>
 <p>
@@ -423,28 +437,15 @@
     always) need to set this to 'module'.
 </li>
 <li>  If a shared library is meant to be a dlopen()ed module but is linked
-    without -module, then 'shared' may be necessary in order for the DLL
-    to be found.
-</li>
-<li>  Some shared libraries imply the use of other libraries (e.g. GTK+ apps
-    will always use GLib/GObject).  If these libraries are not listed in
-    the corresponding .pc pkg-config file, then 'shared' will help.
-</li>
-<li>  When static libraries depend on other libraries, 'static' is recommended.
-    If the static library depends only on libc, there is no need to keep it.
+    without -module, then 'shared' (or 'all') may be necessary in order for
+    the DLL to be found.
 </li>
 </ul>
 <p></p>
-<p class="item_name">NOTE</p>
-<p>  Deleting .la files for an import library which other libtool libraries were
-  linked against will cause build errors when yet another libtool library
-  tries to link against the second.  In this case, 'shared' is necessary
-  to avoid breaking other users' installations.
-</p>
 
 <hr />
 <a name="Postinstall2fRESTRICT"></a>
-<a name="robo145"></a><h2>RESTRICT</h2>
+<a name="robo146"></a><h2>RESTRICT</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo121">Postinstall</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -458,6 +459,8 @@
 <li>  postinst-doc: do not install standard documentation files.
 </li>
 <li>  postinst-gconf: do not create postinstall commands for GConf schemas.
+</li>
+<li>  postinst-info: do not compress info documentation.
 </li>
 <li>  strip: do not strip binaries.
 </li>
@@ -478,7 +481,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/lib/src_postinst.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:19
+<p>Generated from cygport/lib/src_postinst.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Wed Mar 15 2017 15:29:31
 </p>
 </div> <!-- footer -->
 </body>

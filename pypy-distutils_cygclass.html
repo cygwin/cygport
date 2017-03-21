@@ -33,21 +33,19 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo394">pypy-distutils.cygclass</a></li>
+<li><a href="#robo415">pypy-distutils.cygclass</a></li>
 <ul>
-<li><a href="#robo395">HOMEPAGE (pypy-distutils)</a></li>
-<li><a href="#robo396">SRC_URI (pypy-distutils)</a></li>
-<li><a href="#robo397">pypy_distutils_compile</a></li>
-<li><a href="#robo398">pypy_distutils_install</a></li>
-<li><a href="#robo399">src_compile (pypy-distutils)</a></li>
-<li><a href="#robo400">src_install (pypy-distutils)</a></li>
+<li><a href="#robo416">pypy_distutils_compile</a></li>
+<li><a href="#robo417">pypy_distutils_install</a></li>
+<li><a href="#robo418">src_compile (pypy-distutils)</a></li>
+<li><a href="#robo419">src_install (pypy-distutils)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fpypy2ddistutils2ecygclass"></a>
-<a name="robo394"></a><h2>pypy-distutils.cygclass</h2>
+<a name="robo415"></a><h2>pypy-distutils.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo599">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo601">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Distutils is the most common method for building and installing PyPy
   libraries and programs.  The build is <a href="./syntax_cygpart.html#robo77">defined</a> by a setup.py file in the
@@ -59,35 +57,17 @@
 <p>  This cygclass handles the building of PyPy distutils-based packages.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./pypy_cygclass.html#robo384">pypy.cygclass</a>
+<p>  <a href="./python_org_cygclass.html#robo382">python.org.cygclass</a>, <a href="./pypy_cygclass.html#robo405">pypy.cygclass</a>
 </p>
 <p class="item_name">REQUIRES</p>
 <p>  pypy
 </p>
 
 <hr />
-<a name="pypy2ddistutils2ecygclass2fHOMEPAGE2028pypy2ddistutils29"></a>
-<a name="robo395"></a><h2>HOMEPAGE (pypy-distutils)</h2>
-
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">pypy-distutils.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
-<p class="item_name">DESCRIPTION</p>
-<p>  Default homepage of the module on the Python Package Index.
-</p>
-
-<hr />
-<a name="pypy2ddistutils2ecygclass2fSRC5fURI2028pypy2ddistutils29"></a>
-<a name="robo396"></a><h2>SRC_URI (pypy-distutils)</h2>
-
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">pypy-distutils.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
-<p class="item_name">DESCRIPTION</p>
-<p>  Download location of the module on the Python Package Index.
-</p>
-
-<hr />
 <a name="pypy2ddistutils2ecygclass2fpypy5fdistutils5fcompile"></a>
-<a name="robo397"></a><h2>pypy_distutils_compile</h2>
+<a name="robo416"></a><h2>pypy_distutils_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">pypy-distutils.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo415">pypy-distutils.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>pypy_distutils_compile</strong> [OPTIONS]
 </pre>
@@ -98,46 +78,46 @@
 
 <hr />
 <a name="pypy2ddistutils2ecygclass2fpypy5fdistutils5finstall"></a>
-<a name="robo398"></a><h2>pypy_distutils_install</h2>
+<a name="robo417"></a><h2>pypy_distutils_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">pypy-distutils.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo415">pypy-distutils.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>pypy_distutils_install</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Runs the setup.py 'install' phase, setting the root argument to install
-  into $<a href="./syntax_cygpart.html#robo100">D</a>, followed by <a href="./pypy_cygclass.html#robo392">pypy_optimize</a>.  All arguments are passed to the
+  into $<a href="./syntax_cygpart.html#robo100">D</a>, followed by <a href="./pypy_cygclass.html#robo413">pypy_optimize</a>.  All arguments are passed to the
   setup.py 'install' command.
 </p>
 
 <hr />
 <a name="pypy2ddistutils2ecygclass2fsrc5fcompile2028pypy2ddistutils29"></a>
-<a name="robo399"></a><h2>src_compile (pypy-distutils)</h2>
+<a name="robo418"></a><h2>src_compile (pypy-distutils)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">pypy-distutils.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo415">pypy-distutils.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        <a href="./src_compile_cygpart.html#robo186">lndirs</a>
+<pre class="source"><a href="./src_compile_cygpart.html#robo191">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        <a href="./src_compile_cygpart.html#robo188">lndirs</a>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo397">pypy_distutils_compile</a>
+        <a href="#robo416">pypy_distutils_compile</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="pypy2ddistutils2ecygclass2fsrc5finstall2028pypy2ddistutils29"></a>
-<a name="robo400"></a><h2>src_install (pypy-distutils)</h2>
+<a name="robo419"></a><h2>src_install (pypy-distutils)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">pypy-distutils.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo415">pypy-distutils.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo182">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_install_cygpart.html#robo184">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo398">pypy_distutils_install</a>
+        <a href="#robo417">pypy_distutils_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/pypy-distutils.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:19
+<p>Generated from cygport/cygclass/pypy-distutils.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Wed Mar 15 2017 15:29:32
 </p>
 </div> <!-- footer -->
 </body>

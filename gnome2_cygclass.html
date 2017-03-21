@@ -33,22 +33,22 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo724">gnome2.cygclass</a></li>
+<li><a href="#robo726">gnome2.cygclass</a></li>
 <ul>
-<li><a href="#robo725">gnome2_autoreconf</a></li>
-<li><a href="#robo726">GNOME2_NO_AUTOGEN</a></li>
-<li><a href="#robo727">gnome2_configure</a></li>
-<li><a href="#robo728">gnome2_compile</a></li>
-<li><a href="#robo729">src_compile (gnome2)</a></li>
+<li><a href="#robo727">gnome2_autoreconf</a></li>
+<li><a href="#robo728">GNOME2_NO_AUTOGEN</a></li>
+<li><a href="#robo729">gnome2_configure</a></li>
+<li><a href="#robo730">gnome2_compile</a></li>
+<li><a href="#robo731">src_compile (gnome2)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fgnome22ecygclass"></a>
-<a name="robo724"></a><h2>gnome2.cygclass</h2>
+<a name="robo726"></a><h2>gnome2.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo599">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo601">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo650">inherit</a> gnome2
+<pre>  <a href="./inheritance_cygpart.html#robo652">inherit</a> gnome2
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  The GNOME project provides a full-featured X desktop with a wide variety
@@ -60,14 +60,14 @@
 <p>  This cygclass manages the building of most GNOME-based packages.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./autotools_cygclass.html#robo_top_of_doc">autotools.cygclass</a>, <a href="./gnome_org_cygclass.html#robo_top_of_doc">gnome.org.cygclass</a>
+<p>  <a href="./autotools_cygclass.html#robo_top_of_doc">autotools.cygclass</a>, <a href="./gnome_org_cygclass.html#robo732">gnome.org.cygclass</a>
 </p>
 
 <hr />
 <a name="gnome22ecygclass2fgnome25fautoreconf"></a>
-<a name="robo725"></a><h2>gnome2_autoreconf</h2>
+<a name="robo727"></a><h2>gnome2_autoreconf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo724">gnome2.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo726">gnome2.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>gnome2_autoreconf</strong>
 </pre>
@@ -89,35 +89,35 @@
   intltool, libglib2.0-devel, libtool, pkg-config.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="./autotools_cygclass.html#robo925">cygautoreconf</a>
+<p>  <a href="./autotools_cygclass.html#robo926">cygautoreconf</a>
 </p>
 
 <hr />
 <a name="gnome22ecygclass2fGNOME25fNO5fAUTOGEN"></a>
-<a name="robo726"></a><h2>GNOME2_NO_AUTOGEN</h2>
+<a name="robo728"></a><h2>GNOME2_NO_AUTOGEN</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo724">gnome2.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo726">gnome2.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  By default, gnome-autogen.sh will retool the working directory's and any
   subdirectories containing a configure.ac/configure.in which may be configured
   separately with an AC_CONFIG_SUBDIRS.  If a subdirectory need not be
   retooled (e.g. it will not built for whatever reason), or it does not use
   autotools (e.g. the libdb included in evolution), define this variable to
-  the subdirectories to skip, relative to the directory where <a href="#robo725">gnome2_autoreconf</a>
+  the subdirectories to skip, relative to the directory where <a href="#robo727">gnome2_autoreconf</a>
   will be run (usually $<a href="./syntax_cygpart.html#robo97">S</a>).
 </p>
 
 <hr />
 <a name="gnome22ecygclass2fgnome25fconfigure"></a>
-<a name="robo727"></a><h2>gnome2_configure</h2>
+<a name="robo729"></a><h2>gnome2_configure</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo724">gnome2.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo726">gnome2.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo98">B</a>
   <strong>gnome2_configure</strong> [CONFIGURE_FLAGS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Calls <a href="./autotools_cygclass.html#robo935">cygconf</a> with the following options:
+<p>  Calls <a href="./autotools_cygclass.html#robo936">cygconf</a> with the following options:
 </p>
 <ul><li>  --enable-gtk-doc: create and install API docs (native builds only)
 </li>
@@ -127,41 +127,41 @@
 <li>  --disable-scrollkeeper: Scrollkeeper is obsolete
 </li>
 </ul>
-<p>  All arguments to <strong>gnome2_configure</strong> are passed to <a href="./autotools_cygclass.html#robo935">cygconf</a> as configure flags.
+<p>  All arguments to <strong>gnome2_configure</strong> are passed to <a href="./autotools_cygclass.html#robo936">cygconf</a> as configure flags.
 </p>
 
 <hr />
 <a name="gnome22ecygclass2fgnome25fcompile"></a>
-<a name="robo728"></a><h2>gnome2_compile</h2>
+<a name="robo730"></a><h2>gnome2_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo724">gnome2.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo726">gnome2.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo98">B</a>
   <strong>gnome2_compile</strong> [CONFIGURE_FLAGS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Calls <a href="#robo727">gnome2_configure</a> followed by <a href="./src_compile_cygpart.html#robo188">cygmake</a>. All arguments to <strong>gnome2_compile</strong>
+<p>  Calls <a href="#robo729">gnome2_configure</a> followed by <a href="./src_compile_cygpart.html#robo190">cygmake</a>. All arguments to <strong>gnome2_compile</strong>
   are passed as configure flags.
 </p>
 
 <hr />
 <a name="gnome22ecygclass2fsrc5fcompile2028gnome229"></a>
-<a name="robo729"></a><h2>src_compile (gnome2)</h2>
+<a name="robo731"></a><h2>src_compile (gnome2)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo724">gnome2.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo726">gnome2.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_compile_cygpart.html#robo191">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo97">S</a><span class="sign">}</span>
-        <a href="#robo725">gnome2_autoreconf</a>
+        <a href="#robo727">gnome2_autoreconf</a>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo727">gnome2_configure</a>
-        <a href="./src_compile_cygpart.html#robo188">cygmake</a>
+        <a href="#robo729">gnome2_configure</a>
+        <a href="./src_compile_cygpart.html#robo190">cygmake</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/gnome2.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:20
+<p>Generated from cygport/cygclass/gnome2.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Wed Mar 15 2017 15:29:32
 </p>
 </div> <!-- footer -->
 </body>

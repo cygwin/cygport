@@ -33,53 +33,54 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo146">Installing</a></li>
+<li><a href="#robo147">Installing</a></li>
 <ul>
-<li><a href="#robo147">dodir</a></li>
-<li><a href="#robo148">keepdir</a></li>
-<li><a href="#robo149">dobin</a></li>
-<li><a href="#robo150">newbin</a></li>
-<li><a href="#robo151">docinto</a></li>
-<li><a href="#robo152">dodoc</a></li>
-<li><a href="#robo153">newdoc</a></li>
-<li><a href="#robo154">exeinto</a></li>
-<li><a href="#robo155">doexe</a></li>
-<li><a href="#robo156">newexe</a></li>
-<li><a href="#robo157">insinto</a></li>
-<li><a href="#robo158">doins</a></li>
-<li><a href="#robo159">newins</a></li>
-<li><a href="#robo160">doicon</a></li>
-<li><a href="#robo161">newicon</a></li>
-<li><a href="#robo162">includeinto</a></li>
-<li><a href="#robo163">doinclude</a></li>
-<li><a href="#robo164">dolib</a></li>
-<li><a href="#robo165">newlib</a></li>
-<li><a href="#robo166">doinfo</a></li>
-<li><a href="#robo167">doman</a></li>
-<li><a href="#robo168">newman</a></li>
-<li><a href="#robo169">domenu</a></li>
-<li><a href="#robo170">newmenu</a></li>
-<li><a href="#robo171">dopkgconfig</a></li>
-<li><a href="#robo172">dosbin</a></li>
-<li><a href="#robo173">newsbin</a></li>
-<li><a href="#robo174">dosym</a></li>
-<li><a href="#robo175">dotool</a></li>
-<li><a href="#robo176">doenv</a></li>
-<li><a href="#robo177">make_autostart_entry</a></li>
-<li><a href="#robo178">make_desktop_entry</a></li>
-<li><a href="#robo179">make_etc_defaults</a></li>
-<li><a href="#robo180">cyginstall</a></li>
+<li><a href="#robo148">dodir</a></li>
+<li><a href="#robo149">keepdir</a></li>
+<li><a href="#robo150">dobin</a></li>
+<li><a href="#robo151">newbin</a></li>
+<li><a href="#robo152">docinto</a></li>
+<li><a href="#robo153">dodoc</a></li>
+<li><a href="#robo154">newdoc</a></li>
+<li><a href="#robo155">exeinto</a></li>
+<li><a href="#robo156">doexe</a></li>
+<li><a href="#robo157">newexe</a></li>
+<li><a href="#robo158">insinto</a></li>
+<li><a href="#robo159">doins</a></li>
+<li><a href="#robo160">newins</a></li>
+<li><a href="#robo161">doicon</a></li>
+<li><a href="#robo162">newicon</a></li>
+<li><a href="#robo163">includeinto</a></li>
+<li><a href="#robo164">doinclude</a></li>
+<li><a href="#robo165">dolib</a></li>
+<li><a href="#robo166">newlib</a></li>
+<li><a href="#robo167">doinfo</a></li>
+<li><a href="#robo168">doman</a></li>
+<li><a href="#robo169">newman</a></li>
+<li><a href="#robo170">domenu</a></li>
+<li><a href="#robo171">newmenu</a></li>
+<li><a href="#robo172">dopkgconfig</a></li>
+<li><a href="#robo173">dosbin</a></li>
+<li><a href="#robo174">newsbin</a></li>
+<li><a href="#robo175">dosym</a></li>
+<li><a href="#robo176">dotool</a></li>
+<li><a href="#robo177">doenv</a></li>
+<li><a href="#robo178">make_autostart_entry</a></li>
+<li><a href="#robo179">make_desktop_entry</a></li>
+<li><a href="#robo180">make_etc_defaults</a></li>
+<li><a href="#robo181">update_etc_shells</a></li>
+<li><a href="#robo182">cyginstall</a></li>
 <ul>
-<li><a href="#robo181">USE_DESTDIR</a></li>
+<li><a href="#robo183">USE_DESTDIR</a></li>
 </ul>
-<li><a href="#robo182">src_install</a></li>
+<li><a href="#robo184">src_install</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Chapter20102fInstalling"></a>
-<a name="robo146"></a><h2>Installing</h2>
+<a name="robo147"></a><h2>Installing</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo807">Chapter 10</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo809">Chapter 10</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
 <p class="item_name">NOTE</p>
 <p>  In the context of cygport, "installing" always means into the DESTDIR $<a href="./syntax_cygpart.html#robo100">D</a>.
   However, the syntax of the convenience functions is as if one were
@@ -88,9 +89,9 @@
 
 <hr />
 <a name="Installing2fdodir"></a>
-<a name="robo147"></a><h2>dodir</h2>
+<a name="robo148"></a><h2>dodir</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dodir</strong> DIRECTORY [DIRECTORY] ...
 </pre>
@@ -100,9 +101,9 @@
 
 <hr />
 <a name="Installing2fkeepdir"></a>
-<a name="robo148"></a><h2>keepdir</h2>
+<a name="robo149"></a><h2>keepdir</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>keepdir</strong> DIRECTORY [DIRECTORY] ...
 </pre>
@@ -111,14 +112,14 @@
   automatic postinstall steps.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="./src_postinst_cygpart.html#robo140">KEEPDIRS</a>
+<p>  <a href="./src_postinst_cygpart.html#robo141">KEEPDIRS</a>
 </p>
 
 <hr />
 <a name="Installing2fdobin"></a>
-<a name="robo149"></a><h2>dobin</h2>
+<a name="robo150"></a><h2>dobin</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dobin</strong> FILE [FILE] ...
 </pre>
@@ -128,9 +129,9 @@
 
 <hr />
 <a name="Installing2fnewbin"></a>
-<a name="robo150"></a><h2>newbin</h2>
+<a name="robo151"></a><h2>newbin</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>newbin</strong> FILE NEW_NAME
 </pre>
@@ -141,126 +142,126 @@
 
 <hr />
 <a name="Installing2fdocinto"></a>
-<a name="robo151"></a><h2>docinto</h2>
+<a name="robo152"></a><h2>docinto</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>docinto</strong> [/]SUBDIRECTORY
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Sets the subdirectory into which <a href="#robo152">dodoc</a> and <a href="#robo153">newdoc</a> should install.
-  If the subdirectory is prefixed by a slash, then <a href="#robo152">dodoc</a> and <a href="#robo153">newdoc</a> will use
+<p>  Sets the subdirectory into which <a href="#robo153">dodoc</a> and <a href="#robo154">newdoc</a> should install.
+  If the subdirectory is prefixed by a slash, then <a href="#robo153">dodoc</a> and <a href="#robo154">newdoc</a> will use
   /usr/share/doc/SUBDIRECTORY/; if not, they will use /usr/share/doc/<a href="./syntax_cygpart.html#robo91">PN</a>/SUBDIRECTORY/.
 </p>
 
 <hr />
 <a name="Installing2fdodoc"></a>
-<a name="robo152"></a><h2>dodoc</h2>
+<a name="robo153"></a><h2>dodoc</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dodoc</strong> FILE [FILE] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installs the given files or directories into $<a href="./syntax_cygpart.html#robo100">D</a>/usr/share/doc/<a href="./syntax_cygpart.html#robo91">PN</a>/, or a
-  subdirectory thereof specified by the previous call to <a href="#robo151">docinto</a>.
+  subdirectory thereof specified by the previous call to <a href="#robo152">docinto</a>.
 </p>
 
 <hr />
 <a name="Installing2fnewdoc"></a>
-<a name="robo153"></a><h2>newdoc</h2>
+<a name="robo154"></a><h2>newdoc</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>newdoc</strong> FILE NEW_NAME
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installs the given file into $<a href="./syntax_cygpart.html#robo100">D</a>/usr/share/doc/<a href="./syntax_cygpart.html#robo91">PN</a>/, or a subdirectory thereof
-  specified by the previous call to <a href="#robo151">docinto</a>, with the given new name.
+  specified by the previous call to <a href="#robo152">docinto</a>, with the given new name.
 </p>
 
 <hr />
 <a name="Installing2fexeinto"></a>
-<a name="robo154"></a><h2>exeinto</h2>
+<a name="robo155"></a><h2>exeinto</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>exeinto</strong> DIRECTORY
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Specifies the directory under $<a href="./syntax_cygpart.html#robo100">D</a> into which <a href="#robo155">doexe</a> and <a href="#robo156">newexe</a> will install.
+<p>  Specifies the directory under $<a href="./syntax_cygpart.html#robo100">D</a> into which <a href="#robo156">doexe</a> and <a href="#robo157">newexe</a> will install.
 </p>
 
 <hr />
 <a name="Installing2fdoexe"></a>
-<a name="robo155"></a><h2>doexe</h2>
+<a name="robo156"></a><h2>doexe</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>doexe</strong> FILE [FILE] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installs the given file(s) into the directory under $<a href="./syntax_cygpart.html#robo100">D</a> specified by the
-  preceding call to <a href="#robo154">exeinto</a> and makes them executable.
+  preceding call to <a href="#robo155">exeinto</a> and makes them executable.
 </p>
 
 <hr />
 <a name="Installing2fnewexe"></a>
-<a name="robo156"></a><h2>newexe</h2>
+<a name="robo157"></a><h2>newexe</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>newexe</strong> FILE NEW_NAME
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installs the given file into the directory under $<a href="./syntax_cygpart.html#robo100">D</a> specified by the
-  preceding call to <a href="#robo154">exeinto</a>, renaming it as indicated, and makes it executable.
+  preceding call to <a href="#robo155">exeinto</a>, renaming it as indicated, and makes it executable.
 </p>
 
 <hr />
 <a name="Installing2finsinto"></a>
-<a name="robo157"></a><h2>insinto</h2>
+<a name="robo158"></a><h2>insinto</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>insinto</strong> DIRECTORY
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Specifies the directory under $<a href="./syntax_cygpart.html#robo100">D</a> into which <a href="#robo158">doins</a> and <a href="#robo159">newins</a> will install.
+<p>  Specifies the directory under $<a href="./syntax_cygpart.html#robo100">D</a> into which <a href="#robo159">doins</a> and <a href="#robo160">newins</a> will install.
 </p>
 
 <hr />
 <a name="Installing2fdoins"></a>
-<a name="robo158"></a><h2>doins</h2>
+<a name="robo159"></a><h2>doins</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>doins</strong> FILE [FILE] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installs the given file(s) into the directory under $<a href="./syntax_cygpart.html#robo100">D</a> specified by the
-  preceding call to <a href="#robo157">insinto</a>.  Files are made not executable.
+  preceding call to <a href="#robo158">insinto</a>.  Files are made not executable.
 </p>
 
 <hr />
 <a name="Installing2fnewins"></a>
-<a name="robo159"></a><h2>newins</h2>
+<a name="robo160"></a><h2>newins</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>newins</strong> FILE NEW_NAME
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installs the given file into the directory under $<a href="./syntax_cygpart.html#robo100">D</a> specified by the
-  preceding call to <a href="#robo157">insinto</a>, renaming it as indicated.  Files are made not
+  preceding call to <a href="#robo158">insinto</a>, renaming it as indicated.  Files are made not
   executable.
 </p>
 
 <hr />
 <a name="Installing2fdoicon"></a>
-<a name="robo160"></a><h2>doicon</h2>
+<a name="robo161"></a><h2>doicon</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>doicon</strong> FILE [FILE] ...
 </pre>
@@ -280,9 +281,9 @@
 
 <hr />
 <a name="Installing2fnewicon"></a>
-<a name="robo161"></a><h2>newicon</h2>
+<a name="robo162"></a><h2>newicon</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>newicon</strong> FILE NEW_NAME
 </pre>
@@ -296,34 +297,34 @@
 
 <hr />
 <a name="Installing2fincludeinto"></a>
-<a name="robo162"></a><h2>includeinto</h2>
+<a name="robo163"></a><h2>includeinto</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>includeinto</strong> SUBDIRECTORY
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Sets the subdirectory of the standard includedir into which <a href="#robo163">doinclude</a> should install.
+<p>  Sets the subdirectory of the standard includedir into which <a href="#robo164">doinclude</a> should install.
 </p>
 
 <hr />
 <a name="Installing2fdoinclude"></a>
-<a name="robo163"></a><h2>doinclude</h2>
+<a name="robo164"></a><h2>doinclude</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>doinclude</strong> HEADER [HEADER] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installs the given headers into the standard includedir, or the subdirectory thereof
-  specified by a previous call to <a href="#robo162">includeinto</a>.
+  specified by a previous call to <a href="#robo163">includeinto</a>.
 </p>
 
 <hr />
 <a name="Installing2fdolib"></a>
-<a name="robo164"></a><h2>dolib</h2>
+<a name="robo165"></a><h2>dolib</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dolib</strong> LIBRARY [LIBRARY] ...
 </pre>
@@ -331,18 +332,18 @@
 <p>  Installs the given libtool, static, or import libraries into the standard libdir.
 </p>
 <p class="item_name">NOTES</p>
-<ul><li>  Library DLLs must be installed with <a href="#robo149">dobin</a>.
+<ul><li>  Library DLLs must be installed with <a href="#robo150">dobin</a>.
 </li>
-<li>  Cross-compiled ELF Shared Objects must be installed with <a href="./cross_cygclass.html#robo841">doelflib</a>.
+<li>  Cross-compiled ELF Shared Objects must be installed with <a href="./cross_cygclass.html#robo843">doelflib</a>.
 </li>
 </ul>
 <p></p>
 
 <hr />
 <a name="Installing2fnewlib"></a>
-<a name="robo165"></a><h2>newlib</h2>
+<a name="robo166"></a><h2>newlib</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>newlib</strong> LIBRARY NEW_NAME
 </pre>
@@ -351,18 +352,18 @@
   it as indicated.
 </p>
 <p class="item_name">NOTES</p>
-<ul><li>  Library DLLs must be installed with <a href="#robo149">dobin</a>.
+<ul><li>  Library DLLs must be installed with <a href="#robo150">dobin</a>.
 </li>
-<li>  Libtool libraries must be installed with <a href="#robo164">dolib</a>.
+<li>  Libtool libraries must be installed with <a href="#robo165">dolib</a>.
 </li>
 </ul>
 <p></p>
 
 <hr />
 <a name="Installing2fdoinfo"></a>
-<a name="robo166"></a><h2>doinfo</h2>
+<a name="robo167"></a><h2>doinfo</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>doinfo</strong> FILE [FILE] ...
 </pre>
@@ -372,9 +373,9 @@
 
 <hr />
 <a name="Installing2fdoman"></a>
-<a name="robo167"></a><h2>doman</h2>
+<a name="robo168"></a><h2>doman</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>doman</strong> [[-l |--lang=]LANGUAGE] MANPAGE [MANPAGE] ...
 </pre>
@@ -386,9 +387,9 @@
 
 <hr />
 <a name="Installing2fnewman"></a>
-<a name="robo168"></a><h2>newman</h2>
+<a name="robo169"></a><h2>newman</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>newman</strong> [[-l |--lang=]LANGUAGE] MANPAGE NEW_NAME
 </pre>
@@ -401,9 +402,9 @@
 
 <hr />
 <a name="Installing2fdomenu"></a>
-<a name="robo169"></a><h2>domenu</h2>
+<a name="robo170"></a><h2>domenu</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>domenu</strong> DESKTOP_MENU [DESKTOP_MENU] ...
 </pre>
@@ -413,9 +414,9 @@
 
 <hr />
 <a name="Installing2fnewmenu"></a>
-<a name="robo170"></a><h2>newmenu</h2>
+<a name="robo171"></a><h2>newmenu</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>newmenu</strong> DESKTOP_MENU NEW_NAME
 </pre>
@@ -425,9 +426,9 @@
 
 <hr />
 <a name="Installing2fdopkgconfig"></a>
-<a name="robo171"></a><h2>dopkgconfig</h2>
+<a name="robo172"></a><h2>dopkgconfig</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dopkgconfig</strong> PC_FILE [PC_FILE] ...
 </pre>
@@ -437,9 +438,9 @@
 
 <hr />
 <a name="Installing2fdosbin"></a>
-<a name="robo172"></a><h2>dosbin</h2>
+<a name="robo173"></a><h2>dosbin</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dosbin</strong> FILE [FILE] ...
 </pre>
@@ -449,9 +450,9 @@
 
 <hr />
 <a name="Installing2fnewsbin"></a>
-<a name="robo173"></a><h2>newsbin</h2>
+<a name="robo174"></a><h2>newsbin</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>newsbin</strong> FILE NEW_NAME
 </pre>
@@ -462,9 +463,9 @@
 
 <hr />
 <a name="Installing2fdosym"></a>
-<a name="robo174"></a><h2>dosym</h2>
+<a name="robo175"></a><h2>dosym</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dosym</strong> TARGET [TARGET] ... DESTINATION
 </pre>
@@ -476,14 +477,14 @@
 </p>
 <p class="item_name">NOTE</p>
 <p>  The destination directory must exist under $<a href="./syntax_cygpart.html#robo100">D</a> before <strong>dosym</strong> is called,
-  therefore a preceding call to <a href="#robo147">dodir</a> may be necessary.
+  therefore a preceding call to <a href="#robo148">dodir</a> may be necessary.
 </p>
 
 <hr />
 <a name="Installing2fdotool"></a>
-<a name="robo175"></a><h2>dotool</h2>
+<a name="robo176"></a><h2>dotool</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dotool</strong> FILE [FILE] ...
 </pre>
@@ -494,9 +495,9 @@
 
 <hr />
 <a name="Installing2fdoenv"></a>
-<a name="robo176"></a><h2>doenv</h2>
+<a name="robo177"></a><h2>doenv</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>doenv</strong> VARIABLE VALUE
 </pre>
@@ -514,9 +515,9 @@
 
 <hr />
 <a name="Installing2fmake5fautostart5fentry"></a>
-<a name="robo177"></a><h2>make_autostart_entry</h2>
+<a name="robo178"></a><h2>make_autostart_entry</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>make_autostart_entry</strong> COMMAND <a href="./syntax_cygpart.html#robo88">NAME</a> [ADDITIONAL_FIELDS]
 </pre>
@@ -537,9 +538,9 @@ and the <a href="http://standards.freedesktop.org/autostart-spec/autostart-spec-
 
 <hr />
 <a name="Installing2fmake5fdesktop5fentry"></a>
-<a name="robo178"></a><h2>make_desktop_entry</h2>
+<a name="robo179"></a><h2>make_desktop_entry</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>make_desktop_entry</strong> COMMAND <a href="./syntax_cygpart.html#robo88">NAME</a> [ICON] [CATEGORIES] [COMMENT] [ADDITIONAL_FIELDS]
 </pre>
@@ -574,9 +575,9 @@ the <a href="http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-s
 
 <hr />
 <a name="Installing2fmake5fetc5fdefaults"></a>
-<a name="robo179"></a><h2>make_etc_defaults</h2>
+<a name="robo180"></a><h2>make_etc_defaults</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>make_etc_defaults</strong> FILE_PATH [FILE_PATH] ...
 </pre>
@@ -589,23 +590,51 @@ the <a href="http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-s
 </p>
 
 <hr />
-<a name="Installing2fcyginstall"></a>
-<a name="robo180"></a><h2>cyginstall</h2>
+<a name="Installing2fupdate5fetc5fshells"></a>
+<a name="robo181"></a><h2>update_etc_shells</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>update_etc_shells</strong> PATH_TO_SHELL [PATH_TO_SHELL] ...
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Indicates that the given fully-qualified path(s) are shells which should be
+  listed in /etc/shells.  <strong>update_etc_shells</strong> creates a postinstall script to
+  add this listing if it doesn't already exist, and a preremove script which
+  removes it when uninstalling.
+</p>
+<p class="item_name">NOTES</p>
+<ul><li>  Only one of the /bin or /usr/bin paths should be specified for any given
+    shell; the other will be added automatically.
+</li>
+<li>  Generic aliases should be listed as well, e.g. tcsh would use
+    <strong>update_etc_shells</strong> /bin/tcsh /bin/csh
+</li>
+<li>  Shells which are part of the Base install (namely, bash/sh and dash/ash)
+    should not use this function, as they are already included in the default
+    /etc/shells.
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="Installing2fcyginstall"></a>
+<a name="robo182"></a><h2>cyginstall</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>cyginstall</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Runs 'make install' (or 'make install/fast' in CMake packages) with the
-  necessary arguments to install into $<a href="./syntax_cygpart.html#robo100">D</a>, based on the value of <a href="#robo181">USE_DESTDIR</a>.
+  necessary arguments to install into $<a href="./syntax_cygpart.html#robo100">D</a>, based on the value of <a href="#robo183">USE_DESTDIR</a>.
 </p>
 
 <hr />
 <a name="cyginstall2fUSE5fDESTDIR"></a>
-<a name="robo181"></a><h2>USE_DESTDIR</h2>
+<a name="robo183"></a><h2>USE_DESTDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo180">cyginstall</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo182">cyginstall</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Set to 1 (the default) if 'make install' supports the DESTDIR variable, or
   0 if not, in which case the value of prefix and the standard *dir variables
@@ -614,11 +643,11 @@ the <a href="http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-s
 
 <hr />
 <a name="Installing2fsrc5finstall"></a>
-<a name="robo182"></a><h2>src_install</h2>
+<a name="robo184"></a><h2>src_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo146">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo147">Installing</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  This function must be <a href="./syntax_cygpart.html#robo77">defined</a> in the .cygport file, or in <a href="./inheritance_cygpart.html#robo650">inherit</a>()ed
+<p>  This function must be <a href="./syntax_cygpart.html#robo77">defined</a> in the .cygport file, or in <a href="./inheritance_cygpart.html#robo652">inherit</a>()ed
   cygclasses, containing all steps necessary to install the package into
   $<a href="./syntax_cygpart.html#robo100">D</a> and prepare it for packaging.
 </p>
@@ -629,13 +658,13 @@ the <a href="http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-s
 <p class="item_name">DEFINITION</p>
 <pre class="source"><strong>src_install</strong><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo180">cyginstall</a>
+        <a href="#robo182">cyginstall</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/lib/src_install.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:19
+<p>Generated from cygport/lib/src_install.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Wed Mar 15 2017 15:29:31
 </p>
 </div> <!-- footer -->
 </body>

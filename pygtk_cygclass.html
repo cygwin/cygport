@@ -33,143 +33,148 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo401">pygtk.cygclass</a></li>
+<li><a href="#robo420">pygtk.cygclass</a></li>
 <ul>
-<li><a href="#robo402">PYGTK_INCLUDEDIR</a></li>
-<li><a href="#robo403">PYGTK_LIBDIR</a></li>
-<li><a href="#robo404">PYGTK_DATADIR</a></li>
-<li><a href="#robo405">PYGTK_CODEGEN</a></li>
-<li><a href="#robo406">CATEGORY (pygtk)</a></li>
-<li><a href="#robo407">SUMMARY (pygtk)</a></li>
-<li><a href="#robo408">HOMEPAGE (pygtk)</a></li>
-<li><a href="#robo409">pygtk_compile</a></li>
-<li><a href="#robo410">src_compile (pygtk)</a></li>
+<li><a href="#robo421">PYGTK_INCLUDEDIR</a></li>
+<li><a href="#robo422">PYGTK_LIBDIR</a></li>
+<li><a href="#robo423">PYGTK_DATADIR</a></li>
+<li><a href="#robo424">PYGTK_CODEGEN</a></li>
+<li><a href="#robo425">CATEGORY (pygtk)</a></li>
+<li><a href="#robo426">SUMMARY (pygtk)</a></li>
+<li><a href="#robo427">HOMEPAGE (pygtk)</a></li>
+<li><a href="#robo428">pygtk_compile</a></li>
+<li><a href="#robo429">src_compile (pygtk)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fpygtk2ecygclass"></a>
-<a name="robo401"></a><h2>pygtk.cygclass</h2>
+<a name="robo420"></a><h2>pygtk.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo599">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo601">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo650">inherit</a> pygtk
+<pre>  <a href="./inheritance_cygpart.html#robo652">inherit</a> pygtk
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  The PyGTK project provides a series of bindings for the GTK+ and GNOME
   libraries.  APIs are <a href="./syntax_cygpart.html#robo77">defined</a> in .defs files, from which <a href="./syntax_cygpart.html#robo99">C</a> binding code
-  is generated with <a href="#robo405">PYGTK_CODEGEN</a>.  These bindings allow full-featured
-  GNOME programs to be written in the Python language, and are among one
-  of the most commonly used GNOME language bindings.
+  is generated with <a href="#robo424">PYGTK_CODEGEN</a>.  These bindings allow full-featured
+  GNOME programs to be written in the Python language.
 </p>
 
 <p>  This package provides definitions and functions for building PyGTK bindings.
 </p>
+<p class="item_name">NOTE</p>
+<p>  These bindings are limited to both GTK+ 2 and Python 2, both of which are
+  in long-term maintenance mode.  For support of GTK+ 3 and/or Python 3,
+  GObject Introspection (python*-gi plus girepository-* packages) must be used
+  instead.  Therefore, these bindings are considered obsolete.
+</p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./gnome_org_cygclass.html#robo_top_of_doc">gnome.org.cygclass</a> (unless <a href="./mate_cygclass.html#robo590">mate.cygclass</a> has been <a href="./inheritance_cygpart.html#robo650">inherit</a>()ed), <a href="./python_cygclass.html#robo366">python.cygclass</a>
+<p>  <a href="./gnome_org_cygclass.html#robo732">gnome.org.cygclass</a> (unless <a href="./mate_cygclass.html#robo592">mate.cygclass</a> has been <a href="./inheritance_cygpart.html#robo652">inherit</a>()ed), <a href="./python2_cygclass.html#robo_top_of_doc">python2.cygclass</a>
 </p>
 
 <hr />
 <a name="pygtk2ecygclass2fPYGTK5fINCLUDEDIR"></a>
-<a name="robo402"></a><h2>PYGTK_INCLUDEDIR</h2>
+<a name="robo421"></a><h2>PYGTK_INCLUDEDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo401">pygtk.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo420">pygtk.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Directory containing PyGTK <a href="./syntax_cygpart.html#robo99">C</a> headers.
 </p>
 
 <hr />
 <a name="pygtk2ecygclass2fPYGTK5fLIBDIR"></a>
-<a name="robo403"></a><h2>PYGTK_LIBDIR</h2>
+<a name="robo422"></a><h2>PYGTK_LIBDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo401">pygtk.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo420">pygtk.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installation path for PyGTK bindings.
 </p>
 
 <hr />
 <a name="pygtk2ecygclass2fPYGTK5fDATADIR"></a>
-<a name="robo404"></a><h2>PYGTK_DATADIR</h2>
+<a name="robo423"></a><h2>PYGTK_DATADIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo401">pygtk.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo420">pygtk.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installation path for *.defs and *-arg-types.py API files.
 </p>
 
 <hr />
 <a name="pygtk2ecygclass2fPYGTK5fCODEGEN"></a>
-<a name="robo405"></a><h2>PYGTK_CODEGEN</h2>
+<a name="robo424"></a><h2>PYGTK_CODEGEN</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo401">pygtk.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo420">pygtk.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Absolute path to the PyGTK <a href="./syntax_cygpart.html#robo99">C</a> code generator.
 </p>
 
 <hr />
 <a name="pygtk2ecygclass2fCATEGORY2028pygtk29"></a>
-<a name="robo406"></a><h2>CATEGORY (pygtk)</h2>
+<a name="robo425"></a><h2>CATEGORY (pygtk)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo401">pygtk.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo420">pygtk.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo418">CATEGORY</a><span class="sign">=</span><span class="quote">"Python"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo437">CATEGORY</a><span class="sign">=</span><span class="quote">"Python"</span>
 </pre>
 
 <hr />
 <a name="pygtk2ecygclass2fSUMMARY2028pygtk29"></a>
-<a name="robo407"></a><h2>SUMMARY (pygtk)</h2>
+<a name="robo426"></a><h2>SUMMARY (pygtk)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo401">pygtk.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo420">pygtk.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo420">SUMMARY</a><span class="sign">=</span><span class="quote">"Python ${pygtk_mod} bindings"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo439">SUMMARY</a><span class="sign">=</span><span class="quote">"Python 2 ${pygtk_mod} bindings"</span>
 </pre>
 
 <hr />
 <a name="pygtk2ecygclass2fHOMEPAGE2028pygtk29"></a>
-<a name="robo408"></a><h2>HOMEPAGE (pygtk)</h2>
+<a name="robo427"></a><h2>HOMEPAGE (pygtk)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo401">pygtk.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo420">pygtk.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_info_cygpart.html#robo429">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://www.pygtk.org/"</span>
+<pre class="source"><a href="./pkg_info_cygpart.html#robo448">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://www.pygtk.org/"</span>
 </pre>
 
 <hr />
 <a name="pygtk2ecygclass2fpygtk5fcompile"></a>
-<a name="robo409"></a><h2>pygtk_compile</h2>
+<a name="robo428"></a><h2>pygtk_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo401">pygtk.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo420">pygtk.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>pygtk_compile</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Configures the package with <a href="./autotools_cygclass.html#robo935">cygconf</a>, passing any arguments it receives,
-  then compiles the package with <a href="./src_compile_cygpart.html#robo188">cygmake</a>.
+<p>  Configures the package with <a href="./autotools_cygclass.html#robo936">cygconf</a>, passing any arguments it receives,
+  then compiles the package with <a href="./src_compile_cygpart.html#robo190">cygmake</a>.
 </p>
 
 <hr />
 <a name="pygtk2ecygclass2fsrc5fcompile2028pygtk29"></a>
-<a name="robo410"></a><h2>src_compile (pygtk)</h2>
+<a name="robo429"></a><h2>src_compile (pygtk)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo401">pygtk.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo420">pygtk.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_compile_cygpart.html#robo191">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo97">S</a><span class="sign">}</span>
         if <span class="sign">[</span> <span class="sign">-</span>d m4 <span class="sign">]</span>
         then
-                <a href="./autotools_cygclass.html#robo934">ACLOCAL_FLAGS</a><span class="sign">=</span><span class="squote">'-I m4'</span>
+                <a href="./autotools_cygclass.html#robo935">ACLOCAL_FLAGS</a><span class="sign">=</span><span class="squote">'-I m4'</span>
         fi
-        if <a href="./inheritance_cygpart.html#robo651">inherited</a> gnome2
+        if <a href="./inheritance_cygpart.html#robo653">inherited</a> gnome2
         then
-                <a href="./gnome2_cygclass.html#robo725">gnome2_autoreconf</a>
+                <a href="./gnome2_cygclass.html#robo727">gnome2_autoreconf</a>
         else
-                <a href="./autotools_cygclass.html#robo925">cygautoreconf</a>
+                <a href="./autotools_cygclass.html#robo926">cygautoreconf</a>
         fi
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo409">pygtk_compile</a>
+        <a href="#robo428">pygtk_compile</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/pygtk.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Thu Mar 10 2016 02:30:19
+<p>Generated from cygport/cygclass/pygtk.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Wed Mar 15 2017 15:29:32
 </p>
 </div> <!-- footer -->
 </body>
