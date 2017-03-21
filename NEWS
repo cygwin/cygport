@@ -1,3 +1,17 @@
+0.24.0:
+	* CHANGES/README/etc. with .rst extension are found automatically
+	* Python modules installed into /usr/lib/pythonX.Y are automatically
+	  byte-compiled and optimized.  Calls to python*_optimize without any
+	  arguments are no-op.
+	* python2: new versioned cygclass for Python 2
+	* python2-distutils: new versioned cygclass for Python 2
+	* python: converted to compatibility wrapper for python2.cygclass
+	* python-distutils: ditto for python2-distutils.cygclass
+	* python-wheel: new cygclass for building wheels for Python 2 and 3
+	* python.org: new cygclass for all PyPI sources
+	* check_python2_module replaces check_python_module
+	* kde4: prune kde-l10n file lists to not clobber KF5 packages
+
 0.23.1:
 	* Fix compatibility with bash 4.4
 	* php: change PHP_INI_DIR for new layout in php 7 packages
