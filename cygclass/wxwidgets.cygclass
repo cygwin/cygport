@@ -56,8 +56,8 @@
 #  values are:
 #  * cocoa: (until 2.8) for Mac OS X Cocoa
 #  * dfb: for DirectFB (usually Linux embedded)
-#  * gtk2: the default for modern X11 desktop platforms, including Cygwin
-#  * gtk3: a newer alternative for modern X11 desktop platforms
+#  * gtk2: the 2.x default for modern X11 desktop platforms, including Cygwin
+#  * gtk3: the 3.x default for modern X11 desktop platforms, including Cygwin
 #  * gtk: for older X11 platforms with the deprecated 1.x version of GTK+
 #  * mac: (until 2.8) for Mac OS X Carbon
 #  * mgl: for SciTech MGL cross-platform graphics library (default on DJGPP)
@@ -71,8 +71,8 @@
 #  * x11: for X11 systems without another GUI toolkit
 #
 #  This variable must be set before inherit()ing the wxwidgets.cygclass.
-#  If undefined, the default is "gtk2" on Cygwin; when cross-compiling,
-#  the default depends on CROSS_HOST as indicated above.
+#  If undefined, the default on Cygwin is "gtk2" for 2.x and "gtk3" for 3.x;
+#  when cross-compiling, the default depends on CROSS_HOST as indicated above.
 #****
 #****v* wxwidgets.cygclass/WX_CODESET
 #  DESCRIPTION
@@ -91,10 +91,12 @@ _wx_find_config() {
 	case ${WX_VERSION} in
 		2.[68])
 			carbon="mac"
+			gtk="gtk2"
 			_release="-release"
 			;;
 		3.*)
 			carbon="osx_carbon"
+			gtk="gtk3"
 			_release=
 			;;
 		'') error "WX_VERSION must be defined" ;;
@@ -114,7 +116,7 @@ _wx_find_config() {
 			*-mingw*)   WX_TOOLKIT=msw ;;
 			*-os2*emx)  WX_TOOLKIT=pm ;;
 			*-qnx*)     WX_TOOLKIT=x11 ;;
-			*)	    WX_TOOLKIT=gtk2 ;;
+			*)	    WX_TOOLKIT=${gtk} ;;
 		esac
 	fi
 
