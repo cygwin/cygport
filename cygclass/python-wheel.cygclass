@@ -87,12 +87,12 @@ python_wheel_compile() {
 		error "No Python Distutils module detected"
 	fi
 
-	[ ! -d build ] || find build/ -delete
+	[ ! -d build/lib ] || find build/lib -delete
 	${PYTHON3} setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
 	# Universal wheels can be installed on both versions of Python
 	if [ ! -f dist/*-py2.py3*-none-any.whl ]
 	then
-		find build/ -delete
+		[ ! -d build/lib ] || find build/lib -delete
 		${PYTHON2} setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
 	fi
 }
