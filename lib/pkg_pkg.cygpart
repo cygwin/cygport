@@ -665,6 +665,14 @@ __pkg_dist() {
 #  libfoo-devel will use libfoo_devel_OBSOLETES.
 #****
 
+	pkg_testrelease=${TESTRELEASE+test:};
+	if [ "test:" = "${pkg_testrelease:-none}" ]
+	then
+		inform "Package hint files are prepared for a \e[1;31mtest\e[0;0m release\n"
+	else
+		inform "Package hint files are prepared for a \e[1;32mcurrent\e[0;0m release\n"
+	fi
+
 	n=0;
 	while defined pkg_name[${n}]
 	do
@@ -712,6 +720,7 @@ category: ${!pkg_category_var:-${CATEGORY}}
 requires: ${pkg_bin_requires} ${!pkg_requires_var}
 sdesc: "${!pkg_summary_var:-${SUMMARY}}"
 ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
+${pkg_testrelease}
 _EOF
 			if defined distsubdir
 			then
@@ -751,6 +760,7 @@ ldesc: "The ${obspkg} package is obsolete.  Selecting this package for
 installation will cause the ${pkg_name[${n}]} package, which replaces this
 one, to be installed instead."
 ${obssubdir:+external-source: ${PN}}
+${pkg_testrelease}
 _EOF
 		done
 
@@ -777,6 +787,7 @@ external-source: ${PN}
 sdesc: "Debug info for ${PN}"
 ldesc: "This package contains files necessary for debugging the
 ${PN} package with gdb."
+${pkg_testrelease}
 _EOF
 		fi
 
@@ -795,6 +806,7 @@ ldesc: "The ${obspkg} package is obsolete.  Selecting this package for
 installation will cause the ${PN}-debuginfo package, which replaces this
 one, to be installed instead."
 external-source: ${PN}
+${pkg_testrelease}
 _EOF
 		done
 	fi
@@ -820,6 +832,7 @@ category: ${!pkg_category_var:-${CATEGORY}}
 requires:
 sdesc: "${!pkg_summary_var:-${SUMMARY}}"
 ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
+${pkg_testrelease}
 skip:
 _EOF
 		else

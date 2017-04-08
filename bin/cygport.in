@@ -599,6 +599,9 @@ do
 			__show_web;
 			_status=$?;
 			;;
+		package-test|pkg-test)
+			TESTRELEASE=cmdline;
+			;&
 		package|pkg)
 			__stage Packaging;
 			__log_init ${pkglog};
