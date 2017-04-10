@@ -981,7 +981,9 @@ __prepstrip() {
 		x86_64-*-cygwin*)
 			case "${exe##*/}" in
 			cygwin1.dll|cyglsa64.dll|cyglto_plugin.dll) ;;
-			*.dll|*.so|*.oct|*.mex|*.cmxs)
+			# Flexlink'ed DLLs are special
+			dll*.so|*.cmxs) ;;
+			*.dll|*.so|*.oct|*.mex)
 				if ${objdump} -p "${exe}" | sed -ne '/^ImageBase/s/.*\t/0x/gp' | gawk '{ exit (strtonum($1) <= 0x400000000 ? 0 : 1) }'
 				then
 					warning "${exe} was not linked with -Wl,--enable-auto-image-base"
@@ -996,11 +998,12 @@ __prepstrip() {
 			case "${exe##*/}" in
 			*.dll|*.exe|*.sfx|*.so|*.so.[0-9]*|*.oct|*.mex|*.cmxs) ;;
 			# make sure this isn't some oddly named DLL
-			*)	if LC_ALL=C ${objdump} -f "${exe}" | grep -Eq '^start address 0x(0000000[01])?00401[0-9a-e][0-9a-e]0'
+			*.*)	if LC_ALL=C ${objdump} -f "${exe}" | grep -Eq '^start address 0x(0000000[01])?00401[0-9a-e][0-9a-e]0'
 				then
 					mv "${exe}" "${exe}.exe"
 					exe+=.exe
 				fi ;;
+			*)	mv "${exe}" "${exe}.exe"; exe+=.exe ;;
 			esac
 			;;
 		esac
