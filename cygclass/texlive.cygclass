@@ -202,7 +202,7 @@ texlive_install() {
 			*)	continue ;;
 			esac
 
-			if [ "$(head -c 2 $src)" = '#!' -o "$(head -c 4 $src)" = 'eval' ]
+			if [ "$(head -c 2 $src | tr -d '\0')" = '#!' -o "$(head -c 4 $src | tr -d '\0')" = 'eval' ]
 			then
 				perm=755
 			else
