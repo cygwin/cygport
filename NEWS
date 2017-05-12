@@ -1,3 +1,7 @@
+0.24.1:
+	* wxwidgets: default to gtk3 with wxWidgets 3.x on X11 targets
+	* Various bugfixes.
+
 0.24.0:
 	* CHANGES/README/etc. with .rst extension are found automatically
 	* Python modules installed into /usr/lib/pythonX.Y are automatically
