@@ -132,6 +132,10 @@ __pkg_binpkg() {
 	n=0
 	while (( n < pkg_count ))
 	do
+		case ${pkg_name[${n}]} in
+		*-[0-9]*) error "Package ${pkg_name[${n}]}: Use underscore instead of hyphen when followed by digit" ;;
+		esac
+
 		__step "${pkg_name[${n}]}-${PVR}.tar.xz";
 
 		pkg_contents_var=${pkg_name[${n}]//[-+\.]/_}_CONTENTS;
