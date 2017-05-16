@@ -146,10 +146,10 @@ __pkg_binpkg() {
 			*)      distsubdir=${pkg_name[${n}]} ;;
 		esac
 
-		if defined ${pkg_contents_var}
+		if [ "${!pkg_contents_var+set}" = "set" ]
 		then
 			pkg_contents=${!pkg_contents_var}
-		elif defined PKG_CONTENTS[${n}]
+		elif [ "${PKG_CONTENTS[${n}]+set}" = "set" ]
 		then
 			pkg_contents=${PKG_CONTENTS[${n}]}
 		elif [ -f ${C}/${pkg_list[${n}]}.list ]
