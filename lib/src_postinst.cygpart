@@ -859,7 +859,7 @@ __prep_empty_dirs() {
 #****P* Postinstall/Strip Binaries
 #  DESCRIPTION
 #  Debug symbols in executables and shared libraries will be stripped
-#  automatically, except for Mono assemblies and OCaml bytecode which cannot
+#  automatically, except for executables containing bytecode which cannot
 #  be stripped.
 #  SEE ALSO
 #  RESTRICT
@@ -1016,9 +1016,13 @@ __prepstrip() {
 		# Perl Archive (PAR) binaries must not be stripped
 		# https://rt.cpan.org/Public/Bug/Display.html?id=18536
 		# http://cygwin.com/ml/cygwin-apps/2012-07/msg00088.html
+		#
+		# Neko bytecode must not be stripped
+		# https://github.com/HaxeFoundation/neko/issues/130
 		case $(tail -c 12 "${exe}" | tr '\012\0' '%') in
 			*%PAR\.pm%)  continue ;;
 			Caml1999X0[0-9][0-9])  continue ;;
+			*NEKO*)  continue ;;
 		esac
 
 		echo "        ${exe}";
