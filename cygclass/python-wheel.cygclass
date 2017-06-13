@@ -88,12 +88,13 @@ python_wheel_compile() {
 	fi
 
 	[ ! -d build/lib ] || find build/lib -delete
-	${PYTHON3} setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
+	# setuptools.launch imports setuptools hooks regardles of setup.py
+	${PYTHON3} -msetuptools.launch setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
 	# Universal wheels can be installed on both versions of Python
 	if [ ! -f dist/*-py2.py3*-none-any.whl ]
 	then
 		[ ! -d build/lib ] || find build/lib -delete
-		${PYTHON2} setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
+		${PYTHON2} -msetuptools.launch setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
 	fi
 }
 
