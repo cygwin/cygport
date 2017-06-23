@@ -498,7 +498,11 @@ __pkg_srcpkg() {
 		if check_prog gpg
 		then
 			__gpg_sign ${spkgdir}/${cygportfile} "CYGPORT SCRIPT";
-			__gpg_sign ${spkgdir}/${cygwin_patchfile} "CYGWIN PATCH";
+
+			if [ -f ${spkgdir}/${cygwin_patchfile} ]
+			then
+				__gpg_sign ${spkgdir}/${cygwin_patchfile} "CYGWIN PATCH";
+			fi
 
 			if [ -f ${spkgdir}/${src_patchfile} ]
 			then
