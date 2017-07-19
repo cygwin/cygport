@@ -55,6 +55,15 @@ then
 fi
 
 case ${PN} in
+calligra-l10n-*)
+CYGPORT_USE_UNSTABLE_API=1
+src_unpack_hook() {
+  rm -fv messages/calligra/{braindump,kexi,krita}*
+  if [ -e docs/calligra/CMakeLists.txt ]; then
+    sed -i -e 's/add_subdirectory( *kexi *)/#add_subdirectory(kexi)/g' docs/calligra/CMakeLists.txt
+  fi
+}
+;; # calligra-l10n-*
 kde-l10n-*)
 CYGPORT_USE_UNSTABLE_API=1
 src_unpack_hook() {
