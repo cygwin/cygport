@@ -1,0 +1,129 @@
+################################################################################
+#
+# meson.cygclass - functions for building Meson-based packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2017 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/meson.cygclass
+#  SYNOPSIS
+#  inherit meson
+#  DESCRIPTION
+#  Meson is a general-purpose build system written in Python being adopted as
+#  a replacement for autotools by the GNOME project. The build is defined
+#  by 'meson.build' files in the top source directory and in subdirectories.
+#  Meson runs configuration tests, then generates the files needed for ninja
+#  to perform the actual build.  In this sense, meson replaces autoconf and
+#  configure, and ninja replaces automake and make.
+#  INHERITS
+#  ninja.cygclass
+#  REQUIRES
+#  meson
+#****
+
+inherit ninja
+
+#****C* meson.cygclass/cygmeson
+#  SYNOPSIS
+#  cygmeson [OPTIONS]
+#  DESCRIPTION
+#  Runs meson to configure the package.  cygmeson passes meson the flags
+#  necessary to install the package into the standard prefix and according to the
+#  |html <a href="http://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
+#  |html <a href="http://cygwin.com/setup.html#package_contents">Cygwin package guidelines</a>.
+#  In addition, all arguments to cygmeson are passed to meson, followed by
+#  CYGMESON_ARGS, if set.
+#  NOTES
+#  * cygmeson should be run in or under $B, as it defines the build directory of
+#    the package and creates numerous files.
+#  * If the top-level meson.build is not in $S, see CYGMESON_SOURCE.
+#  * Packages configured with cygmeson use ninja_compile to compile.
+#****
+cygmeson() {
+	local crossargs mdir
+
+#****v* cygmeson/CYGMESON_SOURCE
+#  DESCRIPTION
+#  Set this variable to the directory containing the top-level meson.build.
+#  This is only necessary when the top-level meson.build is not in $S and
+#  cygmeson is not being run in the same subdirectory of $B which under $S
+#  contains the top-level meson.build.  (IOW if the top-level meson.build
+#  is in $S/unix and cygmeson is run from $B/unix, setting CYGMESON_SOURCE
+#  would not be necessary.)
+#****
+	if defined CYGMESON_SOURCE && [ -e ${CYGMESON_SOURCE}/meson.build ]
+	then
+		mdir=${CYGMESON_SOURCE};
+	elif [ -e ${PWD/${B}/${S}}/meson.build ]
+	then
+		mdir=${PWD/${B}/${S}};
+	elif [ -e ${S}/meson.build ]
+	then
+		mdir=${S};
+	else
+		error "cygmeson: meson directory not found";
+	fi
+
+	if cross_compiling
+	then
+		if [ -f ${_privdatadir}/${CHOST}.meson ]
+		then
+			crossargs="--cross-file=${_privdatadir}/${CHOST}.meson"
+		else
+			error "meson.cygclass: no cross-file for ${CHOST}"
+		fi
+	else
+		crossargs="--sysconfdir=/etc --localstatedir=/var"
+	fi
+
+	check_prog_req meson
+
+	meson --prefix=$(__host_prefix) \
+		--buildtype=plain --wrap-mode=nodownload \
+		${crossargs} ${CYGMESON_ARGS} ${@} ${mdir} \
+		|| error "meson failed"
+}
+
+#****o* meson.cygclass/src_compile (meson)
+#  DEFINITION
+src_compile() {
+	mkdir -p ${S}/${CHOST}
+	cd ${S}/${CHOST}
+	cygmeson
+	ninja_compile
+}
+#****
+
+#****o* meson.cygclass/src_test (meson)
+#  DEFINITION
+src_test() {
+	cd ${S}/${CHOST}
+	ninja_test
+}
+#****
+
+#****o* meson.cygclass/src_install (meson)
+#  DEFINITION
+src_install() {
+	cd ${S}/${CHOST}
+	ninja_install
+}
+#****
+
+readonly -f cygmeson

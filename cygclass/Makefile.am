@@ -39,6 +39,8 @@
 #    For packages using the autoconf/automake/libtool buildsystem.
 #  * cmake.cygclass -
 #    For packages using the CMake buildsystem.
+#  * meson.cygclass -
+#    For packages using the Meson buildsystem.
 #  * nant.cygclass -
 #    For Mono packages which use the NAnt buildsystem.
 #  * ninja.cygclass -
@@ -228,6 +230,7 @@ cygclass_DATA =					\
 	cygclass/kf5.cygclass			\
 	cygclass/lua.cygclass			\
 	cygclass/mate.cygclass			\
+	cygclass/meson.cygclass			\
 	cygclass/mono.cygclass			\
 	cygclass/multilib.cygclass		\
 	cygclass/mtn.cygclass			\
