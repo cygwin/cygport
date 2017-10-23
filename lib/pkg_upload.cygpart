@@ -64,11 +64,18 @@ __pkg_upload() {
 	local key_fingerprint
 	local -i n=0
 	local -a pkg_files
+	local ready=true
 
 	if defined _CYGPORT_RESTRICT_upload_
 	then
 		error "Package ${NAME} may not be uploaded"
 	fi
+
+	case $1 in
+	full) ;;
+	stage) ready= ;;
+	*) error "Internal syntax error" ;;
+	esac
 
 	cd "${distdir}"
 
@@ -154,7 +161,7 @@ __pkg_upload() {
 		cd /${archdir}/release
 		rm -f ${NAME}/!ready || echo -n
 		mirror -v -eR ${NAME}
-		put /dev/null -o ${NAME}/!ready
+		${ready:+put /dev/null -o ${NAME}/!ready}
 EOF
 	) || error "Upload failed"
 

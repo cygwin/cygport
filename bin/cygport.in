@@ -612,7 +612,13 @@ do
 		upload|up)
 			__stage Uploading;
 			__log_init ${uploadlog};
-			(__pkg_upload) 2>&1 | tee -a ${uploadlog};
+			(__pkg_upload full) 2>&1 | tee -a ${uploadlog};
+			_status=${PIPESTATUS[0]};
+			;;
+		stage)
+			__stage Staging;
+			__log_init ${uploadlog};
+			(__pkg_upload stage) 2>&1 | tee -a ${uploadlog};
 			_status=${PIPESTATUS[0]};
 			;;
 		announce)
