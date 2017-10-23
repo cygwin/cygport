@@ -41,6 +41,8 @@
 #    For packages using the CMake buildsystem.
 #  * nant.cygclass -
 #    For Mono packages which use the NAnt buildsystem.
+#  * ninja.cygclass -
+#    For packages using the Ninja buildsystem.
 #  * qt3-qmake.cygclass -
 #    For packages which depend on Qt 3.x and use the qmake buildsystem.
 #  * qt4-cmake.cygclass -
@@ -230,6 +232,7 @@ cygclass_DATA =					\
 	cygclass/multilib.cygclass		\
 	cygclass/mtn.cygclass			\
 	cygclass/nant.cygclass			\
+	cygclass/ninja.cygclass			\
 	cygclass/ocaml.cygclass			\
 	cygclass/octave.cygclass		\
 	cygclass/opensync.cygclass		\
