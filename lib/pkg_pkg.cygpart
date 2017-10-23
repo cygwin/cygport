@@ -279,6 +279,9 @@ __pkg_diff() {
 		 *.jpg *.png *.qm *.svgz *.tif *.class *.jlc *.pyc *.pyo
 		 *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
 
+	# as an alternative build directory to ${B}
+	default_excludes+=" ${CHOST}";
+
 	if __config_equals with_aclocal 1
 	then
 		default_excludes+=" aclocal.m4";
