@@ -53,7 +53,7 @@ inherit ninja
 #  * cygmeson should be run in or under $B, as it defines the build directory of
 #    the package and creates numerous files.
 #  * If the top-level meson.build is not in $S, see CYGMESON_SOURCE.
-#  * Packages configured with cygmeson use ninja_compile to compile.
+#  * Packages configured with cygmeson use cygninja to compile.
 #****
 cygmeson() {
 	local crossargs mdir
@@ -106,7 +106,7 @@ src_compile() {
 	mkdir -p ${S}/${CHOST}
 	cd ${S}/${CHOST}
 	cygmeson
-	ninja_compile
+	cygninja
 }
 #****
 

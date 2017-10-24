@@ -34,19 +34,18 @@
 #  ninja
 #****
 
-#****C* ninja.cygclass/ninja_compile
+#****C* ninja.cygclass/cygninja
 #  SYNOPSIS
-#  ninja_compile [OPTIONS]
+#  cygninja [OPTIONS]
 #  DESCRIPTION
-#  Runs 'ninja' to compile the package.
-#  Any arguments to ninja_compile are passed to the 'ninja' command.
+#  Runs 'ninja' with the given arguments.
 #****
-ninja_compile() {
+cygninja() {
 	if [ ! -e build.ninja ]
 	then
-		error "ninja_compile: build.ninja: file not found"
+		error "cygninja: build.ninja: file not found"
 	fi
-	ninja -v ${@} || error "ninja failed"
+	ninja -v ${@} || error "cygninja: command failed: ${@:-all}"
 }
 
 #****T* ninja.cygclass/ninja_test
@@ -56,11 +55,7 @@ ninja_compile() {
 #  containing 'build.ninja'.
 #****
 ninja_test() {
-	if [ ! -e build.ninja ]
-	then
-		error "ninja_test: build.ninja: file not found"
-	fi
-	ninja test -v ${@} || true
+	cygninja test ${@}
 }
 
 #****I* ninja.cygclass/ninja_install
@@ -70,12 +65,7 @@ ninja_test() {
 #  containing 'build.ninja'.
 #****
 ninja_install() {
-	if [ ! -e build.ninja ]
-	then
-		error "ninja_install: build.ninja: file not found"
-	fi
-
-	DESTDIR=${D} ninja -v install ${@} || error "ninja install failed"
+	DESTDIR=${D} cygninja install ${@}
 }
 
 #****o* ninja.cygclass/src_test (ninja)
@@ -94,4 +84,4 @@ src_install() {
 }
 #****
 
-readonly -f ninja_compile ninja_test ninja_install
+readonly -f cygninja ninja_test ninja_install
