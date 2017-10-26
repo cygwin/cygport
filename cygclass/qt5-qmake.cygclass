@@ -46,7 +46,7 @@ cygqmake5() {
 		error "libQt5Core-devel is required to build this package"
 	fi
 
-	${QT5_QMAKE} -recursive \
+	${QT5_QMAKE} \
 		QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
 		QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
 		QMAKE_LFLAGS_RPATH= \
