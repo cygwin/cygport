@@ -586,7 +586,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 
 	if [ "${CBUILD##*-}" = "cygwin" ]
 	then
-	    echo $alldeps | sort -u | xargs -r cygcheck -f;
+	    echo $alldeps | sort -u | xargs -r /bin/cygcheck -f;
 	else
 	    # cannot determine Cygwin package dependencies, but we can give
 	    # some guidance by listing the necessary libraries
