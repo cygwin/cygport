@@ -538,6 +538,7 @@ fi
 ################################################################################
 
 declare -i arg_n=2
+declare _pkg_tag=
 
 # When adding commands here, also add them to cygport-bash-completion
 while (( arg_n < argc ))
@@ -599,10 +600,13 @@ do
 			__show_web;
 			_status=$?;
 			;;
+		package-test|pkg-test)
+			_pkg_tag="test:"
+			;&
 		package|pkg)
-			__stage Packaging;
+			__stage "Packaging${_pkg_tag:+ ${_pkg_tag%:} release}";
 			__log_init ${pkglog};
-			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog};
+			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog};
 			_status=${PIPESTATUS[0]};
 			;;
 		diff|mkdiff|mkpatch)

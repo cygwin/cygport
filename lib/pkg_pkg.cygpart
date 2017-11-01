@@ -529,6 +529,7 @@ __pkg_dist() {
 	local obssubdir obspkg;
 	local pkg_category_var pkg_requires_var pkg_summary_var;
 	local pkg_description_var pkg_message_var pkg_obsoletes_var;
+	local pkg_tag=${1};
 
 	cd ${top};
 
@@ -728,6 +729,9 @@ _EOF
 message: ${pkg_name[${n}]} "${!pkg_message_var}"
 _EOF
 			fi
+			cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
+${pkg_tag}
+_EOF
 		else
 			warning "${pkg_hint[${n}]%.hint}.hint is missing";
 		fi
@@ -754,6 +758,7 @@ ldesc: "The ${obspkg} package is obsolete.  Selecting this package for
 installation will cause the ${pkg_name[${n}]} package, which replaces this
 one, to be installed instead."
 ${obssubdir:+external-source: ${PN}}
+${pkg_tag}
 _EOF
 		done
 
@@ -780,6 +785,7 @@ external-source: ${PN}
 sdesc: "Debug info for ${PN}"
 ldesc: "This package contains files necessary for debugging the
 ${PN} package with gdb."
+${pkg_tag}
 _EOF
 		fi
 
@@ -798,6 +804,7 @@ ldesc: "The ${obspkg} package is obsolete.  Selecting this package for
 installation will cause the ${PN}-debuginfo package, which replaces this
 one, to be installed instead."
 external-source: ${PN}
+${pkg_tag}
 _EOF
 		done
 	fi
@@ -824,6 +831,7 @@ requires:
 sdesc: "${!pkg_summary_var:-${SUMMARY}}"
 ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
 skip:
+${pkg_tag}
 _EOF
 		else
 			warning "${PN}.hint is missing";

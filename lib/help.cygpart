@@ -40,16 +40,17 @@ __show_help() {
 
 		COMMAND may be one or more of the following:
 
-		  download     download upstream sources from Internet
-		  prep         create working directory, unpack sources and apply patches
-		  compile      run all compilation steps
-		  test         run the package's test suite, if one exists
-		  install      install into a DESTDIR, and run post-installation steps
-		  package      create binary and source packages
-		  upload       upload finished packages to cygwin.com
-		  announce     send an announcement email to cygwin.com
-		  finish       delete the working directory
-		  all          run prep, compile, install and package
+		  download      download upstream sources from Internet
+		  prep          create working directory, unpack sources and apply patches
+		  compile       run all compilation steps
+		  test          run the package's test suite, if one exists
+		  install       install into a DESTDIR, and run post-installation steps
+		  package       create binary and source packages
+		  package-test  create binary and source packages, marked as test
+		  upload        upload finished packages to cygwin.com
+		  announce      send an announcement email to cygwin.com
+		  finish        delete the working directory
+		  all           run prep, compile, install and package
 
 		See the included README file for further documentation.
 
