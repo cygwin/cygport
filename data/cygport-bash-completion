@@ -10,8 +10,9 @@ _cygport()
 	commands='download fetch wget get \
 		prep unpack oldpatch compile build make \
 		check test inst install list dep depends \
-		info package pkg diff mkdiff mkpatch clean finish \
-		upload up announce almostall all help version homepage website'
+		package pkg package-test pkg-test diff mkdiff mkpatch \
+		upload stage announce almostall all clean finish \
+		help info version homepage website'
 
 	if [[ $COMP_CWORD -eq 1 ]] ; then
 		# first arg: source file completion
