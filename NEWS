@@ -1,3 +1,12 @@
+0.25.0:
+	* New package-test command for marking a release as test:.
+	* New stage command for uploading without creating !ready.
+	* meson: new cygclass for building Meson-based packages
+	* ninja: new cygclass for building packages with ninja
+	* kde4: updated for KDE Apps 17.04 and Calligra split-up.
+	* perl: added CPAN_VERSION to override VERSION.
+	* python-wheel: now works with older setup.py files.
+
 0.24.1:
 	* wxwidgets: default to gtk3 with wxWidgets 3.x on X11 targets
 	* Various bugfixes.
