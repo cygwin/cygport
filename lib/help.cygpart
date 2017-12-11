@@ -54,7 +54,7 @@ __show_help() {
 
 		See the included README file for further documentation.
 
-		Report bugs to <cygwin-ports-general@lists.sourceforge.net>.
+		Report bugs to <cygwin-apps@cygwin.com>.
 		_EOF
 }
 

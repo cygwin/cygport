@@ -1,5 +1,5 @@
 AC_INIT(cygport, 0.25.0,
-	[cygwin-ports-general@lists.sourceforge.net])
+	[cygwin-apps@cygwin.com])
 
 AC_PREREQ([2.60])
 
