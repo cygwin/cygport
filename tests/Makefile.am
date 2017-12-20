@@ -5,7 +5,7 @@ TESTS_ENVIRONMENT = MAKE=$(MAKE) PACKAGE=$(PACKAGE) VERSION=$(VERSION) top_srcdi
 EXTRA_DIST += $(TESTS)
 
 CLEANFILES += \
-	tests/foo-1.2.3-4.cygport \
+	tests/foo.cygport \
 	tests/$(PACKAGE).cygport \
 	tests/$(PACKAGE)-$(VERSION)-1-src.tar.xz \
 	tests/$(PACKAGE)-$(VERSION)-1.tar.xz \

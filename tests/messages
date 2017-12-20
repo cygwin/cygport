@@ -11,13 +11,16 @@ echo
 ${top_builddir}/bin/cygport-inplace --version
 echo
 
-cat > foo-1.2.3-4.cygport <<-_EOF
+cat > foo.cygport <<-_EOF
+	NAME="foo"
+	VERSION=2.3.4
+	RELEASE=1
 	DESCRIPTION="Cygport messages test package"
 	HOMEPAGE="http://sourceware.org/cygwinports/"
 	SRC_URI="http://sourceware.org/cygwinports/\${P}.ABC"
 	_EOF
 
-${top_builddir}/bin/cygport-inplace foo-1.2.3-4.cygport info
+${top_builddir}/bin/cygport-inplace foo.cygport info
 echo
 
-rm -f foo-1.2.3-4.cygport
+rm -f foo.cygport
