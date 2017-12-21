@@ -254,14 +254,15 @@ __pkg_pkgcheck() {
 		then
 			warning "Packages are missing files:";
 			grep -E '^-[^\-]' ${T}/pkgcheck.diff;
-	    fi
+			error "Packages are missing files:";
+		fi
 
 		if grep -E '^\+[^\+]' ${T}/pkgcheck.diff > /dev/null
 		then
 			warning "Packages contain duplicate files:";
 			grep -E '^\+[^\+]' ${T}/pkgcheck.diff;
 			error "Packages contain duplicate files:";
-	    fi
+		fi
 	fi
 
 	rm -f ${tmp1} ${tmp2};
