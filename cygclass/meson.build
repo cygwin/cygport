@@ -15,7 +15,6 @@ cygclasses = files(
     'font.cygclass',
     'fossil.cygclass',
     'fox.cygclass',
-    'ggz.cygclass',
     'git.cygclass',
     'gnome.org.cygclass',
     'gnome2.cygclass',

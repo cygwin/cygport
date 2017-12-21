@@ -176,7 +176,6 @@
 #    For executing commands which require a running X server.
 #
 #  The following Cygclasses are deprecated and should not be used in new code:
-#  * ggz.cygclass
 #  * opensync.cygclass
 #  * python.cygclass
 #  * python-distutils.cygclass
@@ -201,7 +200,6 @@ cygclass_DATA =					\
 	cygclass/font.cygclass			\
 	cygclass/fossil.cygclass		\
 	cygclass/fox.cygclass			\
-	cygclass/ggz.cygclass			\
 	cygclass/git.cygclass			\
 	cygclass/gnome.org.cygclass		\
 	cygclass/gnome2.cygclass		\
