@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/nant.cygclass
+#****ih* Cygclasses/nant.cygclass
 #  SYNOPSIS
 #  inherit nant
 #  DESCRIPTION
@@ -46,19 +46,19 @@ inherit mono
 
 check_prog_req nant
 
-#****d* nant.cygclass/NANT
+#****id* nant.cygclass/NANT
 #  DESCRIPTION
 #  Absolute path to the NAnt build tool.
 #****
 NANT=/usr/bin/nant
 
-#****v* nant.cygclass/NANT_BUILD_FILE
+#****iv* nant.cygclass/NANT_BUILD_FILE
 #  DESCRIPTION
 #  Name or relative path of the NAnt build file.  This need only be defined
 #  if it is not '*.build' (the default).
 #****
 
-#****C* nant.cygclass/cygnant
+#****iC* nant.cygclass/cygnant
 #  SYNOPSIS
 #  cygnant [OPTIONS]
 #  DESCRIPTION
@@ -80,7 +80,7 @@ cygnant() {
 	/usr/bin/nant ${fileargs} ${@} || error "nant build failed"
 }
 
-#****I* nant.cygclass/donanttask
+#****iI* nant.cygclass/donanttask
 #  SYNOPSIS
 #  donanttask ASSEMBLY [ASSEMBLY] ...
 #  DESCRIPTION
@@ -95,16 +95,16 @@ donanttask() {
 	_insinto_dir=${_insinto_tmp}
 }
 
-#****v* nant.cygclass/NANT_BUILD_ARGS
+#****iv* nant.cygclass/NANT_BUILD_ARGS
 #  DESCRIPTION
 #  Arguments to pass to the NAnt build command if this src_compile is used.
 #****
-#****v* nant.cygclass/NANT_BUILD_TARGETS
+#****iv* nant.cygclass/NANT_BUILD_TARGETS
 #  DESCRIPTION
 #  Target(s) to be built during the NAnt build command if this src_compile is used.
 #****
 
-#****o* nant.cygclass/src_compile (nant)
+#****io* nant.cygclass/src_compile (nant)
 #  DEFINITION
 src_compile() {
 	lndirs
@@ -113,16 +113,16 @@ src_compile() {
 }
 #****
 
-#****v* nant.cygclass/NANT_TEST_ARGS
+#****iv* nant.cygclass/NANT_TEST_ARGS
 #  DESCRIPTION
 #  Arguments to pass to NAnt during testing if this src_test is used.
 #****
-#****v* nant.cygclass/NANT_TEST_TARGETS
+#****iv* nant.cygclass/NANT_TEST_TARGETS
 #  DESCRIPTION
 #  Target(s) to be built to run the testsuite if this src_test is used.
 #****
 
-#****o* nant.cygclass/src_test (nant)
+#****io* nant.cygclass/src_test (nant)
 #  DEFINITION
 src_test() {
 	cd ${B}

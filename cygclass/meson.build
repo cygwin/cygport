@@ -32,7 +32,6 @@ cygclasses = files(
     'meson.cygclass',
     'mtn.cygclass',
     'multilib.cygclass',
-    'nant.cygclass',
     'ninja.cygclass',
     'ocaml.cygclass',
     'octave.cygclass',

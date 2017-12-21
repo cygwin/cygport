@@ -39,8 +39,6 @@
 #    For packages using the CMake buildsystem.
 #  * meson.cygclass -
 #    For packages using the Meson buildsystem.
-#  * nant.cygclass -
-#    For Mono packages which use the NAnt buildsystem.
 #  * ninja.cygclass -
 #    For packages using the Ninja buildsystem.
 #  * qt3-qmake.cygclass -
@@ -211,7 +209,6 @@ cygclass_DATA =					\
 	cygclass/meson.cygclass			\
 	cygclass/multilib.cygclass		\
 	cygclass/mtn.cygclass			\
-	cygclass/nant.cygclass			\
 	cygclass/ninja.cygclass			\
 	cygclass/ocaml.cygclass			\
 	cygclass/octave.cygclass		\
