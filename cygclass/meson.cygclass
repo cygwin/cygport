@@ -94,6 +94,13 @@ cygmeson() {
 
 	check_prog_req meson
 
+#****v* cygmeson/CYGMESON_ARGS
+#  DESCRIPTION
+#  Additional flags to pass to meson, as a string.
+#  NOTE
+#  Flags in CYGMESON_ARGS follow, and therefore override, flags passed by
+#  default to cygmeson.
+#****
 	meson --prefix=$(__host_prefix) \
 		--buildtype=plain --wrap-mode=nodownload \
 		${crossargs} ${CYGMESON_ARGS} ${@} ${mdir} \
