@@ -198,7 +198,7 @@ src_compile() {
 	unset MULTILIB_LIBDIR
 }
 
-#****C* multilib.cygclass/multilib_install
+#****I* multilib.cygclass/multilib_install
 #  SYNOPSIS
 #  multilib_install() {
 #    INSTALL_COMMAND; [INSTALL_COMMAND ...]
@@ -213,7 +213,7 @@ src_compile() {
 #  attempt to call cd ${B} or the like, but if you may traverse into a
 #  relative subdirectory with pushd/popd.
 #****
-#****C* multilib.cygclass/multilib_postinstall
+#****I* multilib.cygclass/multilib_postinstall
 #  SYNOPSIS
 #  multilib_postinstall() {
 #    POSTINSTALL_COMMAND; [POSTINSTALL_COMMAND ...]
