@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/berkdb.cygclass
+#****ih* Cygclasses/berkdb.cygclass
 #  SYNOPSIS
 #  inherit [java] [tcl] berkdb
 #  DESCRIPTION
@@ -46,15 +46,15 @@ esac
 
 tarpv=${PV[1]}.${PV[2]}.${PV[3]}
 
-#****o* berkdb.cygclass/CATEGORY (berkdb)
+#****io* berkdb.cygclass/CATEGORY (berkdb)
 #  DEFINITION
 CATEGORY="Database Libs"
 #****
-#****o* berkdb.cygclass/SUMMARY (berkdb)
+#****io* berkdb.cygclass/SUMMARY (berkdb)
 #  DEFINITION
 SUMMARY="Berkeley DB version ${SLOT}"
 #****
-#****o* berkdb.cygclass/DESCRIPTION (berkdb)
+#****io* berkdb.cygclass/DESCRIPTION (berkdb)
 #  DEFINITION
 DESCRIPTION="Oracle Berkeley DB is the industry-leading open source, embeddable
 database engine that provides developers with fast, reliable, local
@@ -63,12 +63,12 @@ that links directly into your application. Your application makes simple
 function calls, rather than sending messages to a remote server,
 eliminating the performance penalty of client-server architectures."
 #****
-#****o* berkdb.cygclass/HOMEPAGE (berkdb)
+#****io* berkdb.cygclass/HOMEPAGE (berkdb)
 #  DEFINITION
 HOMEPAGE="http://www.oracle.com/technology/products/berkeley-db/db/index.html"
 #****
 
-#****o* berkdb.cygclass/SRC_URI (berkdb)
+#****io* berkdb.cygclass/SRC_URI (berkdb)
 #  DESCRIPTION
 #  Download location of the Berkeley DB source tarball.
 #****
@@ -76,7 +76,7 @@ SRC_URI="http://download.oracle.com/berkeley-db/db-${tarpv}.tar.gz"
 
 SRC_DIR="db-${tarpv}"
 
-#****o* berkdb.cygclass/PATCH_URI (berkdb)
+#****io* berkdb.cygclass/PATCH_URI (berkdb)
 #  NOTE
 #  Upstream patches are automatically downloaded based on the fourth component
 #  of PV; e.g. version 4.6.21.4 will download patches 1-4 for the 4.6.21 tarball.
@@ -97,7 +97,7 @@ fi
 
 unset tarpv
 
-#****o* berkdb.cygclass/PKG_NAMES (berkdb)
+#****io* berkdb.cygclass/PKG_NAMES (berkdb)
 #  DESCRIPTION
 #  The following binary packages are created automatically:
 #  * dbX.Y: command-line utilities, Cygwin and upstream READMEs;
@@ -128,7 +128,7 @@ fi
 
 DIFF_EXCLUDES="config.hin db.jar libtool.ac lt*.ac"
 
-#****C* berkdb.cygclass/berkdb_autoreconf
+#****iC* berkdb.cygclass/berkdb_autoreconf
 #  DESCRIPTION
 #  This function is used instead of cygautoreconf due to the unique build
 #  system of the Berkeley DB.  This step is required, as several build system
@@ -161,7 +161,7 @@ berkdb_autoreconf() {
 	./s_config || error "s_config failed"
 }
 
-#****C* berkdb.cygclass/berkdb_compile
+#****iC* berkdb.cygclass/berkdb_compile
 #  DESCRIPTION
 #  This function calls cygconf with the necessary options for building the
 #  the C library shared and static, and the C++, Java and/or Tcl bindings.
@@ -210,7 +210,7 @@ berkdb_compile() {
 	cygmake ${objvar}="libdb-${SLOT}.la"
 }
 
-#****I* berkdb.cygclass/berkdb_install
+#****iI* berkdb.cygclass/berkdb_install
 #  DESCRIPTION
 #  This function installs the Berkeley DB into $D and moves some files so that
 #  multiple versions may be installed in parallel.
@@ -264,7 +264,7 @@ berkdb_install() {
 	fi
 }
 
-#****I* berkdb.cygclass/berkdb_postinst
+#****iI* berkdb.cygclass/berkdb_postinst
 #  DESCRIPTION
 #  This function creates postinstall and preremove scripts which manage the
 #  unversioned symlinks for the headers and link libraries with alternatives(8).
@@ -318,7 +318,7 @@ berkdb_postinst() {
 		_EOF
 }
 
-#****o* berkdb.cygclass/src_compile (berkdb)
+#****io* berkdb.cygclass/src_compile (berkdb)
 #  DEFINITION
 src_compile() {
 	cd ${S}/dist
@@ -328,7 +328,7 @@ src_compile() {
 }
 #****
 
-#****o* berkdb.cygclass/src_install (berkdb)
+#****io* berkdb.cygclass/src_install (berkdb)
 #  DEFINITION
 src_install() {
 	cd ${B}

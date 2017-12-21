@@ -180,7 +180,6 @@
 #    For executing commands which require a running X server.
 #
 #  The following Cygclasses are deprecated and should not be used in new code:
-#  * berkdb.cygclass
 #  * distutils.cygclass
 #  * distutils-multi.cygclass
 #  * ggz.cygclass
@@ -196,7 +195,6 @@ cygclass_DATA =					\
 	cygclass/apache2.cygclass		\
 	cygclass/aspell-dict.cygclass		\
 	cygclass/autotools.cygclass		\
-	cygclass/berkdb.cygclass		\
 	cygclass/bzr.cygclass			\
 	cygclass/clang.cygclass			\
 	cygclass/claws-mail.cygclass		\

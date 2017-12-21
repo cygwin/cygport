@@ -3,7 +3,6 @@ cygclasses = files(
     'apache2.cygclass',
     'aspell-dict.cygclass',
     'autotools.cygclass',
-    'berkdb.cygclass',
     'bzr.cygclass',
     'clang.cygclass',
     'claws-mail.cygclass',
