@@ -20,6 +20,6 @@ fi
 
 cp -f ${top_srcdir}/data/sample.cygport ${PACKAGE}.cygport
 
-${top_builddir}/bin/cygport-inplace ${PACKAGE}.cygport prep compile install pkg
+${top_builddir}/bin/cygport-inplace ${PACKAGE}.cygport all
 
 rm -f ${PACKAGE}-${VERSION}.tar.gz
