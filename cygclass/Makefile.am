@@ -81,8 +81,6 @@
 #  These Cygclasses are used for packaging desktop software components:
 #  * gnome2.cygclass -
 #    For GNOME 2.x/3.x packages.
-#  * gnustep.cygclass -
-#    For GNUstep packages.
 #  * kde4.cygclass -
 #    For KDE 4.x packages.
 #  * kf5.cygclass -
@@ -203,7 +201,6 @@ cygclass_DATA =					\
 	cygclass/git.cygclass			\
 	cygclass/gnome.org.cygclass		\
 	cygclass/gnome2.cygclass		\
-	cygclass/gnustep.cygclass		\
 	cygclass/gst-plugins.cygclass		\
 	cygclass/gst-plugins0.10.cygclass	\
 	cygclass/gstreamer.cygclass		\

@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/gnustep.cygclass
+#****ih* Cygclasses/gnustep.cygclass
 #  DESCRIPTION
 #  GNUstep is an open-source implementation of the NeXT/OpenStep and Apple's
 #  Cocoa API frameworks, written in Objective-C.  A number of additional
@@ -47,20 +47,20 @@ case ${PN} in
 	;;
 esac
 
-#****o* gnustep.cygclass/CATEGORY (gnustep)
+#****io* gnustep.cygclass/CATEGORY (gnustep)
 #  DEFINITION
 CATEGORY="GNUstep"
 #****
-#****o* gnustep.cygclass/SUMMARY (gnustep)
+#****io* gnustep.cygclass/SUMMARY (gnustep)
 #  DEFINITION
 SUMMARY="GNUstep ${ORIG_PN:-${PN#gnustep-}} component"
 #****
-#****o* gnustep.cygclass/HOMEPAGE (gnustep)
+#****io* gnustep.cygclass/HOMEPAGE (gnustep)
 #  DEFINITION
 HOMEPAGE="http://www.gnustep.org/"
 #****
 
-#****o* gnustep.cygclass/SVN_URI (gnustep)
+#****io* gnustep.cygclass/SVN_URI (gnustep)
 #  NOTE
 #  svn.cygclass must be inherit()ed last for this to have any effect.
 #  DEFINITION
@@ -100,7 +100,7 @@ __gnustep_dir() {
 #done
 #unset dvar
 
-#****f* gnustep.cygclass/gnustep_env
+#****if* gnustep.cygclass/gnustep_env
 #  DESCRIPTION
 #  Loads the GNUstep environment variables.  This must be run before calling
 #  gnustep_compile or gnustep_install.
@@ -111,7 +111,7 @@ gnustep_env() {
 	. ${mf}/GNUstep.sh
 }
 
-#****C* gnustep.cygclass/gnustep_compile
+#****iC* gnustep.cygclass/gnustep_compile
 #  SYNOPSIS
 #  cd $B
 #  gnustep_compile [MAKEFILE_ARGUMENTS]
@@ -143,7 +143,7 @@ gnustep_compile() {
 	fi
 }
 
-#****I* gnustep.cygclass/gnustep_install
+#****iI* gnustep.cygclass/gnustep_install
 #  SYNOPSIS
 #  cd $B
 #  gnustep_install [MAKEFILE_ARGUMENTS]
@@ -167,7 +167,7 @@ gnustep_install() {
 	fi
 }
 
-#****f* gnustep.cygclass/gnustep_pkg_apps
+#****if* gnustep.cygclass/gnustep_pkg_apps
 #  SYNOPSIS
 #  gnustep_pkg_apps APP_NAME [APP_NAME] ...
 #  DESCRIPTION
@@ -185,7 +185,7 @@ gnustep_pkg_apps() {
 	done
 }
 
-#****f* gnustep.cygclass/gnustep_pkg_frameworks
+#****if* gnustep.cygclass/gnustep_pkg_frameworks
 #  SYNOPSIS
 #  gnustep_pkg_frameworks FRAMEWORK_NAME:VERSION [FRAMEWORK_NAME:VERSION] ...
 #  DESCRIPTION
@@ -219,7 +219,7 @@ gnustep_pkg_frameworks() {
 	done
 }
 
-#****o* gnustep.cygclass/src_compile (gnustep)
+#****io* gnustep.cygclass/src_compile (gnustep)
 #  DEFINITION
 src_compile() {
 	lndirs
@@ -229,7 +229,7 @@ src_compile() {
 }
 #****
 
-#****o* gnustep.cygclass/src_install (gnustep)
+#****io* gnustep.cygclass/src_install (gnustep)
 #  DEFINITION
 src_install() {
 	cd ${B}
