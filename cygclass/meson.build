@@ -19,7 +19,6 @@ cygclasses = files(
     'gnome.org.cygclass',
     'gnome2.cygclass',
     'gst-plugins.cygclass',
-    'gst-plugins0.10.cygclass',
     'gstreamer.cygclass',
     'gtk2-perl.cygclass',
     'gtkmm.cygclass',

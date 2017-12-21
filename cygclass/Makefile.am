@@ -202,7 +202,6 @@ cygclass_DATA =					\
 	cygclass/gnome.org.cygclass		\
 	cygclass/gnome2.cygclass		\
 	cygclass/gst-plugins.cygclass		\
-	cygclass/gst-plugins0.10.cygclass	\
 	cygclass/gstreamer.cygclass		\
 	cygclass/gtk2-perl.cygclass		\
 	cygclass/gtkmm.cygclass			\
