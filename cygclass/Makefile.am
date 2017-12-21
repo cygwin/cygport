@@ -168,7 +168,6 @@
 #    For executing commands which require a running X server.
 #
 #  The following Cygclasses are deprecated and should not be used in new code:
-#  * opensync.cygclass
 #  * python.cygclass
 #  * python-distutils.cygclass
 #  * ruby-gnome2.cygclass
@@ -212,7 +211,6 @@ cygclass_DATA =					\
 	cygclass/ninja.cygclass			\
 	cygclass/ocaml.cygclass			\
 	cygclass/octave.cygclass		\
-	cygclass/opensync.cygclass		\
 	cygclass/perl.cygclass			\
 	cygclass/php.cygclass			\
 	cygclass/pygtk.cygclass			\

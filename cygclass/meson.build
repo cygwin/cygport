@@ -35,7 +35,6 @@ cygclasses = files(
     'ninja.cygclass',
     'ocaml.cygclass',
     'octave.cygclass',
-    'opensync.cygclass',
     'perl.cygclass',
     'php.cygclass',
     'pygtk.cygclass',

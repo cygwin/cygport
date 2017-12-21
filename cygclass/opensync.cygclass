@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/opensync.cygclass
+#****ih* Cygclasses/opensync.cygclass
 #  SYNOPSIS
 #  inherit opensync
 #  DESCRIPTION
@@ -42,12 +42,12 @@ OPENSYNC_PLUGIN=${PN/libopensync*-plugin-}
 
 DESCRIPTION="OpenSync ${OPENSYNC_PLUGIN} plugin"
 
-#****o* opensync.cygclass/HOMEPAGE (opensync)
+#****io* opensync.cygclass/HOMEPAGE (opensync)
 #  DEFINITION
 HOMEPAGE="http://www.opensync.org/wiki/"
 #****
 
-#****o* opensync.cygclass/SRC_URI (opensync)
+#****io* opensync.cygclass/SRC_URI (opensync)
 #  DESCRIPTION
 #  Download location for the OpenSync plugin source package.
 #****
@@ -63,31 +63,31 @@ esac
 
 check_prog_req pkg-config
 
-#****d* opensync.cygclass/OPENSYNC_VERSION
+#****id* opensync.cygclass/OPENSYNC_VERSION
 #  DESCRIPTION
 #  Version of the currently installed OpenSync library.
 #****
 OPENSYNC_VERSION=$(pkg-config --modversion libopensync1)
 
-#****d* opensync.cygclass/OPENSYNC_CONFIGDIR
+#****id* opensync.cygclass/OPENSYNC_CONFIGDIR
 #  DESCRIPTION
 #  Installation directory for OpenSync default configuration files.
 #****
 OPENSYNC_CONFIGDIR=$(pkg-config --variable=configdir libopensync1)
 
-#****d* opensync.cygclass/OPENSYNC_PLUGINDIR
+#****id* opensync.cygclass/OPENSYNC_PLUGINDIR
 #  DESCRIPTION
 #  Installation directory for OpenSync C/C++ plugins.
 #****
 OPENSYNC_PLUGINDIR=$(pkg-config --variable=plugindir libopensync1)
 
-#****d* opensync.cygclass/OPENSYNC_PYTHON_PLUGINDIR
+#****id* opensync.cygclass/OPENSYNC_PYTHON_PLUGINDIR
 #  DESCRIPTION
 #  Installation directory for OpenSync Python plugins.
 #****
 OPENSYNC_PYTHON_PLUGINDIR=${OPENSYNC_PLUGINDIR%/*}/python-plugins
 
-#****C* opensync.cygclass/opensync_plugin_compile
+#****iC* opensync.cygclass/opensync_plugin_compile
 #  SYNOPSIS
 #  opensync_plugin_compile [OPTIONS]
 #  DESCRIPTION
@@ -104,7 +104,7 @@ opensync_plugin_compile() {
 	cygmake
 }
 
-#****I* opensync.cygclass/opensync_doconfig
+#****iI* opensync.cygclass/opensync_doconfig
 #  SYNOPSIS
 #  opensync_doconfig FILE [FILE2] ...
 #  DESCRIPTION
@@ -115,7 +115,7 @@ opensync_doconfig() {
 	doins ${@}
 }
 
-#****I* opensync.cygclass/opensync_doplugin
+#****iI* opensync.cygclass/opensync_doplugin
 #  SYNOPSIS
 #  opensync_doplugin PLUGIN [PLUGIN2] ...
 #  DESCRIPTION
@@ -139,7 +139,7 @@ opensync_doplugin() {
 	done
 }
 
-#****o* opensync.cygclass/src_compile (opensync)
+#****io* opensync.cygclass/src_compile (opensync)
 #  DEFINITION
 src_compile() {
 	cd ${B}
