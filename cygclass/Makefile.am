@@ -178,7 +178,6 @@
 #    For executing commands which require a running X server.
 #
 #  The following Cygclasses are deprecated and should not be used in new code:
-#  * distutils.cygclass
 #  * distutils-multi.cygclass
 #  * ggz.cygclass
 #  * opensync.cygclass

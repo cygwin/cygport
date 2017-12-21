@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/distutils.cygclass
+#****ih* Cygclasses/distutils.cygclass
 #  SYNOPSIS
 #  inherit distutils
 #  DESCRIPTION
@@ -73,7 +73,7 @@ esac
 
 inherit ${_pyinterp}-distutils
 
-#****C* distutils.cygclass/distutils_compile
+#****iC* distutils.cygclass/distutils_compile
 #  DESCRIPTION
 #  Wrapper for python_distutils_compile/python3_distutils_compile/pypy_distutils_compile
 #****
@@ -81,7 +81,7 @@ distutils_compile() {
 	${_pyinterp}_distutils_compile "$@"
 }
 
-#****I* distutils.cygclass/distutils_install
+#****iI* distutils.cygclass/distutils_install
 #  DESCRIPTION
 #  Wrapper for python_distutils_install/python3_distutils_install/pypy_distutils_install
 #****
