@@ -99,8 +99,6 @@
 #  These Cygclasses are used for packaging specific groups of software:
 #  * aspell-dict.cygclass -
 #    For Aspell dictionary packages.
-#  * claws-mail.cygclass -
-#    For Claws Mail plugin packages.
 #  * docbook.cygclass -
 #    For packaging DocBook SGML/XML DTDs.
 #  * ebook.cygclass -
@@ -197,7 +195,6 @@ cygclass_DATA =					\
 	cygclass/autotools.cygclass		\
 	cygclass/bzr.cygclass			\
 	cygclass/clang.cygclass			\
-	cygclass/claws-mail.cygclass		\
 	cygclass/cmake.cygclass			\
 	cygclass/cross.cygclass			\
 	cygclass/cvs.cygclass			\

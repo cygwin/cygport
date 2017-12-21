@@ -5,7 +5,6 @@ cygclasses = files(
     'autotools.cygclass',
     'bzr.cygclass',
     'clang.cygclass',
-    'claws-mail.cygclass',
     'cmake.cygclass',
     'cross.cygclass',
     'cvs.cygclass',

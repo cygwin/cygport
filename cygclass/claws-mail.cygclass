@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/claws-mail.cygclass
+#****ih* Cygclasses/claws-mail.cygclass
 #  SYNOPSIS
 #  inherit claws-mail
 #  DESCRIPTION
@@ -43,20 +43,20 @@ CLAWS_MAIL_PLUGIN=${PN#claws-mail-}
 
 ORIG_PN=${ORIG_PN:-${CLAWS_MAIL_PLUGIN}}
 
-#****o* claws-mail.cygclass/CATEGORY (claws-mail)
+#****io* claws-mail.cygclass/CATEGORY (claws-mail)
 #  DEFINITION
 CATEGORY="Mail"
 #****
-#****o* claws-mail.cygclass/SUMMARY (claws-mail)
+#****io* claws-mail.cygclass/SUMMARY (claws-mail)
 #  DEFINITION
 SUMMARY="Claws Mail ${CLAWS_MAIL_PLUGIN} plugin"
 #****
-#****o* claws-mail.cygclass/HOMEPAGE (claws-mail)
+#****io* claws-mail.cygclass/HOMEPAGE (claws-mail)
 #  DEFINITION
 HOMEPAGE="http://www.claws-mail.org/plugins.php"
 #****
 
-#****o* claws-mail.cygclass/SRC_URI (claws-mail)
+#****io* claws-mail.cygclass/SRC_URI (claws-mail)
 #  DEFINITION
 SRC_URI="http://www.claws-mail.org/downloads/plugins/${ORIG_PN}-${PV}.tar.gz"
 #****
