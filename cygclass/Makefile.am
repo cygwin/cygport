@@ -143,8 +143,12 @@
 #    For Python 2 and 3 packages which are built and installed as wheels.
 #  * python2-distutils.cygclass -
 #    For Python 2.x packages which use the Distutils buildsystem.
+#  * python2-wheel.cygclass -
+#    For Python 2.x packages which are built and installed as wheels.
 #  * python3-distutils.cygclass -
 #    For Python 3.x packages which use the Distutils buildsystem.
+#  * python3-wheel.cygclass -
+#    For Python 3.x packages which are built and installed as wheels.
 #  * R.cygclass -
 #    For packages which depend on R or provide R modules.
 #  * ruby.cygclass -
@@ -250,8 +254,10 @@ cygclass_DATA =					\
 	cygclass/python-wheel.cygclass		\
 	cygclass/python2.cygclass		\
 	cygclass/python2-distutils.cygclass	\
+	cygclass/python2-wheel.cygclass		\
 	cygclass/python3.cygclass		\
 	cygclass/python3-distutils.cygclass	\
+	cygclass/python3-wheel.cygclass		\
 	cygclass/qt3.cygclass			\
 	cygclass/qt3-qmake.cygclass		\
 	cygclass/qt4.cygclass			\
