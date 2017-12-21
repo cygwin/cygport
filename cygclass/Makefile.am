@@ -59,8 +59,6 @@
 #  These Cygclasses deal with certain types of dependencies:
 #  * fox.cygclass -
 #    For packages which depend on the FOX Toolkit.
-#  * java.cygclass -
-#    For packages which depend on Java.
 #  * pypy.cygclass -
 #    For packages which depend on PyPy.
 #  * python2.cygclass -
@@ -207,7 +205,6 @@ cygclass_DATA =					\
 	cygclass/gtkmm.cygclass			\
 	cygclass/hg.cygclass			\
 	cygclass/httpd.cygclass			\
-	cygclass/java.cygclass			\
 	cygclass/kde.org.cygclass		\
 	cygclass/kde4.cygclass			\
 	cygclass/kf5.cygclass			\

@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/java.cygclass
+#****ih* Cygclasses/java.cygclass
 #  SYNOPSIS
 #  inherit java
 #  DESCRIPTION
@@ -39,49 +39,49 @@
 #  gij/jamvm, ecj/jdk6-langtools/classpath-tools, fastjar, gcc4-java.
 #****
 
-#****d* java.cygclass/JAR
+#****id* java.cygclass/JAR
 #  DESCRIPTION
 #  Absolute path to a 'jar' de/compression tool, provided by fastjar or gjar.
 #****
 JAR=/usr/bin/jar
 
-#****d* java.cygclass/JAVA
+#****id* java.cygclass/JAVA
 #  DESCRIPTION
 #  Absolute path to a Java interpreter, provided by jamvm or gij-4.
 #****
 JAVA=/usr/bin/java
 
-#****d* java.cygclass/JAVAC
+#****id* java.cygclass/JAVAC
 #  DESCRIPTION
 #  Absolute path to a Java compiler, provided by javac or ecj.
 #****
 JAVAC=/usr/bin/javac
 
-#****d* java.cygclass/JAVADOC
+#****id* java.cygclass/JAVADOC
 #  DESCRIPTION
 #  Absolute path to a Java API documentation generator, provided by javadoc or gjdoc.
 #****
 JAVADOC=/usr/bin/javadoc
 
-#****d* java.cygclass/JAVAH
+#****id* java.cygclass/JAVAH
 #  DESCRIPTION
 #  Absolute path to a JNI header generator, provided by javah or gjavah.
 #****
 JAVAH=/usr/bin/javah
 
-#****d* java.cygclass/JAVA_HOME
+#****id* java.cygclass/JAVA_HOME
 #  DESCRIPTION
 #  Prefix of the Java installation.
 #****
 JAVA_HOME=/usr
 
-#****d* java.cygclass/JAVA_DIR
+#****id* java.cygclass/JAVA_DIR
 #  DESCRIPTION
 #  Installation path for Java .jar files.
 #****
 JAVA_DIR=/usr/share/java
 
-#****d* java.cygclass/JAVADOC_DIR
+#****id* java.cygclass/JAVADOC_DIR
 #  DESCRIPTION
 #  Installation path for Javadoc API documentation.
 #****
@@ -107,7 +107,7 @@ __java_fixup_cp() {
 	echo -n ${outpath%:}
 }
 
-#****v* java.cygclass/JAVA_CLASSPATH
+#****iv* java.cygclass/JAVA_CLASSPATH
 #  DESCRIPTION
 #  A colon-separated list of directories and .jar files to pass to Java's
 #  CLASSPATH environment variable.  Any .jar files which are listed by
@@ -129,7 +129,7 @@ case ${PN} in
 	java-*)	ORIG_PN=${ORIG_PN:-${PN#java-}} ;;
 esac
 
-#****C* java.cygclass/cygjar
+#****iC* java.cygclass/cygjar
 #  SYNOPSIS
 #  cygjar OPTIONS JAR_FILE [MANIFEST_FILE] [-C DIRECTORY] [FILES] ...
 #  DESCRIPTION
@@ -140,7 +140,7 @@ cygjar() {
 	verbose ${JAR} ${@} || error "cygjar: command failed"
 }
 
-#****f* java.cygclass/cygjava
+#****if* java.cygclass/cygjava
 #  SYNOPSIS
 #  cygjava [-jar JAR_FILE] [-classpath CLASSPATH] [OPTIONS] CLASS [ARGUMENTS]
 #  DESCRIPTION
@@ -151,7 +151,7 @@ cygjava() {
 	verbose ${JAVA} ${@} || error "cygjava: execution failed"
 }
 
-#****C* java.cygclass/cygjavac
+#****iC* java.cygclass/cygjavac
 #  SYNOPSIS
 #  cygjavac [-classpath CLASSPATH] [OPTIONS] SOURCE_FILES|DIRECTORIES
 #  DESCRIPTION
@@ -164,7 +164,7 @@ cygjavac() {
 	echo
 }
 
-#****C* java.cygclass/cygjavadoc
+#****iC* java.cygclass/cygjavadoc
 #  SYNOPSIS
 #  cygjavadoc [OPTIONS] [-d OUTPUT_PATH] PACKAGES
 #  DESCRIPTION
@@ -176,7 +176,7 @@ cygjavadoc() {
 	verbose ${JAVADOC} ${@} || error "cygjavadoc: generation failed"
 }
 
-#****C* java.cygclass/cygjavah
+#****iC* java.cygclass/cygjavah
 #  SYNOPSIS
 #  cygjavah [-classpath CLASSPATH] [-d OUTPUT_PATH] [-jni] CLASSES
 #  DESCRIPTION
@@ -187,7 +187,7 @@ cygjavah() {
 	verbose ${JAVAH} ${@} || error "cygjavah: generation failed"
 }
 
-#****T* java.cygclass/cygjunit
+#****iT* java.cygclass/cygjunit
 #  SYNOPSIS
 #  cygjunit [-classpath CLASSPATH] CLASSES
 #  DESCRIPTION
@@ -207,7 +207,7 @@ cygjunit() {
 	done
 }
 
-#****I* java.cygclass/dojar
+#****iI* java.cygclass/dojar
 #  SYNOPSIS
 #  dojar JAR_FILES
 #  DESCRIPTION
@@ -235,7 +235,7 @@ dojar() {
 	done
 }
 
-#****I* java.cygclass/newjar
+#****iI* java.cygclass/newjar
 #  SYNOPSIS
 #  newjar JAR_FILE NEW_JAR_FILE_NAME
 #  DESCRIPTION
@@ -265,7 +265,7 @@ newjar() {
 	esac
 }
 
-#****I* java.cygclass/dojavadoc
+#****iI* java.cygclass/dojavadoc
 #  SYNOPSIS
 #  dojavadoc DIRECTORY
 #  DESCRIPTION
@@ -297,7 +297,7 @@ dojavadoc() {
 }
 
 
-#****I* java.cygclass/newjavadoc
+#****iI* java.cygclass/newjavadoc
 #  SYNOPSIS
 #  newjavadoc DIRECTORY DESTINATION_SUBDIR
 #  DESCRIPTION
@@ -329,7 +329,7 @@ newjavadoc() {
 	# FIXME: make links to file://${JAVADOC_DIR}/ relative
 }
 
-#****I* java.cygclass/java_wrapper
+#****iI* java.cygclass/java_wrapper
 #  SYNOPSIS
 #  java_wrapper [JAVA_OPTIONS] WRAPPER_NAME JAR_FILE [MAIN_CLASS]
 #  DESCRIPTION
