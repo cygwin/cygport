@@ -19,6 +19,15 @@ EXTRA_DIST +=				\
 	README				\
 	TODO				\
 	cygport.spec			\
+	meson.build			\
+	meson_options.txt		\
+	bin/meson.build			\
+	cygclass/meson.build		\
+	data/meson.build		\
+	doc/meson.build			\
+	lib/meson.build			\
+	tests/meson.build		\
+	tools/meson.build		\
 	$(NULL)
 
 dist-hook: doc/manual/cygport.1.html doc/manual/index.html
