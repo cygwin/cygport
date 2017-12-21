@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/ant.cygclass
+#****ih* Cygclasses/ant.cygclass
 #  SYNOPSIS
 #  inherit ant
 #  DESCRIPTION
@@ -46,33 +46,33 @@ inherit java
 
 check_prog_req ant
 
-#****d* ant.cygclass/ANT
+#****id* ant.cygclass/ANT
 #  DESCRIPTION
 #  Absolute path to the Ant build tool.
 #****
 ANT=/usr/bin/ant
 
-#****d* ant.cygclass/ANT_HOME
+#****id* ant.cygclass/ANT_HOME
 #  DESCRIPTION
 #  Root datadir for the Ant build tool.  This definition is exported to the
 #  build environment.
 #****
 export ANT_HOME=/usr/share/ant
 
-#****v* ant.cygclass/ANT_OPTS
+#****iv* ant.cygclass/ANT_OPTS
 #  DESCRIPTION
 #  Options for the Ant build tool to pass to the Java runtime, e.g. -Xmx.
 #  This definition is exported to the build environment.
 #****
 export ANT_OPTS
 
-#****v* ant.cygclass/ANT_BUILD_XML
+#****iv* ant.cygclass/ANT_BUILD_XML
 #  DESCRIPTION
 #  Name or relative path of the Ant build file.  This need only be defined
 #  if it is not build.xml (the default).
 #****
 
-#****C* ant.cygclass/cygant
+#****iC* ant.cygclass/cygant
 #  SYNOPSIS
 #  cygant [OPTIONS]
 #  DESCRIPTION
@@ -104,7 +104,7 @@ cygant() {
 	/usr/bin/ant -lib ${taskpath} ${fileargs} ${@} || error "ant build failed"
 }
 
-#****I* ant.cygclass/doanttask
+#****iI* ant.cygclass/doanttask
 #  SYNOPSIS
 #  doanttask JAR_FILE [JAR_FILE] ...
 #  DESCRIPTION
@@ -119,16 +119,16 @@ doanttask() {
 	_insinto_dir=${_insinto_tmp}
 }
 
-#****v* ant.cygclass/ANT_BUILD_ARGS
+#****iv* ant.cygclass/ANT_BUILD_ARGS
 #  DESCRIPTION
 #  Arguments to pass to the Ant build command if this src_compile is used.
 #****
-#****v* ant.cygclass/ANT_BUILD_TARGETS
+#****iv* ant.cygclass/ANT_BUILD_TARGETS
 #  DESCRIPTION
 #  Target(s) to be built during the Ant build command if this src_compile is used.
 #****
 
-#****o* ant.cygclass/src_compile (ant)
+#****io* ant.cygclass/src_compile (ant)
 #  DEFINITION
 src_compile() {
 	lndirs
@@ -137,16 +137,16 @@ src_compile() {
 }
 #****
 
-#****v* ant.cygclass/ANT_TEST_ARGS
+#****iv* ant.cygclass/ANT_TEST_ARGS
 #  DESCRIPTION
 #  Arguments to pass to Ant during testing if this src_test is used.
 #****
-#****v* ant.cygclass/ANT_TEST_TARGETS
+#****iv* ant.cygclass/ANT_TEST_TARGETS
 #  DESCRIPTION
 #  Target(s) to be built to run the testsuite if this src_test is used.
 #****
 
-#****o* ant.cygclass/src_test (ant)
+#****io* ant.cygclass/src_test (ant)
 #  DEFINITION
 src_test() {
 	cd ${B}
@@ -154,19 +154,19 @@ src_test() {
 }
 #****
 
-#****v* ant.cygclass/ANT_INSTALL_JARS
+#****iv* ant.cygclass/ANT_INSTALL_JARS
 #  DESCRIPTION
 #  Relative paths of .jar files to be installed by ant_install.
 #****
-#****v* ant.cygclass/ANT_INSTALL_JAVADOC
+#****iv* ant.cygclass/ANT_INSTALL_JAVADOC
 #  DESCRIPTION
 #  Relative paths of javadoc directories to be installed by ant_install.
 #****
-#****v* ant.cygclass/ANT_INSTALL_TASKS
+#****iv* ant.cygclass/ANT_INSTALL_TASKS
 #  DESCRIPTION
 #  Relative paths of Ant task .jar files to be installed by ant_install.
 #****
-#****v* ant.cygclass/ANT_INSTALL_WRAPPERS
+#****iv* ant.cygclass/ANT_INSTALL_WRAPPERS
 #  SYNOPSIS
 #  ANT_INSTALL_WRAPPERS="name1,name1.jar[,main.class1] name2,name2.jar[,main.class2] ..."
 #  DESCRIPTION
@@ -174,7 +174,7 @@ src_test() {
 #  wrappers can be created by separating the argument sets with spaces.
 #****
 
-#****I* ant.cygclass/ant_install
+#****iI* ant.cygclass/ant_install
 #  SYNOPSIS
 #  ant_install
 #  DESCRIPTION
@@ -209,7 +209,7 @@ ant_install() {
 	done
 }
 
-#****o* ant.cygclass/src_install (ant)
+#****io* ant.cygclass/src_install (ant)
 #  DEFINITION
 src_install() {
 	cd ${B}

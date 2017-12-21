@@ -33,8 +33,6 @@
 #    For downloading sources from Subversion repositories.
 #
 #  These Cygclasses handle various buildsystems:
-#  * ant.cygclass -
-#    For Java packages which use the Ant buildsystem.
 #  * autotools.cygclass -
 #    For packages using the autoconf/automake/libtool buildsystem.
 #  * cmake.cygclass -
@@ -196,7 +194,6 @@
 
 cygclassdir = $(pkgdatadir)/cygclass
 cygclass_DATA =					\
-	cygclass/ant.cygclass			\
 	cygclass/apache.cygclass		\
 	cygclass/apache2.cygclass		\
 	cygclass/aspell-dict.cygclass		\

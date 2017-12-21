@@ -1,5 +1,4 @@
 cygclasses = files(
-    'ant.cygclass',
     'apache.cygclass',
     'apache2.cygclass',
     'aspell-dict.cygclass',
