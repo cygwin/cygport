@@ -13,9 +13,18 @@ then
 	# make dist during make distcheck won't work because all files in
 	# DISTDIR are read-only
 	cp -f ${top_srcdir}/../${PACKAGE}-${VERSION}.tar.gz .
-else
+elif [ -f ${top_builddir}/Makefile ] && [ -n "${MAKE}" ]
+then
 	${MAKE} -C ${top_builddir} dist-gzip > /dev/null
 	cp -f ${top_builddir}/${PACKAGE}-${VERSION}.tar.gz .
+elif [ -d ${top_srcdir}/.git ]
+then
+	pushd ${top_srcdir}
+	git archive -o ${PACKAGE}-${VERSION}.tar.gz --prefix=${PACKAGE}-${VERSION}/ HEAD
+	popd
+	cp -f ${top_srcdir}/${PACKAGE}-${VERSION}.tar.gz .
+else
+	exit 77
 fi
 
 cp -f ${top_srcdir}/data/sample.cygport ${PACKAGE}.cygport
