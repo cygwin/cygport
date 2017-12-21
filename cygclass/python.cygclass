@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/python.cygclass
+#****ih* Cygclasses/python.cygclass
 #  SYNOPSIS
 #  inherit python
 #  DESCRIPTION
@@ -32,43 +32,43 @@
 
 inherit python2
 
-#****d* python.cygclass/PYTHON
+#****id* python.cygclass/PYTHON
 #  DESCRIPTION
 #  Deprecated alias for PYTHON2.
 #****
 PYTHON=${PYTHON2}
 
-#****d* python.cygclass/PYTHON_VERSION
+#****id* python.cygclass/PYTHON_VERSION
 #  DESCRIPTION
 #  Deprecated alias for PYTHON2_VERSION.
 #****
 PYTHON_VERSION=${PYTHON2_VERSION}
 
-#****d* python.cygclass/PYTHON_INCLUDEDIR
+#****id* python.cygclass/PYTHON_INCLUDEDIR
 #  DESCRIPTION
 #  Deprecated alias for PYTHON2_INCLUDEDIR.
 #****
 PYTHON_INCLUDEDIR=${PYTHON2_INCLUDEDIR}
 
-#****d* python.cygclass/PYTHON_LIB
+#****id* python.cygclass/PYTHON_LIB
 #  DESCRIPTION
 #  Deprecated alias for PYTHON2_LIB.
 #****
 PYTHON_LIB=${PYTHON2_LIB}
 
-#****d* python.cygclass/PYTHON_SITELIB
+#****id* python.cygclass/PYTHON_SITELIB
 #  DESCRIPTION
 #  Deprecated alias for PYTHON2_SITELIB.
 #****
 PYTHON_SITELIB=${PYTHON2_SITELIB}
 
-#****d* python.cygclass/LIBPYTHON
+#****id* python.cygclass/LIBPYTHON
 #  DESCRIPTION
 #  Deprecated alias for LIBPYTHON2
 #****
 LIBPYTHON=${LIBPYTHON2}
 
-#****I* python.cygclass/pythoninto
+#****iI* python.cygclass/pythoninto
 #  DESCRIPTION
 #  Deprecated alias for python2into.
 #****
@@ -76,7 +76,7 @@ pythoninto() {
 	python2into "$@"
 }
 
-#****I* python.cygclass/dopython
+#****iI* python.cygclass/dopython
 #  DESCRIPTION
 #  Deprecated alias for dopython2.
 #****
@@ -84,7 +84,7 @@ dopython() {
 	dopython2 "$@"
 }
 
-#****I* python.cygclass/python_optimize
+#****iI* python.cygclass/python_optimize
 #  DESCRIPTION
 #  Deprecated alias for python2_optimize.
 #****
@@ -95,7 +95,7 @@ python_optimize() {
 # obsolete: name may be misleading (*_compile() funcs usually build something)
 python_compile() { python2_optimize ${@} ; }
 
-#****I* python.cygclass/python_fix_shebang
+#****iI* python.cygclass/python_fix_shebang
 #  DESCRIPTION
 #  Deprecated alias for python2_fix_shebang.
 #****
