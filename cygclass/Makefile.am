@@ -81,8 +81,6 @@
 #    For KDE Frameworks 5.x packages.
 #  * mate.cygclass -
 #    For MATE Desktop packages.
-#  * rox.cygclass -
-#    For ROX Desktop packages.
 #  * sugar.cygclass -
 #    For Sugar Desktop packages.
 #  * xfce4.cygclass -
@@ -227,7 +225,6 @@ cygclass_DATA =					\
 	cygclass/qt5.cygclass			\
 	cygclass/qt5-qmake.cygclass		\
 	cygclass/R.cygclass			\
-	cygclass/rox.cygclass			\
 	cygclass/ruby.cygclass			\
 	cygclass/rubygem.cygclass		\
 	cygclass/ruby-gnome2.cygclass		\

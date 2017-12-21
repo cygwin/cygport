@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/rox.cygclass
+#****ih* Cygclasses/rox.cygclass
 #  SYNOPSIS
 #  inherit rox
 #  DESCRIPTION
@@ -47,29 +47,29 @@ inherit python
 
 ORIG_PN=${ORIG_PN:-${PN#rox-}}
 
-#****o* rox.cygclass/CATEGORY (rox)
+#****io* rox.cygclass/CATEGORY (rox)
 #  DEFINITION
 CATEGORY="ROX"
 #****
-#****o* rox.cygclass/SUMMARY (rox)
+#****io* rox.cygclass/SUMMARY (rox)
 #  DEFINITION
 SUMMARY="ROX Desktop ${ORIG_PN} component"
 #****
-#****o* rox.cygclass/DESCRIPTION (rox)
+#****io* rox.cygclass/DESCRIPTION (rox)
 #  DEFINITION
 DESCRIPTION="ROX is a fast, user friendly desktop based on RISC OS which makes
 extensive use of drag-and-drop. The interface revolves around the file manager,
 or filer, following the traditional Unix view that 'everything is a file' rather
 than trying to hide the filesystem beneath start menus, wizards, or druids."
 #****
-#****o* rox.cygclass/HOMEPAGE (rox)
+#****io* rox.cygclass/HOMEPAGE (rox)
 #  DEFINITION
 HOMEPAGE="http://rox.sourceforge.net/desktop/"
 #****
 
 DEPS_PATH="/usr/lib/ROX-Lib2/python"
 
-#****v* rox.cygclass/ROX_APP
+#****iv* rox.cygclass/ROX_APP
 #  DESCRIPTION
 #  The name of the directory containing the AppRun script.  This variable
 #  is required.
@@ -78,7 +78,7 @@ DEPS_PATH="/usr/lib/ROX-Lib2/python"
 #  SRC_DIR must be set to '.'.
 #****
 
-#****v* rox.cygclass/ROX_WRAPPER
+#****iv* rox.cygclass/ROX_WRAPPER
 #  DESCRIPTION
 #  Due to the DnD nature of the ROX desktop, most applications are not
 #  usable outside the filer.  For the exceptions (e.g. OroboROX window
@@ -88,7 +88,7 @@ DEPS_PATH="/usr/lib/ROX-Lib2/python"
 #  installed in /usr/bin.
 #****
 
-#****C* rox.cygclass/rox_autoreconf
+#****iC* rox.cygclass/rox_autoreconf
 #  DESCRIPTION
 #  Runs autoconf, the only autotool which is generally used in ROX C
 #  packages, in order to pick up any patches to configure.{ac,in}.
@@ -107,7 +107,7 @@ rox_autoreconf() {
 	autoconf --force || error "autoconf failed"
 }
 
-#****C* rox.cygclass/rox_compile
+#****iC* rox.cygclass/rox_compile
 #  DESCRIPTION
 #  This function builds a ROX C package through the AppRun script.
 #  NOTE
@@ -131,7 +131,7 @@ rox_compile() {
 	./AppRun --compile || error "compile failed"
 }
 
-#****I* rox.cygclass/rox_install
+#****iI* rox.cygclass/rox_install
 #  DESCRIPTION
 #  Install the (possibly compiled) AppDir into ${D}/usr/lib/rox,
 #  removes extraneous files (e.g. sources), compiles Python modules, and
@@ -164,7 +164,7 @@ rox_install() {
 	dodoc ${ROX_APP}/Help/{COPYING,Changes,README}
 }
 
-#****o* rox.cygclass/src_compile (rox)
+#****io* rox.cygclass/src_compile (rox)
 #  DEFINITION
 src_compile() {
 	lndirs
@@ -178,7 +178,7 @@ src_compile() {
 }
 #****
 
-#****o* rox.cygclass/src_install (rox)
+#****io* rox.cygclass/src_install (rox)
 #  DEFINITION
 src_install() {
 	cd ${B}

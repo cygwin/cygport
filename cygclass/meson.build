@@ -57,7 +57,6 @@ cygclasses = files(
     'qt5.cygclass',
     'qt5-qmake.cygclass',
     'R.cygclass',
-    'rox.cygclass',
     'ruby.cygclass',
     'rubygem.cygclass',
     'ruby-gnome2.cygclass',
