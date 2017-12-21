@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/apache.cygclass
+#****iih* Cygclasses/apache.cygclass
 #  SYNOPSIS
 #  inherit apache
 #  DESCRIPTION
@@ -39,7 +39,7 @@ esac
 
 inherit httpd
 
-#****C* apache.cygclass/apache_compile
+#****iC* apache.cygclass/apache_compile
 #  DESCRIPTION
 #  Deprecated alias for httpd_mod_compile.
 #****
@@ -47,7 +47,7 @@ apache_compile() {
 	httpd_mod_compile "$@"
 }
 
-#****C* apache.cygclass/apache_apxs_compile
+#****iC* apache.cygclass/apache_apxs_compile
 #  DESCRIPTION
 #  Deprecated alias for httpd_apxs_compile.
 #****
@@ -59,7 +59,7 @@ apxs_compile() {
 	httpd_apxs_compile "$@"
 }
 
-#****I* apache.cygclass/doapacheconf
+#****iI* apache.cygclass/doapacheconf
 #  DESCRIPTION
 #  Deprecated alias for dohttpdconf.
 #****
@@ -67,7 +67,7 @@ doapacheconf() {
 	dohttpdconf "$@"
 }
 
-#****I* apache.cygclass/doapachemod
+#****iI* apache.cygclass/doapachemod
 #  DESCRIPTION
 #  Deprecated alias for dohttpdmod.
 #****
@@ -75,7 +75,7 @@ doapachemod() {
 	dohttpdmod "$@"
 }
 
-#****I* apache.cygclass/apache_postinst
+#****iI* apache.cygclass/apache_postinst
 #  DESCRIPTION
 #  Deprecated alias for httpd_loadmodules.
 #****

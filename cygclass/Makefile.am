@@ -180,7 +180,6 @@
 #    For executing commands which require a running X server.
 #
 #  The following Cygclasses are deprecated and should not be used in new code:
-#  * apache.cygclass
 #  * apache2.cygclass
 #  * berkdb.cygclass
 #  * distutils.cygclass
