@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/distutils-multi.cygclass
+#****ih* Cygclasses/distutils-multi.cygclass
 #  SYNOPSIS
 #  inherit distutils-multi
 #  DESCRIPTION
@@ -49,7 +49,7 @@
 
 inherit python-distutils python3-distutils
 
-#****o* distutils-multi.cygclass/src_compile (distutils-multi)
+#****io* distutils-multi.cygclass/src_compile (distutils-multi)
 #  DESCRIPTION
 #  Creates separate build trees for each version of Python and runs the distutils
 #  build steps for each.
@@ -66,7 +66,7 @@ src_compile() {
     python3_distutils_compile
 }
 
-#****o* distutils-multi.cygclass/src_install (distutils-multi)
+#****io* distutils-multi.cygclass/src_install (distutils-multi)
 #  DESCRIPTION
 #  Runs the distutils install steps for each version of Python.  The distro
 #  default version of Python (currently 2.x) is run last so that unversioned
