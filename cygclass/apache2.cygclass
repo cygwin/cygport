@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/apache2.cygclass
+#****ih* Cygclasses/apache2.cygclass
 #  SYNOPSIS
 #  inherit apache2
 #  DESCRIPTION
@@ -39,55 +39,55 @@ esac
 
 inherit httpd
 
-#****d* apache2.cygclass/APXS2
+#****id* apache2.cygclass/APXS2
 #  DESCRIPTION
 #  Deprecated alias for HTTPD_APXS.
 #****
 APXS2=${HTTPD_APXS}
 
-#****d* apache2.cygclass/HTTPD2
+#****id* apache2.cygclass/HTTPD2
 #  DESCRIPTION
 #  Deprecated alias for HTTPD.
 #****
 HTTPD2=${HTTPD}
 
-#****d* apache2.cygclass/APACHE2_VERSION
+#****id* apache2.cygclass/APACHE2_VERSION
 #  DESCRIPTION
 #  Deprecated alias for HTTPD_VERSION.
 #****
 APACHE2_VERSION=${HTTPD_VERSION}
 
-#****d* apache2.cygclass/APACHE2_INCLUDEDIR
+#****id* apache2.cygclass/APACHE2_INCLUDEDIR
 #  DESCRIPTION
 #  Deprecated alias for HTTPD_INCLUDEDIR.
 #****
 
-#****d* apache2.cygclass/APACHE2_LIBEXECDIR
+#****id* apache2.cygclass/APACHE2_LIBEXECDIR
 #  DESCRIPTION
 #  Deprecated alias for HTTPD_LIBEXECDIR.
 #****
 APACHE2_LIBEXECDIR=${HTTPD_LIBEXECDIR}
 
-#****d* apache2.cygclass/APACHE2_SYSCONFDIR
+#****id* apache2.cygclass/APACHE2_SYSCONFDIR
 #  DESCRIPTION
 #  Deprecated alias for HTTPD_SYSCONFDIR.
 #****
 APACHE2_SYSCONFDIR=${HTTPD_SYSCONFDIR}
 
-#****d* apache2.cygclass/APACHE2_CFLAGS
+#****id* apache2.cygclass/APACHE2_CFLAGS
 #  DESCRIPTION
 #  Deprecated alias for HTTPD_CFLAGS.
 #****
 APACHE2_CFLAGS=${HTTPD_CFLAGS}
 
-#****d* apache2.cygclass/APACHE2_LIBS
+#****id* apache2.cygclass/APACHE2_LIBS
 #  DESCRIPTION
 #  Deprecated alias for HTTPD_LIBS.
 #****
 APACHE2_LIBS=${HTTPD_LIBS}
 
 
-#****C* apache2.cygclass/apache2_compile
+#****iC* apache2.cygclass/apache2_compile
 #  DESCRIPTION
 #  Deprecated alias for httpd_mod_compile.
 #****
@@ -95,7 +95,7 @@ apache2_compile() {
 	httpd_mod_compile "${@}"
 }
 
-#****C* apache2.cygclass/apache2_apxs_compile
+#****iC* apache2.cygclass/apache2_apxs_compile
 #  DESCRIPTION
 #  Deprecated alias for httpd_apxs_compile.
 #****
@@ -103,7 +103,7 @@ apache2_apxs_compile() {
 	httpd_apxs_compile "${@}"
 }
 
-#****I* apache2.cygclass/doapache2conf
+#****iI* apache2.cygclass/doapache2conf
 #  DESCRIPTION
 #  Deprecated alias for dohttpdconf.
 #****
@@ -111,7 +111,7 @@ doapache2conf() {
 	dohttpdconf "${@}"
 }
 
-#****I* apache2.cygclass/doapache2mod
+#****iI* apache2.cygclass/doapache2mod
 #  DESCRIPTION
 #  Deprecated alias for dohttpdmod.
 #****
@@ -119,7 +119,7 @@ doapache2mod() {
 	dohttpdmod "${@}"
 }
 
-#****I* apache2.cygclass/apache2_postinst
+#****iI* apache2.cygclass/apache2_postinst
 #  DESCRIPTION
 #  Deprecated alias for httpd_loadmodules.
 #****
