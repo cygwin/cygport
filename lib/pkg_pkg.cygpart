@@ -328,7 +328,7 @@ __pkg_diff() {
 			po.m4 printf-posix.m4 progtest.m4 size_max.m4 stdint_h.m4
 			threadlib.m4 uintmax_t.m4 visibility.m4 wchar_t.m4
 			wint_t.m4 xsize.m4 boldquot.sed en@boldquot.header
-			en@quot.header insert-header.sin Makefile.in.in
+			en@quot.header insert-header.sin Makefile.in.in Makevars
 			Makevars.template quot.sed remove-potcdate.sin Rules-quot"
 		# gettext-0.15
 		default_excludes+=" inttypes-h.m4 longdouble.m4 signed.m4 ulonglong.m4"
