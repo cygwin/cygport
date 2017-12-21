@@ -30,7 +30,6 @@ cygclasses = files(
     'lua.cygclass',
     'mate.cygclass',
     'meson.cygclass',
-    'mono.cygclass',
     'mtn.cygclass',
     'multilib.cygclass',
     'nant.cygclass',

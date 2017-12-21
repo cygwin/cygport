@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/mono.cygclass
+#****ih* Cygclasses/mono.cygclass
 #  SYNOPSIS
 #  inherit mono
 #  DESCRIPTION
@@ -42,37 +42,37 @@
 #  mono
 #****
 
-#****d* mono.cygclass/MONO
+#****id* mono.cygclass/MONO
 #  DESCRIPTION
 #  Absolute path to the Mono JIT interpreter.
 #****
 MONO=/usr/bin/mono
 
-#****d* mono.cygclass/MCS
+#****id* mono.cygclass/MCS
 #  DESCRIPTION
 #  Absolute path to the default Mono C# compiler.
 #****
 MCS=/usr/bin/mcs
 
-#****d* mono.cygclass/GMCS
+#****id* mono.cygclass/GMCS
 #  DESCRIPTION
 #  Absolute path to the Mono C# 2.0/3.0 compiler.
 #****
 GMCS=/usr/bin/gmcs
 
-#****d* mono.cygclass/DMCS
+#****id* mono.cygclass/DMCS
 #  DESCRIPTION
 #  Absolute path to the Mono C# 4.0 compiler.
 #****
 DMCS=/usr/bin/dmcs
 
-#****d* mono.cygclass/GACUTIL
+#****id* mono.cygclass/GACUTIL
 #  DESCRIPTION
 #  Absolute path to the Mono Global Assembly Cache tool.
 #****
 GACUTIL=/usr/bin/gacutil
 
-#****d* mono.cygclass/MONO_SNK
+#****id* mono.cygclass/MONO_SNK
 #  DESCRIPTION
 #  Path to a strongname key that can be used to sign assemblies for installation
 #  into the GAC which do not ship with their own key.  This key should only
@@ -80,16 +80,16 @@ GACUTIL=/usr/bin/gacutil
 #****
 MONO_SNK=${_privdatadir}/mono.snk
 
-#****o* mono.cygclass/HOMEPAGE (mono)
+#****io* mono.cygclass/HOMEPAGE (mono)
 #  DEFINITION
 HOMEPAGE="http://www.mono-project.com/"
 #****
 
-#****o* mono.cygclass/SRC_URI (mono)
+#****io* mono.cygclass/SRC_URI (mono)
 #  DESCRIPTION
 #  Download location for sources from the Mono project.
 #****
-#****o* mono.cygclass/GIT_URI (mono)
+#****io* mono.cygclass/GIT_URI (mono)
 #  DESCRIPTION
 #  Location of Git repository for Mono projects.
 #****
@@ -100,7 +100,7 @@ then
 	SRC_DIR="${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}}"
 fi
 
-#****I* mono.cygclass/gacinto
+#****iI* mono.cygclass/gacinto
 #  SYNOPSIS
 #  gacinto SUBDIRECTORY
 #  DESCRIPTION
@@ -121,7 +121,7 @@ gacinto() {
 	_gacinto_dir=${1};
 }
 
-#****I* mono.cygclass/dogac
+#****iI* mono.cygclass/dogac
 #  SYNOPSIS
 #  [gacinto SUBDIRECTORY]
 #  dogac ASSEMBLY [ASSEMBLY2] ...
@@ -155,7 +155,7 @@ dogac() {
 	done
 }
 
-#****I* mono.cygclass/mono_create_policy
+#****iI* mono.cygclass/mono_create_policy
 #  SYNOPSIS
 #  mono_create_policy ASSEMBLY_NAME "OLD_VERSIONS" NEW_VERSION STRONGNAME_KEY
 #  DESCRIPTION
@@ -207,7 +207,7 @@ _EOF
 	popd # ${T}
 }
 
-#****I* mono.cygclass/mono_wrapper
+#****iI* mono.cygclass/mono_wrapper
 #  SYNOPSIS
 #  mono_wrapper SCRIPT_NAME PATH_TO_ASSEMBLY
 #  DESCRIPTION

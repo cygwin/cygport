@@ -117,8 +117,6 @@
 #  These Cygclasses are used for building extension modules for various subsystems:
 #  * lua.cygclass -
 #    For packages which depend on Lua or provide Lua modules.
-#  * mono.cygclass -
-#    For packages which depend on Mono or provide Mono assemblies.
 #  * ocaml.cygclass -
 #    For packages which depend on OCaml or provide OCaml libraries.
 #  * octave.cygclass -
@@ -211,7 +209,6 @@ cygclass_DATA =					\
 	cygclass/lua.cygclass			\
 	cygclass/mate.cygclass			\
 	cygclass/meson.cygclass			\
-	cygclass/mono.cygclass			\
 	cygclass/multilib.cygclass		\
 	cygclass/mtn.cygclass			\
 	cygclass/nant.cygclass			\
