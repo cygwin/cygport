@@ -81,8 +81,6 @@
 #    For KDE Frameworks 5.x packages.
 #  * mate.cygclass -
 #    For MATE Desktop packages.
-#  * sugar.cygclass -
-#    For Sugar Desktop packages.
 #  * xfce4.cygclass -
 #    For Xfce Desktop packages.
 #
@@ -160,8 +158,6 @@
 #    Assorted checking functions.
 #  * xvfb.cygclass -
 #    For executing commands which require a running X server.
-#
-#  The following Cygclasses are deprecated and should not be used in new code:
 #****
 
 cygclassdir = $(pkgdatadir)/cygclass
@@ -226,7 +222,6 @@ cygclass_DATA =					\
 	cygclass/R.cygclass			\
 	cygclass/ruby.cygclass			\
 	cygclass/rubygem.cygclass		\
-	cygclass/sugar.cygclass			\
 	cygclass/svn.cygclass			\
 	cygclass/tcl.cygclass			\
 	cygclass/texlive.cygclass		\
