@@ -162,7 +162,6 @@
 #    For executing commands which require a running X server.
 #
 #  The following Cygclasses are deprecated and should not be used in new code:
-#  * ruby-gnome2.cygclass
 #****
 
 cygclassdir = $(pkgdatadir)/cygclass
@@ -227,7 +226,6 @@ cygclass_DATA =					\
 	cygclass/R.cygclass			\
 	cygclass/ruby.cygclass			\
 	cygclass/rubygem.cygclass		\
-	cygclass/ruby-gnome2.cygclass		\
 	cygclass/sugar.cygclass			\
 	cygclass/svn.cygclass			\
 	cygclass/tcl.cygclass			\

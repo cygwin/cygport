@@ -59,7 +59,6 @@ cygclasses = files(
     'R.cygclass',
     'ruby.cygclass',
     'rubygem.cygclass',
-    'ruby-gnome2.cygclass',
     'sugar.cygclass',
     'svn.cygclass',
     'tcl.cygclass',
