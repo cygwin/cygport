@@ -11,6 +11,11 @@ URL:            http://www.cygwinports.org
 Source0:        https://github.com/cygwinports/cygport/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
+BuildRequires:  meson
+BuildRequires:  groff-base
+BuildRequires:  help2man
+BuildRequires:  robodoc
+
 Requires:       autoconf automake libtool pkgconfig
 Requires:       bzip2 gzip unzip
 Requires:       cygwin32-binutils
@@ -52,13 +57,12 @@ Cygwin package building tool.
 
 
 %build
-%configure
-make %{?_smp_mflags}
+%meson -Ddocdir=%{_pkgdocdir}
+%meson_build
 
 
 %install
-# First install all the files belonging to the shared build
-make install DESTDIR=$RPM_BUILD_ROOT doc_DATA=
+%meson_install
 install -D -m0644 data/cygport.conf $RPM_BUILD_ROOT%{_sysconfdir}/cygport.conf
 
 
@@ -77,7 +81,8 @@ fi
 
 
 %files
-%doc AUTHORS ChangeLog COPYING NEWS README TODO doc/manual/
+%doc %{_pkgdocdir}/html/
+%doc AUTHORS ChangeLog COPYING NEWS README TODO
 %config %{_sysconfdir}/bash_completion.d/cygport-bash-completion
 %config(noreplace) %{_sysconfdir}/cygport.conf
 %config(noreplace) %{_sysconfdir}/X11/cygport-xvfb.conf
