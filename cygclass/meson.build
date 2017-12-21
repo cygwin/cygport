@@ -38,8 +38,6 @@ cygclasses = files(
     'perl.cygclass',
     'php.cygclass',
     'pygtk.cygclass',
-    'pypy.cygclass',
-    'pypy-distutils.cygclass',
     'python.cygclass',
     'python.org.cygclass',
     'python-distutils.cygclass',

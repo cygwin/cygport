@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/pypy.cygclass
+#****ih* Cygclasses/pypy.cygclass
 #  SYNOPSIS
 #  inherit pypy
 #  DESCRIPTION
@@ -45,31 +45,31 @@ __cross_compiling_error
 
 check_prog_req pypy
 
-#****d* pypy.cygclass/PYPY
+#****id* pypy.cygclass/PYPY
 #  DESCRIPTION
 #  Absolute path to the PyPy interpreter.
 #****
 PYPY=/usr/bin/pypy
 
-#****d* pypy.cygclass/PYPY_VERSION
+#****id* pypy.cygclass/PYPY_VERSION
 #  DESCRIPTION
 #  The major.minor version of the current PyPy interpreter.
 #****
 PYPY_VERSION=$(${PYPY} -c 'from distutils.sysconfig import * ; print get_python_version();')
 
-#****d* pypy.cygclass/PYPY_INCLUDEDIR
+#****id* pypy.cygclass/PYPY_INCLUDEDIR
 #  DESCRIPTION
 #  Path containing the PyPy C library headers.
 #****
 PYPY_INCLUDEDIR=$(${PYPY} -c 'from distutils.sysconfig import * ; print get_python_inc();')
 
-#****d* pypy.cygclass/PYPY_SITELIB
+#****id* pypy.cygclass/PYPY_SITELIB
 #  DESCRIPTION
 #  Installation path for all PyPy extension modules.
 #****
 PYPY_SITELIB=$(${PYPY} -c 'from distutils.sysconfig import * ; print get_python_lib(0,0);')
 
-#****d* pypy.cygclass/LIBPYPY
+#****id* pypy.cygclass/LIBPYPY
 #  DESCRIPTION
 #  Link flags for the PyPy import library.  This definition must be properly quoted.
 #****
@@ -77,7 +77,7 @@ LIBPYPY="-L${PYPY_SITELIB%/*}/lib/python${PYPY_VERSION}/config -lpython${PYPY_VE
 
 DEPS_PATH+=":${PYPY_SITELIB%/*}/bin"
 
-#****I* pypy.cygclass/pypyinto
+#****iI* pypy.cygclass/pypyinto
 #  SYNOPSIS
 #  pypyinto SUBDIRECTORY
 #  DESCRIPTION
@@ -97,7 +97,7 @@ pypyinto() {
 	_pypyinto_dir=${1};
 }
 
-#****I* pypy.cygclass/dopypy
+#****iI* pypy.cygclass/dopypy
 #  SYNOPSIS
 #  [pypyinto SUBDIRECTORY]
 #  dopypy MODULE1 [MODULE2] ...
@@ -135,7 +135,7 @@ dopypy() {
 	done
 }
 
-#****I* pypy.cygclass/pypy_optimize
+#****iI* pypy.cygclass/pypy_optimize
 #  SYNOPSIS
 #  pypy_optimize [DIRECTORY1] [DIRECTORY2] ...
 #  DESCRIPTION
@@ -164,7 +164,7 @@ pypy_optimize() {
 	done
 }
 
-#****I* pypy.cygclass/pypy_fix_shebang
+#****iI* pypy.cygclass/pypy_fix_shebang
 #  SYNOPSIS
 #  pypy_fix_shebang SCRIPT [SCRIPT ...]
 #  DESCRIPTION

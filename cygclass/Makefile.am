@@ -57,8 +57,6 @@
 #  These Cygclasses deal with certain types of dependencies:
 #  * fox.cygclass -
 #    For packages which depend on the FOX Toolkit.
-#  * pypy.cygclass -
-#    For packages which depend on PyPy.
 #  * python2.cygclass -
 #    For packages which depend on Python 2.x.
 #  * python3.cygclass -
@@ -123,8 +121,6 @@
 #    For packages which depend on Perl or provide Perl (CPAN) modules.
 #  * php.cygclass -
 #    For packages which depend on PHP or provide PHP (PEAR/PECL) modules.
-#  * pypy-distutils.cygclass -
-#    For PyPy packages which use the Distutils buildsystem.
 #  * python-wheel.cygclass -
 #    For Python 2 and 3 packages which are built and installed as wheels.
 #  * python2-distutils.cygclass -
@@ -214,8 +210,6 @@ cygclass_DATA =					\
 	cygclass/perl.cygclass			\
 	cygclass/php.cygclass			\
 	cygclass/pygtk.cygclass			\
-	cygclass/pypy.cygclass			\
-	cygclass/pypy-distutils.cygclass	\
 	cygclass/python.org.cygclass		\
 	cygclass/python.cygclass		\
 	cygclass/python-distutils.cygclass	\

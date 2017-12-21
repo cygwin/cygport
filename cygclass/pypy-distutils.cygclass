@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/pypy-distutils.cygclass
+#****ih* Cygclasses/pypy-distutils.cygclass
 #  DESCRIPTION
 #  Distutils is the most common method for building and installing PyPy
 #  libraries and programs.  The build is defined by a setup.py file in the
@@ -40,7 +40,7 @@ ORIG_PN=${ORIG_PN:-${PN#pypy-}}
 
 inherit python.org pypy
 
-#****C* pypy-distutils.cygclass/pypy_distutils_compile
+#****iC* pypy-distutils.cygclass/pypy_distutils_compile
 #  SYNOPSIS
 #  pypy_distutils_compile [OPTIONS]
 #  DESCRIPTION
@@ -57,7 +57,7 @@ pypy_distutils_compile() {
 	${PYPY} setup.py build "${@}" || error "setup.py build failed"
 }
 
-#****I* pypy-distutils.cygclass/pypy_distutils_install
+#****iI* pypy-distutils.cygclass/pypy_distutils_install
 #  SYNOPSIS
 #  pypy_distutils_install [OPTIONS]
 #  DESCRIPTION
@@ -79,7 +79,7 @@ pypy_distutils_install() {
 	fi
 }
 
-#****o* pypy-distutils.cygclass/src_compile (pypy-distutils)
+#****io* pypy-distutils.cygclass/src_compile (pypy-distutils)
 #  DEFINITION
 src_compile() {
 	lndirs
@@ -88,7 +88,7 @@ src_compile() {
 }
 #****
 
-#****o* pypy-distutils.cygclass/src_install (pypy-distutils)
+#****io* pypy-distutils.cygclass/src_install (pypy-distutils)
 #  DEFINITION
 src_install() {
 	cd ${B}
