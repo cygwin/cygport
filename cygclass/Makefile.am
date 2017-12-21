@@ -101,8 +101,6 @@
 #    For Aspell dictionary packages.
 #  * docbook.cygclass -
 #    For packaging DocBook SGML/XML DTDs.
-#  * ebook.cygclass -
-#    For packaging HTML Help Books for viewing in DevHelp.
 #  * gst-plugins.cygclass -
 #    For GStreamer plugin packages.
 #  * gstreamer.cygclass -
@@ -199,7 +197,6 @@ cygclass_DATA =					\
 	cygclass/distutils.cygclass		\
 	cygclass/distutils-multi.cygclass	\
 	cygclass/docbook.cygclass		\
-	cygclass/ebook.cygclass			\
 	cygclass/emacs.cygclass			\
 	cygclass/font.cygclass			\
 	cygclass/fossil.cygclass		\

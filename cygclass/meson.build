@@ -11,7 +11,6 @@ cygclasses = files(
     'distutils.cygclass',
     'distutils-multi.cygclass',
     'docbook.cygclass',
-    'ebook.cygclass',
     'emacs.cygclass',
     'font.cygclass',
     'fossil.cygclass',

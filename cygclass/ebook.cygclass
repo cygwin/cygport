@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/ebook.cygclass
+#****ih* Cygclasses/ebook.cygclass
 #  DESCRIPTION
 #  The HTML Help Books project converts manuals for the toolchain and other
 #  common tools into several formats.
@@ -32,26 +32,26 @@
 
 ORIG_PN="${PN#ebook-}"
 
-#****o* ebook.cygclass/CATEGORY (ebook)
+#****io* ebook.cygclass/CATEGORY (ebook)
 #  DEFINITION
 CATEGORY="Doc"
 #****
-#****o* ebook.cygclass/SUMMARY (ebook)
+#****io* ebook.cygclass/SUMMARY (ebook)
 #  DEFINITION
 SUMMARY="EBook ${ORIG_PN} documentation"
 #****
-#****o* ebook.cygclass/HOMEPAGE (ebook)
+#****io* ebook.cygclass/HOMEPAGE (ebook)
 #  DEFINITION
 HOMEPAGE="http://code.google.com/p/htmlhelp/"
 #****
-#****o* ebook.cygclass/SRC_URI (ebook)
+#****io* ebook.cygclass/SRC_URI (ebook)
 #  DEFINITION
 SRC_URI="http://htmlhelp.googlecode.com/files/${ORIG_PN}-${PV}.tgz"
 #****
 
 SRC_DIR="."
 
-#****I* ebook.cygclass/ebook_install
+#****iI* ebook.cygclass/ebook_install
 #  SYNOPSIS
 #  ebook_install
 #  DESCRIPTION
@@ -70,13 +70,13 @@ ebook_install() {
 	doins book/*
 }
 
-#****o* ebook.cygclass/src_compile (ebook)
+#****io* ebook.cygclass/src_compile (ebook)
 #  DESCRIPTION
 #  There is nothing to build, so this is empty.
 #****
 src_compile() { :; }
 
-#****o* ebook.cygclass/src_install (ebook)
+#****io* ebook.cygclass/src_install (ebook)
 #  DEFINITION
 src_install() {
 	cd ${S}
