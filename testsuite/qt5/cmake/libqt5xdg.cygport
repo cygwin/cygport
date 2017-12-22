@@ -1,0 +1,30 @@
+inherit qt5 cmake
+
+NAME="libqt5xdg"
+VERSION=2.0.0
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="Qt5 XDG library"
+DESCRIPTION="A Qt5 implementation of Freedesktop.org specifications"
+HOMEPAGE="http://lxqt.org/"
+SRC_URI="http://downloads.lxqt.org/libqtxdg/${VERSION}/libqtxdg-${VERSION}.tar.xz"
+SRC_DIR="libqtxdg-${VERSION}"
+PATCH_URI="
+	2.0.0-cmake-install.patch
+"
+
+PKG_NAMES="libQt5Xdg2 libQt5Xdg-devel libQt5XdgIconLoader2 libQt5XdgIconLoader-devel"
+libQt5Xdg2_CONTENTS="usr/bin/cygQt5Xdg-2.dll usr/share/doc/"
+libQt5Xdg_devel_CONTENTS="
+	usr/include/qt5xdg/
+	usr/lib/libQt5Xdg.dll.a
+	usr/lib/pkgconfig/Qt5Xdg.pc
+	usr/share/cmake/qt5xdg/
+"
+libQt5XdgIconLoader2_CONTENTS="usr/bin/cygQt5XdgIconLoader-2.dll"
+libQt5XdgIconLoader_devel_CONTENTS="
+	usr/include/qt5xdgiconloader/
+	usr/lib/libQt5XdgIconLoader.dll.a
+	usr/lib/pkgconfig/Qt5XdgIconLoader.pc
+	usr/share/cmake/qt5xdgiconloader/
+"
