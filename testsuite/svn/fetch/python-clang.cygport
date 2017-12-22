@@ -1,0 +1,18 @@
+SVN_URI="http://llvm.org/svn/llvm-project/cfe"
+SVN_BRANCH="tags/RELEASE_${PV//.}/final/bindings/python"
+SVN_MODULE="python-clang"
+inherit svn test-fetch
+
+NAME="python-clang"
+VERSION=4.0.1
+RELEASE=1
+CATEGORY="Python"
+SUMMARY="Python bindings for Clang-C Source Indexing Library"
+DESCRIPTION="Clang is an LLVM native C/C++/ObjC compiler, which aims to deliver
+amazingly fast compiles, extremely useful error and warning messages and to
+provide a platform for building great source level tools."
+HOMEPAGE="http://clang.llvm.org/"
+
+PATCH_URI="3.7.1-cygwin-ctypes.patch"
+
+ARCH=noarch
