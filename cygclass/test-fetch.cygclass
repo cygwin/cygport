@@ -1,0 +1,39 @@
+################################################################################
+#
+# test-fetch.cygclass - internal helper for download-only unit tests
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2017 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****ih* Cygclasses/test-fetch.cygclass
+#  SYNOPSIS
+#  inherit test-fetch
+#  DESCRIPTION
+#  This is for internal use by the testsuite only.
+#****
+
+# otherwise we have to worry about listing docs in the test .list
+RESTRICT="postinst-doc"
+
+src_compile() { :; }
+
+src_test() { :; }
+
+# something has to be there for 'tar' to capture during 'pkg'
+src_install() { keepdir /usr; }
