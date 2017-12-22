@@ -1,0 +1,16 @@
+ORIG_PN="notify-python"
+inherit pygtk
+
+NAME="python-pynotify"
+VERSION=0.1.1
+RELEASE=5
+CATEGORY="Python"
+SUMMARY="Python libnotify bindings"
+DESCRIPTION="Python bindings for libnotify (desktop notification library)"
+HOMEPAGE="http://www.galago-project.org/"
+SRC_URI="http://www.galago-project.org/files/releases/source/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
+PATCH_URI="mirror://portage/dev-python/${ORIG_PN}/files/${ORIG_PN}-${PV}-libnotify-0.7.patch"
+
+DISTCLEANFILES="src/pynotify.c"
+
+REQUIRES="python-gobject python-gtk2.0"
