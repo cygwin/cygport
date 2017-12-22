@@ -1,0 +1,29 @@
+CROSS_HOST="i686-w64-mingw32"
+GIT_URI="git://sourceware.org/git/cygwin-apps/crypt.git"
+GIT_TAG="crypt-${PV//./_}-release"
+inherit cross git
+
+NAME="mingw64-i686-crypt"
+VERSION=2.1
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="crypt(3) library for Win32 toolchain"
+DESCRIPTION="This packages provides a library which exports the functions
+crypt(3), encrypt(3), and setkey(3).  The created passwords are 56 bit DES
+encrypted and are 100% identical to those created by the Linux crypt(3)."
+HOMEPAGE="http://cygwin.com/"
+
+PATCH_URI="1.1-mingw.patch"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygmake CC=${CC} AR=${AR} CFLAGS="${CFLAGS}"
+}
+
+src_install() {
+	cd ${B}
+	USE_DESTDIR=0
+	cyginstall docdir=${D}/usr/share/doc/${NAME}
+	rm -f ${D}${CROSS_BINDIR}/crypt.exe
+}

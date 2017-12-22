@@ -1,0 +1,17 @@
+CROSS_HOST="i686-w64-mingw32"
+inherit cross qt5-qmake
+
+NAME="mingw64-i686-qt5ct"
+VERSION=0.34
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="Qt5 settings for Win32 toolchain"
+DESCRIPTION="This program allows users to configure Qt5 settings (theme,
+font, icons, etc.) under DE/WM without Qt integration."
+HOMEPAGE="https://sourceforge.net/projects/qt5ct/"
+SRC_URI="mirror://sourceforge/qt5ct/qt5ct-${VERSION}.tar.bz2"
+SRC_DIR="qt5ct-${VERSION}"
+PATCH_URI="
+	0.24-mingw-install.patch
+	0.34-os-win.patch
+"
