@@ -1,0 +1,18 @@
+inherit ocaml
+
+NAME="ocaml-expat"
+VERSION=0.9.1
+RELEASE=6
+CATEGORY="Libs"
+SUMMARY="OCaml Expat bindings"
+DESCRIPTION="An ocaml wrapper for the Expat XML parsing library. It allows
+you to write XML-Parsers using the SAX method. An XML document is parsed on
+the fly without needing to load the entire XML-Tree into memory."
+HOMEPAGE="http://mmzeeman.home.xs4all.nl/ocaml/"
+SRC_URI="http://mmzeeman.home.xs4all.nl/ocaml/${NAME}-${VERSION}.tar.gz"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygmake all allopt
+}

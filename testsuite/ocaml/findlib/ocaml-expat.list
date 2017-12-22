@@ -1,0 +1,11 @@
+/usr/lib/ocaml/expat/META
+/usr/lib/ocaml/expat/expat.a
+/usr/lib/ocaml/expat/expat.cma
+/usr/lib/ocaml/expat/expat.cmi
+/usr/lib/ocaml/expat/expat.cmxa
+/usr/lib/ocaml/expat/expat.mli
+/usr/lib/ocaml/expat/libmlexpat.a
+/usr/lib/ocaml/stublibs/dllmlexpat.so
+/usr/lib/ocaml/stublibs/dllmlexpat.so.owner
+/usr/share/doc/ocaml-expat/LICENCE
+/usr/share/doc/ocaml-expat/README
