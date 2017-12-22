@@ -3,7 +3,6 @@ datadocs = files('cygport.conf', 'mirrors')
 install_data('i686-w64-mingw32.meson',
              'x86_64-w64-mingw32.meson',
              'mirrors',
-             'mono.snk',
              'sample.cygport',
              install_dir: pkgdatadir)
 
