@@ -59,23 +59,6 @@
 mirror_apache+=" http://www.apache.org/dist"
 
 
-#****d* Mirrors/mirror_berlios
-#  DESCRIPTION
-#  BerliOS project hosting
-#  SYNOPSIS
-#  SRC_URI="mirror://berlios/projectname/${P}.tar.gz"
-#  DEFAULT MIRROR
-#  http://download.berlios.de
-#  MIRROR LIST
-#  http://developer.berlios.de/mirrors/
-#****
-# The FTP server listed is not for project releases
-mirror_berlios+="
-	http://download.berlios.de
-	http://download2.berlios.de
-"	# mirror_berlios
-
-
 #****d* Mirrors/mirror_cpan
 #  DESCRIPTION
 #  Comprehensive Perl Archive Network
@@ -211,7 +194,7 @@ mirror_gnu+="
 "   # mirror_gnu
 
 
-#****d* Mirrors/mirror_gnustep
+#****id* Mirrors/mirror_gnustep
 #  DESCRIPTION
 #  GNUstep packages
 #  SYNOPSIS
@@ -300,21 +283,6 @@ mirror_mysql+="
 mirror_portage+=" https://gitweb.gentoo.org/repo/gentoo.git/plain"
 
 
-#****d* Mirrors/mirror_rubyforge
-#  DESCRIPTION
-#  RubyForge project hosting
-#  SYNOPSIS
-#  SRC_URI="mirror://rubyforge/projectname/${ORIG_PN}-${PV}.tar.gz"
-#  DEFAULT MIRROR
-#  http://files.rubyforge.vm.bytemark.co.uk
-#  MIRROR LIST
-#  http://api.rubyforge.org/
-#  SEE ALSO
-#  ruby.cygclass
-#****
-mirror_rubyforge+=" http://files.rubyforge.vm.bytemark.co.uk"
-
-
 #****d* Mirrors/mirror_savannah
 #  DESCRIPTION
 #  Savannah GNU project hosting
@@ -380,7 +348,7 @@ mirror_tlpretest+="
 	http://ctan.ijs.si/mirror/tlpretest
 "
 
-#****d* Mirrors/mirror_trolltech
+#****id* Mirrors/mirror_trolltech
 #  NOTE
 #  This mirror is deprecated and remains only for backwards compatibility.
 #  New code should use mirror_qt.
