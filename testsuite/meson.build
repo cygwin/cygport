@@ -13,3 +13,4 @@ cmake = find_program('cmake', required: false)
 
 subdir('aspell-dict')
 subdir('autotools')
+subdir('bzr')

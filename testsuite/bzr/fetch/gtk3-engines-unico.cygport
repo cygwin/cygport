@@ -1,0 +1,16 @@
+BZR_URI="lp:unico"
+BZR_MODULE="unico"
+BZR_REV=152
+inherit bzr test-fetch
+
+NAME="gtk3-engines-unico"
+VERSION=1.0.3-bzr152
+RELEASE=1
+CATEGORY="X11"
+SUMMARY="GTK3 Unico theme engine"
+DESCRIPTION="Unico is a Gtk+ engine that aims to be the more complete yet
+powerful theming engine for Gtk+ 3.0 and newer. It’s the first Gtk+ engine
+written with Gtk+ style context APIs in mind, using CSS as first class citizen."
+HOMEPAGE="https://launchpad.net/unico"
+#SRC_URI="http://launchpad.net/unico/1.0/${VERSION}/+download/unico-${VERSION}.tar.gz"
+#SRC_DIR="unico-${VERSION}"
