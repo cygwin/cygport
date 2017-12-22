@@ -89,6 +89,8 @@ fi
 %{_bindir}/cygport
 %{_datadir}/cygport
 %{_datadir}/mime/packages/cygport.xml
+%dir %{_datadir}/nano
+%{_datadir}/nano/cygport.nanorc
 %{_datadir}/vim/vimfiles/ftdetect/cygport.vim
 %{_mandir}/man1/cygport.1*
 

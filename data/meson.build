@@ -1,7 +1,6 @@
 datadocs = files('cygport.conf', 'mirrors')
 
-install_data('cygport.nanorc',
-             'i686-w64-mingw32.meson',
+install_data('i686-w64-mingw32.meson',
              'x86_64-w64-mingw32.meson',
              'mirrors',
              'mono.snk',
@@ -15,6 +14,9 @@ install_data('gnuconfig/config.guess',
 
 install_data('cygport.xml',
              install_dir: join_paths(datadir, 'mime', 'packages'))
+
+install_data('cygport.nanorc',
+             install_dir: join_paths(datadir, 'nano'))
 
 install_data('cygport.vim',
              install_dir: join_paths(datadir, 'vim', 'vimfiles', 'ftdetect'))
