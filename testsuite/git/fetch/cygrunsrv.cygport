@@ -1,0 +1,9 @@
+GIT_URI="git://sourceware.org/git/cygwin-apps/cygrunsrv.git"
+GIT_TAG="rel${PV//./-}"
+inherit git test-fetch
+
+NAME="cygrunsrv"
+VERSION=1.62
+RELEASE=1
+CATEGORY="Admin"
+SUMMARY="NT/W2K service initiator"
