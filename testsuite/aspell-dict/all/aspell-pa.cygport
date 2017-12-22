@@ -1,0 +1,13 @@
+ASPELL_COMPAT=6
+inherit aspell-dict
+
+NAME="aspell-pa"
+VERSION=0.01.1
+RELEASE=1
+CATEGORY="Text"
+SUMMARY="Aspell Punjabi dictionaries"
+DESCRIPTION="GNU Aspell is a Free and Open Source spell checker designed to
+eventually replace Ispell. It can either be used as a library or as an
+independent spell checker.
+This package provides Punjabi dictionaries for Aspell."
+
