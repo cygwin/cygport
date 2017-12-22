@@ -1,0 +1,19 @@
+inherit qt3-qmake
+
+NAME="guesso"
+VERSION=0.3
+RELEASE=2
+CATEGORY="Games"
+SUMMARY="Qt guess-the-number game"
+HOMEPAGE="http://kde-apps.org/content/show.php?content=30673"
+SRC_URI="http://kde-apps.org/CONTENT/content-files/30673-${NAME}-${VERSION}.tar.gz"
+SRC_DIR=${NAME}
+
+PATCH_URI="0.3-gcc43.patch"
+
+src_install() {
+	cd ${B}
+	dobin ${PN}.exe
+	insinto /usr/share/${PN}/translation
+	doins translation/*.ts
+}
