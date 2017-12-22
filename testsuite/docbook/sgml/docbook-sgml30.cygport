@@ -1,0 +1,16 @@
+inherit docbook
+
+NAME="docbook-sgml30"
+VERSION=3.0
+RELEASE=1
+CATEGORY="Text"
+SUMMARY="DocBook SGML DTD version 3.0"
+DESCRIPTION="DocBook is a schema (available in several languages including
+RELAX NG, SGML and XML DTDs, and W3C XML Schema) maintained by the DocBook
+Technical Committee of OASIS. It is particularly well suited to books and
+papers about computer hardware and software (though it is by no means limited
+to these applications).
+
+This package provides version 3.0 of the SGML DTDs."
+
+REQUIRES="docbook-dsssl sgml-common"
