@@ -1,0 +1,16 @@
+inherit gtkmm
+
+NAME="pangomm1.4"
+VERSION=2.40.1
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="C++ bindings for Pango"
+DESCRIPTION="gtkmm is the official C++ interface for the popular GUI library
+GTK+. It closely follows GTK+ development. Highlights include typesafe
+callbacks, widgets extensible via inheritance and a comprehensive set of
+widgets."
+
+PKG_NAMES="lib${NAME}_1 lib${NAME}-devel lib${NAME}-doc"
+libpangomm1_4_1_CONTENTS="usr/bin/*mm-1.4-1.dll usr/share/doc/${NAME}/"
+libpangomm1_4_devel_CONTENTS="usr/include/ usr/lib/"
+libpangomm1_4_doc_CONTENTS='usr/share/devhelp/ usr/share/doc/pangomm-1.4/'
