@@ -1,5 +1,5 @@
 if help2man.found()
-cygport_1 = custom_target('cygport-manpage',
+cygport_1 = custom_target('cygport.1',
                           input: cygport_inplace,
                           output: 'cygport.1',
                           depend_files: cygparts,
@@ -9,7 +9,7 @@ cygport_1 = custom_target('cygport-manpage',
                           install_dir: man1dir)
 
 if groff.found()
-cygport_1_html = custom_target('cygport-manhtml',
+cygport_1_html = custom_target('cygport.1.html',
                                input: cygport_1,
                                output: 'cygport.1.html',
                                command: [groff, '-t', '-mandoc', '-Thtml', '@INPUT@'],
