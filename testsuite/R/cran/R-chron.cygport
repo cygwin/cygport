@@ -1,0 +1,8 @@
+inherit R
+
+NAME="R-chron"
+VERSION=2.3_51
+RELEASE=1
+CATEGORY="Math"
+SUMMARY="Chronological Objects for R"
+DESCRIPTION="Provides chronological objects which can handle dates and times."
