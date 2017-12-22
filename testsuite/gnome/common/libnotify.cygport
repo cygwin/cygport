@@ -1,0 +1,19 @@
+inherit gnome2
+
+NAME="libnotify"
+VERSION=0.7.7
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="GObject desktop notification utility"
+DESCRIPTION="GNOME desktop notification library"
+HOMEPAGE="http://www.galago-project.org/"
+
+PATCH_URI="0.7.2-no-undefined.patch"
+
+PKG_NAMES="${NAME} ${NAME}4 ${NAME}-devel ${NAME}-doc girepository-Notify0.7"
+libnotify_CONTENTS=" usr/bin/*.exe usr/share/doc/"
+libnotify4_CONTENTS="usr/bin/cygnotify-4.dll"
+libnotify_devel_CONTENTS='usr/include/ usr/lib/lib* usr/lib/pkgconfig/'
+libnotify_doc_CATEGORY="Doc"
+libnotify_doc_CONTENTS="usr/share/gtk-doc/"
+girepository_Notify0_7_CONTENTS="usr/*/gir*/Notify-0.7.*"

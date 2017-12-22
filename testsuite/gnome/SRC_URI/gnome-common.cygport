@@ -1,0 +1,9 @@
+inherit gnome2 test-fetch
+
+NAME="gnome-common"
+VERSION=3.18.0
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="Common development files for GNOME packages"
+
+ARCH=noarch
