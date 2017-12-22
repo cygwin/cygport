@@ -1,0 +1,10 @@
+inherit xorg test-fetch
+
+NAME="xorg-util-macros"
+VERSION=1.19.1
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="X.Org aclocal macros"
+DESCRIPTION="X.Org aclocal macros"
+
+ARCH="noarch"
