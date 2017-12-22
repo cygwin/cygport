@@ -1,0 +1,8 @@
+inherit kf5
+
+NAME="kcolorchooser"
+VERSION=17.08.3
+RELEASE=1
+CATEGORY="Graphics"
+SUMMARY="KDE color selector"
+DESCRIPTION="Part of the KDE graphics suite"

@@ -1,0 +1,8 @@
+inherit kde4
+
+NAME="kaccessible"
+VERSION=17.08.3
+RELEASE=1
+CATEGORY="KDE"
+SUMMARY="KDE accessibility bridge plugin"
+DESCRIPTION="Part of the KDE accessibility suite"
