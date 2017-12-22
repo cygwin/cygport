@@ -1,0 +1,8 @@
+/etc/fonts/conf.d/63-sj-delphine.conf
+/etc/fonts/conf.d/63-sj-stevehand.conf
+/usr/share/doc/sj-fonts/COPYING
+/usr/share/doc/sj-fonts/README
+/usr/share/fontconfig/conf.avail/63-sj-delphine.conf
+/usr/share/fontconfig/conf.avail/63-sj-stevehand.conf
+/usr/share/fonts/sj/Delphine.ttf
+/usr/share/fonts/sj/SteveHand.ttf

@@ -1,0 +1,30 @@
+inherit font
+
+NAME="sj-fonts"
+VERSION=2.0.2
+RELEASE=2
+CATEGORY="X11"
+SUMMARY="Cursive handwriting TTF fonts"
+DESCRIPTION="Two cursive handwriting fonts by Steve Jordi released under the GPL"
+HOMEPAGE="http://sjfonts.sourceforge.net/"
+SRC_URI="
+	mirror://sourceforge/sjfonts/sjfonts.${VERSION}.tar.bz2
+	http://pkgs.fedoraproject.org/cgit/sj-fonts.git/plain/sj-fonts-delphine-fontconfig.conf
+	http://pkgs.fedoraproject.org/cgit/sj-fonts.git/plain/sj-fonts-stevehand-fontconfig.conf
+"
+SRC_DIR=.
+
+OBSOLETES="font-sjfonts-ttf"
+
+ARCH=noarch
+
+src_compile() { :; }
+
+src_install() {
+	cd ${S}
+	fontinto sj
+	dofont *.ttf
+
+	newfontconf sj-fonts-delphine-fontconfig.conf 63-sj-delphine.conf
+	newfontconf sj-fonts-stevehand-fontconfig.conf 63-sj-stevehand.conf
+}

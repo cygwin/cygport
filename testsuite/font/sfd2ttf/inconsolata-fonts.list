@@ -1,0 +1,4 @@
+/etc/fonts/conf.d/75-inconsolata.conf
+/usr/share/doc/inconsolata-fonts/Inconsolata-sample.pdf
+/usr/share/fontconfig/conf.avail/75-inconsolata.conf
+/usr/share/fonts/inconsolata/Inconsolata.ttf

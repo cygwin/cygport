@@ -1,0 +1,32 @@
+inherit font
+
+NAME="inconsolata-fonts"
+VERSION=1.010
+RELEASE=1
+CATEGORY="X11"
+SUMMARY="Inconsolata monospace font"
+DESCRIPTION="Inconsolata is a monospace font, designed for code listings and
+the like, in print."
+HOMEPAGE="http://www.levien.com/type/myfonts/inconsolata.html"
+SRC_URI="
+	http://www.levien.com/type/myfonts/Inconsolata.sfd
+	http://pkgs.fedoraproject.org/cgit/levien-inconsolata-fonts.git/plain/levien-inconsolata-fonts-fontconfig.conf
+"
+SRC_DIR=.
+
+OBSOLETES="font-inconsolata-otf"
+
+ARCH=noarch
+
+src_compile() {
+	cd ${B}
+	sfd2ttf ${S}/Inconsolata.sfd
+}
+
+src_install() {
+	cd ${B}
+	fontinto inconsolata
+	dofont *.ttf
+	dodoc *.pdf
+	newfontconf ${S}/levien-inconsolata-fonts-fontconfig.conf 75-inconsolata.conf
+}
