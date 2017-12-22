@@ -1,0 +1,9 @@
+NAME="texlive-collection-genericrecommended"
+VERSION=20160404
+RELEASE=1
+
+TEXLIVE_TEXMF_PKGS="apnum epsf fontname genmisc kastrup multido path
+	tex-ps ulem"
+
+inherit texlive
+ARCH=noarch
