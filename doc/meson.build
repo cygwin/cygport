@@ -23,7 +23,7 @@ if robodoc.found()
 cygport_manual = custom_target('cygport-manual',
                                input: 'robodoc.rc',
                                output: 'manual',
-                               depend_files: cygport_in + cygclasses + cygparts + datadocs,
+                               depend_files: cygport_in + cygclasses + cygclass_top + cygparts + datadocs,
                                command: [robodoc, '--src', meson.source_root(),
                                          '--doc', '@OUTDIR@/manual',
                                          '--rc', '@INPUT@',

@@ -1,3 +1,5 @@
+cygclass_top = files('Makefile.am')
+
 cygclasses = files(
     'apache.cygclass',
     'apache2.cygclass',
