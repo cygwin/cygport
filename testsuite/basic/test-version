@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+test -d ${top_builddir}/testsuite/basic || mkdir -p ${top_builddir}/testsuite/basic
+cd ${top_builddir}/testsuite/basic
+
+${top_builddir}/bin/cygport-inplace --version

@@ -1,0 +1,6 @@
+NAME="foo"
+VERSION=2.3.4
+RELEASE=1
+DESCRIPTION="Cygport messages test package"
+HOMEPAGE="http://sourceware.org/cygwinports/"
+SRC_URI="http://sourceware.org/cygwinports/\${P}.ABC"

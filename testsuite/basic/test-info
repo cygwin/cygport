@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+test -d ${top_builddir}/testsuite/basic/info || mkdir -p ${top_builddir}/testsuite/basic/info
+cd ${top_builddir}/testsuite/basic/info
+
+cp -f ${top_srcdir}/testsuite/basic/info/* .
+
+cmp ${top_srcdir}/testsuite/basic/info/info.out <(${top_builddir}/bin/cygport-inplace foo.cygport info)
