@@ -1,0 +1,15 @@
+inherit cmake
+
+NAME="win-iconv"
+VERSION=0.0.8
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="Iconv implemenation for Win32 toolchain"
+DESCRIPTION="Iconv implementation which uses the Win32 API to convert."
+HOMEPAGE="https://github.com/win-iconv/win-iconv"
+SRC_URI="${HOMEPAGE}/archive/v${VERSION}/win-iconv-v${VERSION}.tar.gz"
+PATCH_URI="0.0.6-cygwin.patch"
+
+CYGCMAKE_ARGS="-DBUILD_STATIC=OFF -DBUILD_SHARED=ON -DBUILD_EXECUTABLE=ON"
+
+DOCS="readme.txt"
