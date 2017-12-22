@@ -21,7 +21,7 @@
 #
 ################################################################################
 
-#****h* Cygclasses/qt4-qconf.cygclass
+#****ih* Cygclasses/qt4-qconf.cygclass
 #  SYNOPSIS
 #  inherit qt4-qconf
 #  DESCRIPTION
@@ -33,7 +33,7 @@
 
 inherit qt4-qmake
 
-#****C* qt4-qconf.cygclass/cygqconf4
+#****iC* qt4-qconf.cygclass/cygqconf4
 #  SYNOPSIS
 #  cygqconf4
 #  DESCRIPTION
@@ -49,7 +49,7 @@ cygqconf4() {
 	qconf || error "qconf failed"
 }
 
-#****C* qt4-qconf.cygclass/qt4_qconf_compile
+#****iC* qt4-qconf.cygclass/qt4_qconf_compile
 #  SYNOPSIS
 #  cd $B
 #  qt4_qconf_compile [OPTIONS]
@@ -68,7 +68,7 @@ qt4_qconf_compile() {
 	cygmake
 }
 
-#****o* qt4-qconf.cygclass/src_compile (qt4-qconf)
+#****io* qt4-qconf.cygclass/src_compile (qt4-qconf)
 #  DEFINITION
 src_compile() {
 	lndirs

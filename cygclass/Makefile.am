@@ -45,8 +45,6 @@
 #    For packages which depend on Qt 3.x and use the qmake buildsystem.
 #  * qt4-cmake.cygclass -
 #    For packages which depend on Qt 4.x and use the CMake buildsystem.
-#  * qt4-qconf.cygclass -
-#    For packages which depend on Qt 4.x and use the QConf buildsystem.
 #  * qt4-qmake.cygclass -
 #    For packages which depend on Qt 4.x and use the qmake buildsystem.
 #  * qt5-qmake.cygclass -
@@ -215,7 +213,6 @@ cygclass_DATA =					\
 	cygclass/qt3-qmake.cygclass		\
 	cygclass/qt4.cygclass			\
 	cygclass/qt4-cmake.cygclass		\
-	cygclass/qt4-qconf.cygclass		\
 	cygclass/qt4-qmake.cygclass		\
 	cygclass/qt5.cygclass			\
 	cygclass/qt5-qmake.cygclass		\

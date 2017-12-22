@@ -52,7 +52,6 @@ cygclasses = files(
     'qt3-qmake.cygclass',
     'qt4.cygclass',
     'qt4-cmake.cygclass',
-    'qt4-qconf.cygclass',
     'qt4-qmake.cygclass',
     'qt5.cygclass',
     'qt5-qmake.cygclass',
