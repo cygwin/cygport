@@ -12,3 +12,4 @@ test_driver = find_program('test-driver')
 cmake = find_program('cmake', required: false)
 
 subdir('aspell-dict')
+subdir('autotools')
