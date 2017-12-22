@@ -1,0 +1,14 @@
+inherit rubygem
+
+NAME="ruby-rack-ssl"
+VERSION=1.4.1
+RELEASE=1
+CATEGORY="Ruby"
+SUMMARY="Ruby Rack SSL extension"
+DESCRIPTION="Rack middleware to force SSL/TLS."
+
+ARCH=noarch
+
+PKG_NAMES="${NAME} ${NAME}-doc"
+ruby_rack_ssl_CONTENTS="${RUBYGEM_INSTDIR#/} ${RUBYGEM_SPEC#/}"
+ruby_rack_ssl_doc_CONTENTS=${RUBYGEM_DOCDIR#/}
