@@ -1,0 +1,11 @@
+/usr/bin/cygqoauth-1.dll
+/usr/include/qt4/QtOAuth/QtOAuth
+/usr/include/qt4/QtOAuth/interface.h
+/usr/include/qt4/QtOAuth/qoauth_global.h
+/usr/include/qt4/QtOAuth/qoauth_namespace.h
+/usr/lib/libqoauth.dll.a
+/usr/lib/libqoauth.prl
+/usr/lib/pkgconfig/qoauth.pc
+/usr/share/doc/qoauth/LICENSE
+/usr/share/doc/qoauth/README
+/usr/share/qt4/mkspecs/features/oauth.prf

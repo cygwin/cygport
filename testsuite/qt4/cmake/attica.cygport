@@ -1,0 +1,21 @@
+inherit qt4-cmake
+
+NAME="attica"
+VERSION=0.4.2
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="Qt Open Collaboration Services library"
+DESCRIPTION="Attica is a Qt library that implements the Open Collaboration
+Services API version 1.4. It grants easy access to the services such as
+querying information about persons and contents. The library is used in
+KNewStuff3 as content provider."
+HOMEPAGE="http://www.kde.org/"
+SRC_URI="mirror://kde/stable/attica/attica-${VERSION}.tar.bz2"
+PATCH_URI="0.2.0-cygwin.patch"
+
+PKG_NAMES="libattica0.4 libattica-devel"
+libattica0_4_CONTENTS="usr/bin/cygattica-0.4.dll usr/share/doc/"
+libattica_devel_REQUIRES="libQtCore4-devel libQtNetwork4-devel"
+libattica_devel_CONTENTS="usr/include/ usr/lib/"
+
+CYGCMAKE_ARGS="-DQT4_BUILD=YES"
