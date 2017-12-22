@@ -257,14 +257,16 @@ fi
 declare    MAKEOPTS="-j$(($(nproc 2>/dev/null) + 1)) ";
 
 # load configuration
-for conf in ${_sysconfdir}/cygport.conf \
-			"${HOME}/.cygportrc" \
-			"${HOME}/.cygport.conf" \
-			"${HOME}/.cygport/cygport.conf"
+for conf in "${HOME}/.config/cygport.conf" \
+	    "${HOME}/.cygport/cygport.conf" \
+	    "${HOME}/.cygport.conf" \
+	    "${HOME}/.cygportrc" \
+	    "${_sysconfdir}/cygport.conf"
 do
 	if [ -e "${conf}" ]
 	then
 		source "${conf}" || error "could not read ${conf}"
+		break;
 	fi
 done
 unset conf;
