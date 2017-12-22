@@ -58,13 +58,13 @@ ${DESCRIPTION:-${SUMMARY}}
 
 __list_files() {
 	pushd ${D}
-	find * -path 'usr/*/debug' -prune -o ! -type d -print | sed 's!^!  /!' | sort | __pager
+	find * -path 'usr/*/debug' -prune -o ! -type d -print | sed 's!^!/!' | sort | __pager
 	popd
 }
 
 __list_debug_files() {
 	pushd ${D}
-	find usr/*/debug ! -type d 2>/dev/null | sed 's!^!  /!' | sort | __pager
+	find usr/*/debug ! -type d 2>/dev/null | sed 's!^!/!' | sort | __pager
 	popd
 }
 
@@ -604,7 +604,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 
 __show_deps() {
 	pushd ${D}
-	__list_deps * | sort -fu | sed "/^${PN}-[0-9].*$/d;s/^/  /g" | __pager
+	__list_deps * | sort -fu | sed "/^${PN}-[0-9].*$/d" | __pager
 	popd
 }
 
