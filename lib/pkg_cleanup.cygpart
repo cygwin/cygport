@@ -25,13 +25,9 @@ __finish() {
 
 	cd ${top};
 
-	__step "Removing work directory in 5 seconds...";
+	__step "Removing work directory in 2 seconds...";
 
-	while (( n < 5 ))
-	do
-		sleep 1 || exit $?;
-		n+=1;
-	done
+	sleep 2 || exit $?;
 
 	__step "Removing work directory NOW.";
 
