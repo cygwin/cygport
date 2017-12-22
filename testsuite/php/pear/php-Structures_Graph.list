@@ -1,0 +1,13 @@
+/usr/share/doc/php-Structures_Graph/LICENSE
+/usr/share/pear/.registry/structures_graph.reg
+/usr/share/pear/Structures/Graph.php
+/usr/share/pear/Structures/Graph/Manipulator/AcyclicTest.php
+/usr/share/pear/Structures/Graph/Manipulator/TopologicalSorter.php
+/usr/share/pear/Structures/Graph/Node.php
+/usr/share/pear/doc/Structures_Graph/LICENSE
+/usr/share/pear/doc/Structures_Graph/docs/tutorials/Structures_Graph/Structures_Graph.pkg
+/usr/share/pear/test/Structures_Graph/tests/AcyclicTestTest.php
+/usr/share/pear/test/Structures_Graph/tests/AllTests.php
+/usr/share/pear/test/Structures_Graph/tests/BasicGraphTest.php
+/usr/share/pear/test/Structures_Graph/tests/TopologicalSorterTest.php
+/usr/share/pear/test/Structures_Graph/tests/helper.inc
