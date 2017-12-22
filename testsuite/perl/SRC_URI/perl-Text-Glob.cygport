@@ -1,0 +1,11 @@
+CPAN_AUTHOR="rclamp"
+inherit perl test-fetch
+
+NAME="perl-Text-Glob"
+VERSION=0.11
+RELEASE=1
+CATEGORY="Perl"
+SUMMARY="Perl Text::Glob distribution"
+DESCRIPTION="Perl module for matching globbing patterns against text"
+
+ARCH=noarch

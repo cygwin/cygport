@@ -1,0 +1,11 @@
+CPAN_AUTHOR="ncleaton"
+inherit perl
+
+NAME="perl-Lchown"
+VERSION=1.01
+RELEASE=1
+CATEGORY="Perl"
+SUMMARY="Perl Lchown distribution"
+DESCRIPTION="The Lchown module provides a perl interface to the lchown(2) UNIX
+system call, on systems that support lchown.  The lchown(2) call is used to
+change the ownership and group of symbolic links."

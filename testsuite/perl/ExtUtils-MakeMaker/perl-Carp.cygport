@@ -1,0 +1,13 @@
+CPAN_AUTHOR="rjbs"
+inherit perl
+
+NAME="perl-Carp"
+VERSION=1.38
+RELEASE=1
+CATEGORY="Perl"
+SUMMARY="Perl Carp distribution"
+DESCRIPTION="The Carp routines are useful in your own modules because they act
+like die() or warn(), but with a message which is more likely to be useful
+to a user of your module."
+
+ARCH=noarch
