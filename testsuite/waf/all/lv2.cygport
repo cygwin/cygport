@@ -1,0 +1,33 @@
+inherit waf
+
+NAME="lv2"
+VERSION=1.12.0
+RELEASE=1
+CATEGORY="Audio"
+SUMMARY="LV2 audio plugin specification"
+DESCRIPTION="LV2 is a portable plugin standard for audio systems, similar in
+scope to LADSPA, VST, AU, and others. It defines a C API for code and a format
+for data files which collectively describe a plugin. LV2 consists of a simple
+core (roughly equivalent in power to LADSPA) which can be extended to support
+more advanced functionality. This allows the interface to be grown to
+accommodate the needs of real software as they arise."
+HOMEPAGE="http://lv2plug.in/"
+SRC_URI="http://lv2plug.in/spec/lv2-${VERSION}.tar.bz2"
+PATCH_URI="1.12.0-cygwin-shlib.patch"
+
+PKG_NAMES="lv2 lv2-devel"
+lv2_OBSOLETES="lv2core"
+lv2_DOCS="COPYING NEWS README.md"
+lv2_CONTENTS="--exclude=eg-*.lv2 --exclude=*.[ch] etc/ usr/lib/lv2/"
+lv2_devel_REQUIRES="lv2"
+lv2_devel_CONTENTS="usr/bin/lv2specgen.py usr/include/lv2* usr/lib/lv2/*/*.[ch]
+	usr/lib/pkgconfig/ usr/share/lv2specgen/"
+
+WAF_CONFIGURE_FLAGS="--no-plugins"
+
+src_install() {
+	cd ${B}
+	waf_install
+
+	doenv LV2_PATH "/usr/lib/lv2"
+}
