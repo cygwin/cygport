@@ -1,9 +1,5 @@
 perl = find_program('perl', required: false)
 if perl.found()
-test('perl/SRC_URI',
-     test_driver,
-     args: 'perl/SRC_URI',
-     env: testenv)
 test('perl/ExtUtils-MakeMaker',
      test_driver,
      args: 'perl/ExtUtils-MakeMaker',
