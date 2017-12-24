@@ -1,0 +1,33 @@
+ORIG_PN="json-glib"
+inherit gnome.org meson
+
+NAME="json-glib1.0"
+VERSION=1.4.2
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="GObject JSON parser library"
+DESCRIPTION="JSON-GLib is a GObject library providing serialization and
+deserialization support for the JavaScript Object Notation (JSON) format
+described by RFC 4627."
+DESCRIPTION="GLib JSON manipulation library"
+HOMEPAGE="http://live.gnome.org/JsonGlib"
+
+PKG_NAMES="${NAME} lib${NAME}_0 lib${NAME}-devel lib${NAME}-doc girepository-Json1.0"
+json_glib1_0_CATEGORY="Utils"
+json_glib1_0_SUMMARY=${SUMMARY/library/utilities}
+json_glib1_0_CONTENTS="usr/bin/json-glib-*.exe usr/share/man/man1/"
+libjson_glib1_0_0_CONTENTS="usr/bin/*-1.0-0.dll usr/share/doc/ usr/share/locale/"
+libjson_glib1_0_devel_REQUIRES="girepository-Json1.0"
+libjson_glib1_0_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/"
+libjson_glib1_0_doc_CATEGORY="Doc"
+libjson_glib1_0_doc_CONTENTS="usr/share/gtk-doc/"
+girepository_Json1_0_CONTENTS="usr/*/gir*1.0/Json-1.0.*"
+
+CYGMESON_ARGS="-Dintrospection=true -Ddocs=true"
+
+src_install() {
+	cd ${S}
+	meson_install
+
+	find ${D}/usr/*/installed-tests -delete
+}
