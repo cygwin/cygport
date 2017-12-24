@@ -1,11 +1,20 @@
 bzr = find_program('bzr', required: false)
+cvs = find_program('cvs', required: false)
 git = find_program('git', required: false)
+hg  = find_program('hg',  required: false)
 svn = find_program('svn', required: false)
 
 if bzr.found()
 test('download/bzr',
      test_driver,
      args: 'download/bzr',
+     env: testenv,
+     timeout: 120)
+endif
+if cvs.found()
+test('download/cvs',
+     test_driver,
+     args: 'download/cvs',
      env: testenv,
      timeout: 120)
 endif
@@ -20,6 +29,13 @@ test('download/gnome.org',
      test_driver,
      args: 'download/gnome.org',
      env: testenv)
+if hg.found()
+test('download/hg',
+     test_driver,
+     args: 'download/hg',
+     env: testenv,
+     timeout: 120)
+endif
 test('download/mate',
      test_driver,
      args: 'download/mate',
@@ -31,6 +47,10 @@ test('download/perl',
 test('download/python.org',
      test_driver,
      args: 'download/python.org',
+     env: testenv)
+test('download/R',
+     test_driver,
+     args: 'download/R',
      env: testenv)
 if svn.found()
 test('download/svn',

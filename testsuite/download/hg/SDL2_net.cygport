@@ -1,0 +1,11 @@
+HG_URI="http://hg.libsdl.org/SDL_net/"
+HG_REV="release-${PV}"
+inherit hg test-fetch
+
+NAME="SDL2_net"
+VERSION=2.0.1
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="SDL network library"
+DESCRIPTION="This is an example portable network library for use with SDL."
+HOMEPAGE="http://www.libsdl.org/projects/SDL_net/"
