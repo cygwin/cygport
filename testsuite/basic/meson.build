@@ -13,8 +13,11 @@ test('info',
      test_info,
      env: testenv)
 
+git_archive_all = find_program('git-archive-all')
+if git_archive_all.found()
 test_bootstrap = find_program('test-bootstrap')
 test('bootstrap',
      test_bootstrap,
      env: testenv,
      timeout: 240)
+endif
