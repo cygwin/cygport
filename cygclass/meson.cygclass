@@ -90,7 +90,7 @@ cygmeson() {
 		|| error "meson failed"
 }
 
-#****C* meson.cygclass/meson_compile (meson)
+#****C* meson.cygclass/meson_compile
 #  SYNOPSIS
 #  meson_compile [OPTIONS]
 #  DESCRIPTION
@@ -104,7 +104,7 @@ meson_compile() {
 	cygninja -C ${CHOST}
 }
 
-#****T* meson.cygclass/meson_test (meson)
+#****T* meson.cygclass/meson_test
 #  SYNOPSIS
 #  meson_test
 #  DESCRIPTION
@@ -116,7 +116,7 @@ meson_test() {
 	ninja_test -C ${CHOST}
 }
 
-#****I* meson.cygclass/meson_install (meson)
+#****I* meson.cygclass/meson_install
 #  SYNOPSIS
 #  meson_install
 #  DESCRIPTION
