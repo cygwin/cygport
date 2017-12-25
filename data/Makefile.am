@@ -1,5 +1,7 @@
 pkgdata_DATA =				\
+	data/i686-pc-cygwin.meson	\
 	data/i686-w64-mingw32.meson	\
+	data/x86_64-pc-cygwin.meson	\
 	data/x86_64-w64-mingw32.meson	\
 	data/mirrors			\
 	data/sample.cygport		\

@@ -1,0 +1,13 @@
+[binaries]
+c = '/usr/bin/x86_64-pc-cygwin-gcc'
+cpp = '/usr/bin/x86_64-pc-cygwin-g++'
+ar = '/usr/x86_64-pc-cygwin/bin/ar'
+strip = '/usr/x86_64-pc-cygwin/bin/strip'
+windres = '/usr/bin/x86_64-pc-cygwin-windres'
+pkgconfig = '/usr/bin/x86_64-pc-cygwin-pkg-config'
+
+[host_machine]
+system = 'cygwin'
+cpu_family = 'x86_64'
+cpu = 'x86_64'
+endian = 'little'
