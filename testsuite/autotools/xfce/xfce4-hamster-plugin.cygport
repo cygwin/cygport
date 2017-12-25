@@ -1,0 +1,14 @@
+inherit xfce4
+
+NAME="xfce4-hamster-plugin"
+VERSION=1.6.1
+RELEASE=1
+CATEGORY="Xfce"
+SUMMARY="Xfce4 Hamster panel plugin"
+DESCRIPTION="This is a recreation of the gnome-shell hamster extension as a
+xfce4 panel plugin."
+HOMEPAGE="https://github.com/projecthamster/xfce4-hamster-plugin"
+SRC_URI="${HOMEPAGE}/archive/${VERSION}/${NAME}-${VERSION}.tar.gz"
+PATCH_URI="1.6.1-no-undefined.patch"
+
+REQUIRES="hamster-time-tracker"
