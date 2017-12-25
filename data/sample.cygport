@@ -1,3 +1,5 @@
+inherit meson
+
 NAME="cygport"
 VERSION=0.25.0
 RELEASE=1
@@ -20,11 +22,12 @@ dos2unix findutils file gawk gcc-core gcc-g++ grep gzip lftp libtool lndir \
 make openssh patch perl-Authen-SASL perl-MIME-tools perl-Net-SMTP-SSL rsync \
 sed tar texinfo unzip util-linux wget which xz"
 
-# We use the standard src_compile and src_test.
+# We use the src_compile and src_test provided by meson.cygclass
 
 src_install() {
-	cd ${B}
-	cyginstall
+	# meson is unique in being run from $S; otherwise this should be $B
+	cd ${S}
+	meson_install
 
 	insinto /etc
 	doins ${S}/data/cygport.conf
