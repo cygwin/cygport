@@ -366,7 +366,7 @@ check_python3_module() {
 	return 0;
 }
 
-#****f* Checks/check_pypy_module
+#****if* Checks/check_pypy_module
 #  SYNOPSIS
 #  check_pypy_module MODULE [MODULE2] ...
 #  DESCRIPTION
