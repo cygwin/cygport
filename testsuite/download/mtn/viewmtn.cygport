@@ -1,0 +1,16 @@
+MTN_URI="mtn://code.monotone.ca/contrib"
+MTN_BRANCH="net.venge.monotone.viewmtn"
+MTN_REV=ff6f9260
+inherit mtn test-fetch
+
+NAME="viewmtn"
+VERSION=0.10
+RELEASE=1
+CATEGORY="Web"
+SUMMARY="Monotone web interface"
+DESCRIPTION="ViewMTN is a web interface to the ​Monotone distributed version
+control system. It aims to provide a convenient and useful web interface to
+Monotone. If you've used interfaces to other version control systems, ViewMTN
+will be immediately familiar."
+
+ARCH=noarch

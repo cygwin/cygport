@@ -2,6 +2,7 @@ bzr = find_program('bzr', required: false)
 cvs = find_program('cvs', required: false)
 git = find_program('git', required: false)
 hg  = find_program('hg',  required: false)
+mtn = find_program('mtn', required: false)
 svn = find_program('svn', required: false)
 
 if bzr.found()
@@ -40,6 +41,13 @@ test('download/mate',
      test_driver,
      args: 'download/mate',
      env: testenv)
+if mtn.found()
+test('download/mtn',
+     test_driver,
+     args: 'download/mtn',
+     env: testenv,
+     timeout: 120)
+endif
 test('download/perl',
      test_driver,
      args: 'download/perl',
