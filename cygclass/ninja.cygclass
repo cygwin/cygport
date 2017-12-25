@@ -41,7 +41,7 @@
 #  Runs 'ninja' with the given arguments.
 #****
 cygninja() {
-	if [ ! -e build.ninja ]
+	if ! inherited meson && [ ! -e build.ninja ]
 	then
 		error "cygninja: build.ninja: file not found"
 	fi

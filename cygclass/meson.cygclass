@@ -49,35 +49,18 @@ inherit ninja
 #  |html <a href="http://cygwin.com/setup.html#package_contents">Cygwin package guidelines</a>.
 #  In addition, all arguments to cygmeson are passed to meson, followed by
 #  CYGMESON_ARGS, if set.
-#  NOTES
-#  * cygmeson should be run in or under $B, as it defines the build directory of
-#    the package and creates numerous files.
-#  * If the top-level meson.build is not in $S, see CYGMESON_SOURCE.
-#  * Packages configured with cygmeson use cygninja to compile.
+#  NOTE
+#  cygmeson should be run in the directory containing the top-level meson.build.
 #****
 cygmeson() {
 	local crossargs mdir
 
-#****v* cygmeson/CYGMESON_SOURCE
-#  DESCRIPTION
-#  Set this variable to the directory containing the top-level meson.build.
-#  This is only necessary when the top-level meson.build is not in $S and
-#  cygmeson is not being run in the same subdirectory of $B which under $S
-#  contains the top-level meson.build.  (IOW if the top-level meson.build
-#  is in $S/unix and cygmeson is run from $B/unix, setting CYGMESON_SOURCE
-#  would not be necessary.)
-#****
-	if defined CYGMESON_SOURCE && [ -e ${CYGMESON_SOURCE}/meson.build ]
+	if [ ! -e meson.build ]
 	then
-		mdir=${CYGMESON_SOURCE};
-	elif [ -e ${PWD/${B}/${S}}/meson.build ]
-	then
-		mdir=${PWD/${B}/${S}};
-	elif [ -e ${S}/meson.build ]
-	then
-		mdir=${S};
-	else
 		error "cygmeson: meson directory not found";
+	elif [ -e ../meson.build ]
+	then
+		error "cygmeson: must be run from the top-level directory";
 	fi
 
 	if cross_compiling
@@ -103,34 +86,70 @@ cygmeson() {
 #****
 	meson --prefix=$(__host_prefix) \
 		--buildtype=plain --wrap-mode=nodownload \
-		${crossargs} ${CYGMESON_ARGS} ${@} ${mdir} \
+		${crossargs} ${CYGMESON_ARGS} ${@} ${CHOST} \
 		|| error "meson failed"
+}
+
+#****C* meson.cygclass/meson_compile (meson)
+#  SYNOPSIS
+#  meson_compile [OPTIONS]
+#  DESCRIPTION
+#  Runs meson to configure the package, followed by ninja to compile it.  Any
+#  options are passed to meson as option flags.
+#  NOTE
+#  meson_compile should be run in the directory containing the top-level meson.build.
+#****
+meson_compile() {
+	cygmeson ${@}
+	cygninja -C ${CHOST}
+}
+
+#****T* meson.cygclass/meson_test (meson)
+#  SYNOPSIS
+#  meson_test
+#  DESCRIPTION
+#  Calls ninja test to run the package's testsuite.
+#  NOTE
+#  meson_test should be run in the directory containing the top-level meson.build.
+#****
+meson_test() {
+	ninja_test -C ${CHOST}
+}
+
+#****I* meson.cygclass/meson_install (meson)
+#  SYNOPSIS
+#  meson_install
+#  DESCRIPTION
+#  Runs ninja install to install the package into D.
+#  NOTE
+#  meson_install should be run in the directory containing the top-level meson.build.
+#****
+meson_install() {
+	ninja_install -C ${CHOST}
 }
 
 #****o* meson.cygclass/src_compile (meson)
 #  DEFINITION
 src_compile() {
-	mkdir -p ${S}/${CHOST}
-	cd ${S}/${CHOST}
-	cygmeson
-	cygninja
+	cd ${S}
+	meson_compile
 }
 #****
 
 #****o* meson.cygclass/src_test (meson)
 #  DEFINITION
 src_test() {
-	cd ${S}/${CHOST}
-	ninja_test
+	cd ${S}
+	meson_test
 }
 #****
 
 #****o* meson.cygclass/src_install (meson)
 #  DEFINITION
 src_install() {
-	cd ${S}/${CHOST}
-	ninja_install
+	cd ${S}
+	meson_install
 }
 #****
 
-readonly -f cygmeson
+readonly -f cygmeson meson_compile meson_test meson_install
