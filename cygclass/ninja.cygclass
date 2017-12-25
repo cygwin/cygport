@@ -68,20 +68,4 @@ ninja_install() {
 	DESTDIR=${D} cygninja install ${@}
 }
 
-#****o* ninja.cygclass/src_test (ninja)
-#  DEFINITION
-src_test() {
-	cd ${S}/${CHOST}
-	ninja_test
-}
-#****
-
-#****o* ninja.cygclass/src_install (ninja)
-#  DEFINITION
-src_install() {
-	cd ${S}/${CHOST}
-	ninja_install
-}
-#****
-
 readonly -f cygninja ninja_test ninja_install
