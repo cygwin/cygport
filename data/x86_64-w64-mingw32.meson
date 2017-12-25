@@ -3,6 +3,7 @@ c = '/usr/bin/x86_64-w64-mingw32-gcc'
 cpp = '/usr/bin/x86_64-w64-mingw32-g++'
 ar = '/usr/x86_64-w64-mingw32/bin/ar'
 strip = '/usr/x86_64-w64-mingw32/bin/strip'
+windres = '/usr/bin/x86_64-w64-mingw32-windres'
 pkgconfig = '/usr/bin/x86_64-w64-mingw32-pkg-config'
 exe_wrapper = '/usr/bin/mingw64'
 
