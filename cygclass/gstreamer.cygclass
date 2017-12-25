@@ -28,14 +28,12 @@
 #  GStreamer is a modular multimedia framework, using plugins to support
 #  a wide variety of audio and video formats, effects, and input/output.
 #  Being based on GObject it is heavily used within GNOME, but it also sees
-#  some use as a backend for Qt4 Phonon.
+#  some use as a backend for KDE Phonon.
 #
 #  GStreamer components include the core libraries and command-line tools,
 #  several sets of plugins, and Python bindings.  This cygclass defines
 #  variables and functions which are common to all GStreamer components,
-#  and is also the basis of the versions of gst-plugins.cygclass.
-#  INHERITED BY
-#  gst-plugins0.10.cygclass
+#  and is also the basis of gst-plugins.cygclass.
 #****
 
 case ${PN} in

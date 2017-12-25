@@ -33,7 +33,7 @@
 #  CMake can be used for a wide variety of software, but is most commonly
 #  used in KDE4 and some Qt4 packages.
 #  INHERITED BY
-#  kde4.cygclass, opensync.cygclass, qt4-cmake.cygclass
+#  kde4.cygclass, qt4-cmake.cygclass
 #****
 
 __cmake_system() {

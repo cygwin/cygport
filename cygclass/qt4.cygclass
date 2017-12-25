@@ -35,7 +35,7 @@
 #  * Packages based on the deprecated 3.x or newer 5.x versions of Qt must
 #    use qt3.cygclass or qt5.cygclass, respectively.
 #  INHERITED BY
-#  kde4.cygclass, qt4-cmake.cygclass, qt4-qconf.cygclass, qt4-qmake.cygclass
+#  kde4.cygclass, qt4-cmake.cygclass, qt4-qmake.cygclass
 #****
 
 #****d* qt4.cygclass/QT4_QTDIR

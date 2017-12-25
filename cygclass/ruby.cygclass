@@ -41,7 +41,7 @@
 #  |html or with <a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#prop_tgt:SUFFIX">CMake</a>:
 #    set_target_properties(foo PROPERTIES PREFIX "" SUFFIX ".so")
 #  INHERITED BY
-#  rubygem.cygclass, ruby-gnome2.cygclass
+#  rubygem.cygclass
 #****
 
 # cross-compiling is not (yet?) supported

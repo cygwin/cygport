@@ -28,8 +28,6 @@
 #  This cygclass builds Qt4-based packages which use the qmake build system.
 #  INHERITS
 #  qt4.cygclass
-#  INHERITED BY
-#  qt4-qconf.cygclass
 #****
 
 inherit qt4

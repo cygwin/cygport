@@ -203,8 +203,6 @@ mirror_gnu+="
 #  http://ftp.gnustep.org/pub/gnustep
 #  MIRROR LIST
 #  http://www.gnustep.org/resources/sources.html
-#  SEE ALSO
-#  gnustep.cygclass
 #****
 mirror_gnustep+="
 	http://ftp.gnustep.org/pub/gnustep
