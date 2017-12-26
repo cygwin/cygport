@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
 <link rel="stylesheet" href="./robodoc.css" type="text/css" />
-<title>cygport/cygclass/python-wheel.cygclass</title>
-<!-- Source: cygport/cygclass/python-wheel.cygclass -->
+<title>./cygport/cygclass/python-wheel.cygclass</title>
+<!-- Source: ./cygport/cygclass/python-wheel.cygclass -->
 <!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
 </head>
 <body>
@@ -33,20 +33,20 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo396">python-wheel.cygclass</a></li>
+<li><a href="#robo358">python-wheel.cygclass</a></li>
 <ul>
-<li><a href="#robo397">PKG_NAMES (python-wheel)</a></li>
-<li><a href="#robo398">python_wheel_compile</a></li>
-<li><a href="#robo399">python_wheel_install</a></li>
-<li><a href="#robo400">src_compile (python-wheel)</a></li>
-<li><a href="#robo401">src_install (python-wheel)</a></li>
+<li><a href="#robo359">PKG_NAMES (python-wheel)</a></li>
+<li><a href="#robo360">python_wheel_compile</a></li>
+<li><a href="#robo361">python_wheel_install</a></li>
+<li><a href="#robo362">src_compile (python-wheel)</a></li>
+<li><a href="#robo363">src_install (python-wheel)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fpython2dwheel2ecygclass"></a>
-<a name="robo396"></a><h2>python-wheel.cygclass</h2>
+<a name="robo358"></a><h2>python-wheel.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo601">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo510">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Wheels are the new standard for installing Python libraries and programs.
   The build is <a href="./syntax_cygpart.html#robo77">defined</a> by a setup.py file in the top source directory, which
@@ -58,22 +58,22 @@
   Python 2 and 3 simultaneously.
 </p>
 <p class="item_name">EXAMPLE</p>
-<pre>    <a href="./inheritance_cygpart.html#robo652">inherit</a> python-wheel
+<pre>    <a href="./inheritance_cygpart.html#robo559">inherit</a> python-wheel
     
     <a href="./syntax_cygpart.html#robo88">NAME</a>="python-six"
     <a href="./syntax_cygpart.html#robo89">VERSION</a>=1.10.0
     <a href="./syntax_cygpart.html#robo90">RELEASE</a>=1
-    <a href="./pkg_pkg_cygpart.html#robo437">CATEGORY</a>="Python"
-    <a href="./pkg_pkg_cygpart.html#robo439">SUMMARY</a>="Python 2 and 3 compatibility library"
-    <a href="./pkg_pkg_cygpart.html#robo441">DESCRIPTION</a>="Six is a Python 2 and 3 compatibility library. It provides
+    <a href="./pkg_pkg_cygpart.html#robo381">CATEGORY</a>="Python"
+    <a href="./pkg_pkg_cygpart.html#robo383">SUMMARY</a>="Python 2 and 3 compatibility library"
+    <a href="./pkg_pkg_cygpart.html#robo385">DESCRIPTION</a>="Six is a Python 2 and 3 compatibility library. It provides
     utility functions for smoothing over the differences between the Python
     versions with the goal of writing Python code that is compatible on both
     Python versions."
     
-    <a href="./compilers_cygpart.html#robo872">ARCH</a>=noarch
+    <a href="./compilers_cygpart.html#robo743">ARCH</a>=noarch
 </pre>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./python2_cygclass.html#robo_top_of_doc">python2.cygclass</a>, <a href="./python3_cygclass.html#robo_top_of_doc">python3.cygclass</a>
+<p>  <a href="./python2-wheel_cygclass.html#robo344">python2-wheel.cygclass</a>, <a href="./python3-wheel_cygclass.html#robo322">python3-wheel.cygclass</a>
 </p>
 <p class="item_name">REQUIRES</p>
 <p>  python2, python2-pip, python3, python3-pip
@@ -81,16 +81,16 @@
 
 <hr />
 <a name="python2dwheel2ecygclass2fPKG5fNAMES2028python2dwheel29"></a>
-<a name="robo397"></a><h2>PKG_NAMES (python-wheel)</h2>
+<a name="robo359"></a><h2>PKG_NAMES (python-wheel)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo396">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo358">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  For a <a href="./syntax_cygpart.html#robo88">NAME</a> of python-foo, the following two binary packages are created
   automatically:
 </p>
-<ul><li>  python2-foo, containing <a href="./python2_cygclass.html#robo371">PYTHON2_SITELIB</a>
+<ul><li>  python2-foo, containing <a href="./python2_cygclass.html#robo338">PYTHON2_SITELIB</a>
 </li>
-<li>  python3-foo, containing <a href="./python3_cygclass.html#robo355">PYTHON3_SITELIB</a>
+<li>  python3-foo, containing <a href="./python3_cygclass.html#robo316">PYTHON3_SITELIB</a>
 </li>
 </ul>
 <p>  Each package also includes its own independent copy of the automatically
@@ -101,9 +101,9 @@
 
 <hr />
 <a name="python2dwheel2ecygclass2fpython5fwheel5fcompile"></a>
-<a name="robo398"></a><h2>python_wheel_compile</h2>
+<a name="robo360"></a><h2>python_wheel_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo396">python-wheel.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo358">python-wheel.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>python_wheel_compile</strong> [OPTIONS]
 </pre>
@@ -113,44 +113,44 @@
 
 <hr />
 <a name="python2dwheel2ecygclass2fpython5fwheel5finstall"></a>
-<a name="robo399"></a><h2>python_wheel_install</h2>
+<a name="robo361"></a><h2>python_wheel_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo396">python-wheel.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo358">python-wheel.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>python_wheel_install</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installs the previously built wheel into $<a href="./syntax_cygpart.html#robo100">D</a> with 'pip3 install'.
+<p>  Installs the previously built wheel into $<a href="./syntax_cygpart.html#robo100">D</a> with 'pip[23] install'.
 </p>
 
 <hr />
 <a name="python2dwheel2ecygclass2fsrc5fcompile2028python2dwheel29"></a>
-<a name="robo400"></a><h2>src_compile (python-wheel)</h2>
+<a name="robo362"></a><h2>src_compile (python-wheel)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo396">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo358">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo191">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        <a href="./src_compile_cygpart.html#robo188">lndirs</a>
+<pre class="source"><a href="./src_compile_cygpart.html#robo182">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        <a href="./src_compile_cygpart.html#robo179">lndirs</a>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo398">python_wheel_compile</a>
+        <a href="#robo360">python_wheel_compile</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="python2dwheel2ecygclass2fsrc5finstall2028python2dwheel29"></a>
-<a name="robo401"></a><h2>src_install (python-wheel)</h2>
+<a name="robo363"></a><h2>src_install (python-wheel)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo396">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo358">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo184">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_install_cygpart.html#robo175">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo399">python_wheel_install</a>
+        <a href="#robo361">python_wheel_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Wed Mar 15 2017 15:29:32
+<p>Generated from ./cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Fri Dec 29 2017 11:40:27
 </p>
 </div> <!-- footer -->
 </body>

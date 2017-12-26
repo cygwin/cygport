@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
 <link rel="stylesheet" href="./robodoc.css" type="text/css" />
-<title>cygport/cygclass/qt5-qmake.cygclass</title>
-<!-- Source: cygport/cygclass/qt5-qmake.cygclass -->
+<title>./cygport/cygclass/qt5-qmake.cygclass</title>
+<!-- Source: ./cygport/cygclass/qt5-qmake.cygclass -->
 <!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
 </head>
 <body>
@@ -33,36 +33,36 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo290">qt5-qmake.cygclass</a></li>
+<li><a href="#robo255">qt5-qmake.cygclass</a></li>
 <ul>
-<li><a href="#robo291">cygqmake5</a></li>
-<li><a href="#robo292">qt5_qmake_compile</a></li>
-<li><a href="#robo293">qt5_qmake_install</a></li>
-<li><a href="#robo294">src_compile (qt5-qmake)</a></li>
-<li><a href="#robo295">src_install (qt5-qmake)</a></li>
+<li><a href="#robo256">cygqmake5</a></li>
+<li><a href="#robo257">qt5_qmake_compile</a></li>
+<li><a href="#robo258">qt5_qmake_install</a></li>
+<li><a href="#robo259">src_compile (qt5-qmake)</a></li>
+<li><a href="#robo260">src_install (qt5-qmake)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fqt52dqmake2ecygclass"></a>
-<a name="robo290"></a><h2>qt5-qmake.cygclass</h2>
+<a name="robo255"></a><h2>qt5-qmake.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo601">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo510">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo652">inherit</a> qt5-qmake
+<pre>  <a href="./inheritance_cygpart.html#robo559">inherit</a> qt5-qmake
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  This cygclass builds Qt5-based packages which use the qmake build system,
   including the Qt5 non-base components themselves.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./qt5_cygclass.html#robo272">qt5.cygclass</a>
+<p>  <a href="./qt5_cygclass.html#robo_top_of_doc">qt5.cygclass</a>
 </p>
 
 <hr />
 <a name="qt52dqmake2ecygclass2fcygqmake5"></a>
-<a name="robo291"></a><h2>cygqmake5</h2>
+<a name="robo256"></a><h2>cygqmake5</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo290">qt5-qmake.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo255">qt5-qmake.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>cygqmake5</strong> FILE_OR_DIRECTORY
 </pre>
@@ -73,21 +73,21 @@
 
 <hr />
 <a name="qt52dqmake2ecygclass2fqt55fqmake5fcompile"></a>
-<a name="robo292"></a><h2>qt5_qmake_compile</h2>
+<a name="robo257"></a><h2>qt5_qmake_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo290">qt5-qmake.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo255">qt5-qmake.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">DEFINITION</p>
 <pre class="source"><strong>qt5_qmake_compile</strong><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        <a href="#robo291">cygqmake5</a> <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo97">S</a><span class="sign">}</span>
-        <a href="./src_compile_cygpart.html#robo190">cygmake</a>
+        <a href="#robo256">cygqmake5</a> <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo97">S</a><span class="sign">}</span>
+        <a href="./src_compile_cygpart.html#robo181">cygmake</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="qt52dqmake2ecygclass2fqt55fqmake5finstall"></a>
-<a name="robo293"></a><h2>qt5_qmake_install</h2>
+<a name="robo258"></a><h2>qt5_qmake_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo290">qt5-qmake.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo255">qt5-qmake.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo98">B</a>
   <strong>qt5_qmake_install</strong> [OPTIONS]
@@ -105,31 +105,31 @@
 
 <hr />
 <a name="qt52dqmake2ecygclass2fsrc5fcompile2028qt52dqmake29"></a>
-<a name="robo294"></a><h2>src_compile (qt5-qmake)</h2>
+<a name="robo259"></a><h2>src_compile (qt5-qmake)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo290">qt5-qmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo255">qt5-qmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo191">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_compile_cygpart.html#robo182">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo292">qt5_qmake_compile</a>
+        <a href="#robo257">qt5_qmake_compile</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="qt52dqmake2ecygclass2fsrc5finstall2028qt52dqmake29"></a>
-<a name="robo295"></a><h2>src_install (qt5-qmake)</h2>
+<a name="robo260"></a><h2>src_install (qt5-qmake)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo290">qt5-qmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo255">qt5-qmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo184">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_install_cygpart.html#robo175">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo293">qt5_qmake_install</a>
+        <a href="#robo258">qt5_qmake_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/qt5-qmake.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Wed Mar 15 2017 15:29:32
+<p>Generated from ./cygport/cygclass/qt5-qmake.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Fri Dec 29 2017 11:40:26
 </p>
 </div> <!-- footer -->
 </body>

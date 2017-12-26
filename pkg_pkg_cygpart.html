@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
 <link rel="stylesheet" href="./robodoc.css" type="text/css" />
-<title>cygport/lib/pkg_pkg.cygpart</title>
-<!-- Source: cygport/lib/pkg_pkg.cygpart -->
+<title>./cygport/lib/pkg_pkg.cygpart</title>
+<!-- Source: ./cygport/lib/pkg_pkg.cygpart -->
 <!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
 </head>
 <body>
@@ -33,30 +33,30 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo431">Packaging</a></li>
+<li><a href="#robo375">Packaging</a></li>
 <ul>
-<li><a href="#robo432">PKG_NAMES</a></li>
-<li><a href="#robo433">PKG_HINTS</a></li>
-<li><a href="#robo434">PKG_CONTENTS</a></li>
-<li><a href="#robo435">PKG_IGNORE</a></li>
-<li><a href="#robo436">DIFF_EXCLUDES</a></li>
-<li><a href="#robo437">CATEGORY</a></li>
-<li><a href="#robo438">PKG_CATEGORY</a></li>
-<li><a href="#robo439">SUMMARY</a></li>
-<li><a href="#robo440">PKG_SUMMARY</a></li>
-<li><a href="#robo441">DESCRIPTION</a></li>
-<li><a href="#robo442">PKG_DESCRIPTION</a></li>
-<li><a href="#robo443">REQUIRES</a></li>
-<li><a href="#robo444">PKG_REQUIRES</a></li>
-<li><a href="#robo445">OBSOLETES</a></li>
-<li><a href="#robo446">PKG_OBSOLETES</a></li>
+<li><a href="#robo376">PKG_NAMES</a></li>
+<li><a href="#robo377">PKG_HINTS</a></li>
+<li><a href="#robo378">PKG_CONTENTS</a></li>
+<li><a href="#robo379">PKG_IGNORE</a></li>
+<li><a href="#robo380">DIFF_EXCLUDES</a></li>
+<li><a href="#robo381">CATEGORY</a></li>
+<li><a href="#robo382">PKG_CATEGORY</a></li>
+<li><a href="#robo383">SUMMARY</a></li>
+<li><a href="#robo384">PKG_SUMMARY</a></li>
+<li><a href="#robo385">DESCRIPTION</a></li>
+<li><a href="#robo386">PKG_DESCRIPTION</a></li>
+<li><a href="#robo387">REQUIRES</a></li>
+<li><a href="#robo388">PKG_REQUIRES</a></li>
+<li><a href="#robo389">OBSOLETES</a></li>
+<li><a href="#robo390">PKG_OBSOLETES</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Chapter20122fPackaging"></a>
-<a name="robo431"></a><h2>Packaging</h2>
+<a name="robo375"></a><h2>Packaging</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo811">Chapter 12</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo682">Chapter 12</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
 <p class="item_name">INTRODUCTION</p>
 <p>  In most cases, only one binary package is created from a source package,
   including all files installed into $<a href="./syntax_cygpart.html#robo100">D</a>.  This is the default, and if
@@ -71,15 +71,15 @@
 
 <hr />
 <a name="Packaging2fPKG5fNAMES"></a>
-<a name="robo432"></a><h2>PKG_NAMES</h2>
+<a name="robo376"></a><h2>PKG_NAMES</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>PKG_NAMES</strong>="foo libfoo1 libfoo-devel libfoo-doc"
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of binary packages to create from the files installed into <a href="./syntax_cygpart.html#robo100">D</a>.
-  The exact contents of these packages are specified in <a href="#robo434">PKG_CONTENTS</a>
+  The exact contents of these packages are specified in <a href="#robo378">PKG_CONTENTS</a>
   variables or .list files.
 </p>
 <p class="item_name">NOTES</p>
@@ -88,7 +88,7 @@
     providing only libraries.
 </li>
 <li>  Any packages listed in <strong>PKG_NAMES</strong> which do not have a corresponding
-    <a href="#robo434">PKG_CONTENTS</a> variable or .list file will be created as an empty package.
+    <a href="#robo378">PKG_CONTENTS</a> variable or .list file will be created as an empty package.
     This can be useful to provide upgrade helpers for renamed packages.
 </li>
 </ul>
@@ -96,23 +96,23 @@
 
 <hr />
 <a name="Packaging2fPKG5fHINTS"></a>
-<a name="robo433"></a><h2>PKG_HINTS</h2>
+<a name="robo377"></a><h2>PKG_HINTS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo432">PKG_NAMES</a>="foo libfoo1 libfoo-devel libfoo-doc"
+<pre>  <a href="#robo376">PKG_NAMES</a>="foo libfoo1 libfoo-devel libfoo-doc"
   <strong>PKG_HINTS</strong>="setup runtime devel doc"
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of unsuffixed .hint files which should be used for each given
-  binary package in <a href="#robo432">PKG_NAMES</a>.
+  binary package in <a href="#robo376">PKG_NAMES</a>.
 </p>
 <p class="item_name">NOTES</p>
-<ul><li>  If <a href="./syntax_cygpart.html#robo91">PN</a> is not included in <a href="#robo432">PKG_NAMES</a>, a file named $<a href="./syntax_cygpart.html#robo91">PN</a>.hint or setup.hint
+<ul><li>  If <a href="./syntax_cygpart.html#robo91">PN</a> is not included in <a href="#robo376">PKG_NAMES</a>, a file named $<a href="./syntax_cygpart.html#robo91">PN</a>.hint or setup.hint
     is still required for the source package, but should not be listed in
     <strong>PKG_HINTS</strong>.
 </li>
-<li>  If the .hint filenames (minus the .hint suffix) match <a href="#robo432">PKG_NAMES</a>, <strong>PKG_HINTS</strong>
+<li>  If the .hint filenames (minus the .hint suffix) match <a href="#robo376">PKG_NAMES</a>, <strong>PKG_HINTS</strong>
     need not be <a href="./syntax_cygpart.html#robo77">defined</a>.
 </li>
 </ul>
@@ -120,11 +120,11 @@
 
 <hr />
 <a name="Packaging2fPKG5fCONTENTS"></a>
-<a name="robo434"></a><h2>PKG_CONTENTS</h2>
+<a name="robo378"></a><h2>PKG_CONTENTS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo432">PKG_NAMES</a>="foo libfoo1 libfoo-devel libfoo-doc"
+<pre>  <a href="#robo376">PKG_NAMES</a>="foo libfoo1 libfoo-devel libfoo-doc"
   foo_CONTENTS="--exclude=html usr/bin/foo.exe usr/share/doc/ usr/share/locale/"
   libfoo1_CONTENTS="usr/bin/cygfoo-1.dll"
   libfoo_devel_CONTENTS="usr/include/ usr/lib/ usr/share/aclocal/"
@@ -158,20 +158,20 @@
 
 <hr />
 <a name="Packaging2fPKG5fIGNORE"></a>
-<a name="robo435"></a><h2>PKG_IGNORE</h2>
+<a name="robo379"></a><h2>PKG_IGNORE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of files that should not be included in any package, in the same
-  form as <a href="#robo434">PKG_CONTENTS</a>.  This will silence warnings on these files not
+  form as <a href="#robo378">PKG_CONTENTS</a>.  This will silence warnings on these files not
   being included in any package, and <a href="./syntax_cygpart.html#robo81">error</a> if they are included in a package.
 </p>
 
 <hr />
 <a name="Packaging2fDIFF5fEXCLUDES"></a>
-<a name="robo436"></a><h2>DIFF_EXCLUDES</h2>
+<a name="robo380"></a><h2>DIFF_EXCLUDES</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of file names, directory names, or glob patterns in <a href="./syntax_cygpart.html#robo97">S</a> which will
   be excluded when creating the .src.patch file.  This should be used for
@@ -185,9 +185,9 @@
 
 <hr />
 <a name="Packaging2fCATEGORY"></a>
-<a name="robo437"></a><h2>CATEGORY</h2>
+<a name="robo381"></a><h2>CATEGORY</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A string containing one or more setup package categories.  This will be
   used as the category: field of auto-generated .hint files.
@@ -197,14 +197,14 @@
 <a href="http://cygwin.com/setup.html#setup.hint">Cygwin website</a>.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="#robo438">PKG_CATEGORY</a>
+<p>  <a href="#robo382">PKG_CATEGORY</a>
 </p>
 
 <hr />
 <a name="Packaging2fPKG5fCATEGORY"></a>
-<a name="robo438"></a><h2>PKG_CATEGORY</h2>
+<a name="robo382"></a><h2>PKG_CATEGORY</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A string containing one or more setup package categories.  This will be
   used as the category: field of the corresponding auto-generated .hint
@@ -225,22 +225,22 @@
 
 <hr />
 <a name="Packaging2fSUMMARY"></a>
-<a name="robo439"></a><h2>SUMMARY</h2>
+<a name="robo383"></a><h2>SUMMARY</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A one-line summary of the package.  This will be used as the sdesc: field
   of auto-generated .hint files.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="#robo440">PKG_SUMMARY</a>
+<p>  <a href="#robo384">PKG_SUMMARY</a>
 </p>
 
 <hr />
 <a name="Packaging2fPKG5fSUMMARY"></a>
-<a name="robo440"></a><h2>PKG_SUMMARY</h2>
+<a name="robo384"></a><h2>PKG_SUMMARY</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A one-line summary of the subpackage.  This will be used as the sdesc:
   field of the corresponding auto-generated .hint file.
@@ -256,22 +256,22 @@
 
 <hr />
 <a name="Packaging2fDESCRIPTION"></a>
-<a name="robo441"></a><h2>DESCRIPTION</h2>
+<a name="robo385"></a><h2>DESCRIPTION</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A short paragraph description of the package.  This will be used as the
   ldesc: field of auto-generated .hint files.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="#robo442">PKG_DESCRIPTION</a>
+<p>  <a href="#robo386">PKG_DESCRIPTION</a>
 </p>
 
 <hr />
 <a name="Packaging2fPKG5fDESCRIPTION"></a>
-<a name="robo442"></a><h2>PKG_DESCRIPTION</h2>
+<a name="robo386"></a><h2>PKG_DESCRIPTION</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A short paragraph description of the subpackage.  This will be used as the
   ldesc: field of the corresponding auto-generated .hint file.
@@ -287,9 +287,9 @@
 
 <hr />
 <a name="Packaging2fREQUIRES"></a>
-<a name="robo443"></a><h2>REQUIRES</h2>
+<a name="robo387"></a><h2>REQUIRES</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A single-line strings containing a list of packages on which this
   package depends. This will be added to the requires: field of the
@@ -301,22 +301,22 @@
     needed for commands called by scripts or in code with fork(), libraries
     which are accessed by dlopen(), or data used by your package at runtime.
 </li>
-<li>  If there is more than one package in <a href="#robo432">PKG_NAMES</a>, this variable will be
-    ignored; you must use <a href="#robo444">PKG_REQUIRES</a> instead.
+<li>  If there is more than one package in <a href="#robo376">PKG_NAMES</a>, this variable will be
+    ignored; you must use <a href="#robo388">PKG_REQUIRES</a> instead.
 </li>
 <li>  Any newlines in this variable must be escaped.
 </li>
 </ul>
 <p></p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="#robo444">PKG_REQUIRES</a>
+<p>  <a href="#robo388">PKG_REQUIRES</a>
 </p>
 
 <hr />
 <a name="Packaging2fPKG5fREQUIRES"></a>
-<a name="robo444"></a><h2>PKG_REQUIRES</h2>
+<a name="robo388"></a><h2>PKG_REQUIRES</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A single-line strings containing a list of packages on which this
   package depends. This will be added to the requires: field of the
@@ -332,7 +332,7 @@
 </p>
 <p class="item_name">NOTES</p>
 <ul><li>  cygport attempts to automatically detect many types of package
-    dependencies, which do not need to be listed in <a href="#robo443">REQUIRES</a>.  This is still
+    dependencies, which do not need to be listed in <a href="#robo387">REQUIRES</a>.  This is still
     needed for commands called by scripts or in code with fork(), libraries
     which are accessed by dlopen(), or data used by your package at runtime.
 </li>
@@ -343,34 +343,34 @@
 
 <hr />
 <a name="Packaging2fOBSOLETES"></a>
-<a name="robo445"></a><h2>OBSOLETES</h2>
+<a name="robo389"></a><h2>OBSOLETES</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A single-line string containing a list of package(s) which this
   package replaces.  An empty package will be created for each listed
   obsoletion which will cause this package to be installed in its place.
 </p>
 <p class="item_name">NOTE</p>
-<p>  If there is more than one package in <a href="#robo432">PKG_NAMES</a>, this variable will be
-  ignored; you must use <a href="#robo446">PKG_OBSOLETES</a> instead.
+<p>  If there is more than one package in <a href="#robo376">PKG_NAMES</a>, this variable will be
+  ignored; you must use <a href="#robo390">PKG_OBSOLETES</a> instead.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="#robo446">PKG_OBSOLETES</a>
+<p>  <a href="#robo390">PKG_OBSOLETES</a>
 </p>
 
 <hr />
 <a name="Packaging2fPKG5fOBSOLETES"></a>
-<a name="robo446"></a><h2>PKG_OBSOLETES</h2>
+<a name="robo390"></a><h2>PKG_OBSOLETES</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo375">Packaging</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A single-line string containing a list of package(s) which this
   package replaces.  An empty package will be created for each listed
   obsoletion which will cause PKG to be installed in its place.
 </p>
 
-<p>  Note that the <a href="#robo444">PKG_REQUIRES</a> name is descriptive rather than literal,
+<p>  Note that the <a href="#robo388">PKG_REQUIRES</a> name is descriptive rather than literal,
   where "PKG" should be substituted with the name of the binary package
   whose contents it describes.  When a package contains a character which
   cannot be used in a shell variable name (namely '+', '-', and '.'),
@@ -380,7 +380,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/lib/pkg_pkg.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Wed Mar 15 2017 15:29:32
+<p>Generated from ./cygport/lib/pkg_pkg.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Fri Dec 29 2017 11:40:27
 </p>
 </div> <!-- footer -->
 </body>

@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
 <link rel="stylesheet" href="./robodoc.css" type="text/css" />
-<title>cygport/cygclass/aspell-dict.cygclass</title>
-<!-- Source: cygport/cygclass/aspell-dict.cygclass -->
+<title>./cygport/cygclass/aspell-dict.cygclass</title>
+<!-- Source: ./cygport/cygclass/aspell-dict.cygclass -->
 <!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
 </head>
 <body>
@@ -33,32 +33,32 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo940">aspell-dict.cygclass</a></li>
+<li><a href="#robo790">aspell-dict.cygclass</a></li>
 <ul>
-<li><a href="#robo941">ASPELL_COMPAT</a></li>
-<li><a href="#robo942">ASPELL_DATADIR</a></li>
-<li><a href="#robo943">ASPELL_DICTDIR</a></li>
-<li><a href="#robo944">ASPELL_LANG</a></li>
-<li><a href="#robo945">ASPELL_LANG_FULL</a></li>
-<li><a href="#robo946">CATEGORY (aspell-dict)</a></li>
-<li><a href="#robo947">SUMMARY (aspell-dict)</a></li>
-<li><a href="#robo948">DESCRIPTION (aspell-dict)</a></li>
-<li><a href="#robo949">HOMEPAGE (aspell-dict)</a></li>
-<li><a href="#robo950">SRC_URI (aspell-dict)</a></li>
-<li><a href="#robo951">aspell_dict_compile</a></li>
-<li><a href="#robo952">doaspelldict</a></li>
-<li><a href="#robo953">doaspelldata</a></li>
-<li><a href="#robo954">src_compile (aspell-dict)</a></li>
+<li><a href="#robo791">ASPELL_COMPAT</a></li>
+<li><a href="#robo792">ASPELL_DATADIR</a></li>
+<li><a href="#robo793">ASPELL_DICTDIR</a></li>
+<li><a href="#robo794">ASPELL_LANG</a></li>
+<li><a href="#robo795">ASPELL_LANG_FULL</a></li>
+<li><a href="#robo796">CATEGORY (aspell-dict)</a></li>
+<li><a href="#robo797">SUMMARY (aspell-dict)</a></li>
+<li><a href="#robo798">DESCRIPTION (aspell-dict)</a></li>
+<li><a href="#robo799">HOMEPAGE (aspell-dict)</a></li>
+<li><a href="#robo800">SRC_URI (aspell-dict)</a></li>
+<li><a href="#robo801">aspell_dict_compile</a></li>
+<li><a href="#robo802">doaspelldict</a></li>
+<li><a href="#robo803">doaspelldata</a></li>
+<li><a href="#robo804">src_compile (aspell-dict)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2faspell2ddict2ecygclass"></a>
-<a name="robo940"></a><h2>aspell-dict.cygclass</h2>
+<a name="robo790"></a><h2>aspell-dict.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo601">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo510">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  [<a href="#robo941">ASPELL_COMPAT</a>=...]
-  <a href="./inheritance_cygpart.html#robo652">inherit</a> aspell-dict
+<pre>  [<a href="#robo791">ASPELL_COMPAT</a>=...]
+  <a href="./inheritance_cygpart.html#robo559">inherit</a> aspell-dict
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Aspell is a GNU project providing a spell checking library and command-line
@@ -68,18 +68,18 @@
 <p>  The purpose of this cygclass is to create Aspell dictionary packages for
   the Cygwin Aspell package.  <strong>aspell-dict.cygclass</strong> expects the package name
   to be "aspell-&lt;language_code&gt;".  If the source tarball is named "aspell5-*"
-  or "aspell6-*", <a href="#robo941">ASPELL_COMPAT</a> must be declared before inheriting.
+  or "aspell6-*", <a href="#robo791">ASPELL_COMPAT</a> must be declared before inheriting.
 </p>
 <p class="item_name">EXAMPLE</p>
-<pre>    <a href="#robo941">ASPELL_COMPAT</a>=6
-    <a href="./inheritance_cygpart.html#robo652">inherit</a> aspell-dict
+<pre>    <a href="#robo791">ASPELL_COMPAT</a>=6
+    <a href="./inheritance_cygpart.html#robo559">inherit</a> aspell-dict
     
     <a href="./syntax_cygpart.html#robo88">NAME</a>="aspell-en"
     <a href="./syntax_cygpart.html#robo89">VERSION</a>=7.1-0
     <a href="./syntax_cygpart.html#robo90">RELEASE</a>=1
-    <a href="./pkg_pkg_cygpart.html#robo437">CATEGORY</a>="Text"
-    <a href="./pkg_pkg_cygpart.html#robo439">SUMMARY</a>="Aspell English dictionaries"
-    <a href="./pkg_pkg_cygpart.html#robo441">DESCRIPTION</a>="GNU Aspell is a Free and Open Source spell checker designed
+    <a href="./pkg_pkg_cygpart.html#robo381">CATEGORY</a>="Text"
+    <a href="./pkg_pkg_cygpart.html#robo383">SUMMARY</a>="Aspell English dictionaries"
+    <a href="./pkg_pkg_cygpart.html#robo385">DESCRIPTION</a>="GNU Aspell is a Free and Open Source spell checker designed
     to eventually replace Ispell. It can either be used as a library or as an
     independent spell checker.
     This package provides English dictionaries for Aspell."
@@ -88,14 +88,14 @@
 <p>  aspell
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="./mirrors.html#robo578">mirror_gnu</a>
+<p>  <a href="./mirrors.html#robo490">mirror_gnu</a>
 </p>
 
 <hr />
 <a name="aspell2ddict2ecygclass2fASPELL5fCOMPAT"></a>
-<a name="robo941"></a><h2>ASPELL_COMPAT</h2>
+<a name="robo791"></a><h2>ASPELL_COMPAT</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Dictionary compatibility level:
 </p>
@@ -113,38 +113,38 @@
 
 <hr />
 <a name="aspell2ddict2ecygclass2fASPELL5fDATADIR"></a>
-<a name="robo942"></a><h2>ASPELL_DATADIR</h2>
+<a name="robo792"></a><h2>ASPELL_DATADIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installation path for Aspell platform-independent dictionary files
 </p>
 
 <hr />
 <a name="aspell2ddict2ecygclass2fASPELL5fDICTDIR"></a>
-<a name="robo943"></a><h2>ASPELL_DICTDIR</h2>
+<a name="robo793"></a><h2>ASPELL_DICTDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installation path for Aspell compiled dictionary files
 </p>
 
 <hr />
 <a name="aspell2ddict2ecygclass2fASPELL5fLANG"></a>
-<a name="robo944"></a><h2>ASPELL_LANG</h2>
+<a name="robo794"></a><h2>ASPELL_LANG</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  ISO 639 short code for language name
 </p>
 
 <hr />
 <a name="aspell2ddict2ecygclass2fASPELL5fLANG5fFULL"></a>
-<a name="robo945"></a><h2>ASPELL_LANG_FULL</h2>
+<a name="robo795"></a><h2>ASPELL_LANG_FULL</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  The English name for the language specified in <a href="#robo944">ASPELL_LANG</a>.
+<p>  The English name for the language specified in <a href="#robo794">ASPELL_LANG</a>.
 </p>
 <p class="item_name">NOTE</p>
 <p>  The iso-codes package must be installed in order to provide this definition.
@@ -152,104 +152,104 @@
 
 <hr />
 <a name="aspell2ddict2ecygclass2fCATEGORY2028aspell2ddict29"></a>
-<a name="robo946"></a><h2>CATEGORY (aspell-dict)</h2>
+<a name="robo796"></a><h2>CATEGORY (aspell-dict)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo437">CATEGORY</a><span class="sign">=</span><span class="quote">"Text"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo381">CATEGORY</a><span class="sign">=</span><span class="quote">"Text"</span>
 </pre>
 
 <hr />
 <a name="aspell2ddict2ecygclass2fSUMMARY2028aspell2ddict29"></a>
-<a name="robo947"></a><h2>SUMMARY (aspell-dict)</h2>
+<a name="robo797"></a><h2>SUMMARY (aspell-dict)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo439">SUMMARY</a><span class="sign">=</span><span class="quote">"Aspell ${<a href="#robo945">ASPELL_LANG_FULL</a>:-${<a href="#robo944">ASPELL_LANG</a>}} dictionary"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo383">SUMMARY</a><span class="sign">=</span><span class="quote">"Aspell ${<a href="#robo795">ASPELL_LANG_FULL</a>:-${<a href="#robo794">ASPELL_LANG</a>}} dictionary"</span>
 </pre>
 
 <hr />
 <a name="aspell2ddict2ecygclass2fDESCRIPTION2028aspell2ddict29"></a>
-<a name="robo948"></a><h2>DESCRIPTION (aspell-dict)</h2>
+<a name="robo798"></a><h2>DESCRIPTION (aspell-dict)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo441">DESCRIPTION</a><span class="sign">=</span><span class="quote">"GNU Aspell is a Free and Open Source spell checker designed to
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo385">DESCRIPTION</a><span class="sign">=</span><span class="quote">"GNU Aspell is a Free and Open Source spell checker designed to
 eventually replace Ispell. It can either be used as a library or as an
 independent spell checker.
-This package provides ${<a href="#robo945">ASPELL_LANG_FULL</a>:-${<a href="#robo944">ASPELL_LANG</a>}} dictionaries for Aspell."</span>
+This package provides ${<a href="#robo795">ASPELL_LANG_FULL</a>:-${<a href="#robo794">ASPELL_LANG</a>}} dictionaries for Aspell."</span>
 </pre>
 
 <hr />
 <a name="aspell2ddict2ecygclass2fHOMEPAGE2028aspell2ddict29"></a>
-<a name="robo949"></a><h2>HOMEPAGE (aspell-dict)</h2>
+<a name="robo799"></a><h2>HOMEPAGE (aspell-dict)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_info_cygpart.html#robo448">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://aspell.net/"</span>
+<pre class="source"><a href="./pkg_info_cygpart.html#robo392">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://aspell.net/"</span>
 </pre>
 
 <hr />
 <a name="aspell2ddict2ecygclass2fSRC5fURI2028aspell2ddict29"></a>
-<a name="robo950"></a><h2>SRC_URI (aspell-dict)</h2>
+<a name="robo800"></a><h2>SRC_URI (aspell-dict)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_fetch_cygpart.html#robo186">SRC_URI</a><span class="sign">=</span><span class="quote">"mirror://gnu/aspell/dict/${<a href="#robo944">ASPELL_LANG</a>}/${ORIG_PN}-${ORIG_PV}.tar.bz2"</span>
+<pre class="source"><a href="./src_fetch_cygpart.html#robo177">SRC_URI</a><span class="sign">=</span><span class="quote">"mirror://gnu/aspell/dict/${<a href="#robo794">ASPELL_LANG</a>}/${ORIG_PN}-${ORIG_PV}.tar.bz2"</span>
 </pre>
 
 <hr />
 <a name="aspell2ddict2ecygclass2faspell5fdict5fcompile"></a>
-<a name="robo951"></a><h2>aspell_dict_compile</h2>
+<a name="robo801"></a><h2>aspell_dict_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>aspell_dict_compile</strong>
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Compiles an Aspell dictionary by running the custom configure script, then
-  calling <a href="./src_compile_cygpart.html#robo190">cygmake</a>.
+  calling <a href="./src_compile_cygpart.html#robo181">cygmake</a>.
 </p>
 
 <hr />
 <a name="aspell2ddict2ecygclass2fdoaspelldict"></a>
-<a name="robo952"></a><h2>doaspelldict</h2>
+<a name="robo802"></a><h2>doaspelldict</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>doaspelldict</strong> FILES
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installs the Aspell dictionary files to the correct directories.  Aspell
-  dictionaries usually install with the default <a href="./src_install_cygpart.html#robo184">src_install</a>, so this is generally
+  dictionaries usually install with the default <a href="./src_install_cygpart.html#robo175">src_install</a>, so this is generally
   unnecessary.
 </p>
 
 <hr />
 <a name="aspell2ddict2ecygclass2fdoaspelldata"></a>
-<a name="robo953"></a><h2>doaspelldata</h2>
+<a name="robo803"></a><h2>doaspelldata</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Alias for <a href="#robo952">doaspelldict</a>.
+<p>  Alias for <a href="#robo802">doaspelldict</a>.
 </p>
 
 <hr />
 <a name="aspell2ddict2ecygclass2fsrc5fcompile2028aspell2ddict29"></a>
-<a name="robo954"></a><h2>src_compile (aspell-dict)</h2>
+<a name="robo804"></a><h2>src_compile (aspell-dict)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo940">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo790">aspell-dict.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo191">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        <a href="./src_compile_cygpart.html#robo188">lndirs</a>
+<pre class="source"><a href="./src_compile_cygpart.html#robo182">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        <a href="./src_compile_cygpart.html#robo179">lndirs</a>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo951">aspell_dict_compile</a>
+        <a href="#robo801">aspell_dict_compile</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/aspell-dict.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Wed Mar 15 2017 15:29:33
+<p>Generated from ./cygport/cygclass/aspell-dict.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Fri Dec 29 2017 11:40:27
 </p>
 </div> <!-- footer -->
 </body>

@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
 <link rel="stylesheet" href="./robodoc.css" type="text/css" />
-<title>cygport/cygclass/R.cygclass</title>
-<!-- Source: cygport/cygclass/R.cygclass -->
+<title>./cygport/cygclass/R.cygclass</title>
+<!-- Source: ./cygport/cygclass/R.cygclass -->
 <!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
 </head>
 <body>
@@ -33,169 +33,169 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo256">R.cygclass</a></li>
+<li><a href="#robo221">R.cygclass</a></li>
 <ul>
-<li><a href="#robo257">R</a></li>
-<li><a href="#robo258">R_CFLAGS</a></li>
-<li><a href="#robo259">R_LIBS</a></li>
-<li><a href="#robo260">R_HOME</a></li>
-<li><a href="#robo261">R_INCLUDEDIR</a></li>
-<li><a href="#robo262">R_SITELIB</a></li>
-<li><a href="#robo263">CATEGORY (R)</a></li>
-<li><a href="#robo264">SUMMARY (R)</a></li>
-<li><a href="#robo265">HOMEPAGE (R)</a></li>
-<li><a href="#robo266">SRC_URI (R)</a></li>
-<li><a href="#robo267">R_CONFIGURE_ARGS</a></li>
-<li><a href="#robo268">R_compile</a></li>
-<li><a href="#robo269">R_install</a></li>
-<li><a href="#robo270">src_compile (R)</a></li>
-<li><a href="#robo271">src_install (R)</a></li>
+<li><a href="#robo222">R</a></li>
+<li><a href="#robo223">R_CFLAGS</a></li>
+<li><a href="#robo224">R_LIBS</a></li>
+<li><a href="#robo225">R_HOME</a></li>
+<li><a href="#robo226">R_INCLUDEDIR</a></li>
+<li><a href="#robo227">R_SITELIB</a></li>
+<li><a href="#robo228">CATEGORY (R)</a></li>
+<li><a href="#robo229">SUMMARY (R)</a></li>
+<li><a href="#robo230">HOMEPAGE (R)</a></li>
+<li><a href="#robo231">SRC_URI (R)</a></li>
+<li><a href="#robo232">R_CONFIGURE_ARGS</a></li>
+<li><a href="#robo233">R_compile</a></li>
+<li><a href="#robo234">R_install</a></li>
+<li><a href="#robo235">src_compile (R)</a></li>
+<li><a href="#robo236">src_install (R)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fR2ecygclass"></a>
-<a name="robo256"></a><h2>R.cygclass</h2>
+<a name="robo221"></a><h2>R.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./Makefile_am.html#robo601">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo510">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo652">inherit</a> <a href="#robo257">R</a>
+<pre>  <a href="./inheritance_cygpart.html#robo559">inherit</a> <a href="#robo222">R</a>
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo257">R</a> is a GNU implementation of <a href="./syntax_cygpart.html#robo97">S</a>, a language and environment for statistical
+<p>  <a href="#robo222">R</a> is a GNU implementation of <a href="./syntax_cygpart.html#robo97">S</a>, a language and environment for statistical
   computing and graphics.
 </p>
 
 <p>  The primary purpose of <strong>R.cygclass</strong> is for creating Cygwin packages from
 <a href="http://cran.r-project.org/web/packages/">CRAN packages</a>,
-  the <a href="#robo257">R</a> equivalent of Perl's CPAN.  CRAN package builds are driven by <a href="#robo257">R</a> itself.
+  the <a href="#robo222">R</a> equivalent of Perl's CPAN.  CRAN package builds are driven by <a href="#robo222">R</a> itself.
 </p>
 
 <p>  Most CRAN packages build OOTB, but creating a Cygwin package may be helpful
   if a patch is required or if the build requirements are substantial (e.g.
   RGtk2, the GTK+ bindings which are used in several GUIs).  When using <strong>R.cygclass</strong>
-  to build a CRAN package, <a href="./syntax_cygpart.html#robo88">NAME</a> must be "<a href="#robo257">R</a>-" followed by the CRAN package
-  name.  In most such cases, the <strong>R.cygclass</strong> <a href="./src_compile_cygpart.html#robo191">src_compile</a> and <a href="./src_install_cygpart.html#robo184">src_install</a> should
+  to build a CRAN package, <a href="./syntax_cygpart.html#robo88">NAME</a> must be "<a href="#robo222">R</a>-" followed by the CRAN package
+  name.  In most such cases, the <strong>R.cygclass</strong> <a href="./src_compile_cygpart.html#robo182">src_compile</a> and <a href="./src_install_cygpart.html#robo175">src_install</a> should
   suffice.
 </p>
 
 <p>  Alternatively, the definitions in this cygclass can be used to help build
-  an <a href="#robo257">R</a>-dependent package which does not use CRAN, e.g.
+  an <a href="#robo222">R</a>-dependent package which does not use CRAN, e.g.
 <a href="http://sourceforge.net/p/cygwin-ports/rkward/">rkward</a>.
 </p>
 <p class="item_name">EXAMPLE</p>
-<pre>  <a href="./inheritance_cygpart.html#robo652">inherit</a> <a href="#robo257">R</a>
+<pre>  <a href="./inheritance_cygpart.html#robo559">inherit</a> <a href="#robo222">R</a>
   
-  <a href="./syntax_cygpart.html#robo88">NAME</a>="<a href="#robo257">R</a>-RODBC"
+  <a href="./syntax_cygpart.html#robo88">NAME</a>="<a href="#robo222">R</a>-RODBC"
   <a href="./syntax_cygpart.html#robo89">VERSION</a>=1.3-7
   <a href="./syntax_cygpart.html#robo90">RELEASE</a>=1
-  <a href="./pkg_pkg_cygpart.html#robo437">CATEGORY</a>="Math"
-  <a href="./pkg_pkg_cygpart.html#robo439">SUMMARY</a>="<a href="#robo257">R</a> ODBC interface"
-  <a href="./pkg_pkg_cygpart.html#robo441">DESCRIPTION</a>="ODBC database interface for the <a href="#robo257">R</a> statistic programming language"
+  <a href="./pkg_pkg_cygpart.html#robo381">CATEGORY</a>="Math"
+  <a href="./pkg_pkg_cygpart.html#robo383">SUMMARY</a>="<a href="#robo222">R</a> ODBC interface"
+  <a href="./pkg_pkg_cygpart.html#robo385">DESCRIPTION</a>="ODBC database interface for the <a href="#robo222">R</a> statistic programming language"
   
-  <a href="#robo267">R_CONFIGURE_ARGS</a>="--with-odbc-manager=iodbc"
+  <a href="#robo232">R_CONFIGURE_ARGS</a>="--with-odbc-manager=iodbc"
 </pre>
 <p class="item_name">REQUIRES</p>
-<p>  pkg-config, <a href="#robo257">R</a>
+<p>  pkg-config, <a href="#robo222">R</a>
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="./mirrors.html#robo572">mirror_cran</a>
+<p>  <a href="./mirrors.html#robo484">mirror_cran</a>
 </p>
 
 <hr />
 <a name="R2ecygclass2fR"></a>
-<a name="robo257"></a><h2>R</h2>
+<a name="robo222"></a><h2>R</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Absolute path to the <strong>R</strong> interpreter.
 </p>
 
 <hr />
 <a name="R2ecygclass2fR5fCFLAGS"></a>
-<a name="robo258"></a><h2>R_CFLAGS</h2>
+<a name="robo223"></a><h2>R_CFLAGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Compile flags for the libR <a href="./syntax_cygpart.html#robo99">C</a> library.
 </p>
 
 <hr />
 <a name="R2ecygclass2fR5fLIBS"></a>
-<a name="robo259"></a><h2>R_LIBS</h2>
+<a name="robo224"></a><h2>R_LIBS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Link flags for the libR <a href="./syntax_cygpart.html#robo99">C</a> library.
 </p>
 
 <hr />
 <a name="R2ecygclass2fR5fHOME"></a>
-<a name="robo260"></a><h2>R_HOME</h2>
+<a name="robo225"></a><h2>R_HOME</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Absolute path to the <a href="#robo257">R</a> main directory.
+<p>  Absolute path to the <a href="#robo222">R</a> main directory.
 </p>
 
 <hr />
 <a name="R2ecygclass2fR5fINCLUDEDIR"></a>
-<a name="robo261"></a><h2>R_INCLUDEDIR</h2>
+<a name="robo226"></a><h2>R_INCLUDEDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Absolute path to the directory containing libR <a href="./syntax_cygpart.html#robo99">C</a> library headers.
 </p>
 
 <hr />
 <a name="R2ecygclass2fR5fSITELIB"></a>
-<a name="robo262"></a><h2>R_SITELIB</h2>
+<a name="robo227"></a><h2>R_SITELIB</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installation path for third-party <a href="#robo257">R</a> modules.
+<p>  Installation path for third-party <a href="#robo222">R</a> modules.
 </p>
 
 <hr />
 <a name="R2ecygclass2fCATEGORY2028R29"></a>
-<a name="robo263"></a><h2>CATEGORY (R)</h2>
+<a name="robo228"></a><h2>CATEGORY (R)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo437">CATEGORY</a><span class="sign">=</span><span class="quote">"Math Science"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo381">CATEGORY</a><span class="sign">=</span><span class="quote">"Math Science"</span>
 </pre>
 
 <hr />
 <a name="R2ecygclass2fSUMMARY2028R29"></a>
-<a name="robo264"></a><h2>SUMMARY (R)</h2>
+<a name="robo229"></a><h2>SUMMARY (R)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo439">SUMMARY</a><span class="sign">=</span><span class="quote">"<a href="#robo257">R</a> ${ORIG_PN} package"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo383">SUMMARY</a><span class="sign">=</span><span class="quote">"<a href="#robo222">R</a> ${ORIG_PN} package"</span>
 </pre>
 
 <hr />
 <a name="R2ecygclass2fHOMEPAGE2028R29"></a>
-<a name="robo265"></a><h2>HOMEPAGE (R)</h2>
+<a name="robo230"></a><h2>HOMEPAGE (R)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Web address for the <a href="#robo257">R</a> module on CRAN.
+<p>  Web address for the <a href="#robo222">R</a> module on CRAN.
 </p>
 
 <hr />
 <a name="R2ecygclass2fSRC5fURI2028R29"></a>
-<a name="robo266"></a><h2>SRC_URI (R)</h2>
+<a name="robo231"></a><h2>SRC_URI (R)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Download location for the <a href="#robo257">R</a> module on CRAN.
+<p>  Download location for the <a href="#robo222">R</a> module on CRAN.
 </p>
 
 <hr />
 <a name="R2ecygclass2fR5fCONFIGURE5fARGS"></a>
-<a name="robo267"></a><h2>R_CONFIGURE_ARGS</h2>
+<a name="robo232"></a><h2>R_CONFIGURE_ARGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>R_CONFIGURE_ARGS</strong>="arg1 [arg2 ...]"
 </pre>
@@ -206,59 +206,59 @@
 
 <hr />
 <a name="R2ecygclass2fR5fcompile"></a>
-<a name="robo268"></a><h2>R_compile</h2>
+<a name="robo233"></a><h2>R_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo98">B</a>
   <strong>R_compile</strong>
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Configures and compiles an <a href="#robo257">R</a> module packages.  Due to the nature of
+<p>  Configures and compiles an <a href="#robo222">R</a> module packages.  Due to the nature of
   CRAN packages, the package is not compiled in <a href="./syntax_cygpart.html#robo98">B</a>, but is compiled and
   "installed" into a temporary directory.
 </p>
 
 <hr />
 <a name="R2ecygclass2fR5finstall"></a>
-<a name="robo269"></a><h2>R_install</h2>
+<a name="robo234"></a><h2>R_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>R_install</strong>
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installs the <a href="#robo257">R</a> module into $<a href="./syntax_cygpart.html#robo100">D</a>.  Due to the nature of CRAN packages, all
-  this does is copy from the temporary directory used in <a href="#robo268">R_compile</a>.
+<p>  Installs the <a href="#robo222">R</a> module into $<a href="./syntax_cygpart.html#robo100">D</a>.  Due to the nature of CRAN packages, all
+  this does is copy from the temporary directory used in <a href="#robo233">R_compile</a>.
 </p>
 
 <hr />
 <a name="R2ecygclass2fsrc5fcompile2028R29"></a>
-<a name="robo270"></a><h2>src_compile (R)</h2>
+<a name="robo235"></a><h2>src_compile (R)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo191">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_compile_cygpart.html#robo182">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         mkdir <span class="sign">-</span>p <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span><span class="sign">/</span><span class="sign">$</span><span class="sign">{</span>ORIG_PN<span class="sign">}</span>
-        <a href="./src_compile_cygpart.html#robo188">lndirs</a> <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo97">S</a><span class="sign">}</span> <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span><span class="sign">/</span><span class="sign">$</span><span class="sign">{</span>ORIG_PN<span class="sign">}</span>
-        <a href="#robo268">R_compile</a>
+        <a href="./src_compile_cygpart.html#robo179">lndirs</a> <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo97">S</a><span class="sign">}</span> <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span><span class="sign">/</span><span class="sign">$</span><span class="sign">{</span>ORIG_PN<span class="sign">}</span>
+        <a href="#robo233">R_compile</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="R2ecygclass2fsrc5finstall2028R29"></a>
-<a name="robo271"></a><h2>src_install (R)</h2>
+<a name="robo236"></a><h2>src_install (R)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo256">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo221">R.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo184">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        <a href="#robo269">R_install</a>
+<pre class="source"><a href="./src_install_cygpart.html#robo175">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        <a href="#robo234">R_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from cygport/cygclass/R.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Wed Mar 15 2017 15:29:32
+<p>Generated from ./cygport/cygclass/R.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Fri Dec 29 2017 11:40:26
 </p>
 </div> <!-- footer -->
 </body>
