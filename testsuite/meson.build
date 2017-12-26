@@ -11,6 +11,8 @@ test_driver = find_program('test-driver')
 # this is used in several subdirs
 cmake = find_program('cmake', required: false)
 
+tests = []
+
 subdir('download')
 subdir('aspell')
 subdir('autotools')
@@ -31,3 +33,11 @@ subdir('R')
 subdir('ruby')
 subdir('texlive')
 subdir('waf')
+
+foreach t : tests
+test(t[0], test_driver,
+     args: t[0],
+     env: testenv,
+     is_parallel: t.length() > 1 ? false : true,
+     timeout: t.length() > 1 ? t[1] : 240)
+endforeach

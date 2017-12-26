@@ -6,68 +6,26 @@ mtn = find_program('mtn', required: false)
 svn = find_program('svn', required: false)
 
 if bzr.found()
-test('download/bzr',
-     test_driver,
-     args: 'download/bzr',
-     env: testenv,
-     timeout: 120)
+tests += [['download/bzr']]
 endif
 if cvs.found()
-test('download/cvs',
-     test_driver,
-     args: 'download/cvs',
-     env: testenv,
-     timeout: 120)
+tests += [['download/cvs']]
 endif
 if git.found()
-test('download/git',
-     test_driver,
-     args: 'download/git',
-     env: testenv,
-     timeout: 120)
+tests += [['download/git']]
 endif
-test('download/gnome.org',
-     test_driver,
-     args: 'download/gnome.org',
-     env: testenv)
+tests += [['download/gnome.org']]
 if hg.found()
-test('download/hg',
-     test_driver,
-     args: 'download/hg',
-     env: testenv,
-     timeout: 120)
+tests += [['download/hg']]
 endif
-test('download/mate',
-     test_driver,
-     args: 'download/mate',
-     env: testenv)
+tests += [['download/mate']]
 if mtn.found()
-test('download/mtn',
-     test_driver,
-     args: 'download/mtn',
-     env: testenv,
-     timeout: 120)
+tests += [['download/mtn']]
 endif
-test('download/perl',
-     test_driver,
-     args: 'download/perl',
-     env: testenv)
-test('download/python.org',
-     test_driver,
-     args: 'download/python.org',
-     env: testenv)
-test('download/R',
-     test_driver,
-     args: 'download/R',
-     env: testenv)
+tests += [['download/perl']]
+tests += [['download/python.org']]
+tests += [['download/R']]
 if svn.found()
-test('download/svn',
-     test_driver,
-     args: 'download/svn',
-     env: testenv,
-     timeout: 120)
+tests += [['download/svn']]
 endif
-test('download/x.org',
-     test_driver,
-     args: 'download/x.org',
-     env: testenv)
+tests += [['download/x.org']]
