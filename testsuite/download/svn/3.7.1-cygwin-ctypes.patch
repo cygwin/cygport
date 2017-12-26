@@ -1,0 +1,11 @@
+--- origsrc/cfe-3.7.1.src/bindings/python/clang/cindex.py	2016-02-11 10:24:42.854643200 -0600
++++ src/cfe-3.7.1.src/bindings/python/clang/cindex.py	2016-02-11 10:27:09.290238200 -0600
+@@ -3549,6 +3549,8 @@ class Config:
+             file = 'libclang.dylib'
+         elif name == 'Windows':
+             file = 'libclang.dll'
++        elif name[:6] == 'CYGWIN':
++            file = 'cygclang-@CLANG_LIB_VERSION@.dll'
+         else:
+             file = 'libclang.so'
+ 

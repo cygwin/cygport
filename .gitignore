@@ -20,7 +20,7 @@ doc/manual/
 /tests/cygport-*.noarch/
 
 patches
-*.patch
+/*.patch
 *.orig
 *.rej
 

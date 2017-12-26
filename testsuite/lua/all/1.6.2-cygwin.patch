@@ -1,0 +1,39 @@
+--- origsrc/luafilesystem-1.6.2/Makefile	2012-10-04 09:25:54.000000000 -0500
++++ src/luafilesystem-1.6.2/Makefile	2013-11-10 15:49:27.428034500 -0600
+@@ -12,7 +12,7 @@ OBJS= src/$T.o
+ lib: src/lfs.so
+ 
+ src/lfs.so: $(OBJS)
+-	MACOSX_DEPLOYMENT_TARGET="10.3"; export MACOSX_DEPLOYMENT_TARGET; $(CC) $(CFLAGS) $(LIB_OPTION) -o src/lfs.so $(OBJS)
++	MACOSX_DEPLOYMENT_TARGET="10.3"; export MACOSX_DEPLOYMENT_TARGET; $(CC) $(CFLAGS) $(LIB_OPTION) -o src/lfs.so $(OBJS) -llua
+ 
+ install:
+ 	mkdir -p $(LUA_LIBDIR)
+--- origsrc/luafilesystem-1.6.2/src/lfs.c	2012-10-04 09:25:54.000000000 -0500
++++ src/luafilesystem-1.6.2/src/lfs.c	2013-11-10 15:51:04.909610100 -0600
+@@ -54,6 +54,9 @@
+ #include <fcntl.h>
+ #include <sys/types.h>
+ #include <utime.h>
++#ifdef __CYGWIN__
++#include <io.h>
++#endif
+ #endif
+ 
+ #include <lua.h>
+@@ -114,9 +117,15 @@ typedef struct dir_data {
+ #define STAT_FUNC _stati64
+ #define LSTAT_FUNC STAT_FUNC
+ #else
++#ifdef __CYGWIN__
++#define _O_TEXT	O_TEXT
++#define _O_BINARY	O_BINARY
++#define lfs_setmode(L,file,m)   ((void)L, _setmode(fileno(file), m))
++#else
+ #define _O_TEXT               0
+ #define _O_BINARY             0
+ #define lfs_setmode(L,file,m)   ((void)L, (void)file, (void)m, 0)
++#endif
+ #define STAT_STRUCT struct stat
+ #define STAT_FUNC stat
+ #define LSTAT_FUNC lstat

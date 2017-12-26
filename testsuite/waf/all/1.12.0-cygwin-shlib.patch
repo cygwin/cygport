@@ -1,0 +1,66 @@
+--- origsrc/lv2-1.12.0/plugins/eg-amp.lv2/wscript	2015-03-02 09:31:54.000000000 -0600
++++ src/lv2-1.12.0/plugins/eg-amp.lv2/wscript	2015-11-26 02:01:55.756934600 -0600
+@@ -32,7 +32,7 @@ def build(bld):
+     bundle = 'eg-amp.lv2'
+ 
+     # Make a pattern for shared objects without the 'lib' prefix
+-    module_pat = re.sub('^lib', '', bld.env.cshlib_PATTERN)
++    module_pat = re.sub('^(lib|cyg)', '', bld.env.cshlib_PATTERN)
+     module_ext = module_pat[module_pat.rfind('.'):]
+ 
+     # Build manifest.ttl by substitution (for portable lib extension)
+--- origsrc/lv2-1.12.0/plugins/eg-fifths.lv2/wscript	2015-03-02 09:31:54.000000000 -0600
++++ src/lv2-1.12.0/plugins/eg-fifths.lv2/wscript	2015-11-26 02:02:34.348335100 -0600
+@@ -30,7 +30,7 @@ def build(bld):
+     bundle = 'eg-fifths.lv2'
+ 
+     # Make a pattern for shared objects without the 'lib' prefix
+-    module_pat = re.sub('^lib', '', bld.env.cshlib_PATTERN)
++    module_pat = re.sub('^(lib|cyg)', '', bld.env.cshlib_PATTERN)
+     module_ext = module_pat[module_pat.rfind('.'):]
+ 
+     # Build manifest.ttl by substitution (for portable lib extension)
+--- origsrc/lv2-1.12.0/plugins/eg-metro.lv2/wscript	2015-03-02 09:31:54.000000000 -0600
++++ src/lv2-1.12.0/plugins/eg-metro.lv2/wscript	2015-11-26 02:01:55.765435700 -0600
+@@ -32,7 +32,7 @@ def build(bld):
+     bundle = 'eg-metro.lv2'
+ 
+     # Make a pattern for shared objects without the 'lib' prefix
+-    module_pat = re.sub('^lib', '', bld.env.cshlib_PATTERN)
++    module_pat = re.sub('^(lib|cyg)', '', bld.env.cshlib_PATTERN)
+     module_ext = module_pat[module_pat.rfind('.'):]
+ 
+     # Build manifest.ttl by substitution (for portable lib extension)
+--- origsrc/lv2-1.12.0/plugins/eg-midigate.lv2/wscript	2015-03-02 09:31:54.000000000 -0600
++++ src/lv2-1.12.0/plugins/eg-midigate.lv2/wscript	2015-11-26 02:01:55.761435200 -0600
+@@ -30,7 +30,7 @@ def build(bld):
+     bundle = 'eg-midigate.lv2'
+ 
+     # Make a pattern for shared objects without the 'lib' prefix
+-    module_pat = re.sub('^lib', '', bld.env.cshlib_PATTERN)
++    module_pat = re.sub('^(lib|cyg)', '', bld.env.cshlib_PATTERN)
+     module_ext = module_pat[module_pat.rfind('.'):]
+ 
+     # Build manifest.ttl by substitution (for portable lib extension)
+--- origsrc/lv2-1.12.0/plugins/eg-sampler.lv2/wscript	2015-03-02 09:31:54.000000000 -0600
++++ src/lv2-1.12.0/plugins/eg-sampler.lv2/wscript	2015-11-26 02:01:55.770936400 -0600
+@@ -36,7 +36,7 @@ def build(bld):
+     bundle = 'eg-sampler.lv2'
+ 
+     # Make a pattern for shared objects without the 'lib' prefix
+-    module_pat = re.sub('^lib', '', bld.env.cshlib_PATTERN)
++    module_pat = re.sub('^(lib|cyg)', '', bld.env.cshlib_PATTERN)
+     module_ext = module_pat[module_pat.rfind('.'):]
+ 
+     # Build manifest.ttl by substitution (for portable lib extension)
+--- origsrc/lv2-1.12.0/plugins/eg-scope.lv2/wscript	2015-03-02 09:31:54.000000000 -0600
++++ src/lv2-1.12.0/plugins/eg-scope.lv2/wscript	2015-11-26 02:02:42.472866800 -0600
+@@ -35,7 +35,7 @@ def build(bld):
+     bundle = 'eg-scope.lv2'
+ 
+     # Make a pattern for shared objects without the 'lib' prefix
+-    module_pat = re.sub('^lib', '', bld.env.cshlib_PATTERN)
++    module_pat = re.sub('^(lib|cyg)', '', bld.env.cshlib_PATTERN)
+     module_ext = module_pat[module_pat.rfind('.'):]
+ 
+     # Build manifest.ttl by substitution (for portable lib extension)

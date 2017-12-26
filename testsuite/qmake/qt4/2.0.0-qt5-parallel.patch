@@ -1,0 +1,96 @@
+--- origsrc/qoauth-2.0.0/oauth.prf	2016-11-28 11:52:39.000000000 -0600
++++ src/qoauth-2.0.0/oauth.prf	2017-01-19 14:56:46.623802100 -0600
+@@ -1,9 +1,6 @@
+ QOAUTH_INCDIR = $$[QT_INSTALL_HEADERS]
+ QOAUTH_LIBDIR = $$[QT_INSTALL_LIBS]
+ 
+-QOAUTH_INCDIR ~= s!/qt4*!!
+-QOAUTH_LIBDIR ~= s!/qt4*!!
+-
+ CONFIG *= qt
+ CONFIG += crypto
+ 
+@@ -33,7 +30,11 @@ isEmpty(LINKAGE) {
+     exists($$PWD/qoauth.pro): INCLUDEPATH += $$QOAUTH_INCDIR
+     else: INCLUDEPATH += $$QOAUTH_INCDIR/QtOAuth
+     LIBS += -L$$QOAUTH_LIBDIR
+-    LINKAGE = -lqoauth
++    greaterThan(QT_MAJOR_VERSION, 4) {
++        LINKAGE = -lqoauth-qt$${QT_MAJOR_VERSION}
++    } else {
++        LINKAGE = -lqoauth
++    }
+     CONFIG(debug, debug|release) {
+         windows:LINKAGE = -lqoauthd1
+         mac:LINKAGE = -lqoauth_debug
+--- origsrc/qoauth-2.0.0/src/pcfile.sh	2016-11-28 11:52:39.000000000 -0600
++++ src/qoauth-2.0.0/src/pcfile.sh	2017-01-19 15:35:22.027583900 -0600
+@@ -2,14 +2,19 @@
+ # This "script" creates a pkg-config file basing on values set
+ # in project file
+ 
++case $3 in
++4) requires="QtCore QtNetwork qca2" ;;
++*) requires="Qt${3}Core Qt${3}Network qca2-qt${3}" ;;
++esac
++
+ echo "prefix=$1
+ exec_prefix=\${prefix}
+ libdir=\${prefix}/lib
+-includedir=\${prefix}/include/QtOAuth
++includedir=\${prefix}/include/qt$3/QtOAuth
+ 
+ Name: QOAuth
+ Description: Qt OAuth support library
+ Version: $2
+-Requires: QtCore QtNetwork qca2
+-Libs: -L\${libdir} -lqoauth
+-Cflags: -I\${includedir}" > qoauth.pc
++Requires: $requires
++Libs: -L\${libdir} -l$4
++Cflags: -I\${includedir}" > $4.pc
+--- origsrc/qoauth-2.0.0/src/src.pro	2017-01-19 14:48:23.180370600 -0600
++++ src/qoauth-2.0.0/src/src.pro	2017-01-20 00:26:53.511090300 -0600
+@@ -1,13 +1,13 @@
+-TARGET = qoauth
++greaterThan(QT_MAJOR_VERSION, 4) {
++   TARGET = qoauth-qt$${QT_MAJOR_VERSION}
++} else {
++   TARGET = qoauth
++}
++
+ DESTDIR = ../lib
+ win32:DLLDESTDIR = $${DESTDIR}
+ 
+-equals(QT_MAJOR_VERSION, 5){
+-   VERSION = 2.0.0
+-}
+-equals(QT_MAJOR_VERSION, 4) {
+-   VERSION = 1.0.1
+-}
++VERSION = 1.0.1
+ 
+ TEMPLATE = lib
+ QT += network
+@@ -77,8 +77,8 @@ else:unix {
+     else:INSTALL_PREFIX = $${PREFIX}
+ 
+     # this creates a pkgconfig file
+-    system( ./pcfile.sh $${INSTALL_PREFIX} $${VERSION} )
+-    pkgconfig.files = qoauth.pc
++    system( ./pcfile.sh $${INSTALL_PREFIX} $${VERSION} $${QT_MAJOR_VERSION} $${TARGET} )
++    pkgconfig.files = $${TARGET}.pc
+     
+     contains(QMAKE_HOST.arch, x86_64):exists($${INSTALL_PREFIX}/lib64) {
+       target.path = $${INSTALL_PREFIX}/lib64
+@@ -86,8 +86,8 @@ else:unix {
+       target.path = $${INSTALL_PREFIX}/lib
+     }
+ 
+-    headers.path = $${INSTALL_PREFIX}/include/QtOAuth
+-    docs.path = $${INSTALL_PREFIX}/share/doc/$${TARGET}-$${VERSION}/html
++    headers.path = $${INSTALL_PREFIX}/include/qt$${QT_MAJOR_VERSION}/QtOAuth
++    docs.path = $${INSTALL_PREFIX}/share/doc/$${TARGET}/html
+     pkgconfig.path = $${target.path}/pkgconfig
+     INSTALLS += \
+         target \

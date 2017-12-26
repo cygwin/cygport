@@ -1,0 +1,53 @@
+--- origsrc/win-iconv-0.0.6/CMakeLists.txt	2011-07-25 18:22:41.000000000 -0500
++++ src/win-iconv-0.0.6/CMakeLists.txt	2012-11-21 20:20:26.682959500 -0600
+@@ -37,8 +37,12 @@ endif(NOT WINCE)
+ 
+ if(BUILD_SHARED)
+     add_library(iconv SHARED win_iconv.c iconv.def)
+-    set_target_properties(iconv PROPERTIES COMPILE_FLAGS "-DMAKE_DLL"
+-                                           PREFIX "")
++    set_target_properties(iconv PROPERTIES COMPILE_FLAGS "-DMAKE_DLL")
++    if(CYGWIN)
++        set_target_properties(iconv PROPERTIES SOVERSION 3)
++    else(CYGWIN)
++        set_target_properties(iconv PROPERTIES PREFIX "")
++    endif(CYGWIN)
+     if(WINCE)
+         target_link_libraries(iconv ${WCECOMPAT_LIBRARIES})
+     endif(WINCE)
+@@ -50,6 +54,9 @@ endif(BUILD_SHARED)
+ if(BUILD_EXECUTABLE)
+     add_executable(win_iconv win_iconv.c)
+     set_target_properties(win_iconv PROPERTIES COMPILE_FLAGS "-DMAKE_EXE")
++    if(CYGWIN)
++        set_target_properties(win_iconv PROPERTIES OUTPUT_NAME "iconv")
++    endif(CYGWIN)
+     if(WINCE)
+         target_link_libraries(win_iconv ${WCECOMPAT_LIBRARIES})
+     endif(WINCE)
+--- origsrc/win-iconv-0.0.6/win_iconv.c	2012-10-21 07:53:04.000000000 -0500
++++ src/win-iconv-0.0.6/win_iconv.c	2012-11-21 18:12:58.865693500 -0600
+@@ -15,6 +15,12 @@
+ #include <string.h>
+ #include <stdlib.h>
+ 
++#ifdef __CYGWIN__
++#define _errno __errno
++#define _stricmp strcasecmp
++#define _strnicmp strncasecmp
++#endif
++
+ /* WORKAROUND: */
+ #ifndef UNDER_CE
+ #define GetProcAddressA GetProcAddress
+@@ -1925,6 +1933,10 @@ DllMain(HINSTANCE hinstDLL, DWORD fdwRea
+ #include <stdio.h>
+ #include <fcntl.h>
+ #include <io.h>
++#ifdef __CYGWIN__
++#define _fileno fileno
++#define _O_BINARY O_BINARY
++#endif
+ int
+ main(int argc, char **argv)
+ {

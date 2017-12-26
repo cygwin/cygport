@@ -1,0 +1,21 @@
+--- origsrc/attica-0.2.0/lib/providermanager.cpp	2010-10-15 10:33:39.000000000 -0500
++++ src/attica-0.2.0/lib/providermanager.cpp	2011-08-12 00:12:43.938934300 -0500
+@@ -76,6 +76,9 @@ PlatformDependent* ProviderManager::load
+     #if defined Q_WS_WIN
+     #define PATH_SEPARATOR ';'
+     #define LIB_EXTENSION "dll"
++    #elif defined Q_OS_CYGWIN
++    #define PATH_SEPARATOR ':'
++    #define LIB_EXTENSION "dll"
+     #else
+     #define PATH_SEPARATOR ':'
+     #define LIB_EXTENSION "so"
+@@ -88,7 +91,7 @@ PlatformDependent* ProviderManager::load
+     // old plugin location, required for attica < 0.1.5
+     QString program(QLatin1String( "kde4-config" ));
+     QStringList arguments;
+-    arguments << QLatin1String( "--path" ) << QLatin1String( "lib" );
++    arguments << QLatin1String( "--path" ) << QLatin1String( "module" );
+ 
+     QProcess process;
+     process.start(program, arguments);

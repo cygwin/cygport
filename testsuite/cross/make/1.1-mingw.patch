@@ -1,0 +1,19 @@
+--- origsrc/crypt/Makefile	2013-03-14 04:19:33.000000000 -0500
++++ src/crypt/Makefile	2013-11-20 18:41:40.400959100 -0600
+@@ -12,7 +12,7 @@ DLLVER=0
+ EXE=.exe
+ 
+ STATICLIB=libcrypt.a
+-SHAREDLIB=cygcrypt-$(DLLVER).dll
++SHAREDLIB=libcrypt-$(DLLVER).dll
+ IMPORTLIB=libcrypt.dll.a
+ 
+ APPS=crypt$(EXE)
+--- origsrc/crypt/crypt.def	2013-03-14 04:19:33.000000000 -0500
++++ src/crypt/crypt.def	2013-12-01 21:57:39.138707200 -0600
+@@ -1,4 +1,4 @@
+-LIBRARY "cygcrypt-0.dll"
++LIBRARY "libcrypt-0.dll"
+ 
+ EXPORTS
+ encrypt

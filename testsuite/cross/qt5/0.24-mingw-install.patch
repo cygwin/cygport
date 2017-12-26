@@ -1,0 +1,44 @@
+--- origsrc/qt5ct-0.24/qt5ct.pri	2016-06-02 00:14:58.000000000 -0500
++++ src/qt5ct-0.24/qt5ct.pri	2016-08-03 01:49:07.446253400 -0500
+@@ -18,3 +18,8 @@ unix {
+ 
+   DEFINES += QT5CT_DATADIR=\\\"$$DATADIR\\\"
+ }
++
++win32 {
++  PLUGINDIR = $$[QT_INSTALL_PLUGINS]
++  BINDIR = $$[QT_INSTALL_BINS]
++}
+--- origsrc/qt5ct-0.24/qt5ct.pro	2016-06-02 00:14:58.000000000 -0500
++++ src/qt5ct-0.24/qt5ct.pro	2016-08-03 01:46:30.167561800 -0500
+@@ -12,8 +12,8 @@ LRELEASE_EXECUTABLE = $$[QT_INSTALL_BINS
+ }
+ 
+ 
+-win32:exists($$[QT_INSTALL_BINS]/lrelease.exe){
+-LRELEASE_EXECUTABLE = $$[QT_INSTALL_BINS]/lrelease.exe
++win32:exists($$[QT_HOST_BINS]/lrelease.exe){
++LRELEASE_EXECUTABLE = $$[QT_HOST_BINS]/lrelease.exe
+ }
+ 
+ 
+@@ -25,8 +25,7 @@ message(Found lrelease executable: $$LRE
+ }
+ 
+ message(generating translations)
+-unix:system(find . -name *.ts | xargs $$LRELEASE_EXECUTABLE)
+-win32:system(for /r %B in (*.ts) do $$LRELEASE_EXECUTABLE %B)
++system(find . -name *.ts | xargs $$LRELEASE_EXECUTABLE)
+ 
+ include(qt5ct.pri)
+ 
+--- origsrc/qt5ct-0.24/src/qt5ct/qt5ct.pro	2016-06-02 00:14:57.000000000 -0500
++++ src/qt5ct-0.24/src/qt5ct/qt5ct.pro	2016-08-03 01:50:59.035255000 -0500
+@@ -54,4 +54,5 @@ target.path = $$BINDIR
+ desktop.files = qt5ct.desktop
+ desktop.path = $$DATADIR/applications
+ 
+-INSTALLS += target desktop
++INSTALLS += target
++unix:INSTALLS += desktop
+

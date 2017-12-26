@@ -1,0 +1,10 @@
+--- origsrc/libnotify-0.7.2/libnotify/Makefile.am	2011-03-03 18:54:09.000000000 -0600
++++ src/libnotify-0.7.2/libnotify/Makefile.am	2011-04-10 23:33:55.865162000 -0500
+@@ -43,6 +43,7 @@ libnotify_la_LIBADD = \
+ 
+ libnotify_la_LDFLAGS = \
+ 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
++	-no-undefined \
+ 	-export-symbols-regex "^notify_.*"
+ 
+ notify-marshal.h: notify-marshal.list

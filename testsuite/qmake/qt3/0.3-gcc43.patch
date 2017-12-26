@@ -1,0 +1,23 @@
+--- origsrc/guesso/ui_forms/guessoform.ui	2005-11-02 11:30:45.000000000 -0600
++++ src/guesso/ui_forms/guessoform.ui	2009-06-30 02:44:22.837157200 -0500
+@@ -623,7 +623,8 @@
+ </tabstops>
+ <includes>
+     <include location="local" impldecl="in declaration">frmabout.h</include>
+-    <include location="global" impldecl="in implementation">iostream.h</include>
++    <include location="global" impldecl="in implementation">cstdlib</include>
++    <include location="global" impldecl="in implementation">iostream</include>
+     <include location="local" impldecl="in implementation">guessoform.ui.h</include>
+ </includes>
+ <slots>
+--- origsrc/guesso/ui_forms/guessoform.ui.h	2005-11-02 11:30:45.000000000 -0600
++++ src/guesso/ui_forms/guessoform.ui.h	2009-06-30 02:40:03.947201400 -0500
+@@ -235,7 +235,7 @@ RANDOM:
+ 	//put SecretNumber into a string to be able to append it to QString
+ 	sprintf( chSecretNumber, "%d%d%d%d", SecretNumber[0],SecretNumber[1],SecretNumber[2],SecretNumber[3] );
+ 
+-	cout << "SecretNumber:" << SecretNumber[0] << SecretNumber[1] << SecretNumber[2] << SecretNumber[3] << endl;
++	std::cout << "SecretNumber:" << SecretNumber[0] << SecretNumber[1] << SecretNumber[2] << SecretNumber[3] << endl;
+ }
+ 
+ /******************************************************************************
