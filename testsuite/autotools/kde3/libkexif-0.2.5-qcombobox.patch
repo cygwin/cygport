@@ -1,0 +1,11 @@
+diff -up libkexif-0.2.5/libkexif/kexifdialog.h.qcombobox libkexif-0.2.5/libkexif/kexifdialog.h
+--- libkexif-0.2.5/libkexif/kexifdialog.h.qcombobox	2006-10-21 17:28:10.000000000 -0500
++++ libkexif-0.2.5/libkexif/kexifdialog.h	2008-10-01 11:39:44.000000000 -0500
+@@ -34,6 +34,7 @@ class QComboBox;
+ class QString;
+ class QLabel;
+ class KExifWidget;
++class QComboBox;
+ 
+ class LIBKEXIF_EXPORT KExifDialog : public KDialogBase
+ {

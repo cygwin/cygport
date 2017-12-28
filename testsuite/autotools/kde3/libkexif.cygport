@@ -1,0 +1,30 @@
+inherit kde3
+
+NAME="libkexif"
+VERSION=0.2.5
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="KDE 3 EXIF metadata library"
+DESCRIPTION="Libkexif is a library for manipulating EXIF information embedded
+in images. It currently supports viewing of all EXIF information via libexif."
+SRC_URI="mirror://sourceforge/kipi/libkexif-${VERSION}.tar.bz2"
+PATCH_URI="
+	http://pkgs.fedoraproject.org/cgit/rpms/kdelibs3.git/plain/kde3-acinclude.patch
+	http://pkgs.fedoraproject.org/cgit/rpms/kdelibs3.git/plain/kde3-automake-version.patch
+	http://pkgs.fedoraproject.org/cgit/rpms/kdelibs3.git/plain/kde3-automake-add-missing.patch
+	http://pkgs.fedoraproject.org/cgit/rpms/libkexif.git/plain/libkexif-0.2.5-qcombobox.patch
+"
+
+# KDE4 switched to libkexiv2, so there are no collisions
+PKG_NAMES="libkexif1 libkexif-devel"
+libkexif1_CONTENTS="
+	usr/bin/cygkexif-1.dll
+	usr/share/doc/${NAME}
+	usr/share/locale/*/LC_MESSAGES/libkexif.mo
+"
+libkexif_devel_CONTENTS="
+	usr/include/kde3/libkexif/
+	usr/lib/kde3/devel/libkexif.dll.a
+	usr/lib/libkexif.la
+	usr/lib/pkgconfig/libkexif.pc
+"

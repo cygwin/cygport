@@ -1,11 +1,13 @@
 automake = find_program('automake', required: false)
 gnome_common = find_program('gnome-autogen.sh', required: false)
 mm_common = find_program('mm-common-prepare', required: false)
+kde3 = find_program('kconfig_compiler', required: false)
 mate_common = find_program('mate-autogen', required: false)
 xdt = find_program('xdt-autogen', required: false)
 
 glibmm = dependency('glibmm-2.4', required: false)
 pango = dependency('pango', required: false)
+libexif = dependency('libexif', required: false)
 xfce4_panel = dependency('libxfce4panel-1.0', required: false)
 
 if automake.found()
@@ -15,6 +17,9 @@ tests += [['autotools/gnome', 720]]
 endif
 if mm_common.found() and glibmm.found() and pango.found()
 tests += [['autotools/gtkmm', 720]]
+endif
+if kde3.found() and libexif.found()
+tests += [['autotools/kde3', 720]]
 endif
 if mate_common.found()
 tests += [['autotools/mate', 720]]
