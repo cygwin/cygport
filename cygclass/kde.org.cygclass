@@ -63,42 +63,19 @@ amarok:2.*)
 kdevplatform:1.*|kdevelop:4.*|kdevelop-*:1.*)
 	SRC_URI="mirror://kde/${_stable}/kdevelop/4.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
 	;;
-# KDE-PIM 4.5 never happened, 4.6 was out of sync with KDE SC 4.6
-kdepim:4.4.[6-9]|kdepim-runtime:4.4.[6-9]|kdepim:4.6.*|kdepim-runtime:4.6.*)
-	SRC_URI="mirror://kde/stable/kdepim-${PV}/src/${P}.tar.bz2"
-	;;
 calligra:2.*|koffice:2.*)
-	SRC_URI="mirror://kde/${_stable}/${PN}-${PV}/${P}.tar.bz2"
-	;;
-phonon:4.*.[789]?)
-	SRC_URI="mirror://kde/unstable/phonon/${P}.tar.bz2"
-	;;
-phonon:4.4.4|phonon:4.5.0)
-	SRC_URI="mirror://kde/stable/phonon/${PV}/src/${P}.tar.bz2"
-	;;
-phonon:4.[0-4].*)
-	SRC_URI="mirror://kde/stable/phonon/${PV}/${P}.tar.bz2"
+	SRC_URI="mirror://kde/Attic/${PN}-${PV}/${P}.tar.bz2"
 	;;
 phonon:4.*)
 	SRC_URI="mirror://kde/stable/phonon/${PV}/src/${P}.tar.xz"
 	;;
-phonon-backend-gstreamer:4.[4-5].*)
-	SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.bz2"
-	;;
 phonon-backend-gstreamer:4.*)
 	SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.xz"
-	;;
-phonon-backend-vlc:0.[3-4].*)
-	SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/${P}.tar.bz2"
 	;;
 phonon-backend-vlc:0.*)
 	SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.xz"
 	;;
 # setup cannot handle '@' in PN
-kde-l10n-ca?valencia:4.[0-7].*|kde-l10n-ca?valencia:4.8.[01])
-	SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.bz2"
-	SRC_DIR="kde-l10n-ca@valencia-${PV}"
-	;;
 kde-l10n-ca?valencia:4.*)
 	SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.xz"
 	SRC_DIR="kde-l10n-ca@valencia-${PV}"
@@ -106,9 +83,6 @@ kde-l10n-ca?valencia:4.*)
 kde-l10n-ca?valencia:[1-9][0-9].*)
 	SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/kde-l10n/kde-l10n-ca@valencia-${PV}.tar.xz"
 	SRC_DIR="kde-l10n-ca@valencia-${PV}"
-	;;
-kde-l10n-*:4.[0-7].*|kde-l10n-*:4.8.[01])
-	SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/${P}.tar.bz2"
 	;;
 kde-l10n-*:4.*)
 	SRC_URI="mirror://kde/${_stable}/${PV}/src/kde-l10n/${P}.tar.xz"
@@ -118,11 +92,11 @@ kde-l10n-*:[1-9][0-9].*)
 	;;
 # setup cannot handle '@' in PN
 calligra-l10n-ca?valencia:2.*|koffice-l10n-ca?valencia:2.*)
-	SRC_URI="mirror://kde/${_stable}/${PN%%-*}-${PV}/${PN%%-*}-l10n/${PN%%-*}-l10n-ca@valencia-${PV}.tar.bz2"
+	SRC_URI="mirror://kde/Attic/${PN%%-*}-${PV}/${PN%%-*}-l10n/${PN%%-*}-l10n-ca@valencia-${PV}.tar.bz2"
 	SRC_DIR="${PN%%-*}-l10n-ca@valencia-${PV}"
 	;;
 calligra-l10n-*:2.*|koffice-l10n-*:2.*)
-	SRC_URI="mirror://kde/${_stable}/${PN%-l10n*}-${PV}/${PN%-l10n*}-l10n/${P}.tar.bz2"
+	SRC_URI="mirror://kde/Attic/${PN%-l10n*}-${PV}/${PN%-l10n*}-l10n/${P}.tar.bz2"
 	;;
 kf5-*:5.*|breeze-icons*|oxygen-icons*)
 	SRC_URI="mirror://kde/${_stable}/frameworks/${VERSION%\.*}/${ORIG_PN:-${PN#kf5-}}-${PV}.tar.xz"
@@ -132,16 +106,19 @@ kf5-*:1[5-9].*|kf5-*:[2-9][0-9].*)
 	SRC_URI="mirror://kde/${_stable}/applications/${VERSION}/src/${ORIG_PN:-${PN#kf5-}}-${PV}.tar.xz"
 	SRC_DIR="${ORIG_PN:-${PN#kf5-}}-${PV}"
 	;;
-*:4.[0-7].*|*:4.8.[01])
-	SRC_URI="mirror://kde/${_stable}/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
+*:4.14.3)
+	SRC_URI="mirror://kde/${_stable}/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
 	;;
 *:4.*)
-	SRC_URI="mirror://kde/${_stable}/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
+	SRC_URI="mirror://kde/Attic/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
 	;;
 *:5.*)
 	SRC_URI="mirror://kde/${_stable}/plasma/${PV}/${ORIG_PN:-${PN}}-${PV}.tar.xz"
 	;;
-*:[1-9][0-9].*)
+*:1[456].*)
+	SRC_URI="mirror://kde/Attic/applications/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
+	;;
+*:1[789].*|*:[2-9][0-9].*)
 	SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
 	;;
 esac
