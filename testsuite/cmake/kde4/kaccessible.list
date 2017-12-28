@@ -1,5 +1,5 @@
-/usr/lib/kde4/libexec/kaccessibleapp.exe
 /usr/lib/kde4/plugins/accessiblebridge/kaccessiblebridge.dll
+/usr/libexec/kde4/kaccessibleapp.exe
 /usr/share/dbus-1/services/org.kde.kaccessible.service
 /usr/share/doc/kaccessible/COPYING.LIB
 /usr/share/doc/kaccessible/README
