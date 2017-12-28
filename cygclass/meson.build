@@ -27,6 +27,7 @@ cygclasses = files(
     'hg.cygclass',
     'httpd.cygclass',
     'kde.org.cygclass',
+    'kde3.cygclass',
     'kde4.cygclass',
     'kf5.cygclass',
     'lua.cygclass',

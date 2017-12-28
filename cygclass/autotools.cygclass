@@ -154,7 +154,7 @@
 #  but the functions defined herein are used by a number of Cygclasses:
 #
 #  gnome2.cygclass, gst-plugins.cygclass, gtkmm.cygclass, httpd.cygclass,
-#  mate.cygclass, php.cygclass, pygtk.cygclass, toolchain.cygclass,
+#  kde3.cygclass, mate.cygclass, php.cygclass, pygtk.cygclass, toolchain.cygclass,
 #  xfce4.cygclass, xorg.cygclass
 #****
 

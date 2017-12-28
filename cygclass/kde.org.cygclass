@@ -35,7 +35,7 @@
 #  If PN does not match the name of the original source tarball,
 #  define ORIG_PN before inherit()ing.
 #  INHERITED BY
-#  kde4.cygclass, kf5.cygclass
+#  kde3.cygclass, kde4.cygclass, kf5.cygclass
 #  SEE ALSO
 #  mirror_kde
 #****
@@ -60,6 +60,9 @@ automoc4:0.9.8[89])
 amarok:2.*)
 	SRC_URI="mirror://kde/${_stable}/${PN}/${PV}/src/${P}.tar.bz2"
 	;;
+arts:1.*)
+	SRC_URI="mirror://kde/Attic/3.${VERSION#*.}/src/arts-${PV}.tar.bz2"
+	;;
 kdevplatform:1.*|kdevelop:4.*|kdevelop-*:1.*)
 	SRC_URI="mirror://kde/${_stable}/kdevelop/4.${PV[2]}.${PV[3]}/src/${P}.tar.bz2"
 	;;
@@ -74,6 +77,9 @@ phonon-backend-gstreamer:4.*)
 	;;
 phonon-backend-vlc:0.*)
 	SRC_URI="mirror://kde/stable/phonon/${PN}/${PV}/src/${P}.tar.xz"
+	;;
+kde-i18n-*:3.*)
+	SRC_URI="mirror://kde/Attic/${PV}/src/kde-i18n/${ORIG_PN:-${PN}}-${PV}.tar.bz2"
 	;;
 # setup cannot handle '@' in PN
 kde-l10n-ca?valencia:4.*)
@@ -105,6 +111,10 @@ kf5-*:5.*|breeze-icons*|oxygen-icons*)
 kf5-*:1[5-9].*|kf5-*:[2-9][0-9].*)
 	SRC_URI="mirror://kde/${_stable}/applications/${VERSION}/src/${ORIG_PN:-${PN#kf5-}}-${PV}.tar.xz"
 	SRC_DIR="${ORIG_PN:-${PN#kf5-}}-${PV}"
+	;;
+*:3.*)
+	SRC_URI="mirror://kde/Attic/${VERSION}/src/${ORIG_PN:-${PN%3}}-${PV}.tar.bz2"
+	SRC_DIR="${ORIG_PN:-${PN%3}}-${PV}"
 	;;
 *:4.14.3)
 	SRC_URI="mirror://kde/${_stable}/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"

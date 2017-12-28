@@ -37,7 +37,7 @@
 #  * The 3.x version of Qt is deprecated.  Support for Qt3 may be dropped in
 #    the near future.
 #  INHERITED BY
-#  qt3-qmake.cygclass
+#  kde3.cygclass, qt3-qmake.cygclass
 #****
 
 #****d* qt3.cygclass/QTDIR

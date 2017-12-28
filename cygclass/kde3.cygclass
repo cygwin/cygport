@@ -1,0 +1,255 @@
+################################################################################
+#
+# kde3.cygclass - functions for building KDE 3.x packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2017 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/kde3.cygclass
+#  SYNOPSIS
+#  inherit kde3
+#  DESCRIPTION
+#  The KDE project provides a full-featured X desktop with a wide variety
+#  of applications, built on a library stack all based on the Qt C++ library.
+#  Most packages are written in C++ and are built with a modified autotools
+#  system.
+#
+#  This cygclass manages the building of most KDE3-based packages.
+#  NOTES
+#  * This is only for KDE 3.x packages; for KDE 4.x, use kde4.cygclass instead.
+#  * The KDE 3.x series is no longer maintained upstream.  This should only
+#    be used for packages which have not been ported to KDE 4 or 5.
+#  INHERITS
+#  autotools.cygclass, kde.org.cygclass, qt3.cygclass
+#****
+
+inherit qt3 kde.org
+
+if [ ${PV} = 3.5.10 ] || [ ${P} = arts-1.5.10 ]
+then
+#****o* kde3.cygclass/PATCH_URI (kde3)
+#  DESCRIPTION
+#  Several autotool compatibility patches are automatically applied to
+#  KDE 3.5.10 packages.  If further patches are required, be sure to append,
+#  not replace, PATCH_URI.
+#  Other KDE3-based packages will need to backport these changes themselves.
+#  DEFINITION
+PATCH_URI="
+	http://pkgs.fedoraproject.org/cgit/rpms/kdelibs3.git/plain/kde3-acinclude.patch
+	http://pkgs.fedoraproject.org/cgit/rpms/kdelibs3.git/plain/kde3-automake-version.patch
+	http://pkgs.fedoraproject.org/cgit/rpms/kdelibs3.git/plain/kde3-automake-add-missing.patch
+"
+#****
+fi
+
+#****o* kde3.cygclass/CXXFLAGS (kde3)
+#  DEFINITION
+CXXFLAGS+=" -Wno-narrowing -std=gnu++98"
+#****
+
+# KDE prefix, used by both autotools and FindKDE3.cmake
+export KDEDIR=/usr
+
+#****C* kde3.cygclass/kde3_autoreconf
+#  SYNOPSIS
+#  cd $S
+#  kde3_autoreconf
+#  DESCRIPTION
+#  Updates the build system with the special files included in each package's
+#  admin/ directory.
+#  WARNING
+#  Skipping this step is strongly discouraged.  Patches to configure.ac, aclocal
+#  macros, or Makefile.am files will not take effect until their tools have been
+#  regenerated.  Also, Cygwin's libtool package includes patches which were not
+#  yet available in the last release, so libraries may not be built optimally,
+#  or even correctly, without this step having been run, particularly on x86_64.
+#  REQUIRES
+#  autoconf, automake, libtool, perl
+#  SEE ALSO
+#  cygautoreconf
+#****
+kde3_autoreconf() {
+	case ${PN} in
+	kde-i18n-*|koffice-l10n-*)
+		info "No need to autoreconf KDE i18n/l10n packages."
+		return 0
+		;;
+	esac
+
+	if [ ! -e admin/Makefile.common ]
+	then
+		error "No KDE source package detected"
+	fi
+
+	find . -name '*.ui' -exec touch '{}' +
+
+	__config_set with_aclocal 1
+	__config_set with_autoconf 1
+	__config_set with_autoheader 1
+	__config_set with_automake 1
+	__config_set with_libtool 1
+
+	# libtoolize
+	check_prog_req libtoolize libtool
+
+	# rely on libtool macro(s) in system aclocal path
+	echo -n > admin/libtool.m4.in
+
+	libtoolize --copy --force --install || error "kde3: libtoolize failed"
+
+	# autoreconf
+	make -f admin/Makefile.common || error "KDE autoreconf failed"
+}
+
+#****C* kde3.cygclass/kde3_compile
+#  SYNOPSIS
+#  kde3_compile [OPTIONS]
+#  DESCRIPTION
+#  Runs cygconf to configure the package with several Cygwin- and KDE-specific
+#  options, then runs cygmake to compile.  Options, in the form of configure
+#  flags, are passed on to cygconf.
+#  NOTE
+#  Select source subdirectories can be not built by defining DO_NOT_COMPILE.
+#****
+kde3_compile() {
+#****v* kde3_compile/DO_NOT_COMPILE
+#  SYNOPSIS
+#  DO_NOT_COMPILE="DIRECTORY1 [DIRECTORY2] ..."
+#  DESCRIPTION
+#  String list of source subdirectories that should not be built, usually
+#  because they have been ported to KDE 4 or 5, or are Linux-specific.
+#****
+	export DO_NOT_COMPILE
+
+	cygconf \
+		--includedir=/usr/include/kde3 \
+		--disable-debug --without-debug \
+		--disable-dependency-tracking \
+		--disable-closure \
+		--disable-final \
+		--disable-new-ldflags \
+		--disable-nmcheck \
+		--disable-pch \
+		--disable-pie \
+		--disable-profile \
+		--disable-rpath \
+		--disable-strict \
+		--disable-warnings \
+		--with-qt-dir=${QT3_QTDIR} \
+		--with-qt-includes=${QT3_INCLUDEDIR} \
+		--with-qt-libraries=${QT3_LIBDIR} --enable-mt \
+		--with-arts --enable-arts \
+		--with-distribution=Cygwin \
+		--with-ssl-dir=/usr \
+		--without-dpms \
+		--without-java \
+		--without-pam \
+		kde_cv_prog_cxx_fvisibility_hidden=no \
+		"${@}"
+
+	cygmake
+}
+
+#****I* kde3.cygclass/kde3_install
+#  SYNOPSIS
+#  kde3_install [OPTIONS]
+#  DESCRIPTION
+#  Installs a KDE3 package with cyginstall into $D with some additional steps:
+#  * Import libraries for libkdeinit_* libraries are removed, as they are never used.
+#  * Import libraries are rearranged to avoid conflicting with KDE 4.
+#  * Help documentation for components listed in DO_NOT_COMPILE is removed.
+#  * README docs for subpackages in PKG_NAMES are installed into their own
+#    subdirectories of /usr/share/doc/ under $D.
+#  Options, if any, are passed on to cyginstall.
+#****
+kde3_install() {
+	local doc kdepkg la nopkg
+
+	cyginstall destdir=${D}
+
+	for kdepkg in ${PKG_NAMES:-${PN}}
+	do
+		if [ -d ${S}/${kdepkg} ]
+		then
+			docinto /${kdepkg}
+			dodoc ${S}/${kdepkg}/{AUTHORS,BUGS,ChangeLog,NEWS,README,TODO}
+		elif [ -d ${S}/${kdepkg#${PN}-} ]
+		then
+			docinto /${kdepkg}
+			dodoc ${S}/${kdepkg#${PN}-}/{AUTHORS,BUGS,ChangeLog,NEWS,README,TODO}
+		fi
+	done
+
+	# except for kded in kdelibs, libkdeinit_* implibs are unnecessary
+	if [ -d ${D}/usr/lib ]
+	then
+		find ${D}/usr/lib -name 'libkdeinit_*.la' ! -name 'libkdeinit_kded.la' -exec sed -i -e 's/link=no/link=yes/' '{}' +
+
+		dodir /usr/lib/kde3/devel
+		for la in ${D}/usr/lib/*.la
+		do
+			if grep -q '^shouldnotlink=no$' ${la} 2>/dev/null
+			then
+				mv ${la%.la}.dll.a ${D}/usr/lib/kde3/devel/
+				sed -e "\|^library_names=|s|'lib|'kde3/devel/lib|" \
+				    -e "/^dependency_libs=/s/ -l[^qX][^ ']*//g" \
+				    -i ${la}
+			fi
+		done
+	fi
+
+	for nopkg in ${DO_NOT_COMPILE}
+	do
+		rm -fr ${D}/usr/share/doc/HTML/en/${nopkg}
+	done
+}
+
+#****o* kde3.cygclass/KEEP_LA_FILES (kde3)
+#  DESCRIPTION
+#  KDE 3 uses a custom libltdl to load modules, and the build system
+#  generally links with only the highest level libraries, e.g. just -lkdeui,
+#  without specifying -lkdecore or -lqt-mt.  This only works as-is if all
+#  libtool library files are present.
+#  DEFINITION
+KEEP_LA_FILES="all"
+#****
+
+#****o* kde3.cygclass/src_compile (kde3)
+#  DEFINITION
+src_compile() {
+	cd ${S}
+	case ${NAME} in
+	kde-i18n-*|koffice-l10n-*) ;;
+	*)	kde3_autoreconf ;;
+	esac
+
+	cd ${B}
+	kde3_compile
+}
+#****
+
+#****o* kde3.cygclass/src_install (kde3)
+#  DEFINITION
+src_install() {
+	cd ${B}
+	kde3_install
+}
+#****
+
+readonly -f kde3_autoreconf kde3_compile kde3_install
