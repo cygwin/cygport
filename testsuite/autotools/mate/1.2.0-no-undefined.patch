@@ -1,0 +1,11 @@
+--- origsrc/mate-menus-1.2.0/python/Makefile.am	2012-02-23 16:13:03.000000000 -0600
++++ src/mate-menus-1.2.0/python/Makefile.am	2012-04-16 22:05:43.745148500 -0500
+@@ -14,7 +14,7 @@ matemenudir = $(pyexecdir)
+ matemenu_LTLIBRARIES = matemenu.la
+ 
+ matemenu_la_SOURCES = matemenu.c
+-matemenu_la_LDFLAGS = -module -avoid-version -fPIC -export-symbols-regex initmatemenu
++matemenu_la_LDFLAGS = -module -avoid-version -no-undefined -export-symbols-regex initmatemenu
+ matemenu_la_LIBADD = $(GLIB_LIBS) $(PYTHON_LIBS) $(top_builddir)/libmenu/libmate-menu.la
+ 
+ -include $(top_srcdir)/git.mk
