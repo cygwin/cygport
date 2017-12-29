@@ -53,7 +53,7 @@ inherit ninja
 #  cygmeson should be run in the directory containing the top-level meson.build.
 #****
 cygmeson() {
-	local crossargs mdir
+	local crossargs mdir prefix
 
 	if [ ! -e meson.build ]
 	then
@@ -71,8 +71,6 @@ cygmeson() {
 		else
 			error "meson.cygclass: no cross-file for ${CHOST}"
 		fi
-	else
-		crossargs="--sysconfdir=/etc --localstatedir=/var"
 	fi
 
 	check_prog_req meson
@@ -84,7 +82,11 @@ cygmeson() {
 #  Flags in CYGMESON_ARGS follow, and therefore override, flags passed by
 #  default to cygmeson.
 #****
-	meson --prefix=$(__host_prefix) \
+	prefix=$(__host_prefix)
+
+	meson --prefix=${prefix} \
+		--localstatedir=${prefix%/usr}/var \
+		--sysconfdir=${prefix%/usr}/etc \
 		--buildtype=plain --wrap-mode=nodownload \
 		${crossargs} ${CYGMESON_ARGS} ${@} ${CHOST} \
 		|| error "meson failed"
