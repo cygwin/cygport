@@ -13,7 +13,7 @@ test('info',
      test_info,
      env: testenv)
 
-git_archive_all = find_program('git-archive-all')
+git_archive_all = find_program('git-archive-all', required: false)
 if git_archive_all.found()
 test_bootstrap = find_program('test-bootstrap')
 test('bootstrap',

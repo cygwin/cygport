@@ -1,4 +1,3 @@
-python2 = find_program('python2', required: false)
 pip2 = find_program('pip2', required: false)
 pip3 = find_program('pip3', required: false)
 pygtk2 = find_program('pygtk-codegen-2.0', required: false)

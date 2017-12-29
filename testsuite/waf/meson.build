@@ -1,4 +1,3 @@
-waf = find_program('python2', required: false)
-if waf.found()
+if python2.found()
 tests += [['waf/all']]
 endif

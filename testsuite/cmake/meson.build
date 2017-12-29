@@ -1,4 +1,4 @@
-kde4 = find_program('kde4-config', required: false)
+kde4 = find_program('kconfig_compiler4', required: false)
 kf5 = find_program('meinproc5', required: false)
 qt4 = dependency('QtCore', required: false)
 qt5 = dependency('Qt5Widgets', required: false)
