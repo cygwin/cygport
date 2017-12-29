@@ -76,36 +76,25 @@ headertypes:
 	I  "Install Functions" cygport_install_functions
 	P  "Postinstall Steps" cygport_postinstall_steps
 ignore files:
-	autom4te.cache
-	Makefile
-	Makefile.in
 	README
-	aclocal.m4
-	config.log
-	config.status
-	configure
-	cygport
-	cygport-inplace
+	build
+	CYGWIN-PATCHES
 	cygport-*.*.*
 	cygport.spec
 	doc
 	gnuconfig
-	install-sh
 	html
 	man
-	missing
 	patches
+	testsuite
 	tmp
+	*-pc-cygwin
+	*-redhat-linux*
 	.git
-	*.css
-	*.diff
-	*.html
 	*.rc
 	*.orig
 	*.patch
-	*.refs
 	*.rej
-	*.stderr
 	*.txt
 	*~
 header markers:

@@ -229,9 +229,10 @@ based on the 'master' branch.  The source repository can be cloned from:
 
   https://github.com/cygwinports/cygport.git
 
-To build cygport from git, run ./autogen.sh, then make. The following 
-Cygwin packages are required: autoconf, automake, coreutils, groff, 
-help2man, robodoc, sed.
+To build cygport from git, meson and ninja are required. The following
+packages are required for the documentation: groff, help2man, and robodoc.
+The testsuite will use a number of packages if they are present; at a
+minimum, you should have git-archive-all for the bootstrap test.
 
 
 7. SUPPORT
