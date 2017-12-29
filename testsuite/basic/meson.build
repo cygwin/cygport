@@ -20,4 +20,7 @@ test('bootstrap',
      test_bootstrap,
      env: testenv,
      timeout: 240)
+
+run_target('bootstrap',
+           command: [test_bootstrap, meson.project_name(), meson.project_version()])
 endif

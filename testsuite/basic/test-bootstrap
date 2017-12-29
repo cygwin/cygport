@@ -2,8 +2,19 @@
 
 set -e
 
-test -d ${top_builddir}/testsuite/basic/bootstrap || mkdir -p ${top_builddir}/testsuite/basic/bootstrap
-cd ${top_builddir}/testsuite/basic/bootstrap
+if [ "${MESON_SOURCE_ROOT}" ]
+then
+	PACKAGE=${1}
+	VERSION=${2}
+	top_builddir=${MESON_BUILD_ROOT}
+	top_srcdir=${MESON_SOURCE_ROOT}
+	subdir="."
+else
+	subdir="testsuite/basic"
+fi
+
+test -d ${top_builddir}/${subdir}/bootstrap || mkdir -p ${top_builddir}/${subdir}/bootstrap
+cd ${top_builddir}/${subdir}/bootstrap
 
 rm -f ${PACKAGE}-${VERSION}-1-src.tar.xz ${PACKAGE}-${VERSION}-1.tar.xz
 
@@ -19,4 +30,4 @@ fi
 
 cp -f ${top_srcdir}/data/sample.cygport ${PACKAGE}.cygport
 
-${top_builddir}/bin/cygport-inplace ${PACKAGE}.cygport all
+${top_builddir}/bin/cygport-inplace ${PACKAGE}.cygport clean all
