@@ -1,20 +1,10 @@
 A wishlist of features to add in future releases, in no particular order:
 
 * Fix all FIXMEs
-* Debug and/or Verbose mode
-* Complete test suite
 * NLS
 * dolocale
 * dosed
-* Additional cygclasses:
-	- alternatives
-* Windows shortcuts for X11 programs
-	doico /path/to/pixmap.png [calls png(to|2)ico and doins]
-	make_win_shortcut Foo [run.exe foo.exe -wait --display=...]
 * error(): use 'caller' builtin?
-* Split debug
 * If a dependency DLL's package was not found with "cygcheck -f"
   (e.g. it was installed manually), show the DLL path instead.
 * Fix rcs tarball names to allow more than one at a time
-* wrapper for Xfake when build expects an X server (e.g. perl-OpenGL)
-* GNUstep menu/icon files

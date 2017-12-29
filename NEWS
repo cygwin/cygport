@@ -1,3 +1,16 @@
+0.30.0:
+	* cygport git repository switched from autotools to meson.
+	* Added extensive testsuite to sources.
+	* Removed cygclasses: ant, berkdb, claws-mail, ebook, ggz, gnustep,
+	  gst-plugins0.10, java, mono, nant, opensync, pypy, pypy-distutils,
+	  qt4-qconf, rox, ruby-gnome2, sugar.
+	* Removed nonexistant mirrors: berlios, rubyforge.
+	* Deprecated cygclasses and functions are hidden from documentation.
+	* kde3: revived cygclasses for legacy KDE 3 applications
+	* meson: reworked to hide ninja internals
+	* python2-wheel: new cygclass for Py2-only packages
+	* python3-wheel: new cygclass for Py3-only packages
+
 0.25.0:
 	* New package-test command for marking a release as test:.
 	* New stage command for uploading without creating !ready.

@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.25.0
+Version:        0.30.0
 Release:        1%{?dist}
 Summary:        Cygwin package building tool
 
@@ -82,7 +82,7 @@ fi
 
 %files
 %doc %{_pkgdocdir}/html/
-%doc AUTHORS ChangeLog COPYING NEWS README TODO
+%doc AUTHORS COPYING NEWS README TODO
 %config %{_sysconfdir}/bash_completion.d/cygport-bash-completion
 %config(noreplace) %{_sysconfdir}/cygport.conf
 %config(noreplace) %{_sysconfdir}/X11/cygport-xvfb.conf
@@ -96,6 +96,9 @@ fi
 
 
 %changelog
+* Fri Dec 29 2017 Yaakov Selkowitz <yselkowitz@cygwin.com> - 0.30.0-1
+- new version
+
 * Fri Nov  3 2017 Yaakov Selkowitz <yselkowitz@cygwin.com> - 0.25.0-1
 - new version
 
