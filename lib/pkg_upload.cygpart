@@ -2,7 +2,7 @@
 #
 # pkg_upload.cygpart - cygport package uploading functions
 #
-# Copyright (C) 2014-2016 Andrew Schulman, Yaakov Selkowitz
+# Copyright (C) 2014-2018 Yaakov Selkowitz, Andrew Schulman
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify

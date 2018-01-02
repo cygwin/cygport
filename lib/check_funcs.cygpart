@@ -2,7 +2,7 @@
 #
 # check_funcs.cygpart - cygport check_prog* and sanity check functions
 #
-# Copyright (C) 2006-2016 Yaakov Selkowitz
+# Copyright (C) 2006-2018 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
