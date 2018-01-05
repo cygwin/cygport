@@ -1,3 +1,7 @@
+help2man = find_program('help2man', required: false)
+groff = find_program('groff', required: false)
+robodoc = find_program('robodoc', required: false)
+
 if help2man.found()
 cygport_1 = custom_target('cygport.1',
                           input: cygport_inplace,

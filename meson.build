@@ -10,10 +10,6 @@ sysconfdir = join_paths(get_option('prefix'), get_option('sysconfdir'))
 htmldir = join_paths(get_option('prefix'), get_option('docdir'), 'html')
 man1dir = join_paths(get_option('prefix'), get_option('mandir'), 'man1')
 
-help2man = find_program('help2man', required: false)
-groff = find_program('groff', required: false)
-robodoc = find_program('robodoc', required: false)
-
 subdir('bin')
 subdir('cygclass')
 subdir('data')
