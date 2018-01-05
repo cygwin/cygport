@@ -353,7 +353,7 @@ __list_deps() {
 			alldeps+=" "$(find "${@//^_^/ }" -path "${mldir#/}/*/META" \
 					| xargs -r grep -h 'requires *=' \
 					| sed -e 's|.*requires *= *"\([^"]*\)".*|\1|g;s/,/ /g;' \
-					| OCAMLPATH=${D}${mldir} xargs -r ocamlfind query -predicates byte -format '%d/%a')
+					| OCAMLPATH=${D}${mldir} xargs -n 1 -r ocamlfind query -predicates byte -format '%d/%a')
 		fi
 	fi
 
