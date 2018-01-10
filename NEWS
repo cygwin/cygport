@@ -1,3 +1,7 @@
+0.30.1:
+	* Fix OCaml dependency detection in certain scenarios.
+	* Fix the Vim filetype detection script.
+
 0.30.0:
 	* cygport git repository switched from autotools to meson.
 	* Added extensive testsuite to sources.
