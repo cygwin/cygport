@@ -9,4 +9,4 @@
 " notice and this notice are preserved.  This file is offered as-is,
 " without any warranty.
 
-au BufNewFile,BufRead *.cygpart,*.cygport call SetFileTypeSH("bash")
+au BufNewFile,BufRead *.cygpart,*.cygport call dist#ft#SetFileTypeSH("bash")
