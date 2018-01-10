@@ -871,6 +871,7 @@ __prepstrip() {
 	local exe;
 	local all_exes;
 	local arch_tree;
+	local ibase;
 	local lib;
 	local objcopy;
 	local objdump;
@@ -926,29 +927,28 @@ __prepstrip() {
 			# for cross-compiled libs or cross-GCC target libs
 			# built without cross.cygclass or toolchain.cygclass
 			objcopy="${arch_tree}-objcopy"
-			objdump="${arch_tree}-objdump"
-			nm="${arch_tree}-nm"
 			unset arch_tree
 		elif check_prog ${CTARGET}-objcopy && ${CTARGET}-size -f "${exe}" &>/dev/null
 		then
 			# for cross-compiled libs, cross-GCC target libs,
 			# or non-cross packages built on non-Cygwin systems
 			objcopy="${CTARGET}-objcopy"
-			objdump="${CTARGET}-objdump"
-			nm="${CTARGET}-nm"
 		elif check_prog ${CHOST}-objcopy && ${CHOST}-size -f "${exe}" &>/dev/null
 		then
 			# for cross-compilers built on non-Cygwin systems
 			objcopy="${CHOST}-objcopy"
-			objdump="${CHOST}-objdump"
-			nm="${CHOST}-nm"
 		elif size -f "${exe}" &>/dev/null
 		then
 			objcopy="objcopy"
-			objdump="objdump"
-			nm="nm"
 		else
 			continue
+		fi
+
+		if check_prog llvm-objdump && llvm-size "${exe}" &>/dev/null
+		then
+			objdump="llvm-objdump"
+		else
+			objdump=${objcopy/copy/dump}
 		fi
 
 		# Static libraries should not be fully stripped, but we can
@@ -960,7 +960,7 @@ __prepstrip() {
 				echo "        ${exe}";
 				${objcopy} --strip-debug "${exe}";
 			else
-				${nm} -l "${exe}" 2>/dev/null | sed -ne "s|.*\t\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u >> ${T}/.dbgsrc.out;
+				${objdump} -d -l "${exe}" 2>/dev/null | sed -ne "s|.*\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u >> ${T}/.dbgsrc.out;
 			fi
 			continue
 			;;
@@ -985,7 +985,13 @@ __prepstrip() {
 			# Flexlink'ed DLLs are special
 			dll*.so|*.cmxs) ;;
 			*.dll|*.so|*.oct|*.mex)
-				if ${objdump} -p "${exe}" | sed -ne '/^ImageBase/s/.*\t/0x/gp' | gawk '{ exit (strtonum($1) <= 0x400000000 ? 0 : 1) }'
+				if [ ${objdump} = "llvm-objdump" ]
+				then
+					ibase=$(llvm-readobj -file-headers "${exe}" | sed -ne '/ImageBase:/s/^.*: *//gp')
+				else
+					ibase=$(${objdump} -p "${exe}" | sed -ne '/^ImageBase/s/.*\t/0x/gp')
+				fi
+				if echo $ibase | gawk '{ exit (strtonum($1) <= 0x400000000 ? 0 : 1) }'
 				then
 					warning "${exe} was not linked with -Wl,--enable-auto-image-base"
 				fi
@@ -1036,7 +1042,7 @@ __prepstrip() {
 		else
 			dbg="/usr/lib/debug/${exe}.dbg";
 
-			lines=$(${nm} -l "${exe}" 2>/dev/null | sed -ne "s|.*\t\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u | tee -a ${T}/.dbgsrc.out | wc -l);
+			lines=$(${objdump} -d -l "${exe}" 2>/dev/null | sed -ne "s|.*\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u | tee -a ${T}/.dbgsrc.out | wc -l);
 
 			if (( lines == 0 ))
 			then
