@@ -718,6 +718,12 @@ requires: ${pkg_bin_requires} ${!pkg_requires_var}
 sdesc: "${!pkg_summary_var:-${SUMMARY}}"
 ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
 _EOF
+			if [ -n "${!pkg_obsoletes_var}" ]
+			then
+				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
+obsoletes: ${!pkg_obsoletes_var}
+_EOF
+			fi
 			if defined distsubdir
 			then
 				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
@@ -788,6 +794,12 @@ ldesc: "This package contains files necessary for debugging the
 ${PN} package with gdb."
 ${pkg_tag}
 _EOF
+			if [ -n "${!dbg_obsoletes_var}" ]
+			then
+				cat >> ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.hint <<-_EOF
+obsoletes: ${!dbg_obsoletes_var}
+_EOF
+			fi
 		fi
 
 		for obspkg in ${!dbg_obsoletes_var}
