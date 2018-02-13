@@ -411,6 +411,32 @@ then
 	error "${cygportfile} not found.";
 fi
 
+### perform some validation on the .cygport
+
+# SRC_URI and PATCH_URI should not change depending on ARCH, as this will make
+# the source package arch-dependent
+declare -i n
+declare -a VALUE
+ARCHES=("i686" "x86_64" "noarch")
+for VAR in "SRC_URI" "PATCH_URI"
+do
+    n=0
+    while (( n < ${#ARCHES[*]} ))
+    do
+        read -r < <(declare ARCH=${ARCHES[$n]}; declare ARCH_${ARCH}=1; source ${top}/${cygportfile}; eval echo "\$${VAR}")
+        VALUE[$n]=${REPLY}
+        if (( n > 0 ))
+        then
+            if [ "x${VALUE[0]}" != "x${VALUE[$n]}" ]
+            then
+                error "${VAR} appears to depend on ARCH"
+            fi
+        fi
+        n+=1;
+    done
+done
+unset n VALUE ARCHES VAR
+
 ### load .cygport
 source ${top}/${cygportfile} || error "could not read ${cygportfile}"
 ###
