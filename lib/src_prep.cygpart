@@ -210,6 +210,24 @@ cygpatch() {
 			continue;
 		fi
 
+#****v* Preparation/src_patch_apply_hook
+#  DESCRIPTION
+#  src_patch_apply_hook() is an optional function which can be defined
+#  to control patch application, for architecture dependent patches, etc.
+#  It receives a patch filename as an argument, and a non-zero result
+#  causes the patch to be skipped.
+#  (This API is not yet stable and is subject to change)
+#****
+
+		if __check_function src_patch_apply_hook
+		then
+			if ! __check_unstable src_patch_apply_hook ${patchfile_name}
+			then
+				warning "patch ${patchfile_name} skipped by src_patch_apply_hook";
+				continue;
+			fi
+		fi
+
 		patchlevel=0;
 
 		case ${patchfile_name} in

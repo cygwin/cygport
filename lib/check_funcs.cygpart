@@ -687,6 +687,7 @@ __check_unstable() {
 	else
 		warning "The ${1} API is not yet stable and is subject to change"
 		warning "You must define ${unstable_var} in order to use it"
+		return  0
 	fi
 }
 
