@@ -200,8 +200,14 @@ kde4_cmake() {
 #  -DVARIABLE=VALUE, are passed on to kde4_cmake.
 #****
 kde4_compile() {
+	: ${CYGCMAKE_GENERATOR=Ninja}
 	kde4_cmake "${@}"
-	cygmake
+	if [ -f build.ninja ]
+	then
+		cygninja
+	else
+		cygmake
+	fi
 }
 
 #****I* kde4.cygclass/kde4_install
@@ -217,7 +223,12 @@ kde4_compile() {
 kde4_install() {
 	local kdepkg
 
-	cyginstall "${@}"
+	if [ -f build.ninja ]
+	then
+		ninja_install
+	else
+		cyginstall "${@}"
+	fi
 
 	rm -f ${D}/usr/lib/libkdeinit4_* ${D}/usr/lib/kde4/lib/libkdeinit4_*
 
@@ -239,8 +250,14 @@ kde4_install() {
 #  DEFINITION
 src_compile() {
 	cd ${B}
+	: ${CYGCMAKE_GENERATOR=Ninja}
 	kde4_cmake
-	cygmake
+	if [ -f build.ninja ]
+	then
+		cygninja
+	else
+		cygmake
+	fi
 }
 #****
 
