@@ -32,9 +32,13 @@
 #
 #  CMake can be used for a wide variety of software, but is most commonly
 #  used in KDE and some Qt-based packages.
+#  INHERITS
+#  ninja.cygclass
 #  INHERITED BY
 #  kde4.cygclass, kf5-cygclass, qt4-cmake.cygclass
 #****
+
+inherit ninja
 
 __cmake_system() {
 	local cmsys
@@ -92,7 +96,8 @@ __cmake_system() {
 #  * cygcmake should be run in or under $B, as it defines the build directory of
 #    the package and creates numerous files.
 #  * If the top-level CMakeLists.txt is not in $S, see CYGCMAKE_SOURCE.
-#  * Packages configured with cygcmake use cygmake to compile.
+#  * Packages configured with cygcmake use either cygmake or cygninja to
+#    compile, depending on the value of CYGCMAKE_GENERATOR.
 #  REQUIRES
 #  cmake
 #****
@@ -160,8 +165,19 @@ cygcmake() {
 #  Flags in CYGCMAKE_ARGS follow, and therefore override, flags passed by
 #  default and as arguments to cygcmake.
 #****
+#****v* cygcmake/CYGCMAKE_GENERATOR
+#  DESCRIPTION
+#  The CMake Generator to be used in this build, either "Ninja" or "Unix Makefiles".
+#  NOTES
+#  If cygcmake is called explicitly, the default is "Unix Makefiles" for
+#  backwards compatibility.  If the default src_compile is used, then "Ninja"
+#  will be the default; note that in this case, if the default src_install is
+#  not used, then it will fail until either CYGCMAKE_GENERATOR is set to
+#  "Unix Makefiles", or cyginstall replaced by ninja_install.
+#****
 
 	cmake -Wno-dev \
+		-G "${CYGCMAKE_GENERATOR:-Unix Makefiles}" \
 		${cmdir} \
 		-DCMAKE_BINARY_DIR=. \
 		-DCMAKE_BUILD_TYPE=${buildtype} \
@@ -188,8 +204,27 @@ cygcmake() {
 #  DEFINITION
 src_compile() {
 	cd ${B}
+	: ${CYGCMAKE_GENERATOR=Ninja}
 	cygcmake
-	cygmake
+	if [ -f build.ninja ]
+	then
+		cygninja
+	else
+		cygmake
+	fi
+}
+#****
+
+#****o* cmake.cygclass/src_install (cmake)
+#  DEFINITION
+src_install() {
+	cd ${B}
+	if [ -f build.ninja ]
+	then
+		ninja_install
+	else
+		cyginstall
+	fi
 }
 #****
 
