@@ -170,13 +170,15 @@ EOF
 
 __pkg_announce() {
 	local msg=$(mktemp -t cygwin-announce-${PF}.XXXXXX)
+	local msgat=$(date +@%s)
 	local -i n=0
 
 	cat > ${msg} <<_EOF
-From cygwin-announce-${PF} $(date '+%a %b %d %H:%M:%S %Y')
+From cygwin-announce-${PF} $(date '+%a %b %d %H:%M:%S %Y' --date=${msgat})
 From: ${SMTP_SENDER}
 To: cygwin-announce@cygwin.com
-Date: $(date -R)
+Date: $(date -R --date=${msgat})
+Message-Id: <$(date "+%Y%m%d%H%M%S.$$" --date=${msgat})-1-$(echo ${SMTP_SENDER} | sed 's|.*<\(.*\)>.*|\1|')>
 Subject: ${NAME} ${PVR}
 
 The following packages have been uploaded to the Cygwin distribution:
