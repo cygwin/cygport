@@ -62,7 +62,12 @@ kf5_compile() {
 		-DECM_MKSPECS_INSTALL_DIR=${QT5_MKSPECSDIR}/modules \
 		"${@}"
 
-	cygmake
+	if [ -f build.ninja ]
+	then
+		cygninja
+	else
+		cygmake
+	fi
 }
 
 #****I* kf5.cygclass/kf5_install
@@ -74,7 +79,13 @@ kf5_compile() {
 #  Options, if any, are passed on to cyginstall.
 #****
 kf5_install() {
-	cyginstall "${@}"
+	if [ -f build.ninja ]
+	then
+		ninja_install
+	else
+		cyginstall "${@}"
+	fi
+
 	rm -f ${D}/usr/lib/libkdeinit5_*
 
 	# QML plugins are built as SHARED, *not* MODULE because ECM sets
@@ -91,6 +102,7 @@ kf5_install() {
 #  DEFINITION
 src_compile() {
 	cd ${B}
+	: ${CYGCMAKE_GENERATOR=Ninja}
 	kf5_compile
 }
 #****
