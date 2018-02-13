@@ -58,13 +58,19 @@ qt4_cmake_compile() {
 		-DQT_PLUGINS_DIR=${QT4_PLUGINSDIR} \
 		"${@}"
 
-	cygmake
+	if [ -f build.ninja ]
+	then
+		cygninja
+	else
+		cygmake
+	fi
 }
 
 #****o* qt4-cmake.cygclass/src_compile (qt4-cmake)
 #  DEFINITION
 src_compile() {
 	cd ${B}
+	: ${CYGCMAKE_GENERATOR=Ninja}
 	qt4_cmake_compile
 }
 #****
