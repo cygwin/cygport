@@ -543,9 +543,9 @@ check_vala_module() {
 	return ${ret};
 }
 
-#****f* Information/DEPEND
+#****f* Information/BUILD_DEPENDS
 #  SYNOPSIS
-#  DEPEND="ATOM [ATOM] ..."
+#  BUILD_DEPENDS="ATOM [ATOM] ..."
 #  DESCRIPTION
 #  A list of build-time (not runtime) dependencies to be checked before calling
 #  src_compile.  Each ATOM can be in one of the following forms:
@@ -565,6 +565,8 @@ check_vala_module() {
 #  * tex(foo.ext): TeX modules
 #  * vala(foo-1.0): Vala bindings
 #  * foo: A Cygwin package (check skipped on non-Cygwin build systems)
+#
+# DEPEND is an obsolete synonym for BUILD_DEPENDS.
 #****
 __check_depends() {
 	local atom failed_atoms;
@@ -574,14 +576,14 @@ __check_depends() {
 	        error "Compiling this package requires $(cross_compiling && echo -n ${CHOST}' ')binutils and gcc"
 	fi
 
-	if ! defined DEPEND
+	if ! defined BUILD_DEPENDS
 	then
 		return 0;
 	fi
 
 	__deparenthesize() { echo "$@" | sed -e 's|[a-z]*(\([^)]*\))|\1|' ; }
 
-	for atom in ${DEPEND}
+	for atom in ${BUILD_DEPENDS}
 	do
 		case ${atom} in
 		girepository\(*)

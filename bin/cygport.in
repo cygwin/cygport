@@ -428,6 +428,13 @@ then
 	fi
 fi
 
+if ! defined BUILD_DEPENDS
+then
+	if defined DEPEND
+	then
+		BUILD_DEPENDS=${DEPEND}
+	fi
+fi
 
 for restrict in ${RESTRICT//,/ }
 do
