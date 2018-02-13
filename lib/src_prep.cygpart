@@ -1,3 +1,4 @@
+
 ################################################################################
 #
 # src_prep.cygpart - cygport source unpacking and preparation functions
@@ -373,9 +374,15 @@ __src_prep() {
 		rm -f ${DISTCLEANFILES}
 	fi
 
-	# src_unpack_hook() is an optional function which can be defined
-	# to alter the original source tree and avoid large patches
-	# or long DIFF_EXCLUDES, or to apply patches in tarballs
+
+#****v* Preparation/src_unpack_hook
+#  DESCRIPTION
+#  src_unpack_hook() is an optional function which can be defined
+#  to alter the original source tree, to avoid large patches
+#  or long DIFF_EXCLUDES.
+#  (This API is not yet stable and is subject to change)
+#****
+
 	if __check_function src_unpack_hook
 	then
 		__check_unstable src_unpack_hook;
@@ -410,8 +417,14 @@ __src_prep() {
 		esac
 	done
 
-	# similar to src_unpack_hook(), but is called after SRC_PATCH patches
-	# useful for changing permissions, etc., on patched files
+#****v* Preparation/src_patch_hook
+#  DESCRIPTION
+#  src_patch_hook() an optional function which can be defined, which
+#  is called after patches have been applied, for changing
+#  permissions, etc., on patched files.
+#  (This API is not yet stable and is subject to change)
+#****
+
 	if __check_function src_patch_hook
 	then
 		__check_unstable src_patch_hook;
