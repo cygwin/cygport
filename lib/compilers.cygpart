@@ -34,9 +34,9 @@ declare -x CC="gcc";
 #  Flags passed to CC when compiling C code.  Individual packages may append
 #  or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -ggdb -O2 -pipe -Wimplicit-function-declaration
+#  -ggdb -O2 -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fstack-protector-strong --param=ssp-buffer-size=4
 #****
-declare -x CFLAGS="-ggdb -O2 -pipe -Wimplicit-function-declaration";
+declare -x CFLAGS="-ggdb -O2 -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fstack-protector-strong --param=ssp-buffer-size=4";
 
 #****v* Compiling/CPPFLAGS
 #  DESCRIPTION
@@ -56,9 +56,9 @@ declare -x CXX="g++";
 #  Flags passed to CXX when compiling C++ code.  Individual packages may append
 #  or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -ggdb -O2 -pipe
+#  CFLAGS
 #****
-declare -x CXXFLAGS="-ggdb -O2 -pipe";
+declare -x CXXFLAGS=${CFLAGS};
 
 #****d* Compiling/F77
 #  DESCRIPTION
@@ -73,9 +73,9 @@ declare -x F77="gfortran";
 #  Flags passed to F77 when compiling Fortran 77 code.  Individual packages may
 #  append or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -ggdb -O2 -pipe
+#  CFLAGS
 #****
-declare -x FFLAGS="-ggdb -O2 -pipe";
+declare -x FFLAGS=${CFLAGS};
 
 #****d* Compiling/FC
 #  DESCRIPTION
@@ -90,9 +90,9 @@ declare -x FC="gfortran";
 #  Flags passed to FC when compiling Fortran 95 code.  Individual packages may
 #  append or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -ggdb -O2 -pipe
+#  CFLAGS
 #****
-declare -x FCFLAGS="-ggdb -O2 -pipe";
+declare -x FCFLAGS=${CFLAGS};
 
 #****d* Compiling/GOC
 #  DESCRIPTION
@@ -120,7 +120,7 @@ declare -x OBJC="${CC}";
 #  Flags passed to OBJC when compiling Objective C code.  Individual packages
 #  may append or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -ggdb -O2 -pipe -Wimplicit-function-declaration
+#  CFLAGS
 #****
 declare -x OBJCFLAGS="${CFLAGS}";
 
@@ -135,7 +135,7 @@ declare -x OBJCXX="${CXX}";
 #  Flags passed to OBJCXX when compiling Objective C++ code.  Individual packages
 #  may append or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -ggdb -O2 -pipe
+#  CXXFLAGS
 #****
 declare -x OBJCXXFLAGS="${CXXFLAGS}";
 
