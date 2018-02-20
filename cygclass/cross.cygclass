@@ -168,7 +168,14 @@ esac
 
 case ${CHOST} in
 *-*-mingw*)
-	# GCC since 4.7 uses -mms-bitfields by default
+	# GCC since 4.7 uses -mms-bitfields by default, but does not have
+	# builtin stack-smashing support
+	CFLAGS="-ggdb -O2 -pipe -Wall -Werror=format-security"
+	CXXFLAGS=${CFLAGS}
+	FFLAGS=${CFLAGS}
+	FCFLAGS=${CFLAGS}
+	OBJCFLAGS=${CFLAGS}
+	OBJCXXFLAGS=${CXXFLAGS}
 	;;
 *-*-linux-gnu)
 	LDFLAGS="${LDFLAGS} -Wl,--as-needed -Wl,--no-undefined"
