@@ -65,9 +65,9 @@ cygmeson() {
 
 	if cross_compiling
 	then
-		if [ -f ${_privdatadir}/${CHOST}.meson ]
+		if [ -f /usr/share/meson/cross/${CHOST} ]
 		then
-			crossargs="--cross-file=${_privdatadir}/${CHOST}.meson"
+			crossargs="--cross-file=/usr/share/meson/cross/${CHOST}"
 		else
 			error "meson.cygclass: no cross-file for ${CHOST}"
 		fi

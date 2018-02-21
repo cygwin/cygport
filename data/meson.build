@@ -1,10 +1,6 @@
 datadocs = files('cygport.conf', 'mirrors')
 
-install_data('i686-pc-cygwin.meson',
-             'i686-w64-mingw32.meson',
-             'x86_64-pc-cygwin.meson',
-             'x86_64-w64-mingw32.meson',
-             'mirrors',
+install_data('mirrors',
              'sample.cygport',
              install_dir: pkgdatadir)
 
