@@ -74,35 +74,33 @@ src_unpack_hook() {
   for jj in 4/. 4/${i}/${i}@* ; do
     j=$(basename ${jj})
     if [ -d 4/${i}/${j} ] ; then
-      # remove lilo-config, conflicts with 3.5.10
-      rm -fv 4/$i/$j/messages/kdeadmin/kcmlilo.po
-      if [ -e 4/$i/$j/docs/kdeadmin/CMakeLists.txt ] ; then
-        sed -i -e 's/add_subdirectory( *lilo-config *)/#add_subdirectory(lilo-config)/g' 4/$i/$j/docs/kdeadmin/CMakeLists.txt
+      # drop: kmouth, keep: jovie
+      if [ -e 4/$i/$j/docs/kdeaccessibility/CMakeLists.txt ] ; then
+        sed -i -e 's/add_subdirectory( *kmouth *)/#add_subdirectory(kmouth)/g' 4/$i/$j/docs/kdeaccessibility/CMakeLists.txt
       fi
-      # remove bogus duplicated kdepim stuff from kdenetwork
-      if [ -e 4/$i/$j/docs/kdenetwork/CMakeLists.txt ] ; then
-        sed -i -e 's/add_subdirectory( *korn *)/#add_subdirectory(korn)/g' -e 's/add_subdirectory( *kmail *)/#add_subdirectory(kmail)/g' -e 's/add_subdirectory( *knode *)/#add_subdirectory(knode)/g' 4/$i/$j/docs/kdenetwork/CMakeLists.txt
+      # drop: kimagemapeditor, keep: kfilereplace, klinkstatus
+      if [ -e 4/$i/$j/docs/kdewebdev/CMakeLists.txt ] ; then
+        sed -i -e 's/add_subdirectory( *kimagemapeditor *)/#add_subdirectory(kimagemapeditor)/g' 4/$i/$j/docs/kdeaccessibility/CMakeLists.txt
       fi
-      # some languages still ship the kpilot stuff
-      # zap it so the kpilot package can ship all translations itself
-      rm -fv 4/$i/$j/messages/kdepim/kpilot.po
-      if [ -e 4/$i/$j/docs/kdepim/CMakeLists.txt ] ; then
-        sed -i -e 's/add_subdirectory( *kpilot *)/#add_subdirectory(kpilot)/g' 4/$i/$j/docs/kdepim/CMakeLists.txt
-      fi
-      # kdegraphics
-      if [ -e 4/$i/$j/docs/kdegraphics/CMakeLists.txt ] ; then
-        sed -i -e 's/add_subdirectory( *ksnapshot *)/#add_subdirectory(ksnapshot)/g' 4/$i/$j/docs/kdegraphics/CMakeLists.txt
-      fi
+      # drop: all of kdegames, kdegraphics, kdemultimedia, kdenetwork, kdesdk, kdeutils
+      sed -i \
+          -e 's/add_subdirectory( *kdegames *)/#add_subdirectory(kdegames)/g' \
+          -e 's/add_subdirectory( *kdegraphics *)/#add_subdirectory(kdegraphics)/g' \
+          -e 's/add_subdirectory( *kdemultimedia *)/#add_subdirectory(kdemultimedia)/g' \
+          -e 's/add_subdirectory( *kdenetwork *)/#add_subdirectory(kdenetwork)/g' \
+          -e 's/add_subdirectory( *kdepim *)/#add_subdirectory(kdepim)/g' \
+          -e 's/add_subdirectory( *kdesdk *)/#add_subdirectory(kdesdk)/g' \
+          -e 's/add_subdirectory( *kdeutils *)/#add_subdirectory(kdeutils)/g' \
+          4/$i/$j/docs/CMakeLists.txt
+      rm -fv 4/$i/$j/messages/kdeaccessibility/kmouth*.po
+      rm -fv 4/$i/$j/messages/kdewebdev/kimagemapeditor*.po
+      rm -fv 4/$i/$j/messages/kde{games,graphics,multimedia,network,pim,sdk,utils}/*.po
 
       # Remove translations shipped by Plasma 5 and KDE Frameworks 5
       # Each Plasma 5 and KF5 app/library ship their own translations in their tarballs, so they
       # often conflict with kde-l10n, since most of the catalogs still have the same name
 
       # Provided by plasma-workspace and plasma-desktop
-      sed -i -e 's/add_subdirectory( *kde-workspace *)/#add_subdirectory(kde-workspace)/g' 4/$i/$j/messages/CMakeLists.txt
-      if [ -e 4/$i/$j/docs/CMakeLists.txt ]; then
-        sed -i -e 's/add_subdirectory( *kde-workspace *)/#add_subdirectory(kde-workspace)/g' 4/$i/$j/docs/CMakeLists.txt
-      fi
       rm -fv 4/$i/$j/messages/kde-runtime/{attica_kde,knetattach,drkonqi,phonon_kde,soliduiserver}.po
       rm -fv 4/$i/$j/messages/kde-runtime/kcm{_device_automounter,_emoticons,_phonon,componentchooser,icons,kded,notify}.po
       rm -fv 4/$i/$j/messages/kde-runtime/kio_{applications,remote}.po
@@ -125,8 +123,6 @@ src_unpack_hook() {
       rm -fv 4/$i/$j/messages/kde-runtime/{filetypes,kcmshell,kdesu,kioclient,kmimetypefinder,kstart,ktraderclient}.po
       # Provided by khelpcenter
       rm -fv 4/$i/$j/messages/kde-runtime/{htmlsearch,kcmhtmlsearch,khelpcenter}.po
-      # Provided by ktp-desktop-applets
-      rm -fv 4/$i/$j/messages/kdenetwork/plasma_applet_org.kde.ktp-{contact,presence}.po
 
       # Programs which we do not build on Cygwin
       rm -fv 4/$i/$j/messages/kdelibs/nepomuk*
