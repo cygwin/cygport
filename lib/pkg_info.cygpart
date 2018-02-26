@@ -79,6 +79,7 @@ __list_deps() {
 	local dlltool="dlltool"
 	local os_path="${PATH}"
 	local deps_prune
+	local objdump=${OBJDUMP}
 
 	# if file list is empty, there are obviously no dependencies
 	(( $# > 0 )) || return 0
@@ -92,6 +93,14 @@ __list_deps() {
 	then
 		dlltool="${CTARGET}-dlltool"
 	fi
+
+	case ${CHOST} in
+	i?86-*|x86_64-*)
+		if check_prog llvm-objdump
+		then
+			objdump="llvm-objdump"
+		fi ;;
+	esac
 
 	pushd ${D}
 
@@ -170,8 +179,8 @@ __list_deps() {
 	# *.mex: Octave MATLAB-compatible MEX modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
 	alldeps+=" "$(LC_ALL=C find "${@//^_^/ }" -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.mex' -o -name '*.cmxs' \) \
-		-exec ${OBJDUMP} -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
-		cut -d ' ' -f 3 | xargs -r which || true)
+		-exec ${objdump} -p '{}' + 2>/dev/null | grep "DLL Name:" | sort -u | \
+		awk '{print $3}' | xargs -r which || true)
 
 	# shebang script interpreters
 	alldeps+=" "$(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
