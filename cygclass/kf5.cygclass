@@ -39,17 +39,17 @@ inherit cmake qt5 kde.org
 export QTDIR=${QT5_QTDIR}
 export QT_PLUGIN_PATH=${QT5_PLUGINSDIR}
 
-#****C* kf5.cygclass/kf5_compile
+#****C* kf5.cygclass/kf5_cmake
 #  SYNOPSIS
-#  kf5_compile [OPTIONS]
+#  kf5_cmake [OPTIONS]
 #  DESCRIPTION
 #  Runs cygcmake to configure the package with several Cygwin- and KF5-specific
-#  options, then runs cygmake to compile.  Options, in the form of -DVARIABLE=VALUE,
+#  options.  Additional options, in the form of -DVARIABLE=VALUE,
 #  are passed on to cygcmake.
 #  REQUIRES
 #  cmake, extra-cmake-modules, libQt5Core-devel, libQt5Gui-devel
 #****
-kf5_compile() {
+kf5_cmake() {
 	cygcmake \
 		-DPLUGIN_INSTALL_DIR=${QT5_PLUGINSDIR} \
 		-DQT_PLUGIN_INSTALL_DIR=${QT5_PLUGINSDIR} \
@@ -61,7 +61,18 @@ kf5_compile() {
 		-DKDE_INSTALL_LOCALSTATEDIR=/var \
 		-DECM_MKSPECS_INSTALL_DIR=${QT5_MKSPECSDIR}/modules \
 		"${@}"
+}
 
+#****C* kf5.cygclass/kf5_compile
+#  SYNOPSIS
+#  kf5_compile [OPTIONS]
+#  DESCRIPTION
+#  Runs kf5_cmake, followed by cygmake or cygninja to compile.  Options, in the
+#  form of -DVARIABLE=VALUE, are passed on to kf5_cmake.
+#****
+kf5_compile() {
+	: ${CYGCMAKE_GENERATOR=Ninja}
+	kf5_cmake "${@}"
 	if [ -f build.ninja ]
 	then
 		cygninja
@@ -103,7 +114,13 @@ kf5_install() {
 src_compile() {
 	cd ${B}
 	: ${CYGCMAKE_GENERATOR=Ninja}
-	kf5_compile
+	kf5_cmake
+	if [ -f build.ninja ]
+	then
+		cygninja
+	else
+		cygmake
+	fi
 }
 #****
 
@@ -115,4 +132,4 @@ src_install() {
 }
 #****
 
-readonly -f kf5_compile kf5_install
+readonly -f kf5_cmake kf5_compile kf5_install
