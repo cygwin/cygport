@@ -1,3 +1,12 @@
+0.31.0:
+	* Security flags have been added to the default CFLAGS.
+	* CMake-based builds may use Ninja instead of make (see
+	  cmake.cygclass/CYGCMAKE_GENERATOR for details).
+	* LLVM tools, which are generally faster than binutils, are used
+	  (if present) for stripping binaries and discovering DLL deps.
+	* kde4: updated kde-l10n handling for Apps 17.12.
+	* meson: cross-compiling requires system cross files in meson 0.44.
+
 0.30.1:
 	* Fix OCaml dependency detection in certain scenarios.
 	* Fix the Vim filetype detection script.

@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.30.1
+Version:        0.31.0
 Release:        1%{?dist}
 Summary:        Cygwin package building tool
 
@@ -96,6 +96,9 @@ fi
 
 
 %changelog
+* Tue Feb 27 2018 Yaakov Selkowitz <yselkowitz@cygwin.com> - 0.31.0-1
+- new version
+
 * Wed Jan 10 2018 Yaakov Selkowitz <yselkowitz@cygwin.com> - 0.30.1-1
 - new version
 
