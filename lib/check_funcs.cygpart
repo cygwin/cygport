@@ -579,7 +579,7 @@ __check_depends() {
 		return 0;
 	fi
 
-	__deparenthesize() { echo "$@" | sed -e 's|[a-z]*(\([^)]*\))|\1|' ; }
+	__deparenthesize() { echo "$@" | sed -e 's|[a-zA-Z0-9]*(\([^)]*\))|\1|' ; }
 
 	for atom in ${DEPEND}
 	do
