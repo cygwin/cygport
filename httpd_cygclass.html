@@ -33,42 +33,42 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo561">httpd.cygclass</a></li>
+<li><a href="#robo562">httpd.cygclass</a></li>
 <ul>
-<li><a href="#robo562">CATEGORY (httpd)</a></li>
-<li><a href="#robo563">SUMMARY (httpd)</a></li>
-<li><a href="#robo564">HTTPD_APXS</a></li>
-<li><a href="#robo565">HTTPD</a></li>
-<li><a href="#robo566">HTTPD_VERSION</a></li>
-<li><a href="#robo567">HTTPD_INCLUDEDIR</a></li>
-<li><a href="#robo568">HTTPD_LIBEXECDIR</a></li>
-<li><a href="#robo569">HTTPD_SYSCONFDIR</a></li>
-<li><a href="#robo570">HTTPD_SYSCONFMODULESDIR</a></li>
-<li><a href="#robo571">HTTPD_CFLAGS</a></li>
-<li><a href="#robo572">HTTPD_LIBS</a></li>
-<li><a href="#robo573">APR_VERSION</a></li>
-<li><a href="#robo574">APR_CONFIG</a></li>
-<li><a href="#robo575">APU_CONFIG</a></li>
-<li><a href="#robo576">APR_CFLAGS</a></li>
-<li><a href="#robo577">APR_LIBS</a></li>
-<li><a href="#robo578">APR_LIBTOOL</a></li>
-<li><a href="#robo579">APREQ2_CONFIG</a></li>
-<li><a href="#robo580">APREQ2_CFLAGS</a></li>
-<li><a href="#robo581">APREQ2_LIBS</a></li>
-<li><a href="#robo582">httpd_mod_compile</a></li>
-<li><a href="#robo583">httpd_apxs_compile</a></li>
-<li><a href="#robo584">dohttpdconf</a></li>
-<li><a href="#robo585">dohttpdmod</a></li>
-<li><a href="#robo586">httpd_loadmodules</a></li>
+<li><a href="#robo563">CATEGORY (httpd)</a></li>
+<li><a href="#robo564">SUMMARY (httpd)</a></li>
+<li><a href="#robo565">HTTPD_APXS</a></li>
+<li><a href="#robo566">HTTPD</a></li>
+<li><a href="#robo567">HTTPD_VERSION</a></li>
+<li><a href="#robo568">HTTPD_INCLUDEDIR</a></li>
+<li><a href="#robo569">HTTPD_LIBEXECDIR</a></li>
+<li><a href="#robo570">HTTPD_SYSCONFDIR</a></li>
+<li><a href="#robo571">HTTPD_SYSCONFMODULESDIR</a></li>
+<li><a href="#robo572">HTTPD_CFLAGS</a></li>
+<li><a href="#robo573">HTTPD_LIBS</a></li>
+<li><a href="#robo574">APR_VERSION</a></li>
+<li><a href="#robo575">APR_CONFIG</a></li>
+<li><a href="#robo576">APU_CONFIG</a></li>
+<li><a href="#robo577">APR_CFLAGS</a></li>
+<li><a href="#robo578">APR_LIBS</a></li>
+<li><a href="#robo579">APR_LIBTOOL</a></li>
+<li><a href="#robo580">APREQ2_CONFIG</a></li>
+<li><a href="#robo581">APREQ2_CFLAGS</a></li>
+<li><a href="#robo582">APREQ2_LIBS</a></li>
+<li><a href="#robo583">httpd_mod_compile</a></li>
+<li><a href="#robo584">httpd_apxs_compile</a></li>
+<li><a href="#robo585">dohttpdconf</a></li>
+<li><a href="#robo586">dohttpdmod</a></li>
+<li><a href="#robo587">httpd_loadmodules</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fhttpd2ecygclass"></a>
-<a name="robo561"></a><h2>httpd.cygclass</h2>
+<a name="robo562"></a><h2>httpd.cygclass</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo510">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo559">inherit</a> httpd
+<pre>  <a href="./inheritance_cygpart.html#robo560">inherit</a> httpd
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  The Apache Web Server is an HTTP server which can be extended through
@@ -86,7 +86,7 @@
 <p>  Apache module source packages do not have a single system.  Some packages
   are autoconf-based:
 </p>
-<pre>    <a href="./inheritance_cygpart.html#robo559">inherit</a> httpd
+<pre>    <a href="./inheritance_cygpart.html#robo560">inherit</a> httpd
     
     <a href="./syntax_cygpart.html#robo88">NAME</a>="httpd-mod_clamav"
     <a href="./syntax_cygpart.html#robo89">VERSION</a>=0.23
@@ -103,22 +103,22 @@
     
     <a href="./src_compile_cygpart.html#robo182">src_compile</a>() {
       cd ${<a href="./syntax_cygpart.html#robo97">S</a>}
-      <a href="./autotools_cygclass.html#robo776">cygautoreconf</a>
+      <a href="./autotools_cygclass.html#robo779">cygautoreconf</a>
       cd ${<a href="./syntax_cygpart.html#robo98">B</a>}
-      <a href="#robo582">httpd_mod_compile</a>
+      <a href="#robo583">httpd_mod_compile</a>
     }
     
     <a href="./src_install_cygpart.html#robo175">src_install</a>() {
       cd ${<a href="./syntax_cygpart.html#robo98">B</a>}
-      <a href="#robo585">dohttpdmod</a> mod_clamav
-      <a href="#robo584">dohttpdconf</a> ${<a href="./syntax_cygpart.html#robo97">S</a>}/sample.conf ${<a href="./syntax_cygpart.html#robo97">S</a>}/safepatterns.conf
+      <a href="#robo586">dohttpdmod</a> mod_clamav
+      <a href="#robo585">dohttpdconf</a> ${<a href="./syntax_cygpart.html#robo97">S</a>}/sample.conf ${<a href="./syntax_cygpart.html#robo97">S</a>}/safepatterns.conf
     }
 </pre>
 <p>
   Other simple module just ship the sources without a build system:
 </p>
 
-<pre>    <a href="./inheritance_cygpart.html#robo559">inherit</a> httpd
+<pre>    <a href="./inheritance_cygpart.html#robo560">inherit</a> httpd
     
     <a href="./syntax_cygpart.html#robo88">NAME</a>="httpd-mod_geoip"
     <a href="./syntax_cygpart.html#robo89">VERSION</a>=1.2.8
@@ -135,13 +135,13 @@
     <a href="./src_compile_cygpart.html#robo182">src_compile</a>() {
       <a href="./src_compile_cygpart.html#robo179">lndirs</a>
       cd ${<a href="./syntax_cygpart.html#robo98">B</a>}
-      <a href="#robo583">httpd_apxs_compile</a> *.c -lGeoIP
+      <a href="#robo584">httpd_apxs_compile</a> *.c -lGeoIP
     }
     
     <a href="./src_install_cygpart.html#robo175">src_install</a>() {
       cd ${<a href="./syntax_cygpart.html#robo98">B</a>}
-      <a href="#robo585">dohttpdmod</a> mod_geoip.la
-      <a href="#robo586">httpd_loadmodules</a>
+      <a href="#robo586">dohttpdmod</a> mod_geoip.la
+      <a href="#robo587">httpd_loadmodules</a>
       <a href="./src_install_cygpart.html#robo144">dodoc</a> README.php
     }
 </pre>
@@ -155,99 +155,99 @@
 
 <hr />
 <a name="httpd2ecygclass2fCATEGORY2028httpd29"></a>
-<a name="robo562"></a><h2>CATEGORY (httpd)</h2>
+<a name="robo563"></a><h2>CATEGORY (httpd)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
 <pre class="source"><a href="./pkg_pkg_cygpart.html#robo381">CATEGORY</a><span class="sign">=</span><span class="quote">"Web"</span>
 </pre>
 
 <hr />
 <a name="httpd2ecygclass2fSUMMARY2028httpd29"></a>
-<a name="robo563"></a><h2>SUMMARY (httpd)</h2>
+<a name="robo564"></a><h2>SUMMARY (httpd)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
 <pre class="source"><a href="./pkg_pkg_cygpart.html#robo383">SUMMARY</a><span class="sign">=</span><span class="quote">"Apache HTTP Server ${<a href="./syntax_cygpart.html#robo91">PN</a>#httpd-mod_} module"</span>
 </pre>
 
 <hr />
 <a name="httpd2ecygclass2fHTTPD5fAPXS"></a>
-<a name="robo564"></a><h2>HTTPD_APXS</h2>
+<a name="robo565"></a><h2>HTTPD_APXS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Path to apxs(1), the APache eXtenSion tool.
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fHTTPD"></a>
-<a name="robo565"></a><h2>HTTPD</h2>
+<a name="robo566"></a><h2>HTTPD</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Path to the Apache HTTP Server.
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fHTTPD5fVERSION"></a>
-<a name="robo566"></a><h2>HTTPD_VERSION</h2>
+<a name="robo567"></a><h2>HTTPD_VERSION</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Full version of the Apache HTTP Server.
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fHTTPD5fINCLUDEDIR"></a>
-<a name="robo567"></a><h2>HTTPD_INCLUDEDIR</h2>
+<a name="robo568"></a><h2>HTTPD_INCLUDEDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Location of Apache HTTP Server headers.
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fHTTPD5fLIBEXECDIR"></a>
-<a name="robo568"></a><h2>HTTPD_LIBEXECDIR</h2>
+<a name="robo569"></a><h2>HTTPD_LIBEXECDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installation path for Apache HTTP Server DSOs.
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fHTTPD5fSYSCONFDIR"></a>
-<a name="robo569"></a><h2>HTTPD_SYSCONFDIR</h2>
+<a name="robo570"></a><h2>HTTPD_SYSCONFDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installation path for Apache HTTP Server configuration files.
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fHTTPD5fSYSCONFMODULESDIR"></a>
-<a name="robo570"></a><h2>HTTPD_SYSCONFMODULESDIR</h2>
+<a name="robo571"></a><h2>HTTPD_SYSCONFMODULESDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installation path for Apache HTTP Server LoadModule directives
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fHTTPD5fCFLAGS"></a>
-<a name="robo571"></a><h2>HTTPD_CFLAGS</h2>
+<a name="robo572"></a><h2>HTTPD_CFLAGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Compile flags for building Apache HTTP Server DSOs.
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fHTTPD5fLIBS"></a>
-<a name="robo572"></a><h2>HTTPD_LIBS</h2>
+<a name="robo573"></a><h2>HTTPD_LIBS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Link flags for building Apache HTTP Server DSOs.
 </p>
@@ -257,72 +257,72 @@
 
 <hr />
 <a name="httpd2ecygclass2fAPR5fVERSION"></a>
-<a name="robo573"></a><h2>APR_VERSION</h2>
+<a name="robo574"></a><h2>APR_VERSION</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Major version of APR libraries used by the Apache HTTP Server.
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fAPR5fCONFIG"></a>
-<a name="robo574"></a><h2>APR_CONFIG</h2>
+<a name="robo575"></a><h2>APR_CONFIG</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Path to matching <a href="#robo573">APR_VERSION</a>-specific apr-config script
+<p>  Path to matching <a href="#robo574">APR_VERSION</a>-specific apr-config script
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fAPU5fCONFIG"></a>
-<a name="robo575"></a><h2>APU_CONFIG</h2>
+<a name="robo576"></a><h2>APU_CONFIG</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Path to matching <a href="#robo573">APR_VERSION</a>-specific apu-config script
+<p>  Path to matching <a href="#robo574">APR_VERSION</a>-specific apu-config script
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fAPR5fCFLAGS"></a>
-<a name="robo576"></a><h2>APR_CFLAGS</h2>
+<a name="robo577"></a><h2>APR_CFLAGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Compile flags for building against APR libraries
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fAPR5fLIBS"></a>
-<a name="robo577"></a><h2>APR_LIBS</h2>
+<a name="robo578"></a><h2>APR_LIBS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Link flags for building against APR libraries
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fAPR5fLIBTOOL"></a>
-<a name="robo578"></a><h2>APR_LIBTOOL</h2>
+<a name="robo579"></a><h2>APR_LIBTOOL</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Path to libtool script used by APR-dependent packages
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fAPREQ25fCONFIG"></a>
-<a name="robo579"></a><h2>APREQ2_CONFIG</h2>
+<a name="robo580"></a><h2>APREQ2_CONFIG</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Path to apreq2-config script
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fAPREQ25fCFLAGS"></a>
-<a name="robo580"></a><h2>APREQ2_CFLAGS</h2>
+<a name="robo581"></a><h2>APREQ2_CFLAGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Compile flags for building against libapreq2
 </p>
@@ -332,9 +332,9 @@
 
 <hr />
 <a name="httpd2ecygclass2fAPREQ25fLIBS"></a>
-<a name="robo581"></a><h2>APREQ2_LIBS</h2>
+<a name="robo582"></a><h2>APREQ2_LIBS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Link flags for building against libapreq2
 </p>
@@ -344,14 +344,14 @@
 
 <hr />
 <a name="httpd2ecygclass2fhttpd5fmod5fcompile"></a>
-<a name="robo582"></a><h2>httpd_mod_compile</h2>
+<a name="robo583"></a><h2>httpd_mod_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>httpd_mod_compile</strong> [CONFIGURE_FLAGS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Build a DSO which uses an autoconf/libtool buildsystem by calling <a href="./autotools_cygclass.html#robo786">cygconf</a>
+<p>  Build a DSO which uses an autoconf/libtool buildsystem by calling <a href="./autotools_cygclass.html#robo789">cygconf</a>
   and <a href="./src_compile_cygpart.html#robo181">cygmake</a> with some Apache-specific flags.  Arguments, if any, are passed
   as configure flags.
 </p>
@@ -361,18 +361,18 @@
 
 <hr />
 <a name="httpd2ecygclass2fhttpd5fapxs5fcompile"></a>
-<a name="robo583"></a><h2>httpd_apxs_compile</h2>
+<a name="robo584"></a><h2>httpd_apxs_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <strong>httpd_apxs_compile</strong> [<a href="./compilers_cygpart.html#robo720">CFLAGS</a>] SOURCES [LIBS]
+<pre>  <strong>httpd_apxs_compile</strong> [<a href="./compilers_cygpart.html#robo721">CFLAGS</a>] SOURCES [LIBS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Uses <a href="#robo564">HTTPD_APXS</a> to build a DSO from one or more .c source files which ship
+<p>  Uses <a href="#robo565">HTTPD_APXS</a> to build a DSO from one or more .c source files which ship
   without their own build system.
 </p>
 <p class="item_name">ARGUMENTS</p>
-<ul><li>  <a href="./compilers_cygpart.html#robo720">CFLAGS</a> -- Additional <a href="./compilers_cygpart.html#robo720">CFLAGS</a> required for compiling this DSO.
+<ul><li>  <a href="./compilers_cygpart.html#robo721">CFLAGS</a> -- Additional <a href="./compilers_cygpart.html#robo721">CFLAGS</a> required for compiling this DSO.
 </li>
 <li>  SOURCES -- One or more .c sources.
 </li>
@@ -383,9 +383,9 @@
 
 <hr />
 <a name="httpd2ecygclass2fdohttpdconf"></a>
-<a name="robo584"></a><h2>dohttpdconf</h2>
+<a name="robo585"></a><h2>dohttpdconf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dohttpdconf</strong> CONF_FILE [CONF_FILE] ...
 </pre>
@@ -399,36 +399,36 @@
 
 <hr />
 <a name="httpd2ecygclass2fdohttpdmod"></a>
-<a name="robo585"></a><h2>dohttpdmod</h2>
+<a name="robo586"></a><h2>dohttpdmod</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dohttpdmod</strong> DSO [DSO] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installs one or more DSOs into $<a href="./syntax_cygpart.html#robo100">D</a>/<a href="#robo568">HTTPD_LIBEXECDIR</a>.  DSOs are usually
-  a .la libtool library (whether build with <a href="#robo582">httpd_mod_compile</a> or <a href="#robo583">httpd_apxs_compile</a>),
+<p>  Installs one or more DSOs into $<a href="./syntax_cygpart.html#robo100">D</a>/<a href="#robo569">HTTPD_LIBEXECDIR</a>.  DSOs are usually
+  a .la libtool library (whether build with <a href="#robo583">httpd_mod_compile</a> or <a href="#robo584">httpd_apxs_compile</a>),
   but may also be a .so DLL if built without libtool.
 </p>
 
 <hr />
 <a name="httpd2ecygclass2fhttpd5floadmodules"></a>
-<a name="robo586"></a><h2>httpd_loadmodules</h2>
+<a name="robo587"></a><h2>httpd_loadmodules</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo561">httpd.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo562">httpd.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>httpd_loadmodules</strong>
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Creates a LoadModule configuration snippet in <a href="#robo570">HTTPD_SYSCONFMODULESDIR</a>.
+<p>  Creates a LoadModule configuration snippet in <a href="#robo571">HTTPD_SYSCONFMODULESDIR</a>.
   This means that users need not do anything more than install the package in
   order to enable the DSO.  For modules which require further configuration,
-  create a complete file and use <a href="#robo584">dohttpdconf</a> to install it.
+  create a complete file and use <a href="#robo585">dohttpdconf</a> to install it.
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/httpd.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Fri Dec 29 2017 11:40:27
+<p>Generated from ./cygport/cygclass/httpd.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Jun 04 2018 17:42:37
 </p>
 </div> <!-- footer -->
 </body>
