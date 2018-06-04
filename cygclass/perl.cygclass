@@ -177,7 +177,7 @@ SUMMARY="Perl distribution ${ORIG_PN}"
 #  This variable is set only if CPAN_AUTHOR is defined before inherit()ing
 #  perl.cygclass.
 #****
-HOMEPAGE="http://search.cpan.org/dist/${ORIG_PN}/"
+HOMEPAGE="https://metacpan.org/release/${ORIG_PN}"
 
 #****o* perl.cygclass/SRC_URI (perl)
 #  DESCRIPTION

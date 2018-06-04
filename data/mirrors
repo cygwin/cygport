@@ -65,7 +65,7 @@ mirror_apache+=" http://www.apache.org/dist"
 #  SYNOPSIS
 #  SRC_URI="mirror://cpan/authors/id/A/AU/AUTHOR/${ORIG_PN}-${PV}.tar.gz"
 #  DEFAULT MIRROR
-#  http://search.cpan.org/CPAN
+#  https://cpan.metacpan.org
 #  MIRROR LIST
 #  http://www.cpan.org/SITES.html
 #  SEE ALSO
@@ -73,7 +73,7 @@ mirror_apache+=" http://www.apache.org/dist"
 #****
 # cat SITES.html | egrep '^ *<A HREF=.*(CPAN|cpan).*(ht|f)tp:' | \
 #   sed -e 's! *<A HREF="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
-mirror_cpan+=" http://search.cpan.org/CPAN"
+mirror_cpan+=" https://cpan.metacpan.org"
 
 
 #****d* Mirrors/mirror_cran
