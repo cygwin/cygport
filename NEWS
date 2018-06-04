@@ -1,3 +1,7 @@
+0.31.1:
+	* Fix exclusion of Gettext infrastructure from diffs.
+	* Update CPAN URLs to MetaCPAN.
+
 0.31.0:
 	* Security flags have been added to the default CFLAGS.
 	* CMake-based builds may use Ninja instead of make (see
