@@ -213,7 +213,7 @@ __pkg_pkgcheck() {
 	local tmp2="${T}/tmpfind.log";
 
 	cd ${D};
-	__step "Checking packages for missing or duplicate files";
+	__step "Checking packages for unexpected, missing or duplicate files";
 
 	rm -f ${tmp1} ${tmp2};
 
@@ -242,6 +242,13 @@ __pkg_pkgcheck() {
 
 	sort < ${tmp1} > "${tmp1}.sorted";
 	mv -f "${tmp1}.sorted" ${tmp1};
+
+	if grep "\.stackdump$" ${tmp1} > ${T}/pkgcheck.lst
+	then
+		warning "Packages contain unexpected files:";
+		cat ${T}/pkgcheck.lst;
+		error "Packages contain unexpected files:";
+	fi
 
 	find * -type f -o -type l | sort > ${tmp2}
 
