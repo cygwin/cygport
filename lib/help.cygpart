@@ -51,6 +51,7 @@ __show_help() {
 		  announce      send an announcement email to cygwin.com
 		  finish        delete the working directory
 		  all           run prep, compile, install and package
+		  all-test      run prep, compile, install and package-test
 
 		See the included README file for further documentation.
 

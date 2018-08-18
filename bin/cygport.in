@@ -636,6 +636,9 @@ do
 			__finish;
 			_status=$?;
 			;;
+		all-test)
+			_pkg_tag="test:"
+			;&
 		almostall|all)
 			__stage Preparing && __src_prep && \
 			__log_init ${compilelog} && \
