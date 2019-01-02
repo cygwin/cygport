@@ -44,7 +44,7 @@ PYTHON_ORG_NAME=${ORIG_PN:-${PN}}
 #  DESCRIPTION
 #  Default homepage of the Python module on the Python Package Index.
 #****
-HOMEPAGE="http://pypi.python.org/pypi/${PYTHON_ORG_NAME}"
+HOMEPAGE="https://pypi.org/project/${PYTHON_ORG_NAME}"
 
 #****o* python.org.cygclass/SRC_URI (python.org)
 #  DESCRIPTION
