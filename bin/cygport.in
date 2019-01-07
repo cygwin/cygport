@@ -452,6 +452,10 @@ declare -r spkgdir="${workdir}/spkg/${PF}.src";
 declare -r distdir="${workdir}/dist";
 
 SRC_DIR=${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}};
+if ! defined SRC_URI
+then
+	SRC_DIR=.
+fi
 if [ "x${SRC_DIR}" = "x." ]
 then
 	declare -r S=${srcdir};
@@ -478,11 +482,6 @@ declare -r checklog="${logdir}/${PF}-check.log";
 declare -r installlog="${logdir}/${PF}-install.log";
 declare -r pkglog="${logdir}/${PF}-pkg.log";
 declare -r uploadlog="${logdir}/${PF}-upload.log";
-
-if ! defined SRC_URI
-then
-	error "SRC_URI must be defined";
-fi
 
 for _src_uri in ${SRC_URI}
 do
