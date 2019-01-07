@@ -713,7 +713,7 @@ __prepman() {
 			echo ".so ${manref%.gz}" > "${manlink%.gz}";
 		done
 
-		find ${D}$(__host_prefix)/share/man -type f -links 1 ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma' -print0 | \
+		find ${D}$(__host_prefix)/share/man -type f -links 1 ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma' ! -name '.keep-*' -print0 | \
 		while read -d $'\0' manpage
 		do
 			echo "        ${manpage##*/}";
@@ -755,7 +755,7 @@ __prepinfo() {
 
 		echo "Compressing info pages:";
 
-		find ${D}$(__host_prefix)/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2' -print0 | \
+		find ${D}$(__host_prefix)/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2' ! -name '.keep-*' -print0 | \
 		while read -d $'\0' infopage
 		do
 			echo "        ${infopage##*/}";
