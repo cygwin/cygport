@@ -336,7 +336,7 @@ newins() {
 #    the Hicolor Icon Theme hierarchy.
 #****
 doicon() {
-	local _icondir=$(__host_prefix)/share/pixmaps
+	local _icondir=/usr/share/pixmaps
 
 	dodir ${_icondir}
 	for i
@@ -355,7 +355,7 @@ doicon() {
 #  Supported icon formats are PNG, XPM, and SVG.
 #****
 newicon() {
-	local _icondir=$(__host_prefix)/share/pixmaps
+	local _icondir=/usr/share/pixmaps
 
 	dodir ${_icondir}
 	__doinstall 0644 ${1} ${_icondir} ${2} || error "newicon ${1} failed"
@@ -562,7 +562,7 @@ newman() {
 #  Installs the given desktop menu entries (.desktop).
 #****
 domenu() {
-	local _menudir=$(__host_prefix)/share/applications
+	local _menudir=/usr/share/applications
 
 	dodir ${_menudir}
 	for i
@@ -578,7 +578,7 @@ domenu() {
 #  Installs the given desktop menu entry (.desktop) with the given new name.
 #****
 newmenu() {
-	local _menudir=$(__host_prefix)/share/applications
+	local _menudir=/usr/share/applications
 
 	dodir ${_menudir}
 	__doinstall 0644 ${1} ${_menudir} ${2} || error "newmenu ${1} failed"
@@ -778,8 +778,8 @@ make_desktop_entry() {
 		error "make_desktop_entry requires a minimum of two arguments"
 	fi
 
-	dodir $(__host_prefix)/share/applications
-	dtfile=$(__host_prefix)/share/applications/$(basename ${1// }).desktop
+	dodir /usr/share/applications
+	dtfile=/usr/share/applications/$(basename ${1// }).desktop
 
 	cat > ${D}${dtfile} <<-_EOF
 		[Desktop Entry]
