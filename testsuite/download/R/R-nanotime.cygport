@@ -1,10 +1,13 @@
-inherit R test-fetch
+inherit test-fetch
 
 NAME="R-nanotime"
-VERSION=0.2.0
+VERSION=0.2.3
 RELEASE=1
 CATEGORY="Math"
 SUMMARY="Nanosecond-resolution time for R"
 DESCRIPTION="Full 64-bit resolution date and time support with resolution up
 to nanosecond granularity is provided, with easy transition to and from the
 standard 'POSIXct' type."
+HOMEPAGE="http://cran.r-project.org/web/packages/nanotime/"
+SRC_URI="mirror://cran/src/contrib/nanotime_${VERSION/_/-}.tar.gz"
+SRC_DIR="nanotime"
