@@ -3,7 +3,7 @@
 # gnome2.cygclass - functions for building GNOME 2.x packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006-2018 Yaakov Selkowitz
+# Copyright (C) 2006-2019 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify

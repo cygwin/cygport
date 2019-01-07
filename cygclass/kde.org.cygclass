@@ -3,7 +3,7 @@
 # kde.org.cygclass - sets SRC_URI for kde.org packages
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006-2018 Yaakov Selkowitz
+# Copyright (C) 2006-2019 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify

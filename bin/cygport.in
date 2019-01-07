@@ -3,7 +3,7 @@
 #
 # cygport - Cygwin packaging application
 #
-# Copyright (C) 2006-2018 Yaakov Selkowitz
+# Copyright (C) 2006-2019 Yaakov Selkowitz
 # Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -57,7 +57,7 @@ source ${_privlibdir}/syntax.cygpart
 #  The Cygport Reference Manual documents cygport, a utility for creating and
 #  building software packages for the Cygwin platform.
 #
-#  |html Copyright &#169; 2006-2018 Yaakov Selkowitz
+#  |html Copyright &#169; 2006-2019 Yaakov Selkowitz
 #
 #  Permission is granted to copy, distribute and/or modify this manual
 #  under the terms of the GNU Free Documentation License, Version 1.3 or
