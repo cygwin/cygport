@@ -32,13 +32,13 @@ set -e;
 # for regexes, sort, etc.
 export LC_COLLATE=C
 
-declare -r  _version=@VERSION@;
+declare -r  _cygport_version=@VERSION@;
 
 declare -r _privdatadir=@pkgdatadir@;
 declare -r _privclassdir=@cygclassdir@;
 declare -r _privlibdir=@cygpartdir@;
 declare -r _privgnuconfigdir=@gnuconfigdir@;
-declare -r _sysconfdir=@sysconfdir@;
+declare -r _privsysconfdir=@sysconfdir@;
 
 
 ### import defined, pushd, popd
@@ -261,7 +261,7 @@ for conf in "${HOME}/.config/cygport.conf" \
 	    "${HOME}/.cygport/cygport.conf" \
 	    "${HOME}/.cygport.conf" \
 	    "${HOME}/.cygportrc" \
-	    "${_sysconfdir}/cygport.conf"
+	    "${_privsysconfdir}/cygport.conf"
 do
 	if [ -e "${conf}" ]
 	then
@@ -422,7 +422,7 @@ esac
 
 if defined CYGPORT_DEPEND
 then
-	if ! __version_at_least ${CYGPORT_DEPEND} ${_version}
+	if ! __version_at_least ${CYGPORT_DEPEND} ${_cygport_version}
 	then
 		error "This package requires cygport ${CYGPORT_DEPEND} or newer";
 	fi

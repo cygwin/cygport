@@ -273,7 +273,7 @@ __src_prep() {
 
 	# FIXME: do something with this; e.g. check that cygport
 	# wasn't upgraded since prep
-	__config_set cygport_version ${_version}
+	__config_set cygport_version ${_cygport_version}
 
 	if [ -f ${top}/${cygportfile}.sig ]
 	then
