@@ -490,8 +490,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	then
 		pydirs=($(python3 -s -c 'import sys; print(" ".join(sys.path))'))
 		pydirs+=" ${DEPS_PATH//:/ }"
-		pyexts=$(python3 -s -c 'import imp
-for suffix, mode, type in imp.get_suffixes(): print(suffix)')
+		pyexts=$(python3 -s -c 'import importlib.machinery; print(*importlib.machinery.all_suffixes())')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				${deps_prune} \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python2.*' -prune \
