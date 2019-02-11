@@ -327,7 +327,7 @@ check_python2_module() {
 
 	for mod
 	do
-		if ! python2 -c "import ${mod}" &> /dev/null
+		if ! python2 -s -c "import ${mod}" &> /dev/null
 		then
 			return 2;
 		fi
@@ -357,7 +357,7 @@ check_python3_module() {
 
 	for mod
 	do
-		if ! python3 -c "import ${mod}" &> /dev/null
+		if ! python3 -s -c "import ${mod}" &> /dev/null
 		then
 			return 2;
 		fi
@@ -386,7 +386,7 @@ check_pypy_module() {
 
 	for mod
 	do
-		if ! pypy -c "import ${mod}" &> /dev/null
+		if ! pypy -s -c "import ${mod}" &> /dev/null
 		then
 			return 2;
 		fi
