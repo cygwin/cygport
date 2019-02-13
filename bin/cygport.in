@@ -648,7 +648,7 @@ do
 			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
 			test ${PIPESTATUS[0]} -eq 0 && \
 			__log_init ${pkglog} && \
-			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist) 2>&1 | tee -a ${pkglog} && \
+			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog} && \
 			test ${PIPESTATUS[0]} -eq 0
 			_status=$?;
 			;;
