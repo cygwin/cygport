@@ -188,6 +188,8 @@ __list_deps() {
 	# shebang script interpreters
 	alldeps+=" "$(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 			${deps_prune} \
+			-o -path 'usr/lib/perl/*' -prune \
+			-o -path 'usr/lib/python[23].*' -prune \
 			-o -path 'usr/share/gems/*' -prune \
 			-o -path 'usr/share/help/*' -prune \
 			-o -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' ! -name '*.mex' -print \
