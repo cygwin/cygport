@@ -597,6 +597,11 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		fi
 	done
 
+	# symlinks, possibly to other (sub)packages
+	# FIXME: could be improved in the case of relative links where
+	# the target is from another package
+	alldeps+=" "$(find "${@//^_^/ }" -type l | xargs -r readlink -f)
+
 	if [ "${CBUILD##*-}" = "cygwin" ]
 	then
 	    echo $alldeps | sort -u | xargs -r /bin/cygcheck -f;
