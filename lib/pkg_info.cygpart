@@ -72,8 +72,9 @@ __list_deps() {
 	local d f ext
 	local alldeps girdep jar jpkg ladep luadep luapaths pcdep pctgt pidep
 	local mldep mldir mllib
-	local phpdep phpmoddir pldep pldirs pydep pydirs pyexts rbdep rbdirs
-	local gemdir gemextdir gemspecdir
+	local phpdep phpmoddir pldep pldirs
+	local pydep pydirs pyexts pysite pyver
+	local rbdep rbdirs gemdir gemextdir gemspecdir
 	local tcldep tclpkgs vapidep vapidir
 	local tcgcclibdir tcgccsysroot
 	local dlltool="dlltool"
@@ -425,17 +426,54 @@ __list_deps() {
 		done
 	fi
 
+	for pysite in ${D}/usr/lib/python[23].*/site-packages
+	do
+		[ -d "$pysite" ] || continue
+		pyver=$(echo $pysite | sed -e 's|.*lib/python\([23]\.[0-9]*\)/site-packages|\1|')
+		pydirs=($(python${pyver} -s -c 'import sys; print("\n".join(sys.path))' | grep 'site-packages'))
+		case ${pyver} in
+		3.*)	pyexts=$(python${pyver} -s -c 'import importlib.machinery; print(*importlib.machinery.all_suffixes())')
+			tkimp=$(python${pyver} -s -c "import importlib.util;  print(importlib.util.find_spec('tkinter').origin)" 2>/dev/null)
+			;;
+		2.*)	pyexts=$(python${pyver} -s -c 'import imp
+for suffix, mode, type in imp.get_suffixes(): print(suffix)')
+			tkimp=$(python${pyver} -s -c "import imp; print(imp.find_module('Tkinter')[1])" 2>/dev/null)
+			;;
+		esac
+		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+				${deps_prune} \
+				-o -path "${pysite#${D}/}/*" -name '*.py' -print \
+				| xargs -r grep -h '^[^#]*import ' \
+				| sed -e 's/^from \([^ ]*\) import .*/\1/g;s/^import //g;s/ as [^ ]*//g;s/, */\n/g;s/ *#.*//g;/ /d' \
+				| sort -u)
+		do
+			alldeps+=" "$(which python${pyver})
+			for d in ${pydirs[*]/\//${D}/} ${pydirs[*]} ${tkimp%/*}
+			do
+				for ext in ${pyexts} /__init__.py /__pycache__/__init__.pyc /__init__.pyc
+				do
+					if [ -f ${d}/${pydep//\.//}${ext} ]
+					then
+						alldeps+=" "${d}/${pydep//\.//}${ext};
+						break 2;
+					fi
+				done
+			done
+		done
+	done
+
+
 	if check_prog python2 && ! inherited python3 && ! inherited pypy \
 	   && [ ${PN} != "python3" ] && [ ${PN} != "pypy" ] || inherited python2
 	then
-		pydirs=($(python2 -s -c 'import sys; print(" ".join(sys.path))'))
+		pydirs=($(python2 -s -c 'import sys; print("\n".join(sys.path))' | grep 'site-packages'))
 		pydirs+=" ${DEPS_PATH//:/ }"
 		pyexts=$(python2 -s -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				${deps_prune} \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python3.*' -prune \
-				-o -path 'usr/lib/python*/site-packages/gi/overrides/*' -prune \
+				-o -path 'usr/lib/python[23].*' -prune \
 				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.py' ! -executable -print \
@@ -461,7 +499,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	if check_prog pypy && ! inherited python2 && ! inherited python3 \
 	   && [ ${PN} != "python2" ] && [ ${PN} != "python3" ] || inherited pypy
 	then
-		pydirs=($(pypy -s -c 'import sys; print(" ".join(sys.path))'))
+		pydirs=($(pypy -s -c 'import sys; print("\n".join(sys.path))' | grep 'site-packages'))
 		pydirs+=" ${DEPS_PATH//:/ }"
 		pyexts=$(pypy -s -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
@@ -493,13 +531,13 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	if check_prog python3 && ! inherited python2 && ! inherited pypy \
 	   && [ ${PN} != "python2" ] && [ ${PN} != "pypy" ] || inherited python3
 	then
-		pydirs=($(python3 -s -c 'import sys; print(" ".join(sys.path))'))
+		pydirs=($(python3 -s -c 'import sys; print("\n".join(sys.path))' | grep 'site-packages'))
 		pydirs+=" ${DEPS_PATH//:/ }"
 		pyexts=$(python3 -s -c 'import importlib.machinery; print(*importlib.machinery.all_suffixes())')
 		for pydep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 				${deps_prune} \
 				-o -path 'usr/lib/pypy/*' -prune -o -path 'usr/lib/python2.*' -prune \
-				-o -path 'usr/lib/python*/site-packages/gi/overrides/*' -prune \
+				-o -path 'usr/lib/python[23].*' -prune \
 				-o -path 'usr/share/gdb/*' -prune -o -name '*-gdb.py' -prune \
 				-o -path 'usr/share/help/*' -prune \
 				-o -name '*.py' ! -executable -print \
