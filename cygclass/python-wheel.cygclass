@@ -1,6 +1,6 @@
 ################################################################################
 #
-# python-wheel.cygclass - for building Wheels for Python 2 and 3
+# python-wheel.cygclass - for building Wheels for multiple Python versions
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006-2019 Yaakov Selkowitz
@@ -45,32 +45,67 @@
 #    
 #    ARCH=noarch
 #  INHERITS
-#  python2-wheel.cygclass, python3-wheel.cygclass
+#  python.org.cygclass
 #  REQUIRES
-#  python2, python2-pip, python3, python3-pip
+#  pythonXY, pythonXY-pip (for each X.Y version of Python being built)
 #****
-ORIG_PN=${ORIG_PN:-${PN#python-}}
-PYTHON_WHEEL_NAME=${NAME#python-}
+ORIG_PN=${ORIG_PN:-${PN#python*-}}
+PYTHON_WHEEL_NAME=${PYTHON_WHEEL_NAME:-${NAME#python*-}}
 
-inherit python2-wheel python3-wheel
+inherit python.org
 
-_CYGPORT_INTERNAL_multi_doc_=1
+#****v* python-wheel.cygclass/PYTHON_WHEEL_VERSIONS
+#  SYNOPSIS
+#  PYTHON_WHEEL_VERSIONS="2.7:3.4" # added to stdlib in 3.5
+#  inherit python-wheel
+#  DESCRIPTION
+#  A colon-seperated list of version(s) for which this module should be built.
+#  Some aliases are also accepted:
+#  * all: all supported versions (currently: 2.7 and 3.4 through 3.7)
+#  * future: the default and upcoming versions (currently: 2.7, 3.6, and 3.7)
+#  * default: the default versions (currently: 2.7 and 3.6)
+#  * 2: the default 2.x version (currently: 2.7)
+#  * 3: the default 3.x version (currently: 3.6)
+#****
+
+# when the default versions of Python change, this and the ENSUREPIP_OPTIONS
+# switches need to be updated accordingly
+case "${PYTHON_WHEEL_VERSIONS:-default}" in
+all)      PYTHON_WHEEL_VERSIONS=3.6:3.7:2.7:3.4:3.5 ;;
+future)   PYTHON_WHEEL_VERSIONS=3.6:3.7:2.7 ;;
+default)  PYTHON_WHEEL_VERSIONS=3.6:2.7 ;;
+2)        PYTHON_WHEEL_VERSIONS=2.7 ;;
+3)        PYTHON_WHEEL_VERSIONS=3.6 ;;
+esac
+for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
+do
+	check_prog_req pip${ver} python${ver//.}-pip
+done
 
 #****o* python-wheel.cygclass/PKG_NAMES (python-wheel)
 #  DESCRIPTION
-#  For a NAME of python-foo, the following two binary packages are created
-#  automatically:
-#  * python2-foo, containing PYTHON2_SITELIB
-#  * python3-foo, containing PYTHON3_SITELIB
+#  For a NAME of python-foo, pythonXY-foo binary packages are created
+#  automatically, corresponding to each X.Y version in PYTHON_WHEEL_VERSIONS.
 #  Each package also includes its own independent copy of the automatically
 #  installed documentation (COPYING, README, etc.).  For those packages which
-#  install scripts into /usr/bin, these should be added to python2_foo_CONTENTS
-#  and/or python3_foo_CONTENTS.
+#  install scripts into /usr/bin, these should be added to the respective
+#  pythonXY_foo_CONTENTS.
 #****
-PKG_NAMES="python2-${PYTHON_WHEEL_NAME} python3-${PYTHON_WHEEL_NAME}"
-declare -g python2_${PYTHON_WHEEL_NAME//[-\.]/_}_OBSOLETES="python-${PYTHON_WHEEL_NAME}"
-declare -g python2_${PYTHON_WHEEL_NAME//[-\.]/_}_CONTENTS="${PYTHON2_SITELIB#/} usr/share/doc/python2-${PYTHON_WHEEL_NAME}"
-declare -g python3_${PYTHON_WHEEL_NAME//[-\.]/_}_CONTENTS="${PYTHON3_SITELIB#/} usr/share/doc/python3-${PYTHON_WHEEL_NAME}"
+if [ ${NAME%%-*} = "python" ]
+then
+	_CYGPORT_INTERNAL_multi_doc_=1
+	for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
+	do
+		PKG_NAMES+=" python${ver/.}-${PYTHON_WHEEL_NAME}"
+		# these were 2&3 at the time of the XY-version split,
+		# and MUST NOT be updated when defaults change
+		case ${ver} in
+		2.7)	declare -g python27_${PYTHON_WHEEL_NAME//[-\.]/_}_OBSOLETES="python-${PYTHON_WHEEL_NAME} python2-${PYTHON_WHEEL_NAME}" ;;
+		3.6)	declare -g python36_${PYTHON_WHEEL_NAME//[-\.]/_}_OBSOLETES="python3-${PYTHON_WHEEL_NAME}" ;;
+		esac
+		declare -g python${ver/.}_${PYTHON_WHEEL_NAME//[-\.]/_}_CONTENTS="usr/lib/python${ver}/site-packages/ usr/share/doc/python${ver/.}-${PYTHON_WHEEL_NAME}"
+	done
+fi
 
 #****C* python-wheel.cygclass/python_wheel_compile
 #  SYNOPSIS
@@ -79,23 +114,65 @@ declare -g python3_${PYTHON_WHEEL_NAME//[-\.]/_}_CONTENTS="${PYTHON3_SITELIB#/} 
 #  Runs the setup.py 'bdist_wheel' command, to which any arguments are passed.
 #****
 python_wheel_compile() {
-	python3_wheel_compile
-	# Universal wheels can be installed on both versions of Python
-	if [ ! -f dist/*-py2.py3*-none-any.whl ]
+	local ver
+
+	if [ ! -e setup.py ]
 	then
-		python2_wheel_compile
+		error "No Python Distutils module detected"
 	fi
+
+	for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
+	do
+		[ ! -d build/lib ] || find build/lib -delete
+		# setuptools.launch imports setuptools hooks regardles of setup.py
+		if [ ! -f dist/*-py2.py3*-none-any.whl -a ! -f dist/*py${ver:0:1}-none-any.whl ]
+		then
+			/usr/bin/python${ver} -msetuptools.launch setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
+		fi
+	done
 }
 
 #****I* python-wheel.cygclass/python_wheel_install
 #  SYNOPSIS
 #  python_wheel_install [OPTIONS]
 #  DESCRIPTION
-#  Installs the previously built wheel into $D with 'pip[23] install'.
+#  Installs the previously built wheel into $D.
 #****
 python_wheel_install() {
-	python2_wheel_install
-	python3_wheel_install
+	local ver whl
+
+	if [ ! -e setup.py ]
+	then
+		error "No Python Distutils module detected"
+	fi
+
+	for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
+	do
+		if [ -f dist/*-py2.py3*-none-any.whl ]
+		then
+			# Universal wheels can be installed on all versions of Python
+			whl="*-py2.py3*-none-any.whl"
+		elif [ -f dist/*-py${ver:0:1}-none-any.whl ]
+		then
+			# not all noarch wheels are officially universal
+			whl="*-py${ver:0:1}-none-any.whl"
+		elif [ -f dist/*-cp${ver/.}-*cygwin_*_${ARCH}.whl ]
+		then
+			whl="*-cp${ver/.}-*cygwin_*_${ARCH}.whl"
+		else
+			error "unknown wheel filename"
+		fi
+
+		# ENSUREPIP_OPTIONS not present: pip, pipX, pipX.Y, easy_install, easy_install-X.Y
+		# ENSUREPIP_OPTIONS=altinstall: pipX.Y, easy_install-X.Y
+		# ENSUREPIP_OPTIONS=install: pipX, pipX.Y, easy_install-X.Y
+
+		case ${ver} in
+		2.7|3.6) export ENSUREPIP_OPTIONS="install" ;;
+		*) export ENSUREPIP_OPTIONS="altinstall" ;;
+		esac
+		pip${ver} install -I dist/${whl} --root ${D} --prefix /usr --no-compile --no-deps --no-warn-script-location || error "pip${ver} install failed"
+	done
 }
 
 #****o* python-wheel.cygclass/src_compile (python-wheel)

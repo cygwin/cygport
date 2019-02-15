@@ -49,28 +49,13 @@
 #    
 #    REQUIRES="git"
 #  INHERITS
-#  python3.cygclass
+#  python3.cygclass, python-wheel.cygclass
 #  REQUIRES
 #  python3, python3-pip
 #****
-ORIG_PN=${ORIG_PN:-${PN#python*-}}
-PYTHON_WHEEL_NAME=${PYTHON_WHEEL_NAME:-${NAME#python*-}}
-
-inherit python.org python3
-
-check_prog_req pip3 python3-pip
-
-#****o* python3-wheel.cygclass/PKG_NAMES (python3-wheel)
-#  DESCRIPTION
-#  For a NAME beginning with "python-", e.g python-foo, a single python3-foo
-#  binary packages is created automatically.
-#****
-if ! inherited python-wheel && [ ${NAME%%-*} = "python" ]
-then
-_CYGPORT_INTERNAL_multi_doc_=1
-PKG_NAMES="python3-${PYTHON_WHEEL_NAME}"
-declare -g python3_${PYTHON_WHEEL_NAME//[-\.]/_}_CONTENTS="*"
-fi
+inherit python3
+PYTHON_WHEEL_VERSIONS=${PYTHON3_VERSION}
+inherit python-wheel
 
 #****C* python3-wheel.cygclass/python3_wheel_compile
 #  SYNOPSIS
@@ -78,16 +63,7 @@ fi
 #  DESCRIPTION
 #  Runs the setup.py 'bdist_wheel' command, to which any arguments are passed.
 #****
-python3_wheel_compile() {
-	if [ ! -e setup.py ]
-	then
-		error "No Python Distutils module detected"
-	fi
-
-	[ ! -d build/lib ] || find build/lib -delete
-	# setuptools.launch imports setuptools hooks regardles of setup.py
-	${PYTHON3} -msetuptools.launch setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
-}
+python3_wheel_compile() { python_wheel_compile "${@}" ; }
 
 #****I* python3-wheel.cygclass/python3_wheel_install
 #  SYNOPSIS
@@ -95,36 +71,7 @@ python3_wheel_compile() {
 #  DESCRIPTION
 #  Installs the previously built wheel into $D with 'pip3 install'.
 #****
-python3_wheel_install() {
-	local whl3
-
-	if [ ! -e setup.py ]
-	then
-		error "No Python Distutils module detected"
-	fi
-
-	if [ -f dist/*-py2.py3*-none-any.whl ]
-	then
-		# Universal wheels can be installed on both versions of Python
-		whl3="*-py2.py3*-none-any.whl"
-	elif [ -f dist/*-py3-none-any.whl ]
-	then
-		# not all noarch wheels are officially universal
-		whl3="*-py3-none-any.whl"
-	elif [ -f dist/*-cp${PYTHON3_VERSION/.}-*cygwin_*_${ARCH}.whl ]
-	then
-		whl3="*-cp${PYTHON3_VERSION/.}-*cygwin_*_${ARCH}.whl"
-	else
-		error "unknown wheel filename"
-	fi
-
-	# ENSUREPIP_OPTIONS not present: pip, pipX, pipX.Y, easy_install, easy_install-X.Y
-	# ENSUREPIP_OPTIONS=altinstall: pipX.Y, easy_install-X.Y
-	# ENSUREPIP_OPTIONS=install: pipX, pipX.Y, easy_install-X.Y
-
-	ENSUREPIP_OPTIONS="install" \
-	pip3 install -I dist/${whl3} --root ${D} --prefix /usr --no-compile --no-deps || error "pip3 install failed"
-}
+python3_wheel_install() { python_wheel_install ; }
 
 #****o* python3-wheel.cygclass/src_compile (python3-wheel)
 #  DEFINITION
