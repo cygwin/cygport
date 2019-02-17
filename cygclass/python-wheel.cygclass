@@ -28,8 +28,8 @@
 #  controls the installation of files and the building of C Python extensions.
 #  Many such packages are hosted on the Python Package Index (PyPI).
 #
-#  This cygclass handles the building of wheel-based Python packages for both
-#  Python 2 and 3 simultaneously.
+#  This cygclass handles the building of wheel-based Python module packages
+#  for multiple Python versions simultaneously.
 #  EXAMPLE
 #    inherit python-wheel
 #    
@@ -56,16 +56,28 @@ inherit python.org
 
 #****v* python-wheel.cygclass/PYTHON_WHEEL_VERSIONS
 #  SYNOPSIS
-#  PYTHON_WHEEL_VERSIONS="2.7:3.5" # added to stdlib in 3.6
+#  PYTHON_WHEEL_VERSIONS="2.7:3.5" # e.g. added to stdlib in 3.6
 #  inherit python-wheel
 #  DESCRIPTION
 #  A colon-seperated list of version(s) for which this module should be built.
 #  Some aliases are also accepted:
-#  * all: all supported versions (currently: 2.7 and 3.5 through 3.7)
-#  * future: the default and upcoming versions (currently: 2.7, 3.6, and 3.7)
+#  * all: all supported versions (currently: 2.7, and 3.5 through 3.7)
+#  * future: the default and upcoming versions (currently: 2.7, 3.6, 3.7)
 #  * default: the default versions (currently: 2.7 and 3.6)
 #  * 2: the default 2.x version (currently: 2.7)
 #  * 3: the default 3.x version (currently: 3.6)
+#  This variable must be defined before inheriting python-wheel.cygclass.
+#  If undefined, "default" is assumed.
+#  NOTES
+#  * It is not generally expected for wheel packages to be built with "all".
+#    This option is primarily intended for the most basic modules used to
+#    build, install, and run other modules (e.g. setuptools, wheel, pip, and
+#    virtualenv).  The "default" value is sufficient for most packages.
+#  * The value "future" is intended to allow maintainers to get a head start on
+#    rebuilding for the new version, but the maintainer must first assure that
+#    the module works correctly on the new version and that either there are
+#    no module dependencies outside of the standard library, or that they too
+#    are already available.
 #****
 
 # when the default versions of Python change, this and the ENSUREPIP_OPTIONS
