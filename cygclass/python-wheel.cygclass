@@ -56,12 +56,12 @@ inherit python.org
 
 #****v* python-wheel.cygclass/PYTHON_WHEEL_VERSIONS
 #  SYNOPSIS
-#  PYTHON_WHEEL_VERSIONS="2.7:3.4" # added to stdlib in 3.5
+#  PYTHON_WHEEL_VERSIONS="2.7:3.5" # added to stdlib in 3.6
 #  inherit python-wheel
 #  DESCRIPTION
 #  A colon-seperated list of version(s) for which this module should be built.
 #  Some aliases are also accepted:
-#  * all: all supported versions (currently: 2.7 and 3.4 through 3.7)
+#  * all: all supported versions (currently: 2.7 and 3.5 through 3.7)
 #  * future: the default and upcoming versions (currently: 2.7, 3.6, and 3.7)
 #  * default: the default versions (currently: 2.7 and 3.6)
 #  * 2: the default 2.x version (currently: 2.7)
@@ -71,7 +71,7 @@ inherit python.org
 # when the default versions of Python change, this and the ENSUREPIP_OPTIONS
 # switches need to be updated accordingly
 case "${PYTHON_WHEEL_VERSIONS:-default}" in
-all)      PYTHON_WHEEL_VERSIONS=3.6:3.7:2.7:3.4:3.5 ;;
+all)      PYTHON_WHEEL_VERSIONS=3.6:3.7:2.7:3.5 ;;
 future)   PYTHON_WHEEL_VERSIONS=3.6:3.7:2.7 ;;
 default)  PYTHON_WHEEL_VERSIONS=3.6:2.7 ;;
 2)        PYTHON_WHEEL_VERSIONS=2.7 ;;
