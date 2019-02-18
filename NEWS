@@ -1,3 +1,11 @@
+0.32.0:
+	* python-wheel.cygclass has been overhauled to handle multiple
+	  concurrent Python minor versions.  Note that this is an ABI break,
+	  as inheriting python-wheel no longer exposes python[23]* functions
+	  or PYTHON[23]* variables.
+	* Accordingly, python[23]-wheel.cygclass are now just compatibility
+	  wrappers and should be considered deprecated.
+
 0.31.2:
 	* New all-test command
 	* SRC_URI may now be empty for the (very rare) cases when a package
