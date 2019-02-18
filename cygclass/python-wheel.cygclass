@@ -187,6 +187,31 @@ python_wheel_install() {
 	done
 }
 
+#****I* python-wheel.cygclass/dowheel
+#  SYNOPSIS
+#  dowheel WHEEL [WHEEL] ...
+#  DESCRIPTION
+#  Installs the given Python wheel(s) into $D/usr/share/python-wheels, to
+#  allow offline installation in Python virtual environments.
+#****
+dowheel() {
+	local whldir=/usr/share/python-wheels
+	local i
+	local mode
+
+	dodir ${whldir}
+
+	for i
+	do
+		if [ ! -e ${i} ]
+		then
+			error "dowheel: ${i}: file not found"
+		fi
+
+		__doinstall 0644 ${i} ${whldir} || error "dowheel ${i} failed"
+	done
+}
+
 #****o* python-wheel.cygclass/src_compile (python-wheel)
 #  DEFINITION
 src_compile() {
@@ -204,4 +229,4 @@ src_install() {
 }
 #****
 
-readonly -f python_wheel_compile python_wheel_install
+readonly -f python_wheel_compile python_wheel_install dowheel
