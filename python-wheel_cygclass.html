@@ -33,18 +33,20 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo358">python-wheel.cygclass</a></li>
+<li><a href="#robo356">python-wheel.cygclass</a></li>
 <ul>
-<li><a href="#robo359">PKG_NAMES (python-wheel)</a></li>
-<li><a href="#robo360">python_wheel_compile</a></li>
-<li><a href="#robo361">python_wheel_install</a></li>
+<li><a href="#robo357">PYTHON_WHEEL_VERSIONS</a></li>
+<li><a href="#robo358">PKG_NAMES (python-wheel)</a></li>
+<li><a href="#robo359">python_wheel_compile</a></li>
+<li><a href="#robo360">python_wheel_install</a></li>
+<li><a href="#robo361">dowheel</a></li>
 <li><a href="#robo362">src_compile (python-wheel)</a></li>
 <li><a href="#robo363">src_install (python-wheel)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fpython2dwheel2ecygclass"></a>
-<a name="robo358"></a><h2>python-wheel.cygclass</h2>
+<a name="robo356"></a><h2>python-wheel.cygclass</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo510">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -54,8 +56,8 @@
   Many such packages are hosted on the Python Package Index (PyPI).
 </p>
 
-<p>  This cygclass handles the building of wheel-based Python packages for both
-  Python 2 and 3 simultaneously.
+<p>  This cygclass handles the building of wheel-based Python module packages
+  for multiple Python versions simultaneously.
 </p>
 <p class="item_name">EXAMPLE</p>
 <pre>    <a href="./inheritance_cygpart.html#robo560">inherit</a> python-wheel
@@ -73,37 +75,73 @@
     <a href="./compilers_cygpart.html#robo744">ARCH</a>=noarch
 </pre>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./python2-wheel_cygclass.html#robo_top_of_doc">python2-wheel.cygclass</a>, <a href="./python3-wheel_cygclass.html#robo_top_of_doc">python3-wheel.cygclass</a>
+<p>  <a href="./python_org_cygclass.html#robo353">python.org.cygclass</a>
 </p>
 <p class="item_name">REQUIRES</p>
-<p>  python2, python2-pip, python3, python3-pip
+<p>  pythonXY, pythonXY-pip (for each X.Y version of Python being built)
 </p>
 
 <hr />
-<a name="python2dwheel2ecygclass2fPKG5fNAMES2028python2dwheel29"></a>
-<a name="robo359"></a><h2>PKG_NAMES (python-wheel)</h2>
+<a name="python2dwheel2ecygclass2fPYTHON5fWHEEL5fVERSIONS"></a>
+<a name="robo357"></a><h2>PYTHON_WHEEL_VERSIONS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo358">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo356">python-wheel.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>PYTHON_WHEEL_VERSIONS</strong>="2.7:3.5" # e.g. added to stdlib in 3.6
+  <a href="./inheritance_cygpart.html#robo560">inherit</a> python-wheel
+</pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  For a <a href="./syntax_cygpart.html#robo88">NAME</a> of python-foo, the following two binary packages are created
-  automatically:
+<p>  A colon-seperated list of version(s) for which this module should be built.
+  Some aliases are also accepted:
 </p>
-<ul><li>  python2-foo, containing <a href="./python2_cygclass.html#robo338">PYTHON2_SITELIB</a>
+<ul><li>  all: all supported versions (currently: 2.7, and 3.5 through 3.7)
 </li>
-<li>  python3-foo, containing <a href="./python3_cygclass.html#robo316">PYTHON3_SITELIB</a>
+<li>  future: the default and upcoming versions (currently: 2.7, 3.6, 3.7)
+</li>
+<li>  default: the default versions (currently: 2.7 and 3.6)
+</li>
+<li>  2: the default 2.x version (currently: 2.7)
+</li>
+<li>  3: the default 3.x version (currently: 3.6)
 </li>
 </ul>
-<p>  Each package also includes its own independent copy of the automatically
+<p>  This variable must be <a href="./syntax_cygpart.html#robo77">defined</a> before inheriting <a href="#robo_top_of_doc">python-wheel.cygclass</a>.
+  If undefined, "default" is assumed.
+</p>
+<p class="item_name">NOTES</p>
+<ul><li>  It is not generally expected for wheel packages to be built with "all".
+    This option is primarily intended for the most basic modules used to
+    build, install, and run other modules (e.g. setuptools, wheel, pip, and
+    virtualenv).  The "default" value is sufficient for most packages.
+</li>
+<li>  The value "future" is intended to allow maintainers to get a head start on
+    rebuilding for the new version, but the maintainer must first assure that
+    the module works correctly on the new version and that either there are
+    no module dependencies outside of the standard library, or that they too
+    are already available.
+</li>
+</ul>
+<p></p>
+
+<hr />
+<a name="python2dwheel2ecygclass2fPKG5fNAMES2028python2dwheel29"></a>
+<a name="robo358"></a><h2>PKG_NAMES (python-wheel)</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo356">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  For a <a href="./syntax_cygpart.html#robo88">NAME</a> of python-foo, pythonXY-foo binary packages are created
+  automatically, corresponding to each X.Y version in <a href="#robo357">PYTHON_WHEEL_VERSIONS</a>.
+  Each package also includes its own independent copy of the automatically
   installed documentation (COPYING, README, etc.).  For those packages which
-  install scripts into /usr/bin, these should be added to python2_foo_CONTENTS
-  and/or python3_foo_CONTENTS.
+  install scripts into /usr/bin, these should be added to the respective
+  pythonXY_foo_CONTENTS.
 </p>
 
 <hr />
 <a name="python2dwheel2ecygclass2fpython5fwheel5fcompile"></a>
-<a name="robo360"></a><h2>python_wheel_compile</h2>
+<a name="robo359"></a><h2>python_wheel_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo358">python-wheel.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo356">python-wheel.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>python_wheel_compile</strong> [OPTIONS]
 </pre>
@@ -113,26 +151,39 @@
 
 <hr />
 <a name="python2dwheel2ecygclass2fpython5fwheel5finstall"></a>
-<a name="robo361"></a><h2>python_wheel_install</h2>
+<a name="robo360"></a><h2>python_wheel_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo358">python-wheel.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo356">python-wheel.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>python_wheel_install</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installs the previously built wheel into $<a href="./syntax_cygpart.html#robo100">D</a> with 'pip[23] install'.
+<p>  Installs the previously built wheel into $<a href="./syntax_cygpart.html#robo100">D</a>.
+</p>
+
+<hr />
+<a name="python2dwheel2ecygclass2fdowheel"></a>
+<a name="robo361"></a><h2>dowheel</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo356">python-wheel.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>dowheel</strong> WHEEL [WHEEL] ...
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Installs the given Python wheel(s) into $<a href="./syntax_cygpart.html#robo100">D</a>/usr/share/python-wheels, to
+  allow offline installation in Python virtual environments.
 </p>
 
 <hr />
 <a name="python2dwheel2ecygclass2fsrc5fcompile2028python2dwheel29"></a>
 <a name="robo362"></a><h2>src_compile (python-wheel)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo358">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo356">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
 <pre class="source"><a href="./src_compile_cygpart.html#robo182">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         <a href="./src_compile_cygpart.html#robo179">lndirs</a>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo360">python_wheel_compile</a>
+        <a href="#robo359">python_wheel_compile</a>
 <span class="sign">}</span>
 </pre>
 
@@ -140,17 +191,17 @@
 <a name="python2dwheel2ecygclass2fsrc5finstall2028python2dwheel29"></a>
 <a name="robo363"></a><h2>src_install (python-wheel)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo358">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo356">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
 <pre class="source"><a href="./src_install_cygpart.html#robo175">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo361">python_wheel_install</a>
+        <a href="#robo360">python_wheel_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Tue Feb 12 2019 02:32:43
+<p>Generated from ./cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Sun Feb 17 2019 20:05:15
 </p>
 </div> <!-- footer -->
 </body>
