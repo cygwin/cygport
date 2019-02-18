@@ -11,3 +11,14 @@ versions with the goal of writing Python code that is compatible on both
 Python versions."
 
 ARCH=noarch
+
+# probably not needed in reality but good for testing
+PKG_NAMES+=" python-six-wheel"
+python_six_wheel_CONTENTS="usr/share/python-wheels/six-*.whl usr/share/doc/${NAME}-wheel/"
+
+src_install() {
+	cd ${B}
+	python_wheel_install
+
+	dowheel dist/six-${VERSION}-*.whl
+}
