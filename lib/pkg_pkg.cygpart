@@ -791,7 +791,7 @@ _EOF
 		for obspkg in ${!dbg_obsoletes_var}
 		do
 			mkdir -p ${distdir}/${PN}/${obspkg};
-			xz < /dev/null > ${distdir}/${PN}/${obspkg}/${obspkg}-${PVR}.tar.xz
+			tar -Jcf ${distdir}/${PN}/${obspkg}/${obspkg}-${PVR}.tar.xz --files-from /dev/null
 
 			__step "${PN}-debuginfo OBSOLETES: ${obspkg}"
 
