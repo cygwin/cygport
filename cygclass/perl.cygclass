@@ -84,7 +84,7 @@ check_prog_req perl
 #  DESCRIPTION
 #  Absolute path to the Perl interpreter.
 #****
-PERL=/usr/bin/perl
+PERL=$(__host_prefix)/bin/perl
 
 #****d* perl.cygclass/PERL_VERSION
 #  DESCRIPTION
@@ -211,7 +211,7 @@ perl_compile() {
 		${PERL} Build || error "Module::Build build failed"
 	elif [ -e Makefile.PL ]
 	then
-		${PERL} Makefile.PL "${@}" PREFIX=/usr INSTALLDIRS=vendor || error "Perl Makefile creation failed"
+		${PERL} Makefile.PL "${@}" PREFIX=$(__host_prefix) INSTALLDIRS=vendor || error "Perl Makefile creation failed"
 		cygmake all manifypods OPTIMIZE="${CFLAGS}"
 	else
 		error "No Perl module detected"
@@ -289,10 +289,10 @@ perl_sax_parser_register() {
 	for parser in $@
 	do
 		cat >> ${D}/etc/postinstall/${NAME}.sh <<-_EOF
-/usr/bin/perl -MXML::SAX -e "XML::SAX->add_parser(q($parser))->save_parsers()"
+${PERL} -MXML::SAX -e "XML::SAX->add_parser(q($parser))->save_parsers()"
 _EOF
 		cat >> ${D}/etc/preremove/${NAME}.sh <<-_EOF
-/usr/bin/perl -MXML::SAX -e "XML::SAX->remove_parser(q($parser))->save_parsers()"
+${PERL} -MXML::SAX -e "XML::SAX->remove_parser(q($parser))->save_parsers()"
 _EOF
 	done
 }

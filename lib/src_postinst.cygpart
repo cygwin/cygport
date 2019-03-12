@@ -775,20 +775,22 @@ __prepinfo() {
 #    'vendor_perl' tree.
 #****
 __prepperl() {
-	[ -d ${D}/usr/lib/perl5 ] || return 0
+	local prefix=$(__host_prefix)
+
+	[ -d ${D}${prefix}/lib/perl5 ] || return 0
 
 	# Nowadays everybody just deletes these; they are only useful with CPAN
-	find ${D}/usr/lib/perl5/ \( -name 'perllocal.pod' -o -name '.packlist' \) -delete
+	find ${D}${prefix}/lib/perl5/ \( -name 'perllocal.pod' -o -name '.packlist' \) -delete
 
-	if [ -d ${D}/usr/lib/perl5/site_perl ]
+	if [ -d ${D}${prefix}/lib/perl5/site_perl ]
 	then
-		if [ -d ${D}/usr/lib/perl5/vendor_perl ]
+		if [ -d ${D}${prefix}/lib/perl5/vendor_perl ]
 		then
 			# extremely unlikely
 			error "Package uses both site_perl and vendor_perl"
 		else
 			warning "vendor_perl should be used instead of site_perl; fixing"
-			mv ${D}/usr/lib/perl5/{site,vendor}_perl
+			mv ${D}${prefix}/lib/perl5/{site,vendor}_perl
 		fi
 	fi
 }
