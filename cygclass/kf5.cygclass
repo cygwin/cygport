@@ -57,8 +57,8 @@ kf5_cmake() {
 		-DQML_INSTALL_DIR=${QT5_QMLDIR} \
 		-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
 		-DKDE_INSTALL_LIBEXECDIR=$(__host_prefix)/libexec \
-		-DKDE_INSTALL_SYSCONFDIR=/etc \
-		-DKDE_INSTALL_LOCALSTATEDIR=/var \
+		-DKDE_INSTALL_SYSCONFDIR=$(__host_sysconfdir) \
+		-DKDE_INSTALL_LOCALSTATEDIR=$(__host_localstatedir) \
 		-DECM_MKSPECS_INSTALL_DIR=${QT5_MKSPECSDIR}/modules \
 		"${@}"
 }
