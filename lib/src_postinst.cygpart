@@ -678,18 +678,20 @@ __prepetc() {
 #****
 
 __prepman() {
-	local man manlink manpage;
+	local man manlink manpage prefix;
 
-	if [ -d ${D}/usr/man ]
+	prefix=$(__host_prefix);
+
+	if [ -d ${D}${prefix}/man ]
 	then
 		inform "Moving /usr/man to /usr/share/man...";
-		dodir /usr/share/man
+		dodir ${prefix}/share/man
 		# just in case there is already /usr/share/man, e.g. after doman()
-		cp -r ${D}/usr/man/* ${D}/usr/share/man/
-		rm -fr ${D}/usr/man/
+		cp -r ${D}${prefix}/man/* ${D}${prefix}/share/man/
+		rm -fr ${D}${prefix}/man/
 	fi
 
-	if [ -d ${D}$(__host_prefix)/share/man ]
+	if [ -d ${D}${prefix}/share/man ]
 	then
 		echo "Compressing man pages:";
 
@@ -698,13 +700,13 @@ __prepman() {
 		# sometimes (e.g. gtk2-perl) man pages created with '::', and
 		# with 1.7 it works OOTB, but man is still patched and hence
 		# won't find these.
-		find ${D}$(__host_prefix)/share/man -name '*::*' -print0 | \
+		find ${D}${prefix}/share/man -name '*::*' -print0 | \
 		while read -d $'\0' man
 		do
 			mv "${man}" "${man//::/.}"
 		done
 
-		find ${D}$(__host_prefix)/share/man -type l -print0 | \
+		find ${D}${prefix}/share/man -type l -print0 | \
 		while read -d $'\0' manlink
 		do
 			manref=$(readlink "${manlink}")
@@ -713,7 +715,7 @@ __prepman() {
 			echo ".so ${manref%.gz}" > "${manlink%.gz}";
 		done
 
-		find ${D}$(__host_prefix)/share/man -type f -links 1 ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma' ! -name '.keep-*' -print0 | \
+		find ${D}${prefix}/share/man -type f -links 1 ! -name '*.gz' ! -name '*.bz2' ! -name '*.lzma' ! -name '.keep-*' -print0 | \
 		while read -d $'\0' manpage
 		do
 			echo "        ${manpage##*/}";
@@ -732,20 +734,22 @@ __prepman() {
 #****
 
 __prepinfo() {
-	local infopage;
+	local infopage prefix;
 
-	if [ -d ${D}/usr/info ]
+	prefix=$(__host_prefix)
+
+	if [ -d ${D}${prefix}/info ]
 	then
-		inform "Moving /usr/info to /usr/share/info...";
-		dodir /usr/share/info
+		inform "Moving ${prefix}/info to ${prefix}/share/info...";
+		dodir ${prefix}/share/info
 		# just in case there is already /usr/share/info
-		cp -r ${D}/usr/info/* ${D}/usr/share/info/
-		rm -fr ${D}/usr/info/
+		cp -r ${D}${prefix}/info/* ${D}${prefix}/share/info/
+		rm -fr ${D}${prefix}/info/
 	fi
 
-	if [ -d ${D}$(__host_prefix)/share/info ]
+	if [ -d ${D}${prefix}/share/info ]
 	then
-		rm -f ${D}$(__host_prefix)/share/info/dir
+		rm -f ${D}${prefix}/share/info/dir
 
 		if defined _CYGPORT_RESTRICT_postinst_info_
 		then
@@ -755,7 +759,7 @@ __prepinfo() {
 
 		echo "Compressing info pages:";
 
-		find ${D}$(__host_prefix)/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2' ! -name '.keep-*' -print0 | \
+		find ${D}${prefix}/share/info -type f -name '*.info*' ! -name '*.gz' ! -name '*.bz2' ! -name '.keep-*' -print0 | \
 		while read -d $'\0' infopage
 		do
 			echo "        ${infopage##*/}";
@@ -802,6 +806,7 @@ __prepperl() {
 
 __prepvargames() {
 	local f;
+	local localstatedir=$(__host_localstatedir);
 
 	if inherited cross
 	then
@@ -809,9 +814,9 @@ __prepvargames() {
 		return 0
 	fi
 
-	if [ -d ${D}/var/games ]
+	if [ -d ${D}${localstatedir}/games ]
 	then
-		find ${D}/var/games -type f -print0 | \
+		find ${D}${localstatedir}/games -type f -print0 | \
 		while read -d $'\0' f
 		do
 			make_etc_defaults "${f#${D}}";
