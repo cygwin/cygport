@@ -72,7 +72,7 @@ waf_compile() {
 #  String containing additional arguments to pass to 'waf configure'.
 #****
 	${WAF} configure \
-		--prefix=/usr \
+		--prefix=$(__host_prefix) \
 		${WAF_CONFIGURE_FLAGS} ${@} \
 		|| error "waf configure failed"
 
