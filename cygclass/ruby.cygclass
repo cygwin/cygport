@@ -53,7 +53,7 @@ check_prog_req ruby
 #  DESCRIPTION
 #  Absolute path to the Ruby interpreter.
 #****
-RUBY=/usr/bin/ruby
+RUBY=$(__host_prefix)/bin/ruby
 
 #****d* ruby.cygclass/RUBY_VERSION
 #  DESCRIPTION
@@ -106,7 +106,7 @@ RUBY_VENDORARCH=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["vendorarchdir"
 #  DESCRIPTION
 #  Installation path for RI docs for third-party Ruby extensions.
 #****
-RI_SITEDIR=/usr/share/ri/${RUBY_VERSION%.*}.0/site
+RI_SITEDIR=$(__host_prefix)/share/ri/${RUBY_VERSION%.*}.0/site
 
 #****d* ruby.cygclass/LIBRUBY
 #  DESCRIPTION
@@ -146,11 +146,11 @@ esac
 ruby_compile() {
 	if [ -e install.rb ]
 	then
-		${RUBY} install.rb config --prefix=/usr ${@} || error "install.rb config failed"
+		${RUBY} install.rb config --prefix=$(__host_prefix) ${@} || error "install.rb config failed"
 		${RUBY} install.rb setup || error "install.rb setup failed"
 	elif [ -e setup.rb ]
 	then
-		${RUBY} setup.rb config --prefix=/usr ${@} || error "setup.rb config failed"
+		${RUBY} setup.rb config --prefix=$(__host_prefix) ${@} || error "setup.rb config failed"
 		${RUBY} setup.rb setup || error "setup.rb setup failed"
 	elif [ -e extconf.rb ]
 	then
@@ -209,11 +209,11 @@ ruby_install() {
 		cyginstall ${@}
 	elif [ -e install.rb ]
 	then
-		${RUBY} install.rb config --prefix=${D}/usr ${@} || error "install.rb config failed"
+		${RUBY} install.rb config --prefix=${D}$(__host_prefix) ${@} || error "install.rb config failed"
 		${RUBY} install.rb install || error "install.rb install failed"
 	elif [ -e setup.rb ]
 	then
-		${RUBY} setup.rb config --prefix=/usr ${@} || error "setup.rb config failed"
+		${RUBY} setup.rb config --prefix=$(__host_prefix) ${@} || error "setup.rb config failed"
 		${RUBY} setup.rb install --prefix=${D} || error "setup.rb install failed"
 	elif [ -e Rakefile -o -e rakefile ]
 	then
