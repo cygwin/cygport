@@ -966,8 +966,8 @@ cyginstall() {
 			docdir=${D}${prefix}/share/doc/${PN} \
 			infodir=${D}${prefix}/share/info \
 			mandir=${D}${prefix}/share/man \
-			localstatedir=${D}${prefix%/usr}/var \
-			sysconfdir=${D}${prefix%/usr}/etc \
+			localstatedir=${D}$(__host_localstatedir) \
+			sysconfdir=${D}$(__host_sysconfdir) \
 			"${@}" \
 			|| error "make install No-DESTDIR failed"
 	fi
