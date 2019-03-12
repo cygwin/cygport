@@ -91,31 +91,31 @@ check_prog_req php-config php-devel
 #  DESCRIPTION
 #  Absolute path to the PHP interpreter.
 #****
-PHP=/usr/bin/php
+PHP=$(__host_prefix)/bin/php
 
 #****d* php.cygclass/PHP_CONFIG
 #  DESCRIPTION
 #  Absolute path to the PHP configuration script.
 #****
-PHP_CONFIG=/usr/bin/php-config
+PHP_CONFIG=${PHP%/*}/php-config
 
 #****d* php.cygclass/PHPIZE
 #  DESCRIPTION
 #  Absolute path to the PHP extension buildsystem preparation script.
 #****
-PHPIZE=/usr/bin/phpize
+PHPIZE=${PHP%/*}/phpize
 
 #****d* php.cygclass/PEAR
 #  DESCRIPTION
 #  Absolute path to the PHP script extension manager.
 #****
-PEAR=/usr/bin/pear
+PEAR=${PHP%/*}/pear
 
 #****d* php.cygclass/PECL
 #  DESCRIPTION
 #  Absolute path to the PHP C extension manager.
 #****
-PECL=/usr/bin/pecl
+PECL=${PHP%/*}/pecl
 
 #****d* php.cygclass/PHP_VERSION
 #  DESCRIPTION
@@ -127,7 +127,7 @@ PHP_VERSION=$(${PHP_CONFIG} --version)
 #  DESCRIPTION
 #  Path to the PHP configuration snippets directory.
 #****
-PHP_INI_DIR=/etc/php.d
+PHP_INI_DIR=$(__host_sysconfdir)/php.d
 
 #****d* php.cygclass/PHP_EXTENSION_DIR
 #  DESCRIPTION
@@ -135,11 +135,19 @@ PHP_INI_DIR=/etc/php.d
 #****
 PHP_EXTENSION_DIR=$(${PHP_CONFIG} --extension-dir)
 
-#****d* php.cygclass/PHP_PEAR_DIR
+#****d* php.cygclass/PHP_PEAR_PHP_DIR
 #  DESCRIPTION
 #  Installation directory for PHP script extensions.
 #****
-PHP_PEAR_DIR=/usr/share/pear
+PHP_PEAR_PHP_DIR=$(${PEAR} config-get php_dir)
+# backwards compatibility
+PHP_PEAR_DIR=${PHP_PEAR_PHP_DIR}
+
+#****d* php.cygclass/PHP_PEAR_METADATA_DIR
+#  DESCRIPTION
+#  Installation directory for PHP extension metadata.
+#****
+PHP_PEAR_METADATA_DIR=$(${PEAR} config-get metadata_dir)
 
 #****d* php.cygclass/LIBPHP
 #  DESCRIPTION
@@ -359,6 +367,7 @@ php_install() {
 		PEXX=PEAR
 	fi
 
+	dodir ${PHP_PEAR_METADATA_DIR}
 	# FIXME: this won't register the binary extension file location
 	${!PEXX} install \
 		--force --loose --nobuild --nodeps --offline --packagingroot=${D} \
@@ -401,15 +410,15 @@ php_postinst() {
 	'') ;;
 	*)	dodir /etc/postinstall
 		cat >> ${D}/etc/postinstall/${PN}.sh <<-_EOF
-			/usr/bin/pear channel-discover ${PHP_CHANNEL} || true
+			${PEAR} channel-discover ${PHP_CHANNEL} || true
 
 			_EOF
 		;;
 	esac
 
-	if [ -d ${D}${PHP_PEAR_DIR} ]
+	if [ -d ${D}${PHP_PEAR_METADATA_DIR} ]
 	then
-		pushd ${D}${PHP_PEAR_DIR}
+		pushd ${D}${PHP_PEAR_METADATA_DIR}
 		rm -fr .channels/ .depdb .depdblock .filemap .lock
 		popd
 	fi

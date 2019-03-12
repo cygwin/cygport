@@ -407,11 +407,11 @@ __list_deps() {
 				| sort -u)
 		do
 			case ${phpdep} in
-			*.php)	if [ -f ${D}/usr/share/pear/${phpdep} ]
+			*.php)	if [ -f ${D}$(__host_prefix)/share/pear/${phpdep} ]
 				then
-					alldeps+=" "${D}/usr/share/pear/${phpdep}
+					alldeps+=" "${D}$(__host_prefix)/share/pear/${phpdep}
 				else
-					alldeps+=" "/usr/share/pear/${phpdep}
+					alldeps+=" "$(__host_prefix)/share/pear/${phpdep}
 				fi ;;
 			*.dll)	if php -mn | grep -q ^${phpdep%.dll}$
 				then
