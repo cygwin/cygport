@@ -70,7 +70,7 @@ __list_debug_files() {
 
 __list_deps() {
 	local d f ext
-	local alldeps girdep jar jpkg ladep luadep luapaths pcdep pctgt pidep
+	local alldeps shdep girdep jar jpkg ladep luadep luapaths pcdep pctgt pidep
 	local mldep mldir mllib
 	local phpdep phpmoddir pldep pldirs
 	local pydep pydirs pyexts pysite pyver
@@ -187,7 +187,7 @@ __list_deps() {
 			| xargs -r which || true)
 
 	# shebang script interpreters
-	alldeps+=" "$(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+	for shdep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
 			${deps_prune} \
 			-o -path 'usr/lib/perl/*' -prune \
 			-o -path 'usr/lib/python[23].*' -prune \
@@ -196,6 +196,15 @@ __list_deps() {
 			-o -type f -executable ! -name '*.exe' ! -name '*.dll' ! -name '*.so' ! -name '*.cmxs' ! -name '*.oct' ! -name '*.mex' -print \
 			| xargs -r sed -sne '1{/^#!/s|/env *|/|g;s|^#! *\([^ ]*\).*|\1|gp}' \
 			| sort -u)
+	do
+		if [ -f ${D}${shdep} ]
+		then
+			alldeps+=" "${D}${shdep};
+		elif [ -f ${shdep} ]
+		then
+			alldeps+=" "${shdep};
+		fi
+	done
 
 	# implib devel->dll subpackage dependencies
 	alldeps+=" "$(find "${@//^_^/ }" -type f -name '*.dll.a' -exec ${dlltool} -I '{}' \; 2>/dev/null \
