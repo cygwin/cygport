@@ -212,27 +212,62 @@ __cross_compiling_error() {
 }
 
 __host_prefix() {
-	local prefix sysroot
+	local prefix
 
 	if __host_is_embedded
 	then
-		sysroot=/usr/${CHOST}
+		prefix=/usr/${CHOST}
+	elif [[ ${CHOST} =~ "-mingw32" ]]
+	then
+		prefix=${CROSS_SYSROOT}/mingw
 	elif inherited cross
 	then
-		sysroot=${CROSS_SYSROOT}
+		prefix=${CROSS_SYSROOT}/usr
 	else
-		sysroot=
+		prefix=/usr
 	fi
 
-	# FIXME: certainly other exceptions exist?
-	case ${CHOST} in
-		*-*-mingw*)	prefix=${sysroot}/mingw ;;
-		avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|mmix|*-msdosdjgpp*|msp430|*-rdos*)
-				prefix=${sysroot} ;;
-		*)		prefix=${sysroot}/usr ;;
-	esac
-
 	echo -n ${prefix}
+}
+
+__host_sysconfdir() {
+	local sysconfdir
+
+	if __host_is_embedded
+	then
+		# this should probably never happen
+		sysconfdir=/usr/${CHOST}/etc
+	elif [[ ${CHOST} =~ "-mingw32" ]]
+	then
+		sysconfdir=${CROSS_SYSROOT}/mingw/etc
+	elif inherited cross
+	then
+		sysconfdir=${CROSS_SYSROOT}/etc
+	else
+		sysconfdir=/etc
+	fi
+
+	echo -n ${sysconfdir}
+}
+
+__host_localstatedir() {
+	local localstatedir
+
+	if __host_is_embedded
+	then
+		# this should probably never happen
+		localstatedir=/usr/${CHOST}/var
+	elif [[ ${CHOST} =~ "-mingw32" ]]
+	then
+		localstatedir=${CROSS_SYSROOT}/mingw/var
+	elif inherited cross
+	then
+		localstatedir=${CROSS_SYSROOT}/var
+	else
+		localstatedir=/var
+	fi
+
+	echo -n ${localstatedir}
 }
 
 __host_is_embedded() {
@@ -336,4 +371,5 @@ __target_is_embedded() {
 
 readonly -f defined pushd popd error warning inform verbose __stage __step \
 	__log_init __check_triplet cross_compiling __cross_compiling_error \
-	__host_prefix __host_is_embedded __target_prefix __target_is_embedded
+	__host_prefix __host_sysconfdir __host_localstatedir \
+	__host_is_embedded __target_prefix __target_is_embedded
