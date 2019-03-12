@@ -278,7 +278,7 @@ __pkg_diff() {
 		config.cache config.guess config.log config.status config.sub
 		*SlackBuild* *.egg-info *.dll *.exe *.o *.gch *.gem .gitignore
 		 *.jpg *.png *.qm *.svgz *.tif *.class *.jlc *.pyc *.pyo
-		 *.mo *.gmo *.orig *.rej *.spec *.temp *~ *.stackdump";
+		 *.mo *.gmo *.orig *.rej *.spec *.temp *.whl *~ *.stackdump";
 
 	# as an alternative build directory to ${B}
 	default_excludes+=" ${CHOST}";
@@ -302,7 +302,7 @@ __pkg_diff() {
 	if __config_equals with_automake 1
 	then
 		default_excludes+=" COPYING INSTALL ansi2knr.c ar-lib config-ml.in elisp-comp
-			mdate-sh mkinstalldirs py-compile symlink-tree test-driver
+			mdate-sh mkinstalldirs py-compile symlink-tree tap-driver.sh test-driver
 			texinfo.tex ylwrap Makefile.in GNUmakefile.in makefile.in"
 	fi
 
