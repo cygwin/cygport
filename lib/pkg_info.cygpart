@@ -442,7 +442,7 @@ __list_deps() {
 		pydirs=($(python${pyver} -s -c 'import sys; print("\n".join(sys.path))' | grep 'site-packages'))
 		case ${pyver} in
 		3.*)	pyexts=$(python${pyver} -s -c 'import importlib.machinery; print(*importlib.machinery.all_suffixes())')
-			tkimp=$(python${pyver} -s -c "import importlib.util;  print(importlib.util.find_spec('tkinter').origin)" 2>/dev/null)
+			tkimp=
 			;;
 		2.*)	pyexts=$(python${pyver} -s -c 'import imp
 for suffix, mode, type in imp.get_suffixes(): print(suffix)')
