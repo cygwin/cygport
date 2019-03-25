@@ -63,7 +63,7 @@ inherit python.org
 #  Some aliases are also accepted:
 #  * all: all supported versions (currently: 2.7, and 3.5 through 3.8)
 #  * future: the default and upcoming versions (currently: 2.7, 3.6, 3.7)
-#  * default: the default versions (currently: 2.7 and 3.6)
+#  * default: the default versions (currently: 2.7, 3.6, 3.7)
 #  * 2: the default 2.x version (currently: 2.7)
 #  * 3: the default 3.x version (currently: 3.6)
 #  This variable must be defined before inheriting python-wheel.cygclass.
@@ -83,11 +83,11 @@ inherit python.org
 # when the default versions of Python change, this and the ENSUREPIP_OPTIONS
 # switches need to be updated accordingly
 case "${PYTHON_WHEEL_VERSIONS:-default}" in
-all)      PYTHON_WHEEL_VERSIONS=3.6:3.7:2.7:3.5:3.8 ;;
-future)   PYTHON_WHEEL_VERSIONS=3.6:3.7:2.7 ;;
-default)  PYTHON_WHEEL_VERSIONS=3.6:2.7 ;;
+all)      PYTHON_WHEEL_VERSIONS=2.7:3.5:3.6:3.8:3.7 ;;
+future)   PYTHON_WHEEL_VERSIONS=2.7:3.6:3.7 ;;
+default)  PYTHON_WHEEL_VERSIONS=2.7:3.6:3.7 ;;
 2)        PYTHON_WHEEL_VERSIONS=2.7 ;;
-3)        PYTHON_WHEEL_VERSIONS=3.6 ;;
+3)        PYTHON_WHEEL_VERSIONS=3.6:3.7 ;;
 esac
 for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
 do
