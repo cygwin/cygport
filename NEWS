@@ -1,3 +1,9 @@
+0.33.0:
+	* autotools: static libraries are no longer built by default for
+	  MinGW targets; this can be overridden by passing --enable-static
+	  to cygconf where appropriate.
+	* python-wheel: added 3.7 to "default" and 3.8 to "all" version lists.
+
 0.32.0:
 	* python-wheel.cygclass has been overhauled to handle multiple
 	  concurrent Python minor versions.  Note that this is an ABI break,
