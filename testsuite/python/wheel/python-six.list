@@ -17,6 +17,16 @@
 /usr/lib/python3.6/site-packages/six-1.10.0.dist-info/WHEEL
 /usr/lib/python3.6/site-packages/six-1.10.0.dist-info/top_level.txt
 /usr/lib/python3.6/site-packages/six.py
+/usr/lib/python3.7/site-packages/__pycache__/six.cpython-37.opt-1.pyc
+/usr/lib/python3.7/site-packages/__pycache__/six.cpython-37.opt-2.pyc
+/usr/lib/python3.7/site-packages/__pycache__/six.cpython-37.pyc
+/usr/lib/python3.7/site-packages/six-1.10.0.dist-info/INSTALLER
+/usr/lib/python3.7/site-packages/six-1.10.0.dist-info/LICENSE
+/usr/lib/python3.7/site-packages/six-1.10.0.dist-info/METADATA
+/usr/lib/python3.7/site-packages/six-1.10.0.dist-info/RECORD
+/usr/lib/python3.7/site-packages/six-1.10.0.dist-info/WHEEL
+/usr/lib/python3.7/site-packages/six-1.10.0.dist-info/top_level.txt
+/usr/lib/python3.7/site-packages/six.py
 /usr/share/doc/python-six-wheel/CHANGES
 /usr/share/doc/python-six-wheel/LICENSE
 /usr/share/doc/python-six-wheel/README
@@ -26,4 +36,7 @@
 /usr/share/doc/python36-six/CHANGES
 /usr/share/doc/python36-six/LICENSE
 /usr/share/doc/python36-six/README
+/usr/share/doc/python37-six/CHANGES
+/usr/share/doc/python37-six/LICENSE
+/usr/share/doc/python37-six/README
 /usr/share/python-wheels/six-1.10.0-py2.py3-none-any.whl
