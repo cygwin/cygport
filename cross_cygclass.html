@@ -33,28 +33,28 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo707">cross.cygclass</a></li>
+<li><a href="#robo708">cross.cygclass</a></li>
 <ul>
-<li><a href="#robo708">CROSS_HOST</a></li>
-<li><a href="#robo709">CROSS_SYSROOT</a></li>
-<li><a href="#robo710">CROSS_PREFIX</a></li>
-<li><a href="#robo711">CROSS_BINDIR</a></li>
-<li><a href="#robo712">CROSS_INCLUDEDIR</a></li>
-<li><a href="#robo713">CROSS_LIBDIR</a></li>
-<li><a href="#robo714">CROSS_DATADIR</a></li>
-<li><a href="#robo715">doelflib</a></li>
-<li><a href="#robo716">cross_sysrootize</a></li>
-<li><a href="#robo717">cross_desysrootize</a></li>
+<li><a href="#robo709">CROSS_HOST</a></li>
+<li><a href="#robo710">CROSS_SYSROOT</a></li>
+<li><a href="#robo711">CROSS_PREFIX</a></li>
+<li><a href="#robo712">CROSS_BINDIR</a></li>
+<li><a href="#robo713">CROSS_INCLUDEDIR</a></li>
+<li><a href="#robo714">CROSS_LIBDIR</a></li>
+<li><a href="#robo715">CROSS_DATADIR</a></li>
+<li><a href="#robo716">doelflib</a></li>
+<li><a href="#robo717">cross_sysrootize</a></li>
+<li><a href="#robo718">cross_desysrootize</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fcross2ecygclass"></a>
-<a name="robo707"></a><h2>cross.cygclass</h2>
+<a name="robo708"></a><h2>cross.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo510">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo511">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo708">CROSS_HOST</a>="..."
-  <a href="./inheritance_cygpart.html#robo560">inherit</a> cross
+<pre>  <a href="#robo709">CROSS_HOST</a>="..."
+  <a href="./inheritance_cygpart.html#robo561">inherit</a> cross
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  This cygclass assists in building libraries to be used by "cross-compilers",
@@ -65,7 +65,7 @@
 </p>
 
 <p>  Supported build systems for cross-compiling are autotools, cmake, qmake, and
-  custom Makefiles.  When using <strong>cross.cygclass</strong>, <a href="./autotools_cygclass.html#robo789">cygconf</a>, <a href="./cmake_cygclass.html#robo748">cygcmake</a>, and <a href="./qt4-qmake_cygclass.html#robo281">cygqmake4</a>
+  custom Makefiles.  When using <strong>cross.cygclass</strong>, <a href="./autotools_cygclass.html#robo790">cygconf</a>, <a href="./cmake_cygclass.html#robo749">cygcmake</a>, and <a href="./qt4-qmake_cygclass.html#robo281">cygqmake4</a>
   automatically use the necessary arguments for cross-compiling, and <a href="./src_install_cygpart.html#robo173">cyginstall</a>
   and most of the do* and new* installation functions install into the sysroot
   instead of the native root.  Note that those installation functions which
@@ -75,9 +75,9 @@
 
 <hr />
 <a name="cross2ecygclass2fCROSS5fHOST"></a>
-<a name="robo708"></a><h2>CROSS_HOST</h2>
+<a name="robo709"></a><h2>CROSS_HOST</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo707">cross.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo708">cross.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The CPU-VENDOR-OS[-TOOLCHAIN] triplet, or customary abbreviation thereof,
   describing the system for which you are cross-compiling; for example:
@@ -96,7 +96,7 @@
   'armv7hl-unknown-linux-gnueabi' and other systems.
 </p>
 <p class="item_name">NOTES</p>
-<ul><li>  <strong>CROSS_HOST</strong> must be <a href="./syntax_cygpart.html#robo77">defined</a> before <a href="./inheritance_cygpart.html#robo560">inherit</a>()ing <a href="#robo_top_of_doc">cross.cygclass</a>.
+<ul><li>  <strong>CROSS_HOST</strong> must be <a href="./syntax_cygpart.html#robo77">defined</a> before <a href="./inheritance_cygpart.html#robo561">inherit</a>()ing <a href="#robo708">cross.cygclass</a>.
 </li>
 <li>  <strong>CROSS_HOST</strong> must match the prefix of the toolchain being used (in other
     words, the <a href="./toolchain_cygclass.html#robo44">TOOLCHAIN_TARGET</a> used for building said toolchain).
@@ -106,9 +106,9 @@
 
 <hr />
 <a name="cross2ecygclass2fCROSS5fSYSROOT"></a>
-<a name="robo709"></a><h2>CROSS_SYSROOT</h2>
+<a name="robo710"></a><h2>CROSS_SYSROOT</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo707">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo708">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  GCC cross-compilers provide the concept of a sysroot: a directory which
   acts as the virtual root of the target filesystem, resulting in
@@ -132,9 +132,9 @@
 
 <hr />
 <a name="cross2ecygclass2fCROSS5fPREFIX"></a>
-<a name="robo710"></a><h2>CROSS_PREFIX</h2>
+<a name="robo711"></a><h2>CROSS_PREFIX</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo707">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo708">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The $prefix directory under the sysroot.  This definition is meant to
   be used in configure or cmake arguments to avoid dealing with different
@@ -143,9 +143,9 @@
 
 <hr />
 <a name="cross2ecygclass2fCROSS5fBINDIR"></a>
-<a name="robo711"></a><h2>CROSS_BINDIR</h2>
+<a name="robo712"></a><h2>CROSS_BINDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo707">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo708">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The $prefix/bin directory under the sysroot.  This definition is meant to
   be used in configure or cmake arguments to avoid dealing with different
@@ -154,9 +154,9 @@
 
 <hr />
 <a name="cross2ecygclass2fCROSS5fINCLUDEDIR"></a>
-<a name="robo712"></a><h2>CROSS_INCLUDEDIR</h2>
+<a name="robo713"></a><h2>CROSS_INCLUDEDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo707">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo708">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The $prefix/include directory under the sysroot.  This definition is
   meant to be used in configure or cmake arguments to avoid dealing with
@@ -165,9 +165,9 @@
 
 <hr />
 <a name="cross2ecygclass2fCROSS5fLIBDIR"></a>
-<a name="robo713"></a><h2>CROSS_LIBDIR</h2>
+<a name="robo714"></a><h2>CROSS_LIBDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo707">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo708">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The $prefix/lib directory under the sysroot.  This definition is meant to
   be used in configure or cmake arguments to avoid dealing with different
@@ -176,9 +176,9 @@
 
 <hr />
 <a name="cross2ecygclass2fCROSS5fDATADIR"></a>
-<a name="robo714"></a><h2>CROSS_DATADIR</h2>
+<a name="robo715"></a><h2>CROSS_DATADIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo707">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo708">cross.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The $prefix/share directory under the sysroot.  This definition is meant to
   be used in configure or cmake arguments to avoid dealing with different
@@ -187,14 +187,14 @@
 
 <hr />
 <a name="cross2ecygclass2fdoelflib"></a>
-<a name="robo715"></a><h2>doelflib</h2>
+<a name="robo716"></a><h2>doelflib</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo707">cross.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo708">cross.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>doelflib</strong> libfoo.so.X.Y.Z [...]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installs the given ELF libraries into the <a href="#robo709">CROSS_SYSROOT</a> libdir and creates
+<p>  Installs the given ELF libraries into the <a href="#robo710">CROSS_SYSROOT</a> libdir and creates
   the symlinks for the SONAME (usually .so.X) and the link library (.so).
 </p>
 <p class="item_name">NOTE</p>
@@ -204,33 +204,33 @@
 
 <hr />
 <a name="cross2ecygclass2fcross5fsysrootize"></a>
-<a name="robo716"></a><h2>cross_sysrootize</h2>
+<a name="robo717"></a><h2>cross_sysrootize</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo707">cross.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo708">cross.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>cross_sysrootize</strong> FILE [FILE] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Adds <a href="#robo709">CROSS_SYSROOT</a> to all paths in given text file(s).  Paths should
+<p>  Adds <a href="#robo710">CROSS_SYSROOT</a> to all paths in given text file(s).  Paths should
   be specified as if on the system, without a leading $<a href="./syntax_cygpart.html#robo100">D</a>.
 </p>
 
 <hr />
 <a name="cross2ecygclass2fcross5fdesysrootize"></a>
-<a name="robo717"></a><h2>cross_desysrootize</h2>
+<a name="robo718"></a><h2>cross_desysrootize</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo707">cross.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo708">cross.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>cross_desysrootize</strong> FILE [FILE] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Removes <a href="#robo709">CROSS_SYSROOT</a> from all paths in given text file(s).  Paths should
+<p>  Removes <a href="#robo710">CROSS_SYSROOT</a> from all paths in given text file(s).  Paths should
   be specified as if on the system, without a leading $<a href="./syntax_cygpart.html#robo100">D</a>.
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/cross.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Sun Feb 17 2019 20:05:15
+<p>Generated from ./cygport/cygclass/cross.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Mar 25 2019 13:52:34
 </p>
 </div> <!-- footer -->
 </body>

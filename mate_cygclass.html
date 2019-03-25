@@ -33,25 +33,25 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo511">mate.cygclass</a></li>
+<li><a href="#robo512">mate.cygclass</a></li>
 <ul>
-<li><a href="#robo512">HOMEPAGE (mate)</a></li>
-<li><a href="#robo513">SRC_URI (mate)</a></li>
-<li><a href="#robo514">GIT_URI (mate)</a></li>
-<li><a href="#robo515">mate_autoreconf</a></li>
-<li><a href="#robo516">MATE_NO_AUTOGEN</a></li>
-<li><a href="#robo517">mate_configure</a></li>
-<li><a href="#robo518">mate_compile</a></li>
-<li><a href="#robo519">src_compile (mate)</a></li>
+<li><a href="#robo513">HOMEPAGE (mate)</a></li>
+<li><a href="#robo514">SRC_URI (mate)</a></li>
+<li><a href="#robo515">GIT_URI (mate)</a></li>
+<li><a href="#robo516">mate_autoreconf</a></li>
+<li><a href="#robo517">MATE_NO_AUTOGEN</a></li>
+<li><a href="#robo518">mate_configure</a></li>
+<li><a href="#robo519">mate_compile</a></li>
+<li><a href="#robo520">src_compile (mate)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fmate2ecygclass"></a>
-<a name="robo511"></a><h2>mate.cygclass</h2>
+<a name="robo512"></a><h2>mate.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo510">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo511">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo560">inherit</a> mate
+<pre>  <a href="./inheritance_cygpart.html#robo561">inherit</a> mate
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  The MATE project provides a fork of the GNOME 2 libraries, desktop and
@@ -67,37 +67,37 @@
 
 <hr />
 <a name="mate2ecygclass2fHOMEPAGE2028mate29"></a>
-<a name="robo512"></a><h2>HOMEPAGE (mate)</h2>
+<a name="robo513"></a><h2>HOMEPAGE (mate)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo511">mate.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo512">mate.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
 <pre class="source"><a href="./pkg_info_cygpart.html#robo392">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://mate-desktop.org/"</span>
 </pre>
 
 <hr />
 <a name="mate2ecygclass2fSRC5fURI2028mate29"></a>
-<a name="robo513"></a><h2>SRC_URI (mate)</h2>
+<a name="robo514"></a><h2>SRC_URI (mate)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo511">mate.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo512">mate.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
 
 <hr />
 <a name="mate2ecygclass2fGIT5fURI2028mate29"></a>
-<a name="robo514"></a><h2>GIT_URI (mate)</h2>
+<a name="robo515"></a><h2>GIT_URI (mate)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo511">mate.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo512">mate.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">NOTE</p>
-<p>  <a href="./git_cygclass.html#robo_top_of_doc">git.cygclass</a> should be <a href="./inheritance_cygpart.html#robo560">inherit</a>()ed last for this to be of use.
+<p>  <a href="./git_cygclass.html#robo_top_of_doc">git.cygclass</a> should be <a href="./inheritance_cygpart.html#robo561">inherit</a>()ed last for this to be of use.
 </p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./git_cygclass.html#robo633">GIT_URI</a><span class="sign">=</span><span class="quote">"git://github.com/mate-desktop/${ORIG_PN:-${<a href="./syntax_cygpart.html#robo91">PN</a>}}.git"</span>
+<pre class="source"><a href="./git_cygclass.html#robo634">GIT_URI</a><span class="sign">=</span><span class="quote">"git://github.com/mate-desktop/${ORIG_PN:-${<a href="./syntax_cygpart.html#robo91">PN</a>}}.git"</span>
 </pre>
 
 <hr />
 <a name="mate2ecygclass2fmate5fautoreconf"></a>
-<a name="robo515"></a><h2>mate_autoreconf</h2>
+<a name="robo516"></a><h2>mate_autoreconf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo511">mate.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo512">mate.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>mate_autoreconf</strong>
 </pre>
@@ -119,76 +119,76 @@
   intltool, libglib2.0-devel, libtool, pkg-config.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="./autotools_cygclass.html#robo779">cygautoreconf</a>
+<p>  <a href="./autotools_cygclass.html#robo780">cygautoreconf</a>
 </p>
 
 <hr />
 <a name="mate2ecygclass2fMATE5fNO5fAUTOGEN"></a>
-<a name="robo516"></a><h2>MATE_NO_AUTOGEN</h2>
+<a name="robo517"></a><h2>MATE_NO_AUTOGEN</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo511">mate.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo512">mate.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  By default, mate-autogen will retool the working directory's and any
   subdirectories containing a configure.ac/configure.in which may be configured
   separately with an AC_CONFIG_SUBDIRS.  If a subdirectory need not be
   retooled (e.g. it will not built for whatever reason), or it does not use
   autotools (e.g. the libdb included in evolution), define this variable to
-  the subdirectories to skip, relative to the directory where <a href="#robo515">mate_autoreconf</a>
+  the subdirectories to skip, relative to the directory where <a href="#robo516">mate_autoreconf</a>
   will be run (usually $<a href="./syntax_cygpart.html#robo97">S</a>).
 </p>
 
 <hr />
 <a name="mate2ecygclass2fmate5fconfigure"></a>
-<a name="robo517"></a><h2>mate_configure</h2>
+<a name="robo518"></a><h2>mate_configure</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo511">mate.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo512">mate.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo98">B</a>
   <strong>mate_configure</strong> [CONFIGURE_FLAGS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Calls <a href="./autotools_cygclass.html#robo789">cygconf</a> with the following options:
+<p>  Calls <a href="./autotools_cygclass.html#robo790">cygconf</a> with the following options:
 </p>
 <ul><li>  --enable-gtk-doc: create and install API docs (native builds only)
 </li>
 <li>  --disable-scrollkeeper: Scrollkeeper is obsolete
 </li>
 </ul>
-<p>  All arguments to <strong>mate_configure</strong> are passed to <a href="./autotools_cygclass.html#robo789">cygconf</a> as configure flags.
+<p>  All arguments to <strong>mate_configure</strong> are passed to <a href="./autotools_cygclass.html#robo790">cygconf</a> as configure flags.
 </p>
 
 <hr />
 <a name="mate2ecygclass2fmate5fcompile"></a>
-<a name="robo518"></a><h2>mate_compile</h2>
+<a name="robo519"></a><h2>mate_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo511">mate.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo512">mate.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo98">B</a>
   <strong>mate_compile</strong> [CONFIGURE_FLAGS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Calls <a href="#robo517">mate_configure</a> followed by <a href="./src_compile_cygpart.html#robo181">cygmake</a>. All arguments to <strong>mate_compile</strong>
+<p>  Calls <a href="#robo518">mate_configure</a> followed by <a href="./src_compile_cygpart.html#robo181">cygmake</a>. All arguments to <strong>mate_compile</strong>
   are passed as configure flags.
 </p>
 
 <hr />
 <a name="mate2ecygclass2fsrc5fcompile2028mate29"></a>
-<a name="robo519"></a><h2>src_compile (mate)</h2>
+<a name="robo520"></a><h2>src_compile (mate)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo511">mate.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo512">mate.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
 <pre class="source"><a href="./src_compile_cygpart.html#robo182">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo97">S</a><span class="sign">}</span>
-        <a href="#robo515">mate_autoreconf</a>
+        <a href="#robo516">mate_autoreconf</a>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo517">mate_configure</a>
+        <a href="#robo518">mate_configure</a>
         <a href="./src_compile_cygpart.html#robo181">cygmake</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/mate.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Sun Feb 17 2019 20:05:15
+<p>Generated from ./cygport/cygclass/mate.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Mar 25 2019 13:52:34
 </p>
 </div> <!-- footer -->
 </body>

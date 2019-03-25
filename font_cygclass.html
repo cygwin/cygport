@@ -33,29 +33,29 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo646">font.cygclass</a></li>
+<li><a href="#robo647">font.cygclass</a></li>
 <ul>
-<li><a href="#robo647">FONTSDIR</a></li>
-<li><a href="#robo648">sfd2ttf</a></li>
-<li><a href="#robo649">sfd2otf</a></li>
-<li><a href="#robo650">fontinto</a></li>
-<li><a href="#robo651">dofont</a></li>
-<li><a href="#robo652">dofontconf</a></li>
-<li><a href="#robo653">newfontconf</a></li>
+<li><a href="#robo648">FONTSDIR</a></li>
+<li><a href="#robo649">sfd2ttf</a></li>
+<li><a href="#robo650">sfd2otf</a></li>
+<li><a href="#robo651">fontinto</a></li>
+<li><a href="#robo652">dofont</a></li>
+<li><a href="#robo653">dofontconf</a></li>
+<li><a href="#robo654">newfontconf</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2ffont2ecygclass"></a>
-<a name="robo646"></a><h2>font.cygclass</h2>
+<a name="robo647"></a><h2>font.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo510">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo511">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  This cygclass provides functions for installing fonts so that they
   will be found by the X server (for Xaw/Motif applications) and fontconfig
   (used by most modern GUI toolkits).
 </p>
 <p class="item_name">EXAMPLE</p>
-<pre>    <a href="./inheritance_cygpart.html#robo560">inherit</a> gnome.org font
+<pre>    <a href="./inheritance_cygpart.html#robo561">inherit</a> gnome.org font
     
     <a href="./syntax_cygpart.html#robo88">NAME</a>="cantarell-fonts"
     <a href="./syntax_cygpart.html#robo89">VERSION</a>=0.0.12
@@ -71,10 +71,10 @@
     
     <a href="./src_install_cygpart.html#robo175">src_install</a>() {
       cd ${<a href="./syntax_cygpart.html#robo97">S</a>}
-      <a href="#robo650">fontinto</a> cantarell
-      <a href="#robo651">dofont</a> otf/*.otf
+      <a href="#robo651">fontinto</a> cantarell
+      <a href="#robo652">dofont</a> otf/*.otf
       
-      <a href="#robo652">dofontconf</a> fontconfig/*.conf
+      <a href="#robo653">dofontconf</a> fontconfig/*.conf
     }
 </pre>
 <p class="item_name">NOTE</p>
@@ -85,18 +85,18 @@
 
 <hr />
 <a name="font2ecygclass2fFONTSDIR"></a>
-<a name="robo647"></a><h2>FONTSDIR</h2>
+<a name="robo648"></a><h2>FONTSDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo646">font.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo647">font.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The top font directory, AKA the fontrootdir.
 </p>
 
 <hr />
 <a name="font2ecygclass2fsfd2ttf"></a>
-<a name="robo648"></a><h2>sfd2ttf</h2>
+<a name="robo649"></a><h2>sfd2ttf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo646">font.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo647">font.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>sfd2ttf</strong> SFD_FILE[<a href="./syntax_cygpart.html#robo97">S</a>] ...
 </pre>
@@ -107,9 +107,9 @@
 
 <hr />
 <a name="font2ecygclass2fsfd2otf"></a>
-<a name="robo649"></a><h2>sfd2otf</h2>
+<a name="robo650"></a><h2>sfd2otf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo646">font.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo647">font.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>sfd2otf</strong> SFD_FILE[<a href="./syntax_cygpart.html#robo97">S</a>] ...
 </pre>
@@ -120,49 +120,49 @@
 
 <hr />
 <a name="font2ecygclass2ffontinto"></a>
-<a name="robo650"></a><h2>fontinto</h2>
+<a name="robo651"></a><h2>fontinto</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo646">font.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo647">font.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>fontinto</strong> SUBDIR
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Tells <a href="#robo651">dofont</a> which font directory to install into.  Accepts a single
+<p>  Tells <a href="#robo652">dofont</a> which font directory to install into.  Accepts a single
   argument, the name of the font subdirectory.
 </p>
 
 <hr />
 <a name="font2ecygclass2fdofont"></a>
-<a name="robo651"></a><h2>dofont</h2>
+<a name="robo652"></a><h2>dofont</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo646">font.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo647">font.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dofont</strong> FONTFILE [FONTFILE] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installs the given font file(s) into the font subdirectory based on <a href="./syntax_cygpart.html#robo88">NAME</a>,
-  or that specified by the most recent call to <a href="#robo650">fontinto</a>.
+  or that specified by the most recent call to <a href="#robo651">fontinto</a>.
 </p>
 
 <hr />
 <a name="font2ecygclass2fdofontconf"></a>
-<a name="robo652"></a><h2>dofontconf</h2>
+<a name="robo653"></a><h2>dofontconf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo646">font.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo647">font.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>dofontconf</strong> CONFFILE [CONFFILE] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installs the given font configuration file(s) into the system fontconfig
   configuration directories.  If file is not named [0-9][0-9]*.conf, then
-  use <a href="#robo653">newfontconf</a> instead to rename it.
+  use <a href="#robo654">newfontconf</a> instead to rename it.
 </p>
 
 <hr />
 <a name="font2ecygclass2fnewfontconf"></a>
-<a name="robo653"></a><h2>newfontconf</h2>
+<a name="robo654"></a><h2>newfontconf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo646">font.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo647">font.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>newfontconf</strong> CONFFILE DESIRED_NAME
 </pre>
@@ -196,7 +196,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/font.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Sun Feb 17 2019 20:05:15
+<p>Generated from ./cygport/cygclass/font.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Mar 25 2019 13:52:34
 </p>
 </div> <!-- footer -->
 </body>

@@ -33,23 +33,23 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo637">fox.cygclass</a></li>
+<li><a href="#robo638">fox.cygclass</a></li>
 <ul>
-<li><a href="#robo638">FOX_VERSION</a></li>
-<li><a href="#robo639">FOX_CONFIG</a></li>
-<li><a href="#robo640">FOX_CFLAGS</a></li>
-<li><a href="#robo641">FOX_LIBS</a></li>
-<li><a href="#robo642">fox-config</a></li>
+<li><a href="#robo639">FOX_VERSION</a></li>
+<li><a href="#robo640">FOX_CONFIG</a></li>
+<li><a href="#robo641">FOX_CFLAGS</a></li>
+<li><a href="#robo642">FOX_LIBS</a></li>
+<li><a href="#robo643">fox-config</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2ffox2ecygclass"></a>
-<a name="robo637"></a><h2>fox.cygclass</h2>
+<a name="robo638"></a><h2>fox.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo510">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo511">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo638">FOX_VERSION</a>="X.Y"
-  <a href="./inheritance_cygpart.html#robo560">inherit</a> fox
+<pre>  <a href="#robo639">FOX_VERSION</a>="X.Y"
+  <a href="./inheritance_cygpart.html#robo561">inherit</a> fox
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  The FOX toolkit is a cross-platform, <a href="./syntax_cygpart.html#robo99">C</a>++ GUI toolkit.  The API changes with
@@ -58,7 +58,7 @@
   at any given time.
 </p>
 
-<p>  This cygclass selects the <a href="#robo642">fox-config</a> script for the desired version of the
+<p>  This cygclass selects the <a href="#robo643">fox-config</a> script for the desired version of the
   FOX toolkit.
 </p>
 <p class="item_name">REQUIRES</p>
@@ -67,12 +67,12 @@
 
 <hr />
 <a name="fox2ecygclass2fFOX5fVERSION"></a>
-<a name="robo638"></a><h2>FOX_VERSION</h2>
+<a name="robo639"></a><h2>FOX_VERSION</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo637">fox.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo638">fox.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The desired major.minor branch of the FOX toolkit.  This variable must be
-  set before <a href="./inheritance_cygpart.html#robo560">inherit</a>()ing the <a href="#robo_top_of_doc">fox.cygclass</a>.
+  set before <a href="./inheritance_cygpart.html#robo561">inherit</a>()ing the <a href="#robo_top_of_doc">fox.cygclass</a>.
 </p>
 <p class="item_name">NOTE</p>
 <p>  Even minor version numbers represent stable branches; versions 1.2, 1.4,
@@ -82,46 +82,46 @@
 
 <hr />
 <a name="fox2ecygclass2fFOX5fCONFIG"></a>
-<a name="robo639"></a><h2>FOX_CONFIG</h2>
+<a name="robo640"></a><h2>FOX_CONFIG</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo637">fox.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo638">fox.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Absolute path to the <a href="#robo642">fox-config</a> script for the given <a href="#robo638">FOX_VERSION</a>.  This definition
+<p>  Absolute path to the <a href="#robo643">fox-config</a> script for the given <a href="#robo639">FOX_VERSION</a>.  This definition
   is exported to the build environment.
 </p>
 
 <hr />
 <a name="fox2ecygclass2fFOX5fCFLAGS"></a>
-<a name="robo640"></a><h2>FOX_CFLAGS</h2>
+<a name="robo641"></a><h2>FOX_CFLAGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo637">fox.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo638">fox.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Compile flags for the specified version of the FOX toolkit.  This
-  is equivalent to `$<a href="#robo639">FOX_CONFIG</a> --cflags`.
+  is equivalent to `$<a href="#robo640">FOX_CONFIG</a> --cflags`.
 </p>
 
 <hr />
 <a name="fox2ecygclass2fFOX5fLIBS"></a>
-<a name="robo641"></a><h2>FOX_LIBS</h2>
+<a name="robo642"></a><h2>FOX_LIBS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo637">fox.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo638">fox.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Link flags for the specified version of the FOX toolkit.  This
-  is equivalent to `$<a href="#robo639">FOX_CONFIG</a> --libs`.
+  is equivalent to `$<a href="#robo640">FOX_CONFIG</a> --libs`.
 </p>
 
 <hr />
 <a name="fox2ecygclass2ffox2dconfig"></a>
-<a name="robo642"></a><h2>fox-config</h2>
+<a name="robo643"></a><h2>fox-config</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo637">fox.cygclass</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo638">fox.cygclass</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Wrapper function for calling <a href="#robo639">FOX_CONFIG</a>.
+<p>  Wrapper function for calling <a href="#robo640">FOX_CONFIG</a>.
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/fox.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Sun Feb 17 2019 20:05:15
+<p>Generated from ./cygport/cygclass/fox.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Mar 25 2019 13:52:34
 </p>
 </div> <!-- footer -->
 </body>
