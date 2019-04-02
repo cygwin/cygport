@@ -700,12 +700,12 @@ __version_at_least() {
 	local -a have_va=(${have_v//[-\._]/ });
 	local -i n=0;
 
-	while defined want_ver[${n}]
+	while defined want_va[${n}]
 	do
-		if (( want_ver[n] < ${have_ver[${n}]:-0} ))
+		if (( want_va[n] < ${have_va[${n}]:-0} ))
 		then
 			return 0;
-		elif (( want_ver[n] > ${have_ver[${n}]:-0} ))
+		elif (( want_va[n] > ${have_va[${n}]:-0} ))
 		then
 			return 1;
 		else
