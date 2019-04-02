@@ -53,7 +53,7 @@ inherit ninja
 #  cygmeson should be run in the directory containing the top-level meson.build.
 #****
 cygmeson() {
-	local crossargs mdir
+	local crossargs mdir meson_version
 
 	if [ ! -e meson.build ]
 	then
@@ -75,6 +75,12 @@ cygmeson() {
 
 	check_prog_req meson
 
+	meson_version=$(meson --version)
+	if ! __version_at_least 0.47 ${meson_version}
+	then
+	    error "meson.cygclass: minimum supported meson version is 0.47"
+	fi
+
 #****v* cygmeson/CYGMESON_ARGS
 #  DESCRIPTION
 #  Additional flags to pass to meson, as a string.
@@ -86,6 +92,7 @@ cygmeson() {
 		--localstatedir=$(__host_localstatedir) \
 		--sysconfdir=$(__host_sysconfdir) \
 		--buildtype=plain --wrap-mode=nodownload \
+		--auto-features=enabled \
 		${crossargs} ${CYGMESON_ARGS} "${@}" ${CHOST} \
 		|| error "meson failed"
 }
