@@ -4,11 +4,16 @@ set -e
 
 test=$1
 
+case $test in
+download/*) DISTDIR= ;;
+*) DISTDIR=${top_srcdir}/testsuite/distdir ;;
+esac
+
 test -d ${top_builddir}/testsuite/$test || mkdir -p ${top_builddir}/testsuite/$test
 cd ${top_builddir}/testsuite/$test
 
 cp -f ${top_srcdir}/testsuite/$test/* .
 
-${top_builddir}/bin/cygport-inplace *.cygport clean get all
+DISTDIR=${DISTDIR} ${top_builddir}/bin/cygport-inplace *.cygport clean get all
 
 cmp ${top_srcdir}/testsuite/$test/*.list <(${top_builddir}/bin/cygport-inplace *.cygport list)
