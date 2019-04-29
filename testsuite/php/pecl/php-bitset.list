@@ -1,14 +1,13 @@
 /etc/php.d/conf.d/bitset.ini
-/usr/lib/php/20160303/bitset.dll
+/usr/lib/php/20180731/bitset.dll
+/usr/share/doc/pear/bitset/CREDITS
+/usr/share/doc/pear/bitset/LICENSE
+/usr/share/doc/pear/bitset/README
+/usr/share/doc/pear/bitset/TODO
 /usr/share/doc/php-bitset/CREDITS
 /usr/share/doc/php-bitset/LICENSE
 /usr/share/doc/php-bitset/README
 /usr/share/doc/php-bitset/TODO
-/usr/share/pear/.registry/.channel.pecl.php.net/bitset.reg
-/usr/share/pear/doc/bitset/CREDITS
-/usr/share/pear/doc/bitset/LICENSE
-/usr/share/pear/doc/bitset/README
-/usr/share/pear/doc/bitset/TODO
 /usr/share/pear/test/bitset/tests/BitSet_andNotOp.phpt
 /usr/share/pear/test/bitset/tests/BitSet_andOp.phpt
 /usr/share/pear/test/bitset/tests/BitSet_cardinality.phpt
@@ -30,3 +29,4 @@
 /usr/share/pear/test/bitset/tests/BitSet_size.phpt
 /usr/share/pear/test/bitset/tests/BitSet_toArray.phpt
 /usr/share/pear/test/bitset/tests/BitSet_xorOp.phpt
+/var/lib/pear/.registry/.channel.pecl.php.net/bitset.reg
