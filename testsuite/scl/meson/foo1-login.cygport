@@ -1,0 +1,12 @@
+SCL_NAME="foo1"
+inherit test-scl meson
+
+NAME="foo1-login"
+VERSION=1.11.1
+RELEASE=1
+CATEGORY="Base"
+SUMMARY="Sign on to a system"
+HOMEPAGE="http://cygwin.com/"
+# from a git checkout
+SRC_URI="http://doesnotexist/login-${VERSION}.tar.xz"
+SRC_DIR="login"

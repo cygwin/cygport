@@ -1,0 +1,13 @@
+/opt/cygwin/php71/root/usr/share/doc/pear/Structures_Graph/LICENSE
+/opt/cygwin/php71/root/usr/share/doc/pear/Structures_Graph/docs/tutorials/Structures_Graph/Structures_Graph.pkg
+/opt/cygwin/php71/root/usr/share/pear/Structures/Graph.php
+/opt/cygwin/php71/root/usr/share/pear/Structures/Graph/Manipulator/AcyclicTest.php
+/opt/cygwin/php71/root/usr/share/pear/Structures/Graph/Manipulator/TopologicalSorter.php
+/opt/cygwin/php71/root/usr/share/pear/Structures/Graph/Node.php
+/opt/cygwin/php71/root/usr/share/pear/test/Structures_Graph/tests/AcyclicTestTest.php
+/opt/cygwin/php71/root/usr/share/pear/test/Structures_Graph/tests/AllTests.php
+/opt/cygwin/php71/root/usr/share/pear/test/Structures_Graph/tests/BasicGraphTest.php
+/opt/cygwin/php71/root/usr/share/pear/test/Structures_Graph/tests/TopologicalSorterTest.php
+/opt/cygwin/php71/root/usr/share/pear/test/Structures_Graph/tests/helper.inc
+/usr/share/doc/php71-php-Structures_Graph/LICENSE
+/var/opt/cygwin/php71/lib/pear/.registry/structures_graph.reg

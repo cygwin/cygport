@@ -1,0 +1,63 @@
+################################################################################
+#
+# test-scl.cygclass - internal helper for testing Software Collections
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2019 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****ih* Cygclasses/test-scl.cygclass
+#  SYNOPSIS
+#  SCL_NAME="..."
+#  inherit test-scl
+#  DESCRIPTION
+#  This is for internal use by the testsuite only.
+#****
+defined SCL_NAME || error "SCL_NAME must be defined"
+SCL_SCRIPTS=/opt/cygwin/${SCL_NAME}
+SCL_ROOT=${SCL_SCRIPTS}/root
+
+tmpdir=$(mktemp -d)
+
+	cat > ${tmpdir}/enable <<_EOF
+eval \`/usr/bin/modulecmd bash load ${SCL_DEPS//:/ } ${tmpdir}/${SCL_NAME}\`
+_EOF
+
+	cat > ${tmpdir}/${SCL_NAME} <<_EOF
+#%Module1.0####################################################################
+##
+## ${SCL_NAME} test modulefile
+##
+prepend-path	X_SCLS		${SCL_NAME}
+prepend-path	PATH		${SCL_ROOT}/usr/bin
+prepend-path	LIBRARY_PATH	${SCL_ROOT}/usr/lib
+prepend-path	LD_LIBRARY_PATH	${SCL_ROOT}/usr/lib
+prepend-path	MANPATH		${SCL_ROOT}/usr/share/man
+prepend-path	INFOPATH	${SCL_ROOT}/usr/share/info
+prepend-path	PKG_CONFIG_PATH	${SCL_ROOT}/usr/lib/pkgconfig
+#prepend-path	XDG_DATA_DIRS	${SCL_ROOT}/usr/share
+#prepend-path	XDG_CONFIG_DIRS	/etc${SCL_ROOT%/root}/xdg
+_EOF
+
+check_prog_req scl_source scl-utils
+
+. ${tmpdir}/enable
+
+find ${tmpdir} -delete
+
+_scl_CYGCLASS_=1

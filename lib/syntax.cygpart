@@ -223,6 +223,9 @@ __host_prefix() {
 	elif inherited cross
 	then
 		prefix=${CROSS_SYSROOT}/usr
+	elif inherited scl
+	then
+		prefix=${SCL_ROOT}/usr
 	else
 		prefix=/usr
 	fi
@@ -243,6 +246,9 @@ __host_sysconfdir() {
 	elif inherited cross
 	then
 		sysconfdir=${CROSS_SYSROOT}/etc
+	elif inherited scl
+	then
+		sysconfdir=/etc${SCL_ROOT%/root}
 	else
 		sysconfdir=/etc
 	fi
@@ -263,6 +269,9 @@ __host_localstatedir() {
 	elif inherited cross
 	then
 		localstatedir=${CROSS_SYSROOT}/var
+	elif inherited scl
+	then
+		localstatedir=/var${SCL_ROOT%/root}
 	else
 		localstatedir=/var
 	fi

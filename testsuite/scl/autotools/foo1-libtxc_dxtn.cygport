@@ -1,0 +1,30 @@
+SCL_NAME=foo1
+inherit test-scl
+
+NAME="foo1-libtxc_dxtn"
+VERSION=1.0.1
+RELEASE=2
+CATEGORY="Libs"
+SUMMARY="S3TC implementation"
+DESCRIPTION="Software implementation of the S3 Texture Compression algorithm"
+HOMEPAGE="http://dri.freedesktop.org/wiki/S3TC"
+SRC_URI="http://cgit.freedesktop.org/~mareko/libtxc_dxtn/snapshot/libtxc_dxtn-${VERSION}.tar.bz2"
+SRC_DIR="libtxc_dxtn-${VERSION}"
+
+PKG_NAMES="${NAME} ${NAME}-devel"
+foo1_libtxc_dxtn_DOCS="COPYING"
+foo1_libtxc_dxtn_CONTENTS="${SCL_ROOT#/}/usr/bin/cygtxc_dxtn.dll"
+foo1_libtxc_dxtn_devel_REQUIRES="libGL-devel"
+foo1_libtxc_dxtn_devel_CONTENTS="
+	${SCL_ROOT#/}/usr/include/txc_dxtn.h
+	${SCL_ROOT#/}/usr/lib/libtxc_dxtn.dll.a
+"
+
+src_compile() {
+	cd ${S}
+	sed -ne 's|^ \* *\(.*\)|\1|p' txc_dxtn.h > COPYING
+	cygautoreconf
+	cd ${B}
+	cygconf
+	cygmake libtxc_dxtn_la_LDFLAGS="-avoid-version -no-undefined"
+}

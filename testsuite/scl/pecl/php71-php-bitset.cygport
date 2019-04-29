@@ -1,0 +1,12 @@
+PHP_CHANNEL="pecl"
+SCL_NAME="php71"
+inherit scl php
+
+NAME="php71-php-bitset"
+VERSION=3.0.1
+RELEASE=1
+CATEGORY="PHP"
+SUMMARY="PHP bitset manipulation library"
+DESCRIPTION="The BitSet library assists by providing a mechanism to manage sets
+of bits. This provides a similar API (object-based) to java.util.BitSet with
+some PHP-specific flavoring."

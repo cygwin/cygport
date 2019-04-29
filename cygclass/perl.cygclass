@@ -130,7 +130,7 @@ PERL_SITELIB=$(${PERL} -MConfig -e 'print $Config{sitelib};')
 LIBPERL="-L${PERL_ARCHLIB}/CORE -lperl"
 
 case ${PN} in
-	perl-*) ORIG_PN=${ORIG_PN:-${PN#perl-}} ;;
+	${_scl_CYGCLASS_+${SCL_NAME}-}perl-*) ORIG_PN=${ORIG_PN:-${PN#${_scl_CYGCLASS_+${SCL_NAME}-}perl-}} ;;
 esac
 
 #****v* perl.cygclass/CPAN_AUTHOR

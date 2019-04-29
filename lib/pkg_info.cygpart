@@ -571,6 +571,25 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		done
 	fi
 
+	# Software Collections
+	if [ -d ${D}/etc/scl/modulefiles ] && [ ! -e ${D}/usr/bin/scl ]
+	then
+		alldeps+=" /usr/bin/scl"
+	fi
+	if inherited scl
+	then
+		if defined SCL_META && defined SCL_DEPS
+		then
+			for scl in ${SCL_DEPS//:/ }
+			do
+				alldeps+=" /opt/cygwin/$scl/enable"
+			done
+		elif ! defined SCL_META
+		then
+			alldeps+=" /opt/cygwin/${SCL_NAME}/enable"
+		fi
+	fi
+
 	# commands called in postinstall/preremove scripts
 	for pidep in $(find "${@//^_^/ }" -path 'etc/postinstall/*.sh' -o -path 'etc/preremove/*.sh' \
 			| xargs -r sed -ne 's|^\(/[^ ]*\).*|\1|gp' | sort -u)

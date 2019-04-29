@@ -1,0 +1,13 @@
+SCL_NAME="automake1.11"
+SCL_META=1
+inherit scl
+
+NAME=automake1.11
+VERSION=1
+RELEASE=1
+CATEGORY="Collections"
+SUMMARY="Meta-package for ${NAME} Software Collection"
+
+ARCH=noarch
+
+REQUIRES="${SCL_NAME}-automake"

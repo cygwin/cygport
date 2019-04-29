@@ -31,6 +31,7 @@ subdir('python')
 subdir('qmake')
 subdir('R')
 subdir('ruby')
+subdir('scl')
 subdir('texlive')
 subdir('waf')
 

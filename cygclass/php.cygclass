@@ -170,8 +170,8 @@ LIBPHP=$(${PHP_CONFIG} --libs)
 #  A list of known channels is available at http://pear.php.net/channels/ .
 #****
 
-case ${PN} in php-*)
-ORIG_PN=${ORIG_PN:-${PN#php-}}
+case ${PN} in ${_scl_CYGCLASS_+${SCL_NAME}-}php-*)
+ORIG_PN=${ORIG_PN:-${PN#${_scl_CYGCLASS_+${SCL_NAME}-}php-}}
 
 #****o* php.cygclass/CATEGORY (php)
 #  DEFINITION

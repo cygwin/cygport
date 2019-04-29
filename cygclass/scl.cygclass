@@ -1,0 +1,167 @@
+################################################################################
+#
+# scl.cygclass - for creating Software Collections packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2019 Yaakov Selkowitz
+# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/scl.cygclass
+#  SYNOPSIS
+#  SCL_NAME="php71"
+#  [SCL_META=1]
+#  inherit scl
+#  DESCRIPTION
+#  Software Collections (SCLs) are a means of allowing the parallel
+#  installation of multiple versions of a given software package or subsystem
+#  without requiring extensive renaming or patching.  This is accomplished by
+#  installing each package (or group) in a dedicated prefix, then using the
+#  'scl' or 'scl_enable' commands to set the necessary environment variables
+#  so that commands can be called without specifying a full path.
+#
+#  This cygclass handles two types of SCL packages.  The first is a meta-package
+#  whose NAME should be "$SCL_NAME" and whose contents will be created
+#  automatically by cygport by defining SCL_META.  The main subpackage should
+#  REQUIRES the primary package(s) of the collection, but will otherwise be
+#  empty, and the '-runtime' subpackage will contain the directory structure
+#  and scripts required for building, installing, and running packages from its
+#  collection.
+#
+#  The second type of SCL package provides the actual packages built and
+#  installed into the SCL root.  Such packages' NAME would be prefixed with
+#  "$SCL_NAME-" and built by cygport under SCL_ROOT.
+#
+#  For example, for a 'php71' SCL:
+#  * Meta-package would be named 'php71'
+#  * Meta-package will create 'php71' and 'php71-runtime'.
+#  * Define REQUIRES="php71-php php71-php-PEAR" in the meta-package to
+#    pull in the interpreter and add-on installer by default.
+#  * The 'php' package for this SCL would be named 'php71-php'
+#  * The 'php-PEAR' package for this SCL would be named 'php71-php-PEAR'
+#****
+
+#****v* scl.cygclass/SCL_NAME
+#  DESCRIPTION
+#  The name of the SCL as passed to the 'scl' or 'scl_enable' commands,
+#  e.g. 'php71'.
+#****
+defined SCL_NAME || error "SCL_NAME must be defined"
+
+if ! defined SCL_META
+then
+	[ -f /etc/scl/prefixes/${SCL_NAME} ] || error "$SCL_NAME meta-package is not installed"
+	if [ "$(cat /etc/scl/prefixes/${SCL_NAME})" != "/opt/cygwin" ]
+	then
+		error "$SCL_NAME prefix mismatch"
+	fi
+fi
+
+#****d* scl.cygclass/SCL_SCRIPTS
+#  DESCRIPTION
+#  The directory containing the scripts used to enable the SCL.
+#****
+SCL_SCRIPTS=/opt/cygwin/${SCL_NAME}
+
+#****d* scl.cygclass/SCL_ROOT
+#  DESCRIPTION
+#  The root directory of the SCL.
+#****
+SCL_ROOT=${SCL_SCRIPTS}/root
+
+#****d* scl.cygclass/SCL_SYSCONFDIR
+#  DESCRIPTION
+#  The system configuration directory of the SCL.
+#****
+SCL_SYSCONFDIR=$(__host_sysconfdir)
+
+#****d* scl.cygclass/SCL_LOCALSTATEDIR
+#  DESCRIPTION
+#  The variable state directory of the SCL.
+#****
+SCL_LOCALSTATEDIR=$(__host_localstatedir)
+
+#****v* scl.cygclass/SCL_DEPS
+#  DESCRIPTION
+#  A colon-separated list of SCLs on which this SCL depends.  This should
+#  only be defined for SCL_META packages whose collection depends on another.
+#****
+
+scl_meta_install() {
+	local prefix=$(__host_prefix)
+
+	dodir ${SCL_ROOT}
+	echo "eval \`/usr/bin/modulecmd bash load ${SCL_DEPS//:/ } ${SCL_NAME}\`" > ${D}${SCL_SCRIPTS}/enable
+	cat > ${D}${SCL_SCRIPTS}/${SCL_NAME} <<_EOF
+#%Module1.0####################################################################
+##
+## ${SCL_NAME} modulefile
+##
+#prepend-path	X_SCLS		${SCL_NAME}
+prepend-path	PATH		${prefix}/bin
+prepend-path	LIBRARY_PATH	${prefix}/lib
+prepend-path	LD_LIBRARY_PATH	${prefix}/lib
+prepend-path	MANPATH		${prefix}/share/man
+prepend-path	INFOPATH	${prefix}/share/info
+prepend-path	PKG_CONFIG_PATH	${prefix}/lib/pkgconfig
+#prepend-path	XDG_DATA_DIRS	${prefix}/share
+#prepend-path	XDG_CONFIG_DIRS	$(__host_sysconfdir)//xdg
+_EOF
+
+	keepdir ${prefix}/{bin,include,lib,libexec,sbin}
+	keepdir ${prefix}/share/{info,man}
+
+	dodir /etc/scl/modulefiles
+	dosym ${SCL_SCRIPTS}/${SCL_NAME} /etc/scl/modulefiles/${SCL_NAME}
+
+	dodir /etc/scl/prefixes
+	echo ${SCL_SCRIPTS%/${SCL_NAME}} > ${D}/etc/scl/prefixes/${SCL_NAME}
+}
+
+#****v* scl.cygclass/SCL_META
+#  DESCRIPTION
+#  Define this variable to indicate that this is an SCL meta-package.  cygport
+#  will then create the main and runtime packages for the SCL with the necessary
+#  contents.
+#****
+if defined SCL_META
+then
+	HOMEPAGE="https://cygwin.com/"
+
+	PKG_NAMES="${NAME} ${NAME}-runtime"
+	PKG_CONTENTS[0]= # empty
+	PKG_CONTENTS[1]="
+		etc/scl/modulefiles/${SCL_NAME}
+		etc/scl/prefixes/${SCL_NAME}
+		${SCL_SCRIPTS#/}/${SCL_NAME}
+		${SCL_SCRIPTS#/}/enable
+		${SCL_ROOT#/}
+	"
+
+
+src_compile() { :; }
+
+src_install() {
+	scl_meta_install
+}
+
+else # ! SCL_META
+	check_prog_req scl_source scl-utils
+	. /usr/bin/scl_source enable ${SCL_NAME}
+fi
+
+readonly -f scl_meta_install

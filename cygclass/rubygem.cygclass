@@ -46,7 +46,7 @@ check_prog_req gem rubygems
 #  value is NAME without the leading "ruby-", which covers most RubyGems packages.
 #  ORIG_PN is also supported for backwards compatibility.
 #****
-: ${RUBYGEM_NAME=${ORIG_PN:-${NAME#ruby-}}}
+: ${RUBYGEM_NAME=${ORIG_PN:-${NAME#${_scl_CYGCLASS_+${SCL_NAME}-}ruby-}}}
 
 #****o* rubygem.cygclass/CATEGORY (rubygem)
 #  DEFINITION

@@ -101,6 +101,8 @@
 #    For Apache HTTP Server DSO packages.
 #  * pygtk.cygclass -
 #    For Python bindings of GTK+/GNOME libraries.
+#  * scl.cygclass -
+#    For building Software Collections.
 #  * texlive.cygclass -
 #    For TeX Live packages.
 #  * xorg.cygclass -
@@ -223,6 +225,7 @@ cygclasses = files(
     'R.cygclass',
     'ruby.cygclass',
     'rubygem.cygclass',
+    'scl.cygclass',
     'svn.cygclass',
     'tcl.cygclass',
     'texlive.cygclass',
