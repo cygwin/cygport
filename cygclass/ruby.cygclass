@@ -60,7 +60,7 @@ RUBY=$(__host_prefix)/bin/ruby
 #  The version of the Ruby interpreter.
 #  NOTE
 #  Since Ruby 2.1, this changes with every point release.  For the API version
-#  of Ruby, use ${RUBY_VERSION%.*}.0.
+#  of Ruby, use ${RUBY_VERSION%.*}.
 #****
 RUBY_VERSION=$(${RUBY} -e 'print RUBY_VERSION')
 
@@ -106,7 +106,7 @@ RUBY_VENDORARCH=$(${RUBY} -r rbconfig -e 'print RbConfig::CONFIG["vendorarchdir"
 #  DESCRIPTION
 #  Installation path for RI docs for third-party Ruby extensions.
 #****
-RI_SITEDIR=$(__host_prefix)/share/ri/${RUBY_VERSION%.*}.0/site
+RI_SITEDIR=$(__host_prefix)/share/ri/${RUBY_VERSION%.*}/site
 
 #****d* ruby.cygclass/LIBRUBY
 #  DESCRIPTION
