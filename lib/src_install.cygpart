@@ -492,7 +492,7 @@ doman() {
 				continue
 			;;			
 			*.1|*.1m|*.1x|*.1.bz2|*.1.gz)  mansection=1 ;;
-			*.3|*.3pm|*.3t|*.3.gz)  mansection=3 ;;
+			*.3|*.3G|*.3pm|*.3t|*.3.gz)  mansection=3 ;;
 			*.4|*.4.gz)  mansection=4 ;;
 			*.5|*.5.gz)  mansection=5 ;;
 			*.6|*.6x|*.6.gz)  mansection=6 ;;
@@ -540,7 +540,7 @@ newman() {
 
 	case ${2} in
 		*.1|*.1m|*.1x|*.1.bz2|*.1.gz)  mansection=1 ;;
-		*.3|*.3pm|*.3t|*.3.gz)  mansection=3 ;;
+		*.3|*.3G|*.3pm|*.3t|*.3.gz)  mansection=3 ;;
 		*.4|*.4.gz)  mansection=4 ;;
 		*.5|*.5.gz)  mansection=5 ;;
 		*.6|*.6x|*.6.gz)  mansection=6 ;;
