@@ -188,7 +188,7 @@ __gpg_verify() {
 }
 
 __mkdirs() {
-	cd "${top}";
+	cd "${top}" || error "Unable to cd to ${top}";
 	mkdir -p "${srcdir}" "${origsrcdir}" "${B}" "${D}" "${T}" "${configdir}" "${logdir}" "${distdir}" "${patchdir}" "${spkgdir}";
 }
 
@@ -267,7 +267,7 @@ __src_prep() {
 	local tar_patch;
 	local n=1;
 
-	cd "${top}";
+	cd "${top}" || error "Unable to cd to ${top}";
 
 	__mkdirs;
 
@@ -326,7 +326,7 @@ __src_prep() {
 		__gpg_verify "${top}/${src_patchfile}" "SOURCE PATCH";
 	fi
 
-	cd "${origsrcdir}";
+	cd "${origsrcdir}" || error "Unable to cd to ${origsrcdir}";
 
 	for src_pkg in ${_src_orig_pkgs}
 	do
@@ -358,7 +358,7 @@ __src_prep() {
 
 	# cd will fail if not executable (e.g. dot2tex)
 	chmod +x "${origsrcdir}/${SRC_DIR}";
-	cd "${origsrcdir}/${SRC_DIR}";
+	cd "${origsrcdir}/${SRC_DIR}" || error "Unable to cd to ${origsrcdir}/${SRC_DIR}";
 
 #****v* Preparation/DISTCLEANFILES
 #  DESCRIPTION
@@ -379,7 +379,7 @@ __src_prep() {
 	if __check_function src_unpack_hook
 	then
 		__check_unstable src_unpack_hook;
-		cd "${origsrcdir}/${SRC_DIR}";
+		cd "${origsrcdir}/${SRC_DIR}" | error "Unable to cd to ${origsrcdir}/${SRC_DIR}";
 	fi
 
 	for src_patch in ${_src_orig_patches}
@@ -415,7 +415,7 @@ __src_prep() {
 	if __check_function src_patch_hook
 	then
 		__check_unstable src_patch_hook;
-		cd "${origsrcdir}/${SRC_DIR}";
+		cd "${origsrcdir}/${SRC_DIR}" || error "Unable to cd to ${origsrcdir}/${SRC_DIR}";
 	fi
 
 	__step "Preparing working source directory";
@@ -425,7 +425,7 @@ __src_prep() {
 	mkdir -p "${C}";
 	ln -sfn "${C}" "${workdir}/CYGWIN-PATCHES";
 
-	cd "${S}";
+	cd "${S}" || error "Unable to cd to ${S}";
 
 	if [ -f "${top}/${cygwin_patchfile}" ]
 	then

@@ -156,7 +156,7 @@ __src_fetch() {
 	done
 
 	# the RCS_fetch functions change PWD
-	cd "${top}";
+	cd "${top}" || error "Unable to cd to ${top}"
 
 	for uri in ${SRC_URI} ${PATCH_URI}
 	do
