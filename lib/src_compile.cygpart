@@ -49,7 +49,7 @@ lndirs() {
 	fi
 
 	check_prog_req lndir
-	lndir -silent ${fromdir} ${todir} || error "lndir failed"
+	lndir -silent "${fromdir}" "${todir}" || error "lndir failed"
 }
 
 #****C* Compiling/manifestize

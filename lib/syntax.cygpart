@@ -150,19 +150,19 @@ __step() {
 }
 
 __log_init() {
-	local log=${1}
-	rm -f ${log}
+	local log="${1}"
+	rm -f "${log}"
 
-	echo -e cygport ${_cygport_version} '\n' >> ${log}
+	echo -e cygport "${_cygport_version}" '\n' >> "${log}"
 
 	for var in PF S B D C T CBUILD CHOST CTARGET CC CFLAGS CPPFLAGS CXX CXXFLAGS \
 	           F77 FFLAGS FC FCFLAGS GOC GOFLAGS OBJC OBJCFLAGS \
 	           OBJCXX OBJCXXFLAGS LDFLAGS LIBS MAKEOPTS
 	do
-		echo ${var} = ${!var} >> ${log}
+		echo ${var} = ${!var} >> "${log}"
 	done
 
-	echo -e '\n' >> ${log}
+	echo -e '\n' >> "${log}"
 }
 
 #****** Syntax/boolean

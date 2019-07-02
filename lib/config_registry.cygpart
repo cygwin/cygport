@@ -21,16 +21,16 @@
 ################################################################################
 
 __config_get() {
-	if [ -f ${configdir}/${1} ]
+	if [ -f "${configdir}/${1}" ]
 	then
-		echo -n $(cat ${configdir}/${1});
+		echo -n "$(cat "${configdir}/${1}")";
 	else
 		echo -n "0";
 	fi
 }
 
 __config_equals() {
-	if [ -f ${configdir}/${1} ] && [ $(cat ${configdir}/${1}) = ${2} ]
+	if [ -f "${configdir}/${1}" ] && [ "$(cat "${configdir}/${1}")" = "${2}" ]
 	then
 		return 0;
 	else
@@ -39,7 +39,7 @@ __config_equals() {
 }
 
 __config_set() {
-	echo -n ${2} > ${configdir}/${1};
+	echo -n "${2}" > "${configdir}/${1}";
 }
 
 readonly -f __config_equals __config_get __config_set

@@ -49,14 +49,14 @@ __srpm_extract() {
 
 	if check_prog rpm2tar
 	then
-		rpm2tar ${rpmpath};
-		tar xf ${tarfile};
-		srcfiles="$(tar tf ${tarfile})";
+		rpm2tar "${rpmpath}";
+		tar xf "${tarfile}";
+		srcfiles="$(tar tf "${tarfile}")";
 	elif check_prog rpm2cpio cpio
 	then
-		rpm2cpio ${rpmpath} > ${cpiofile};
-		cpio -i --quiet < ${cpiofile};
-		srcfiles="$(cpio -t --quiet < ${cpiofile})";
+		rpm2cpio "${rpmpath}" > "${cpiofile}";
+		cpio -i --quiet < "${cpiofile}";
+		srcfiles="$(cpio -t --quiet < "${cpiofile}")";
 	else
 		error "${rpmfile} requires rpm2targz or rpm to unpack";
 	fi
@@ -80,7 +80,7 @@ unpack() {
 	do
 		unpack_file_name=${unpack_file_path##*/};
 
-		if [ ! -f ${unpack_file_path} ]
+		if [ ! -f "${unpack_file_path}" ]
 		then
 			error "Cannot find source package ${unpack_file_name}";
 		fi
@@ -150,12 +150,12 @@ unpack() {
 
 		if defined unpack_out
 		then
-			if ! ${unpack_cmd} ${unpack_file_path} > ${unpack_out}
+			if ! ${unpack_cmd} "${unpack_file_path}" > "${unpack_out}"
 			then
 				error "${unpack_cmd} ${unpack_file_name} failed";
 			fi
 		else
-			if ! ${unpack_cmd} ${unpack_file_path}
+			if ! ${unpack_cmd} "${unpack_file_path}"
 			then
 				error "${unpack_cmd} ${unpack_file_name} failed";
 			fi
@@ -180,7 +180,7 @@ __gpg_verify() {
 		return 0;
 	fi
 
-	if [ -f ${_file}.${_sigext} ]
+	if [ -f "${_file}.${_sigext}" ]
 	then
 		inform "${_filetype} signature follows:";
 		gpg --verify ${_file}.${_sigext} ${_file} || true;
@@ -188,8 +188,8 @@ __gpg_verify() {
 }
 
 __mkdirs() {
-	cd ${top};
-	mkdir -p ${srcdir} ${origsrcdir} ${B} ${D} ${T} ${configdir} ${logdir} ${distdir} ${patchdir} ${spkgdir};
+	cd "${top}";
+	mkdir -p "${srcdir}" "${origsrcdir}" "${B}" "${D}" "${T}" "${configdir}" "${logdir}" "${distdir}" "${patchdir}" "${spkgdir}";
 }
 
 cygpatch() {
@@ -267,7 +267,7 @@ __src_prep() {
 	local tar_patch;
 	local n=1;
 
-	cd ${top};
+	cd "${top}";
 
 	__mkdirs;
 
@@ -275,17 +275,17 @@ __src_prep() {
 	# wasn't upgraded since prep
 	__config_set cygport_version ${_cygport_version}
 
-	if [ -f ${top}/${cygportfile}.sig ]
+	if [ -f "${top}/${cygportfile}.sig" ]
 	then
-		__gpg_verify ${top}/${cygportfile} "CYGPORT SCRIPT";
+		__gpg_verify "${top}/${cygportfile}" "CYGPORT SCRIPT";
 	fi
 
 	for src_pkg in ${_src_orig_pkgs}
 	do
-		if [ -f ${DISTDIR}/${src_pkg} -a ! -f ${top}/${src_pkg} ]
+		if [ -f ${DISTDIR}/${src_pkg} -a ! -f "${top}/${src_pkg}" ]
 		then
 			src_pkg=${DISTDIR}/${src_pkg};
-		elif [ -f ${top}/${src_pkg##*/} -a ! -f ${top}/${src_pkg} ]
+		elif [ -f "${top}"/${src_pkg##*/} -a ! -f "${top}/${src_pkg}" ]
 		then
 			src_pkg=${src_pkg##*/};
 		fi
@@ -300,10 +300,10 @@ __src_prep() {
 
 	for src_patch in ${_src_orig_patches}
 	do
-		if [ -f ${DISTDIR}/${src_patch} -a ! -f ${top}/${src_patch} ]
+		if [ -f "${DISTDIR}/${src_patch}" -a ! -f "${top}/${src_patch}" ]
 		then
 			src_patch=${DISTDIR}/${src_patch};
-		elif [ -f ${top}/${src_patch##*/} -a ! -f ${src_patch} ]
+		elif [ -f "${top}"/${src_patch##*/} -a ! -f "${src_patch}" ]
 		then
 			src_patch=${src_patch##*/};
 		fi
@@ -316,30 +316,30 @@ __src_prep() {
 		done
 	done
 
-	if [ -f ${top}/${cygwin_patchfile}.sig ]
+	if [ -f "${top}/${cygwin_patchfile}.sig" ]
 	then
 		__gpg_verify ${top}/${cygwin_patchfile} "CYGWIN PATCH";
 	fi
 
-	if [ -f ${top}/${src_patchfile}.sig ]
+	if [ -f "${top}/${src_patchfile}.sig" ]
 	then
-		__gpg_verify ${top}/${src_patchfile} "SOURCE PATCH";
+		__gpg_verify "${top}/${src_patchfile}" "SOURCE PATCH";
 	fi
 
-	cd ${origsrcdir};
+	cd "${origsrcdir}";
 
 	for src_pkg in ${_src_orig_pkgs}
 	do
-		if [ -f ${DISTDIR}/${src_pkg} -a ! -f ${top}/${src_pkg} ]
+		if [ -f "${DISTDIR}/${src_pkg}" -a ! -f "${top}/${src_pkg}" ]
 		then
 			src_pkg=${DISTDIR}/${src_pkg};
-		elif [ -f ${top}/${src_pkg##*/} -a ! -f ${top}/${src_pkg} ]
+		elif [ -f "${top}"/${src_pkg##*/} -a ! -f "${top}/${src_pkg}" ]
 		then
-			src_pkg=${top}/${src_pkg##*/};
+			src_pkg="${top}"/${src_pkg##*/};
 		else
-			src_pkg=${top}/${src_pkg};
+			src_pkg="${top}/${src_pkg}";
 		fi
-		unpack ${src_pkg};
+		unpack "${src_pkg}";
 	done
 
 #****v* Preparation/SRC_DIR
@@ -351,14 +351,14 @@ __src_prep() {
 #  files are unpacked, use SRC_DIR=".".
 #****
 
-	if [ ! -d ${origsrcdir}/${SRC_DIR} ]
+	if [ ! -d "${origsrcdir}/${SRC_DIR}" ]
 	then
 		error "SRC_DIR is not correctly defined"
 	fi
 
 	# cd will fail if not executable (e.g. dot2tex)
-	chmod +x ${origsrcdir}/${SRC_DIR};
-	cd ${origsrcdir}/${SRC_DIR};
+	chmod +x "${origsrcdir}/${SRC_DIR}";
+	cd "${origsrcdir}/${SRC_DIR}";
 
 #****v* Preparation/DISTCLEANFILES
 #  DESCRIPTION
@@ -370,7 +370,7 @@ __src_prep() {
 	if defined DISTCLEANFILES
 	then
 		inform "Removing DISTCLEANFILES..."
-		rm -f ${DISTCLEANFILES}
+		rm -f "${DISTCLEANFILES}"
 	fi
 
 	# src_unpack_hook() is an optional function which can be defined
@@ -379,33 +379,33 @@ __src_prep() {
 	if __check_function src_unpack_hook
 	then
 		__check_unstable src_unpack_hook;
-		cd ${origsrcdir}/${SRC_DIR};
+		cd "${origsrcdir}/${SRC_DIR}";
 	fi
 
 	for src_patch in ${_src_orig_patches}
 	do
-		if [ -f ${DISTDIR}/${src_patch} -a ! -f ${top}/${src_patch} ]
+		if [ -f "${DISTDIR}/${src_patch}" -a ! -f "${top}/${src_patch}" ]
 		then
 			src_patch=${DISTDIR}/${src_patch};
-		elif [ -f ${top}/${src_patch##*/} -a ! -f ${top}/${src_patch} ]
+		elif [ -f "${top}"/${src_patch##*/} -a ! -f "${top}/${src_patch}" ]
 		then
-			src_patch=${top}/${src_patch##*/};
+			src_patch="${top}"/${src_patch##*/};
 		else
-			src_patch=${top}/${src_patch};
+			src_patch="${top}/${src_patch}";
 		fi
 		case ${src_patch} in
 			*.tar.gz|*.tgz|*.tar.bz2|*.tbz2)
-				pushd ${T};
-				unpack ${src_patch};
+				pushd "${T}";
+				unpack "${src_patch}";
 				popd;
 
-				for tar_patch in $(tar tf ${src_patch} | sort | grep -E '(diff|patch)$')
+				for tar_patch in $(tar tf "${src_patch}" | sort | grep -E '(diff|patch)$')
 				do
-					cygpatch ${T}/${tar_patch};
+					cygpatch "${T}/${tar_patch}";
 				done
 				;;
 			*)
-				cygpatch ${src_patch};
+				cygpatch "${src_patch}";
 				;;
 		esac
 	done
@@ -415,26 +415,26 @@ __src_prep() {
 	if __check_function src_patch_hook
 	then
 		__check_unstable src_patch_hook;
-		cd ${origsrcdir}/${SRC_DIR};
+		cd "${origsrcdir}/${SRC_DIR}";
 	fi
 
 	__step "Preparing working source directory";
 
-	rsync -aq --delete-before ${origsrcdir}/ ${srcdir}/;
+	rsync -aq --delete-before "${origsrcdir}/" "${srcdir}/";
 
-	mkdir -p ${C};
-	ln -sfn ${C} ${workdir}/CYGWIN-PATCHES;
+	mkdir -p "${C}";
+	ln -sfn "${C}" "${workdir}/CYGWIN-PATCHES";
 
-	cd ${S};
+	cd "${S}";
 
-	if [ -f ${top}/${cygwin_patchfile} ]
+	if [ -f "${top}/${cygwin_patchfile}" ]
 	then
-		cygpatch ${top}/${cygwin_patchfile};
+		cygpatch "${top}/${cygwin_patchfile}";
 	fi
 
-	if [ -f ${top}/${src_patchfile} ]
+	if [ -f "${top}/${src_patchfile}" ]
 	then
-		cygpatch ${top}/${src_patchfile};
+		cygpatch "${top}/${src_patchfile}";
 	fi
 }
 

@@ -72,36 +72,36 @@ fetch() {
 	urifile=${urifile%\?*};
 	urifile=${urifile##*/};
 
-	if defined __DL_ONLY_MISSING && defined DISTDIR && [ -f ${DISTDIR}/${urifile} ]
+	if defined __DL_ONLY_MISSING && defined DISTDIR && [ -f "${DISTDIR}/${urifile}" ]
 	then
 		inform "Using ${urifile} from DISTDIR"
 		return 0
 	elif check_prog wget
 	then
-		if wget --no-check-certificate -O ${urifile}.tmp ${uri}
+		if wget --no-check-certificate -O "${urifile}.tmp" "${uri}"
 		then
-			mv -f ${urifile}.tmp ${urifile}
+			mv -f "${urifile}.tmp" "${urifile}"
 		else
-			rm -f ${urifile}.tmp
+			rm -f "${urifile}.tmp"
 			error "wget ${uri} failed"
 		fi
 	elif check_prog curl
 	then
-		if curl -k --url ${uri} -o ${urifile}.tmp
+		if curl -k --url "${uri}" -o "${urifile}.tmp"
 		then
-			mv -f ${urifile}.tmp ${urifile}
+			mv -f "${urifile}.tmp" "${urifile}"
 		else
-			rm -f ${urifile}.tmp
+			rm -f "${urifile}.tmp"
 			error "curl ${uri} failed"
 		fi
 	else
 		error "Either wget or curl are required to fetch sources.";
 	fi
 
-	if defined DISTDIR && [ -f ${urifile} ]
+	if defined DISTDIR && [ -f "${urifile}" ]
 	then
-		[ -d ${DISTDIR} ] || mkdir -p ${DISTDIR}
-		mv ${urifile} ${DISTDIR}/
+		[ -d "${DISTDIR}" ] || mkdir -p "${DISTDIR}"
+		mv "${urifile}" "${DISTDIR}/"
 	fi
 }
 
@@ -156,7 +156,7 @@ __src_fetch() {
 	done
 
 	# the RCS_fetch functions change PWD
-	cd ${top};
+	cd "${top}";
 
 	for uri in ${SRC_URI} ${PATCH_URI}
 	do
@@ -165,11 +165,11 @@ __src_fetch() {
 				continue
 		fi
 		case ${uri%%//*} in
-			mirror:)	__mirror_fetch ${uri} ;;
-			http:|https:|ftp:)	fetch ${uri} || error "Download ${uri##*/} failed" ;;
-			file:)		[ -f ${uri#file://} ] || error "${uri##*/}: does not exist" ;;
+			mirror:)	__mirror_fetch "${uri}" ;;
+			http:|https:|ftp:)	fetch "${uri}" || error "Download ${uri##*/} failed" ;;
+			file:)		[ -f "${uri#file://}" ] || error "${uri##*/}: does not exist" ;;
 			*:)		error "Unsupported download protocol ${uri%%//*}" ;;
-			*/*)		[ -f ${uri#file://} ] || error "${uri##*/}: does not exist" ;;
+			*/*)		[ -f "${uri#file://}" ] || error "${uri##*/}: does not exist" ;;
 			${uri})		;; # file in working directory
 			*)		error "Invalid download URI ${uri}" ;;
 		esac

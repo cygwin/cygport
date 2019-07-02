@@ -42,7 +42,7 @@ declare -r _privsysconfdir=@sysconfdir@;
 
 
 ### import defined, pushd, popd
-source ${_privlibdir}/syntax.cygpart
+source "${_privlibdir}/syntax.cygpart"
 ###
 
 
@@ -166,7 +166,7 @@ source ${_privlibdir}/help.cygpart
 # Accept --help and --version arguments without specifying a cygport file
 while true
 do
-	case ${1} in
+	case "${1}" in
 	--help|-h|-\?)
 		__show_help;
 		exit 0;
@@ -204,7 +204,7 @@ do
 	esac
 done
 
-declare -ar argv=(${0} ${@})
+declare -ar argv=(${0} "${@}")
 declare -ir argc=$(( $# + 1 ))
 
 # Show help if no commands are given
@@ -222,7 +222,7 @@ fi
 ################################################################################
 
 ### import check_prog and friends
-source ${_privlibdir}/check_funcs.cygpart
+source "${_privlibdir}/check_funcs.cygpart"
 ###
 
 # check now for all mandatory programs
@@ -349,11 +349,11 @@ unset _autotools_CYGCLASS_ _autotools_CYGCLASS_stage1_
 ################################################################################
 
 unset NAME VERSION RELEASE
-if [ -f ${argv[1]} ]
+if [ -f "${argv[1]}" ]
 then
-	eval $(grep '^NAME=' ${argv[1]})
-	eval $(grep '^VERSION=' ${argv[1]})
-	eval $(grep '^RELEASE=' ${argv[1]})
+	eval "$(grep '^NAME=' "${argv[1]}")"
+	eval "$(grep '^VERSION=' "${argv[1]}")"
+	eval "$(grep '^RELEASE=' "${argv[1]}")"
 fi
 
 if [ "${NAME+y}${VERSION+y}${RELEASE+y}" = "yyy" ]
@@ -371,7 +371,7 @@ declare -r  PN=${PF%%-[0-9]*};
 declare     NAME=${PN}
 declare -r  PR=${PF##*-};
 declare     RELEASE=${PR}
-            PV=$(echo ${PF} | sed -e "s/${PN}\-\(.*\)\-${PR}$/\1/");
+            PV=$(echo "${PF}" | sed -e "s/${PN}\-\(.*\)\-${PR}$/\1/");
 declare     VERSION=${PV}
 declare -r  cygportfile=${PF}.cygport;
 fi
@@ -395,7 +395,7 @@ _topdir=${argv[1]%/*};
 
 if [ "x${_topdir}" = "x${argv[1]}" ]
 then
-	if [ -f ./${cygportfile} ]
+	if [ -f "./${cygportfile}" ]
 	then
 		_topdir=.;
 	else
@@ -406,13 +406,13 @@ fi
 declare -r top=$(cd ${_topdir}; pwd);
 unset _topdir;
 
-if [ ! -e ${top}/${cygportfile} ]
+if [ ! -e "${top}/${cygportfile}" ]
 then
 	error "${cygportfile} not found.";
 fi
 
 ### load .cygport
-source ${top}/${cygportfile} || error "could not read ${cygportfile}"
+source "${top}/${cygportfile}" || error "could not read ${cygportfile}"
 ###
 
 case ${ARCH} in
@@ -422,7 +422,7 @@ esac
 
 if defined CYGPORT_DEPEND
 then
-	if ! __version_at_least ${CYGPORT_DEPEND} ${_cygport_version}
+	if ! __version_at_least "${CYGPORT_DEPEND}" "${_cygport_version}"
 	then
 		error "This package requires cygport ${CYGPORT_DEPEND} or newer";
 	fi
@@ -485,7 +485,7 @@ declare -r uploadlog="${logdir}/${PF}-upload.log";
 
 for _src_uri in ${SRC_URI}
 do
-	if [ -f ${top}/${_src_uri} ]
+	if [ -f "${top}/${_src_uri}" ]
 	then
 		_src_orig_pkgs+=" ${_src_uri}";
 		continue;
@@ -499,7 +499,7 @@ unset _src_uri;
 
 for _patch_uri in ${PATCH_URI}
 do
-	if [ -f ${top}/${_patch_uri} ]
+	if [ -f "${top}/${_patch_uri}" ]
 	then
 		_src_orig_patches+=" ${_patch_uri}";
 		continue;
@@ -511,8 +511,8 @@ done
 readonly _src_orig_patches;
 unset _patch_uri;
 
-declare -r cygwin_patchfile=${PF}.cygwin.patch;
-declare -r src_patchfile=${PF}.src.patch;
+declare -r cygwin_patchfile="${PF}.cygwin.patch";
+declare -r src_patchfile="${PF}.src.patch";
 
 declare -ar pkg_name=(${PKG_NAMES:-${PN}});
 declare -r  pkg_count=${#pkg_name[*]};
@@ -560,21 +560,21 @@ do
 			;;
 		compile|build|make)
 			__stage Compiling;
-			__log_init ${compilelog};
+			__log_init "${compilelog}";
 			__check_depends && \
-			src_compile 2>&1 | tee -a ${compilelog};
+			src_compile 2>&1 | tee -a "${compilelog}";
 			_status=${PIPESTATUS[0]};
 			;;
 		check|test)
 			__stage Testing;
-			__log_init ${checklog};
-			src_test 2>&1 | tee -a ${checklog};
+			__log_init "${checklog}";
+			src_test 2>&1 | tee -a "${checklog}";
 			_status=${PIPESTATUS[0]};
 			;;
 		inst*)
 			__stage Installing;
-			__log_init ${installlog};
-			(__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog};
+			__log_init "${installlog}";
+			(__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a "${installlog}";
 			_status=${PIPESTATUS[0]};
 			;;
 		postinst*)
@@ -606,8 +606,8 @@ do
 			;&
 		package|pkg)
 			__stage "Packaging${_pkg_tag:+ ${_pkg_tag%:} release}";
-			__log_init ${pkglog};
-			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog};
+			__log_init "${pkglog}";
+			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist "${_pkg_tag}") 2>&1 | tee -a "${pkglog}";
 			_status=${PIPESTATUS[0]};
 			;;
 		diff|mkdiff|mkpatch)
@@ -616,14 +616,14 @@ do
 			;;
 		upload|up)
 			__stage Uploading;
-			__log_init ${uploadlog};
-			(__pkg_upload full) 2>&1 | tee -a ${uploadlog};
+			__log_init "${uploadlog}";
+			(__pkg_upload full) 2>&1 | tee -a "${uploadlog}";
 			_status=${PIPESTATUS[0]};
 			;;
 		stage)
 			__stage Staging;
-			__log_init ${uploadlog};
-			(__pkg_upload stage) 2>&1 | tee -a ${uploadlog};
+			__log_init "${uploadlog}";
+			(__pkg_upload stage) 2>&1 | tee -a "${uploadlog}";
 			_status=${PIPESTATUS[0]};
 			;;
 		announce)
@@ -640,15 +640,15 @@ do
 			;&
 		almostall|all)
 			__stage Preparing && __src_prep && \
-			__log_init ${compilelog} && \
+			__log_init "${compilelog}" && \
 			__check_depends && \
-			__stage Compiling && src_compile 2>&1 | tee -a ${compilelog} && \
+			__stage Compiling && src_compile 2>&1 | tee -a "${compilelog}" && \
 			test ${PIPESTATUS[0]} -eq 0 && \
-			__log_init ${installlog} && \
-			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
+			__log_init "${installlog}" && \
+			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a "${installlog}" && \
 			test ${PIPESTATUS[0]} -eq 0 && \
-			__log_init ${pkglog} && \
-			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog} && \
+			__log_init "${pkglog}" && \
+			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist "${_pkg_tag}") 2>&1 | tee -a "${pkglog}" && \
 			test ${PIPESTATUS[0]} -eq 0
 			_status=$?;
 			;;
@@ -665,9 +665,9 @@ do
 			exit 1;
 			;;
 		*)
-			if __check_function ${argv[${arg_n}]} && ! __check_function_ro ${argv[${arg_n}]}
+			if __check_function "${argv[${arg_n}]}" && ! __check_function_ro "${argv[${arg_n}]}"
 			then
-				${argv[${arg_n}]};
+				"${argv[${arg_n}]}";
 			else
 				error "unknown command ${argv[${arg_n}]}";
 			fi
