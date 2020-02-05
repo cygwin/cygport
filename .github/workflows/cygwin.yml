@@ -1,0 +1,116 @@
+name: Cygwin
+on: [push, pull_request]
+
+jobs:
+  cygport:
+    name: cygport
+    runs-on:  windows-latest
+    steps:
+    - name: Turn off line ending conversion in git
+      run: |
+        git config --global core.autocrlf false
+        git config --global core.eol lf
+    - uses: actions/checkout@v1
+      with:
+        submodules: true
+    - uses: actions/cache@v1
+      with:
+        path: C:\cygwin-packages
+        key: cygwin-packages-${{ hashFiles('**') }}
+        restore-keys: cygwin-packages-
+    - name: Fetch Cygwin installer
+      run: |
+        Invoke-WebRequest https://cygwin.com/setup-x86_64.exe -OutFile C:\setup.exe
+      shell: powershell
+      # installer should be cacheable
+    - name: Install Cygwin
+      run: |
+        c:\setup.exe -qgnO -s http://mirrors.kernel.org/sourceware/cygwin/ -l C:\cygwin-packages\ -P ^
+        R,^
+        aspell,^
+        automake,^
+        automoc4,^
+        bzr,^
+        cmake,^
+        cvs,^
+        diffstat,^
+        dos2unix,^
+        extra-cmake-modules,^
+        flexdll,^
+        fontforge,^
+        gcc-g++,^
+        git,^
+        git-archive-all,^
+        gnome-common,^
+        gobject-introspection,^
+        help2man,^
+        httpd-devel,^
+        kf5-kdoctools,^
+        libGL-devel,^
+        libGeoIP-devel,^
+        libKF5XmlGui-devel,^
+        libQt5Core-devel,^
+        libQt5Svg-devel,^
+        libQtTest4-devel,^
+        libRmath,^
+        libartsc-devel,^
+        libbz2-devel,^
+        libcairomm1.0-devel,^
+        libcrypt-devel,^
+        libexif-devel,^
+        libgdk_pixbuf2.0-devel,^
+        libgirepository1.0-devel,^
+        libglibmm2.4-devel,^
+        libicu-devel,^
+        libkdecore4-devel,^
+        libkdecore5-devel,^
+        liblzma-devel,^
+        libnotify-devel,^
+        libpango1.0-devel,^
+        libqca-devel,^
+        libqca-qt5-devel,^
+        libtirpc-devel,^
+        libxfce4ui1-devel,^
+        libxfconf0-devel,^
+        lndir,^
+        lua-devel,^
+        make,^
+        mate-common,^
+        mercurial,^
+        meson,^
+        mingw64-i686-gcc-core,^
+        mingw64-i686-qt5-base,^
+        mingw64-i686-qt5-tools,^
+        mm-common,^
+        monotone,^
+        ninja,^
+        ocaml,^
+        ocaml-findlib,^
+        patch,^
+        perl,^
+        perl-Module-Build,^
+        php-PEAR,^
+        python-gtk2.0-devel,^
+        python2-devel,^
+        python2-pip,^
+        python3-pip,^
+        python3-setuptools,^
+        python2-wheel,^
+        python3-wheel,^
+        python37-pip,^
+        robodoc,^
+        ruby,^
+        subversion,^
+        unzip,^
+        xfce4-dev-tools,^
+        xfce4-panel-devel
+      shell: cmd
+    - name: Set PATH
+      run: |
+        echo '::set-env name=PATH::C:\cygwin64\bin;C:\cygwin64\lib\lapack;%SYSTEMROOT%\system32'
+    - name: Build
+      run: |
+        bash -c 'meson _build && ninja -C _build'
+    - name: Test
+      run: |
+        bash -c 'meson test -C _build --print-errorlogs'
