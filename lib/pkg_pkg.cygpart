@@ -655,12 +655,56 @@ __pkg_dist() {
 #  package replaces.  An empty package will be created for each listed
 #  obsoletion which will cause PKG to be installed in its place.
 #
-#  Note that the PKG_REQUIRES name is descriptive rather than literal,
+#  Note that the PKG_OBSOLETES name is descriptive rather than literal,
 #  where "PKG" should be substituted with the name of the binary package
 #  whose contents it describes.  When a package contains a character which
 #  cannot be used in a shell variable name (namely '+', '-', and '.'),
 #  that character must be substituted with an underscore ('_'), e.g.
 #  libfoo-devel will use libfoo_devel_OBSOLETES.
+#****
+#****v* Packaging/PROVIDES
+#  DESCRIPTION
+#  A single-line string containing a list of names which this package also
+#  provides.
+#  NOTE
+#  If there is more than one package in PKG_NAMES, this variable will be
+#  ignored; you must use PKG_PROVIDES instead.
+#  SEE ALSO
+#  PKG_PROVIDES
+#****
+#****v* Packaging/PKG_PROVIDES
+#  DESCRIPTION
+#  A single-line string containing a list of names which this package also
+#  provides.
+#
+#  Note that the PKG_PROVIDES name is descriptive rather than literal,
+#  where "PKG" should be substituted with the name of the binary package
+#  whose contents it describes.  When a package contains a character which
+#  cannot be used in a shell variable name (namely '+', '-', and '.'),
+#  that character must be substituted with an underscore ('_'), e.g.
+#  libfoo-devel will use libfoo_devel_PROVIDES.
+#****
+#****v* Packaging/CONFLICTS
+#  DESCRIPTION
+#  A single-line string containing a comma-separated list of packages, possibly
+#  with version relations which this package conflicts with.
+#  NOTE
+#  If there is more than one package in PKG_NAMES, this variable will be
+#  ignored; you must use PKG_CONFLICTS instead.
+#  SEE ALSO
+#  PKG_CONFLICTS
+#****
+#****v* Packaging/PKG_CONFLICTS
+#  DESCRIPTION
+#  A single-line string containing a comma-separated list of packages, possibly
+#  with version relations which this package conflicts with.
+#
+#  Note that the PKG_CONFLICTS name is descriptive rather than literal,
+#  where "PKG" should be substituted with the name of the binary package
+#  whose contents it describes.  When a package contains a character which
+#  cannot be used in a shell variable name (namely '+', '-', and '.'),
+#  that character must be substituted with an underscore ('_'), e.g.
+#  libfoo-devel will use libfoo_devel_CONFLICTS.
 #****
 
 	n=0;
@@ -672,6 +716,8 @@ __pkg_dist() {
 		pkg_description_var=${pkg_name[${n}]//[-+\.]/_}_DESCRIPTION;
 		pkg_message_var=${pkg_name[${n}]//[-+\.]/_}_MESSAGE;
 		pkg_obsoletes_var=${pkg_name[${n}]//[-+\.]/_}_OBSOLETES;
+		pkg_provides_var=${pkg_name[${n}]//[-+\.]/_}_PROVIDES;
+		pkg_conflicts_var=${pkg_name[${n}]//[-+\.]/_}_CONFLICTS;
 		dbg_obsoletes_var=${PN//[-+\.]/_}_debuginfo_OBSOLETES;
 
 		case ${pkg_name[${n}]} in
@@ -679,7 +725,7 @@ __pkg_dist() {
 			*)      distsubdir=${pkg_name[${n}]} ;;
 		esac
 
-		# allow REQUIRES and OBSOLETES only for single packages
+		# allow REQUIRES, OBSOLETES etc. only for single packages
 		if [ -z "${distsubdir}${!pkg_requires_var}" -a -n "${REQUIRES+yes}" ]
 		then
 			declare ${pkg_requires_var}="${REQUIRES}"
@@ -687,6 +733,15 @@ __pkg_dist() {
 		if [ -z "${distsubdir}${!pkg_obsoletes_var}" -a -n "${OBSOLETES+yes}" ]
 		then
 			declare ${pkg_obsoletes_var}="${OBSOLETES}"
+		fi
+		if [ -z "${distsubdir}${!pkg_provides_var}" -a -n "${PROVIDES+yes}" ]
+		then
+			declare ${pkg_provides_var}="${PROVIDES}"
+		fi
+
+		if [ -z "${distsubdir}${!pkg_conflicts_var}" -a -n "${CONFLICTS+yes}" ]
+		then
+			declare ${pkg_conflicts_var}="${CONFLICTS}"
 		fi
 
 		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
@@ -717,6 +772,21 @@ _EOF
 obsoletes: ${!pkg_obsoletes_var}
 _EOF
 			fi
+
+			if [ -n "${!pkg_provides_var}" ]
+			then
+				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
+provides: ${!pkg_provides_var}
+_EOF
+			fi
+
+			if [ -n "${!pkg_conflicts_var}" ]
+			then
+				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
+conflicts: ${!pkg_conflicts_var}
+_EOF
+			fi
+
 			if defined distsubdir
 			then
 				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF

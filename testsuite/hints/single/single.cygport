@@ -7,6 +7,8 @@ DESCRIPTION="Description of hints for single package test"
 CATEGORY="Base"
 REQUIRES="cygwin"
 OBSOLETES="obsoleted-by-single"
+PROVIDES="also-provides"
+CONFLICTS="conflicts-with"
 
 src_compile() {
   :

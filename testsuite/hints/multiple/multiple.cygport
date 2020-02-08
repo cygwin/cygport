@@ -13,6 +13,8 @@ multiple_CATEGORY="Base"
 libmultiple1_CONTENTS=""
 libmultiple1_CATEGORY="Base"
 libmultiple1_REQUIRES="cygwin"
+libmultiple1_PROVIDES="also-provides"
+libmultiple1_CONFLICTS="conflicts-with"
 
 libmultiple_devel_CONTENTS="usr/include"
 libmultiple_devel_CATEGORY="Devel"
