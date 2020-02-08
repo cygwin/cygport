@@ -1,6 +1,9 @@
 name: Cygwin
 on: [push, pull_request]
 
+env:
+  CASE_INSENSITIVE: 1
+
 jobs:
   cygport:
     name: cygport

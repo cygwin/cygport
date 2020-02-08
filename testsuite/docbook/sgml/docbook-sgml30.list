@@ -1,5 +1,6 @@
 /etc/postinstall/docbook-sgml30.sh
 /etc/preremove/docbook-sgml30.sh
+/usr/share/doc/docbook-sgml30/announce.txt
 /usr/share/sgml/docbook/sgml-dtd-3.0/cals-tbl.dtd
 /usr/share/sgml/docbook/sgml-dtd-3.0/catalog
 /usr/share/sgml/docbook/sgml-dtd-3.0/dbgenent.mod

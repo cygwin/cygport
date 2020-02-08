@@ -8,7 +8,7 @@ HOMEPAGE="http://dri.freedesktop.org/wiki/S3TC"
 SRC_URI="http://cgit.freedesktop.org/~mareko/libtxc_dxtn/snapshot/libtxc_dxtn-${VERSION}.tar.bz2"
 
 PKG_NAMES="${NAME} ${NAME}-devel"
-libtxc_dxtn_DOCS="COPYING"
+libtxc_dxtn_DOCS="COPYING Changelog"
 libtxc_dxtn_CONTENTS="usr/bin/cygtxc_dxtn.dll"
 libtxc_dxtn_devel_REQUIRES="libGL-devel"
 libtxc_dxtn_devel_CONTENTS="usr/include/txc_dxtn.h usr/lib/libtxc_dxtn.dll.a"

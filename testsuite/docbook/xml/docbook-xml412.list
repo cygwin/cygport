@@ -1,6 +1,7 @@
 /etc/postinstall/docbook-xml412.sh
 /etc/preremove/docbook-xml412.sh
 /usr/share/doc/docbook-xml412/ChangeLog
+/usr/share/doc/docbook-xml412/readme.txt
 /usr/share/sgml/docbook/xml-dtd-4.1.2/calstblx.dtd
 /usr/share/sgml/docbook/xml-dtd-4.1.2/dbcentx.mod
 /usr/share/sgml/docbook/xml-dtd-4.1.2/dbgenent.mod
