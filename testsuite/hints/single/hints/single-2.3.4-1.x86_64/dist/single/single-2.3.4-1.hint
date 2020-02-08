@@ -1,0 +1,6 @@
+category: Base
+requires:  cygwin
+sdesc: "Summary of hints for single package test"
+ldesc: "Description of hints for single package test"
+obsoletes: obsoleted-by-single
+

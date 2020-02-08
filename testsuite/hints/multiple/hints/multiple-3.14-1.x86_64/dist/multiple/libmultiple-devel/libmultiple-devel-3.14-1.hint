@@ -1,0 +1,6 @@
+category: libmultiple1
+requires:  
+sdesc: "Summary of hints for multiple package test"
+ldesc: "Description of hints for multiple package test"
+external-source: multiple
+

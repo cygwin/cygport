@@ -15,6 +15,8 @@ python2 = find_program('python2', required: false)
 tests = []
 
 subdir('download')
+subdir('hints')
+
 subdir('aspell')
 subdir('autotools')
 subdir('cmake')

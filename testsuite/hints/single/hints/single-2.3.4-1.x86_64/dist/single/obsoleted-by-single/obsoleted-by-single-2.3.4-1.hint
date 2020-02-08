@@ -1,0 +1,8 @@
+category: _obsolete
+requires: single
+sdesc: "Obsoleted by single"
+ldesc: "The obsoleted-by-single package is obsolete.  Selecting this package for
+installation will cause the single package, which replaces this
+one, to be installed instead."
+external-source: single
+

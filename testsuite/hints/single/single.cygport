@@ -1,0 +1,23 @@
+NAME="single"
+VERSION=2.3.4
+RELEASE=1
+SUMMARY="Summary of hints for single package test"
+DESCRIPTION="Description of hints for single package test"
+
+CATEGORY="Base"
+REQUIRES="cygwin"
+OBSOLETES="obsoleted-by-single"
+
+src_compile() {
+  :
+}
+
+src_install() {
+  cd ${D}
+  mkdir usr
+  touch usr/.keep
+}
+
+src_test() {
+  :
+}

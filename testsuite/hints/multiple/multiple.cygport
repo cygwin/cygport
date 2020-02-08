@@ -1,0 +1,33 @@
+NAME="multiple"
+VERSION=3.14
+RELEASE=1
+SUMMARY="Summary of hints for multiple package test"
+DESCRIPTION="Description of hints for multiple package test"
+
+PKG_NAMES="libmultiple1 libmultiple-devel"
+
+multiple_SUMMARY="Summary of hints for multiple package test (source)"
+multiple_DESCRIPTION="Description of hints for multiple package test (source)"
+multiple_CATEGORY="Base"
+
+libmultiple1_CONTENTS=""
+libmultiple1_CATEGORY="Base"
+libmultiple1_REQUIRES="cygwin"
+
+libmultiple_devel_CONTENTS="usr/include"
+libmultiple_devel_CATEGORY="Devel"
+libmultiple_devel_CATEGORY="libmultiple1"
+
+src_compile() {
+  :
+}
+
+src_install() {
+  cd ${D}
+  mkdir -p usr/include
+  touch usr/include/.keep
+}
+
+src_test() {
+  :
+}
