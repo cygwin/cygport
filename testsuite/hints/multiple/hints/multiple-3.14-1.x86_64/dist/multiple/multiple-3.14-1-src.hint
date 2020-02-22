@@ -1,0 +1,6 @@
+category: Base
+sdesc: "Summary of hints for multiple package test (source)"
+ldesc: "Description of hints for multiple package test (source)"
+skip:
+
+homepage: http://test.invalid

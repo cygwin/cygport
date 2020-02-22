@@ -3,6 +3,7 @@ VERSION=3.14
 RELEASE=1
 SUMMARY="Summary of hints for multiple package test"
 DESCRIPTION="Description of hints for multiple package test"
+HOMEPAGE="http://test.invalid"
 
 PKG_NAMES="libmultiple1 libmultiple-devel"
 
