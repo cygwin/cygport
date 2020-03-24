@@ -15,7 +15,7 @@ SRC_URI="https://github.com/cygwinports/cygport/${VERSION}/cygport-${VERSION}.ta
 ARCH=noarch
 
 # Build dependencies only
-DEPEND="groff help2man robodoc"
+BUILD_REQUIRES="groff help2man robodoc"
 # runtime deps to go in setup.hint, and note the escaped newline
 REQUIRES="autoconf automake binutils bzip2 coreutils diffstat diffutils \
 dos2unix findutils file gawk gcc-core gcc-g++ grep gzip lftp libtool lndir \

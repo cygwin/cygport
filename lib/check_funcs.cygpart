@@ -543,28 +543,19 @@ check_vala_module() {
 	return ${ret};
 }
 
-#****f* Information/DEPEND
+#****f* Information/BUILD_REQUIRES
 #  SYNOPSIS
-#  DEPEND="ATOM [ATOM] ..."
+#  BUILD_REQUIRES="ATOM [ATOM] ..."
 #  DESCRIPTION
-#  A list of build-time (not runtime) dependencies to be checked before calling
-#  src_compile.  Each ATOM can be in one of the following forms:
-#  * girepository(Foo-1.0): GObject Introspection modules
-#  * lua(foo): Lua extensions
-#  * ocaml(foo): Objective Caml libraries
-#  * perl(Foo::Bar): Perl modules
-#  * php(foo): PHP binary (PECL) extensions
-#  * php(Foo/Bar.php): PHP (PEAR) extensions
-#  * pkgconfig(foo-1.0): A -devel package providing this pkg-config file
-#  * pypy(foo): PyPy modules
-#  * python(foo): Python 2 modules
-#  * python3(foo): Python 3 modules
-#  * R(foo): R packages
-#  * ruby(foo): Ruby modules
-#  * tcl(foo): Tcl/Tk packages
-#  * tex(foo.ext): TeX modules
-#  * vala(foo-1.0): Vala bindings
-#  * foo: A Cygwin package (check skipped on non-Cygwin build systems)
+#  A single-line strings containing a list of packages on which this source
+#  package depends at build-time. This will be added to the build-depends:
+#  field of the auto-generated -src.hint file.
+#  NOTES
+#  * Unlike REQUIRES, there is no auto-detection of build-time requirements.
+#  * Any newlines in this variable must be escaped.
+#  * Unlike the deprecated DEPEND variable, only actual package names, or
+#    atoms that are listed PROVIDES of other packages, may be used in this
+#    variable.
 #****
 __check_depends() {
 	local atom failed_atoms;
@@ -574,14 +565,9 @@ __check_depends() {
 	        error "Compiling this package requires $(cross_compiling && echo -n ${CHOST}' ')binutils and gcc"
 	fi
 
-	if ! defined DEPEND
-	then
-		return 0;
-	fi
-
 	__deparenthesize() { echo "$@" | sed -e 's|[a-zA-Z0-9]*(\([^)]*\))|\1|' ; }
 
-	for atom in ${DEPEND}
+	for atom in ${BUILD_REQUIRES:-${DEPEND}}
 	do
 		case ${atom} in
 		girepository\(*)
