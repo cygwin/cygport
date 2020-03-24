@@ -4,7 +4,7 @@
 # deb2targz - converts Debian binary packages into tarballs
 #
 # Copyright (C) 2006-2019 Yaakov Selkowitz
-# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+# Provided by the Cygwin project <https://cygwin.com/>
 #
 # cygport is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

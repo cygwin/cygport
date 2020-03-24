@@ -3,7 +3,7 @@
 # help.cygpart - cygport command-line help functions
 #
 # Copyright (C) 2006-2019 Yaakov Selkowitz
-# Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+# Provided by the Cygwin project <https://cygwin.com/>
 #
 # cygport is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -73,8 +73,7 @@ __show_version() {
 
 		For more information about these matters, see the file named COPYING.
 
-		Written by Yaakov Selkowitz for the Cygwin Ports project
-		<http://sourceware.org/cygwinports/>.
+		Written by Yaakov Selkowitz for the Cygwin project <https://cygwin.com/>.
 		_EOF
 }
 

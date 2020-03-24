@@ -2,7 +2,7 @@
 "
 " Part of cygport - Cygwin packaging application
 " Copyright (C) 2006-2019 Yaakov Selkowitz
-" Provided by the Cygwin Ports project <http://sourceware.org/cygwinports/>
+" Provided by the Cygwin project <https://cygwin.com/>
 "
 " Copying and distribution of this file, with or without modification,
 " are permitted in any medium without royalty provided the copyright

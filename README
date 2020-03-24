@@ -222,12 +222,12 @@ cygport is hosted on Git.  Those interested in helping with cygport
 development, or testing the newest features should use branch 'master'.
 The sources and history can be browsed at:
 
-  https://github.com/cygwinports/cygport
+  https://github.com/cygwin/cygport
 
 Patches for cygport should be created through 'git format-patch' and 
 based on the 'master' branch.  The source repository can be cloned from:
 
-  https://github.com/cygwinports/cygport.git
+  https://github.com/cygwin/cygport.git
 
 To build cygport from git, meson and ninja are required. The following
 packages are required for the documentation: groff, help2man, and robodoc.

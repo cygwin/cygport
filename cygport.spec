@@ -7,8 +7,8 @@ Summary:        Cygwin package building tool
 
 License:        GPLv3+
 Group:          Development/Tools
-URL:            http://www.cygwinports.org
-Source0:        https://github.com/cygwinports/cygport/%{version}/%{name}-%{version}.tar.gz
+URL:            https://www.cygwin.com/
+Source0:        https://github.com/cygwin/cygport/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  meson
