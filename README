@@ -163,7 +163,7 @@ The standard arguments --help or --version may also be passed to cygport.
 
 See the data/sample.cygport file, included in the Cygwin package in
 ${prefix}/share/cygport, for a simple example.  Many more examples
-are available in the Cygwin Ports repository[5].
+are available in the Cygwin package git repositories[5].
 
 Please see the Cygport Reference Manual, included with this package, for
 documentation on the cygport API.
@@ -220,13 +220,15 @@ with setup.exe will automatically install all mandatory dependencies.
 
 cygport is hosted on Git.  Those interested in helping with cygport
 development, or testing the newest features should use branch 'master'.
-The sources and history can be browsed at:
+The sources and history can be browsed at either:
 
+  https://cygwin.com/git/gitweb.cgi?p=cygwin-apps/cygport.git
   https://github.com/cygwin/cygport
 
 Patches for cygport should be created through 'git format-patch' and 
 based on the 'master' branch.  The source repository can be cloned from:
 
+  https://cygwin.com/git/cygwin-apps/cygport.git
   https://github.com/cygwin/cygport.git
 
 To build cygport from git, meson and ninja are required. The following
@@ -245,4 +247,4 @@ Discussion on cygport should occur on the Cygwin-apps list
 [2] http://cygwin.com/setup.html#package_contents
 [3] http://gentoo-wiki.com/HOWTO_Gentoo_on_Cygwin
 [4] http://www.cygwin.com/ml/cygwin-apps/2006-03/msg00000.html
-[5] https://github.com/cygwinports
+[5] https://cygwin.com/git-cygwin-packages/
