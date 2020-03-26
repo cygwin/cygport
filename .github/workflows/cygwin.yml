@@ -63,7 +63,6 @@ jobs:
         libexif-devel,^
         libgdk_pixbuf2.0-devel,^
         libgirepository1.0-devel,^
-        libglibmm2.4-devel,^
         libicu-devel,^
         libkdecore4-devel,^
         libkdecore5-devel,^
