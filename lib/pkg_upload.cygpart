@@ -81,7 +81,7 @@ __pkg_upload() {
 
 	# Check that binary and source package files exist
 
-	pkg_files=("${NAME}/${NAME}-${PVR}-src.tar.xz" "${NAME}/${NAME}-${PVR}.hint")
+	pkg_files=("${NAME}/${NAME}-${PVR}-src.tar.xz" "${NAME}/${NAME}-${PVR}-src.hint")
 
 	while (( n < pkg_count ))
 	do
