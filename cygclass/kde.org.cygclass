@@ -108,8 +108,16 @@ kf5-*:5.*|breeze-icons*|oxygen-icons*)
 	SRC_URI="mirror://kde/${_stable}/frameworks/${VERSION%\.*}/${ORIG_PN:-${PN#kf5-}}-${PV}.tar.xz"
 	SRC_DIR="${ORIG_PN:-${PN#kf5-}}-${PV}"
 	;;
-kf5-*:1[5-9].*|kf5-*:[2-9][0-9].*)
+kf5-*:19.12.*|kf5-*:[2-9][0-9].*)
+	SRC_URI="mirror://kde/${_stable}/release-service/${VERSION}/src/${ORIG_PN:-${PN#kf5-}}-${PV}.tar.xz"
+	SRC_DIR="${ORIG_PN:-${PN#kf5-}}-${PV}"
+	;;
+kf5-*:19.*)
 	SRC_URI="mirror://kde/${_stable}/applications/${VERSION}/src/${ORIG_PN:-${PN#kf5-}}-${PV}.tar.xz"
+	SRC_DIR="${ORIG_PN:-${PN#kf5-}}-${PV}"
+	;;
+kf5-*:1[5678].*)
+	SRC_URI="mirror://kde/Attic/applications/${VERSION}/src/${ORIG_PN:-${PN#kf5-}}-${PV}.tar.xz"
 	SRC_DIR="${ORIG_PN:-${PN#kf5-}}-${PV}"
 	;;
 *:3.*)
@@ -125,11 +133,14 @@ kf5-*:1[5-9].*|kf5-*:[2-9][0-9].*)
 *:5.*)
 	SRC_URI="mirror://kde/${_stable}/plasma/${PV}/${ORIG_PN:-${PN}}-${PV}.tar.xz"
 	;;
-*:1[456].*)
-	SRC_URI="mirror://kde/Attic/applications/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
+*:19.12.*|*:[2-9][0-9].*)
+	SRC_URI="mirror://kde/${_stable}/release-service/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
 	;;
-*:1[789].*|*:[2-9][0-9].*)
+*:19.*)
 	SRC_URI="mirror://kde/${_stable}/applications/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
+	;;
+*:1[45678].*)
+	SRC_URI="mirror://kde/Attic/applications/${PV}/src/${ORIG_PN:-${PN}}-${PV}.tar.xz"
 	;;
 esac
 unset _stable
