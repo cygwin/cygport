@@ -707,6 +707,11 @@ __pkg_dist() {
 #  libfoo-devel will use libfoo_devel_CONFLICTS.
 #****
 
+	if defined pkg_tag
+	then
+		inform "Tagging package hint files as ${pkg_tag}"
+	fi
+
 	n=0;
 	while defined pkg_name[${n}]
 	do
