@@ -139,6 +139,11 @@ esac
 #  before inherit()ing perl.cygclass to have any effect.  If set, the package
 #  HOMEPAGE and SRC_URI are set to their usual locations on CPAN.
 #****
+#****v* perl.cygclass/CPAN_SUBDIR
+#  DESCRIPTION
+#  An optional directory component in the CPAN URL.  Some packages have an
+#  additional subdirectory component, which can be specified with this variable.
+#****
 #****v* perl.cygclass/CPAN_VERSION
 #  DESCRIPTION
 #  The published version of the Perl module on CPAN.  It is sometimes
@@ -190,7 +195,7 @@ HOMEPAGE="https://metacpan.org/release/${ORIG_PN}"
 #****
 cpan_author_ftp=${CPAN_AUTHOR^^}
 cpan_author_ver=${CPAN_VERSION:-${VERSION}}
-SRC_URI="mirror://cpan/authors/id/${cpan_author_ftp:0:1}/${cpan_author_ftp:0:2}/${cpan_author_ftp}/${ORIG_PN}-${cpan_author_ver}.${CPAN_TARBALL_SUFFIX:-tar.gz}"
+SRC_URI="mirror://cpan/authors/id/${cpan_author_ftp:0:1}/${cpan_author_ftp:0:2}/${cpan_author_ftp}${CPAN_SUBDIR+/}${CPAN_SUBDIR}/${ORIG_PN}-${cpan_author_ver}.${CPAN_TARBALL_SUFFIX:-tar.gz}"
 SRC_DIR="${ORIG_PN}-${cpan_author_ver}"
 unset cpan_author_ftp cpan_author_ver
 
