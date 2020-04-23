@@ -311,6 +311,8 @@ __pkg_diff() {
 		default_excludes+=" COPYING INSTALL ansi2knr.c ar-lib config-ml.in elisp-comp
 			mdate-sh mkinstalldirs py-compile symlink-tree tap-driver.sh test-driver
 			texinfo.tex ylwrap Makefile.in GNUmakefile.in makefile.in"
+		# from autoconf-archive
+		default_excludes+=" aminclude_static.am"
 	fi
 
 	if __config_equals with_libtool 1
