@@ -51,7 +51,7 @@ python3_distutils_compile() {
 		error "No Python Distutils module detected"
 	fi
 
-	$(readlink -f ${PYTHON3}) setup.py build "${@}" || error "setup.py build failed"
+	${PYTHON3} setup.py build "${@}" || error "setup.py build failed"
 }
 
 #****I* python3-distutils.cygclass/python3_distutils_install
@@ -67,7 +67,7 @@ python3_distutils_install() {
 		error "No Python Distutils module detected"
 	fi
 
-	$(readlink -f ${PYTHON3}) setup.py "${@}" install --no-compile --root=${D} || error "setup.py install failed"
+	${PYTHON3} setup.py "${@}" install --no-compile --root=${D} || error "setup.py install failed"
 }
 
 #****o* python3-distutils.cygclass/src_compile (python3-distutils)
