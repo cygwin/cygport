@@ -70,6 +70,12 @@ PYTHON3_CONFIG=/usr/bin/python3-config
 #****
 PYTHON3_VERSION=$(${PYTHON3} -c 'from distutils.sysconfig import * ; print(get_python_version());')
 
+#****d* python3.cygclass/PYTHON3_PKGVERSION
+#  DESCRIPTION
+#  The $major$minor version (without a dot) for use in package names.
+#****
+PYTHON3_PKGVERSION=${PYTHON3_VERSION/.}
+
 #****d* python3.cygclass/PYTHON3_ABIFLAGS
 #  DESCRIPTION
 #  The ABI flags of the current Python3 interpreter, as used in the names of
