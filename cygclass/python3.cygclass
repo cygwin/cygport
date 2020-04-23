@@ -56,13 +56,13 @@ check_prog_req python3
 #  DESCRIPTION
 #  Absolute path to the Python3 interpreter.
 #****
-PYTHON3=/usr/bin/python3
+PYTHON3=$(readlink -f /usr/bin/python3 | sed -e 's/\.exe$//')
 
 #****d* python3.cygclass/PYTHON3_CONFIG
 #  DESCRIPTION
 #  Absolute path to the Python3 config script.
 #****
-PYTHON3_CONFIG=/usr/bin/python3-config
+PYTHON3_CONFIG=$(readlink -f /usr/bin/python3-config)
 
 #****d* python3.cygclass/PYTHON3_VERSION
 #  DESCRIPTION
