@@ -61,14 +61,20 @@ inherit python.org
 #  DESCRIPTION
 #  A colon-seperated list of version(s) for which this module should be built.
 #  Some aliases are also accepted:
-#  * all: all supported versions (currently: 2.7, and 3.5 through 3.8)
-#  * future: the default and upcoming versions (currently: 2.7, 3.6, 3.7)
-#  * default: the default versions (currently: 2.7, 3.6, 3.7)
-#  * 2: the default 2.x version (currently: 2.7)
-#  * 3: the default 3.x version (currently: 3.6)
+#  * all: all supported 3.y versions (currently: 3.5 through 3.8)
+#  * future: the default and upcoming 3.y versions (currently: 3.7, 3.8)
+#  * default: the default 3.y version(s) (currently: 3.7, 3.8)
+#  * 2: the default 2.x version (permanently 2.7)
+#  * 3: the default 3.x version (currently: 3.8)
 #  This variable must be defined before inheriting python-wheel.cygclass.
 #  If undefined, "default" is assumed.
 #  NOTES
+#  * Python 2.7 is no longer supported upstream, and all code should be moving
+#    to Python 3.y.  While the 2.7 packages will remain for now, they should
+#    only be used when absolutely needed.  Therefore, 2.7 has been dropped from
+#    the all/default/future sets.  If you still need to provide your module for
+#    2.7 -- and 2.7 is still supported by the module -- then set a value of
+#    e.g. PYTHON_WHEEL_VERSIONS="2:default".
 #  * It is not generally expected for wheel packages to be built with "all".
 #    This option is primarily intended for the most basic modules used to
 #    build, install, and run other modules (e.g. setuptools, wheel, pip, and
@@ -82,13 +88,22 @@ inherit python.org
 
 # when the default versions of Python change, this and the ENSUREPIP_OPTIONS
 # switches need to be updated accordingly
-case "${PYTHON_WHEEL_VERSIONS:-default}" in
-all)      PYTHON_WHEEL_VERSIONS=2.7:3.5:3.6:3.8:3.7 ;;
-future)   PYTHON_WHEEL_VERSIONS=2.7:3.6:3.7 ;;
-default)  PYTHON_WHEEL_VERSIONS=2.7:3.6:3.7 ;;
-2)        PYTHON_WHEEL_VERSIONS=2.7 ;;
-3)        PYTHON_WHEEL_VERSIONS=3.6:3.7 ;;
-esac
+_tmp_wheel_v=
+: ${PYTHON_WHEEL_VERSIONS:=default}
+for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
+do
+	case "${ver}" in
+	all)		_tmp_wheel_v+=3.5:3.6:3.7:3.8: ;;
+	future)		_tmp_wheel_v+=3.7:3.8: ;;
+	default)	_tmp_wheel_v+=3.7:3.8: ;;
+	2)		_tmp_wheel_v+=2.7: ;;
+	3)		_tmp_wheel_v+=3.8: ;;
+	*)		_tmp_wheel_v+=$ver: ;;
+	esac
+done
+PYTHON_WHEEL_VERSIONS=${_tmp_wheel_v%:}
+unset _tmp_wheel_v
+
 for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
 do
 	check_prog_req pip${ver} python${ver//.}-pip
@@ -180,7 +195,7 @@ python_wheel_install() {
 		# ENSUREPIP_OPTIONS=install: pipX, pipX.Y, easy_install-X.Y
 
 		case ${ver} in
-		2.7|3.6) export ENSUREPIP_OPTIONS="install" ;;
+		2.7|3.8) export ENSUREPIP_OPTIONS="install" ;;
 		*) export ENSUREPIP_OPTIONS="altinstall" ;;
 		esac
 		pip${ver} install -I dist/${whl} --root ${D} --prefix /usr --no-compile --no-deps --no-warn-script-location || error "pip${ver} install failed"
