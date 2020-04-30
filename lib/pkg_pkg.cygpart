@@ -910,7 +910,7 @@ _EOF
 		then
 			cat > ${distdir}/${PN}/${PN}-${PVR}-src.hint <<-_EOF
 category: ${!pkg_category_var:-${CATEGORY}}
-build-depends: ${BUILD_REQUIRES}
+build-depends: cygport ${BUILD_REQUIRES}
 sdesc: "${!pkg_summary_var:-${SUMMARY}}"
 ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
 skip:
