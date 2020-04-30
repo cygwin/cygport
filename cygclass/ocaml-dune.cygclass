@@ -1,0 +1,99 @@
+################################################################################
+#
+# ocaml-dune.cygclass - functions for installing OCaml packages with Dune
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2019 Yaakov Selkowitz
+# Provided by the Cygwin project <https://cygwin.com/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/ocaml-dune.cygclass
+#  SYNOPSIS
+#  inherit ocaml-dune
+#  DESCRIPTION
+#  Dune is a relatively new, and increasingly popular, build system designed
+#  for OCaml projects.
+#
+#  This cygclass provides functions for building Dune-based OCaml packages.
+#  INHERITS
+#  ocaml.cygclass
+#  REQUIRES
+#  ocaml-dune
+#****
+
+inherit ocaml
+
+check_prog_req dune ocaml-dune
+
+#****v* ocaml-dune.cygclass/OCAML_DUNE_BUILD_ARGS
+#  DESCRIPTION
+#  Arguments, usually build targets, to be passed to "dune build"
+#  by ocaml_dune_compile.
+#****
+
+#****C* ocaml-dune.cygclass/ocaml_dune_compile
+#  DESCRIPTION
+#  Runs "dune build", passing OCAML_DUNE_BUILD_ARGS and any given arguments.
+#****
+ocaml_dune_compile() {
+	DUNE_BUILD_DIR=${B} \
+	dune build --display=verbose --profile=release ${OCAML_DUNE_BUILD_ARGS} ${@} || error "dune build failed"
+}
+
+#****I* ocaml-dune.cygclass/ocaml_dune_install
+#  DESCRIPTION
+#  Runs "dune install" with a destdir of $D.
+#****
+ocaml_dune_install() {
+	DUNE_BUILD_DIR=${B} \
+	dune install --display=verbose --destdir ${D} || error "dune install failed"
+}
+
+#****T* ocaml-dune.cygclass/ocaml_dune_test
+#  DESCRIPTION
+#  Runs "dune runtest" with any given test directories.
+#****
+ocaml_dune_test() {
+	DUNE_BUILD_DIR=${B} \
+	dune runtest --display=verbose ${OCAML_DUNE_TEST_TARGETS} ${@} || error "dune runtest failed"
+}
+
+#****o* ocaml-dune.cygclass/src_compile (ocaml-dune)
+#  DEFINITION
+src_compile() {
+	cd ${S}
+	ocaml_dune_compile
+}
+#****
+
+#****o* ocaml-dune.cygclass/src_install (ocaml-dune)
+#  DEFINITION
+src_install() {
+	cd ${S}
+	ocaml_dune_install
+}
+#****
+
+#****o* ocaml-dune.cygclass/src_test (ocaml-dune)
+#  DEFINITION
+src_test() {
+	cd ${S}
+	ocaml_dune_test
+}
+#****
+
+readonly -f ocaml_dune_compile ocaml_dune_install ocaml_dune_test

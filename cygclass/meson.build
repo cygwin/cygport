@@ -111,6 +111,8 @@
 #    For packages which depend on Lua or provide Lua modules.
 #  * ocaml.cygclass -
 #    For packages which depend on OCaml or provide OCaml libraries.
+#  * ocaml-dune.cygclass -
+#    For OCaml packages which use the Dune buildsystem.
 #  * octave.cygclass -
 #    For packages which depend on Octave or provide Octave modules.
 #  * perl.cygclass -
@@ -199,6 +201,7 @@ cygclasses = files(
     'multilib.cygclass',
     'ninja.cygclass',
     'ocaml.cygclass',
+    'ocaml-dune.cygclass',
     'octave.cygclass',
     'perl.cygclass',
     'php.cygclass',

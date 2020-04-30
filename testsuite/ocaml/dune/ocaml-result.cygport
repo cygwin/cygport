@@ -1,0 +1,15 @@
+inherit ocaml-dune
+
+NAME="ocaml-result"
+VERSION=1.5
+RELEASE=1
+CATEGORY="OCaml"
+SUMMARY="Compatibility library for OCaml result type"
+DESCRIPTION="Projects that want to use the new result type defined in OCaml
+4.03+ while staying compatible with older version of OCaml should use the
+Result module defined in this library."
+HOMEPAGE="https://github.com/janestreet/result"
+SRC_URI="${HOMEPAGE}/releases/download/${VERSION}/result-${VERSION}.tbz"
+SRC_DIR="result-${VERSION}"
+
+BUILD_REQUIRES="ocaml ocaml-dune"

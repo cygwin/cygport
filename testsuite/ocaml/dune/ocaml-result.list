@@ -1,0 +1,14 @@
+/usr/lib/ocaml/result/META
+/usr/lib/ocaml/result/dune-package
+/usr/lib/ocaml/result/opam
+/usr/lib/ocaml/result/result.a
+/usr/lib/ocaml/result/result.cma
+/usr/lib/ocaml/result/result.cmi
+/usr/lib/ocaml/result/result.cmt
+/usr/lib/ocaml/result/result.cmx
+/usr/lib/ocaml/result/result.cmxa
+/usr/lib/ocaml/result/result.cmxs
+/usr/lib/ocaml/result/result.ml
+/usr/share/doc/ocaml-result/CHANGES.md
+/usr/share/doc/ocaml-result/LICENSE.md
+/usr/share/doc/ocaml-result/README.md

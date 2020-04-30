@@ -386,6 +386,11 @@ __pkg_diff() {
 		default_excludes+=" *.linfo";
 	fi
 
+	if inherited ocaml
+	then
+		default_excludes+=" .merlin";
+	fi
+
 	# cd now so that wildcards aren't mistakenly expanded to match files in
 	# user's directory
 	cd ${workdir};
