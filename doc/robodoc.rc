@@ -77,6 +77,7 @@ headertypes:
 	P  "Postinstall Steps" cygport_postinstall_steps
 ignore files:
 	README
+	_build
 	build
 	CYGWIN-PATCHES
 	cygport-*.*.*
