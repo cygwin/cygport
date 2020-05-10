@@ -3,6 +3,10 @@ on:
   push:
     branches:
     - master
+    - 'cygport-*'
+    - 'topic/**
+    paths-ignore:
+    - '.github/**'
 
 env:
   CASE_INSENSITIVE: 1
