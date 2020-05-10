@@ -466,10 +466,9 @@ cygautoreconf() {
 
 		if cross_compiling || inherited toolchain
 		then
-			local ccsysroot=$(${CC} -print-sysroot)
-			local sysrootgtize=${ccsysroot}$(__target_prefix)/bin/autopoint
-			local sysrootltize=${ccsysroot}$(__target_prefix)/bin/libtoolize
-			local sysrootaclocaldir=${ccsysroot}$(__target_prefix)/share/aclocal
+			local sysrootgtize=${CC_SYSROOT}$(__target_prefix)/bin/autopoint
+			local sysrootltize=${CC_SYSROOT}$(__target_prefix)/bin/libtoolize
+			local sysrootaclocaldir=${CC_SYSROOT}$(__target_prefix)/share/aclocal
 			if [ -x ${sysrootltize} ]
 			then
 				LIBTOOLIZE=${sysrootltize}
