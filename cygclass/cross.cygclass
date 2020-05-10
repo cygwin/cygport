@@ -130,8 +130,14 @@ CROSS_LIBDIR="$(__host_prefix)/lib"
 #****
 CROSS_DATADIR="$(__host_prefix)/share"
 
-CC="${CHOST}-gcc"
-CXX="${CHOST}-g++"
+if inherited clang
+then
+	CC="${CHOST}-clang"
+	CXX="${CHOST}-clang++"
+else
+	CC="${CHOST}-gcc"
+	CXX="${CHOST}-g++"
+fi
 F77="${CHOST}-gfortran"
 FC="${CHOST}-gfortran"
 GOC="${CHOST}-gccgo"
@@ -139,7 +145,8 @@ OBJC="${CHOST}-gcc"
 OBJCXX="${CHOST}-g++"
 PKG_CONFIG="${CHOST}-pkg-config"
 
-CC_SYSROOT=$(${CC} -print-sysroot)
+# clang does not support -print-sysroot
+CC_SYSROOT=$(${CHOST}-gcc -print-sysroot)
 
 # native binutils do not install $host- prefixed equivalents, so we must not
 # prefix them when "crossbacking" (e.g. building i686-cygwin sysroot libs on
@@ -182,7 +189,7 @@ case ${CHOST} in
 	;;
 esac
 
-if ! check_tool gcc || ! check_tool strip
+if ! check_prog ${CC} || ! check_prog ${STRIP}
 then
 	error "This package requires ${CHOST} binutils and gcc"
 fi
