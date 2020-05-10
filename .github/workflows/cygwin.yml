@@ -1,5 +1,8 @@
 name: Cygwin
-on: [push, pull_request]
+on:
+  push:
+    branches:
+    - master
 
 env:
   CASE_INSENSITIVE: 1
