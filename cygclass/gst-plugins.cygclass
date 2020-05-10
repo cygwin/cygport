@@ -3,7 +3,7 @@
 # gst-plugins.cygclass - functions for building GStreamer Plugins
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006-2019 Yaakov Selkowitz
+# Copyright (C) 2006-2020 Yaakov Selkowitz
 # Provided by the Cygwin project <https://cygwin.com/>
 #
 # cygport is free software: you can redistribute it and/or modify
