@@ -39,7 +39,6 @@ jobs:
         R,^
         aspell,^
         automake,^
-        automoc4,^
         bzr,^
         cmake,^
         cvs,^
@@ -63,21 +62,16 @@ jobs:
         libQt5Svg-devel,^
         libQtTest4-devel,^
         libRmath,^
-        libartsc-devel,^
         libbz2-devel,^
         libcairomm1.0-devel,^
         libcrypt-devel,^
-        libexif-devel,^
         libgdk_pixbuf2.0-devel,^
         libgirepository1.0-devel,^
         libglibmm2.4-devel,^
         libicu-devel,^
-        libkdecore4-devel,^
-        libkdecore5-devel,^
         liblzma-devel,^
         libnotify-devel,^
         libpango1.0-devel,^
-        libqca-devel,^
         libqca-qt5-devel,^
         libtirpc-devel,^
         libxfce4ui1-devel,^
