@@ -117,9 +117,8 @@ mate_autoreconf() {
 
 	if cross_compiling
 	then
-		local ccsysroot=$(${CC} -print-sysroot)
-		local sysrootltize=${ccsysroot}$(__target_prefix)/bin/libtoolize
-		local sysrootaclocaldir=${ccsysroot}$(__target_prefix)/share/aclocal
+		local sysrootltize=${CC_SYSROOT}$(__target_prefix)/bin/libtoolize
+		local sysrootaclocaldir=${CC_SYSROOT}$(__target_prefix)/share/aclocal
 		if [ -x ${sysrootltize} ]
 		then
 			export LIBTOOLIZE=${sysrootltize}
