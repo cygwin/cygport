@@ -1,3 +1,16 @@
+0.34.0:
+	* New BUILD_REQUIRES variable used in separate -src.hint files.
+	* New PROVIDES and CONFLICTS variables for setting in .hint files.
+	* New unstable src_patch_apply_hook function.
+	* Improved OCaml dependency detection.
+	* kde.org: updated for KDE 19.12 and newer.
+	* meson: cygmeson now passes --auto-features=enabled.
+	* ocaml-dune: new cygclass for Dune-based OCaml packages.
+	* perl: new CPAN_SUBDIR optional variable.
+	* python3: new PYTHON3_PKGVERSION define.
+	* python-wheel: updated for Python 3.8 and obsoletion of 2.7.
+	* Numerous testsuite improvements.
+
 0.33.1:
 	* Updates for changes in PHP 7.3 and Ruby 2.6/RubyGems 3.0.
 
