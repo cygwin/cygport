@@ -1,7 +1,7 @@
 " cygport.vim - Syntax highlighting support for Vim
 "
 " Part of cygport - Cygwin packaging application
-" Copyright (C) 2006-2020 Yaakov Selkowitz
+" Copyright (C) 2006-2020 Cygport authors
 " Provided by the Cygwin project <https://cygwin.com/>
 "
 " Copying and distribution of this file, with or without modification,

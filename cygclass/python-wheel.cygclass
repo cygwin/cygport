@@ -3,7 +3,7 @@
 # python-wheel.cygclass - for building Wheels for multiple Python versions
 #
 # Part of cygport - Cygwin packaging application
-# Copyright (C) 2006-2020 Yaakov Selkowitz
+# Copyright (C) 2006-2020 Cygport authors
 # Provided by the Cygwin project <https://cygwin.com/>
 #
 # cygport is free software: you can redistribute it and/or modify

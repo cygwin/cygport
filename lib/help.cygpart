@@ -2,7 +2,7 @@
 #
 # help.cygpart - cygport command-line help functions
 #
-# Copyright (C) 2006-2020 Yaakov Selkowitz
+# Copyright (C) 2006-2020 Cygport authors
 # Provided by the Cygwin project <https://cygwin.com/>
 #
 # cygport is free software: you can redistribute it and/or modify
@@ -62,7 +62,7 @@ __show_help() {
 __show_version() {
 	cat <<-_EOF
 		cygport ${_cygport_version}
-		Copyright (C) 2020 Yaakov Selkowitz
+		Copyright (C) 2020 Cygport authors
 
 		This program comes with NO WARRANTY, to the extent permitted by law.
 
@@ -73,7 +73,7 @@ __show_version() {
 
 		For more information about these matters, see the file named COPYING.
 
-		Written by Yaakov Selkowitz for the Cygwin project <https://cygwin.com/>.
+		Written for the Cygwin project <https://cygwin.com/>.
 		_EOF
 }
 
