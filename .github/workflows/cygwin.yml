@@ -88,6 +88,7 @@ jobs:
         monotone,^
         ninja,^
         ocaml,^
+        ocaml-dune,^
         ocaml-findlib,^
         patch,^
         perl,^
