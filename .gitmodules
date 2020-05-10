@@ -1,3 +1,3 @@
 [submodule "data/gnuconfig"]
 	path = data/gnuconfig
-	url = https://git.sv.gnu.org/r/config.git
+	url = https://git.savannah.gnu.org/git/config.git
