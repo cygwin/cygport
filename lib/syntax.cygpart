@@ -211,18 +211,25 @@ __cross_compiling_error() {
 	fi
 }
 
-__host_prefix() {
+__triplet_is_embedded() {
+	local ret=1;
+	case ${1} in
+	avr*|*-aout|*-coff|*-eabi*|*-elf|*-minix*|mmix*|*-msdosdjgpp*|msp430*|*-rdos*)
+		ret=0 ;;
+	esac
+	return ${ret}
+}
+
+__triplet_native_prefix() {
+	local h=${1}
 	local prefix
 
-	if __host_is_embedded
+	if __triplet_is_embedded ${h}
 	then
-		prefix=/usr/${CHOST}
-	elif [[ ${CHOST} =~ "-mingw32" ]]
+		prefix=/
+	elif [[ ${h} =~ "-mingw32" ]]
 	then
-		prefix=${CROSS_SYSROOT}/mingw
-	elif inherited cross
-	then
-		prefix=${CROSS_SYSROOT}/usr
+		prefix=/mingw
 	else
 		prefix=/usr
 	fi
@@ -230,76 +237,50 @@ __host_prefix() {
 	echo -n ${prefix}
 }
 
-__host_sysconfdir() {
-	local sysconfdir
-
-	if __host_is_embedded
-	then
-		# this should probably never happen
-		sysconfdir=/usr/${CHOST}/etc
-	elif [[ ${CHOST} =~ "-mingw32" ]]
-	then
-		sysconfdir=${CROSS_SYSROOT}/mingw/etc
-	elif inherited cross
-	then
-		sysconfdir=${CROSS_SYSROOT}/etc
-	else
-		sysconfdir=/etc
-	fi
-
-	echo -n ${sysconfdir}
-}
-
-__host_localstatedir() {
-	local localstatedir
-
-	if __host_is_embedded
-	then
-		# this should probably never happen
-		localstatedir=/usr/${CHOST}/var
-	elif [[ ${CHOST} =~ "-mingw32" ]]
-	then
-		localstatedir=${CROSS_SYSROOT}/mingw/var
-	elif inherited cross
-	then
-		localstatedir=${CROSS_SYSROOT}/var
-	else
-		localstatedir=/var
-	fi
-
-	echo -n ${localstatedir}
-}
-
-__host_is_embedded() {
-	local ret=1;
-	case ${CHOST} in
-	avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|mmix|*-msdosdjgpp*|msp430|*-rdos*)
-		ret=0 ;;
-	esac
-	return ${ret}
-}
-
-__target_prefix() {
+__triplet_prefix() {
+	local h=${1}
 	local prefix
 
-	# FIXME: certainly other exceptions exist?
-	case ${CTARGET} in
-		*-*-mingw*)	prefix=/mingw ;;
-		avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|mmix|*-msdosdjgpp*|msp430|*-rdos*)
-				prefix=/ ;;
-		*)		prefix=/usr ;;
-	esac
+	if __triplet_is_embedded ${h}
+	then
+		prefix=/usr/${h}
+	elif [[ ${h} =~ "-mingw32" ]]
+	then
+		prefix=/usr/${h}/sys-root/mingw
+	elif [ -n "${CC_SYSROOT}" ]
+	then
+		prefix=${CC_SYSROOT}/usr
+	else
+		prefix=/usr
+	fi
 
 	echo -n ${prefix}
 }
 
+__host_prefix() {
+	__triplet_prefix ${CHOST}
+}
+
+__host_sysconfdir() {
+	local pfx=$(__triplet_prefix ${CHOST})
+	echo -n ${pfx%/usr}/etc
+}
+
+__host_localstatedir() {
+	local pfx=$(__triplet_prefix ${CHOST})
+	echo -n ${pfx%/usr}/var
+}
+
+__host_is_embedded() {
+	__triplet_is_embedded ${CHOST}
+}
+
+__target_prefix() {
+	__triplet_native_prefix ${CTARGET}
+}
+
 __target_is_embedded() {
-	local ret=1;
-	case ${CTARGET} in
-	avr|*-aout|*-coff|*-eabi*|*-elf|*-minix*|mmix|*-msdosdjgpp*|msp430|*-rdos*)
-		ret=0 ;;
-	esac
-	return ${ret}
+	__triplet_is_embedded ${CTARGET}
 }
 
 #****** Format/Globals
@@ -371,5 +352,6 @@ __target_is_embedded() {
 
 readonly -f defined pushd popd error warning inform verbose __stage __step \
 	__log_init __check_triplet cross_compiling __cross_compiling_error \
+	__triplet_is_embedded __triplet_native_prefix __triplet_prefix \
 	__host_prefix __host_sysconfdir __host_localstatedir \
 	__host_is_embedded __target_prefix __target_is_embedded
