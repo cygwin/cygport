@@ -47,7 +47,7 @@ cygqmake3() {
 		error "libqt3-devel is required to build this package"
 	fi
 
-	${QT3_QMAKE} -spec ${QMAKESPEC} \
+	${QT3_QMAKE} -spec $(__qt3_qmakespec) \
 		QMAKE_CC=${CC} \
 		QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
 		QMAKE_CXX=${CXX} \

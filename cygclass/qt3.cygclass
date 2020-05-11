@@ -66,14 +66,14 @@
 #  Directory containing the Qt3 documentation and translation data.
 #****
 
-if inherited cross
+if cross_compiling
 then
-	export QTDIR=${CROSS_PREFIX}
-	QT3_BINDIR=${CROSS_BINDIR}
-	QT3_INCLUDEDIR=${CROSS_INCLUDEDIR}/qt3
-	QT3_LIBDIR=${CROSS_LIBDIR}
-	QT3_PLUGINSDIR=${CROSS_LIBDIR}/qt3/plugins
-	QT3_DATADIR=${CROSS_DATADIR}/qt3
+	export QTDIR=$(__host_prefix)
+	QT3_BINDIR=$(__host_prefix)/bin
+	QT3_INCLUDEDIR=$(__host_prefix)/include/qt3
+	QT3_LIBDIR=$(__host_prefix)/lib
+	QT3_PLUGINSDIR=${QT3_LIBDIR}/qt3/plugins
+	QT3_DATADIR=$(__host_prefix)/share/qt3
 else
 	export QTDIR=/usr/lib/qt3
 	QT3_BINDIR=${QTDIR}/bin
