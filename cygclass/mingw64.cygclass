@@ -1,0 +1,205 @@
+################################################################################
+#
+# mingw64.cygclass - for building cross-compiled MinGW x86_64 packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2020 Cygport authors
+# Provided by the Cygwin project <https://cygwin.com/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/mingw64.cygclass
+#  DESCRIPTION
+#  This cygclass provides the mingw64_* functions and MINGW64_ definitions
+#  for cross-compiling packages for Windows/x86 using the MinGW-w64 toolchain.
+#  Generally, this cygclass is not inherit'ed directly, but its functions
+#  and definitions are used by inherit'ing mingw.cygclass.
+#  INHERITED BY
+#  mingw.cygclass
+#  REQUIRES
+#  mingw64-x86_64-gcc-core
+#****
+inherit mingw-internal
+
+#****d* mingw64.cygclass/MINGW64_HOST
+#  DESCRIPTION
+#  The host triplet for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_TARGET
+#  DESCRIPTION
+#  The target triplet for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_CC
+#  DESCRIPTION
+#  The C compiler for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_CXX
+#  DESCRIPTION
+#  The C++ compiler for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_F77
+#  DESCRIPTION
+#  The Fortran 77 compiler for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_FC
+#  DESCRIPTION
+#  The Fortran 95 compiler for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_AR
+#  DESCRIPTION
+#  The static library archiver for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_DLLTOOL
+#  DESCRIPTION
+#  The DLL import creation tool for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_NM
+#  DESCRIPTION
+#  The symbol listing tool for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_RANLIB
+#  DESCRIPTION
+#  The static library indexer for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_RC
+#  DESCRIPTION
+#  The Windows resource compiler for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_STRIP
+#  DESCRIPTION
+#  The symbol remover tool for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_PKG_CONFIG
+#  DESCRIPTION
+#  The pkg-config tool for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_QT5_QMAKE
+#  DESCRIPTION
+#  The Qt5 qmake tool for the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_SYSROOT
+#  DESCRIPTION
+#  The virtual root for files used by the x86_64 toolchain.
+#****
+#****d* mingw64.cygclass/MINGW64_PREFIX
+#  DESCRIPTION
+#  The prefix directory under the x86_64 sysroot.
+#****
+#****d* mingw64.cygclass/MINGW64_BINDIR
+#  DESCRIPTION
+#  The bin directory under the x86_64 sysroot
+#****
+#****d* mingw64.cygclass/MINGW64_INCLUDEDIR
+#  DESCRIPTION
+#  The include directory under the x86_64 sysroot.
+#****
+#****d* mingw64.cygclass/MINGW64_LIBDIR
+#  DESCRIPTION
+#  The lib directory under the x86_64 sysroot.
+#****
+#****d* mingw64.cygclass/MINGW64_DATADIR
+#  DESCRIPTION
+#  The data directory under the x86_64 sysroot.
+#****
+
+__mingw_init x86_64 64
+
+#****C* mingw64.cygclass/mingw64_lndirs
+#  DESCRIPTION
+#  Runs lndirs into the build directory used by other mingw64_* functions.
+#****
+mingw64_lndirs() {
+	__mingw_wrapper ${MINGW64_HOST} lndirs ${S}
+}
+
+#****C* mingw64.cygclass/mingw64_configure
+#  DESCRIPTION
+#  Runs cygconf using the x86_64 toolchain.  Any arguments are passed along.
+#****
+mingw64_configure() {
+	__mingw_wrapper ${MINGW64_HOST} cygconf ${MINGW64_CONFIGURE_ARGS} "${@}"
+}
+
+#****C* mingw64.cygclass/mingw64_make
+#  DESCRIPTION
+#  Runs cygmake using the x86_64 toolchain.  Any arguments are passed along.
+#****
+mingw64_make() {
+	__mingw_wrapper ${MINGW64_HOST} cygmake "${@}"
+}
+
+#****C* mingw64.cygclass/mingw64_cmake
+#  DESCRIPTION
+#  Runs cygcmake using the x86_64 toolchain.  Any arguments are passed along.
+#****
+mingw64_cmake() {
+	__mingw_wrapper ${MINGW64_HOST} cygcmake ${MINGW64_CMAKE_ARGS} "${@}"
+}
+
+#****C* mingw64.cygclass/mingw64_meson
+#  DESCRIPTION
+#  Runs cygmeson using the x86_64 toolchain.  Any arguments are passed along.
+#****
+mingw64_meson() {
+	__MINGW_WRAPPER_NO_CWD=1 \
+	__mingw_wrapper ${MINGW64_HOST} cygmeson ${MINGW64_MESON_ARGS} "${@}"
+}
+
+#****C* mingw64.cygclass/mingw64_ninja
+#  DESCRIPTION
+#  Runs cygninja using the x86_64 toolchain.  Any arguments are passed along.
+#****
+mingw64_ninja() {
+	__mingw_wrapper ${MINGW64_HOST} cygninja "${@}"
+}
+
+#****C* mingw64.cygclass/mingw64_qt5_qmake
+#  DESCRIPTION
+#  Runs cygqmake5 using the x86_64 toolchain.  Any arguments are passed along.
+#****
+mingw64_qt5_qmake() {
+	__mingw_wrapper ${MINGW64_HOST} cygqmake5 "${@}"
+}
+
+#****I* mingw64.cygclass/mingw64_make_install
+#  DESCRIPTION
+#  Runs cyginstall using the x86_64 toolchain.  Any arguments are passed along.
+#****
+mingw64_make_install() {
+	__mingw_wrapper ${MINGW64_HOST} cyginstall "${@}"
+}
+
+#****I* mingw64.cygclass/mingw64_ninja_install
+#  DESCRIPTION
+#  Runs ninja_install using the x86_64 toolchain.  Any arguments are passed along.
+#****
+mingw64_ninja_install() {
+	DESTDIR=${D} \
+	__mingw_wrapper ${MINGW64_HOST} cygninja install "${@}"
+}
+
+#****I* mingw64.cygclass/mingw64_qt5_qmake_install
+#  DESCRIPTION
+#  Runs qt5_qmake_install using the x86_64 toolchain.  Any arguments are passed along.
+#****
+mingw64_qt5_qmake_install() {
+	DESTDIR=${D} \
+	__mingw_wrapper ${MINGW64_HOST} qt5_qmake_install "${@}"
+}
+
+readonly -f mingw64_lndirs mingw64_configure mingw64_make mingw64_cmake \
+	mingw64_meson mingw64_ninja mingw64_qt5_qmake mingw64_make_install \
+	mingw64_ninja_install mingw64_qt5_qmake_install

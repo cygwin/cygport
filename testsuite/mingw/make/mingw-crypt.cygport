@@ -16,13 +16,8 @@ PATCH_URI="1.1-mingw.patch"
 
 src_compile() {
 	cd ${B}
-
-	mkdir -p ${B}/${MINGW32_TARGET}
-	lndirs ${S} ${B}/${MINGW32_TARGET}
+	mingw_lndirs
 	mingw32_make CC=${MINGW32_CC} AR=${MINGW32_AR}
-
-	mkdir -p ${B}/${MINGW64_TARGET}
-	lndirs ${S} ${B}/${MINGW64_TARGET}
 	mingw64_make CC=${MINGW64_CC} AR=${MINGW64_AR}
 }
 

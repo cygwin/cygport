@@ -1,6 +1,6 @@
 ################################################################################
 #
-# mingw.cygclass - for building cross-compiled packages
+# mingw.cygclass - for building cross-compiled MinGW packages
 #
 # Part of cygport - Cygwin packaging application
 # Copyright (C) 2006-2020 Cygport authors
@@ -40,7 +40,15 @@
 #  Supported build systems for cross-compiling are autotools, cmake, meson,
 #  Qt5 qmake, and custom Makefiles.  The respective cygclasses still need
 #  to be inherit()ed, with mingw.cygclass being inherit()ed last.
+#  INHERITS
+#  mingw32.cygclass, mingw64.cygclass, mingwarm32.cygclass, mingwarm64.cygclass
 #****
+
+case ${MINGW_ARCHS:=i686;x86_64} in
+all) MINGW_ARCHS="i686;x86_64;armv7;aarch64" ;;
+esac
+
+inherit mingw32 mingw64 mingwarm32 mingwarm64
 
 ARCH=noarch
 unset ARCH_i686 ARCH_x86_64
@@ -55,387 +63,6 @@ unset ARCH_i686 ARCH_x86_64
 #  This variable must be defined before inherit()ing mingw.cygclass.
 #  If undefined, defaults to "i686;x86_64".
 #****
-case ${MINGW_ARCHS:=i686;x86_64} in
-all) MINGW_ARCHS="i686;x86_64;armv7;aarch64" ;;
-esac
-
-#****d* mingw.cygclass/MINGW32_HOST
-#  DESCRIPTION
-#  The host triplet for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_TARGET
-#  DESCRIPTION
-#  The target triplet for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_CC
-#  DESCRIPTION
-#  The C compiler for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_CXX
-#  DESCRIPTION
-#  The C++ compiler for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_F77
-#  DESCRIPTION
-#  The Fortran 77 compiler for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_FC
-#  DESCRIPTION
-#  The Fortran 95 compiler for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_AR
-#  DESCRIPTION
-#  The static library archiver for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_DLLTOOL
-#  DESCRIPTION
-#  The DLL import creation tool for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_NM
-#  DESCRIPTION
-#  The symbol listing tool for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_RANLIB
-#  DESCRIPTION
-#  The static library indexer for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_RC
-#  DESCRIPTION
-#  The Windows resource compiler for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_STRIP
-#  DESCRIPTION
-#  The symbol remover tool for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_PKG_CONFIG
-#  DESCRIPTION
-#  The pkg-config tool for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_QT5_QMAKE
-#  DESCRIPTION
-#  The Qt5 qmake tool for the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_SYSROOT
-#  DESCRIPTION
-#  The virtual root for files used by the i686 toolchain.
-#****
-#****d* mingw.cygclass/MINGW32_PREFIX
-#  DESCRIPTION
-#  The prefix directory under the i686 sysroot.
-#****
-#****d* mingw.cygclass/MINGW32_BINDIR
-#  DESCRIPTION
-#  The bin directory under the i686 sysroot
-#****
-#****d* mingw.cygclass/MINGW32_INCLUDEDIR
-#  DESCRIPTION
-#  The include directory under the i686 sysroot.
-#****
-#****d* mingw.cygclass/MINGW32_LIBDIR
-#  DESCRIPTION
-#  The lib directory under the i686 sysroot.
-#****
-#****d* mingw.cygclass/MINGW32_DATADIR
-#  DESCRIPTION
-#  The data directory under the i686 sysroot.
-#****
-
-#****d* mingw.cygclass/MINGW64_HOST
-#  DESCRIPTION
-#  The host triplet for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_TARGET
-#  DESCRIPTION
-#  The target triplet for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_CC
-#  DESCRIPTION
-#  The C compiler for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_CXX
-#  DESCRIPTION
-#  The C++ compiler for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_F77
-#  DESCRIPTION
-#  The Fortran 77 compiler for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_FC
-#  DESCRIPTION
-#  The Fortran 95 compiler for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_AR
-#  DESCRIPTION
-#  The static library archiver for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_DLLTOOL
-#  DESCRIPTION
-#  The DLL import creation tool for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_NM
-#  DESCRIPTION
-#  The symbol listing tool for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_RANLIB
-#  DESCRIPTION
-#  The static library indexer for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_RC
-#  DESCRIPTION
-#  The Windows resource compiler for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_STRIP
-#  DESCRIPTION
-#  The symbol remover tool for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_PKG_CONFIG
-#  DESCRIPTION
-#  The pkg-config tool for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_QT5_QMAKE
-#  DESCRIPTION
-#  The Qt5 qmake tool for the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_SYSROOT
-#  DESCRIPTION
-#  The virtual root for files used by the x86_64 toolchain.
-#****
-#****d* mingw.cygclass/MINGW64_PREFIX
-#  DESCRIPTION
-#  The prefix directory under the x86_64 sysroot.
-#****
-#****d* mingw.cygclass/MINGW64_BINDIR
-#  DESCRIPTION
-#  The bin directory under the x86_64 sysroot
-#****
-#****d* mingw.cygclass/MINGW64_INCLUDEDIR
-#  DESCRIPTION
-#  The include directory under the x86_64 sysroot.
-#****
-#****d* mingw.cygclass/MINGW64_LIBDIR
-#  DESCRIPTION
-#  The lib directory under the x86_64 sysroot.
-#****
-#****d* mingw.cygclass/MINGW64_DATADIR
-#  DESCRIPTION
-#  The data directory under the x86_64 sysroot.
-#****
-
-#****d* mingw.cygclass/MINGWARM32_HOST
-#  DESCRIPTION
-#  The host triplet for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_TARGET
-#  DESCRIPTION
-#  The target triplet for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_CC
-#  DESCRIPTION
-#  The C compiler for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_CXX
-#  DESCRIPTION
-#  The C++ compiler for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_F77
-#  DESCRIPTION
-#  The Fortran 77 compiler for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_FC
-#  DESCRIPTION
-#  The Fortran 95 compiler for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_AR
-#  DESCRIPTION
-#  The static library archiver for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_DLLTOOL
-#  DESCRIPTION
-#  The DLL import creation tool for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_NM
-#  DESCRIPTION
-#  The symbol listing tool for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_RANLIB
-#  DESCRIPTION
-#  The static library indexer for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_RC
-#  DESCRIPTION
-#  The Windows resource compiler for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_STRIP
-#  DESCRIPTION
-#  The symbol remover tool for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_PKG_CONFIG
-#  DESCRIPTION
-#  The pkg-config tool for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_QT5_QMAKE
-#  DESCRIPTION
-#  The Qt5 qmake tool for the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_SYSROOT
-#  DESCRIPTION
-#  The virtual root for files used by the armv7 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM32_PREFIX
-#  DESCRIPTION
-#  The prefix directory under the armv7 sysroot.
-#****
-#****d* mingw.cygclass/MINGWARM32_BINDIR
-#  DESCRIPTION
-#  The bin directory under the armv7 sysroot
-#****
-#****d* mingw.cygclass/MINGWARM32_INCLUDEDIR
-#  DESCRIPTION
-#  The include directory under the armv7 sysroot.
-#****
-#****d* mingw.cygclass/MINGWARM32_LIBDIR
-#  DESCRIPTION
-#  The lib directory under the armv7 sysroot.
-#****
-#****d* mingw.cygclass/MINGWARM32_DATADIR
-#  DESCRIPTION
-#  The data directory under the armv7 sysroot.
-#****
-
-#****d* mingw.cygclass/MINGWARM64_HOST
-#  DESCRIPTION
-#  The host triplet for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_TARGET
-#  DESCRIPTION
-#  The target triplet for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_CC
-#  DESCRIPTION
-#  The C compiler for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_CXX
-#  DESCRIPTION
-#  The C++ compiler for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_F77
-#  DESCRIPTION
-#  The Fortran 77 compiler for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_FC
-#  DESCRIPTION
-#  The Fortran 95 compiler for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_AR
-#  DESCRIPTION
-#  The static library archiver for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_DLLTOOL
-#  DESCRIPTION
-#  The DLL import creation tool for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_NM
-#  DESCRIPTION
-#  The symbol listing tool for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_RANLIB
-#  DESCRIPTION
-#  The static library indexer for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_RC
-#  DESCRIPTION
-#  The Windows resource compiler for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_STRIP
-#  DESCRIPTION
-#  The symbol remover tool for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_PKG_CONFIG
-#  DESCRIPTION
-#  The pkg-config tool for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_QT5_QMAKE
-#  DESCRIPTION
-#  The Qt5 qmake tool for the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_SYSROOT
-#  DESCRIPTION
-#  The virtual root for files used by the aarch64 toolchain.
-#****
-#****d* mingw.cygclass/MINGWARM64_PREFIX
-#  DESCRIPTION
-#  The prefix directory under the aarch64 sysroot.
-#****
-#****d* mingw.cygclass/MINGWARM64_BINDIR
-#  DESCRIPTION
-#  The bin directory under the aarch64 sysroot
-#****
-#****d* mingw.cygclass/MINGWARM64_INCLUDEDIR
-#  DESCRIPTION
-#  The include directory under the aarch64 sysroot.
-#****
-#****d* mingw.cygclass/MINGWARM64_LIBDIR
-#  DESCRIPTION
-#  The lib directory under the aarch64 sysroot.
-#****
-#****d* mingw.cygclass/MINGWARM64_DATADIR
-#  DESCRIPTION
-#  The data directory under the aarch64 sysroot.
-#****
-
-__mingw_init() {
-	local c h n p r s t v
-
-	for t in 32:i686 64:x86_64 ARM32:armv7 ARM64:aarch64
-	do
-		declare -g MINGW${t%:*}_HOST="${t#*:}-w64-mingw32"
-		declare -g MINGW${t%:*}_TARGET="${t#*:}-w64-mingw32"
-
-		h=MINGW${t%:*}_HOST
-		for c in CC=gcc CXX=g++ F77=gfortran FC=gfortran OBJC=gcc OBJCXX=g++ \
-			AR=ar DLLTOOL=dlltool NM=nm OBJDUMP=objdump RANLIB=ranlib \
-			RC=windres STRIP=strip PKG_CONFIG=pkg-config QT5_QMAKE=qmake-qt5
-		do
-			declare -g MINGW${t%:*}_${c%=*}="${!h}-${c#*=}"
-		done
-		if inherited clang
-		then
-			declare -g MINGW${t%:*}_CC="${!h}-clang"
-			declare -g MINGW${t%:*}_CXX="${!h}-clang++"
-		fi
-
-		declare -g MINGW${t%:*}_SYSROOT="/usr/${!h}/sys-root"
-		r=MINGW${t%:*}_SYSROOT
-		declare -g MINGW${t%:*}_PREFIX="${!r}/mingw"
-		p=MINGW${t%:*}_PREFIX
-		declare -g MINGW${t%:*}_BINDIR="${!p}/bin"
-		declare -g MINGW${t%:*}_INCLUDEDIR="${!p}/include"
-		declare -g MINGW${t%:*}_LIBDIR="${!p}/lib"
-		declare -g MINGW${t%:*}_DATADIR="${!p}/share"
-
-		if ! [[ ${MINGW_ARCHS} =~ "${t#*:}" ]]
-		then
-			continue
-		fi
-
-		v=MINGW${t%:*}_CC
-		s=MINGW${t%:*}_STRIP
-		if ! (check_prog ${!v} && check_prog ${!s})
-		then
-			error "This package requires ${t#*:}-w64-mingw32 binutils and gcc"
-		fi
-
-		if [[ "${NAME}" =~ "mingw-" ]]
-		then
-			_CYGPORT_INTERNAL_multi_doc_=1
-			n=${NAME#mingw-}
-			PKG_NAMES+=" mingw64-${t#*:}-${n}"
-			declare -g mingw64_${t#*:}_${n//[-\.]/_}_CONTENTS="${!p#/} usr/share/doc/mingw64-${t#*:}-${n}/"
-		fi
-	done
-}
-
-__mingw_init
 
 #****v* mingw.cygclass/MINGW_BUILDDIR_SUFFIX
 #  DESCRIPTION
@@ -448,106 +75,19 @@ __mingw_init
 #  avoids having to manage separate build directories manually.
 #****
 
-__mingw_wrapper() {
-	local ovar var
-	local toolvars=(CC=gcc CXX=g++ F77=gfortran FC=gfortran OBJC=gcc OBJCXX=g++ \
-			AR=ar DLLTOOL=dlltool NM=nm OBJDUMP=objdump RANLIB=ranlib \
-			RC=windres STRIP=strip PKG_CONFIG=pkg-config QT5_QMAKE=qmake-qt5)
-	local miscvars=(CHOST CTARGET CC_SYSROOT)
-	local expvars=(CFLAGS CXXFLAGS)
-
-	__check_triplet ${1}
-
-	for var in ${miscvars[*]} ${toolvars[*]%=*} ${expvars[*]}
-	do
-		ovar="orig_${var}"
-		local ${ovar}="${!var}"
-	done
-	declare -g CHOST=${1}
-	shift
-	declare -g CTARGET=${CHOST}
-	declare -g CC_SYSROOT=/usr/${CHOST}/sys-root
-	# mingw-w64 actually supports these now, but with libssp it is fragile
-	declare -gx CFLAGS="${CFLAGS/-Wp,-D_FORTIFY_SOURCE=2 -fstack-protector-strong}"
-	declare -gx CXXFLAGS="${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=2 -fstack-protector-strong}"
-
-	for var in ${toolvars[*]}
-	do
-		declare -g ${var%=*}=${CHOST}-${var#*=}
-	done
-	if inherited clang
-	then
-		declare -g CC="${CHOST}-clang"
-		declare -g CXX="${CHOST}-clang++"
-	fi
-
-	if ! defined __MINGW_WRAPPER_NO_CWD
-	then
-		mkdir -p ${CHOST}/${MINGW_BUILDDIR_SUFFIX}
-		pushd ${CHOST}/${MINGW_BUILDDIR_SUFFIX}
-	fi
-
-	inform "cross-compiling for ${CHOST}"
-	"${@}" || error "${1} for ${CHOST} failed"
-
-	if ! defined __MINGW_WRAPPER_NO_CWD
-	then
-		popd
-	fi
-
-	for var in ${miscvars[*]} ${toolvars[*]%=*}
-	do
-		ovar="orig_${var}"
-		declare -g ${var}="${!ovar}"
-	done
-	for var in ${expvars[*]}
-	do
-		ovar="orig_${var}"
-		declare -gx ${var}="${!ovar}"
-	done
-}
-
+#****C* mingw.cygclass/mingw_lndirs
+#  DESCRIPTION
+#  Runs lndirs separately for each enabled architecture's build directory.
+#****
 mingw_lndirs() {
 	local t
 	for t in 32:i686 64:x86_64 arm32:armv7 arm64:aarch64
 	do
 		if [[ ${MINGW_ARCHS} =~ "${t#*:}" ]]
 		then
-			__mingw_wrapper ${t#*:}-w64-mingw32 lndirs ${S}
+			mingw${t%:*}_lndirs "${@}"
 		fi
 	done
-}
-
-#****C* mingw.cygclass/mingw32_configure
-#  DESCRIPTION
-#  Runs cygconf using the i686 toolchain.  Any arguments are passed along.
-#****
-mingw32_configure() {
-	__mingw_wrapper ${MINGW32_HOST} cygconf ${MINGW32_CONFIGURE_ARGS} "${@}"
-}
-
-#****C* mingw.cygclass/mingw64_configure
-#  DESCRIPTION
-#  Runs cygconf using the x86_64 toolchain.  Any arguments are passed along.
-#****
-mingw64_configure() {
-	__mingw_wrapper ${MINGW64_HOST} cygconf ${MINGW64_CONFIGURE_ARGS} "${@}"
-}
-
-#****C* mingw.cygclass/mingwarm32_configure
-#  DESCRIPTION
-#  Runs cygconf using the armv7 toolchain.  Any arguments are passed along.
-#****
-mingwarm32_configure() {
-	__mingw_wrapper ${MINGWARM32_HOST} cygconf ${MINGWARM32_CONFIGURE_ARGS} "${@}"
-}
-
-#****C* mingw.cygclass/mingwarm64_configure
-#  DESCRIPTION
-#  Runs cygconf using the aarch64 toolchain.  Any arguments are passed along.
-#****
-mingwarm64_configure() {
-	__mingw_wrapper ${MINGWARM64_HOST} cygconf ${MINGWARM64_CONFIGURE_ARGS} "${@}"
 }
 
 #****C* mingw.cygclass/mingw_configure
@@ -581,38 +121,6 @@ mingw_configure() {
 	done
 }
 
-#****C* mingw.cygclass/mingw32_make
-#  DESCRIPTION
-#  Runs cygmake using the i686 toolchain.  Any arguments are passed along.
-#****
-mingw32_make() {
-	__mingw_wrapper ${MINGW32_HOST} cygmake "${@}"
-}
-
-#****C* mingw.cygclass/mingw64_make
-#  DESCRIPTION
-#  Runs cygmake using the x86_64 toolchain.  Any arguments are passed along.
-#****
-mingw64_make() {
-	__mingw_wrapper ${MINGW64_HOST} cygmake "${@}"
-}
-
-#****C* mingw.cygclass/mingwarm32_make
-#  DESCRIPTION
-#  Runs cygmake using the armv7 toolchain.  Any arguments are passed along.
-#****
-mingwarm32_make() {
-	__mingw_wrapper ${MINGWARM32_HOST} cygmake "${@}"
-}
-
-#****C* mingw.cygclass/mingwarm64_make
-#  DESCRIPTION
-#  Runs cygmake using the aarch64 toolchain.  Any arguments are passed along.
-#****
-mingwarm64_make() {
-	__mingw_wrapper ${MINGWARM64_HOST} cygmake "${@}"
-}
-
 #****C* mingw.cygclass/mingw_make
 #  DESCRIPTION
 #  Runs cygmake separately for each enabled architecture.  Any arguments are passed along.
@@ -626,39 +134,6 @@ mingw_make() {
 			mingw${t%:*}_make "${@}"
 		fi
 	done
-}
-
-
-#****C* mingw.cygclass/mingw32_cmake
-#  DESCRIPTION
-#  Runs cygcmake using the i686 toolchain.  Any arguments are passed along.
-#****
-mingw32_cmake() {
-	__mingw_wrapper ${MINGW32_HOST} cygcmake ${MINGW32_CMAKE_ARGS} "${@}"
-}
-
-#****C* mingw.cygclass/mingw64_cmake
-#  DESCRIPTION
-#  Runs cygcmake using the i686 toolchain.  Any arguments are passed along.
-#****
-mingw64_cmake() {
-	__mingw_wrapper ${MINGW64_HOST} cygcmake ${MINGW64_CMAKE_ARGS} "${@}"
-}
-
-#****C* mingw.cygclass/mingwarn32_cmake
-#  DESCRIPTION
-#  Runs cygcmake using the i686 toolchain.  Any arguments are passed along.
-#****
-mingwarm32_cmake() {
-	__mingw_wrapper ${MINGWARM32_HOST} cygcmake ${MINGWARM32_CMAKE_ARGS} "${@}"
-}
-
-#****C* mingw.cygclass/mingwarm64_cmake
-#  DESCRIPTION
-#  Runs cygcmake using the i686 toolchain.  Any arguments are passed along.
-#****
-mingwarm64_cmake() {
-	__mingw_wrapper ${MINGWARM64_HOST} cygcmake ${MINGWARM64_CMAKE_ARGS} "${@}"
 }
 
 #****C* mingw.cygclass/mingw_cmake
@@ -692,43 +167,6 @@ mingw_cmake() {
 	done
 }
 
-
-#****C* mingw.cygclass/mingw32_meson
-#  DESCRIPTION
-#  Runs cygmeson using the i686 toolchain.  Any arguments are passed along.
-#****
-mingw32_meson() {
-	__MINGW_WRAPPER_NO_CWD=1 \
-	__mingw_wrapper ${MINGW32_HOST} cygmeson ${MINGW32_MESON_ARGS} "${@}"
-}
-
-#****C* mingw.cygclass/mingw64_meson
-#  DESCRIPTION
-#  Runs cygmeson using the x86_64 toolchain.  Any arguments are passed along.
-#****
-mingw64_meson() {
-	__MINGW_WRAPPER_NO_CWD=1 \
-	__mingw_wrapper ${MINGW64_HOST} cygmeson ${MINGW64_MESON_ARGS}"${@}"
-}
-
-#****C* mingw.cygclass/mingwarm32_meson
-#  DESCRIPTION
-#  Runs cygmeson using the armv7 toolchain.  Any arguments are passed along.
-#****
-mingwarm32_meson() {
-	__MINGW_WRAPPER_NO_CWD=1 \
-	__mingw_wrapper ${MINGWARM32_HOST} cygmeson ${MINGWARM32_MESON_ARGS} "${@}"
-}
-
-#****C* mingw.cygclass/mingwarm64_meson
-#  DESCRIPTION
-#  Runs cygmeson using the aarch64 toolchain.  Any arguments are passed along.
-#****
-mingwarm64_meson() {
-	__MINGW_WRAPPER_NO_CWD=1 \
-	__mingw_wrapper ${MINGWARM64_HOST} cygmeson ${MINGWARM64_MESON_ARGS} "${@}"
-}
-
 #****C* mingw.cygclass/mingw_meson
 #  DESCRIPTION
 #  Runs cygmeson separately for each enabled architecture.  Any arguments are passed along.
@@ -760,38 +198,6 @@ mingw_meson() {
 	done
 }
 
-#****C* mingw.cygclass/mingw32_ninja
-#  DESCRIPTION
-#  Runs cygninja using the i686 toolchain.  Any arguments are passed along.
-#****
-mingw32_ninja() {
-	__mingw_wrapper ${MINGW32_HOST} cygninja "${@}"
-}
-
-#****C* mingw.cygclass/mingw64_ninja
-#  DESCRIPTION
-#  Runs cygninja using the x86_64 toolchain.  Any arguments are passed along.
-#****
-mingw64_ninja() {
-	__mingw_wrapper ${MINGW64_HOST} cygninja "${@}"
-}
-
-#****C* mingw.cygclass/mingwarm32_ninja
-#  DESCRIPTION
-#  Runs cygninja using the armv7 toolchain.  Any arguments are passed along.
-#****
-mingwarm32_ninja() {
-	__mingw_wrapper ${MINGWARM32_HOST} cygninja "${@}"
-}
-
-#****C* mingw.cygclass/mingwarm64_ninja
-#  DESCRIPTION
-#  Runs cygninja using the aarch64 toolchain.  Any arguments are passed along.
-#****
-mingwarm64_ninja() {
-	__mingw_wrapper ${MINGWARM64_HOST} cygninja "${@}"
-}
-
 #****C* mingw.cygclass/mingw_ninja
 #  DESCRIPTION
 #  Runs cygninja separately for each enabled architecture.  Any arguments are passed along.
@@ -805,38 +211,6 @@ mingw_ninja() {
 			mingw${t%:*}_ninja "${@}"
 		fi
 	done
-}
-
-#****C* mingw.cygclass/mingw32_qt5_qmake
-#  DESCRIPTION
-#  Runs cygqmake5 using the i686 toolchain.  Any arguments are passed along.
-#****
-mingw32_qt5_qmake() {
-	__mingw_wrapper ${MINGW32_HOST} cygqmake5 "${@}"
-}
-
-#****C* mingw.cygclass/mingw64_qt5_qmake
-#  DESCRIPTION
-#  Runs cygqmake5 using the x86_64 toolchain.  Any arguments are passed along.
-#****
-mingw64_qt5_qmake() {
-	__mingw_wrapper ${MINGW64_HOST} cygqmake5 "${@}"
-}
-
-#****C* mingw.cygclass/mingwarm32_qt5_qmake
-#  DESCRIPTION
-#  Runs cygqmake5 using the armv7 toolchain.  Any arguments are passed along.
-#****
-mingwarm32_qt5_qmake() {
-	__mingw_wrapper ${MINGWARM32_HOST} cygqmake5 "${@}"
-}
-
-#****C* mingw.cygclass/mingwarm64_qt5_qmake
-#  DESCRIPTION
-#  Runs cygqmake5 using the aarch64 toolchain.  Any arguments are passed along.
-#****
-mingwarm64_qt5_qmake() {
-	__mingw_wrapper ${MINGWARM64_HOST} cygqmake5 "${@}"
 }
 
 #****C* mingw.cygclass/mingw_qt5_qmake
@@ -854,38 +228,6 @@ mingw_qt5_qmake() {
 	done
 }
 
-#****I* mingw.cygclass/mingw32_make_install
-#  DESCRIPTION
-#  Runs cyginstall using the i686 toolchain.  Any arguments are passed along.
-#****
-mingw32_make_install() {
-	__mingw_wrapper ${MINGW32_HOST} cyginstall "${@}"
-}
-
-#****I* mingw.cygclass/mingw64_make_install
-#  DESCRIPTION
-#  Runs cyginstall using the x86_64 toolchain.  Any arguments are passed along.
-#****
-mingw64_make_install() {
-	__mingw_wrapper ${MINGW64_HOST} cyginstall "${@}"
-}
-
-#****I* mingw.cygclass/mingwarm32_make_install
-#  DESCRIPTION
-#  Runs cyginstall using the armv7 toolchain.  Any arguments are passed along.
-#****
-mingwarm32_make_install() {
-	__mingw_wrapper ${MINGWARM32_HOST} cyginstall "${@}"
-}
-
-#****I* mingw.cygclass/mingwarm64_make_install
-#  DESCRIPTION
-#  Runs cyginstall using the aarch64 toolchain.  Any arguments are passed along.
-#****
-mingwarm64_make_install() {
-	__mingw_wrapper ${MINGWARM64_HOST} cyginstall "${@}"
-}
-
 #****I* mingw.cygclass/mingw_make_install
 #  DESCRIPTION
 #  Runs cyginstall separately for each enabled architecture.  Any arguments are passed along.
@@ -901,42 +243,6 @@ mingw_make_install() {
 	done
 }
 
-#****I* mingw.cygclass/mingw32_ninja_install
-#  DESCRIPTION
-#  Runs ninja_install using the i686 toolchain.  Any arguments are passed along.
-#****
-mingw32_ninja_install() {
-	DESTDIR=${D} \
-	__mingw_wrapper ${MINGW32_HOST} cygninja install "${@}"
-}
-
-#****I* mingw.cygclass/mingw64_ninja_install
-#  DESCRIPTION
-#  Runs ninja_install using the x86_64 toolchain.  Any arguments are passed along.
-#****
-mingw64_ninja_install() {
-	DESTDIR=${D} \
-	__mingw_wrapper ${MINGW64_HOST} cygninja install "${@}"
-}
-
-#****I* mingw.cygclass/mingwarm32_ninja_install
-#  DESCRIPTION
-#  Runs ninja_install using the armv7 toolchain.  Any arguments are passed along.
-#****
-mingwarm32_ninja_install() {
-	DESTDIR=${D} \
-	__mingw_wrapper ${MINGWARM32_HOST} cygninja install "${@}"
-}
-
-#****I* mingw.cygclass/mingwarm64_ninja_install
-#  DESCRIPTION
-#  Runs ninja_install using the aarch64 toolchain.  Any arguments are passed along.
-#****
-mingwarm64_ninja_install() {
-	DESTDIR=${D} \
-	__mingw_wrapper ${MINGWARM64_HOST} cygninja install "${@}"
-}
-
 #****I* mingw.cygclass/mingw_ninja_install
 #  DESCRIPTION
 #  Runs ninja_install separately for each enabled architecture.  Any arguments are passed along.
@@ -950,42 +256,6 @@ mingw_ninja_install() {
 			mingw${t%:*}_ninja_install "${@}"
 		fi
 	done
-}
-
-#****I* mingw.cygclass/mingw32_qt5_qmake_install
-#  DESCRIPTION
-#  Runs qt5_qmake_install using the i686 toolchain.  Any arguments are passed along.
-#****
-mingw32_qt5_qmake_install() {
-	DESTDIR=${D} \
-	__mingw_wrapper ${MINGW32_HOST} qt5_qmake_install "${@}"
-}
-
-#****I* mingw.cygclass/mingw64_qt5_qmake_install
-#  DESCRIPTION
-#  Runs qt5_qmake_install using the x86_64 toolchain.  Any arguments are passed along.
-#****
-mingw64_qt5_qmake_install() {
-	DESTDIR=${D} \
-	__mingw_wrapper ${MINGW64_HOST} qt5_qmake_install "${@}"
-}
-
-#****I* mingw.cygclass/mingwarm32_qt5_qmake_install
-#  DESCRIPTION
-#  Runs qt5_qmake_install using the armv7 toolchain.  Any arguments are passed along.
-#****
-mingwarm32_qt5_qmake_install() {
-	DESTDIR=${D} \
-	__mingw_wrapper ${MINGWARM32_HOST} qt5_qmake_install "${@}"
-}
-
-#****I* mingw.cygclass/mingwarm64_qt5_qmake_install
-#  DESCRIPTION
-#  Runs qt5_qmake_install using the aarch64 toolchain.  Any arguments are passed along.
-#****
-mingwarm64_qt5_qmake_install() {
-	DESTDIR=${D} \
-	__mingw_wrapper ${MINGWARM64_HOST} qt5_qmake_install "${@}"
 }
 
 #****I* mingw.cygclass/mingw_qt5_qmake_install
@@ -1053,14 +323,7 @@ src_install() {
 	fi
 }
 
-readonly -f __mingw_init __mingw_wrapper mingw_lndirs \
-	mingw32_configure mingw64_configure mingwarm32_configure mingwarm64_configure mingw_configure \
-	mingw32_make mingw64_make mingwarm32_make mingwarm64_make mingw_make \
-	mingw32_cmake mingw64_cmake mingwarm32_cmake mingwarm64_cmake mingw_cmake \
-	mingw32_meson mingw64_meson mingwarm32_meson mingwarm64_meson mingw_meson \
-	mingw32_ninja mingw64_ninja mingwarm32_ninja mingwarm64_ninja mingw_ninja \
-	mingw32_qt5_qmake mingw64_qt5_qmake mingwarm32_qt5_qmake mingwarm64_qt5_qmake mingw_qt5_qmake \
-	mingw32_make_install mingw64_make_install mingwarm32_make_install mingwarm64_make_install mingw_make_install \
-	mingw32_ninja_install mingw64_ninja_install mingwarm32_ninja_install mingwarm64_ninja_install mingw_ninja_install \
-	mingw32_qt5_qmake_install mingw64_qt5_qmake_install mingwarm32_qt5_qmake_install mingwarm64_qt5_qmake_install mingw_qt5_qmake_install
+readonly -f mingw_lndirs mingw_configure mingw_make mingw_cmake \
+	mingw_meson mingw_ninja mingw_qt5_qmake mingw_make_install \
+	mingw_ninja_install mingw_qt5_qmake_install
 	

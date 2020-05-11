@@ -1,0 +1,205 @@
+################################################################################
+#
+# mingwarm32.cygclass - for building cross-compiled MinGW armv7 packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2020 Cygport authors
+# Provided by the Cygwin project <https://cygwin.com/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/mingwarm32.cygclass
+#  DESCRIPTION
+#  This cygclass provides the mingwarm32_* functions and MINGWARM32_ definitions
+#  for cross-compiling packages for Windows/x86 using the MinGW-w64 toolchain.
+#  Generally, this cygclass is not inherit'ed directly, but its functions
+#  and definitions are used by inherit'ing mingw.cygclass.
+#  INHERITED BY
+#  mingw.cygclass
+#  REQUIRES
+#  mingw64-armv7-gcc-core
+#****
+inherit mingw-internal
+
+#****d* mingwarm32.cygclass/MINGWARM32_HOST
+#  DESCRIPTION
+#  The host triplet for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_TARGET
+#  DESCRIPTION
+#  The target triplet for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_CC
+#  DESCRIPTION
+#  The C compiler for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_CXX
+#  DESCRIPTION
+#  The C++ compiler for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_F77
+#  DESCRIPTION
+#  The Fortran 77 compiler for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_FC
+#  DESCRIPTION
+#  The Fortran 95 compiler for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_AR
+#  DESCRIPTION
+#  The static library archiver for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_DLLTOOL
+#  DESCRIPTION
+#  The DLL import creation tool for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_NM
+#  DESCRIPTION
+#  The symbol listing tool for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_RANLIB
+#  DESCRIPTION
+#  The static library indexer for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_RC
+#  DESCRIPTION
+#  The Windows resource compiler for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_STRIP
+#  DESCRIPTION
+#  The symbol remover tool for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_PKG_CONFIG
+#  DESCRIPTION
+#  The pkg-config tool for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_QT5_QMAKE
+#  DESCRIPTION
+#  The Qt5 qmake tool for the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_SYSROOT
+#  DESCRIPTION
+#  The virtual root for files used by the armv7 toolchain.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_PREFIX
+#  DESCRIPTION
+#  The prefix directory under the armv7 sysroot.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_BINDIR
+#  DESCRIPTION
+#  The bin directory under the armv7 sysroot
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_INCLUDEDIR
+#  DESCRIPTION
+#  The include directory under the armv7 sysroot.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_LIBDIR
+#  DESCRIPTION
+#  The lib directory under the armv7 sysroot.
+#****
+#****d* mingwarm32.cygclass/MINGWARM32_DATADIR
+#  DESCRIPTION
+#  The data directory under the armv7 sysroot.
+#****
+
+__mingw_init armv7 ARM32
+
+#****C* mingwarm32.cygclass/mingwarm32_lndirs
+#  DESCRIPTION
+#  Runs lndirs into the build directory used by other mingwarm32_* functions.
+#****
+mingwarm32_lndirs() {
+	__mingw_wrapper ${MINGWARM32_HOST} lndirs ${S}
+}
+
+#****C* mingwarm32.cygclass/mingwarm32_configure
+#  DESCRIPTION
+#  Runs cygconf using the armv7 toolchain.  Any arguments are passed along.
+#****
+mingwarm32_configure() {
+	__mingw_wrapper ${MINGWARM32_HOST} cygconf ${MINGWARM32_CONFIGURE_ARGS} "${@}"
+}
+
+#****C* mingwarm32.cygclass/mingwarm32_make
+#  DESCRIPTION
+#  Runs cygmake using the armv7 toolchain.  Any arguments are passed along.
+#****
+mingwarm32_make() {
+	__mingw_wrapper ${MINGWARM32_HOST} cygmake "${@}"
+}
+
+#****C* mingwarm32.cygclass/mingwarm32_cmake
+#  DESCRIPTION
+#  Runs cygcmake using the armv7 toolchain.  Any arguments are passed along.
+#****
+mingwarm32_cmake() {
+	__mingw_wrapper ${MINGWARM32_HOST} cygcmake ${MINGWARM32_CMAKE_ARGS} "${@}"
+}
+
+#****C* mingwarm32.cygclass/mingwarm32_meson
+#  DESCRIPTION
+#  Runs cygmeson using the armv7 toolchain.  Any arguments are passed along.
+#****
+mingwarm32_meson() {
+	__MINGW_WRAPPER_NO_CWD=1 \
+	__mingw_wrapper ${MINGWARM32_HOST} cygmeson ${MINGWARM32_MESON_ARGS} "${@}"
+}
+
+#****C* mingwarm32.cygclass/mingwarm32_ninja
+#  DESCRIPTION
+#  Runs cygninja using the armv7 toolchain.  Any arguments are passed along.
+#****
+mingwarm32_ninja() {
+	__mingw_wrapper ${MINGWARM32_HOST} cygninja "${@}"
+}
+
+#****C* mingwarm32.cygclass/mingwarm32_qt5_qmake
+#  DESCRIPTION
+#  Runs cygqmake5 using the armv7 toolchain.  Any arguments are passed along.
+#****
+mingwarm32_qt5_qmake() {
+	__mingw_wrapper ${MINGWARM32_HOST} cygqmake5 "${@}"
+}
+
+#****I* mingwarm32.cygclass/mingwarm32_make_install
+#  DESCRIPTION
+#  Runs cyginstall using the armv7 toolchain.  Any arguments are passed along.
+#****
+mingwarm32_make_install() {
+	__mingw_wrapper ${MINGWARM32_HOST} cyginstall "${@}"
+}
+
+#****I* mingwarm32.cygclass/mingwarm32_ninja_install
+#  DESCRIPTION
+#  Runs ninja_install using the armv7 toolchain.  Any arguments are passed along.
+#****
+mingwarm32_ninja_install() {
+	DESTDIR=${D} \
+	__mingw_wrapper ${MINGWARM32_HOST} cygninja install "${@}"
+}
+
+#****I* mingwarm32.cygclass/mingwarm32_qt5_qmake_install
+#  DESCRIPTION
+#  Runs qt5_qmake_install using the armv7 toolchain.  Any arguments are passed along.
+#****
+mingwarm32_qt5_qmake_install() {
+	DESTDIR=${D} \
+	__mingw_wrapper ${MINGWARM32_HOST} qt5_qmake_install "${@}"
+}
+
+readonly -f mingwarm32_lndirs mingwarm32_configure mingwarm32_make mingwarm32_cmake \
+	mingwarm32_meson mingwarm32_ninja mingwarm32_qt5_qmake mingwarm32_make_install \
+	mingwarm32_ninja_install mingwarm32_qt5_qmake_install

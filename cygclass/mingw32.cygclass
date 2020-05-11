@@ -1,0 +1,205 @@
+################################################################################
+#
+# mingw32.cygclass - for building cross-compiled MinGW i686 packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2020 Cygport authors
+# Provided by the Cygwin project <https://cygwin.com/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/mingw32.cygclass
+#  DESCRIPTION
+#  This cygclass provides the mingw32_* functions and MINGW32_ definitions
+#  for cross-compiling packages for Windows/x86 using the MinGW-w64 toolchain.
+#  Generally, this cygclass is not inherit'ed directly, but its functions
+#  and definitions are used by inherit'ing mingw.cygclass.
+#  INHERITED BY
+#  mingw.cygclass
+#  REQUIRES
+#  mingw64-i686-gcc-core
+#****
+inherit mingw-internal
+
+#****d* mingw32.cygclass/MINGW32_HOST
+#  DESCRIPTION
+#  The host triplet for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_TARGET
+#  DESCRIPTION
+#  The target triplet for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_CC
+#  DESCRIPTION
+#  The C compiler for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_CXX
+#  DESCRIPTION
+#  The C++ compiler for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_F77
+#  DESCRIPTION
+#  The Fortran 77 compiler for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_FC
+#  DESCRIPTION
+#  The Fortran 95 compiler for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_AR
+#  DESCRIPTION
+#  The static library archiver for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_DLLTOOL
+#  DESCRIPTION
+#  The DLL import creation tool for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_NM
+#  DESCRIPTION
+#  The symbol listing tool for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_RANLIB
+#  DESCRIPTION
+#  The static library indexer for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_RC
+#  DESCRIPTION
+#  The Windows resource compiler for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_STRIP
+#  DESCRIPTION
+#  The symbol remover tool for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_PKG_CONFIG
+#  DESCRIPTION
+#  The pkg-config tool for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_QT5_QMAKE
+#  DESCRIPTION
+#  The Qt5 qmake tool for the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_SYSROOT
+#  DESCRIPTION
+#  The virtual root for files used by the i686 toolchain.
+#****
+#****d* mingw32.cygclass/MINGW32_PREFIX
+#  DESCRIPTION
+#  The prefix directory under the i686 sysroot.
+#****
+#****d* mingw32.cygclass/MINGW32_BINDIR
+#  DESCRIPTION
+#  The bin directory under the i686 sysroot
+#****
+#****d* mingw32.cygclass/MINGW32_INCLUDEDIR
+#  DESCRIPTION
+#  The include directory under the i686 sysroot.
+#****
+#****d* mingw32.cygclass/MINGW32_LIBDIR
+#  DESCRIPTION
+#  The lib directory under the i686 sysroot.
+#****
+#****d* mingw32.cygclass/MINGW32_DATADIR
+#  DESCRIPTION
+#  The data directory under the i686 sysroot.
+#****
+
+__mingw_init i686 32
+
+#****C* mingw32.cygclass/mingw32_lndirs
+#  DESCRIPTION
+#  Runs lndirs into the build directory used by other mingw32_* functions.
+#****
+mingw32_lndirs() {
+	__mingw_wrapper ${MINGW32_HOST} lndirs ${S}
+}
+
+#****C* mingw32.cygclass/mingw32_configure
+#  DESCRIPTION
+#  Runs cygconf using the i686 toolchain.  Any arguments are passed along.
+#****
+mingw32_configure() {
+	__mingw_wrapper ${MINGW32_HOST} cygconf ${MINGW32_CONFIGURE_ARGS} "${@}"
+}
+
+#****C* mingw32.cygclass/mingw32_make
+#  DESCRIPTION
+#  Runs cygmake using the i686 toolchain.  Any arguments are passed along.
+#****
+mingw32_make() {
+	__mingw_wrapper ${MINGW32_HOST} cygmake "${@}"
+}
+
+#****C* mingw32.cygclass/mingw32_cmake
+#  DESCRIPTION
+#  Runs cygcmake using the i686 toolchain.  Any arguments are passed along.
+#****
+mingw32_cmake() {
+	__mingw_wrapper ${MINGW32_HOST} cygcmake ${MINGW32_CMAKE_ARGS} "${@}"
+}
+
+#****C* mingw32.cygclass/mingw32_meson
+#  DESCRIPTION
+#  Runs cygmeson using the i686 toolchain.  Any arguments are passed along.
+#****
+mingw32_meson() {
+	__MINGW_WRAPPER_NO_CWD=1 \
+	__mingw_wrapper ${MINGW32_HOST} cygmeson ${MINGW32_MESON_ARGS} "${@}"
+}
+
+#****C* mingw32.cygclass/mingw32_ninja
+#  DESCRIPTION
+#  Runs cygninja using the i686 toolchain.  Any arguments are passed along.
+#****
+mingw32_ninja() {
+	__mingw_wrapper ${MINGW32_HOST} cygninja "${@}"
+}
+
+#****C* mingw32.cygclass/mingw32_qt5_qmake
+#  DESCRIPTION
+#  Runs cygqmake5 using the i686 toolchain.  Any arguments are passed along.
+#****
+mingw32_qt5_qmake() {
+	__mingw_wrapper ${MINGW32_HOST} cygqmake5 "${@}"
+}
+
+#****I* mingw32.cygclass/mingw32_make_install
+#  DESCRIPTION
+#  Runs cyginstall using the i686 toolchain.  Any arguments are passed along.
+#****
+mingw32_make_install() {
+	__mingw_wrapper ${MINGW32_HOST} cyginstall "${@}"
+}
+
+#****I* mingw32.cygclass/mingw32_ninja_install
+#  DESCRIPTION
+#  Runs ninja_install using the i686 toolchain.  Any arguments are passed along.
+#****
+mingw32_ninja_install() {
+	DESTDIR=${D} \
+	__mingw_wrapper ${MINGW32_HOST} cygninja install "${@}"
+}
+
+#****I* mingw32.cygclass/mingw32_qt5_qmake_install
+#  DESCRIPTION
+#  Runs qt5_qmake_install using the i686 toolchain.  Any arguments are passed along.
+#****
+mingw32_qt5_qmake_install() {
+	DESTDIR=${D} \
+	__mingw_wrapper ${MINGW32_HOST} qt5_qmake_install "${@}"
+}
+
+readonly -f mingw32_lndirs mingw32_configure mingw32_make mingw32_cmake \
+	mingw32_meson mingw32_ninja mingw32_qt5_qmake mingw32_make_install \
+	mingw32_ninja_install mingw32_qt5_qmake_install

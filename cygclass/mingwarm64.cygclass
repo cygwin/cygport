@@ -1,0 +1,205 @@
+################################################################################
+#
+# mingwarm64.cygclass - for building cross-compiled MinGW aarch64 packages
+#
+# Part of cygport - Cygwin packaging application
+# Copyright (C) 2006-2020 Cygport authors
+# Provided by the Cygwin project <https://cygwin.com/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+#
+################################################################################
+
+#****h* Cygclasses/mingwarm64.cygclass
+#  DESCRIPTION
+#  This cygclass provides the mingwarm64_* functions and MINGWARM64_ definitions
+#  for cross-compiling packages for Windows/x86 using the MinGW-w64 toolchain.
+#  Generally, this cygclass is not inherit'ed directly, but its functions
+#  and definitions are used by inherit'ing mingw.cygclass.
+#  INHERITED BY
+#  mingw.cygclass
+#  REQUIRES
+#  mingw64-aarch64-gcc-core
+#****
+inherit mingw-internal
+
+#****d* mingwarm64.cygclass/MINGWARM64_HOST
+#  DESCRIPTION
+#  The host triplet for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_TARGET
+#  DESCRIPTION
+#  The target triplet for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_CC
+#  DESCRIPTION
+#  The C compiler for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_CXX
+#  DESCRIPTION
+#  The C++ compiler for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_F77
+#  DESCRIPTION
+#  The Fortran 77 compiler for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_FC
+#  DESCRIPTION
+#  The Fortran 95 compiler for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_AR
+#  DESCRIPTION
+#  The static library archiver for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_DLLTOOL
+#  DESCRIPTION
+#  The DLL import creation tool for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_NM
+#  DESCRIPTION
+#  The symbol listing tool for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_RANLIB
+#  DESCRIPTION
+#  The static library indexer for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_RC
+#  DESCRIPTION
+#  The Windows resource compiler for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_STRIP
+#  DESCRIPTION
+#  The symbol remover tool for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_PKG_CONFIG
+#  DESCRIPTION
+#  The pkg-config tool for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_QT5_QMAKE
+#  DESCRIPTION
+#  The Qt5 qmake tool for the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_SYSROOT
+#  DESCRIPTION
+#  The virtual root for files used by the aarch64 toolchain.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_PREFIX
+#  DESCRIPTION
+#  The prefix directory under the aarch64 sysroot.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_BINDIR
+#  DESCRIPTION
+#  The bin directory under the aarch64 sysroot
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_INCLUDEDIR
+#  DESCRIPTION
+#  The include directory under the aarch64 sysroot.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_LIBDIR
+#  DESCRIPTION
+#  The lib directory under the aarch64 sysroot.
+#****
+#****d* mingwarm64.cygclass/MINGWARM64_DATADIR
+#  DESCRIPTION
+#  The data directory under the aarch64 sysroot.
+#****
+
+__mingw_init aarch64 ARM64
+
+#****C* mingwarm64.cygclass/mingwarm64_lndirs
+#  DESCRIPTION
+#  Runs lndirs into the build directory used by other mingwarm64_* functions.
+#****
+mingwarm64_lndirs() {
+	__mingw_wrapper ${MINGWARM64_HOST} lndirs ${S}
+}
+
+#****C* mingwarm64.cygclass/mingwarm64_configure
+#  DESCRIPTION
+#  Runs cygconf using the aarch64 toolchain.  Any arguments are passed along.
+#****
+mingwarm64_configure() {
+	__mingw_wrapper ${MINGWARM64_HOST} cygconf ${MINGWARM64_CONFIGURE_ARGS} "${@}"
+}
+
+#****C* mingwarm64.cygclass/mingwarm64_make
+#  DESCRIPTION
+#  Runs cygmake using the aarch64 toolchain.  Any arguments are passed along.
+#****
+mingwarm64_make() {
+	__mingw_wrapper ${MINGWARM64_HOST} cygmake "${@}"
+}
+
+#****C* mingwarm64.cygclass/mingwarm64_cmake
+#  DESCRIPTION
+#  Runs cygcmake using the aarch64 toolchain.  Any arguments are passed along.
+#****
+mingwarm64_cmake() {
+	__mingw_wrapper ${MINGWARM64_HOST} cygcmake ${MINGWARM64_CMAKE_ARGS} "${@}"
+}
+
+#****C* mingwarm64.cygclass/mingwarm64_meson
+#  DESCRIPTION
+#  Runs cygmeson using the aarch64 toolchain.  Any arguments are passed along.
+#****
+mingwarm64_meson() {
+	__MINGW_WRAPPER_NO_CWD=1 \
+	__mingw_wrapper ${MINGWARM64_HOST} cygmeson ${MINGWARM64_MESON_ARGS} "${@}"
+}
+
+#****C* mingwarm64.cygclass/mingwarm64_ninja
+#  DESCRIPTION
+#  Runs cygninja using the aarch64 toolchain.  Any arguments are passed along.
+#****
+mingwarm64_ninja() {
+	__mingw_wrapper ${MINGWARM64_HOST} cygninja "${@}"
+}
+
+#****C* mingwarm64.cygclass/mingwarm64_qt5_qmake
+#  DESCRIPTION
+#  Runs cygqmake5 using the aarch64 toolchain.  Any arguments are passed along.
+#****
+mingwarm64_qt5_qmake() {
+	__mingw_wrapper ${MINGWARM64_HOST} cygqmake5 "${@}"
+}
+
+#****I* mingwarm64.cygclass/mingwarm64_make_install
+#  DESCRIPTION
+#  Runs cyginstall using the aarch64 toolchain.  Any arguments are passed along.
+#****
+mingwarm64_make_install() {
+	__mingw_wrapper ${MINGWARM64_HOST} cyginstall "${@}"
+}
+
+#****I* mingwarm64.cygclass/mingwarm64_ninja_install
+#  DESCRIPTION
+#  Runs ninja_install using the aarch64 toolchain.  Any arguments are passed along.
+#****
+mingwarm64_ninja_install() {
+	DESTDIR=${D} \
+	__mingw_wrapper ${MINGWARM64_HOST} cygninja install "${@}"
+}
+
+#****I* mingwarm64.cygclass/mingwarm64_qt5_qmake_install
+#  DESCRIPTION
+#  Runs qt5_qmake_install using the aarch64 toolchain.  Any arguments are passed along.
+#****
+mingwarm64_qt5_qmake_install() {
+	DESTDIR=${D} \
+	__mingw_wrapper ${MINGWARM64_HOST} qt5_qmake_install "${@}"
+}
+
+readonly -f mingwarm64_lndirs mingwarm64_configure mingwarm64_make mingwarm64_cmake \
+	mingwarm64_meson mingwarm64_ninja mingwarm64_qt5_qmake mingwarm64_make_install \
+	mingwarm64_ninja_install mingwarm64_qt5_qmake_install

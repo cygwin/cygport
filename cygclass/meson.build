@@ -142,7 +142,15 @@
 #  * cross.cygclass -
 #    For packaging libraries to be used with generic cross-compiler toolchains.
 #  * mingw.cygclass -
-#    For packaging libraries to be used with MinGW cross-compiler toolchains.
+#    For packaging libraries to be used with all MinGW cross-compiler toolchains.
+#  * mingw32.cygclass -
+#    For packaging libraries to be used with the i686 MinGW cross-compiler toolchain.
+#  * mingw64.cygclass -
+#    For packaging libraries to be used with the x86_64 MinGW cross-compiler toolchain.
+#  * mingwarm32.cygclass -
+#    For packaging libraries to be used with the armv7 MinGW cross-compiler toolchain.
+#  * mingwarm64.cygclass -
+#    For packaging libraries to be used with the aarch64 MinGW cross-compiler toolchain.
 #  * multilib.cygclass -
 #    For packaging libraries for cross-compiler toolchains which support
 #    multiple ABIs.
@@ -200,6 +208,11 @@ cygclasses = files(
     'mate.cygclass',
     'meson.cygclass',
     'mingw.cygclass',
+    'mingw-internal.cygclass',
+    'mingw32.cygclass',
+    'mingw64.cygclass',
+    'mingwarm32.cygclass',
+    'mingwarm64.cygclass',
     'mtn.cygclass',
     'multilib.cygclass',
     'ninja.cygclass',
