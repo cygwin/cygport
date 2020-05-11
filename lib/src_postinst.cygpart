@@ -1264,22 +1264,23 @@ __prep_libtool_modules() {
 				continue
 			fi
 
-			# would otherwise be CHOST, but gcc ships $target libraries
-			case ${CTARGET} in
+			ltlibhost=$(__file_host_by_path ${lib_la})
+
+			case ${ltlibhost} in
 			*-*-cygwin*|*-*-mingw*|*-*-msys*)
 				if [ -f ${lib_la%.la}.dll.a ]
 				then
 					# implibs do NOT need to be executable
 					chmod 0644 ${lib_la%.la}.dll.a
 				fi
-				if test ${CTARGET} != ${CHOST} # cross-compiler, use sysroot
+				if [[ ${lib_la} =~ "usr/lib/gcc/*" ]]
 				then
-					dodir /usr/${CTARGET}/sys-root/$(__target_prefix)/bin
-					mv ${ltlibdir}/${dlname} ${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin/
+					dodir $(__triplet_prefix ${ltlibhost})/bin
+					mv ${ltlibdir}/${dlname} ${D}$(__triplet_prefix ${ltlibhost})/bin/
 				else
 					origdlname=${dlname}
 
-					while [ $(readlink -f ${ltlibdir}/${dlname%/bin/*}) != ${D}$(__host_prefix) ]
+					while [ $(readlink -f ${ltlibdir}/${dlname%/bin/*}) != ${D}$(__triplet_prefix ${ltlibhost}) ]
 					do
 						dlname=../${dlname}
 					done
