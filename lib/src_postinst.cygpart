@@ -1117,7 +1117,7 @@ __prep_symlinks() {
 
 		# avoid .exe suffix in symlinks
 		# http://cygwin.com/ml/cygwin-apps/2007-04/msg00065.html
-		case "${CHOST}:${l}" in
+		case "$(__file_host_by_path ${l}):${l}" in
 			*-*-cygwin*:*.exe)
 				rm -f "${l}"
 				l="${l%.exe}";
