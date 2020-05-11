@@ -95,10 +95,10 @@
 #  Absolute path to the Qt5 Linguist translation compiler
 #****
 
-if inherited cross
+if cross_compiling
 then
-	QT5_QTDIR=${CROSS_PREFIX}
-	QT5_QMAKE=/usr/bin/${CROSS_HOST}-qmake-qt5
+	QT5_QTDIR=$(__host_prefix)
+	QT5_QMAKE=/usr/bin/${CHOST}-qmake-qt5
 elif inherited toolchain
 then
 	QT5_QTDIR=${TOOLCHAIN_PREFIX}

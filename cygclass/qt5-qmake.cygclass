@@ -41,11 +41,13 @@ inherit qt5
 #  containing such file).
 #****
 cygqmake5() {
-	if [ ! -x ${QT5_QMAKE} ]
+	if ! which ${QT5_QMAKE} 2>/dev/null
 	then
 		error "libQt5Core-devel is required to build this package"
 	fi
 
+	QMAKESPEC=$(__qt5_qmakespec ${CBUILD}) \
+	XQMAKESPEC=$(__qt5_qmakespec ${CTARGET}) \
 	${QT5_QMAKE} \
 		QMAKE_CFLAGS_RELEASE="${CFLAGS}" \
 		QMAKE_CXXFLAGS_RELEASE="${CXXFLAGS}" \
