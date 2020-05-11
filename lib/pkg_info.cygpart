@@ -70,38 +70,28 @@ __list_debug_files() {
 
 __list_deps() {
 	local d f ext
-	local alldeps shdep girdep jar jpkg ladep luadep luapaths pcdep pctgt pidep
+	local alldeps
+	local mgwdep mgwdeptgt drwdep drwdeptgt elfdep elfdeptgt
+	local shdep girdep jar jpkg ladep luadep luapaths pidep
+	local pcdep pctgt pcreq pclib
 	local mldep mldir mllib
 	local phpdep phpmoddir pldep pldirs
 	local pydep pydirs pyexts pyscr pysite pyver
 	local rbdep rbdirs gemdir gemextdir gemspecdir
 	local tcldep tclpkgs vapidep vapidir
 	local tcgcclibdir tcgccsysroot
-	local dlltool="dlltool"
+	local dlltool=${DLLTOOL}
 	local os_path="${PATH}"
 	local deps_prune
 	local objdump=${OBJDUMP}
 
+	if check_prog llvm-objdump
+	then
+		objdump="llvm-objdump"
+	fi
+
 	# if file list is empty, there are obviously no dependencies
 	(( $# > 0 )) || return 0
-
-	if __host_is_embedded
-	then
-		return 0
-	fi
-
-	if cross_compiling && check_prog ${CTARGET}-dlltool
-	then
-		dlltool="${CTARGET}-dlltool"
-	fi
-
-	case ${CHOST} in
-	i?86-*|x86_64-*)
-		if check_prog llvm-objdump
-		then
-			objdump="llvm-objdump"
-		fi ;;
-	esac
 
 	pushd ${D}
 
@@ -119,21 +109,12 @@ __list_deps() {
 	for d in ${DEPS_PATH//:/ }
 	do
 		PATH+="${D}${d}:${d}:"
-		if inherited cross
-		then
-			PATH+="${D}${CROSS_SYSROOT}${d}:${CROSS_SYSROOT}${d}:"
-		fi
 	done
 
 	for d in ${REQUIRES_EXCLUDE_FROM//:/ }
 	do
 		deps_prune+=" -o -path ${d#/} -prune"
 	done
-
-	if inherited toolchain
-	then
-		PATH+="${D}${TOOLCHAIN_BINDIR}:${D}${TOOLCHAIN_LIBDIR}:"
-	fi
 
 	export PATH+="${D}$(__host_prefix)/bin:${os_path}";
 
@@ -143,48 +124,51 @@ __list_deps() {
 		PATH+=":$(cygpath -S)"
 	fi
 
-	if (cross_compiling || [ "${CHOST}" != "${CTARGET}" ]) && ! __target_is_embedded && check_target_tool gcc
-	then
-		tcgcclibdir=$(dirname $(${CTARGET}-gcc --print-file-name=libgcc.a))
-		tcgccsysroot=$(${CTARGET}-gcc -print-sysroot)
-		PATH+=":${D}${tcgcclibdir#${D}}:${tcgcclibdir#${D}}"
-
-		# FIXME: thoroughout this section, CTARGET to get libgcc et. al. deps,
-		#        or CHOST to get canadian-cross deps
-		case ${CTARGET} in
-		${CBUILD%%-*}-*-mingw*|${CBUILD%%-*}-*-msys*)
-			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:${tcgccsysroot}$(__target_prefix)/bin"
-			# native binutils handles both cygwin and mingw binaries
-			;;
-		*-*-cygwin*|*-*-mingw*|*-*-msys*)
-			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/bin:${tcgccsysroot}$(__target_prefix)/bin"
-			;;
-		*-*-darwin*)
-			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:${tcgccsysroot}$(__target_prefix)/lib"
-			alldeps+=" "$(find "${@//^_^/ }" -type f -executable -exec ${CTARGET}-otool -L '{}' + 2>/dev/null | \
-				sed -e '1d;s|^\t\([^ ]*\).*|\1|g' | sort -u | xargs -r which || true )
-			;;
-		# FIXME: any other non-ELF systems?
-		*)	# ELF system; libc in /lib, other libs in /usr/lib
-			PATH+=":${D}/usr/${CTARGET}/sys-root/lib:${tcgccsysroot}/lib"
-			PATH+=":${D}/usr/${CTARGET}/sys-root/$(__target_prefix)/lib:${tcgccsysroot}$(__target_prefix)/lib"
-			alldeps+=" "$(find "${@//^_^/ }" -type f -executable -exec ${CTARGET}-objdump -p '{}' + 2>/dev/null | \
-				sed -n -e 's| *NEEDED *\([^ ]*\).*|\1|gp' | \
-				sort -u | xargs -r which || true )
-			;;
-		esac
-	fi
-
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
 	# *.mex: Octave MATLAB-compatible MEX modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
 	alldeps+=" "$(LC_ALL=C find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+			-o -path 'usr/lib/gcc/*' -prune -o -path 'usr/*/sys-root/*' -prune \
 			${deps_prune} \
 			-o -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.mex' -o -name '*.cmxs' \) \
 			-exec ${objdump} -p '{}' + 2>/dev/null \
 			| grep "DLL Name:" | sort -u | awk '{print $3}' \
 			| xargs -r which || true)
+
+	for mgwdep in $(LC_ALL=C find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
+			${deps_prune} \
+			-o -path 'usr/*/sys-root/*' -type f -executable \( -name '*.exe' -o -name '*.dll' -o -name '*.so' -o -name '*.oct' -o -name '*.mex' -o -name '*.cmxs' \) -print)
+	do
+		mgwdeptgt=$(__file_host_by_path ${mgwdep})
+		alldeps+=" "$(${mgwdeptgt}-objdump -p ${mgwdep} 2>/dev/null \
+			| grep "DLL Name:" | sort -u | awk '{print $3}' \
+			| PATH=${D}$(__triplet_prefix ${mgwdeptgt})/bin:$(__triplet_prefix ${mgwdeptgt})/bin:${PATH} \
+			xargs -r which || true)
+	done
+
+	for drwdep in $(find "${@//^_^/ }" -path 'usr/*-darwin*/sys-root/*' -type f -executable)
+	do
+		drwdeptgt=$(__file_host_by_path ${drwdep})
+		alldeps+=" "$(${drwdep}-otool -L ${drwdep} 2>/dev/null \
+			| sed -e '1d;s|^\t\([^ ]*\).*|\1|g' | sort -u \
+			| PATH="${D}$(__triplet_prefix ${drwdeptgt})/lib:$(__triplet_prefix ${drwdeptgt})/lib:$(dirname $(${drwdeptgt}-gcc --print-file-name=libgcc.a)):${PATH}" \
+			xargs -r which || true)
+	done
+
+	# FIXME: any other non-ELF systems?
+	# ELF system; libc in /lib, other libs in /usr/lib
+	for elfdep in $(find "${@//^_^/ }" -path 'usr/*-cygwin*/sys-root/*' -prune \
+				-o -path 'usr/*-mingw32*/sys-root/*' -prune \
+				-o -path 'usr/*-darwin*/sys-root/*' -prune \
+				-o -path 'usr/*/sys-root/*' -type f -executable -print)
+	do
+		elfdeptgt=$(__file_host_by_path ${drwdep})
+		alldeps+=" "$(${elfdeptgt}-objdump -p ${elfdep} 2>/dev/null \
+			| sed -n -e 's| *NEEDED *\([^ ]*\).*|\1|gp' | sort -u \
+			| PATH="${D}$(__triplet_prefix ${elfdeptgt})/../lib:$(__triplet_prefix ${elfdeptgt})/../lib:${D}$(__triplet_prefix ${elfdeptgt})/lib:$(__triplet_prefix ${elfdeptgt})/lib:$(dirname $(${elfdeptgt}-gcc --print-file-name=libgcc.a)):${PATH}" \
+			xargs -r which || true )
+	done
 
 	# shebang script interpreters
 	for shdep in $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
@@ -207,8 +191,18 @@ __list_deps() {
 	done
 
 	# implib devel->dll subpackage dependencies
-	alldeps+=" "$(find "${@//^_^/ }" -type f -name '*.dll.a' -exec ${dlltool} -I '{}' \; 2>/dev/null \
+	alldeps+=" "$(find "${@//^_^/ }" -path 'usr/share/doc/*' \
+			-o -path 'usr/lib/gcc/*' -prune -o -path 'usr/*/sys-root/*' -prune \
+			-o -type f -name '*.dll.a' -exec ${dlltool} -I '{}' \; 2>/dev/null \
 			| sort -u | xargs -r which)
+
+	for impdep in $(find "${@//^_^/ }" -path 'usr/*/sys-root/*' -type f -name '*.dll.a')
+	do
+		impdeptgt=$(__file_host_by_path ${impdep})
+		alldeps+=" "$(${impdeptgt}-dlltool -I ${impdep} 2>/dev/null \
+			| PATH=${D}$(__triplet_prefix ${impdeptgt})/bin:$(__triplet_prefix ${impdeptgt})/bin:${PATH} \
+			xargs -r which || true)
+	done
 
 	for ladep in $(find "${@//^_^/ }" -type f -name '*.la' \
 			| xargs -r sed -ne "s|^dependency_libs='\(.*\)'|\1|gp" \
@@ -230,51 +224,50 @@ __list_deps() {
 
 	for pcdep in $(find "${@//^_^/ }" -type f -name '*.pc')
 	do
-		pctgt=
+		pctgt=$(__file_host_by_path ${pcdep})
 		case $pcdep in
 		usr/lib/pkgconfig/*|usr/share/pkgconfig/*)
 			alldeps+=" /usr/bin/pkg-config"
 			;;
 		usr/*/sys-root/*/*/pkgconfig/*)
-			pctgt=${pcdep#usr/}
-			pctgt=${pctgt%%/*}
 			alldeps+=" /usr/bin/${pctgt}-pkg-config"
 			;;
 		esac
-	done
 
-	# pkg-config dependencies on other devel packages
-	for pcdep in $(find "${@//^_^/ }" -type f -name '*.pc' | xargs -r grep -h '^Requires' | cut -d' ' -f2- | sed -e 's/,/ /g')
-	do
-		# avoid version comparison tokens
-		case ${pcdep} in [A-Za-z]*) ;; *) continue ;; esac
-		for d in ${D}$(__host_prefix)/lib/pkgconfig ${D}$(__host_prefix)/share/pkgconfig ${D}/usr/share/pkgconfig \
-			 $(__host_prefix)/lib/pkgconfig $(__host_prefix)/share/pkgconfig /usr/share/pkgconfig
+		# pkg-config dependencies on other devel packages
+		for pcreq in $(grep -h '^Requires' ${pcdep} | cut -d' ' -f2- | sed -e 's/,/ /g')
 		do
-			if [ -f ${d}/${pcdep}.pc ]
-			then
-				alldeps+=" "${d}/${pcdep}.pc;
-				break;
-			fi
+			# avoid version comparison tokens
+			case ${pcreq} in [A-Za-z]*) ;; *) continue ;; esac
+			for d in ${D}$(__triplet_prefix ${pctgt})/{lib,share}/pkgconfig \
+				  $(__triplet_prefix ${pctgt})/{lib,share}/pkgconfig \
+				  {${D},}/usr/share/pkgconfig
+			do
+				if [ -f ${d}/${pcdep}.pc ]
+				then
+					alldeps+=" "${d}/${pcdep}.pc;
+					break;
+				fi
+			done
 		done
-	done
 
-	# pkg-config dependencies on other libraries
-	for pcdep in $(find "${@//^_^/ }" -type f -name '*.pc' \
-			| xargs -r grep -h '^Libs:' \
-			| sed -e "s|^[^ ]*||g;s| \+-[^l][^ ]*||g;s| *-l\([^ ]*\)| lib\1|g")
-	do
-		for f in $(__host_prefix)/lib/${pcdep}.{dll.a,so,a}
+		# pkg-config dependencies on other libraries
+		for pclib in $(find "${@//^_^/ }" -type f -name '*.pc' \
+				| xargs -r grep -h '^Libs:' \
+				| sed -e "s|^[^ ]*||g;s| \+-[^l][^ ]*||g;s| *-l\([^ ]*\)| lib\1|g")
 		do
-			if [ -f ${D}${f} ]
-			then
-				alldeps+=" "${D}${f};
-				break
-			elif [ -f ${f} ]
-			then
-				alldeps+=" "${f};
-				break
-			fi
+			for f in $(__triplet_prefix ${pctgt})/lib/${pclib}.{dll.a,so,a}
+			do
+				if [ -f ${D}${f} ]
+				then
+					alldeps+=" "${D}${f};
+					break
+				elif [ -f ${f} ]
+				then
+					alldeps+=" "${f};
+					break
+				fi
+			done
 		done
 	done
 
