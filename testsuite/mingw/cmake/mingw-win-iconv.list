@@ -1,0 +1,12 @@
+/usr/i686-w64-mingw32/sys-root/mingw/bin/iconv.dll
+/usr/i686-w64-mingw32/sys-root/mingw/include/iconv.h
+/usr/i686-w64-mingw32/sys-root/mingw/lib/libiconv.a
+/usr/i686-w64-mingw32/sys-root/mingw/lib/libiconv.dll.a
+/usr/share/doc/mingw64-i686-win-iconv/ChangeLog
+/usr/share/doc/mingw64-i686-win-iconv/readme.txt
+/usr/share/doc/mingw64-x86_64-win-iconv/ChangeLog
+/usr/share/doc/mingw64-x86_64-win-iconv/readme.txt
+/usr/x86_64-w64-mingw32/sys-root/mingw/bin/iconv.dll
+/usr/x86_64-w64-mingw32/sys-root/mingw/include/iconv.h
+/usr/x86_64-w64-mingw32/sys-root/mingw/lib/libiconv.a
+/usr/x86_64-w64-mingw32/sys-root/mingw/lib/libiconv.dll.a

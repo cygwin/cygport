@@ -140,7 +140,9 @@
 #  * clang.cygclass -
 #    For using Clang as a compiler instead of GCC.
 #  * cross.cygclass -
-#    For packaging libraries to be used with cross-compiler toolchains.
+#    For packaging libraries to be used with generic cross-compiler toolchains.
+#  * mingw.cygclass -
+#    For packaging libraries to be used with MinGW cross-compiler toolchains.
 #  * multilib.cygclass -
 #    For packaging libraries for cross-compiler toolchains which support
 #    multiple ABIs.
@@ -197,6 +199,7 @@ cygclasses = files(
     'lua.cygclass',
     'mate.cygclass',
     'meson.cygclass',
+    'mingw.cygclass',
     'mtn.cygclass',
     'multilib.cygclass',
     'ninja.cygclass',

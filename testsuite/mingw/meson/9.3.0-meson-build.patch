@@ -1,0 +1,92 @@
+--- conftest-vsnprintf.c	1969-12-31 19:00:00.000000000 -0500
++++ conftest-vsnprintf.c	2020-05-06 14:18:44.997594500 -0400
+@@ -0,0 +1,22 @@
++#include <stdarg.h>
++#include <string.h>
++#include <stdio.h>
++
++int foo (char *buf, size_t n, const char *fmt, ...)
++{
++  va_list ap;
++  int ret;
++  va_start (ap, fmt);
++  ret = vsnprintf (buf, n, fmt, ap);
++  va_end (ap);
++  return ret;
++}
++
++int main(void)
++{
++  char buf[8];
++  memset (buf, 'A', sizeof (buf));
++  if (foo (buf, 4, ".%s.", "CDEFG") != 7)
++    return 1;
++  return memcmp (buf, ".CD\0AAAA", sizeof (buf)) != 0;
++}
+--- meson.build	1969-12-31 19:00:00.000000000 -0500
++++ meson.build	2020-05-06 15:37:25.231879000 -0400
+@@ -0,0 +1,56 @@
++project('libssp', 'c',
++	default_options: ['warning_level=2'],
++	version: '1.0')
++
++add_project_arguments('-Wundef', '-fno-stack-protector',
++                      '-Wp,-D_FORTIFY_SOURCE=0', '-D__SSP_FORTIFY_LEVEL=0',
++                      language: 'c')
++
++cc = meson.get_compiler('c', native: false)
++conf_data = configuration_data()
++conf_data.set('HAVE_ALLOCA_H', cc.check_header('alloca.h'))
++conf_data.set('HAVE_DLFCN_H', cc.check_header('dlfcn.h'))
++conf_data.set('HAVE_FCNTL_H', cc.check_header('fcntl.h'))
++conf_data.set('HAVE_HIDDEN_VISIBILITY', cc.has_function_attribute('visibility:hidden'))
++conf_data.set('HAVE_INTTYPES_H', cc.check_header('inttypes.h'))
++conf_data.set('HAVE_LIMITS_H', cc.check_header('limits.h'))
++conf_data.set('HAVE_MALLOC_H', cc.check_header('malloc.h'))
++conf_data.set('HAVE_MEMMOVE', cc.has_function('memmove'))
++conf_data.set('HAVE_MEMPCPY', cc.has_function('mempcpy'))
++conf_data.set('HAVE_MEMORY_H', cc.check_header('memory.h'))
++conf_data.set('HAVE_PATHS_H', cc.check_header('paths.h'))
++conf_data.set('HAVE_STDINT_H', cc.check_header('stdint.h'))
++conf_data.set('HAVE_STDIO_H', cc.check_header('stdio.h'))
++conf_data.set('HAVE_STDLIB_H', cc.check_header('stdlib.h'))
++conf_data.set('HAVE_STRINGS_H', cc.check_header('strings.h'))
++conf_data.set('HAVE_STRING_H', cc.check_header('string.h'))
++conf_data.set('HAVE_STRNCAT', cc.has_function('strncat'))
++conf_data.set('HAVE_STRNCPY', cc.has_function('strncpy'))
++conf_data.set('HAVE_SYSLOG_H', cc.check_header('syslog.h'))
++conf_data.set('HAVE_SYS_STAT_H', cc.check_header('sys/stat.h'))
++conf_data.set('HAVE_SYS_TYPES_H', cc.check_header('sys/types.h'))
++conf_data.set('HAVE_UNISTD_H', cc.check_header('unistd.h'))
++
++conftest = files('conftest-vsnprintf.c')
++if not meson.is_cross_build() or meson.has_exe_wrapper()
++  confret = cc.run(conftest).returncode()
++else
++  confret = 255
++endif
++
++conf_data.set('HAVE_USABLE_VSNPRINTF', confret == 0)
++configure_file(output: 'config.h',
++               configuration: conf_data)
++subdir('ssp')
++
++srcs = files('ssp.c', 'gets-chk.c', 'memcpy-chk.c', 'memmove-chk.c',
++             'mempcpy-chk.c', 'memset-chk.c', 'snprintf-chk.c', 'sprintf-chk.c',
++             'stpcpy-chk.c', 'strcat-chk.c', 'strcpy-chk.c', 'strncat-chk.c',
++             'strncpy-chk.c', 'vsnprintf-chk.c', 'vsprintf-chk.c')
++
++libssp = both_libraries('ssp', srcs,
++                        soversion: '0',
++                        install: true)
++
++libssp_nonshared = static_library('ssp_nonshared', 'ssp-local.c',
++                                  install: true)
+--- ssp/meson.build	1969-12-31 19:00:00.000000000 -0500
++++ ssp/meson.build	2020-05-06 14:26:43.263167600 -0400
+@@ -0,0 +1,5 @@
++ssp_h_data = configuration_data()
++ssp_h_data.set('ssp_have_usable_vsnprintf', confret == 0 ? 'define' : 'undef')
++configure_file(input: 'ssp.h.in',
++               output: 'ssp.h',
++               configuration: ssp_h_data)

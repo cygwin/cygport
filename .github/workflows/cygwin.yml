@@ -85,6 +85,9 @@ jobs:
         mingw64-i686-gcc-core,^
         mingw64-i686-qt5-base,^
         mingw64-i686-qt5-tools,^
+        mingw64-x86_64-gcc-core,^
+        mingw64-x86_64-qt5-base,^
+        mingw64-x86_64-qt5-tools,^
         mm-common,^
         monotone,^
         ninja,^

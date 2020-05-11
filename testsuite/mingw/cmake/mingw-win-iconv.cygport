@@ -1,0 +1,15 @@
+inherit cmake mingw
+
+NAME="mingw-win-iconv"
+VERSION=0.0.8
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="Iconv implemenation for Win32 toolchain"
+DESCRIPTION="Iconv implementation which uses the Win32 API to convert."
+HOMEPAGE="https://github.com/win-iconv/win-iconv"
+SRC_URI="${HOMEPAGE}/archive/v${VERSION}/win-iconv-v${VERSION}.tar.gz"
+SRC_DIR="win-iconv-${VERSION}"
+
+CYGCMAKE_ARGS="-DBUILD_STATIC=ON -DBUILD_SHARED=ON -DBUILD_EXECUTABLE=OFF"
+
+DOCS="readme.txt"

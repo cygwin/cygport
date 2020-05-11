@@ -1,0 +1,12 @@
+/usr/i686-w64-mingw32/sys-root/mingw/bin/libcrypt-0.dll
+/usr/i686-w64-mingw32/sys-root/mingw/include/crypt.h
+/usr/i686-w64-mingw32/sys-root/mingw/lib/libcrypt.a
+/usr/i686-w64-mingw32/sys-root/mingw/lib/libcrypt.dll.a
+/usr/share/doc/mingw64-i686-crypt/COPYRIGHT
+/usr/share/doc/mingw64-i686-crypt/crypt.README
+/usr/share/doc/mingw64-x86_64-crypt/COPYRIGHT
+/usr/share/doc/mingw64-x86_64-crypt/crypt.README
+/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libcrypt-0.dll
+/usr/x86_64-w64-mingw32/sys-root/mingw/include/crypt.h
+/usr/x86_64-w64-mingw32/sys-root/mingw/lib/libcrypt.a
+/usr/x86_64-w64-mingw32/sys-root/mingw/lib/libcrypt.dll.a

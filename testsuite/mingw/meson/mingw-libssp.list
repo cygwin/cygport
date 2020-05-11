@@ -1,0 +1,10 @@
+/usr/i686-w64-mingw32/sys-root/mingw/bin/libssp-0.dll
+/usr/i686-w64-mingw32/sys-root/mingw/lib/libssp.a
+/usr/i686-w64-mingw32/sys-root/mingw/lib/libssp.dll.a
+/usr/i686-w64-mingw32/sys-root/mingw/lib/libssp_nonshared.a
+/usr/share/doc/mingw64-i686-libssp/ChangeLog
+/usr/share/doc/mingw64-x86_64-libssp/ChangeLog
+/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libssp-0.dll
+/usr/x86_64-w64-mingw32/sys-root/mingw/lib/libssp.a
+/usr/x86_64-w64-mingw32/sys-root/mingw/lib/libssp.dll.a
+/usr/x86_64-w64-mingw32/sys-root/mingw/lib/libssp_nonshared.a

@@ -1,0 +1,37 @@
+GIT_URI="git://sourceware.org/git/cygwin-apps/crypt.git"
+GIT_TAG="crypt-${PV//./_}-release"
+inherit mingw git
+
+NAME="mingw-crypt"
+VERSION=2.1
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="crypt(3) library for Win32 toolchain"
+DESCRIPTION="This packages provides a library which exports the functions
+crypt(3), encrypt(3), and setkey(3).  The created passwords are 56 bit DES
+encrypted and are 100% identical to those created by the Linux crypt(3)."
+HOMEPAGE="http://cygwin.com/"
+
+PATCH_URI="1.1-mingw.patch"
+
+src_compile() {
+	cd ${B}
+
+	mkdir -p ${B}/${MINGW32_TARGET}
+	lndirs ${S} ${B}/${MINGW32_TARGET}
+	mingw32_make CC=${MINGW32_CC} AR=${MINGW32_AR}
+
+	mkdir -p ${B}/${MINGW64_TARGET}
+	lndirs ${S} ${B}/${MINGW64_TARGET}
+	mingw64_make CC=${MINGW64_CC} AR=${MINGW64_AR}
+}
+
+src_install() {
+	cd ${B}
+	USE_DESTDIR=0 \
+	mingw_make_install
+	find ${D}/usr/*/sys-root/mingw/share/doc/ -delete
+	rm -f ${D}/usr/*/sys-root/mingw/bin/crypt.exe
+}
+
+DOCS="crypt.README"

@@ -1,0 +1,14 @@
+SVN_URI="https://github.com/gcc-mirror/gcc"
+SVN_BRANCH="tags/releases/gcc-${PV}/libssp"
+SVN_MODULE="libssp"
+MINGW_ARCHS="i686;x86_64"
+inherit meson mingw svn
+
+NAME="mingw-libssp"
+VERSION=9.3.0
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="Stack Smashing Protection library for Win32 toolchain"
+HOMEPAGE="https://gcc.gnu.org/"
+
+PATCH_URI="9.3.0-meson-build.patch"
