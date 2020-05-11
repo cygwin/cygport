@@ -95,10 +95,10 @@
 #  Absolute path to the Qt4 Linguist translation compiler
 #****
 
-if inherited cross
+if cross_compiling
 then
-	QT4_QTDIR=${CROSS_PREFIX}
-	QT4_QMAKE=/usr/bin/${CROSS_HOST}-qmake-qt4
+	QT4_QTDIR=$(__host_prefix)
+	QT4_QMAKE=/usr/bin/${CHOST}-qmake-qt4
 else
 	QT4_QTDIR=/usr/lib/qt4
 	QT4_QMAKE=/usr/bin/qmake-qt4
