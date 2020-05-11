@@ -283,6 +283,23 @@ __target_is_embedded() {
 	__triplet_is_embedded ${CTARGET}
 }
 
+__file_host_by_path() {
+	local f=${1#/}
+	local h;
+
+	case ${f} in
+	usr/lib/gcc/*/*lto_plugin*|usr/lib/gcc/*/*.exe)
+		;;
+	usr/lib/gcc/*/lib*|usr/lib/gcc/*/*.o)
+		h=$(echo ${f} | cut -d/ -f4) ;;
+	usr/include/*|usr/local/*|usr/share/*|usr/src/*)
+		;;
+	usr/*/sys-root/*|usr/*/lib/*.[ao])
+		h=$(echo ${f} | cut -d/ -f2) ;;
+	esac
+	echo -n ${h:-${CHOST}}
+}
+
 #****** Format/Globals
 #****
 #****v* Globals/NAME
@@ -353,5 +370,5 @@ __target_is_embedded() {
 readonly -f defined pushd popd error warning inform verbose __stage __step \
 	__log_init __check_triplet cross_compiling __cross_compiling_error \
 	__triplet_is_embedded __triplet_native_prefix __triplet_prefix \
-	__host_prefix __host_sysconfdir __host_localstatedir \
+	__file_host_by_path __host_prefix __host_sysconfdir __host_localstatedir \
 	__host_is_embedded __target_prefix __target_is_embedded
