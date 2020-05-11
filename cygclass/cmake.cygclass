@@ -147,12 +147,12 @@ cygcmake() {
 			-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY
 			-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY"
 		case ${CHOST} in *-cygwin*|*-mingw*)
-			crossargs+=" -DCMAKE_RC_COMPILER=$(which ${CHOST}-windres${exeext})"
+			crossargs+=" -DCMAKE_RC_COMPILER=$(which ${RC})"
 			;;
 		esac
-		if check_prog ${CHOST}-pkg-config
+		if check_prog ${PKG_CONFIG}
 		then
-			crossargs+=" -DPKG_CONFIG_EXECUTABLE=$(which ${CHOST}-pkg-config)"
+			crossargs+=" -DPKG_CONFIG_EXECUTABLE=$(which ${PKG_CONFIG})"
 		fi
 	else
 		crossargs=
@@ -181,14 +181,14 @@ cygcmake() {
 		${cmdir} \
 		-DCMAKE_BINARY_DIR=. \
 		-DCMAKE_BUILD_TYPE=${buildtype} \
-		-DCMAKE_C_COMPILER=$(which ${CC}${exeext}) \
+		-DCMAKE_C_COMPILER=$(which ${CC}) \
 		-DCMAKE_C_FLAGS="${CFLAGS} ${CPPFLAGS}" \
-		-DCMAKE_CXX_COMPILER=$(which ${CXX}${exeext}) \
+		-DCMAKE_CXX_COMPILER=$(which ${CXX}) \
 		-DCMAKE_CXX_FLAGS="${CXXFLAGS} ${CPPFLAGS}" \
-		-DCMAKE_Fortran_COMPILER=$(which ${FC}${exeext}) \
+		-DCMAKE_Fortran_COMPILER=$(which ${FC}) \
 		-DCMAKE_Fortran_FLAGS="${FCFLAGS} ${CPPFLAGS}" \
-		-DCMAKE_AR=$(which ${AR}${exeext}) \
-		-DCMAKE_RANLIB=$(which ${RANLIB}${exeext}) \
+		-DCMAKE_AR=$(which ${AR}) \
+		-DCMAKE_RANLIB=$(which ${RANLIB}) \
 		-DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
 		-DCMAKE_MODULE_LINKER_FLAGS="${LDFLAGS}" \
 		-DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}" \
