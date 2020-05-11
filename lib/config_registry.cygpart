@@ -42,4 +42,8 @@ __config_set() {
 	echo -n ${2} > ${configdir}/${1};
 }
 
-readonly -f __config_equals __config_get __config_set
+__config_append() {
+	echo ${2} >> ${configdir}/${1};
+}
+
+readonly -f __config_equals __config_get __config_set __config_append

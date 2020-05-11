@@ -74,6 +74,8 @@ cygmeson() {
 		fi
 	fi
 
+	__config_append meson_hosts ${CHOST}
+
 	check_prog_req meson
 
 	meson_version=$(meson --version)
