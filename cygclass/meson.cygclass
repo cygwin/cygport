@@ -54,6 +54,7 @@ inherit ninja
 #****
 cygmeson() {
 	local crossargs mdir meson_version
+	local _meson_build_cc _meson_build_cxx
 
 	if [ ! -e meson.build ]
 	then
@@ -88,6 +89,19 @@ cygmeson() {
 #  Flags in CYGMESON_ARGS follow, and therefore override, flags passed by
 #  default to cygmeson.
 #****
+	# meson uses these variables to determine the *build* environment
+	# when cross-compiling, so they cannot point to the host/target tools
+	if inherited clang
+	then
+		_meson_build_cc=clang
+		_meson_build_cxx=clang++
+	else
+		_meson_build_cc=gcc
+		_meson_build_cxx=g++
+	fi
+	CC=${_meson_build_cc} CXX=${_meson_build_cxx} \
+	OBJC=${_meson_build_cc} OBJCXX=${_meson_build_cxx} \
+	FC=gfortran STRIP=strip AR=ar WINDRES=windres PKG_CONFIG=pkg-config \
 	meson --prefix=$(__host_prefix) \
 		--localstatedir=$(__host_localstatedir) \
 		--sysconfdir=$(__host_sysconfdir) \
