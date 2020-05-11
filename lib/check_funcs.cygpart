@@ -560,7 +560,7 @@ check_vala_module() {
 __check_depends() {
 	local atom failed_atoms;
 
-	if ! check_tool gcc || ! check_tool strip
+	if ! check_prog ${CC} || ! check_prog ${STRIP}
 	then
 	        error "Compiling this package requires $(cross_compiling && echo -n ${CHOST}' ')binutils and gcc"
 	fi
