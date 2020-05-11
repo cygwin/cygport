@@ -876,15 +876,14 @@ __prep_empty_dirs() {
 __prepstrip() {
 	local dbg;
 	local exe;
+	local exehost;
 	local all_exes;
-	local arch_tree;
 	local ibase;
 	local lib;
 	local objcopy;
 	local objdump;
 	local nm;
 	local lines;
-	local tmpvar;
 
 	if defined _CYGPORT_RESTRICT_strip_
 	then
@@ -918,35 +917,22 @@ __prepstrip() {
 			continue
 		fi
 
-		case "${exe}" in
-		usr/*/lib*/*.[ao]|usr/*/sys-root/*)
-			tmpvar="${exe#usr/}"
-			arch_tree="${tmpvar%%/*}"
-			;;
-		usr/lib/gcc/*/lib*|usr/lib/gcc/*/*.o)
-			tmpvar="${exe#usr/lib/gcc/}"
-			arch_tree="${tmpvar%%/*}"
-			;;
-		esac
+		exehost=$(__file_host_by_path "${exe}")
 
-		if defined arch_tree && check_prog ${arch_tree}-objcopy && ${arch_tree}-size -f "${exe}" &>/dev/null
+		if check_prog ${exehost}-objcopy && ${exehost}-size "${exe}" &>/dev/null
 		then
 			# for cross-compiled libs or cross-GCC target libs
-			# built without cross.cygclass or toolchain.cygclass
-			objcopy="${arch_tree}-objcopy"
-			unset arch_tree
-		elif check_prog ${CTARGET}-objcopy && ${CTARGET}-size -f "${exe}" &>/dev/null
+			objcopy="${exehost}-objcopy"
+		elif check_prog ${CHOST}-objcopy && ${CHOST}-size "${exe}" &>/dev/null
 		then
-			# for cross-compiled libs, cross-GCC target libs,
-			# or non-cross packages built on non-Cygwin systems
-			objcopy="${CTARGET}-objcopy"
-		elif check_prog ${CHOST}-objcopy && ${CHOST}-size -f "${exe}" &>/dev/null
-		then
-			# for cross-compilers built on non-Cygwin systems
+			# for packages built on non-Cygwin systems
 			objcopy="${CHOST}-objcopy"
-		elif size -f "${exe}" &>/dev/null
+		elif size "${exe}" &>/dev/null
 		then
 			objcopy="objcopy"
+		elif check_prog llvm-objcopy && llvm-size "${exe}" &>/dev/null
+		then
+			objcopy="llvm-objcopy"
 		else
 			continue
 		fi
@@ -983,9 +969,8 @@ __prepstrip() {
 		fi
 
 		# check for DLLs with low-address manual ImageBase, either
-		# due to -Wl,--image-base, or BASE directive in .def file;
-		# use CTARGET to avoid false positives from cross-gcc
-		case ${CTARGET} in
+		# due to -Wl,--image-base, or BASE directive in .def file
+		case ${exehost} in
 		x86_64-*-cygwin*)
 			case "${exe##*/}" in
 			cygwin1.dll|cyglsa64.dll|cyglto_plugin.dll) ;;
@@ -1007,7 +992,7 @@ __prepstrip() {
 
 		# check for .exe from non-automake Makefile which install(1) didn't fix
 		# strip(1) used to take care of this, but not anymore
-		case ${CHOST} in
+		case ${exehost} in
 		*-*-cygwin*|*-*-mingw*|*-*-msys*)
 			case "${exe##*/}" in
 			*.dll|*.exe|*.sfx|*.so|*.so.[0-9]*|*.oct|*.mex|*.cmxs) ;;
@@ -1063,10 +1048,10 @@ __prepstrip() {
 			if ! ${objdump} -h "${exe}" | grep -q '\.gnu_deb'
 			then
 				dodir "${dbg%/*}";
-				${objcopy} --long-section-names enable --add-gnu-debuglink=/dev/null --only-keep-debug "${exe}" "${D}${dbg}";
+				${objcopy} --add-gnu-debuglink=/dev/null --only-keep-debug "${exe}" "${D}${dbg}";
 				chmod 0644 "${D}${dbg}";
 				${objcopy} --strip-all "${exe}";
-				${objcopy} --long-section-names enable --add-gnu-debuglink="${D}${dbg}" "${exe}" 2>/dev/null;
+				${objcopy} --add-gnu-debuglink="${D}${dbg}" "${exe}" 2>/dev/null;
 			fi
 		fi
 	done
