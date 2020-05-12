@@ -40,7 +40,7 @@
 
 inherit ninja
 
-__cmake_system() {
+__cmake_system_name() {
 	local cmsys
 
 	# FIXME: do binutils/gcc really support all these?
@@ -141,7 +141,8 @@ cygcmake() {
 
 	if cross_compiling
 	then
-		crossargs="-DCMAKE_SYSTEM_NAME=$(__cmake_system)
+		crossargs="-DCMAKE_SYSTEM_NAME=$(__cmake_system_name)
+			-DCMAKE_SYSTEM_PROCESSOR=${CHOST%%-*}
 			-D_CMAKE_TOOLCHAIN_PREFIX=${CHOST}-
 			-DCMAKE_FIND_ROOT_PATH=$(${CC} -print-sysroot)
 			-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY
@@ -236,4 +237,4 @@ src_install() {
 }
 #****
 
-readonly -f __cmake_system cygcmake
+readonly -f __cmake_system_name cygcmake
