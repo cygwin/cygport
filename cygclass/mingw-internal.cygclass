@@ -60,67 +60,60 @@ __mingw_init() {
 }
 
 __mingw_wrapper() {
-	local ovar var
-	local toolvars=(CC=gcc CXX=g++ F77=gfortran FC=gfortran OBJC=gcc OBJCXX=g++ \
-			AR=ar DLLTOOL=dlltool NM=nm OBJDUMP=objdump RANLIB=ranlib \
-			RC=windres STRIP=strip PKG_CONFIG=pkg-config QT5_QMAKE=qmake-qt5)
-	local miscvars=(CHOST CTARGET CC_SYSROOT)
-	local expvars=(CFLAGS CXXFLAGS)
-
-	__check_triplet ${1}
-
-	for var in ${miscvars[*]} ${toolvars[*]%=*} ${expvars[*]}
-	do
-		ovar="orig_${var}"
-		local ${ovar}="${!var}"
-	done
-	declare -g CHOST=${1}
+	local mingw_cc mingw_cxx
+	local tgt=${1}
 	shift
-	declare -g CTARGET=${CHOST}
-	declare -g CC_SYSROOT=/usr/${CHOST}/sys-root
-	# mingw-w64 actually supports these now, but with libssp it is fragile
-	declare -gx CFLAGS="${CFLAGS/-Wp,-D_FORTIFY_SOURCE=2 -fstack-protector-strong}"
-	declare -gx CXXFLAGS="${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=2 -fstack-protector-strong}"
 
-	for var in ${toolvars[*]}
-	do
-		declare -g ${var%=*}=${CHOST}-${var#*=}
-	done
+	__check_triplet ${tgt}
+
 	if inherited clang
 	then
-		declare -g CC="${CHOST}-clang"
-		declare -g CXX="${CHOST}-clang++"
+		mingw_cc=${tgt}-clang
+		mingw_cxx=${tgt}-clang++
+	else
+		mingw_cc=${tgt}-gcc
+		mingw_cxx=${tgt}-g++
 	fi
 
-	if ! check_prog ${CC} || ! check_prog ${STRIP}
+	if ! check_prog ${mingw_cc} || ! check_prog ${tgt}-strip
 	then
-		error "This package requires ${CHOST} binutils and gcc"
+		error "This package requires ${tgt} binutils and gcc"
 	fi
 
 	if ! defined __MINGW_WRAPPER_NO_CWD
 	then
-		mkdir -p ${CHOST}/${MINGW_BUILDDIR_SUFFIX}
-		pushd ${CHOST}/${MINGW_BUILDDIR_SUFFIX}
+		mkdir -p ${tgt}/${MINGW_BUILDDIR_SUFFIX}
+		pushd ${tgt}/${MINGW_BUILDDIR_SUFFIX}
 	fi
 
-	inform "cross-compiling for ${CHOST}"
+	inform "running ${1} for ${tgt}"
+
+	CHOST=${tgt} \
+	CTARGET=${tgt} \
+	CC=${mingw_cc} \
+	CXX=${mingw_cxx} \
+	F77=${tgt}-gfortran \
+	FC=${tgt}-gfortran \
+	OBJC=${mingw_cc} \
+	OBJCXX=${mingw_cxx} \
+	AR=${tgt}-ar \
+	DLLTOOL=${tgt}-dlltool \
+	NM=${tgt}-nm \
+	OBJDUMP=${tgt}-objdump \
+	RANLIB=${tgt}-ranlib \
+	RC=${tgt}-windres \
+	STRIP=${tgt}-strip \
+	PKG_CONFIG=${tgt}-pkg-config \
+	QT5_QMAKE=${tgt}-qmake-qt5 \
+	CC_SYSROOT=/usr/${tgt}/sys-root \
+	CFLAGS="${CFLAGS/-Wp,-D_FORTIFY_SOURCE=2 -fstack-protector-strong}" \
+	CXXFLAGS="${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=2 -fstack-protector-strong}" \
 	"${@}" || error "${1} for ${CHOST} failed"
 
 	if ! defined __MINGW_WRAPPER_NO_CWD
 	then
 		popd
 	fi
-
-	for var in ${miscvars[*]} ${toolvars[*]%=*}
-	do
-		ovar="orig_${var}"
-		declare -g ${var}="${!ovar}"
-	done
-	for var in ${expvars[*]}
-	do
-		ovar="orig_${var}"
-		declare -gx ${var}="${!ovar}"
-	done
 }
 
 readonly -f __mingw_init __mingw_wrapper
