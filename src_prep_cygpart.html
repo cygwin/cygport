@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="./robodoc.css" type="text/css" />
 <title>./cygport/lib/src_prep.cygpart</title>
 <!-- Source: ./cygport/lib/src_prep.cygpart -->
-<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jul 26 2019) -->
 </head>
 <body>
 <div id="logo">
@@ -35,19 +35,35 @@
 <ul>
 <li><a href="#robo109">Preparation</a></li>
 <ul>
-<li><a href="#robo110">SRC_DIR</a></li>
-<li><a href="#robo111">DISTCLEANFILES</a></li>
+<li><a href="#robo110">src_patch_apply_hook</a></li>
+<li><a href="#robo111">SRC_DIR</a></li>
+<li><a href="#robo112">DISTCLEANFILES</a></li>
+<li><a href="#robo113">src_unpack_hook</a></li>
+<li><a href="#robo114">src_patch_hook</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Chapter2062fPreparation"></a>
 <a name="robo109"></a><h2>Preparation</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo678">Chapter 6</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo695">Chapter 6</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+
+<hr />
+<a name="Preparation2fsrc5fpatch5fapply5fhook"></a>
+<a name="robo110"></a><h2>src_patch_apply_hook</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo109">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  <strong>src_patch_apply_hook</strong>() is an optional function which can be <a href="./syntax_cygpart.html#robo77">defined</a>
+  to control patch application, for architecture dependent patches, etc.
+  It receives a patch filename as an argument, and a non-zero result
+  causes the patch to be skipped.
+  (This API is not yet stable and is subject to change)
+</p>
 
 <hr />
 <a name="Preparation2fSRC5fDIR"></a>
-<a name="robo110"></a><h2>SRC_DIR</h2>
+<a name="robo111"></a><h2>SRC_DIR</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo109">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -61,7 +77,7 @@
 
 <hr />
 <a name="Preparation2fDISTCLEANFILES"></a>
-<a name="robo111"></a><h2>DISTCLEANFILES</h2>
+<a name="robo112"></a><h2>DISTCLEANFILES</h2>
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo109">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
@@ -70,9 +86,33 @@
   files which are incorrectly included in the source tarball.
 </p>
 
+<hr />
+<a name="Preparation2fsrc5funpack5fhook"></a>
+<a name="robo113"></a><h2>src_unpack_hook</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo109">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  <strong>src_unpack_hook</strong>() is an optional function which can be <a href="./syntax_cygpart.html#robo77">defined</a>
+  to alter the original source tree, to avoid large patches
+  or long <a href="./pkg_pkg_cygpart.html#robo384">DIFF_EXCLUDES</a>.
+  (This API is not yet stable and is subject to change)
+</p>
+
+<hr />
+<a name="Preparation2fsrc5fpatch5fhook"></a>
+<a name="robo114"></a><h2>src_patch_hook</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo109">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  <strong>src_patch_hook</strong>() an optional function which can be <a href="./syntax_cygpart.html#robo77">defined</a>, which
+  is called after patches have been applied, for changing
+  permissions, etc., on patched files.
+  (This API is not yet stable and is subject to change)
+</p>
+
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/lib/src_prep.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Mar 25 2019 13:52:33
+<p>Generated from ./cygport/lib/src_prep.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon May 25 2020 12:13:53
 </p>
 </div> <!-- footer -->
 </body>

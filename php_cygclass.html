@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="./robodoc.css" type="text/css" />
 <title>./cygport/cygclass/php.cygclass</title>
 <!-- Source: ./cygport/cygclass/php.cygclass -->
-<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jul 26 2019) -->
 </head>
 <body>
 <div id="logo">
@@ -33,64 +33,64 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo394">php.cygclass</a></li>
+<li><a href="#robo402">php.cygclass</a></li>
 <ul>
-<li><a href="#robo395">PHP</a></li>
-<li><a href="#robo396">PHP_CONFIG</a></li>
-<li><a href="#robo397">PHPIZE</a></li>
-<li><a href="#robo398">PEAR</a></li>
-<li><a href="#robo399">PECL</a></li>
-<li><a href="#robo400">PHP_VERSION</a></li>
-<li><a href="#robo401">PHP_INI_DIR</a></li>
-<li><a href="#robo402">PHP_EXTENSION_DIR</a></li>
-<li><a href="#robo403">PHP_PEAR_PHP_DIR</a></li>
-<li><a href="#robo404">PHP_PEAR_METADATA_DIR</a></li>
-<li><a href="#robo405">LIBPHP</a></li>
-<li><a href="#robo406">PHP_CHANNEL</a></li>
-<li><a href="#robo407">CATEGORY (php)</a></li>
-<li><a href="#robo408">SUMMARY (php)</a></li>
-<li><a href="#robo409">HOMEPAGE (php)</a></li>
-<li><a href="#robo410">SRC_URI (php)</a></li>
-<li><a href="#robo411">php_autoreconf</a></li>
-<li><a href="#robo412">php_compile</a></li>
-<li><a href="#robo413">php_install</a></li>
-<li><a href="#robo414">php_postinst</a></li>
-<li><a href="#robo415">php_fix_shebang</a></li>
-<li><a href="#robo416">src_compile (php)</a></li>
-<li><a href="#robo417">src_install (php)</a></li>
+<li><a href="#robo403">PHP</a></li>
+<li><a href="#robo404">PHP_CONFIG</a></li>
+<li><a href="#robo405">PHPIZE</a></li>
+<li><a href="#robo406">PEAR</a></li>
+<li><a href="#robo407">PECL</a></li>
+<li><a href="#robo408">PHP_VERSION</a></li>
+<li><a href="#robo409">PHP_INI_DIR</a></li>
+<li><a href="#robo410">PHP_EXTENSION_DIR</a></li>
+<li><a href="#robo411">PHP_PEAR_PHP_DIR</a></li>
+<li><a href="#robo412">PHP_PEAR_METADATA_DIR</a></li>
+<li><a href="#robo413">LIBPHP</a></li>
+<li><a href="#robo414">PHP_CHANNEL</a></li>
+<li><a href="#robo415">CATEGORY (php)</a></li>
+<li><a href="#robo416">SUMMARY (php)</a></li>
+<li><a href="#robo417">HOMEPAGE (php)</a></li>
+<li><a href="#robo418">SRC_URI (php)</a></li>
+<li><a href="#robo419">php_autoreconf</a></li>
+<li><a href="#robo420">php_compile</a></li>
+<li><a href="#robo421">php_install</a></li>
+<li><a href="#robo422">php_postinst</a></li>
+<li><a href="#robo423">php_fix_shebang</a></li>
+<li><a href="#robo424">src_compile (php)</a></li>
+<li><a href="#robo425">src_install (php)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fphp2ecygclass"></a>
-<a name="robo394"></a><h2>php.cygclass</h2>
+<a name="robo402"></a><h2>php.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo511">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo528">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  [<a href="#robo406">PHP_CHANNEL</a>="..."]
-  <a href="./inheritance_cygpart.html#robo561">inherit</a> php
+<pre>  [<a href="#robo414">PHP_CHANNEL</a>="..."]
+  <a href="./inheritance_cygpart.html#robo578">inherit</a> php
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  <a href="#robo395">PHP</a> is a programming language most commonly used as an HTML preprocessor
+<p>  <a href="#robo403">PHP</a> is a programming language most commonly used as an HTML preprocessor
   for creating dynamic web pages.  The interpreter comes in three forms, known
   as SAPIs: command-line, CGI, and Apache Web Server DSO.  Extensions written
-  in either <a href="#robo395">PHP</a> or <a href="./syntax_cygpart.html#robo99">C</a> can be installed to provide additional functionality.
+  in either <a href="#robo403">PHP</a> or <a href="./syntax_cygpart.html#robo99">C</a> can be installed to provide additional functionality.
 </p>
 
-<p>  This cygclass is meant for building <a href="#robo395">PHP</a> extension packages.
+<p>  This cygclass is meant for building <a href="#robo403">PHP</a> extension packages.
 </p>
 <p class="item_name">EXAMPLES</p>
-<p>  A typical <a href="#robo398">PEAR</a> (pure <a href="#robo395">PHP</a>) module package looks like this:
+<p>  A typical <a href="#robo406">PEAR</a> (pure <a href="#robo403">PHP</a>) module package looks like this:
 </p>
 
-<pre>    <a href="#robo406">PHP_CHANNEL</a>=pear
-    <a href="./inheritance_cygpart.html#robo561">inherit</a> php
+<pre>    <a href="#robo414">PHP_CHANNEL</a>=pear
+    <a href="./inheritance_cygpart.html#robo578">inherit</a> php
     
     <a href="./syntax_cygpart.html#robo88">NAME</a>="php-Archive_Tar"
     <a href="./syntax_cygpart.html#robo89">VERSION</a>=1.3.11
     <a href="./syntax_cygpart.html#robo90">RELEASE</a>=1
-    <a href="./pkg_pkg_cygpart.html#robo381">CATEGORY</a>="<a href="#robo395">PHP</a>"
-    <a href="./pkg_pkg_cygpart.html#robo383">SUMMARY</a>="<a href="#robo395">PHP</a> class for creating and managing tarballs"
-    <a href="./pkg_pkg_cygpart.html#robo385">DESCRIPTION</a>="The Archive_Tar class helps in creating and managing GNU tar
+    <a href="./pkg_pkg_cygpart.html#robo385">CATEGORY</a>="<a href="#robo403">PHP</a>"
+    <a href="./pkg_pkg_cygpart.html#robo387">SUMMARY</a>="<a href="#robo403">PHP</a> class for creating and managing tarballs"
+    <a href="./pkg_pkg_cygpart.html#robo389">DESCRIPTION</a>="The Archive_Tar class helps in creating and managing GNU tar
     format files compressed by Gzip or not. The class offers basic functions
     like creating an archive, adding files in the archive, extracting files
     from the archive and listing the archive content."
@@ -99,141 +99,141 @@
     php_Archive_Tar_REQUIRES="php-bz2 php-zlib"
 </pre>
 <p>
-  <a href="#robo399">PECL</a> extensions (written in <a href="./syntax_cygpart.html#robo99">C</a>) are similarly straightforward:
+  <a href="#robo407">PECL</a> extensions (written in <a href="./syntax_cygpart.html#robo99">C</a>) are similarly straightforward:
 </p>
 
-<pre>    <a href="#robo406">PHP_CHANNEL</a>=pecl
-    <a href="./inheritance_cygpart.html#robo561">inherit</a> php
+<pre>    <a href="#robo414">PHP_CHANNEL</a>=pecl
+    <a href="./inheritance_cygpart.html#robo578">inherit</a> php
     
     <a href="./syntax_cygpart.html#robo88">NAME</a>="php-ncurses"
     <a href="./syntax_cygpart.html#robo89">VERSION</a>=1.0.2
     <a href="./syntax_cygpart.html#robo90">RELEASE</a>=1
-    <a href="./pkg_pkg_cygpart.html#robo381">CATEGORY</a>="<a href="#robo395">PHP</a>"
-    <a href="./pkg_pkg_cygpart.html#robo383">SUMMARY</a>="<a href="#robo395">PHP</a> ncurses extension"
-    <a href="./pkg_pkg_cygpart.html#robo385">DESCRIPTION</a>="Terminal screen handling extension for <a href="#robo395">PHP</a> (cli-mode only)"
+    <a href="./pkg_pkg_cygpart.html#robo385">CATEGORY</a>="<a href="#robo403">PHP</a>"
+    <a href="./pkg_pkg_cygpart.html#robo387">SUMMARY</a>="<a href="#robo403">PHP</a> ncurses extension"
+    <a href="./pkg_pkg_cygpart.html#robo389">DESCRIPTION</a>="Terminal screen handling extension for <a href="#robo403">PHP</a> (cli-mode only)"
     
-    <a href="./autotools_cygclass.html#robo792">CYGCONF_ARGS</a>="--enable-ncursesw"
+    <a href="./autotools_cygclass.html#robo809">CYGCONF_ARGS</a>="--enable-ncursesw"
 </pre>
 <p>
-  Third-party <a href="#robo398">PEAR</a> channels are also easily handled by setting <a href="#robo406">PHP_CHANNEL</a>:
+  Third-party <a href="#robo406">PEAR</a> channels are also easily handled by setting <a href="#robo414">PHP_CHANNEL</a>:
 </p>
 
-<pre>    <a href="#robo406">PHP_CHANNEL</a>="pear.phpunit.de"
-    <a href="./inheritance_cygpart.html#robo561">inherit</a> php
+<pre>    <a href="#robo414">PHP_CHANNEL</a>="pear.phpunit.de"
+    <a href="./inheritance_cygpart.html#robo578">inherit</a> php
     
     <a href="./syntax_cygpart.html#robo88">NAME</a>="php-PHPUnit"
     <a href="./syntax_cygpart.html#robo89">VERSION</a>=3.7.21
     <a href="./syntax_cygpart.html#robo90">RELEASE</a>=1
-    <a href="./pkg_pkg_cygpart.html#robo381">CATEGORY</a>="<a href="#robo395">PHP</a>"
-    <a href="./pkg_pkg_cygpart.html#robo383">SUMMARY</a>="<a href="#robo395">PHP</a> unit testing framework"
-    <a href="./pkg_pkg_cygpart.html#robo385">DESCRIPTION</a>="An open source framework for test-driven development with the
-    <a href="#robo395">PHP</a> programming language."
+    <a href="./pkg_pkg_cygpart.html#robo385">CATEGORY</a>="<a href="#robo403">PHP</a>"
+    <a href="./pkg_pkg_cygpart.html#robo387">SUMMARY</a>="<a href="#robo403">PHP</a> unit testing framework"
+    <a href="./pkg_pkg_cygpart.html#robo389">DESCRIPTION</a>="An open source framework for test-driven development with the
+    <a href="#robo403">PHP</a> programming language."
 </pre>
 <p></p>
 <p class="item_name">REQUIRES</p>
-<p>  php, php-<a href="#robo398">PEAR</a>
+<p>  php, php-<a href="#robo406">PEAR</a>
 </p>
 
 <hr />
 <a name="php2ecygclass2fPHP"></a>
-<a name="robo395"></a><h2>PHP</h2>
+<a name="robo403"></a><h2>PHP</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Absolute path to the <strong>PHP</strong> interpreter.
 </p>
 
 <hr />
 <a name="php2ecygclass2fPHP5fCONFIG"></a>
-<a name="robo396"></a><h2>PHP_CONFIG</h2>
+<a name="robo404"></a><h2>PHP_CONFIG</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Absolute path to the <a href="#robo395">PHP</a> configuration script.
+<p>  Absolute path to the <a href="#robo403">PHP</a> configuration script.
 </p>
 
 <hr />
 <a name="php2ecygclass2fPHPIZE"></a>
-<a name="robo397"></a><h2>PHPIZE</h2>
+<a name="robo405"></a><h2>PHPIZE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Absolute path to the <a href="#robo395">PHP</a> extension buildsystem preparation script.
+<p>  Absolute path to the <a href="#robo403">PHP</a> extension buildsystem preparation script.
 </p>
 
 <hr />
 <a name="php2ecygclass2fPEAR"></a>
-<a name="robo398"></a><h2>PEAR</h2>
+<a name="robo406"></a><h2>PEAR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Absolute path to the <a href="#robo395">PHP</a> script extension manager.
+<p>  Absolute path to the <a href="#robo403">PHP</a> script extension manager.
 </p>
 
 <hr />
 <a name="php2ecygclass2fPECL"></a>
-<a name="robo399"></a><h2>PECL</h2>
+<a name="robo407"></a><h2>PECL</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Absolute path to the <a href="#robo395">PHP</a> <a href="./syntax_cygpart.html#robo99">C</a> extension manager.
+<p>  Absolute path to the <a href="#robo403">PHP</a> <a href="./syntax_cygpart.html#robo99">C</a> extension manager.
 </p>
 
 <hr />
 <a name="php2ecygclass2fPHP5fVERSION"></a>
-<a name="robo400"></a><h2>PHP_VERSION</h2>
+<a name="robo408"></a><h2>PHP_VERSION</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Version of the <a href="#robo395">PHP</a> interpreter.
+<p>  Version of the <a href="#robo403">PHP</a> interpreter.
 </p>
 
 <hr />
 <a name="php2ecygclass2fPHP5fINI5fDIR"></a>
-<a name="robo401"></a><h2>PHP_INI_DIR</h2>
+<a name="robo409"></a><h2>PHP_INI_DIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Path to the <a href="#robo395">PHP</a> configuration snippets directory.
+<p>  Path to the <a href="#robo403">PHP</a> configuration snippets directory.
 </p>
 
 <hr />
 <a name="php2ecygclass2fPHP5fEXTENSION5fDIR"></a>
-<a name="robo402"></a><h2>PHP_EXTENSION_DIR</h2>
+<a name="robo410"></a><h2>PHP_EXTENSION_DIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installation directory for <a href="#robo395">PHP</a> <a href="./syntax_cygpart.html#robo99">C</a> extensions.
+<p>  Installation directory for <a href="#robo403">PHP</a> <a href="./syntax_cygpart.html#robo99">C</a> extensions.
 </p>
 
 <hr />
 <a name="php2ecygclass2fPHP5fPEAR5fPHP5fDIR"></a>
-<a name="robo403"></a><h2>PHP_PEAR_PHP_DIR</h2>
+<a name="robo411"></a><h2>PHP_PEAR_PHP_DIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installation directory for <a href="#robo395">PHP</a> script extensions.
+<p>  Installation directory for <a href="#robo403">PHP</a> script extensions.
 </p>
 
 <hr />
 <a name="php2ecygclass2fPHP5fPEAR5fMETADATA5fDIR"></a>
-<a name="robo404"></a><h2>PHP_PEAR_METADATA_DIR</h2>
+<a name="robo412"></a><h2>PHP_PEAR_METADATA_DIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installation directory for <a href="#robo395">PHP</a> extension metadata.
+<p>  Installation directory for <a href="#robo403">PHP</a> extension metadata.
 </p>
 
 <hr />
 <a name="php2ecygclass2fLIBPHP"></a>
-<a name="robo405"></a><h2>LIBPHP</h2>
+<a name="robo413"></a><h2>LIBPHP</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Link library for the <a href="#robo395">PHP</a> interpreter <a href="./syntax_cygpart.html#robo99">C</a> library.
+<p>  Link library for the <a href="#robo403">PHP</a> interpreter <a href="./syntax_cygpart.html#robo99">C</a> library.
 </p>
 <p class="item_name">NOTE</p>
-<p>  This link library is Cygwin specific.  On ELF platforms, <a href="#robo395">PHP</a> modules are
+<p>  This link library is Cygwin specific.  On ELF platforms, <a href="#robo403">PHP</a> modules are
   linked with undefined symbols, which are resolved at runtime by the SAPI
   in use.  Since the PE/COFF format used on Cygwin requires that all symbols
   be resolved at link time, a library is used which all SAPIs and extensions
@@ -242,13 +242,13 @@
 
 <hr />
 <a name="php2ecygclass2fPHP5fCHANNEL"></a>
-<a name="robo406"></a><h2>PHP_CHANNEL</h2>
+<a name="robo414"></a><h2>PHP_CHANNEL</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Domain name, or well-known alias, of the <a href="#robo398">PEAR</a>/<a href="#robo399">PECL</a> server on which the <a href="#robo395">PHP</a>
-  extension is hosted. This variable must be <a href="./syntax_cygpart.html#robo77">defined</a> before <a href="./inheritance_cygpart.html#robo561">inherit</a>()ing
-  <a href="#robo394">php.cygclass</a> to have any effect.
+<p>  Domain name, or well-known alias, of the <a href="#robo406">PEAR</a>/<a href="#robo407">PECL</a> server on which the <a href="#robo403">PHP</a>
+  extension is hosted. This variable must be <a href="./syntax_cygpart.html#robo77">defined</a> before <a href="./inheritance_cygpart.html#robo578">inherit</a>()ing
+  <a href="#robo_top_of_doc">php.cygclass</a> to have any effect.
 </p>
 
 <p>  A list of known channels is available at <a href="http://pear.php.net/channels/">http://pear.php.net/channels/</a> .
@@ -256,11 +256,11 @@
 
 <hr />
 <a name="php2ecygclass2fCATEGORY2028php29"></a>
-<a name="robo407"></a><h2>CATEGORY (php)</h2>
+<a name="robo415"></a><h2>CATEGORY (php)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo381">CATEGORY</a><span class="sign">=</span><span class="quote">"<a href="#robo395">PHP</a>"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo385">CATEGORY</a><span class="sign">=</span><span class="quote">"<a href="#robo403">PHP</a>"</span>
 </pre>
 <p class="item_name">NOTE</p>
 <p>  This is <a href="./syntax_cygpart.html#robo77">defined</a> only if <a href="./syntax_cygpart.html#robo91">PN</a> begins with "php-".
@@ -268,11 +268,11 @@
 
 <hr />
 <a name="php2ecygclass2fSUMMARY2028php29"></a>
-<a name="robo408"></a><h2>SUMMARY (php)</h2>
+<a name="robo416"></a><h2>SUMMARY (php)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo383">SUMMARY</a><span class="sign">=</span><span class="quote">"<a href="#robo395">PHP</a> ${ORIG_PN} extension"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo387">SUMMARY</a><span class="sign">=</span><span class="quote">"<a href="#robo403">PHP</a> ${ORIG_PN} extension"</span>
 </pre>
 <p class="item_name">NOTE</p>
 <p>  This is <a href="./syntax_cygpart.html#robo77">defined</a> only if <a href="./syntax_cygpart.html#robo91">PN</a> begins with "php-".
@@ -280,71 +280,71 @@
 
 <hr />
 <a name="php2ecygclass2fHOMEPAGE2028php29"></a>
-<a name="robo409"></a><h2>HOMEPAGE (php)</h2>
+<a name="robo417"></a><h2>HOMEPAGE (php)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Web address for the <a href="#robo395">PHP</a> extension.  This variable is <a href="./syntax_cygpart.html#robo77">defined</a> only if
-  <a href="#robo406">PHP_CHANNEL</a> was <a href="./syntax_cygpart.html#robo77">defined</a> before <a href="./inheritance_cygpart.html#robo561">inherit</a>()ing <a href="#robo394">php.cygclass</a>.
+<p>  Web address for the <a href="#robo403">PHP</a> extension.  This variable is <a href="./syntax_cygpart.html#robo77">defined</a> only if
+  <a href="#robo414">PHP_CHANNEL</a> was <a href="./syntax_cygpart.html#robo77">defined</a> before <a href="./inheritance_cygpart.html#robo578">inherit</a>()ing <a href="#robo_top_of_doc">php.cygclass</a>.
 </p>
 
 <hr />
 <a name="php2ecygclass2fSRC5fURI2028php29"></a>
-<a name="robo410"></a><h2>SRC_URI (php)</h2>
+<a name="robo418"></a><h2>SRC_URI (php)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Download location for the <a href="#robo395">PHP</a> extension sources.  This variable is <a href="./syntax_cygpart.html#robo77">defined</a>
-  only if <a href="#robo406">PHP_CHANNEL</a> was <a href="./syntax_cygpart.html#robo77">defined</a> before <a href="./inheritance_cygpart.html#robo561">inherit</a>()ing <a href="#robo394">php.cygclass</a>.
+<p>  Download location for the <a href="#robo403">PHP</a> extension sources.  This variable is <a href="./syntax_cygpart.html#robo77">defined</a>
+  only if <a href="#robo414">PHP_CHANNEL</a> was <a href="./syntax_cygpart.html#robo77">defined</a> before <a href="./inheritance_cygpart.html#robo578">inherit</a>()ing <a href="#robo_top_of_doc">php.cygclass</a>.
 </p>
 
 <hr />
 <a name="php2ecygclass2fphp5fautoreconf"></a>
-<a name="robo411"></a><h2>php_autoreconf</h2>
+<a name="robo419"></a><h2>php_autoreconf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./src_compile_cygpart.html#robo179">lndirs</a>
+<pre>  <a href="./src_compile_cygpart.html#robo182">lndirs</a>
   cd $<a href="./syntax_cygpart.html#robo98">B</a>
   <strong>php_autoreconf</strong>
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Runs <a href="#robo397">PHPIZE</a> to prepare the <a href="#robo395">PHP</a> extension build system.  This function must
+<p>  Runs <a href="#robo405">PHPIZE</a> to prepare the <a href="#robo403">PHP</a> extension build system.  This function must
   be run from the directory containing config.m4.
 </p>
 
 <hr />
 <a name="php2ecygclass2fphp5fcompile"></a>
-<a name="robo412"></a><h2>php_compile</h2>
+<a name="robo420"></a><h2>php_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo98">B</a>
   <strong>php_compile</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Configures the <a href="#robo395">PHP</a> extension with <a href="./autotools_cygclass.html#robo790">cygconf</a>, then compiles it with <a href="./src_compile_cygpart.html#robo181">cygmake</a>.
-  Arguments, if any, are passed as configure flags to <a href="./autotools_cygclass.html#robo790">cygconf</a>.
+<p>  Configures the <a href="#robo403">PHP</a> extension with <a href="./autotools_cygclass.html#robo807">cygconf</a>, then compiles it with <a href="./src_compile_cygpart.html#robo184">cygmake</a>.
+  Arguments, if any, are passed as configure flags to <a href="./autotools_cygclass.html#robo807">cygconf</a>.
 </p>
 
 <hr />
 <a name="php2ecygclass2fphp5finstall"></a>
-<a name="robo413"></a><h2>php_install</h2>
+<a name="robo421"></a><h2>php_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo98">B</a>
   <strong>php_install</strong>
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installs the <a href="#robo395">PHP</a> extension into $<a href="./syntax_cygpart.html#robo100">D</a>.
+<p>  Installs the <a href="#robo403">PHP</a> extension into $<a href="./syntax_cygpart.html#robo100">D</a>.
 </p>
 
 <hr />
 <a name="php2ecygclass2fphp5fpostinst"></a>
-<a name="robo414"></a><h2>php_postinst</h2>
+<a name="robo422"></a><h2>php_postinst</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>php_postinst</strong>
 </pre>
@@ -352,10 +352,10 @@
 <p>  Performs the following steps:
 </p>
 <ul><li>  If the package contains <a href="./syntax_cygpart.html#robo99">C</a> extensions, creates configuration files which
-    will cause the extensions to be loaded by <a href="#robo395">PHP</a> automatically.
+    will cause the extensions to be loaded by <a href="#robo403">PHP</a> automatically.
 </li>
-<li>  If <a href="#robo406">PHP_CHANNEL</a> is other than 'pear' or 'pecl', a postinstall script is
-    created to register the channel with the installed <a href="#robo395">PHP</a>.
+<li>  If <a href="#robo414">PHP_CHANNEL</a> is other than 'pear' or 'pecl', a postinstall script is
+    created to register the channel with the installed <a href="#robo403">PHP</a>.
 </li>
 <li>  Cleans up files which will collide with those already on the system.
 </li>
@@ -364,44 +364,44 @@
 
 <hr />
 <a name="php2ecygclass2fphp5ffix5fshebang"></a>
-<a name="robo415"></a><h2>php_fix_shebang</h2>
+<a name="robo423"></a><h2>php_fix_shebang</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>php_fix_shebang</strong> SCRIPT [SCRIPT ...]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Fixes the designated interpreter of SCRIPT to <a href="#robo395">PHP</a>.  This would be necessary
+<p>  Fixes the designated interpreter of SCRIPT to <a href="#robo403">PHP</a>.  This would be necessary
   if the original uses an incorrect path (e.g. /usr/local/bin) or an
   incorrectly versioned binary.  SCRIPT need not be prefixed by $<a href="./syntax_cygpart.html#robo100">D</a>.
 </p>
 
 <hr />
 <a name="php2ecygclass2fsrc5fcompile2028php29"></a>
-<a name="robo416"></a><h2>src_compile (php)</h2>
+<a name="robo424"></a><h2>src_compile (php)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Copies $<a href="./syntax_cygpart.html#robo97">S</a> into $<a href="./syntax_cygpart.html#robo98">B</a> with <a href="./src_compile_cygpart.html#robo179">lndirs</a>, then, if the package is a <a href="#robo395">PHP</a> <a href="./syntax_cygpart.html#robo99">C</a> extension,
-  calls <a href="#robo411">php_autoreconf</a> and <a href="#robo412">php_compile</a>.
+<p>  Copies $<a href="./syntax_cygpart.html#robo97">S</a> into $<a href="./syntax_cygpart.html#robo98">B</a> with <a href="./src_compile_cygpart.html#robo182">lndirs</a>, then, if the package is a <a href="#robo403">PHP</a> <a href="./syntax_cygpart.html#robo99">C</a> extension,
+  calls <a href="#robo419">php_autoreconf</a> and <a href="#robo420">php_compile</a>.
 </p>
 
 <hr />
 <a name="php2ecygclass2fsrc5finstall2028php29"></a>
-<a name="robo417"></a><h2>src_install (php)</h2>
+<a name="robo425"></a><h2>src_install (php)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo394">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo402">php.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo175">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_install_cygpart.html#robo178">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo413">php_install</a>
-        <a href="#robo414">php_postinst</a>
+        <a href="#robo421">php_install</a>
+        <a href="#robo422">php_postinst</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/php.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Mar 25 2019 13:52:34
+<p>Generated from ./cygport/cygclass/php.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon May 25 2020 12:13:53
 </p>
 </div> <!-- footer -->
 </body>

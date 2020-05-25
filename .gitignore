@@ -1,4 +1,5 @@
 /build
 /data/gnuconfig
 /patches
+/*.patch
 /*.tar.gz

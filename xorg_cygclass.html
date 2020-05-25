@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="./robodoc.css" type="text/css" />
 <title>./cygport/cygclass/xorg.cygclass</title>
 <!-- Source: ./cygport/cygclass/xorg.cygclass -->
-<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jul 26 2019) -->
 </head>
 <body>
 <div id="logo">
@@ -46,9 +46,9 @@
 <a name="Cygclasses2fxorg2ecygclass"></a>
 <a name="robo2"></a><h2>xorg.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo511">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo528">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo561">inherit</a> xorg
+<pre>  <a href="./inheritance_cygpart.html#robo578">inherit</a> xorg
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  X.Org provides the reference implementation of the X11 protocol. Since
@@ -58,23 +58,23 @@
 </p>
 
 <p>  This cygclass defines the variables necessary to download X.Org packages,
-  either as tarballs (default) or from Git (if <a href="./git_cygclass.html#robo_top_of_doc">git.cygclass</a> is <a href="./inheritance_cygpart.html#robo561">inherit</a>()ed
+  either as tarballs (default) or from Git (if <a href="./git_cygclass.html#robo650">git.cygclass</a> is <a href="./inheritance_cygpart.html#robo578">inherit</a>()ed
   afterwards).
 </p>
 <p class="item_name">HISTORY</p>
 <p>  Previous versions of Cygwin and X11 required some additional build steps:
 </p>
 <ul><li>  Cygwin 1.5 did not have proper locale support, so -DX_LOCALE was added to
-    <a href="./compilers_cygpart.html#robo723">CPPFLAGS</a> to force usage of X11's own locale implementation instead.
+    <a href="./compilers_cygpart.html#robo740">CPPFLAGS</a> to force usage of X11's own locale implementation instead.
 </li>
 <li>  Each font package had to be told where to install its fonts during configure.
 </li>
 </ul>
 <p>  As of X11R7.5 for Cygwin 1.7, neither of these are necessary, so <strong>xorg.cygclass</strong>
-  relies solely on the build functions provided by <a href="./autotools_cygclass.html#robo_top_of_doc">autotools.cygclass</a>.
+  relies solely on the build functions provided by <a href="./autotools_cygclass.html#robo795">autotools.cygclass</a>.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./autotools_cygclass.html#robo_top_of_doc">autotools.cygclass</a>
+<p>  <a href="./autotools_cygclass.html#robo795">autotools.cygclass</a>
 </p>
 
 <hr />
@@ -83,7 +83,7 @@
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">xorg.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo381">CATEGORY</a><span class="sign">=</span><span class="quote">"X11"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo385">CATEGORY</a><span class="sign">=</span><span class="quote">"X11"</span>
 </pre>
 
 <hr />
@@ -92,7 +92,7 @@
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">xorg.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo383">SUMMARY</a><span class="sign">=</span><span class="quote">"X.Org ${ORIG_PN} component"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo387">SUMMARY</a><span class="sign">=</span><span class="quote">"X.Org ${ORIG_PN} component"</span>
 </pre>
 
 <hr />
@@ -101,7 +101,7 @@
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo2">xorg.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_info_cygpart.html#robo392">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://xorg.freedesktop.org/"</span>
+<pre class="source"><a href="./pkg_info_cygpart.html#robo400">HOMEPAGE</a><span class="sign">=</span><span class="quote">"http://xorg.freedesktop.org/"</span>
 </pre>
 
 <hr />
@@ -122,12 +122,12 @@
 <p>  Git repository for the package.
 </p>
 <p class="item_name">NOTE</p>
-<p>  <a href="./git_cygclass.html#robo_top_of_doc">git.cygclass</a> should be <a href="./inheritance_cygpart.html#robo561">inherit</a>()ed last for this to be of use.
+<p>  <a href="./git_cygclass.html#robo650">git.cygclass</a> should be <a href="./inheritance_cygpart.html#robo578">inherit</a>()ed last for this to be of use.
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/xorg.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Mar 25 2019 13:52:33
+<p>Generated from ./cygport/cygclass/xorg.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon May 25 2020 12:13:53
 </p>
 </div> <!-- footer -->
 </body>

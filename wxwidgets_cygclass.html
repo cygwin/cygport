@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="./robodoc.css" type="text/css" />
 <title>./cygport/cygclass/wxwidgets.cygclass</title>
 <!-- Source: ./cygport/cygclass/wxwidgets.cygclass -->
-<!-- Generated with ROBODoc Version 4.99.43 (Jun  1 2015) -->
+<!-- Generated with ROBODoc Version 4.99.43 (Jul 26 2019) -->
 </head>
 <body>
 <div id="logo">
@@ -48,12 +48,12 @@
 <a name="Cygclasses2fwxwidgets2ecygclass"></a>
 <a name="robo15"></a><h2>wxwidgets.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo511">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo528">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <a href="#robo16">WX_VERSION</a>="X.Y"
   [<a href="#robo18">WX_CODESET</a>="..."]
   [<a href="#robo17">WX_TOOLKIT</a>="..."]
-  <a href="./inheritance_cygpart.html#robo561">inherit</a> wxwidgets
+  <a href="./inheritance_cygpart.html#robo578">inherit</a> wxwidgets
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  The wxWidgets toolkit is a cross-platform, <a href="./syntax_cygpart.html#robo99">C</a>++ GUI toolkit which is built
@@ -68,7 +68,7 @@
   tookit, and codeset of the wxWidgets toolkit.
 </p>
 <p class="item_name">NOTE</p>
-<p>  When cross-compiling, <a href="./cross_cygclass.html#robo708">cross.cygclass</a> must be <a href="./inheritance_cygpart.html#robo561">inherit</a>()ed BEFORE
+<p>  When cross-compiling, <a href="./cross_cygclass.html#robo_top_of_doc">cross.cygclass</a> must be <a href="./inheritance_cygpart.html#robo578">inherit</a>()ed BEFORE
   <strong>wxwidgets.cygclass</strong>.
 </p>
 
@@ -79,7 +79,7 @@
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo15">wxwidgets.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The desired major.minor branch of the wxWidgets toolkit.  This variable must
-  be set before <a href="./inheritance_cygpart.html#robo561">inherit</a>()ing the <a href="#robo15">wxwidgets.cygclass</a>.
+  be set before <a href="./inheritance_cygpart.html#robo578">inherit</a>()ing the <a href="#robo_top_of_doc">wxwidgets.cygclass</a>.
 </p>
 <p class="item_name">NOTE</p>
 <p>  Even minor version numbers represent stable branches; versions 2.6, 2.8
@@ -127,9 +127,9 @@
 </li>
 </ul>
 <p>
-  This variable must be set before <a href="./inheritance_cygpart.html#robo561">inherit</a>()ing the <a href="#robo15">wxwidgets.cygclass</a>.
+  This variable must be set before <a href="./inheritance_cygpart.html#robo578">inherit</a>()ing the <a href="#robo_top_of_doc">wxwidgets.cygclass</a>.
   If undefined, the default on Cygwin is "gtk2" for 2.x and "gtk3" for 3.x;
-  when cross-compiling, the default depends on <a href="./cross_cygclass.html#robo709">CROSS_HOST</a> as indicated above.
+  when cross-compiling, the default depends on <a href="./cross_cygclass.html#robo726">CROSS_HOST</a> as indicated above.
 </p>
 
 <hr />
@@ -143,7 +143,7 @@
   do not support "unicode".
 </p>
 
-<p>  This variable must be set before <a href="./inheritance_cygpart.html#robo561">inherit</a>()ing the <a href="#robo15">wxwidgets.cygclass</a>.
+<p>  This variable must be set before <a href="./inheritance_cygpart.html#robo578">inherit</a>()ing the <a href="#robo_top_of_doc">wxwidgets.cygclass</a>.
   If undefined, "unicode" is the default if supported by the given <a href="#robo17">WX_TOOLKIT</a>.
 </p>
 
@@ -154,7 +154,7 @@
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo15">wxwidgets.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Absolute path to the <a href="#robo22">wx-config</a> script for the given <a href="#robo16">WX_VERSION</a>, <a href="#robo17">WX_TOOLKIT</a>,
-  and <a href="#robo18">WX_CODESET</a> (and <a href="./cross_cygclass.html#robo709">CROSS_HOST</a> if cross-compiling).  This definition is
+  and <a href="#robo18">WX_CODESET</a> (and <a href="./cross_cygclass.html#robo726">CROSS_HOST</a> if cross-compiling).  This definition is
   exported to the build environment.
 </p>
 
@@ -197,7 +197,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/wxwidgets.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon Mar 25 2019 13:52:33
+<p>Generated from ./cygport/cygclass/wxwidgets.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon May 25 2020 12:13:53
 </p>
 </div> <!-- footer -->
 </body>
