@@ -115,12 +115,12 @@ mirror_ctan+=" http://mirror.ctan.org/"
 #  SYNOPSIS
 #  SRC_URI="mirror://debian/pool/main/${PN:0:1}/${PN}/${PN}_${PV}.orig.tar.gz"
 #  DEFAULT MIRROR
-#  https://ftp.debian.org/debian
+#  https://deb.debian.org/debian
 #  MIRROR LIST
 #  https://www.debian.org/mirror/list
 #****
 # grep '^  <td><a href' list  | sed -e 's#.*"\(.*\)/".*#\t\1#g'
-mirror_debian+=" http://ftp.debian.org/debian"
+mirror_debian+=" http://deb.debian.org/debian"
 
 
 #****d* Mirrors/mirror_gcc
