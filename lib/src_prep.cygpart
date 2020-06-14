@@ -93,6 +93,10 @@ unpack() {
 				check_prog_req lrzuntar lrzip
 				unpack_cmd="lrzuntar"
 				;;
+			*.tar.zst)
+				check_prog_req zstd
+				unpack_cmd="tar -I zstd -xf"
+				;;
 			*.tar|*.tar.*|*.tbz|*.tbz2|*.tgz|*.tlz|*.tzo)
 				unpack_cmd="tar xf" ;;
 			*.bz2)
@@ -132,6 +136,10 @@ unpack() {
 			*.xo|*.zip|*.ZIP)
 				check_prog_req unzip;
 				unpack_cmd="unzip -oq";
+				;;
+			*.zst)
+				check_prog_req zstd;
+				unpack_cmd="unzstd -qo";
 				;;
 			*.7z)
 				if check_prog 7zr
