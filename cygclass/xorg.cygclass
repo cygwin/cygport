@@ -141,13 +141,13 @@ SUMMARY="X.Org ${ORIG_PN} component"
 #****
 #****o* xorg.cygclass/HOMEPAGE (xorg)
 #  DEFINITION
-HOMEPAGE="http://xorg.freedesktop.org/"
+HOMEPAGE="https://www.x.org/"
 #****
 #****o* xorg.cygclass/SRC_URI (xorg)
 #  DESCRIPTION
 #  Download location of the release tarball.
 #****
-SRC_URI="http://xorg.freedesktop.org/releases/individual/${xorg_cat}/${ORIG_PN}-${PV}.tar.bz2"
+SRC_URI="https://www.x.org/releases/individual/${xorg_cat}/${ORIG_PN}-${PV}.tar.bz2"
 
 #****o* xorg.cygclass/GIT_URI (xorg)
 #  DESCRIPTION
