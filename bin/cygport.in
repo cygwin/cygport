@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 set -e;
@@ -64,7 +64,7 @@ source ${_privlibdir}/syntax.cygpart
 #  any later version published by the Free Software Foundation; with no
 #  Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
 #  You should have received a copy of the GNU Free Documentation License
-#  along with this manual. If not, see http://www.gnu.org/licenses/.
+#  along with this manual. If not, see https://www.gnu.org/licenses/.
 #****
 
 #****** Cygport/ Introduction
@@ -384,7 +384,7 @@ declare -r  PV=(${PV} ${PVP[*]});
 declare -r  PV_MAJ=${PV[1]};
 declare -r  PV_MAJ_MIN="${PV[1]}.${PV[2]}";
 
-# http://www.rpm.org/max-rpm/s1-rpm-inside-scripts.html
+# http://ftp.rpm.org/max-rpm/s1-rpm-inside-scripts.html
 declare -rx CYGPORT_PACKAGE_NAME=${NAME}
 declare -rx CYGPORT_PACKAGE_VERSION=${VERSION}
 declare -rx CYGPORT_PACKAGE_RELEASE=${RELEASE}
@@ -495,7 +495,7 @@ declare -r D="${workdir}/inst";
 declare -r T="${workdir}/temp";
 declare -r C="${S}/CYGWIN-PATCHES";
 
-# http://www.rpm.org/max-rpm/s1-rpm-inside-scripts.html
+# http://ftp.rpm.org/max-rpm/s1-rpm-inside-scripts.html
 declare -rx CYGPORT_ARCH=${ARCH}
 declare -rx CYGPORT_OS="Cygwin"
 #declare -rx CYGPORT_SOURCE_DIR=
