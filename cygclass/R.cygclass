@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -29,7 +29,7 @@
 #  computing and graphics.
 #
 #  The primary purpose of R.cygclass is for creating Cygwin packages from
-#  |html <a href="http://cran.r-project.org/web/packages/">CRAN packages</a>,
+#  |html <a href="https://cran.r-project.org/web/packages/">CRAN packages</a>,
 #  the R equivalent of Perl's CPAN.  CRAN package builds are driven by R itself.
 #
 #  Most CRAN packages build OOTB, but creating a Cygwin package may be helpful
@@ -41,7 +41,7 @@
 #
 #  Alternatively, the definitions in this cygclass can be used to help build
 #  an R-dependent package which does not use CRAN, e.g.
-#  |html <a href="http://sourceforge.net/p/cygwin-ports/rkward/">rkward</a>.
+#  |html <a href="https://sourceforge.net/p/cygwin-ports/rkward/">rkward</a>.
 #  EXAMPLE
 #  inherit R
 #  
@@ -117,7 +117,7 @@ SUMMARY="R ${ORIG_PN} package"
 #  DESCRIPTION
 #  Web address for the R module on CRAN.
 #****
-HOMEPAGE="http://cran.r-project.org/web/packages/${ORIG_PN}/"
+HOMEPAGE="https://cran.r-project.org/web/packages/${ORIG_PN}/"
 
 #****o* R.cygclass/SRC_URI (R)
 #  DESCRIPTION
