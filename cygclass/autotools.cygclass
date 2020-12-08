@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -41,7 +41,7 @@
 #    DESCRIPTION="The grep command searches one or more input files for lines
 #    containing a match to a specified pattern. By default, grep prints the
 #    matching lines."
-#    HOMEPAGE="http://www.gnu.org/software/grep/"
+#    HOMEPAGE="https://www.gnu.org/software/grep/"
 #    SRC_URI="mirror://gnu/grep/grep-${VERSION}.tar.xz"
 #
 #  If the only customization needed is to add configure flags, use CYGCONF_ARGS:
@@ -56,8 +56,8 @@
 #    many extra features like an interactive search and replace, go to line and
 #    column number, auto-indentation, feature toggles, internationalization support,
 #    and filename tab completion."
-#    HOMEPAGE="http://www.nano-editor.org/"
-#    SRC_URI="http://www.nano-editor.org/dist/v${VERSION%.*}/nano-${VERSION}.tar.gz"
+#    HOMEPAGE="https://www.nano-editor.org/"
+#    SRC_URI="https://www.nano-editor.org/dist/v${VERSION%.*}/nano-${VERSION}.tar.gz"
 #    PATCH_URI="2.2.4-wchar.patch"
 #    
 #    DIFF_EXCLUDES="nano.spec"
@@ -590,8 +590,8 @@ cygautoreconf() {
 #  DESCRIPTION
 #  Runs the configure script for the package.  cygconf passes configure the flags
 #  necessary to install the package into the /usr prefix and according to the
-#  |html <a href="http://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
-#  |html <a href="http://cygwin.com/setup.html#package_contents">Cygwin package guidelines</a>.
+#  |html <a href="https://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
+#  |html <a href="https://cygwin.com/setup.html#package_contents">Cygwin package guidelines</a>.
 #  In addition, all arguments to cygconf are passed to configure, followed by
 #  CYGCONF_ARGS, if set.
 #  NOTES
@@ -728,7 +728,7 @@ cygconf() {
 	done
 
 	# AC_HAVE_MMAP fails despite a working mmap, so we force this to yes
-	# (see http://www.cygwin.com/ml/cygwin/2004-09/msg00741.html
+	# (see https://sourceware.org/legacy-ml/cygwin/2004-09/msg00741.html
 	# and following thread for details)
 	case ${CHOST} in
 	*-*-cygwin*)
