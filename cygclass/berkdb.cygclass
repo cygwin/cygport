@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -65,14 +65,14 @@ eliminating the performance penalty of client-server architectures."
 #****
 #****io* berkdb.cygclass/HOMEPAGE (berkdb)
 #  DEFINITION
-HOMEPAGE="http://www.oracle.com/technology/products/berkeley-db/db/index.html"
+HOMEPAGE="https://www.oracle.com/database/technologies/related/berkeleydb.html"
 #****
 
 #****io* berkdb.cygclass/SRC_URI (berkdb)
 #  DESCRIPTION
 #  Download location of the Berkeley DB source tarball.
 #****
-SRC_URI="http://download.oracle.com/berkeley-db/db-${tarpv}.tar.gz"
+SRC_URI="https://download.oracle.com/berkeley-db/db-${tarpv}.tar.gz"
 
 SRC_DIR="db-${tarpv}"
 
