@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -53,12 +53,12 @@ SUMMARY="Claws Mail ${CLAWS_MAIL_PLUGIN} plugin"
 #****
 #****io* claws-mail.cygclass/HOMEPAGE (claws-mail)
 #  DEFINITION
-HOMEPAGE="http://www.claws-mail.org/plugins.php"
+HOMEPAGE="https://www.claws-mail.org/plugins.php"
 #****
 
 #****io* claws-mail.cygclass/SRC_URI (claws-mail)
 #  DEFINITION
-SRC_URI="http://www.claws-mail.org/downloads/plugins/${ORIG_PN}-${PV}.tar.gz"
+SRC_URI="https://www.claws-mail.org/downloads/plugins/${ORIG_PN}-${PV}.tar.gz"
 #****
 
 SRC_DIR="${ORIG_PN}-${PV}"
