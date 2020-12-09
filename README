@@ -86,8 +86,11 @@ because:
 4) Most importantly, setup.exe provides a GUI which makes installation
    easier for the uninitiated.
 
-(It should be noted that there have been renewed attempts to run Portage 
-on Cygwin[3], and this was even recently ITP'd and rejected[4].)
+(It should be noted that, there were renewed attempts to run Portage
+on Cygwin, and this was ITP'd and rejected[3] in 2006.  And, the project
+"Gentoo on Cygwin", which contains Portage, is unmaintained as of 2008.
+But, there is another project "Gentoo Prefix on Cygwin", as of 2020.
+It's a try to run well-maintained "Gentoo Prefix" sources on Cygwin[4].)
 
 
 2. CONCEPT
@@ -245,6 +248,6 @@ Discussion on cygport should occur on the Cygwin-apps list
 
 [1] https://www.cygwin.com/
 [2] https://cygwin.com/setup.html#package_contents
-[3] http://gentoo-wiki.com/HOWTO_Gentoo_on_Cygwin (no longer available)
-[4] https://sourceware.org/legacy-ml/cygwin-apps/2006-03/msg00000.html
+[3] https://sourceware.org/legacy-ml/cygwin-apps/2006-03/msg00000.html
+[4] https://wiki.gentoo.org/wiki/Prefix/Cygwin
 [5] https://cygwin.com/git-cygwin-packages/
