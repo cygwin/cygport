@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -30,7 +30,7 @@
 #  Developed by Canonical Ltd., the company behind Ubuntu Linux,
 #  |html <a href="http://bazaar.canonical.com/">Bazaar</a> is a distributed
 #  version control system which is most commonly used by software hosted on
-#  |html <a href="http://launchpad.net/projects">Launchpad</a>.
+#  |html <a href="https://launchpad.net/projects">Launchpad</a>.
 #
 #  This cygclass creates source tarballs from Bazaar checkouts.
 #  NOTES
