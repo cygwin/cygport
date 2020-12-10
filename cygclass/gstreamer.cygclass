@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -42,7 +42,7 @@ esac
 
 #****o* gstreamer.cygclass/HOMEPAGE (gstreamer)
 #  DEFINITION
-HOMEPAGE="http://gstreamer.freedesktop.org/"
+HOMEPAGE="https://gstreamer.freedesktop.org/"
 #****
 
 #****o* gstreamer.cygclass/SRC_URI (gstreamer)
@@ -51,10 +51,10 @@ HOMEPAGE="http://gstreamer.freedesktop.org/"
 #****
 case ${PV} in
 0.[0-9].*|0.10.*|0.11.?)
-SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
+SRC_URI="https://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2"
 ;;
 *)
-SRC_URI="http://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.xz"
+SRC_URI="https://gstreamer.freedesktop.org/src/${ORIG_PN}/${ORIG_PN}-${PV}.tar.xz"
 ;;
 esac
 
