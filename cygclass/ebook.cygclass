@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -42,11 +42,11 @@ SUMMARY="EBook ${ORIG_PN} documentation"
 #****
 #****io* ebook.cygclass/HOMEPAGE (ebook)
 #  DEFINITION
-HOMEPAGE="http://code.google.com/p/htmlhelp/"
+HOMEPAGE="https://code.google.com/archive/p/htmlhelp/"
 #****
 #****io* ebook.cygclass/SRC_URI (ebook)
 #  DEFINITION
-SRC_URI="http://htmlhelp.googlecode.com/files/${ORIG_PN}-${PV}.tgz"
+SRC_URI="https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/htmlhelp/${ORIG_PN}-${PV}.tgz"
 #****
 
 SRC_DIR="."
