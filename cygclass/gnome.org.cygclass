@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -55,7 +55,7 @@
 if ! defined GNOME_ORG_TARBALL_SUFFIX
 then
 	check_prog_req wget
-	if wget -q --spider http://download.gnome.org/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2
+	if wget -q --spider https://download.gnome.org/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2
 	then
 		GNOME_ORG_TARBALL_SUFFIX="bz2"
 	else
@@ -65,7 +65,7 @@ fi
 
 #****o* gnome.org.cygclass/HOMEPAGE (gnome.org)
 #  DEFINITION
-HOMEPAGE="http://www.gnome.org/"
+HOMEPAGE="https://www.gnome.org/"
 #****
 
 #****o* gnome.org.cygclass/SRC_URI (gnome.org)
