@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -37,7 +37,7 @@
 #    DESCRIPTION="The Cantarell typeface family was designed as a contemporary
 #    Humanist sans serif, and was developed for on-screen reading; in particular,
 #    reading web pages on a mobile phone."
-#    HOMEPAGE="http://abattis.org/cantarell/"
+#    HOMEPAGE="https://gitlab.gnome.org/GNOME/cantarell-fonts/"
 #    
 #    src_compile() { :; }
 #    
