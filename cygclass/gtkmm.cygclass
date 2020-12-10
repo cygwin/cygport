@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -49,7 +49,7 @@ SUMMARY="GNOME C++ bindings for ${ORIG_PN/mm/}-${PV_MAJ}.x"
 #****
 #****o* gtkmm.cygclass/HOMEPAGE (gtkmm)
 #  DEFINITION
-HOMEPAGE="http://www.gtkmm.org/"
+HOMEPAGE="https://www.gtkmm.org/"
 #****
 
 # .rc files are removed for regeneration by configure
