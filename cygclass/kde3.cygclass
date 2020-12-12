@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -51,9 +51,9 @@ then
 #  Other KDE3-based packages will need to backport these changes themselves.
 #  DEFINITION
 PATCH_URI="
-	http://pkgs.fedoraproject.org/cgit/rpms/kdelibs3.git/plain/kde3-acinclude.patch
-	http://pkgs.fedoraproject.org/cgit/rpms/kdelibs3.git/plain/kde3-automake-version.patch
-	http://pkgs.fedoraproject.org/cgit/rpms/kdelibs3.git/plain/kde3-automake-add-missing.patch
+	https://src.fedoraproject.org/rpms/kdelibs3/raw/master/f/kde3-acinclude.patch
+	https://src.fedoraproject.org/rpms/kdelibs3/raw/master/f/kde3-automake-version.patch
+	https://src.fedoraproject.org/rpms/kdelibs3/raw/master/f/kde3-automake-add-missing.patch
 "
 #****
 fi
