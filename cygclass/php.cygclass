@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -167,7 +167,7 @@ LIBPHP=$(${PHP_CONFIG} --libs)
 #  extension is hosted. This variable must be defined before inherit()ing
 #  php.cygclass to have any effect.
 #
-#  A list of known channels is available at http://pear.php.net/channels/ .
+#  A list of known channels is available at https://pear.php.net/channels/ .
 #****
 
 case ${PN} in php-*)
@@ -275,12 +275,12 @@ PHP_CHANNEL=$(__php_channel_fixup)
 case "${PHP_CHANNEL}" in
 '') ;;
 pear.php.net)
-	HOMEPAGE="http://pear.php.net/package/${ORIG_PN}/"
+	HOMEPAGE="https://pear.php.net/package/${ORIG_PN}/"
 	SRC_URI="http://download.pear.php.net/package/${ORIG_PN}-${PV}.tgz"
 	;;
 pecl.php.net)
-	HOMEPAGE="http://pecl.php.net/package/${ORIG_PN}/"
-	SRC_URI="http://pecl.php.net/get/${ORIG_PN}-${PV}.tgz"
+	HOMEPAGE="https://pecl.php.net/package/${ORIG_PN}/"
+	SRC_URI="https://pecl.php.net/get/${ORIG_PN}-${PV}.tgz"
 	;;
 *)
 	if ! $(${PEAR} list-channels | grep -q "^${PHP_CHANNEL} ")
