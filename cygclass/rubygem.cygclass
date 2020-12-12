@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -60,13 +60,13 @@ SUMMARY="Ruby ${NAME#ruby-} module"
 #  DESCRIPTION
 #  Default homepage of the Ruby module on RubyGems.
 #****
-HOMEPAGE="http://rubygems.org/gems/${RUBYGEM_NAME}"
+HOMEPAGE="https://rubygems.org/gems/${RUBYGEM_NAME}"
 
 #****o* rubygem.cygclass/SRC_URI (rubygem)
 #  DESCRIPTION
 #  Default download location of the Ruby module on RubyGems.
 #****
-SRC_URI="http://rubygems.org/downloads/${RUBYGEM_NAME}-${VERSION}.gem"
+SRC_URI="https://rubygems.org/downloads/${RUBYGEM_NAME}-${VERSION}.gem"
 
 SRC_DIR="${RUBYGEM_NAME}-${VERSION}"
 
