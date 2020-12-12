@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -95,7 +95,7 @@ support for many languages around the world."
 #****
 #****o* texlive.cygclass/HOMEPAGE (texlive)
 #  DEFINITION
-HOMEPAGE="http://www.tug.org/texlive/"
+HOMEPAGE="https://www.tug.org/texlive/"
 #****
 
 #****o* texlive.cygclass/SRC_URI (texlive)
