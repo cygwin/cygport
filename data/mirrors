@@ -246,21 +246,19 @@ mirror_mplayer+=" http://www1.mplayerhq.hu/MPlayer"
 #  SYNOPSIS
 #  SRC_URI="mirror://mysql/Downloads/MySQL-5.1/${P}.tar.gz"
 #  DEFAULT MIRROR
-#  http://mirrors.dotsrc.org/mysql
+#  https://mirrors.dotsrc.org/mysql
 #  MIRROR LIST
-#  http://www.mysql.com/downloads/mirrors.html
+#  https://dotsrc.org/mirrors/
 #****
 #  grep '^  <td><a' mirrors.html | sed -e 's|.*href="\(.*\)">.*|\t\1|g' -e 's|/$||g'
 #  List primary mirrors first
 mirror_mysql+="
-	http://mirrors.dotsrc.org/mysql
+	https://mirrors.dotsrc.org/mysql
 	ftp://mirrors.dotsrc.org/mysql
-	http://ftp.gwdg.de/pub/misc/mysql
+	https://ftp.gwdg.de/pub/misc/mysql
 	ftp://ftp.gwdg.de/pub/misc/mysql
-	http://www.mirrorservice.org/sites/ftp.mysql.com
+	https://www.mirrorservice.org/sites/ftp.mysql.com
 	ftp://ftp.mirrorservice.org/sites/ftp.mysql.com
-	http://mysql.oss.eznetsols.org
-	ftp://ftp.oss.eznetsols.org/mysql
 "	# mirror_mysql
 
 
