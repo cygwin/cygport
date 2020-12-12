@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -49,7 +49,7 @@ inherit cmake qt4 kde.org
 #****
 if defined KDE4_EXTRAGEAR_VERSION
 then
-	HOMEPAGE="http://extragear.kde.org/apps/${PN}/"
+	HOMEPAGE="https://apps.kde.org/${PN}/"
 	SRC_URI="mirror://kde/stable/${KDE4_EXTRAGEAR_VERSION}/src/extragear/${P}-kde${KDE4_EXTRAGEAR_VERSION}.tar.bz2"
 	SRC_DIR="${P}-kde${KDE4_EXTRAGEAR_VERSION}"
 fi
