@@ -117,7 +117,7 @@ mirror_ctan+=" http://mirror.ctan.org/"
 #  DEFAULT MIRROR
 #  http://ftp.debian.org/debian
 #  MIRROR LIST
-#  http://www.debian.org/mirror/list
+#  https://www.debian.org/mirror/list
 #****
 # grep '^  <td><a href' list  | sed -e 's#.*"\(.*\)/".*#\t\1#g'
 mirror_debian+=" http://ftp.debian.org/debian"
