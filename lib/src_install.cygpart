@@ -16,7 +16,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -724,8 +724,8 @@ doenv() {
 #    entire command must be quoted.
 #  * NAME: the application name to be shown in autostart configuration menus.
 #  * ADDITIONAL_FIELDS: (optional) additional menu entry fields per
-#    |html the <a href="http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys">Desktop Entry Specification</a>
-#    |html and the <a href="http://standards.freedesktop.org/autostart-spec/autostart-spec-latest.html">Desktop Application Autostart Specification</a>.
+#    |html the <a href="https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys">Desktop Entry Specification</a>
+#    |html and the <a href="https://specifications.freedesktop.org/autostart-spec/autostart-spec-latest.html">Desktop Application Autostart Specification</a>.
 #****
 make_autostart_entry() {
 	local dtfile
@@ -761,10 +761,10 @@ make_autostart_entry() {
 #  * NAME: the application name to be shown in the menu.
 #  * ICON: (optional) the icon name, excluding the file extension.
 #  * CATEGORIES: (optional) a semicolon-separated list of categories and subcategories per
-#    |html the <a href="http://standards.freedesktop.org/menu-spec/latest/apa.html">Desktop Menu Specification</a>.
+#    |html the <a href="https://specifications.freedesktop.org/menu-spec/latest/apa.html">Desktop Menu Specification</a>.
 #  * COMMENT: (optional) description of the program
 #  * ADDITIONAL_FIELDS: (optional) additional menu entry fields per
-#    |html the <a href="http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys">Desktop Entry Specification</a>.
+#    |html the <a href="https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys">Desktop Entry Specification</a>.
 #  NOTES
 #  * In order to skip an optional argument but provide a later one, an empty
 #    string ("") must be provided as a placeholder for the optional argument.
