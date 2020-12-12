@@ -231,7 +231,7 @@ mirror_kde+=" https://download.kde.org"
 #  SYNOPSIS
 #  SRC_URI="mirror://mplayer/releases/${P}.tar.bz2"
 #  DEFAULT MIRROR
-#  http://www1.mplayerhq.hu/MPlayer
+#  https://www1.mplayerhq.hu/MPlayer
 #  MIRROR LIST
 #  http://www.mplayerhq.hu/dload.html
 #  NOTE
