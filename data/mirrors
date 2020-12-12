@@ -49,14 +49,14 @@
 #  SYNOPSIS
 #  SRC_URI="mirror://apache/projectname/${P}.tar.bz2"
 #  DEFAULT MIRROR
-#  http://www.apache.org/dist
+#  https://downloads.apache.org
 #  MIRROR LIST
-#  http://www.apache.org/mirrors/index.html
+#  https://www.apache.org/mirrors/index.html
 #****
 # grep -h '^  <TD ALIGN="RIGHT"><A HREF=' index.html \
 # | sed -e 's#<TD ALIGN="RIGHT"><A HREF="\(.*\)/">.*#\1#g' \
 # | cut -d '"' -f 1 | sed -e 's#^  #\t#g' -e 's#/$##g'
-mirror_apache+=" http://www.apache.org/dist"
+mirror_apache+=" https://downloads.apache.org"
 
 
 #****d* Mirrors/mirror_cpan
