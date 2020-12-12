@@ -283,12 +283,12 @@ mirror_portage+=" https://gitweb.gentoo.org/repo/gentoo.git/plain"
 #  SYNOPSIS
 #  SRC_URI="mirror://savannah/projectname/${P}.tar.gz"
 #  DEFAULT MIRROR
-#  http://download.savannah.nongnu.org/releases
+#  https://download.savannah.nongnu.org/releases
 #  MIRROR LIST
-#  http://download.savannah.nongnu.org/releases-noredirect/00_MIRRORS.txt
+#  http://download.savannah.gnu.org/mirmon/savannah/
 #****
 #  sed -e 's|.* \(.*\)/|\t\1|g' 00_MIRRORS.txt
-mirror_savannah+=" http://download.savannah.nongnu.org/releases"
+mirror_savannah+=" https://download.savannah.nongnu.org/releases"
 
 
 #****d* Mirrors/mirror_sourceforge
