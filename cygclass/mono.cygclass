@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -82,7 +82,7 @@ MONO_SNK=${_privdatadir}/mono.snk
 
 #****io* mono.cygclass/HOMEPAGE (mono)
 #  DEFINITION
-HOMEPAGE="http://www.mono-project.com/"
+HOMEPAGE="https://www.mono-project.com/"
 #****
 
 #****io* mono.cygclass/SRC_URI (mono)
@@ -95,7 +95,7 @@ HOMEPAGE="http://www.mono-project.com/"
 #****
 if ! defined GIT_URI
 then
-	SRC_URI="http://download.mono-project.com/sources/${ORIG_PN:-${PN}}/${ORIG_PN:-${PN}}-${PV}.${MONO_SOURCE_TYPE:-tar.bz2}"
+	SRC_URI="https://download.mono-project.com/sources/${ORIG_PN:-${PN}}/${ORIG_PN:-${PN}}-${PV}.${MONO_SOURCE_TYPE:-tar.bz2}"
 	GIT_URI="git://github.com/mono/${GIT_MODULE:-${ORIG_PN:-${PN}}}.git"
 	SRC_DIR="${SRC_DIR:-${ORIG_PN:-${PN}}-${PV}}"
 fi
