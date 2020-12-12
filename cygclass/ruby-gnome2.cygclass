@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -115,7 +115,7 @@ SUMMARY="Ruby ${rbg2_pn} bindings"
 #****
 #****io* ruby-gnome2.cygclass/HOMEPAGE (ruby-gnome2)
 #  DEFINITION
-HOMEPAGE="http://ruby-gnome2.sourceforge.jp/"
+HOMEPAGE="https://ruby-gnome2.osdn.jp/"
 #****
 
 unset rbg2_pn
