@@ -131,7 +131,7 @@ mirror_debian+=" http://ftp.debian.org/debian"
 #  DEFAULT MIRROR
 #  ftp://gcc.gnu.org/pub/gcc/
 #  MIRROR LIST
-#  http://gcc.gnu.org/mirrors.html
+#  https://gcc.gnu.org/mirrors.html
 #  SEE ALSO
 #  mirror_gnu
 #****
