@@ -591,7 +591,7 @@ cygautoreconf() {
 #  Runs the configure script for the package.  cygconf passes configure the flags
 #  necessary to install the package into the /usr prefix and according to the
 #  |html <a href="https://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
-#  |html <a href="https://cygwin.com/setup.html#package_contents">Cygwin package guidelines</a>.
+#  |html <a href="https://cygwin.com/packaging-package-files.html#package_contents">Cygwin package guidelines</a>.
 #  In addition, all arguments to cygconf are passed to configure, followed by
 #  CYGCONF_ARGS, if set.
 #  NOTES
