@@ -16,7 +16,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -210,7 +210,7 @@ declare   CC_SYSROOT="";
 # system triplets
 declare    CBUILD=$(${_privgnuconfigdir}/config.guess)
 case ${CBUILD} in
-# http://cygwin.com/ml/cygwin-developers/2013-02/msg00132.html
+# https://sourceware.org/legacy-ml/cygwin-developers/2013-02/msg00132.html
 x86_64-unknown-cygwin)  CBUILD="x86_64-pc-cygwin" ;&
 *-cygwin)  CHOST="${_host_arch:-${CBUILD%%-*}}-pc-cygwin" ;;
 *)         defined _host_arch || error "Either --32 or --64 flags MUST be passed to cygport"
