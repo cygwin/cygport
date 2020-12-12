@@ -16,7 +16,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -1024,12 +1024,12 @@ __prepstrip() {
 
 		# OCaml bytecode must not be stripped
 		# Magic number is at end of file:
-		# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=256900#74
-		# http://cygwin.com/ml/cygwin-apps/2010-10/msg00057.html
+		# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=256900#74
+		# https://sourceware.org/legacy-ml/cygwin-apps/2010-10/msg00057.html
 		#
 		# Perl Archive (PAR) binaries must not be stripped
 		# https://rt.cpan.org/Public/Bug/Display.html?id=18536
-		# http://cygwin.com/ml/cygwin-apps/2012-07/msg00088.html
+		# https://sourceware.org/legacy-ml/cygwin-apps/2012-07/msg00088.html
 		#
 		# Neko bytecode must not be stripped
 		# https://github.com/HaxeFoundation/neko/issues/130
@@ -1131,7 +1131,7 @@ __prep_symlinks() {
 		l_src=$(readlink "${l}")
 
 		# avoid .exe suffix in symlinks
-		# http://cygwin.com/ml/cygwin-apps/2007-04/msg00065.html
+		# https://sourceware.org/legacy-ml/cygwin-apps/2007-04/msg00065.html
 		case "${CHOST}:${l}" in
 			*-*-cygwin*:*.exe)
 				rm -f "${l}"
