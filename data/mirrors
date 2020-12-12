@@ -329,16 +329,13 @@ mirror_sourceware+=" ftp://ftp.sourceware.org/pub"
 #****
 mirror_qt+=" http://download.qt-project.org"
 
-# curl http://tug.org/texlive/mirmon/ \
+# curl https://tug.org/texlive/mirmon/ \
 #   | sed -n -e 's|^  <TD ALIGN=RIGHT><A HREF="\([^"]*\)/".*|\1|p'
 mirror_tlpretest+="
 	http://ftp.math.utah.edu/pub/texlive/tlpretest
 	ftp://ftp.math.utah.edu/pub/texlive/tlpretest
-	http://mirror.hmc.edu/tlpretest
 	http://ftp.cstug.cz/pub/tex/local/tlpretest
 	ftp://ftp.cstug.cz/pub/tex/local/tlpretest
-	http://ftp.ctex.org/mirrors/texlive/tlpretest
-	ftp://ftp.ctex.org/mirrors/texlive/tlpretest
 	http://ctan.ijs.si/mirror/tlpretest
 "
 
