@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -42,8 +42,8 @@
 #    SUMMARY="Git command for Gerrit submissions"
 #    DESCRIPTION="git-review is a tool that helps submitting git branches to
 #    Gerrit for review."
-#    HOMEPAGE="https://github.com/openstack-infra/git-review"
-#    SRC_URI="http://tarballs.openstack.org/git-review/${NAME}-${VERSION}.tar.gz"
+#    HOMEPAGE="https://opendev.org/opendev/git-review"
+#    SRC_URI="https://tarballs.opendev.org/openstack/git-review/${NAME}-${VERSION}.tar.gz"
 #    
 #    ARCH=noarch
 #    
