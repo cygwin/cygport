@@ -16,7 +16,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -552,7 +552,7 @@ __pkg_dist() {
 #  used as the category: field of auto-generated .hint files.
 #  NOTE
 #  A list of official categories is available on the
-#  |html <a href="http://cygwin.com/setup.html#setup.hint">Cygwin website</a>.
+#  |html <a href="https://cygwin.com/packaging-hint-files.html">Cygwin website</a>.
 #  SEE ALSO
 #  PKG_CATEGORY
 #****
@@ -570,7 +570,7 @@ __pkg_dist() {
 #  libfoo-devel will use libfoo_devel_CATEGORY.
 #  NOTE
 #  A list of official categories is available on the
-#  |html <a href="http://cygwin.com/setup.html#setup.hint">Cygwin website</a>.
+#  |htmlf <a href="https://cygwin.com/packaging-hint-files.html">Cygwin website</a>.
 #****
 #****v* Packaging/SUMMARY
 #  DESCRIPTION
