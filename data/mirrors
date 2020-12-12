@@ -214,15 +214,15 @@ mirror_gnustep+="
 #  SYNOPSIS
 #  SRC_URI="mirror://kde/stable/${PV}/src/${P}.tar.bz2"
 #  DEFAULT MIRROR
-#  http://download.kde.org
+#  https://download.kde.org/
 #  MIRROR LIST
-#  http://download.kde.org/extra/mirrors.html
+#  https://download.kde.org/?mirrorstats
 #  SEE ALSO
 #  kde.org.cygclass
 #****
 # cat mirrors | grep '<td><a' | \
 #   sed -e 's!.*<td><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
-mirror_kde+=" http://download.kde.org"
+mirror_kde+=" https://download.kde.org"
 
 
 #****d* Mirrors/mirror_mplayer
