@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -37,7 +37,7 @@
 
 #****o* xfce4.cygclass/HOMEPAGE (xfce4)
 #  DEFINITION
-HOMEPAGE="http://www.xfce.org/"
+HOMEPAGE="https://www.xfce.org/"
 #****
 
 ORIG_PN=${ORIG_PN:-${PN}}
