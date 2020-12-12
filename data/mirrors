@@ -368,10 +368,10 @@ mirror_vim+=" http://ftp.vim.org/pub/vim"
 #  SYNOPSIS
 #  SRC_URI="mirror://xfce/src/xfce/${PN}/${PV[1]}.${PV[2]}/${P}.tar.bz2"
 #  DEFAULT MIRROR
-#  http://archive.xfce.org
+#  https://archive.xfce.org
 #  MIRROR LIST
-#  http://www.xfce.org/download/
+#  https://www.xfce.org/download/
 #  SEE ALSO
 #  xfce4.cygclass
 #****
-mirror_xfce+=" http://archive.xfce.org"
+mirror_xfce+=" https://archive.xfce.org"
