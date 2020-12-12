@@ -145,15 +145,15 @@ mirror_gcc+=" ftp://gcc.gnu.org/pub/gcc"
 #  SYNOPSIS
 #  SRC_URI="mirror://gentoo/${P}.tar.bz2"
 #  DEFAULT MIRROR
-#  http://gentoo.osuosl.org/distfiles
+#  https://gentoo.osuosl.org/distfiles
 #  MIRROR LIST
-#  http://www.gentoo.org/main/en/mirrors.xml
+#  https://www.gentoo.org/downloads/mirrors/
 #  SEE ALSO
 #  mirror_portage
 #****
 # egrep '^<a href="(ht|f)tp:.*</a><br>$' mirrors.xml | \
 #	sed -e 's#<a href="\(.*\)".*</a>.*#\t\1#' -e 's#/$##' -e 's#$#/distfiles#'
-mirror_gentoo+=" http://gentoo.osuosl.org/distfiles"
+mirror_gentoo+=" https://gentoo.osuosl.org/distfiles"
 
 
 #****d* Mirrors/mirror_gnome
