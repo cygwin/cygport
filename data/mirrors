@@ -67,7 +67,7 @@ mirror_apache+=" https://downloads.apache.org"
 #  DEFAULT MIRROR
 #  https://cpan.metacpan.org
 #  MIRROR LIST
-#  http://www.cpan.org/SITES.html
+#  https://www.cpan.org/SITES.html
 #  SEE ALSO
 #  perl.cygclass
 #****
