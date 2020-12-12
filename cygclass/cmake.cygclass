@@ -89,7 +89,7 @@ __cmake_system() {
 #  Runs cmake to configure the package.  cygcmake passes cmake the flags
 #  necessary to install the package into the standard prefix and according to the
 #  |html <a href="https://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
-#  |html <a href="https://cygwin.com/setup.html#package_contents">Cygwin package guidelines</a>.
+#  |html <a href="https://cygwin.com/packaging-package-files.html#package_contents">Cygwin package guidelines</a>.
 #  In addition, all arguments to cygcmake are passed to cmake, followed by
 #  CYGCMAKE_ARGS, if set.
 #  NOTES
