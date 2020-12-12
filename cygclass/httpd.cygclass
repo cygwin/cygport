@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -77,9 +77,9 @@
 #    DESCRIPTION="mod_geoip2 is an Apache HTTP Server module for finding the country and
 #    city that a web request originated from.  It uses the GeoIP library and
 #    database to perform the lookup."
-#    HOMEPAGE="http://www.maxmind.com/app/mod_geoip"
-#    SRC_URI="http://www.maxmind.com/download/geoip/api/mod_geoip2/mod_geoip2_${VERSION}.tar.gz"
-#    SRC_DIR="mod_geoip2_${VERSION}"
+#    HOMEPAGE="https://dev.maxmind.com/geoip/legacy/mod_geoip2/"
+#    SRC_URI="https://github.com/maxmind/geoip-api-mod_geoip2/archive/v${VERSION}.tar.gz"
+#    SRC_DIR="geoip-api-mod_geoip2-${VERSION}"
 #    
 #    src_compile() {
 #      lndirs
