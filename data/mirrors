@@ -180,14 +180,14 @@ mirror_gnome+="
 #  SYNOPSIS
 #  SRC_URI="mirror://gnu/projectname/${P}.tar.gz"
 #  DEFAULT MIRROR
-#  http://ftpmirror.gnu.org
+#  https://ftpmirror.gnu.org/
 #  MIRROR LIST
-#  http://www.gnu.org/order/ftp.html
+#  https://www.gnu.org/prep/ftp.html
 #****
 # cat ftp.html | grep '<li><a' | \
 #   sed -e 's!.*<li><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
 mirror_gnu+="
-	http://ftpmirror.gnu.org
+	https://ftpmirror.gnu.org
 	ftp://ftp.gnu.org/gnu
 "   # mirror_gnu
 
