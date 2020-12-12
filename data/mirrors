@@ -312,7 +312,7 @@ mirror_sourceforge+=" http://downloads.sourceforge.net"
 #  DEFAULT MIRROR
 #  ftp://ftp.sourceware.org/pub (frequently unavailable)
 #  MIRROR LIST
-#  http://sourceware.org/mirrors.html
+#  https://sourceware.org/mirrors.html
 #****
 mirror_sourceware+=" ftp://ftp.sourceware.org/pub"
 
