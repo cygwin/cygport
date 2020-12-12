@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -57,7 +57,7 @@ office-desktop software."
 #****
 #****io* sugar.cygclass/HOMEPAGE (sugar)
 #  DEFINITION
-HOMEPAGE="http://www.sugarlabs.org/"
+HOMEPAGE="https://www.sugarlabs.org/"
 #****
 
 #****iv* sugar.cygclass/SUGAR_TYPE
@@ -71,8 +71,8 @@ HOMEPAGE="http://www.sugarlabs.org/"
 #****
 case "${SUGAR_TYPE,,}" in
 fructose)
-	SRC_URI="http://download.sugarlabs.org/sources/sucrose/fructose/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2" ;;
-honey)	SRC_URI="http://download.sugarlabs.org/sources/honey/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2" ;;
+	SRC_URI="https://download.sugarlabs.org/sources/sucrose/fructose/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2" ;;
+honey)	SRC_URI="https://download.sugarlabs.org/sources/honey/${ORIG_PN}/${ORIG_PN}-${PV}.tar.bz2" ;;
 esac
 
 #****iI* sugar.cygclass/sugar_install
