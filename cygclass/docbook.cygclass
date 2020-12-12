@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -92,7 +92,7 @@ case "${dtd_type}:${PV}" in
 		;;
 	xml:4.1.2)
 		SRC_URI="http://www.oasis-open.org/docbook/${dtd_type//-//}/${PV}/docbkx${PV//.}.zip"
-		PATCH_URI="http://pkgs.fedoraproject.org/cgit/rpms/docbook-dtds.git/plain/docbook-dtd412-entities.patch"
+		PATCH_URI="https://src.fedoraproject.org/rpms/docbook-dtds/raw/master/f/docbook-dtd412-entities.patch"
 		;;
 	xml:4.[2-5])
 		SRC_URI="http://www.oasis-open.org/docbook/${dtd_type//-//}/${PV}/docbook-xml-${PV}.zip"
