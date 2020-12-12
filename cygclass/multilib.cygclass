@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -52,7 +52,7 @@
 #  RELEASE=1
 #  CATEGORY="Devel"
 #  SUMMARY="zlib for Linux x86-64/x32 toolchain"
-#  HOMEPAGE="http://www.zlib.net/"
+#  HOMEPAGE="https://www.zlib.net/"
 #  SRC_URI="mirror://sourceforge/libpng/zlib-${VERSION}.tar.gz"
 #  SRC_DIR="zlib-${VERSION}"
 #  
