@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -36,9 +36,9 @@
 #  where .dll is the norm.  The standard Ruby build systems will do this
 #  correctly, but modules build with other build systems will usually need
 #  a patch to force the use of the .so extension.  For instance, with
-#  |html <a href="http://www.gnu.org/software/libtool/manual/html_node/Link-mode.html">automake and libtool</a>:
+#  |html <a href="https://www.gnu.org/software/libtool/manual/html_node/Link-mode.html">automake and libtool</a>:
 #    foo_la_LDFLAGS = -module -avoid-version -no-undefined -shrext '.so'
-#  |html or with <a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#prop_tgt:SUFFIX">CMake</a>:
+#  |html or with <a href="https://cmake.org/cmake/help/latest/prop_tgt/SUFFIX.html">CMake</a>:
 #    set_target_properties(foo PROPERTIES PREFIX "" SUFFIX ".so")
 #  INHERITED BY
 #  rubygem.cygclass
