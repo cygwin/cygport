@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -36,7 +36,7 @@
 
 #****o* mate.cygclass/HOMEPAGE (mate)
 #  DEFINITION
-HOMEPAGE="http://mate-desktop.org/"
+HOMEPAGE="https://mate-desktop.org/"
 #****
 
 #****o* mate.cygclass/SRC_URI (mate)
@@ -44,8 +44,8 @@ HOMEPAGE="http://mate-desktop.org/"
 
 #****
 case ${PV} in
-1.1.*) SRC_URI="http://pub.mate-desktop.org/releases/${PV[1]}.${PV[2]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2" ;;
-*) SRC_URI="http://pub.mate-desktop.org/releases/${PV[1]}.${PV[2]}/${ORIG_PN:-${PN}}-${PV}.tar.xz" ;;
+1.1.*) SRC_URI="https://pub.mate-desktop.org/releases/${PV[1]}.${PV[2]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2" ;;
+*) SRC_URI="https://pub.mate-desktop.org/releases/${PV[1]}.${PV[2]}/${ORIG_PN:-${PN}}-${PV}.tar.xz" ;;
 esac
 
 if ! defined GIT_URI
