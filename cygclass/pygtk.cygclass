@@ -17,7 +17,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -107,7 +107,7 @@ SUMMARY="Python ${pygtk_mod} bindings"
 #****
 #****o* pygtk.cygclass/HOMEPAGE (pygtk)
 #  DEFINITION
-HOMEPAGE="http://www.pygtk.org/"
+HOMEPAGE="https://pygobject.readthedocs.io/"
 #****
 
 unset pygtk_mod
