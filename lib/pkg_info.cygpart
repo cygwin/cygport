@@ -16,7 +16,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cygport.  If not, see <http://www.gnu.org/licenses/>.
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
 #
 ################################################################################
 
@@ -643,7 +643,7 @@ __show_web() {
 		mywww=${HOMEPAGE}
 	else
 		warning "HOMEPAGE undefined, searching Google for ${ORIG_PN:-${PN}}"
-		mywww="http://www.google.com/search?q=${ORIG_PN:-${PN}}"
+		mywww="https://www.google.com/search?q=${ORIG_PN:-${PN}}"
 	fi
 
 	for prog in "${BROWSER}" xdg-open cygstart false
