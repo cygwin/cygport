@@ -82,15 +82,15 @@ mirror_cpan+=" https://cpan.metacpan.org"
 #  SYNOPSIS
 #  SRC_URI="mirror://cran/src/contrib/${ORIG_PN}_${PV/_/-}.tar.gz"
 #  DEFAULT MIRROR
-#  http://cran.r-project.org/
+#  https://cran.r-project.org/
 #  MIRROR LIST
-#  http://cran.r-project.org/mirrors.html
+#  https://cran.r-project.org/mirrors.html
 #  SEE ALSO
 #  R.cygclass
 #****
 # grep -P '^http.*\n</a>' mirrors.html \
 #   | sed -e '/<\/a>/d' -e 's#^#\t#g' -e 's#/$##g'
-mirror_cran+=" http://cran.r-project.org"
+mirror_cran+=" https://cran.r-project.org"
 
 
 #****d* Mirrors/mirror_ctan
