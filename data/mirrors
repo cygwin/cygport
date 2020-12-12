@@ -162,7 +162,7 @@ mirror_gentoo+=" https://gentoo.osuosl.org/distfiles"
 #  SYNOPSIS
 #  SRC_URI="mirror://gnome/sources/${PN}/${PV}/${P}.tar.bz2"
 #  DEFAULT MIRROR
-#  http://ftp.gnome.org/pub/gnome
+#  https://download.gnome.org/
 #  MIRROR LIST
 #  http://ftp.gnome.org/pub/GNOME/MIRRORS
 #  SEE ALSO
@@ -170,9 +170,7 @@ mirror_gentoo+=" https://gentoo.osuosl.org/distfiles"
 #****
 # cat MIRRORS | grep 'tp:' | sed -e 's!/$!!g'
 mirror_gnome+="
-	http://download.gnome.org
-	http://ftp.gnome.org/pub/gnome
-	ftp://ftp.gnome.org/pub/gnome
+	https://download.gnome.org
 "   # mirror_gnome
 
 
