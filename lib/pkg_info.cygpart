@@ -72,7 +72,7 @@ __list_deps() {
 	local d f ext
 	local alldeps shdep girdep jar jpkg ladep luadep luapaths pcdep pctgt pidep
 	local mldep mldir mllib
-	local phpdep phpmoddir pldep pldirs
+	local phpdep phpmoddir pldep pldirs plver
 	local pydep pydirs pyexts pyscr pysite pyver
 	local rbdep rbdirs gemdir gemextdir gemspecdir
 	local tcldep tclpkgs vapidep vapidir
@@ -419,6 +419,19 @@ __list_deps() {
 		done
 	fi
 
+	plver=( $(find "${@//^_^/ }" -path "usr/*/perl5/vendor_perl/5.[0-9][0-9]/*" \
+	        | sed -E 's!usr/.*/perl5/vendor_perl/5.([0-9][0-9])/.*!perl5_0\1!' \
+	        | sort -ru) )
+	if [ "${#plver[@]}" -gt 1 ]
+	then
+		warning "More than one targeted Perl version: ${plver[*]},"
+		warning "using only the latest as dependency: ${plver[0]}."
+	fi
+	if [ "${#plver[@]}" -gt 0 ] && [ "${PN}" != "perl_base" ]
+	then
+		echo "${plver[0]}"
+	fi
+
 	if check_prog php-config
 	then
 		phpmoddir=$(php-config  --extension-dir)
@@ -602,6 +615,17 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	# FIXME: could be improved in the case of relative links where
 	# the target is from another package
 	alldeps+=" "$(find "${@//^_^/ }" -type l | xargs -r readlink -f)
+
+	# add perl5_0xy requirement if linked with cygperl5_xy.dll
+	for dll in $(echo ${alldeps} | tr \\n ' ' ) ; do
+	    case "${dll##*/}" in
+		cygperl5_[0-9][0-9].dll)
+		    plver="${dll##*cygperl5_}"
+		    plver="${plver%%.dll}"
+		    echo "perl5_0${plver}"
+		    ;;
+	    esac
+	done
 
 	if [ "${CBUILD##*-}" = "cygwin" ]
 	then

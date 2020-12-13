@@ -1,5 +1,5 @@
 category: Perl
-requires: cygwin perl_base 
+requires: cygwin perl5_032 perl_base 
 sdesc: "Perl Lchown distribution"
 ldesc: "The Lchown module provides a perl interface to the lchown(2) UNIX
 system call, on systems that support lchown.  The lchown(2) call is used to
