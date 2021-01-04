@@ -33,7 +33,7 @@
 #  Linux kernel, it is widely used by a number of projects, including GNOME,
 #  GStreamer, X.Org, and Xfce.
 #
-#  This cygclass creates source tarballs from Git checkouts.
+#  This cygclass creates source tarballs from Git repositories.
 #  NOTE
 #  This cygclass sets a special SRC_URI for the tarball it creates.  If
 #  additional sources are required, be sure to _add_ to SRC_URI rather than
@@ -70,10 +70,19 @@ git_fetch() {
 
 	check_prog_req git
 
-	if ! defined GIT_TAG && ! defined GIT_BRANCH && ! defined GIT_REV
+	if ! defined GIT_REV
 	then
-		# fetching master/HEAD, so we don't need any history
+		# shallow fetch a ref (master, branch or tag) with --depth=1
+		# (not allowed for a hash, unless remote is configured to permit
+		# it with allow*SHA1InWant).
 		_depth="--depth 1"
+		if defined GIT_TAG
+		then
+			_depth+=" --branch ${GIT_TAG}"
+		elif defined GIT_BRANCH
+		then
+			_depth+=" --branch ${GIT_BRANCH}"
+		fi
 	fi
 
 	# T likely doesn't exist at this point, so create it first
