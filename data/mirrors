@@ -115,7 +115,7 @@ mirror_ctan+=" http://mirror.ctan.org/"
 #  SYNOPSIS
 #  SRC_URI="mirror://debian/pool/main/${PN:0:1}/${PN}/${PN}_${PV}.orig.tar.gz"
 #  DEFAULT MIRROR
-#  http://ftp.debian.org/debian
+#  https://ftp.debian.org/debian
 #  MIRROR LIST
 #  https://www.debian.org/mirror/list
 #****
