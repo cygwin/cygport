@@ -313,11 +313,14 @@ mirror_sourceforge+=" http://downloads.sourceforge.net"
 #  SYNOPSIS
 #  SRC_URI="mirror://sourceware/projectname/${P}.tar.bz2"
 #  DEFAULT MIRROR
-#  ftp://ftp.sourceware.org/pub (frequently unavailable)
+#  https://ftp.sourceware.org/pub
 #  MIRROR LIST
 #  https://sourceware.org/mirrors.html
 #****
-mirror_sourceware+=" ftp://ftp.sourceware.org/pub"
+mirror_sourceware+="
+	https://ftp.sourceware.org/pub
+	ftp://ftp.sourceware.org/pub
+"
 
 
 #****d* Mirrors/mirror_qt
