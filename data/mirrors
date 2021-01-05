@@ -191,7 +191,7 @@ mirror_gnome+="
 #   sed -e 's!.*<li><a href="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
 mirror_gnu+="
 	https://ftpmirror.gnu.org
-	ftp://ftp.gnu.org/gnu
+	https://ftp.gnu.org/gnu
 "   # mirror_gnu
 
 
