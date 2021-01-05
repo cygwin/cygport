@@ -129,14 +129,17 @@ mirror_debian+=" http://ftp.debian.org/debian"
 #  SYNOPSIS
 #  SRC_URI="mirror://gcc/releases/gcc-${PV}/gcc-core-${PV}.tar.bz2"
 #  DEFAULT MIRROR
-#  ftp://gcc.gnu.org/pub/gcc/
+#  https://gcc.gnu.org/pub/gcc/
 #  MIRROR LIST
 #  https://gcc.gnu.org/mirrors.html
 #  SEE ALSO
 #  mirror_gnu
 #****
 # grep '^<li>' mirrors.html | sed -e 's|.*<a href="\([^"]*\).*|\1|g' -e 's|/$||g'
-mirror_gcc+=" ftp://gcc.gnu.org/pub/gcc"
+mirror_gcc+="
+	https://gcc.gnu.org/pub/gcc
+	ftp://gcc.gnu.org/pub/gcc
+	"
 
 
 #****d* Mirrors/mirror_gentoo
