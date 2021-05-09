@@ -1,10 +1,11 @@
-SVN_URI="http://llvm.org/svn/llvm-project/cfe"
-SVN_BRANCH="tags/RELEASE_${PV//.}/final/bindings/python"
+SVN_URI="https://github.com/llvm/llvm-project"
+SVN_BRANCH="tags/llvmorg-${PV}/clang/bindings/python"
 SVN_MODULE="python-clang"
-inherit svn test-fetch
+PYTHON_WHEEL_VERSIONS="2:default"
+inherit python-wheel svn
 
 NAME="python-clang"
-VERSION=4.0.1
+VERSION=9.0.1
 RELEASE=1
 CATEGORY="Python"
 SUMMARY="Python bindings for Clang-C Source Indexing Library"
@@ -16,3 +17,26 @@ HOMEPAGE="http://clang.llvm.org/"
 PATCH_URI="3.7.1-cygwin-ctypes.patch"
 
 ARCH=noarch
+
+python27_clang_REQUIRES="libclang${VERSION%%.*}" # ctypes
+python36_clang_REQUIRES="libclang${VERSION%%.*}" # ctypes
+python37_clang_REQUIRES="libclang${VERSION%%.*}" # ctypes
+python38_clang_REQUIRES="libclang${VERSION%%.*}" # ctypes
+
+CYGPORT_USE_UNSTABLE_API=1
+src_patch_hook() {
+	sed -i -e "s|\@CLANG_LIB_VERSION\@|${VERSION%%.*}|" clang/cindex.py
+	cat > setup.py <<_EOF
+from setuptools import setup
+
+setup(name='clang',
+      version='${VERSION}',
+      platforms=['all'],
+      packages=['clang'],
+      )
+_EOF
+	cat > setup.cfg <<_EOF
+[bdist_wheel]
+universal = 1
+_EOF
+}

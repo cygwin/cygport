@@ -1,7 +1,7 @@
 inherit test-fetch
 
 NAME="R-nanotime"
-VERSION=0.2.4
+VERSION=0.3.2
 RELEASE=1
 CATEGORY="Math"
 SUMMARY="Nanosecond-resolution time for R"

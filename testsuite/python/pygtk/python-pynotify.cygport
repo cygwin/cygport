@@ -14,3 +14,5 @@ PATCH_URI="mirror://portage/dev-python/${ORIG_PN}/files/${ORIG_PN}-${PV}-libnoti
 DISTCLEANFILES="src/pynotify.c"
 
 REQUIRES="python-gobject python-gtk2.0"
+
+CFLAGS+=" -fcommon"

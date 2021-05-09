@@ -70,6 +70,7 @@ jobs:
         liblzma-devel,^
         libnotify-devel,^
         libpango1.0-devel,^
+        libpcre2-devel,^
         libqca-qt5-devel,^
         libtirpc-devel,^
         libxfce4ui1-devel,^
@@ -113,6 +114,9 @@ jobs:
       shell: cmd
     - name: Set PATH
       run: echo "PATH=C:\cygwin64\bin;C:\cygwin64\lib\lapack;%SYSTEMROOT%\system32" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+    - name: Fix mercurial
+      run: |
+        bash -c 'sed -i s#/usr/bin/python\$#/usr/bin/python3# /usr/bin/hg'
     - name: Build
       run: |
         bash -c 'meson _build && ninja -C _build'
