@@ -5,8 +5,6 @@ on:
     - master
     - 'cygport-*'
     - 'topic/**'
-    paths-ignore:
-    - '.github/**'
 
 env:
   CASE_INSENSITIVE: 1
@@ -114,8 +112,7 @@ jobs:
         xfce4-panel-devel
       shell: cmd
     - name: Set PATH
-      run: |
-        echo '::set-env name=PATH::C:\cygwin64\bin;C:\cygwin64\lib\lapack;%SYSTEMROOT%\system32'
+      run: echo "PATH=C:\cygwin64\bin;C:\cygwin64\lib\lapack;%SYSTEMROOT%\system32" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
     - name: Build
       run: |
         bash -c 'meson _build && ninja -C _build'
