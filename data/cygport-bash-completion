@@ -12,7 +12,7 @@ _cygport()
 		check test inst install list dep depends \
 		package pkg package-test pkg-test diff mkdiff mkpatch \
 		upload stage announce almostall all all-test clean finish \
-		help info version homepage website'
+		help info version homepage website vars'
 
 	if [[ $COMP_CWORD -eq 1 ]] ; then
 		# first arg: source file completion

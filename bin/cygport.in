@@ -623,6 +623,11 @@ do
 			__show_info;
 			_status=$?;
 			;;
+		vars)
+			__show_vars ${argv[@]:$((++arg_n))};
+			_status=$?;
+			arg_n=$argc;  # consumed all remaining args
+			;;
 		homepage|web*|www*)
 			__show_web;
 			_status=$?;

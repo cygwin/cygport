@@ -650,5 +650,13 @@ __show_web() {
 	${mybrowser} ${mywww} &>/dev/null &
 }
 
+__show_vars() {
+	for v in "$@"
+	do
+		declare -p "${v}"
+	done
+}
+
 readonly -f __list_files __list_debug_files __list_deps \
-	    __show_deps __show_info __show_web __pager
+	    __show_deps __show_info __show_web __pager \
+	    __show_vars
