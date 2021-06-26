@@ -6,4 +6,4 @@ system call, on systems that support lchown.  The lchown(2) call is used to
 change the ownership and group of symbolic links."
 skip:
 
-homepage: https://metacpan.org/release/Lchown
+homepage: https://metacpan.org/dist/Lchown

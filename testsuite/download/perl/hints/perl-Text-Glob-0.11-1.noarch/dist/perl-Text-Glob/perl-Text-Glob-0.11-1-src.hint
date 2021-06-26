@@ -4,4 +4,4 @@ sdesc: "Perl Text::Glob distribution"
 ldesc: "Perl module for matching globbing patterns against text"
 skip:
 
-homepage: https://metacpan.org/release/Text-Glob
+homepage: https://metacpan.org/dist/Text-Glob

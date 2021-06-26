@@ -6,4 +6,4 @@ like die() or warn(), but with a message which is more likely to be useful
 to a user of your module."
 skip:
 
-homepage: https://metacpan.org/release/Carp
+homepage: https://metacpan.org/dist/Carp
