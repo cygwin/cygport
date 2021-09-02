@@ -56,9 +56,9 @@ declare -x CXX="g++";
 #  Flags passed to CXX when compiling C++ code.  Individual packages may append
 #  or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  CFLAGS
+#  CFLAGS -Werror=return-type
 #****
-declare -x CXXFLAGS=${CFLAGS};
+declare -x CXXFLAGS="${CFLAGS} -Werror=return-type";
 
 #****d* Compiling/F77
 #  DESCRIPTION
