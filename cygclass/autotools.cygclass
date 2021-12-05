@@ -368,8 +368,8 @@ cygautoreconf() {
 #****v* cygautoreconf/WANT_AUTOCONF
 #  DESCRIPTION
 #  This variable controls the version of autoconf to be used.  Valid settings
-#  are "2.1" (for the 2.13 version) and "2.5" (the default, for the 2.5x/2.6x
-#  series).
+#  are "2.1" (for the 2.13 version), "2.5" (for the 2.5x/2.6x series) and "2.7"
+#  (the default, for the 2.7x series).
 #****
 
 #****v* cygautoreconf/WANT_AUTOMAKE
@@ -391,12 +391,21 @@ cygautoreconf() {
 			warning "libtool is incompatible with autoconf-2.13";
 		fi
 		;;
-	2.5|'')
-		WANT_AUTOCONF=2.5
-
-		case $(autoconf --version 2> /dev/null | head -n 1) in
+	2.5|2.7|'')
+		case "${WANT_AUTOCONF}" in
+		2.5)
+			WANT_AUTOCONF=2.5
+			case $(autoconf --version 2> /dev/null | head -n 1) in
 			autoconf*2.[56]?) ;;
 			*)	error "autoconf2.5 is required to build this package" ;;
+			esac
+			;;
+		2.7|'')
+			WANT_AUTOCONF=2.7
+			case $(autoconf --version 2> /dev/null | head -n 1) in
+			autoconf*2.[7]?) ;;
+			*)	error "autoconf2.7 is required to build this package" ;;
+			esac
 		esac
 
 		if __config_equals with_libtool 1
