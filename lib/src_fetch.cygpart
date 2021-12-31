@@ -58,7 +58,15 @@
 #  Individual source patches maintained locally may also be used by adding
 #  their basenames to PATCH_URI.  This provides an easy way to carry
 #  Cygwin-specific patches forward between releases.
+#
 #  NOTE
+#
+#  For historical reasons, patches with basenames of ${PVR}.{cygwin,src}.patch
+#  should not be listed in PATCH_URI, as they are treated specially and are
+#  automatically applied, if present.
+#
+#  NOTE
+#
 #  See SRC_URI for details about URI handling in cygport.
 #****
 
