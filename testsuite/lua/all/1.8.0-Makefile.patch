@@ -1,0 +1,11 @@
+--- origsrc/luafilesystem-1_8_0/Makefile
++++ src/luafilesystem-1_8_0/Makefile
+@@ -12,7 +12,7 @@
+ lib: src/lfs.so
+ 
+ src/lfs.so: $(OBJS)
+-	MACOSX_DEPLOYMENT_TARGET=$(MACOSX_DEPLOYMENT_TARGET); export MACOSX_DEPLOYMENT_TARGET; $(CC) $(LIB_OPTION) -o src/lfs.so $(OBJS)
++	MACOSX_DEPLOYMENT_TARGET=$(MACOSX_DEPLOYMENT_TARGET); export MACOSX_DEPLOYMENT_TARGET; $(CC) $(LIB_OPTION) -o src/lfs.so $(OBJS) $(LIBS)
+ 
+ test: lib
+ 	LUA_CPATH=./src/?.so lua tests/test.lua

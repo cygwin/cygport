@@ -1,5 +1,7 @@
-/usr/lib/lua/5.3/lfs.dll
-/usr/share/doc/lua-lfs/README
+/usr/lib/lua/5.3/lfs.so
+/usr/share/doc/lua-lfs/LICENSE
+/usr/share/doc/lua-lfs/README.md
+/usr/share/doc/lua-lfs/html/doc.css
 /usr/share/doc/lua-lfs/html/examples.html
 /usr/share/doc/lua-lfs/html/index.html
 /usr/share/doc/lua-lfs/html/license.html

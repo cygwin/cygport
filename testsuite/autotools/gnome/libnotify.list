@@ -12,8 +12,6 @@
 /usr/share/doc/libnotify/ChangeLog
 /usr/share/doc/libnotify/NEWS
 /usr/share/gir-1.0/Notify-0.7.gir
-/usr/share/gtk-doc/html/libnotify/NotifyNotification.html
-/usr/share/gtk-doc/html/libnotify/annotation-glossary.html
 /usr/share/gtk-doc/html/libnotify/api-index-deprecated.html
 /usr/share/gtk-doc/html/libnotify/api-index-full.html
 /usr/share/gtk-doc/html/libnotify/ch01.html
@@ -21,6 +19,7 @@
 /usr/share/gtk-doc/html/libnotify/index.html
 /usr/share/gtk-doc/html/libnotify/left-insensitive.png
 /usr/share/gtk-doc/html/libnotify/left.png
+/usr/share/gtk-doc/html/libnotify/libnotify-notification.html
 /usr/share/gtk-doc/html/libnotify/libnotify-notify.html
 /usr/share/gtk-doc/html/libnotify/libnotify.devhelp2
 /usr/share/gtk-doc/html/libnotify/right-insensitive.png

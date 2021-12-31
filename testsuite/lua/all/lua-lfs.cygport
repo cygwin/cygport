@@ -1,33 +1,81 @@
 inherit lua
 
 NAME="lua-lfs"
-VERSION=1.6.2
-RELEASE=2
+VERSION=1.8.0
+RELEASE=1
 CATEGORY="Lua"
 SUMMARY="Lua file system library"
-DESCRIPTION="LuaFileSystem is a Lua library developed to complement the set of
-functions related to file systems offered by the standard Lua distribution."
-HOMEPAGE="http://www.keplerproject.org/luafilesystem/"
-SRC_URI="https://github.com/downloads/keplerproject/luafilesystem/luafilesystem-${VERSION}.tar.gz"
-SRC_DIR="luafilesystem-${VERSION}"
-PATCH_URI="1.6.2-cygwin.patch"
+DESCRIPTION="\
+LuaFileSystem is a Lua library developed to complement the set of
+functions related to file systems offered by the standard Lua
+distribution.
+"
+HOMEPAGE="https://keplerproject.github.io/luafilesystem/"
+
+GIT_REPO="https://github.com/keplerproject/luafilesystem"
+declare -A GIT_DATEHASH_BY_NAME=(
+  # git log --date=iso-strict --format='%cd/%H' -1
+  [1.8.0]=2020-04-22T22:16:42-03:00/v1_8_0
+)
+REV_HASH="${GIT_DATEHASH_BY_NAME[${VERSION}]#*/}"
+REV_DATE="${GIT_DATEHASH_BY_NAME[${VERSION}]%%/*}"
+REV_DATE_SHORT="${REV_DATE%%T*}"
+GIT_BASENAME="${GIT_REPO##*/}"
+SRC_URI="${GIT_REPO}/archive/${REV_HASH}/${GIT_BASENAME}-${VERSION}.tar.gz"
+SRC_DIR="${GIT_BASENAME}-${REV_HASH#v}"
+
+LUA_PKG_NAME="lfs"
+
+PATCH_URI+="
+  1.8.0-Makefile.patch
+  1.8.0-lfs_c.patch
+"
+
+BUILD_REQUIRES="\
+  lua\
+  liblua-devel\
+"
 
 src_compile() {
-	lndirs
-	cd ${B}
-	cygmake WARN="${CFLAGS}"
+  mkdir -p ${B}/${LUA_VERSION}
+  cd  ${B}/${LUA_VERSION}
+  inform "[Compile] Lua ${LUA_VERSION}: ${LUA_PKG_NAME}"
+
+  lndirs ${S} .
+  cygmake \
+    LUA_VERSION="${LUA_VERSION}" \
+    WARN="${CFLAGS}" \
+    INCS="-I${LUA_INCLUDEDIR}" \
+    LIBS="${LUA_LIBS}" \
+    ;
 }
 
 src_test() {
-	cd ${B}/src
-	ln -sf lfs.so lfs.dll
-	${LUA} -llfs ../tests/test.lua
+  cd ${B}/${LUA_VERSION}
+  inform "[Test] Lua ${LUA_VERSION}: ${LUA_PKG_NAME}"
+  lua${LUA_VERSION} -v
+
+  local TEST_ROOT="./tests"
+  local TEST_LUA_PATH="./src/?.lua"
+  local TEST_LUA_CPATH="./src/?.so"
+  local TEST_LUA_PKGS="-l${LUA_PKG_NAME}"
+
+  local f
+  find "${TEST_ROOT}" -maxdepth 1 -name "test*.lua" -print0 \
+  | while read -r -d '' f; do
+      printf "%s\n" "Testing $f"
+      LUA_PATH="${TEST_LUA_PATH}" \
+      LUA_CPATH="${TEST_LUA_CPATH}" \
+      lua${LUA_VERSION} ${TEST_LUA_PKGS} "$f"
+    done
 }
 
 src_install() {
-	cd ${B}
-	exeinto ${LUA_LIBDIR}
-	newexe src/lfs.so lfs.dll
+  cd ${B}/${LUA_VERSION}
+  inform "[Install] Lua ${LUA_VERSION}: ${LUA_PKG_NAME}"
+
+  exeinto ${LUA_LIBDIR}
+  doexe src/lfs.so
 }
 
 HTMLDOCS="doc/us/*"

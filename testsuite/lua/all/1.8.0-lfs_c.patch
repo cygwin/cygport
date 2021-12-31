@@ -1,0 +1,19 @@
+--- origsrc/luafilesystem-1_8_0/src/lfs.c
++++ src/luafilesystem-1_8_0/src/lfs.c
+@@ -163,9 +163,16 @@
+ 
+ #else
+ 
++#if defined __CYGWIN__
++#include <io.h>
++#define _O_TEXT               O_TEXT
++#define _O_BINARY             O_BINARY
++#define lfs_setmode(file, m)   (_setmode(fileno(file), m))
++#else
+ #define _O_TEXT               0
+ #define _O_BINARY             0
+ #define lfs_setmode(file, m)   ((void)file, (void)m, 0)
++#endif
+ #define STAT_STRUCT struct stat
+ #define STAT_FUNC stat
+ #define LSTAT_FUNC lstat
