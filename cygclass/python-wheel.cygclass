@@ -61,11 +61,11 @@ inherit python.org
 #  DESCRIPTION
 #  A colon-seperated list of version(s) for which this module should be built.
 #  Some aliases are also accepted:
-#  * all: all supported 3.y versions (currently: 3.5 through 3.8)
-#  * future: the default and upcoming 3.y versions (currently: 3.7, 3.8)
-#  * default: the default 3.y version(s) (currently: 3.7, 3.8)
+#  * all: all supported 3.y versions (currently: 3.6 through 3.9)
+#  * future: the default and upcoming 3.y versions (currently: 3.9, 3.10)
+#  * default: the default 3.y version(s) (currently: 3.8, 3.9)
 #  * 2: the default 2.x version (permanently 2.7)
-#  * 3: the default 3.x version (currently: 3.8)
+#  * 3: the default 3.x version (currently: 3.9)
 #  This variable must be defined before inheriting python-wheel.cygclass.
 #  If undefined, "default" is assumed.
 #  NOTES
@@ -93,11 +93,11 @@ _tmp_wheel_v=
 for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
 do
 	case "${ver}" in
-	all)		_tmp_wheel_v+=3.5:3.6:3.7:3.8: ;;
-	future)		_tmp_wheel_v+=3.7:3.8: ;;
-	default)	_tmp_wheel_v+=3.7:3.8: ;;
+	all)		_tmp_wheel_v+=3.6:3.7:3.8:3.9: ;;
+	future)		_tmp_wheel_v+=3.9:3.10: ;;
+	default)	_tmp_wheel_v+=3.8:3.9: ;;
 	2)		_tmp_wheel_v+=2.7: ;;
-	3)		_tmp_wheel_v+=3.8: ;;
+	3)		_tmp_wheel_v+=3.9: ;;
 	*)		_tmp_wheel_v+=$ver: ;;
 	esac
 done
@@ -195,7 +195,7 @@ python_wheel_install() {
 		# ENSUREPIP_OPTIONS=install: pipX, pipX.Y, easy_install-X.Y
 
 		case ${ver} in
-		2.7|3.8) export ENSUREPIP_OPTIONS="install" ;;
+		2.7|3.9) export ENSUREPIP_OPTIONS="install" ;;
 		*) export ENSUREPIP_OPTIONS="altinstall" ;;
 		esac
 		pip${ver} install -I dist/${whl} --root ${D} --prefix /usr --no-compile --no-deps --no-warn-script-location || error "pip${ver} install failed"

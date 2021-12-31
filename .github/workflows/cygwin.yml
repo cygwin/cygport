@@ -99,12 +99,12 @@ jobs:
         python27-pip,^
         python27-setuptools,^
         python27-wheel,^
-        python37-pip,^
-        python37-setuptools,^
-        python37-wheel,^
         python38-pip,^
         python38-setuptools,^
         python38-wheel,^
+        python39-pip,^
+        python39-setuptools,^
+        python39-wheel,^
         robodoc,^
         ruby,^
         subversion,^
@@ -117,6 +117,7 @@ jobs:
     - name: Use python3.8
       run: |
         bash -c '/usr/sbin/alternatives --set python /usr/bin/python3.8 ; /usr/sbin/alternatives --set python3 /usr/bin/python3.8'
+        bash -c 'sed -i s#/usr/bin/python\$#/usr/bin/python3.9# /usr/bin/pip3.9'
     - name: Build
       run: |
         bash -c 'meson _build && ninja -C _build'

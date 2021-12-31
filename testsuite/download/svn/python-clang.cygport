@@ -19,9 +19,8 @@ PATCH_URI="3.7.1-cygwin-ctypes.patch"
 ARCH=noarch
 
 python27_clang_REQUIRES="libclang${VERSION%%.*}" # ctypes
-python36_clang_REQUIRES="libclang${VERSION%%.*}" # ctypes
-python37_clang_REQUIRES="libclang${VERSION%%.*}" # ctypes
 python38_clang_REQUIRES="libclang${VERSION%%.*}" # ctypes
+python39_clang_REQUIRES="libclang${VERSION%%.*}" # ctypes
 
 CYGPORT_USE_UNSTABLE_API=1
 src_patch_hook() {
