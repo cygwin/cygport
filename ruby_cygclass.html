@@ -6,9 +6,10 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
 <link rel="stylesheet" href="./robodoc.css" type="text/css" />
-<title>./cygport/cygclass/ruby.cygclass</title>
+<script src="./robodoc.js"></script>
+<title>ruby.cygclass</title>
 <!-- Source: ./cygport/cygclass/ruby.cygclass -->
-<!-- Generated with ROBODoc Version 4.99.43 (Jul 26 2019) -->
+<!-- Generated with ROBODoc Version 4.99.45 (Jan  8 2022) -->
 </head>
 <body>
 <div id="logo">
@@ -84,11 +85,11 @@
   where .dll is the norm.  The standard Ruby build systems will do this
   correctly, but modules build with other build systems will usually need
   a patch to force the use of the .so extension.  For instance, with
-<a href="http://www.gnu.org/software/libtool/manual/html_node/Link-mode.html">automake and libtool</a>:
+<a href="https://www.gnu.org/software/libtool/manual/html_node/Link-mode.html">automake and libtool</a>:
 </p>
 <pre>    foo_la_LDFLAGS = -module -avoid-version -no-undefined -shrext '.so'
 </pre>
-<p>or with <a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#prop_tgt:SUFFIX">CMake</a>:
+<p>or with <a href="https://cmake.org/cmake/help/latest/prop_tgt/SUFFIX.html">CMake</a>:
 </p>
 <pre>    set_target_properties(foo PROPERTIES PREFIX "" SUFFIX ".so")
 </pre>
@@ -364,8 +365,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/ruby.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.43 on Mon May 25 2020 12:13:53
-</p>
+<p>Generated from ./cygport/cygclass/ruby.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-01-09 19:05:48</p>
 </div> <!-- footer -->
 </body>
 </html>
