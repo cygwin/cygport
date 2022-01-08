@@ -1,3 +1,9 @@
+0.34.1:
+	* Update many URLs in HOMEPAGE, mirrors and comments.  Use https
+	  where appropriate
+	* Stop generating empty packages for obsoletions.
+	* Recongize WANT_AUTOCONF=2.7, and make autoconf2.7 the default.
+
 0.34.0:
 	* New BUILD_REQUIRES variable used in separate -src.hint files.
 	* New PROVIDES and CONFLICTS variables for setting in .hint files.
