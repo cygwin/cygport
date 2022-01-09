@@ -92,6 +92,7 @@ ignore files:
 	*-pc-cygwin
 	*-redhat-linux*
 	.git
+	.github
 	*.rc
 	*.orig
 	*.patch
