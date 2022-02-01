@@ -95,14 +95,6 @@ __list_deps() {
 		dlltool="${CTARGET}-dlltool"
 	fi
 
-	case ${CHOST} in
-	i?86-*|x86_64-*)
-		if check_prog llvm-objdump
-		then
-			objdump="llvm-objdump"
-		fi ;;
-	esac
-
 	pushd ${D}
 
 #****v* Information/DEPS_PATH

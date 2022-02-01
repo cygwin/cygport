@@ -951,12 +951,7 @@ __prepstrip() {
 			continue
 		fi
 
-		if check_prog llvm-objdump && llvm-size "${exe}" &>/dev/null
-		then
-			objdump="llvm-objdump"
-		else
-			objdump=${objcopy/copy/dump}
-		fi
+		objdump=${objcopy/copy/dump}
 
 		# Static libraries should not be fully stripped, but we can
 		# still provide split debuginfo if desired
