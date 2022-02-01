@@ -1051,23 +1051,31 @@ __prepstrip() {
 
 			lines=$(${objdump} -d -l "${exe}" 2>/dev/null | sed -ne "s|.*\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u | tee -a ${T}/.dbgsrc.out | wc -l);
 
+			# we expect --add-gnu-debuglink to fail if a
+			# .gnu_debuglink section already exists (e.g. binutils,
+			# which uses hardlinks, or cygwin which creates a custom
+			# .dbg file), but leave it alone to make sure we don't
+			# mess it up.
+			if ${objdump} -h "${exe}" | grep -q '\.gnu_deb'
+			then
+				continue;
+			fi
+
+			# only create split debuginfo if it's going to contain
+			# some symbols for which this package has the
+			# corresponding source files
 			if (( lines == 0 ))
 			then
 				${objcopy} --strip-all "${exe}";
 				continue;
 			fi
 
-			# --add-gnu-debuglink will fail if .gnu_debuglink section
-			# already exists, e.g. binutils, which uses hardlinks,
-			# or cygwin which creates a custom .dbg file
-			if ! ${objdump} -h "${exe}" | grep -q '\.gnu_deb'
-			then
-				dodir "${dbg%/*}";
-				${objcopy} --long-section-names enable --add-gnu-debuglink=/dev/null --only-keep-debug "${exe}" "${D}${dbg}";
-				chmod 0644 "${D}${dbg}";
-				${objcopy} --strip-all "${exe}";
-				${objcopy} --long-section-names enable --add-gnu-debuglink="${D}${dbg}" "${exe}" 2>/dev/null;
-			fi
+			dodir "${dbg%/*}";
+			${objcopy} --long-section-names enable --add-gnu-debuglink=/dev/null --only-keep-debug "${exe}" "${D}${dbg}";
+			chmod 0644 "${D}${dbg}";
+			${objcopy} --strip-all "${exe}";
+			${objcopy} --long-section-names enable --add-gnu-debuglink="${D}${dbg}" "${exe}" 2>/dev/null;
+
 		fi
 	done
 }
