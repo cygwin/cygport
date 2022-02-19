@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.34.1
+Version:        0.34.2
 Release:        1%{?dist}
 Summary:        Cygwin package building tool
 
