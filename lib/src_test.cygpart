@@ -35,10 +35,10 @@ cygtest() {
 	then
 		if make -n check &> /dev/null
 		then
-			make -k check || true
+			make -k check
 		elif make -n test &> /dev/null
 		then
-			make -k test || true
+			make -k test
 		else
 			inform "No testsuite detected.";
 		fi
