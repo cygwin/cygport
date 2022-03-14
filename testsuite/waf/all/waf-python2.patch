@@ -1,0 +1,16 @@
+--- origsrc/lv2-1.12.0/waf	2015-01-25 21:24:02.000000000 +0000
++++ src/lv2-1.12.0/waf	2022-03-14 16:41:08.376713600 +0000
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ # encoding: ISO8859-1
+ # Thomas Nagy, 2005-2014
+ 
+--- origsrc/lv2-1.12.0/wscript	2015-04-07 20:02:55.000000000 +0100
++++ src/lv2-1.12.0/wscript	2022-03-14 16:41:18.847770500 +0000
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ import glob
+ import os
+ import re

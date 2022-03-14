@@ -9,6 +9,7 @@ DESCRIPTION="MATE is a fork of the GNOME 2 desktop. It provides an intuitive
 and attractive desktop to Linux users using traditional metaphors."
 
 PATCH_URI="1.2.0-no-undefined.patch"
+export PYTHON="python2"
 
 PKG_NAMES="${NAME} libmate-menu2 libmate-menu-devel girepository-MateMenu2.0 python2-matemenu"
 mate_menus_CATEGORY="MATE"
