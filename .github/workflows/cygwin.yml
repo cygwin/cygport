@@ -24,7 +24,7 @@ jobs:
     - uses: actions/cache@v1
       with:
         path: C:\cygwin-packages
-        key: cygwin-packages-${{ hashFiles('**') }}
+        key: cygwin-packages-${{ hashFiles('C:\cygwin-packages\**') }}
         restore-keys: cygwin-packages-
     - name: Fetch Cygwin installer
       run: |
