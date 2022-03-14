@@ -619,6 +619,8 @@ cygconf() {
 	local confdir;
 	local configure;
 	local confver;
+	local confver_maj;
+	local confver_min;
 	local f;
 	local foo_config;
 	local prefix;
@@ -650,7 +652,13 @@ cygconf() {
 	fi
 
 	configure="${confdir}/configure"
-	confver=$(grep -m 1 'GNU Autoconf' ${configure} | cut -d ' ' -f 6)
+	confver="$("$configure" --version | sed -rn 's/.*GNU Autoconf ([0-9\.]+)/\1/p')"
+	confver_maj=${confver%%.*}
+	confver_min=${confver##*.}
+	if [ $confver_maj -ne 2 ]
+	then
+		error "unexpected autoconf version";
+	fi
 
 	# AC_CONFIG_FILES should not be dist'ed, but it sometimes happens anyway
 	eval $(grep -h '^ac_config_files=' ${configure})
@@ -678,18 +686,26 @@ cygconf() {
 		confargs+=" --libdir=${prefix}/${MULTILIB_LIBDIR}"
 	fi
 
-	case "x${confver}" in
-		x2.6[0-9]*)
-			confargs+=" --docdir=/usr/share/doc/${PN} --htmldir=/usr/share/doc/${PN}/html"
-			;;
-		*)
-			confargs+=" --infodir=${prefix}/share/info --mandir=${prefix}/share/man"
-			;;
-	esac
+	if [ $confver_min -ge 60 ]
+	then
+		# Autoconf version supports --docdir and --htmldir, which will
+		# need to be specified manually.  It also supports --infodir
+		# and --mandir, but the defaults for those match the FHS.
+		confargs+=" --docdir=/usr/share/doc/${PN} --htmldir=/usr/share/doc/${PN}/html"
+	else
+		# Autoconf version does not support --docdir or --htmldir, so
+		# don't specify those.  Set --infodir and --mandir, as those
+		# have defaults that don't match the FHS.
+		confargs+=" --infodir=${prefix}/share/info --mandir=${prefix}/share/man"
+	fi
 
-	case "x${confver}" in
-		x2.[5-9]*)	confargs+=" -C" ;;
-	esac
+
+	if [ $confver_min -ge 50 ]
+	then
+		# Always use a cache file; prior to 2.50, this was the default,
+		# thereafter it needs to be requested explicitly.
+		confargs+=" -C"
+	fi
 
 	if cross_compiling || inherited toolchain
 	then
