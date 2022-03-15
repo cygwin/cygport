@@ -1,0 +1,7 @@
+category: Libs
+build-depends: cygport 
+sdesc: "GObject desktop notification utility"
+ldesc: "GNOME desktop notification library"
+skip:
+
+homepage: http://www.galago-project.org/

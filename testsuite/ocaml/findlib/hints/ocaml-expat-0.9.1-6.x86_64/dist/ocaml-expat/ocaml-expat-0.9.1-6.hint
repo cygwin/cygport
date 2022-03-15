@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libexpat-devel libexpat1 ocaml-runtime 
+sdesc: "OCaml Expat bindings"
+ldesc: "An ocaml wrapper for the Expat XML parsing library. It allows
+you to write XML-Parsers using the SAX method. An XML document is parsed on
+the fly without needing to load the entire XML-Tree into memory."
+

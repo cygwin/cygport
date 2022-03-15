@@ -1,0 +1,8 @@
+category: PHP
+requires: php-PEAR 
+sdesc: "PHP graph datastructure manipulation class"
+ldesc: "Structures_Graph is a package for creating and manipulating graph
+datastructures. It allows building of directed and undirected graphs, with data
+and metadata stored in nodes. The library provides functions for graph traversal
+as well as for characteristic extraction from the graph topology."
+

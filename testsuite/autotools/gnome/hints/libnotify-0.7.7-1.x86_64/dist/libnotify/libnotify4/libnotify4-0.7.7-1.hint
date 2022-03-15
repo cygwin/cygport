@@ -1,0 +1,6 @@
+category: Libs
+requires: cygwin libgdk_pixbuf2.0_0 libglib2.0_0 
+sdesc: "GObject desktop notification utility"
+ldesc: "GNOME desktop notification library"
+external-source: libnotify
+

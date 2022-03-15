@@ -1,0 +1,6 @@
+category: Doc
+requires:  
+sdesc: "GObject JSON parser library"
+ldesc: "GLib JSON manipulation library"
+external-source: json-glib1.0
+

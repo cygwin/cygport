@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: kcolorchooser
+sdesc: "Debug info for kcolorchooser"
+ldesc: "This package contains files necessary for debugging the
+kcolorchooser package with gdb."
+

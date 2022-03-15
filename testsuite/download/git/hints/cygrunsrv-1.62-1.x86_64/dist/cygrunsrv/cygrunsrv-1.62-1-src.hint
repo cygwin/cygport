@@ -1,0 +1,6 @@
+category: Admin
+build-depends: cygport 
+sdesc: "NT/W2K service initiator"
+ldesc: "NT/W2K service initiator"
+skip:
+

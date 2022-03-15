@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: qoauth-qt5
+sdesc: "Debug info for qoauth-qt5"
+ldesc: "This package contains files necessary for debugging the
+qoauth-qt5 package with gdb."
+

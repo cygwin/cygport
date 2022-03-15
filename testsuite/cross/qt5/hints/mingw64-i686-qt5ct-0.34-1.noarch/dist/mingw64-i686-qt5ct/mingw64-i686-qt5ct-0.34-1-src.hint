@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Qt5 settings for Win32 toolchain"
+ldesc: "This program allows users to configure Qt5 settings (theme,
+font, icons, etc.) under DE/WM without Qt integration."
+skip:
+
+homepage: https://sourceforge.net/projects/qt5ct/

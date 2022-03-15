@@ -1,0 +1,6 @@
+category: Xfce
+requires: bash cygwin libglib2.0_0 libgtk2.0_0 libxfce4ui1_0 libxfce4util7 libxfconf0_2 xfce4-panel hamster-time-tracker
+sdesc: "Xfce4 Hamster panel plugin"
+ldesc: "This is a recreation of the gnome-shell hamster extension as a
+xfce4 panel plugin."
+

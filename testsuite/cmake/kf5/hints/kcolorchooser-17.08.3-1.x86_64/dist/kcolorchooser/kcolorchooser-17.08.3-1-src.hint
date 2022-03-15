@@ -1,0 +1,7 @@
+category: Graphics
+build-depends: cygport 
+sdesc: "KDE color selector"
+ldesc: "Part of the KDE graphics suite"
+skip:
+
+homepage: https://kde.org/

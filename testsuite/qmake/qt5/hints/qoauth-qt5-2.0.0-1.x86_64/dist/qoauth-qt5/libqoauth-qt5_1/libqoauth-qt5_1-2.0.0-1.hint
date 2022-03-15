@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libgcc1 libqca-qt5_2 libQt5Core5 libstdc++6 
+sdesc: "Qt5 OAuth library"
+ldesc: "QOAuth is an attempt to support interaction with OAuth-powered
+network services in a Qt way, i.e. simply, clearly and efficiently."
+external-source: qoauth-qt5
+

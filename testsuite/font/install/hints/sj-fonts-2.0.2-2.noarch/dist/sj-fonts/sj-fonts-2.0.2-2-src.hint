@@ -1,0 +1,7 @@
+category: X11
+build-depends: cygport 
+sdesc: "Cursive handwriting TTF fonts"
+ldesc: "Two cursive handwriting fonts by Steve Jordi released under the GPL"
+skip:
+
+homepage: http://sjfonts.sourceforge.net/

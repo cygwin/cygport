@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: pangomm1.4
+sdesc: "Debug info for pangomm1.4"
+ldesc: "This package contains files necessary for debugging the
+pangomm1.4 package with gdb."
+

@@ -1,0 +1,5 @@
+category: Graphics
+requires: cygwin libKF5CoreAddons5 libKF5I18n5 libKF5XmlGui5 libQt5Core5 libQt5Gui5 libstdc++6 
+sdesc: "KDE color selector"
+ldesc: "Part of the KDE graphics suite"
+

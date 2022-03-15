@@ -1,0 +1,7 @@
+category: Math
+build-depends: cygport 
+sdesc: "Chronological Objects for R"
+ldesc: "Provides chronological objects which can handle dates and times."
+skip:
+
+homepage: https://cran.r-project.org/web/packages/chron/

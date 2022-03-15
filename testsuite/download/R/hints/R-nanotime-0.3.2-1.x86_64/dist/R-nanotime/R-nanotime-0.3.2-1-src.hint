@@ -1,0 +1,9 @@
+category: Math
+build-depends: cygport 
+sdesc: "Nanosecond-resolution time for R"
+ldesc: "Full 64-bit resolution date and time support with resolution up
+to nanosecond granularity is provided, with easy transition to and from the
+standard 'POSIXct' type."
+skip:
+
+homepage: http://cran.r-project.org/web/packages/nanotime/

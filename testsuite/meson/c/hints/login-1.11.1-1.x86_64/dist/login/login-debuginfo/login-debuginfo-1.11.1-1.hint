@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: login
+sdesc: "Debug info for login"
+ldesc: "This package contains files necessary for debugging the
+login package with gdb."
+

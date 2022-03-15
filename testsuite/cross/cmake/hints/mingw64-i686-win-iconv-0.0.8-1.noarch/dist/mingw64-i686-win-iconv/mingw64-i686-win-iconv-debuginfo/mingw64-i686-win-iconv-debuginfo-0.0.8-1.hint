@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: mingw64-i686-win-iconv
+sdesc: "Debug info for mingw64-i686-win-iconv"
+ldesc: "This package contains files necessary for debugging the
+mingw64-i686-win-iconv package with gdb."
+

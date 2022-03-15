@@ -1,0 +1,7 @@
+category: Utils
+build-depends: cygport 
+sdesc: "GObject JSON parser utilities"
+ldesc: "GLib JSON manipulation library"
+skip:
+
+homepage: http://live.gnome.org/JsonGlib

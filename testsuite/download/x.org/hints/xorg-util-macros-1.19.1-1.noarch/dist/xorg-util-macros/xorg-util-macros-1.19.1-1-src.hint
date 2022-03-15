@@ -1,0 +1,7 @@
+category: Devel
+build-depends: cygport 
+sdesc: "X.Org aclocal macros"
+ldesc: "X.Org aclocal macros"
+skip:
+
+homepage: https://www.x.org/

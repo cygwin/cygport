@@ -1,0 +1,9 @@
+category: Libs
+requires:  
+sdesc: "C++ bindings for Pango"
+ldesc: "gtkmm is the official C++ interface for the popular GUI library
+GTK+. It closely follows GTK+ development. Highlights include typesafe
+callbacks, widgets extensible via inheritance and a comprehensive set of
+widgets."
+external-source: pangomm1.4
+

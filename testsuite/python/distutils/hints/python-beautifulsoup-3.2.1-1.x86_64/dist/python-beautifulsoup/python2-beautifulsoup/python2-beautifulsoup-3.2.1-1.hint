@@ -1,0 +1,9 @@
+category: Python
+requires: python27 
+sdesc: "Python HTML/XML parser"
+ldesc: "Beautiful Soup is a Python HTML/XML parser designed for quick
+turnaround projects like screen-scraping. Beautiful Soup parses anything you
+give it, and does the tree traversal stuff for you."
+obsoletes: python-beautifulsoup
+external-source: python-beautifulsoup
+

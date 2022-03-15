@@ -1,0 +1,5 @@
+category: Devel
+requires:  
+sdesc: "Iconv implemenation for Win32 toolchain"
+ldesc: "Iconv implementation which uses the Win32 API to convert."
+

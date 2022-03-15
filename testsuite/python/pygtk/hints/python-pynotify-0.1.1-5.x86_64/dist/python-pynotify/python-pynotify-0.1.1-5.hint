@@ -1,0 +1,5 @@
+category: Python
+requires: cygwin libgdk_pixbuf2.0_0 libglib2.0_0 libnotify4 pkg-config python27 python-gobject python-gtk2.0
+sdesc: "Python libnotify bindings"
+ldesc: "Python bindings for libnotify (desktop notification library)"
+

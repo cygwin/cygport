@@ -1,0 +1,7 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Common development files for GNOME packages"
+ldesc: "Common development files for GNOME packages"
+skip:
+
+homepage: https://www.gnome.org/

@@ -1,0 +1,7 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Qt5 XDG library"
+ldesc: "A Qt5 implementation of Freedesktop.org specifications"
+skip:
+
+homepage: http://lxqt.org/

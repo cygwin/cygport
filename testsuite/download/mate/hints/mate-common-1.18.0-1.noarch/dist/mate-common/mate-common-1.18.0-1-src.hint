@@ -1,0 +1,8 @@
+category: Devel
+build-depends: cygport 
+sdesc: "Common development files for MATE Desktop packages"
+ldesc: "MATE is a fork of the GNOME 2 desktop. It provides an intuitive
+and attractive desktop to Linux users using traditional metaphors."
+skip:
+
+homepage: https://mate-desktop.org/

@@ -1,0 +1,7 @@
+category: Libs
+build-depends: cygport 
+sdesc: "S3TC implementation"
+ldesc: "Software implementation of the S3 Texture Compression algorithm"
+skip:
+
+homepage: http://dri.freedesktop.org/wiki/S3TC

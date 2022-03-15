@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: json-glib1.0
+sdesc: "Debug info for json-glib1.0"
+ldesc: "This package contains files necessary for debugging the
+json-glib1.0 package with gdb."
+

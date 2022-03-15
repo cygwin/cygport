@@ -1,0 +1,9 @@
+category: Web
+build-depends: cygport 
+sdesc: "Monotone web interface"
+ldesc: "ViewMTN is a web interface to the ​Monotone distributed version
+control system. It aims to provide a convenient and useful web interface to
+Monotone. If you've used interfaces to other version control systems, ViewMTN
+will be immediately familiar."
+skip:
+

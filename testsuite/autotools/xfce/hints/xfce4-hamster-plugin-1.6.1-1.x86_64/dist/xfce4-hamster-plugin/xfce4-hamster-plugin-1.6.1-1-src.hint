@@ -1,0 +1,8 @@
+category: Xfce
+build-depends: cygport 
+sdesc: "Xfce4 Hamster panel plugin"
+ldesc: "This is a recreation of the gnome-shell hamster extension as a
+xfce4 panel plugin."
+skip:
+
+homepage: https://github.com/projecthamster/xfce4-hamster-plugin

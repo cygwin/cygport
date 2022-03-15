@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: libnotify
+sdesc: "Debug info for libnotify"
+ldesc: "This package contains files necessary for debugging the
+libnotify package with gdb."
+

@@ -1,0 +1,6 @@
+category: Ruby
+requires:  
+sdesc: "Ruby Rack SSL extension"
+ldesc: "Rack middleware to force SSL/TLS."
+external-source: ruby-rack-ssl
+

@@ -1,0 +1,7 @@
+category: Perl
+requires: perl_base 
+sdesc: "Perl Carp distribution"
+ldesc: "The Carp routines are useful in your own modules because they act
+like die() or warn(), but with a message which is more likely to be useful
+to a user of your module."
+

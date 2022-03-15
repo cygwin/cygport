@@ -1,0 +1,6 @@
+category: Libs
+requires: libQt5Core-devel libQt5Gui-devel libQt5Xdg2 libQt5XdgIconLoader-devel pkg-config 
+sdesc: "Qt5 XDG library"
+ldesc: "A Qt5 implementation of Freedesktop.org specifications"
+external-source: libqt5xdg
+

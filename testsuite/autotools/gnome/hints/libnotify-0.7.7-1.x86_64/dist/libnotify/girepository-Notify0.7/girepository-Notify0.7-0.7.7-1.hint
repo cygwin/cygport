@@ -1,0 +1,6 @@
+category: Libs
+requires: girepository-GdkPixbuf2.0 girepository-GLib2.0 libnotify4 
+sdesc: "GObject desktop notification utility"
+ldesc: "GNOME desktop notification library"
+external-source: libnotify
+

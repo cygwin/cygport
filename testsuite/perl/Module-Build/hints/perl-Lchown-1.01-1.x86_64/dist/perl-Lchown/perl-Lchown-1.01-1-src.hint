@@ -1,0 +1,9 @@
+category: Perl
+build-depends: cygport 
+sdesc: "Perl Lchown distribution"
+ldesc: "The Lchown module provides a perl interface to the lchown(2) UNIX
+system call, on systems that support lchown.  The lchown(2) call is used to
+change the ownership and group of symbolic links."
+skip:
+
+homepage: https://metacpan.org/release/Lchown

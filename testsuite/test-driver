@@ -23,12 +23,23 @@ do
     if [ -a ${top_srcdir}/testsuite/$test/hints/$hint ];
     then
         diff -u ${top_srcdir}/testsuite/$test/hints/$hint $hint
-# uncomment to create the expected hint file for use in future testing
-#    else
-#        mkdir -p $(dirname ${top_srcdir}/testsuite/$test/hints/$hint)
-#        cp $hint ${top_srcdir}/testsuite/$test/hints/$hint
+    else
+        # if CREATE_HINTS is set, create the expected hint file for use in future testing
+        if [ -z ${CREATE_HINTS+x} ]
+        then
+            echo "can't verify hint $hint, as expected hint ${top_srcdir}/testsuite/$test/hints/$hint not found." >&2
+            missing_hints=1
+        else
+            mkdir -p $(dirname ${top_srcdir}/testsuite/$test/hints/$hint)
+            cp $hint ${top_srcdir}/testsuite/$test/hints/$hint
+        fi
     fi
 done
+
+if [ -n "$missing_hints" ]
+then
+    exit 1
+fi
 
 # compare filelist
 diff -u ${CASE_INSENSITIVE:+-i} ${top_srcdir}/testsuite/$test/*.list <(${top_builddir}/bin/cygport-inplace *.cygport list)

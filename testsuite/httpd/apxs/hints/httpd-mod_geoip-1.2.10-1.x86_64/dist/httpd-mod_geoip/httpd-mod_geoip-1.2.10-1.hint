@@ -1,0 +1,7 @@
+category: Web
+requires: cygwin httpd libapr1 libGeoIP1 
+sdesc: "Apache 2.x GeoIP module"
+ldesc: "mod_geoip2 is an Apache 2.0 module for finding the country and
+city that a web request originated from.  It uses the GeoIP library and
+database to perform the lookup."
+

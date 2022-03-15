@@ -1,0 +1,7 @@
+category: Python
+build-depends: cygport 
+sdesc: "Python libnotify bindings"
+ldesc: "Python bindings for libnotify (desktop notification library)"
+skip:
+
+homepage: http://www.galago-project.org/

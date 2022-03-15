@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: php-bitset
+sdesc: "Debug info for php-bitset"
+ldesc: "This package contains files necessary for debugging the
+php-bitset package with gdb."
+

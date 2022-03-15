@@ -1,0 +1,7 @@
+category: Base
+build-depends: cygport 
+sdesc: "Sign on to a system"
+ldesc: "Sign on to a system"
+skip:
+
+homepage: http://cygwin.com/

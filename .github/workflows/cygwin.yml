@@ -107,6 +107,7 @@ jobs:
         python39-wheel,^
         robodoc,^
         ruby,^
+        ruby-rack,^
         subversion,^
         unzip,^
         xfce4-dev-tools,^

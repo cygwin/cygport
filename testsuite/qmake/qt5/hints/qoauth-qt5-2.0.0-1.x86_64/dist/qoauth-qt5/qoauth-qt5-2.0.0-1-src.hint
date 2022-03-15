@@ -1,0 +1,8 @@
+category: Libs
+build-depends: cygport 
+sdesc: "Qt5 OAuth library"
+ldesc: "QOAuth is an attempt to support interaction with OAuth-powered
+network services in a Qt way, i.e. simply, clearly and efficiently."
+skip:
+
+homepage: http://github.com/ayoy/qoauth

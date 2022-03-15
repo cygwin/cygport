@@ -1,0 +1,7 @@
+category: Libs
+requires: cygwin libglib2.0_0 mate-menus
+sdesc: "MATE Desktop Menu Specification library (runtime)"
+ldesc: "MATE is a fork of the GNOME 2 desktop. It provides an intuitive
+and attractive desktop to Linux users using traditional metaphors."
+external-source: mate-menus
+

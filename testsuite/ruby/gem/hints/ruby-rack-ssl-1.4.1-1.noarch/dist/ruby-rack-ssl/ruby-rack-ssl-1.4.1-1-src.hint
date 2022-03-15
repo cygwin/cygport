@@ -1,0 +1,7 @@
+category: Ruby
+build-depends: cygport 
+sdesc: "Ruby Rack SSL extension"
+ldesc: "Rack middleware to force SSL/TLS."
+skip:
+
+homepage: https://rubygems.org/gems/rack-ssl
