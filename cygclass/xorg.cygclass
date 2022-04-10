@@ -143,11 +143,22 @@ SUMMARY="X.Org ${ORIG_PN} component"
 #  DEFINITION
 HOMEPAGE="https://www.x.org/"
 #****
+
+#****o* xorg.cygclass/XORG_SRC_COMPRESSION
+#  DESCRIPTION
+#  The compression extension used in the default SRC_URI, set by the xorg
+#  cygclass.  For backwards compatibility, this defaults to 'bz2', but a
+#  different value may be needed for X.Org packages which no longer provide
+#  tarballs using that compression.
+#  DEFINITION
+XORG_SRC_COMPRESSION="${XORG_SRC_COMPRESSION:-bz2}"
+#****
+
 #****o* xorg.cygclass/SRC_URI (xorg)
 #  DESCRIPTION
 #  Download location of the release tarball.
 #****
-SRC_URI="https://www.x.org/releases/individual/${xorg_cat}/${ORIG_PN}-${PV}.tar.bz2"
+SRC_URI="https://www.x.org/releases/individual/${xorg_cat}/${ORIG_PN}-${PV}.tar.${XORG_SRC_COMPRESSION}"
 
 #****o* xorg.cygclass/GIT_URI (xorg)
 #  DESCRIPTION
