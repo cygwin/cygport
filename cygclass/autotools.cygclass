@@ -625,6 +625,15 @@ cygconf() {
 	local foo_config;
 	local prefix;
 
+#****v* cygconf/AUTOCONF_VERSION
+#  DESCRIPTION
+#  In some in some rare cases, cygport cannot automatically detect the autoconf
+#  version that was used to generate the configure script (typically when
+#  cygautoreconf is not being used, and the autoconfigury has been heavily
+#  customized).  This variable can be set to indicate the autoconf version the
+#  configure script's options are compatible with e.g. "2.50", "2.60", "2.70".
+#****
+
 #****v* cygconf/CYGCONF_SOURCE
 #  DESCRIPTION
 #  Set this variable to the directory containing the configure script.  This
@@ -652,9 +661,18 @@ cygconf() {
 	fi
 
 	configure="${confdir}/configure"
-	confver="$("$configure" --version | sed -rn 's/.*GNU Autoconf ([0-9\.]+)/\1/p')"
+	if [ -z ${AUTOCONF_VERSION} ]
+	then
+		confver="$("$configure" --version | sed -rn 's/.*GNU Autoconf ([0-9\.]+)/\1/p')"
+	else
+		confver=${AUTOCONF_VERSION}
+	fi
 	confver_maj=${confver%%.*}
 	confver_min=${confver##*.}
+	if [ -z $confver_maj ]
+	then
+		error "could not detect autoconf version; perhaps set AUTOCONF_VERSION?";
+	fi
 	if [ $confver_maj -ne 2 ]
 	then
 		error "unexpected autoconf version";
