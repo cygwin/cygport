@@ -1,5 +1,5 @@
 category: Devel
-requires: mingw64-i686-gcc-core 
+requires:  
 sdesc: "crypt(3) library for Win32 toolchain"
 ldesc: "This packages provides a library which exports the functions
 crypt(3), encrypt(3), and setkey(3).  The created passwords are 56 bit DES

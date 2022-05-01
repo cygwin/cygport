@@ -102,6 +102,7 @@ jobs:
         python38-pip,^
         python38-setuptools,^
         python38-wheel,^
+        python38-pygments,^
         python39-pip,^
         python39-setuptools,^
         python39-wheel,^
@@ -115,11 +116,15 @@ jobs:
       shell: cmd
     - name: Set PATH
       run: echo "PATH=C:\cygwin64\bin;C:\cygwin64\lib\lapack;%SYSTEMROOT%\system32" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-    - name: Fix python version skew
+    - name: Fixup Cygwin installation
       run: |
+        bash --login
         bash -c '/usr/sbin/alternatives --set python /usr/bin/python3.8 ; /usr/sbin/alternatives --set python3 /usr/bin/python3.8'
         bash -c 'sed -i s#/usr/bin/python\$#/usr/bin/python3.9# /usr/bin/pip3.9'
         bash -c 'sed -i s@#!/bin/python\$@#!/bin/python2@ /usr/bin/bzr'
+        bash -c 'git config --system --add safe.directory /cygdrive/d/a/cygport/cygport'
+        bash -c 'git config --system --add safe.directory /cygdrive/d/a/cygport/cygport/data/gnuconfig'
+      continue-on-error: true
     - name: Build
       run: |
         bash -c 'meson _build && ninja -C _build'
