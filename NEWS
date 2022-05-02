@@ -1,3 +1,12 @@
+0.35.0:
+	* Don't ignore errors from 'make test'
+	* Add subcommand 'vars'
+	* Add subcommand 'srcpackage'
+	* perl: do not clobber HOMEPAGE and correct default
+	* autotools: correctly detect Autoconf 2.70+
+	* xorg: Allow configuration of default SRC_URI compression
+	* Implement automatic determination of the appropriate perl5_0xy requirement
+
 0.34.2:
 	* Don't use llvm-objdump.
 	* git: also use shallow clones for tags and branches.
