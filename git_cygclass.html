@@ -34,25 +34,25 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo650">git.cygclass</a></li>
+<li><a href="#robo651">git.cygclass</a></li>
 <ul>
-<li><a href="#robo651">GIT_URI</a></li>
-<li><a href="#robo652">GIT_BRANCH</a></li>
-<li><a href="#robo653">GIT_REV</a></li>
-<li><a href="#robo654">GIT_TAG</a></li>
+<li><a href="#robo652">GIT_URI</a></li>
+<li><a href="#robo653">GIT_BRANCH</a></li>
+<li><a href="#robo654">GIT_REV</a></li>
+<li><a href="#robo655">GIT_TAG</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fgit2ecygclass"></a>
-<a name="robo650"></a><h2>git.cygclass</h2>
+<a name="robo651"></a><h2>git.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo528">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo529">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo651">GIT_URI</a>="..."
-  [<a href="#robo652">GIT_BRANCH</a>="..."]
-  [<a href="#robo653">GIT_REV</a>="..."]
-  [<a href="#robo654">GIT_TAG</a>="..."]
-  <a href="./inheritance_cygpart.html#robo578">inherit</a> git
+<pre>  <a href="#robo652">GIT_URI</a>="..."
+  [<a href="#robo653">GIT_BRANCH</a>="..."]
+  [<a href="#robo654">GIT_REV</a>="..."]
+  [<a href="#robo655">GIT_TAG</a>="..."]
+  <a href="./inheritance_cygpart.html#robo579">inherit</a> git
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Git is a distributed version control system.  Originally developed for the
@@ -63,8 +63,8 @@
 <p>  This cygclass creates source tarballs from Git repositories.
 </p>
 <p class="item_name">NOTE</p>
-<p>  This cygclass sets a special <a href="./src_fetch_cygpart.html#robo180">SRC_URI</a> for the tarball it creates.  If
-  additional sources are required, be sure to _add_ to <a href="./src_fetch_cygpart.html#robo180">SRC_URI</a> rather than
+<p>  This cygclass sets a special <a href="./src_fetch_cygpart.html#robo181">SRC_URI</a> for the tarball it creates.  If
+  additional sources are required, be sure to _add_ to <a href="./src_fetch_cygpart.html#robo181">SRC_URI</a> rather than
   outright setting it.
 </p>
 <p class="item_name">REQUIRES</p>
@@ -73,46 +73,46 @@
 
 <hr />
 <a name="git2ecygclass2fGIT5fURI"></a>
-<a name="robo651"></a><h2>GIT_URI</h2>
+<a name="robo652"></a><h2>GIT_URI</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo650">git.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo651">git.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Address of Git repository from which to clone.  Must be <a href="./syntax_cygpart.html#robo77">defined</a> before
-  <a href="./inheritance_cygpart.html#robo578">inherit</a>()ing <a href="#robo650">git.cygclass</a>.
+<p>  Address of Git repository from which to clone.  Must be <a href="./syntax_cygpart.html#robo78">defined</a> before
+  <a href="./inheritance_cygpart.html#robo579">inherit</a>()ing <a href="#robo651">git.cygclass</a>.
 </p>
 
 <hr />
 <a name="git2ecygclass2fGIT5fBRANCH"></a>
-<a name="robo652"></a><h2>GIT_BRANCH</h2>
+<a name="robo653"></a><h2>GIT_BRANCH</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo650">git.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo651">git.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Branch from which to clone.  If undefined, the 'master' branch is used.
 </p>
 
 <hr />
 <a name="git2ecygclass2fGIT5fREV"></a>
-<a name="robo653"></a><h2>GIT_REV</h2>
+<a name="robo654"></a><h2>GIT_REV</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo650">git.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo651">git.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Specific revision to clone, in the form of a SHA1 hash (a 40-digit hexadecimal)
   or an abbreviation thereof (the first 7 hexadecimal digits are usually
-  sufficent).  If undefined, the latest revision in the given <a href="#robo652">GIT_BRANCH</a> is used.
+  sufficent).  If undefined, the latest revision in the given <a href="#robo653">GIT_BRANCH</a> is used.
 </p>
 
 <hr />
 <a name="git2ecygclass2fGIT5fTAG"></a>
-<a name="robo654"></a><h2>GIT_TAG</h2>
+<a name="robo655"></a><h2>GIT_TAG</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo650">git.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo651">git.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Tag to clone, essentially a legible shorthand for a given commit.
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/git.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-02-20 14:32:57</p>
+<p>Generated from ./cygport/cygclass/git.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-05-02 21:48:11</p>
 </div> <!-- footer -->
 </body>
 </html>

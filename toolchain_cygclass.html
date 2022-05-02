@@ -34,31 +34,31 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo43">toolchain.cygclass</a></li>
+<li><a href="#robo44">toolchain.cygclass</a></li>
 <ul>
-<li><a href="#robo44">TOOLCHAIN_TARGET</a></li>
-<li><a href="#robo45">TOOLCHAIN_SYSROOT</a></li>
-<li><a href="#robo46">TOOLCHAIN_PREFIX</a></li>
-<li><a href="#robo47">TOOLCHAIN_BINDIR</a></li>
-<li><a href="#robo48">TOOLCHAIN_INCLUDEDIR</a></li>
-<li><a href="#robo49">TOOLCHAIN_LIBDIR</a></li>
-<li><a href="#robo50">TOOLCHAIN_DATADIR</a></li>
-<li><a href="#robo51">toolchain_compile</a></li>
-<li><a href="#robo52">src_compile (toolchain)</a></li>
+<li><a href="#robo45">TOOLCHAIN_TARGET</a></li>
+<li><a href="#robo46">TOOLCHAIN_SYSROOT</a></li>
+<li><a href="#robo47">TOOLCHAIN_PREFIX</a></li>
+<li><a href="#robo48">TOOLCHAIN_BINDIR</a></li>
+<li><a href="#robo49">TOOLCHAIN_INCLUDEDIR</a></li>
+<li><a href="#robo50">TOOLCHAIN_LIBDIR</a></li>
+<li><a href="#robo51">TOOLCHAIN_DATADIR</a></li>
+<li><a href="#robo52">toolchain_compile</a></li>
+<li><a href="#robo53">src_compile (toolchain)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2ftoolchain2ecygclass"></a>
-<a name="robo43"></a><h2>toolchain.cygclass</h2>
+<a name="robo44"></a><h2>toolchain.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo528">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo529">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo44">TOOLCHAIN_TARGET</a>="..."
-  <a href="./inheritance_cygpart.html#robo578">inherit</a> toolchain
+<pre>  <a href="#robo45">TOOLCHAIN_TARGET</a>="..."
+  <a href="./inheritance_cygpart.html#robo579">inherit</a> toolchain
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  The GNU toolchain, consisting of Binutils, the GCC compilers, and the GDB
-  debugger, are used to build code in <a href="./syntax_cygpart.html#robo99">C</a> and related languages into an executable
+  debugger, are used to build code in <a href="./syntax_cygpart.html#robo100">C</a> and related languages into an executable
   or library, either for the system on which it runs (a "native" compiler) or
   for another system (a "cross" compiler).
 </p>
@@ -67,7 +67,7 @@
   run on Cygwin.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./autotools_cygclass.html#robo795">autotools.cygclass</a>
+<p>  <a href="./autotools_cygclass.html#robo796">autotools.cygclass</a>
 </p>
 <p class="item_name">SEE ALSO</p>
 <p>  <a href="./cross_cygclass.html#robo_top_of_doc">cross.cygclass</a>
@@ -75,9 +75,9 @@
 
 <hr />
 <a name="toolchain2ecygclass2fTOOLCHAIN5fTARGET"></a>
-<a name="robo44"></a><h2>TOOLCHAIN_TARGET</h2>
+<a name="robo45"></a><h2>TOOLCHAIN_TARGET</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo43">toolchain.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo44">toolchain.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The CPU-VENDOR-OS triplet, or customary abbreviation thereof, describing the
   compiler's "target" system; for example:
@@ -101,16 +101,16 @@
   accordingly.
 </p>
 <p class="item_name">NOTES</p>
-<ul><li>  <strong>TOOLCHAIN_TARGET</strong> must be <a href="./syntax_cygpart.html#robo77">defined</a> before <a href="./inheritance_cygpart.html#robo578">inherit</a>()ing <a href="#robo_top_of_doc">toolchain.cygclass</a>.
+<ul><li>  <strong>TOOLCHAIN_TARGET</strong> must be <a href="./syntax_cygpart.html#robo78">defined</a> before <a href="./inheritance_cygpart.html#robo579">inherit</a>()ing <a href="#robo_top_of_doc">toolchain.cygclass</a>.
 </li>
 </ul>
 <p></p>
 
 <hr />
 <a name="toolchain2ecygclass2fTOOLCHAIN5fSYSROOT"></a>
-<a name="robo45"></a><h2>TOOLCHAIN_SYSROOT</h2>
+<a name="robo46"></a><h2>TOOLCHAIN_SYSROOT</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo43">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo44">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  GCC cross-compilers provide the concept of a sysroot: a directory which
   acts as the virtual root of the target filesystem, resulting in
@@ -127,9 +127,9 @@
 
 <hr />
 <a name="toolchain2ecygclass2fTOOLCHAIN5fPREFIX"></a>
-<a name="robo46"></a><h2>TOOLCHAIN_PREFIX</h2>
+<a name="robo47"></a><h2>TOOLCHAIN_PREFIX</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo43">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo44">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The $prefix directory under the sysroot.  This definition is meant to
   be used in configure or cmake arguments to avoid dealing with different
@@ -138,9 +138,9 @@
 
 <hr />
 <a name="toolchain2ecygclass2fTOOLCHAIN5fBINDIR"></a>
-<a name="robo47"></a><h2>TOOLCHAIN_BINDIR</h2>
+<a name="robo48"></a><h2>TOOLCHAIN_BINDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo43">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo44">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The $prefix/bin directory under the sysroot.  This definition is meant to
   be used in configure or cmake arguments to avoid dealing with different
@@ -149,9 +149,9 @@
 
 <hr />
 <a name="toolchain2ecygclass2fTOOLCHAIN5fINCLUDEDIR"></a>
-<a name="robo48"></a><h2>TOOLCHAIN_INCLUDEDIR</h2>
+<a name="robo49"></a><h2>TOOLCHAIN_INCLUDEDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo43">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo44">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The $prefix/include directory under the sysroot.  This definition is
   meant to be used in configure or cmake arguments to avoid dealing with
@@ -160,9 +160,9 @@
 
 <hr />
 <a name="toolchain2ecygclass2fTOOLCHAIN5fLIBDIR"></a>
-<a name="robo49"></a><h2>TOOLCHAIN_LIBDIR</h2>
+<a name="robo50"></a><h2>TOOLCHAIN_LIBDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo43">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo44">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The $prefix/lib directory under the sysroot.  This definition is meant to
   be used in configure or cmake arguments to avoid dealing with different
@@ -171,9 +171,9 @@
 
 <hr />
 <a name="toolchain2ecygclass2fTOOLCHAIN5fDATADIR"></a>
-<a name="robo50"></a><h2>TOOLCHAIN_DATADIR</h2>
+<a name="robo51"></a><h2>TOOLCHAIN_DATADIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo43">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo44">toolchain.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The $prefix/share directory under the sysroot.  This definition is meant to
   be used in configure or cmake arguments to avoid dealing with different
@@ -182,37 +182,37 @@
 
 <hr />
 <a name="toolchain2ecygclass2ftoolchain5fcompile"></a>
-<a name="robo51"></a><h2>toolchain_compile</h2>
+<a name="robo52"></a><h2>toolchain_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo43">toolchain.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo44">toolchain.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>toolchain_compile</strong> [CONFIGURE_ARGS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Configures the toolchain package with the necessary options for the given
-  <a href="#robo44">TOOLCHAIN_TARGET</a>, then runs <a href="./src_compile_cygpart.html#robo184">cygmake</a> to build.
+  <a href="#robo45">TOOLCHAIN_TARGET</a>, then runs <a href="./src_compile_cygpart.html#robo185">cygmake</a> to build.
 </p>
 
 <hr />
 <a name="toolchain2ecygclass2fsrc5fcompile2028toolchain29"></a>
-<a name="robo52"></a><h2>src_compile (toolchain)</h2>
+<a name="robo53"></a><h2>src_compile (toolchain)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo43">toolchain.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo44">toolchain.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">NOTE</p>
 <p>  An autoreconf stage is not run by default, because GNU toolchain packages
   require specific versions of the autotools which do not match the latest
   versions in the distribution.  They also do not recurse with AC_CONFIG_SUBDIRS.
 </p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo185">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">B</a><span class="sign">}</span>
-        <a href="#robo51">toolchain_compile</a>
+<pre class="source"><a href="./src_compile_cygpart.html#robo186">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">B</a><span class="sign">}</span>
+        <a href="#robo52">toolchain_compile</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/toolchain.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-02-20 14:32:57</p>
+<p>Generated from ./cygport/cygclass/toolchain.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-05-02 21:48:11</p>
 </div> <!-- footer -->
 </body>
 </html>

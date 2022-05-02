@@ -34,29 +34,29 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo182">lndirs</a></li>
-<li><a href="#robo183">manifestize</a></li>
-<li><a href="#robo184">cygmake</a></li>
-<li><a href="#robo185">src_compile</a></li>
+<li><a href="#robo183">lndirs</a></li>
+<li><a href="#robo184">manifestize</a></li>
+<li><a href="#robo185">cygmake</a></li>
+<li><a href="#robo186">src_compile</a></li>
 </ul>
 <hr />
 <a name="Compiling2flndirs"></a>
-<a name="robo182"></a><h2>lndirs</h2>
+<a name="robo183"></a><h2>lndirs</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo737">Compiling</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo738">Compiling</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>lndirs</strong> [SOURCE_DIRECTORY [BUILD_DIRECTORY]]
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Replicates the given source directory into the given build directory by
   creating subdirectories and symlinking files.  This is to be used in order
-  to build in $<a href="./syntax_cygpart.html#robo98">B</a> where the build system does not natively support out-of-path
+  to build in $<a href="./syntax_cygpart.html#robo99">B</a> where the build system does not natively support out-of-path
   builds.
 </p>
 
 <p>  If only the source directory is given, the current working directory is
-  used for the build directory.  If no arguments are given, $<a href="./syntax_cygpart.html#robo97">S</a> is linked
-  into $<a href="./syntax_cygpart.html#robo98">B</a>.
+  used for the build directory.  If no arguments are given, $<a href="./syntax_cygpart.html#robo98">S</a> is linked
+  into $<a href="./syntax_cygpart.html#robo99">B</a>.
 </p>
 <p class="item_name">REQUIRES</p>
 <p>  lndir
@@ -64,9 +64,9 @@
 
 <hr />
 <a name="Compiling2fmanifestize"></a>
-<a name="robo183"></a><h2>manifestize</h2>
+<a name="robo184"></a><h2>manifestize</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo737">Compiling</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo738">Compiling</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  This function is obsolete with binutils-2.24.51 (20140326) or newer, which
   provides a default manifest for all PE applications at link time.
@@ -74,38 +74,38 @@
 
 <hr />
 <a name="Compiling2fcygmake"></a>
-<a name="robo184"></a><h2>cygmake</h2>
+<a name="robo185"></a><h2>cygmake</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo737">Compiling</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo738">Compiling</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>cygmake</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Calls 'make', passing <a href="./cygport_conf.html#robo708">MAKEOPTS</a> and any options given.
+<p>  Calls 'make', passing <a href="./cygport_conf.html#robo709">MAKEOPTS</a> and any options given.
 </p>
 <p class="item_name">NOTE</p>
-<p>  By default, <a href="./cygport_conf.html#robo708">MAKEOPTS</a> is set to use parallel make based on the number
+<p>  By default, <a href="./cygport_conf.html#robo709">MAKEOPTS</a> is set to use parallel make based on the number
   of CPU cores on the system.  If the package's Makefiles do not support
-  parallel builds, append "-j1" to <a href="./cygport_conf.html#robo708">MAKEOPTS</a> or call "<strong>cygmake</strong> -j1".
+  parallel builds, append "-j1" to <a href="./cygport_conf.html#robo709">MAKEOPTS</a> or call "<strong>cygmake</strong> -j1".
 </p>
 
 <hr />
 <a name="Compiling2fsrc5fcompile"></a>
-<a name="robo185"></a><h2>src_compile</h2>
+<a name="robo186"></a><h2>src_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo737">Compiling</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./compilers_cygpart.html#robo738">Compiling</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  This function must be <a href="./syntax_cygpart.html#robo77">defined</a> in the .cygport file, or in <a href="./inheritance_cygpart.html#robo578">inherit</a>()ed
+<p>  This function must be <a href="./syntax_cygpart.html#robo78">defined</a> in the .cygport file, or in <a href="./inheritance_cygpart.html#robo579">inherit</a>()ed
   cygclasses, containing all steps necessary to configure and compile
   the package.
 </p>
 
-<p>  The default <strong>src_compile</strong> function is provided by <a href="./autotools_cygclass.html#robo795">autotools.cygclass</a>.
+<p>  The default <strong>src_compile</strong> function is provided by <a href="./autotools_cygclass.html#robo796">autotools.cygclass</a>.
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/lib/src_compile.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-02-20 14:32:57</p>
+<p>Generated from ./cygport/lib/src_compile.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-05-02 21:48:11</p>
 </div> <!-- footer -->
 </body>
 </html>
