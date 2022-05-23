@@ -461,6 +461,7 @@ __gpg_sign() {
 
 __pkg_srcpkg() {
 	local src;
+	local pkg_tag=${1};
 
 	mkdir -p ${spkgdir};
 	rm -fr ${spkgdir}/*;

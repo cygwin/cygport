@@ -638,13 +638,16 @@ do
 		package|pkg)
 			__stage "Packaging${_pkg_tag:+ ${_pkg_tag%:} release}";
 			__log_init ${pkglog};
-			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog};
+			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg ${_pkg_tag} && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog};
 			_status=${PIPESTATUS[0]};
 			;;
+		srcpackage-test|srcpkg-test)
+			_pkg_tag="test:"
+			;&
 		srcpackage|srcpkg)
-			__stage Packaging Source;
+			__stage "Packaging${_pkg_tag:+ ${_pkg_tag%:} source}";
 			__log_init ${pkglog};
-			(__pkg_srcpkg) 2>&1 | tee -a ${pkglog};
+			(__pkg_srcpkg ${_pkg_tag}) 2>&1 | tee -a ${pkglog};
 			_status=${PIPESTATUS[0]};
 			;;
 		diff|mkdiff|mkpatch)
@@ -685,7 +688,7 @@ do
 			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
 			test ${PIPESTATUS[0]} -eq 0 && \
 			__log_init ${pkglog} && \
-			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog} && \
+			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg ${_pkg_tag} && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog} && \
 			test ${PIPESTATUS[0]} -eq 0
 			_status=$?;
 			;;
