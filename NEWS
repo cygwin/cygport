@@ -1,3 +1,6 @@
+0.35.1:
+	* Fixed regression causing missing test: label in srcpkg hint
+
 0.35.0:
 	* Don't ignore errors from 'make test'
 	* Add subcommand 'vars'
