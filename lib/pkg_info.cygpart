@@ -43,6 +43,12 @@ __pager() {
 #  what address will be displayed in BROWSER by the homepage command.
 #****
 
+#****v* Information/LICENSE
+#  DESCRIPTION
+#  A SPDX license expression (See https://spdx.dev/ids/) for the license(s) of
+#  the package.
+#****
+
 __show_info() {
 	__pager <<-_EOF
 	Cygport package information
@@ -50,6 +56,7 @@ __show_info() {
 	    Package version:  ${PV}
 	    Cygwin release:   ${PR}
 	    Homepage:         ${HOMEPAGE}
+	    License:          ${LICENSE}
 	    Summary:          ${SUMMARY:-${DESCRIPTION}}
 	    Description:
 ${DESCRIPTION:-${SUMMARY}}

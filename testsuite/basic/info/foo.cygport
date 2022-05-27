@@ -3,4 +3,5 @@ VERSION=2.3.4
 RELEASE=1
 DESCRIPTION="Cygport messages test package"
 HOMEPAGE="http://sourceware.org/cygwinports/"
+LICENSE="GPL-3.0-or-later"
 SRC_URI="http://sourceware.org/cygwinports/\${P}.ABC"

@@ -558,6 +558,12 @@ _EOF
 homepage: ${HOMEPAGE}
 _EOF
 			fi
+			if [ -n "${LICENSE}" ]
+			then
+				cat >> ${distdir}/${PN}/${PN}-${PVR}-src.hint <<-_EOF
+license: ${LICENSE}
+_EOF
+			fi
 		else
 			warning "${PN}-src.hint is missing";
 		fi

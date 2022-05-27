@@ -3,6 +3,7 @@ Cygport package information
     Package version:  2.3.4
     Cygwin release:   1
     Homepage:         http://sourceware.org/cygwinports/
+    License:          GPL-3.0-or-later
     Summary:          Cygport messages test package
     Description:
 Cygport messages test package
