@@ -1,5 +1,5 @@
 category: Audio
-requires: pkg-config lv2
+requires: pkg-config python3 lv2
 sdesc: "LV2 audio plugin specification"
 ldesc: "LV2 is a portable plugin standard for audio systems, similar in
 scope to LADSPA, VST, AU, and others. It defines a C API for code and a format
