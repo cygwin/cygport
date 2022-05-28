@@ -86,8 +86,8 @@ inherit python.org
 #    are already available.
 #****
 
-# when the default versions of Python change, this and the ENSUREPIP_OPTIONS
-# switches need to be updated accordingly
+# when the default versions of Python change, this, the python3 virtual package
+# target, and the ENSUREPIP_OPTIONS switches need to be updated accordingly
 _tmp_wheel_v=
 : ${PYTHON_WHEEL_VERSIONS:=default}
 for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
@@ -124,11 +124,21 @@ then
 	for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
 	do
 		PKG_NAMES+=" python${ver/.}-${PYTHON_WHEEL_NAME}"
-		# these were 2&3 at the time of the XY-version split,
+		# this was 2 at the time of the XY-version split,
 		# and MUST NOT be updated when defaults change
 		case ${ver} in
 		2.7)	declare -g python27_${PYTHON_WHEEL_NAME//[-\.]/_}_OBSOLETES="python-${PYTHON_WHEEL_NAME} python2-${PYTHON_WHEEL_NAME}" ;;
-		3.6)	declare -g python36_${PYTHON_WHEEL_NAME//[-\.]/_}_OBSOLETES="python3-${PYTHON_WHEEL_NAME}" ;;
+		# this is the default 3.x version
+		3.9)
+		    # If we are making a 3.x package (where x is the default),
+		    # also make a python3-wheelname virtual package, which just
+		    # requires python3x-wheelname
+		    PKG_NAMES+=" python3-${PYTHON_WHEEL_NAME}"
+		    declare -g python3_${PYTHON_WHEEL_NAME//[-\.]/_}_DESCRIPTION="The python3-${PYTHON_WHEEL_NAME} virtual package. Selecting this package for installation will cause the python${ver/.}-${PYTHON_WHEEL_NAME} package to be installed."
+		    declare -g python3_${PYTHON_WHEEL_NAME//[-\.]/_}_CATEGORY="Python Virtual"
+		    declare -g python3_${PYTHON_WHEEL_NAME//[-\.]/_}_REQUIRES="python${ver/.}-${PYTHON_WHEEL_NAME}"
+		    declare -g python3_${PYTHON_WHEEL_NAME//[-\.]/_}_CONTENTS=""
+		    ;;
 		esac
 		declare -g python${ver/.}_${PYTHON_WHEEL_NAME//[-\.]/_}_CONTENTS="usr/lib/python${ver}/site-packages/ usr/share/doc/python${ver/.}-${PYTHON_WHEEL_NAME}"
 	done

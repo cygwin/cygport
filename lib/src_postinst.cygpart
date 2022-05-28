@@ -430,6 +430,7 @@ __prepdoc() {
 	local html;
 	local -i n=0;
 	local p;
+	local pkg_contents_var;
 	local pkg_docs_var;
 	local pkg_hint;
 	local default_docs="\
@@ -451,10 +452,16 @@ __prepdoc() {
 		inform "Skipping package doc installation per request";
 	elif defined _CYGPORT_INTERNAL_multi_doc_
 	then
+		# install docs in a package-specific path in every non-empty
+		# subpackage
 		for p in ${PKG_NAMES}
 		do
-			_docinto_dir=/$p
-			dodoc ${default_docs} ${DOCS};
+			pkg_contents_var=${p//[-\.]/_}_CONTENTS
+			if [ -n "${!pkg_contents_var}" ]
+			then
+				_docinto_dir=/$p
+				dodoc ${default_docs} ${DOCS};
+			fi
 		done
 		unset _docinto_dir;
 	else
