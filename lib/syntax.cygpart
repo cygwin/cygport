@@ -378,6 +378,12 @@ __target_is_embedded() {
 #  this directly, use inherited.
 #****
 
+#****d* State/ARCHES
+#  DESCRIPTION
+#  The Cygwin architectures which this package can be built for:  "noarch",
+#  "all" or a specific architecture.
+#****
+
 readonly -f defined pushd popd error warning inform verbose __stage __step \
 	__log_init __check_triplet cross_compiling __cross_compiling_error \
 	__host_prefix __host_sysconfdir __host_localstatedir \

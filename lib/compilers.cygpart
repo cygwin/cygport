@@ -224,17 +224,20 @@ declare    TOOLCHAIN_TARGET="";
 
 #****d* Compiling/ARCH
 #  DESCRIPTION
-#  The Cygwin architecture of the binaries being built (i686 or x86_64),
-#  or "noarch" when using cross.cygclass.
+#  The Cygwin architecture the binaries are being built for (i686 or x86_64),
+#  or "noarch".
 #  NOTE
-#  This variable should only be redefined in a .cygport in one of the
+#  This variable should only be defined in a .cygport in one of the
 #  following cases:
 #  * the package has no Cygwin compiled code, e.g. it consists only of
-#    data or scripts, in which case ARCH="noarch" may be defined;
+#    data or scripts, in which case ARCH="noarch" should be defined;
 #  * the package only builds or works on one architecture due to portability
-#    issues (e.g. ILP32 assumptions occasionaly found in older code), in which
+#    issues (e.g. ILP32 assumptions occasionally found in older code), in which
 #    case ARCH should be defined to the working architecture, and cygport will
-#    refuse to build this package for the other.
+#    refuse to build this package for any other.
+#
+#  This variable is automatically set to "noarch" by certain cygclasses
+#  e.g. cross.cygclass.
 #****
 declare    ARCH=${CHOST%%-*};
 
