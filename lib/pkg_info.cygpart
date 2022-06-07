@@ -696,7 +696,10 @@ __show_web() {
 __show_vars() {
 	for v in "$@"
 	do
-		declare -p "${v}"
+		if [ -v ${v} ]
+		then
+		    declare -p "${v}"
+		fi
 	done
 }
 
