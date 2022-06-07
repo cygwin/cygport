@@ -370,6 +370,14 @@ __target_is_embedded() {
 #  occur in or into this directory.
 #****
 
+#****** Format/State
+#****
+#****v* State/INHERITED
+#  DESCRIPTION
+#  The names of all Cygclasses which have been inherit-ed.  Rather than testing
+#  this directly, use inherited.
+#****
+
 readonly -f defined pushd popd error warning inform verbose __stage __step \
 	__log_init __check_triplet cross_compiling __cross_compiling_error \
 	__host_prefix __host_sysconfdir __host_localstatedir \
