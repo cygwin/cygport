@@ -1,3 +1,10 @@
+0.35.2:
+	* New INHERITED and ARCHES variables.
+	* Fix 'cygport vars UNDEFINED'.
+	* python-wheel: Make a python3-name virtual package.
+	* Fix dependency detection for python3 shebang.
+	* New LICENSE variable.
+
 0.35.1:
 	* Fixed regression causing missing test: label in srcpkg hint
 
