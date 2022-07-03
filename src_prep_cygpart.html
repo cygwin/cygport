@@ -34,26 +34,26 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo110">Preparation</a></li>
+<li><a href="#robo113">Preparation</a></li>
 <ul>
-<li><a href="#robo111">src_patch_apply_hook</a></li>
-<li><a href="#robo112">SRC_DIR</a></li>
-<li><a href="#robo113">DISTCLEANFILES</a></li>
-<li><a href="#robo114">src_unpack_hook</a></li>
-<li><a href="#robo115">src_patch_hook</a></li>
+<li><a href="#robo114">src_patch_apply_hook</a></li>
+<li><a href="#robo115">SRC_DIR</a></li>
+<li><a href="#robo116">DISTCLEANFILES</a></li>
+<li><a href="#robo117">src_unpack_hook</a></li>
+<li><a href="#robo118">src_patch_hook</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Chapter2062fPreparation"></a>
-<a name="robo110"></a><h2>Preparation</h2>
+<a name="robo113"></a><h2>Preparation</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo696">Chapter 6</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo700">Chapter 6</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
 
 <hr />
 <a name="Preparation2fsrc5fpatch5fapply5fhook"></a>
-<a name="robo111"></a><h2>src_patch_apply_hook</h2>
+<a name="robo114"></a><h2>src_patch_apply_hook</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo110">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo113">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  <strong>src_patch_apply_hook</strong>() is an optional function which can be <a href="./syntax_cygpart.html#robo78">defined</a>
   to control patch application, for architecture dependent patches, etc.
@@ -64,9 +64,9 @@
 
 <hr />
 <a name="Preparation2fSRC5fDIR"></a>
-<a name="robo112"></a><h2>SRC_DIR</h2>
+<a name="robo115"></a><h2>SRC_DIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo110">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo113">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The top-level directory of the primary source tarball.  Defaults to
   <a href="./syntax_cygpart.html#robo92">PN</a>-<a href="./syntax_cygpart.html#robo93">PV</a>.
@@ -78,9 +78,9 @@
 
 <hr />
 <a name="Preparation2fDISTCLEANFILES"></a>
-<a name="robo113"></a><h2>DISTCLEANFILES</h2>
+<a name="robo116"></a><h2>DISTCLEANFILES</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo110">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo113">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A list of files to be deleted immediately upon unpacking sources,
   relative to $<a href="./syntax_cygpart.html#robo98">S</a>.  This is intended to be used with buildsystem-generated
@@ -89,21 +89,21 @@
 
 <hr />
 <a name="Preparation2fsrc5funpack5fhook"></a>
-<a name="robo114"></a><h2>src_unpack_hook</h2>
+<a name="robo117"></a><h2>src_unpack_hook</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo110">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo113">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  <strong>src_unpack_hook</strong>() is an optional function which can be <a href="./syntax_cygpart.html#robo78">defined</a>
   to alter the original source tree, to avoid large patches
-  or long <a href="./pkg_pkg_cygpart.html#robo385">DIFF_EXCLUDES</a>.
+  or long <a href="./pkg_pkg_cygpart.html#robo388">DIFF_EXCLUDES</a>.
   (This API is not yet stable and is subject to change)
 </p>
 
 <hr />
 <a name="Preparation2fsrc5fpatch5fhook"></a>
-<a name="robo115"></a><h2>src_patch_hook</h2>
+<a name="robo118"></a><h2>src_patch_hook</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo110">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo113">Preparation</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  <strong>src_patch_hook</strong>() an optional function which can be <a href="./syntax_cygpart.html#robo78">defined</a>, which
   is called after patches have been applied, for changing
@@ -113,7 +113,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/lib/src_prep.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-05-02 21:48:11</p>
+<p>Generated from ./cygport/lib/src_prep.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-07-03 13:09:12</p>
 </div> <!-- footer -->
 </body>
 </html>

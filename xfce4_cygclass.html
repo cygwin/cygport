@@ -48,9 +48,9 @@
 <a name="Cygclasses2fxfce42ecygclass"></a>
 <a name="robo9"></a><h2>xfce4.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo529">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo533">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo579">inherit</a> xfce4
+<pre>  <a href="./inheritance_cygpart.html#robo583">inherit</a> xfce4
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Xfce is a desktop environment for X which is lighter and faster than GNOME
@@ -62,7 +62,7 @@
 <p>  This cygclass handles the building of Xfce 4.x packages.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./autotools_cygclass.html#robo796">autotools.cygclass</a>
+<p>  <a href="./autotools_cygclass.html#robo800">autotools.cygclass</a>
 </p>
 
 <hr />
@@ -71,7 +71,7 @@
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">xfce4.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_info_cygpart.html#robo401">HOMEPAGE</a><span class="sign">=</span><span class="quote">"https://www.xfce.org/"</span>
+<pre class="source"><a href="./pkg_info_cygpart.html#robo404">HOMEPAGE</a><span class="sign">=</span><span class="quote">"https://www.xfce.org/"</span>
 </pre>
 
 <hr />
@@ -92,7 +92,7 @@
 <p>  Git repository for the package.
 </p>
 <p class="item_name">NOTE</p>
-<p>  <a href="./git_cygclass.html#robo651">git.cygclass</a> should be <a href="./inheritance_cygpart.html#robo579">inherit</a>()ed last for this to be of use.
+<p>  <a href="./git_cygclass.html#robo655">git.cygclass</a> should be <a href="./inheritance_cygpart.html#robo583">inherit</a>()ed last for this to be of use.
 </p>
 
 <hr />
@@ -120,7 +120,7 @@
   pkg-config, xfce4-dev-tools
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="./autotools_cygclass.html#robo798">cygautoreconf</a>, <a href="./gnome2_cygclass.html#robo641">gnome2_autoreconf</a>
+<p>  <a href="./autotools_cygclass.html#robo802">cygautoreconf</a>, <a href="./gnome2_cygclass.html#robo645">gnome2_autoreconf</a>
 </p>
 
 <hr />
@@ -133,12 +133,12 @@
   <strong>xfce4_compile</strong> [CONFIGURE_FLAGS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Calls <a href="./autotools_cygclass.html#robo808">cygconf</a> with the following options, followed by <a href="./src_compile_cygpart.html#robo185">cygmake</a>:
+<p>  Calls <a href="./autotools_cygclass.html#robo812">cygconf</a> with the following options, followed by <a href="./src_compile_cygpart.html#robo188">cygmake</a>:
 </p>
 <ul><li>  --disable-visibility: Cygwin does not support ELF visibility attributes
 </li>
 </ul>
-<p>  All arguments to <strong>xfce4_compile</strong> are passed to <a href="./autotools_cygclass.html#robo808">cygconf</a> as configure flags.
+<p>  All arguments to <strong>xfce4_compile</strong> are passed to <a href="./autotools_cygclass.html#robo812">cygconf</a> as configure flags.
 </p>
 
 <hr />
@@ -147,7 +147,7 @@
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo9">xfce4.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo186">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">S</a><span class="sign">}</span>
         <a href="#robo13">xfce4_autoreconf</a>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">B</a><span class="sign">}</span>
@@ -157,7 +157,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/xfce4.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-05-02 21:48:11</p>
+<p>Generated from ./cygport/cygclass/xfce4.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-07-03 13:09:12</p>
 </div> <!-- footer -->
 </body>
 </html>

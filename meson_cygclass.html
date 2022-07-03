@@ -34,27 +34,27 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo520">meson.cygclass</a></li>
+<li><a href="#robo524">meson.cygclass</a></li>
 <ul>
-<li><a href="#robo521">cygmeson</a></li>
+<li><a href="#robo525">cygmeson</a></li>
 <ul>
-<li><a href="#robo522">CYGMESON_ARGS</a></li>
+<li><a href="#robo526">CYGMESON_ARGS</a></li>
 </ul>
-<li><a href="#robo523">meson_compile</a></li>
-<li><a href="#robo524">meson_test</a></li>
-<li><a href="#robo525">meson_install</a></li>
-<li><a href="#robo526">src_compile (meson)</a></li>
-<li><a href="#robo527">src_test (meson)</a></li>
-<li><a href="#robo528">src_install (meson)</a></li>
+<li><a href="#robo527">meson_compile</a></li>
+<li><a href="#robo528">meson_test</a></li>
+<li><a href="#robo529">meson_install</a></li>
+<li><a href="#robo530">src_compile (meson)</a></li>
+<li><a href="#robo531">src_test (meson)</a></li>
+<li><a href="#robo532">src_install (meson)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fmeson2ecygclass"></a>
-<a name="robo520"></a><h2>meson.cygclass</h2>
+<a name="robo524"></a><h2>meson.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo529">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo533">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo579">inherit</a> meson
+<pre>  <a href="./inheritance_cygpart.html#robo583">inherit</a> meson
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Meson is a general-purpose build system written in Python being adopted as
@@ -65,7 +65,7 @@
   configure, and ninja replaces automake and make.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./ninja_cygclass.html#robo487">ninja.cygclass</a>
+<p>  <a href="./ninja_cygclass.html#robo491">ninja.cygclass</a>
 </p>
 <p class="item_name">REQUIRES</p>
 <p>  meson
@@ -73,9 +73,9 @@
 
 <hr />
 <a name="meson2ecygclass2fcygmeson"></a>
-<a name="robo521"></a><h2>cygmeson</h2>
+<a name="robo525"></a><h2>cygmeson</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo520">meson.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo524">meson.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>cygmeson</strong> [OPTIONS]
 </pre>
@@ -85,7 +85,7 @@
 <a href="https://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
 <a href="https://cygwin.com/packaging-package-files.html#package_contents">Cygwin package guidelines</a>.
   In addition, all arguments to <strong>cygmeson</strong> are passed to meson, followed by
-  <a href="#robo522">CYGMESON_ARGS</a>, if set.
+  <a href="#robo526">CYGMESON_ARGS</a>, if set.
 </p>
 <p class="item_name">NOTE</p>
 <p>  <strong>cygmeson</strong> should be run in the directory containing the top-level <a href="./meson_build.html#robo_top_of_doc">meson.build</a>.
@@ -93,22 +93,22 @@
 
 <hr />
 <a name="cygmeson2fCYGMESON5fARGS"></a>
-<a name="robo522"></a><h2>CYGMESON_ARGS</h2>
+<a name="robo526"></a><h2>CYGMESON_ARGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo521">cygmeson</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo525">cygmeson</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Additional flags to pass to meson, as a string.
 </p>
 <p class="item_name">NOTE</p>
 <p>  Flags in <strong>CYGMESON_ARGS</strong> follow, and therefore override, flags passed by
-  default to <a href="#robo521">cygmeson</a>.
+  default to <a href="#robo525">cygmeson</a>.
 </p>
 
 <hr />
 <a name="meson2ecygclass2fmeson5fcompile"></a>
-<a name="robo523"></a><h2>meson_compile</h2>
+<a name="robo527"></a><h2>meson_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo520">meson.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo524">meson.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>meson_compile</strong> [OPTIONS]
 </pre>
@@ -122,9 +122,9 @@
 
 <hr />
 <a name="meson2ecygclass2fmeson5ftest"></a>
-<a name="robo524"></a><h2>meson_test</h2>
+<a name="robo528"></a><h2>meson_test</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo520">meson.cygclass</a> ] [ <a href="./cygport_testsuite_functions.html#robo_top_of_doc">Testsuite Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo524">meson.cygclass</a> ] [ <a href="./cygport_testsuite_functions.html#robo_top_of_doc">Testsuite Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>meson_test</strong>
 </pre>
@@ -137,9 +137,9 @@
 
 <hr />
 <a name="meson2ecygclass2fmeson5finstall"></a>
-<a name="robo525"></a><h2>meson_install</h2>
+<a name="robo529"></a><h2>meson_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo520">meson.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo524">meson.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>meson_install</strong>
 </pre>
@@ -152,43 +152,43 @@
 
 <hr />
 <a name="meson2ecygclass2fsrc5fcompile2028meson29"></a>
-<a name="robo526"></a><h2>src_compile (meson)</h2>
+<a name="robo530"></a><h2>src_compile (meson)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo520">meson.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo524">meson.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo186">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">S</a><span class="sign">}</span>
-        <a href="#robo523">meson_compile</a>
+        <a href="#robo527">meson_compile</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="meson2ecygclass2fsrc5ftest2028meson29"></a>
-<a name="robo527"></a><h2>src_test (meson)</h2>
+<a name="robo531"></a><h2>src_test (meson)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo520">meson.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo524">meson.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_test_cygpart.html#robo109">src_test</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_test_cygpart.html#robo112">src_test</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">S</a><span class="sign">}</span>
-        <a href="#robo524">meson_test</a>
+        <a href="#robo528">meson_test</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="meson2ecygclass2fsrc5finstall2028meson29"></a>
-<a name="robo528"></a><h2>src_install (meson)</h2>
+<a name="robo532"></a><h2>src_install (meson)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo520">meson.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo524">meson.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo179">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_install_cygpart.html#robo182">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">S</a><span class="sign">}</span>
-        <a href="#robo525">meson_install</a>
+        <a href="#robo529">meson_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/meson.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-05-02 21:48:11</p>
+<p>Generated from ./cygport/cygclass/meson.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-07-03 13:09:12</p>
 </div> <!-- footer -->
 </body>
 </html>

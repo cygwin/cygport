@@ -34,22 +34,22 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo625">gstreamer.cygclass</a></li>
+<li><a href="#robo629">gstreamer.cygclass</a></li>
 <ul>
-<li><a href="#robo626">HOMEPAGE (gstreamer)</a></li>
-<li><a href="#robo627">SRC_URI (gstreamer)</a></li>
-<li><a href="#robo628">GIT_URI (gstreamer)</a></li>
-<li><a href="#robo629">GST_PLUGINDIR</a></li>
-<li><a href="#robo630">gstreamer_autoreconf</a></li>
+<li><a href="#robo630">HOMEPAGE (gstreamer)</a></li>
+<li><a href="#robo631">SRC_URI (gstreamer)</a></li>
+<li><a href="#robo632">GIT_URI (gstreamer)</a></li>
+<li><a href="#robo633">GST_PLUGINDIR</a></li>
+<li><a href="#robo634">gstreamer_autoreconf</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fgstreamer2ecygclass"></a>
-<a name="robo625"></a><h2>gstreamer.cygclass</h2>
+<a name="robo629"></a><h2>gstreamer.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo529">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo533">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo579">inherit</a> gstreamer
+<pre>  <a href="./inheritance_cygpart.html#robo583">inherit</a> gstreamer
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  GStreamer is a modular multimedia framework, using plugins to support
@@ -61,53 +61,53 @@
 <p>  GStreamer components include the core libraries and command-line tools,
   several sets of plugins, and Python bindings.  This cygclass defines
   variables and functions which are common to all GStreamer components,
-  and is also the basis of <a href="./gst-plugins_cygclass.html#robo631">gst-plugins.cygclass</a>.
+  and is also the basis of <a href="./gst-plugins_cygclass.html#robo_top_of_doc">gst-plugins.cygclass</a>.
 </p>
 
 <hr />
 <a name="gstreamer2ecygclass2fHOMEPAGE2028gstreamer29"></a>
-<a name="robo626"></a><h2>HOMEPAGE (gstreamer)</h2>
+<a name="robo630"></a><h2>HOMEPAGE (gstreamer)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo625">gstreamer.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo629">gstreamer.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_info_cygpart.html#robo401">HOMEPAGE</a><span class="sign">=</span><span class="quote">"https://gstreamer.freedesktop.org/"</span>
+<pre class="source"><a href="./pkg_info_cygpart.html#robo404">HOMEPAGE</a><span class="sign">=</span><span class="quote">"https://gstreamer.freedesktop.org/"</span>
 </pre>
 
 <hr />
 <a name="gstreamer2ecygclass2fSRC5fURI2028gstreamer29"></a>
-<a name="robo627"></a><h2>SRC_URI (gstreamer)</h2>
+<a name="robo631"></a><h2>SRC_URI (gstreamer)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo625">gstreamer.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo629">gstreamer.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Download location for the upstream source tarball.
 </p>
 
 <hr />
 <a name="gstreamer2ecygclass2fGIT5fURI2028gstreamer29"></a>
-<a name="robo628"></a><h2>GIT_URI (gstreamer)</h2>
+<a name="robo632"></a><h2>GIT_URI (gstreamer)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo625">gstreamer.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo629">gstreamer.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">NOTE</p>
-<p>  <a href="./git_cygclass.html#robo651">git.cygclass</a> must be <a href="./inheritance_cygpart.html#robo579">inherit</a>()ed last for this to have any effect.
+<p>  <a href="./git_cygclass.html#robo655">git.cygclass</a> must be <a href="./inheritance_cygpart.html#robo583">inherit</a>()ed last for this to have any effect.
 </p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./git_cygclass.html#robo652">GIT_URI</a><span class="sign">=</span><span class="quote">"git://anongit.freedesktop.org/git/gstreamer/${ORIG_PN}"</span>
+<pre class="source"><a href="./git_cygclass.html#robo656">GIT_URI</a><span class="sign">=</span><span class="quote">"git://anongit.freedesktop.org/git/gstreamer/${ORIG_PN}"</span>
 </pre>
 
 <hr />
 <a name="gstreamer2ecygclass2fGST5fPLUGINDIR"></a>
-<a name="robo629"></a><h2>GST_PLUGINDIR</h2>
+<a name="robo633"></a><h2>GST_PLUGINDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo625">gstreamer.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo629">gstreamer.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installation path for GStreamer plugins.
 </p>
 
 <hr />
 <a name="gstreamer2ecygclass2fgstreamer5fautoreconf"></a>
-<a name="robo630"></a><h2>gstreamer_autoreconf</h2>
+<a name="robo634"></a><h2>gstreamer_autoreconf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo625">gstreamer.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo629">gstreamer.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo98">S</a>
   <strong>gstreamer_autoreconf</strong>
@@ -127,12 +127,12 @@
 <p>  autoconf, automake, gettext-devel, libtool, pkg-config
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="./autotools_cygclass.html#robo798">cygautoreconf</a>
+<p>  <a href="./autotools_cygclass.html#robo802">cygautoreconf</a>
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/gstreamer.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-05-02 21:48:11</p>
+<p>Generated from ./cygport/cygclass/gstreamer.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-07-03 13:09:12</p>
 </div> <!-- footer -->
 </body>
 </html>

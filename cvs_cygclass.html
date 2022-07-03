@@ -34,25 +34,25 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo721">cvs.cygclass</a></li>
+<li><a href="#robo725">cvs.cygclass</a></li>
 <ul>
-<li><a href="#robo722">CVS_URI</a></li>
-<li><a href="#robo723">CVS_BRANCH</a></li>
-<li><a href="#robo724">CVS_DATE</a></li>
-<li><a href="#robo725">CVS_MODULE</a></li>
+<li><a href="#robo726">CVS_URI</a></li>
+<li><a href="#robo727">CVS_BRANCH</a></li>
+<li><a href="#robo728">CVS_DATE</a></li>
+<li><a href="#robo729">CVS_MODULE</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fcvs2ecygclass"></a>
-<a name="robo721"></a><h2>cvs.cygclass</h2>
+<a name="robo725"></a><h2>cvs.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo529">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo533">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo722">CVS_URI</a>="..."
-  [<a href="#robo723">CVS_BRANCH</a>="..."]
-  [<a href="#robo724">CVS_DATE</a>="..."]
-  [<a href="#robo725">CVS_MODULE</a>="..."]
-  <a href="./inheritance_cygpart.html#robo579">inherit</a> cvs
+<pre>  <a href="#robo726">CVS_URI</a>="..."
+  [<a href="#robo727">CVS_BRANCH</a>="..."]
+  [<a href="#robo728">CVS_DATE</a>="..."]
+  [<a href="#robo729">CVS_MODULE</a>="..."]
+  <a href="./inheritance_cygpart.html#robo583">inherit</a> cvs
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  CVS is a centralized version control system.  It was the first widely-used
@@ -63,8 +63,8 @@
 <p>  This cygclass creates source tarballs from CVS checkouts.
 </p>
 <p class="item_name">NOTE</p>
-<p>  This cygclass sets a special <a href="./src_fetch_cygpart.html#robo181">SRC_URI</a> for the tarball it creates.  If
-  additional sources are required, be sure to _add_ to <a href="./src_fetch_cygpart.html#robo181">SRC_URI</a> rather than
+<p>  This cygclass sets a special <a href="./src_fetch_cygpart.html#robo184">SRC_URI</a> for the tarball it creates.  If
+  additional sources are required, be sure to _add_ to <a href="./src_fetch_cygpart.html#robo184">SRC_URI</a> rather than
   outright setting it.
 </p>
 <p class="item_name">REQUIRES</p>
@@ -73,9 +73,9 @@
 
 <hr />
 <a name="cvs2ecygclass2fCVS5fURI"></a>
-<a name="robo722"></a><h2>CVS_URI</h2>
+<a name="robo726"></a><h2>CVS_URI</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo721">cvs.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo725">cvs.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Address of CVS repository ("Root" in CVS parlance), usually in the form:
 </p>
@@ -85,18 +85,18 @@
 
 <hr />
 <a name="cvs2ecygclass2fCVS5fBRANCH"></a>
-<a name="robo723"></a><h2>CVS_BRANCH</h2>
+<a name="robo727"></a><h2>CVS_BRANCH</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo721">cvs.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo725">cvs.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Specific revision or tag to checkout.
 </p>
 
 <hr />
 <a name="cvs2ecygclass2fCVS5fDATE"></a>
-<a name="robo724"></a><h2>CVS_DATE</h2>
+<a name="robo728"></a><h2>CVS_DATE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo721">cvs.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo725">cvs.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Specific revision date to checkout.  Preferred form is YYYY-MM-DD [HH:MM],
   where the time is optional; the hyphens in the date can be omitted.
@@ -109,21 +109,21 @@
 
 <hr />
 <a name="cvs2ecygclass2fCVS5fMODULE"></a>
-<a name="robo725"></a><h2>CVS_MODULE</h2>
+<a name="robo729"></a><h2>CVS_MODULE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo721">cvs.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo725">cvs.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Name of the CVS module to check out.  The default value is ORIG_PN if
   <a href="./syntax_cygpart.html#robo78">defined</a>, or <a href="./syntax_cygpart.html#robo92">PN</a> if not.
 </p>
 <p class="item_name">NOTE</p>
 <p>  In the rare case that the top-level directory of the checkout does not
-  match the value of <strong>CVS_MODULE</strong>, then define <a href="./src_prep_cygpart.html#robo112">SRC_DIR</a> accordingly.
+  match the value of <strong>CVS_MODULE</strong>, then define <a href="./src_prep_cygpart.html#robo115">SRC_DIR</a> accordingly.
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/cvs.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-05-02 21:48:12</p>
+<p>Generated from ./cygport/cygclass/cvs.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-07-03 13:09:12</p>
 </div> <!-- footer -->
 </body>
 </html>

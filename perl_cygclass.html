@@ -34,40 +34,40 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo427">perl.cygclass</a></li>
+<li><a href="#robo431">perl.cygclass</a></li>
 <ul>
-<li><a href="#robo428">PERL</a></li>
-<li><a href="#robo429">PERL_VERSION</a></li>
-<li><a href="#robo430">PERL_LIB</a></li>
-<li><a href="#robo431">PERL_ARCHLIB</a></li>
-<li><a href="#robo432">PERL_VENDORLIB</a></li>
-<li><a href="#robo433">PERL_VENDORARCH</a></li>
-<li><a href="#robo434">LIBPERL</a></li>
-<li><a href="#robo435">CPAN_AUTHOR</a></li>
-<li><a href="#robo436">CPAN_SUBDIR</a></li>
-<li><a href="#robo437">CPAN_VERSION</a></li>
-<li><a href="#robo438">CATEGORY (perl)</a></li>
-<li><a href="#robo439">SUMMARY (perl)</a></li>
-<li><a href="#robo440">HOMEPAGE (perl)</a></li>
-<li><a href="#robo441">SRC_URI (perl)</a></li>
-<li><a href="#robo442">perl_compile</a></li>
-<li><a href="#robo443">perl_test</a></li>
-<li><a href="#robo444">perl_install</a></li>
-<li><a href="#robo445">perl_fix_shebang</a></li>
-<li><a href="#robo446">perl_sax_parser_register</a></li>
-<li><a href="#robo447">src_compile (perl)</a></li>
-<li><a href="#robo448">src_test (perl)</a></li>
-<li><a href="#robo449">src_install (perl)</a></li>
+<li><a href="#robo432">PERL</a></li>
+<li><a href="#robo433">PERL_VERSION</a></li>
+<li><a href="#robo434">PERL_LIB</a></li>
+<li><a href="#robo435">PERL_ARCHLIB</a></li>
+<li><a href="#robo436">PERL_VENDORLIB</a></li>
+<li><a href="#robo437">PERL_VENDORARCH</a></li>
+<li><a href="#robo438">LIBPERL</a></li>
+<li><a href="#robo439">CPAN_AUTHOR</a></li>
+<li><a href="#robo440">CPAN_SUBDIR</a></li>
+<li><a href="#robo441">CPAN_VERSION</a></li>
+<li><a href="#robo442">CATEGORY (perl)</a></li>
+<li><a href="#robo443">SUMMARY (perl)</a></li>
+<li><a href="#robo444">HOMEPAGE (perl)</a></li>
+<li><a href="#robo445">SRC_URI (perl)</a></li>
+<li><a href="#robo446">perl_compile</a></li>
+<li><a href="#robo447">perl_test</a></li>
+<li><a href="#robo448">perl_install</a></li>
+<li><a href="#robo449">perl_fix_shebang</a></li>
+<li><a href="#robo450">perl_sax_parser_register</a></li>
+<li><a href="#robo451">src_compile (perl)</a></li>
+<li><a href="#robo452">src_test (perl)</a></li>
+<li><a href="#robo453">src_install (perl)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fperl2ecygclass"></a>
-<a name="robo427"></a><h2>perl.cygclass</h2>
+<a name="robo431"></a><h2>perl.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo529">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo533">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  [<a href="#robo435">CPAN_AUTHOR</a>="username"]
-  <a href="./inheritance_cygpart.html#robo579">inherit</a> perl
+<pre>  [<a href="#robo439">CPAN_AUTHOR</a>="username"]
+  <a href="./inheritance_cygpart.html#robo583">inherit</a> perl
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Perl is an interpreted programming language used in a variety of software,
@@ -84,45 +84,45 @@
 <p>  A typical CPAN extension package looks like this:
 </p>
 
-<pre>    <a href="#robo435">CPAN_AUTHOR</a>=adamk
-    <a href="./inheritance_cygpart.html#robo579">inherit</a> perl
+<pre>    <a href="#robo439">CPAN_AUTHOR</a>=adamk
+    <a href="./inheritance_cygpart.html#robo583">inherit</a> perl
     
     <a href="./syntax_cygpart.html#robo89">NAME</a>="perl-Archive-Zip"
     <a href="./syntax_cygpart.html#robo90">VERSION</a>=1.30
     <a href="./syntax_cygpart.html#robo91">RELEASE</a>=1
-    <a href="./pkg_pkg_cygpart.html#robo386">CATEGORY</a>="Perl"
-    <a href="./pkg_pkg_cygpart.html#robo388">SUMMARY</a>="Perl module for working with Zip archives"
-    <a href="./pkg_pkg_cygpart.html#robo390">DESCRIPTION</a>="This module allows a Perl program to create, manipulate, read,
+    <a href="./pkg_pkg_cygpart.html#robo389">CATEGORY</a>="Perl"
+    <a href="./pkg_pkg_cygpart.html#robo391">SUMMARY</a>="Perl module for working with Zip archives"
+    <a href="./pkg_pkg_cygpart.html#robo393">DESCRIPTION</a>="This module allows a Perl program to create, manipulate, read,
     and write Zip archive files. Zip archives can be created, or you can read
     from existing zip files. Once created, they can be written to files, streams,
     or strings."
 </pre>
 <p>
   Occasionaly, a CPAN module tries to ask questions while configuring the
-  build, in which case you can override that in <a href="./src_compile_cygpart.html#robo186">src_compile</a>:
+  build, in which case you can override that in <a href="./src_compile_cygpart.html#robo189">src_compile</a>:
 </p>
 
-<pre>    <a href="./src_compile_cygpart.html#robo186">src_compile</a>() {
-      <a href="./src_compile_cygpart.html#robo183">lndirs</a>
+<pre>    <a href="./src_compile_cygpart.html#robo189">src_compile</a>() {
+      <a href="./src_compile_cygpart.html#robo186">lndirs</a>
       cd ${<a href="./syntax_cygpart.html#robo99">B</a>}
       # answer 'y' to all questions from Makefile.PL
-      yes | <a href="#robo442">perl_compile</a>
+      yes | <a href="#robo446">perl_compile</a>
     }
 </pre>
 <p>
   Perl modules which provide XML::SAX parser engines require an additional
-  step during <a href="./src_install_cygpart.html#robo179">src_install</a>, e.g.:
+  step during <a href="./src_install_cygpart.html#robo182">src_install</a>, e.g.:
 </p>
 
-<pre>    <a href="./src_install_cygpart.html#robo179">src_install</a>() {
+<pre>    <a href="./src_install_cygpart.html#robo182">src_install</a>() {
       cd ${<a href="./syntax_cygpart.html#robo99">B</a>}
-      <a href="#robo444">perl_install</a>
-      <a href="#robo446">perl_sax_parser_register</a> XML::LibXML::SAX
+      <a href="#robo448">perl_install</a>
+      <a href="#robo450">perl_sax_parser_register</a> XML::LibXML::SAX
     }
 </pre>
 <p></p>
 <p class="item_name">INHERITED BY</p>
-<p>  <a href="./gtk2-perl_cygclass.html#robo_top_of_doc">gtk2-perl.cygclass</a>
+<p>  <a href="./gtk2-perl_cygclass.html#robo623">gtk2-perl.cygclass</a>
 </p>
 <p class="item_name">REQUIRES</p>
 <p>  perl
@@ -130,89 +130,89 @@
 
 <hr />
 <a name="perl2ecygclass2fPERL"></a>
-<a name="robo428"></a><h2>PERL</h2>
+<a name="robo432"></a><h2>PERL</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Absolute path to the Perl interpreter.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fPERL5fVERSION"></a>
-<a name="robo429"></a><h2>PERL_VERSION</h2>
+<a name="robo433"></a><h2>PERL_VERSION</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The major.minor version of the Perl interpreter.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fPERL5fLIB"></a>
-<a name="robo430"></a><h2>PERL_LIB</h2>
+<a name="robo434"></a><h2>PERL_LIB</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Absolute path to the Perl arch-independent standard library.
 </p>
 <p class="item_name">NOTE</p>
-<p>  Third-party packages must not be installed here; use <a href="#robo432">PERL_VENDORLIB</a> instead.
+<p>  Third-party packages must not be installed here; use <a href="#robo436">PERL_VENDORLIB</a> instead.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fPERL5fARCHLIB"></a>
-<a name="robo431"></a><h2>PERL_ARCHLIB</h2>
+<a name="robo435"></a><h2>PERL_ARCHLIB</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Absolute path to the Perl arch-specific standard library.
 </p>
 <p class="item_name">NOTE</p>
-<p>  Third-party packages must not be installed here; use <a href="#robo433">PERL_VENDORARCH</a> instead.
+<p>  Third-party packages must not be installed here; use <a href="#robo437">PERL_VENDORARCH</a> instead.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fPERL5fVENDORLIB"></a>
-<a name="robo432"></a><h2>PERL_VENDORLIB</h2>
+<a name="robo436"></a><h2>PERL_VENDORLIB</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installation path for third-party arch-independent Perl modules.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fPERL5fVENDORARCH"></a>
-<a name="robo433"></a><h2>PERL_VENDORARCH</h2>
+<a name="robo437"></a><h2>PERL_VENDORARCH</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installation path for third-party arch-specific Perl modules.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fLIBPERL"></a>
-<a name="robo434"></a><h2>LIBPERL</h2>
+<a name="robo438"></a><h2>LIBPERL</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Link flags for the Perl <a href="./syntax_cygpart.html#robo100">C</a> library.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fCPAN5fAUTHOR"></a>
-<a name="robo435"></a><h2>CPAN_AUTHOR</h2>
+<a name="robo439"></a><h2>CPAN_AUTHOR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The CPAN username of the Perl module's author.  This variable must be set
-  before <a href="./inheritance_cygpart.html#robo579">inherit</a>()ing <a href="#robo427">perl.cygclass</a> to have any effect.  If set, the package
-  <a href="./pkg_info_cygpart.html#robo401">HOMEPAGE</a> and <a href="./src_fetch_cygpart.html#robo181">SRC_URI</a> are set to their usual locations on CPAN.
+  before <a href="./inheritance_cygpart.html#robo583">inherit</a>()ing <a href="#robo431">perl.cygclass</a> to have any effect.  If set, the package
+  <a href="./pkg_info_cygpart.html#robo404">HOMEPAGE</a> and <a href="./src_fetch_cygpart.html#robo184">SRC_URI</a> are set to their usual locations on CPAN.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fCPAN5fSUBDIR"></a>
-<a name="robo436"></a><h2>CPAN_SUBDIR</h2>
+<a name="robo440"></a><h2>CPAN_SUBDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  An optional directory component in the CPAN URL.  Some packages have an
   additional subdirectory component, which can be specified with this variable.
@@ -220,9 +220,9 @@
 
 <hr />
 <a name="perl2ecygclass2fCPAN5fVERSION"></a>
-<a name="robo437"></a><h2>CPAN_VERSION</h2>
+<a name="robo441"></a><h2>CPAN_VERSION</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The published version of the Perl module on CPAN.  It is sometimes
   necessary for <a href="./syntax_cygpart.html#robo90">VERSION</a> to not match due to CPAN versioning not conforming to
@@ -234,70 +234,70 @@
   with <a href="./syntax_cygpart.html#robo90">VERSION</a>=0.1300, in order to workaround this.
 </p>
 
-<p>  This variable, when needed, must be set before <a href="./inheritance_cygpart.html#robo579">inherit</a>()ing <a href="#robo427">perl.cygclass</a> to
-  have any effect.  If set, this overrides <a href="./syntax_cygpart.html#robo90">VERSION</a> in <a href="./src_fetch_cygpart.html#robo181">SRC_URI</a> and <a href="./src_prep_cygpart.html#robo112">SRC_DIR</a>.
+<p>  This variable, when needed, must be set before <a href="./inheritance_cygpart.html#robo583">inherit</a>()ing <a href="#robo431">perl.cygclass</a> to
+  have any effect.  If set, this overrides <a href="./syntax_cygpart.html#robo90">VERSION</a> in <a href="./src_fetch_cygpart.html#robo184">SRC_URI</a> and <a href="./src_prep_cygpart.html#robo115">SRC_DIR</a>.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fCATEGORY2028perl29"></a>
-<a name="robo438"></a><h2>CATEGORY (perl)</h2>
+<a name="robo442"></a><h2>CATEGORY (perl)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo386">CATEGORY</a><span class="sign">=</span><span class="quote">"Perl"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo389">CATEGORY</a><span class="sign">=</span><span class="quote">"Perl"</span>
 </pre>
 <p class="item_name">NOTE</p>
-<p>  This variable is set only if <a href="#robo435">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo78">defined</a> before <a href="./inheritance_cygpart.html#robo579">inherit</a>()ing
-  <a href="#robo427">perl.cygclass</a>.
+<p>  This variable is set only if <a href="#robo439">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo78">defined</a> before <a href="./inheritance_cygpart.html#robo583">inherit</a>()ing
+  <a href="#robo431">perl.cygclass</a>.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fSUMMARY2028perl29"></a>
-<a name="robo439"></a><h2>SUMMARY (perl)</h2>
+<a name="robo443"></a><h2>SUMMARY (perl)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo388">SUMMARY</a><span class="sign">=</span><span class="quote">"Perl distribution ${ORIG_PN}"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo391">SUMMARY</a><span class="sign">=</span><span class="quote">"Perl distribution ${ORIG_PN}"</span>
 </pre>
 <p class="item_name">NOTE</p>
-<p>  This variable is set only if <a href="#robo435">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo78">defined</a> before <a href="./inheritance_cygpart.html#robo579">inherit</a>()ing
-  <a href="#robo427">perl.cygclass</a>.
+<p>  This variable is set only if <a href="#robo439">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo78">defined</a> before <a href="./inheritance_cygpart.html#robo583">inherit</a>()ing
+  <a href="#robo431">perl.cygclass</a>.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fHOMEPAGE2028perl29"></a>
-<a name="robo440"></a><h2>HOMEPAGE (perl)</h2>
+<a name="robo444"></a><h2>HOMEPAGE (perl)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Web address for the Perl module on CPAN.
 </p>
 <p class="item_name">NOTE</p>
-<p>  This variable is set only if <a href="#robo435">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo78">defined</a> before <a href="./inheritance_cygpart.html#robo579">inherit</a>()ing
-  <a href="#robo427">perl.cygclass</a>.
+<p>  This variable is set only if <a href="#robo439">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo78">defined</a> before <a href="./inheritance_cygpart.html#robo583">inherit</a>()ing
+  <a href="#robo431">perl.cygclass</a>.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fSRC5fURI2028perl29"></a>
-<a name="robo441"></a><h2>SRC_URI (perl)</h2>
+<a name="robo445"></a><h2>SRC_URI (perl)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Download location for the Perl module on CPAN.
 </p>
 <p class="item_name">NOTE</p>
-<p>  This variable is set only if <a href="#robo435">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo78">defined</a> before <a href="./inheritance_cygpart.html#robo579">inherit</a>()ing
-  <a href="#robo427">perl.cygclass</a>.
+<p>  This variable is set only if <a href="#robo439">CPAN_AUTHOR</a> is <a href="./syntax_cygpart.html#robo78">defined</a> before <a href="./inheritance_cygpart.html#robo583">inherit</a>()ing
+  <a href="#robo431">perl.cygclass</a>.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="./mirrors.html#robo502">mirror_cpan</a>
+<p>  <a href="./mirrors.html#robo506">mirror_cpan</a>
 </p>
 
 <hr />
 <a name="perl2ecygclass2fperl5fcompile"></a>
-<a name="robo442"></a><h2>perl_compile</h2>
+<a name="robo446"></a><h2>perl_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo99">B</a>
   <strong>perl_compile</strong> [OPTIONS]
@@ -309,9 +309,9 @@
 
 <hr />
 <a name="perl2ecygclass2fperl5ftest"></a>
-<a name="robo443"></a><h2>perl_test</h2>
+<a name="robo447"></a><h2>perl_test</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_testsuite_functions.html#robo_top_of_doc">Testsuite Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_testsuite_functions.html#robo_top_of_doc">Testsuite Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo99">B</a>
   <strong>perl_test</strong>
@@ -322,9 +322,9 @@
 
 <hr />
 <a name="perl2ecygclass2fperl5finstall"></a>
-<a name="robo444"></a><h2>perl_install</h2>
+<a name="robo448"></a><h2>perl_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  cd $<a href="./syntax_cygpart.html#robo99">B</a>
   <strong>perl_install</strong> [OPTIONS]
@@ -336,23 +336,23 @@
 
 <hr />
 <a name="perl2ecygclass2fperl5ffix5fshebang"></a>
-<a name="robo445"></a><h2>perl_fix_shebang</h2>
+<a name="robo449"></a><h2>perl_fix_shebang</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>perl_fix_shebang</strong> SCRIPT [SCRIPT ...]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Fixes the designated interpreter of SCRIPT to <a href="#robo428">PERL</a>.  This would be necessary
+<p>  Fixes the designated interpreter of SCRIPT to <a href="#robo432">PERL</a>.  This would be necessary
   if the original uses an incorrect path (e.g. /usr/local/bin) or an
   incorrectly versioned binary.  SCRIPT need not be prefixed by $<a href="./syntax_cygpart.html#robo101">D</a>.
 </p>
 
 <hr />
 <a name="perl2ecygclass2fperl5fsax5fparser5fregister"></a>
-<a name="robo446"></a><h2>perl_sax_parser_register</h2>
+<a name="robo450"></a><h2>perl_sax_parser_register</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>perl_sax_parser_register</strong> PARSER_CLASS [PARSER_CLASS ...]
 </pre>
@@ -363,44 +363,44 @@
 
 <hr />
 <a name="perl2ecygclass2fsrc5fcompile2028perl29"></a>
-<a name="robo447"></a><h2>src_compile (perl)</h2>
+<a name="robo451"></a><h2>src_compile (perl)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo186">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        <a href="./src_compile_cygpart.html#robo183">lndirs</a>
+<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        <a href="./src_compile_cygpart.html#robo186">lndirs</a>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">B</a><span class="sign">}</span>
-        <a href="#robo442">perl_compile</a>
+        <a href="#robo446">perl_compile</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="perl2ecygclass2fsrc5ftest2028perl29"></a>
-<a name="robo448"></a><h2>src_test (perl)</h2>
+<a name="robo452"></a><h2>src_test (perl)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_test_cygpart.html#robo109">src_test</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_test_cygpart.html#robo112">src_test</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">B</a><span class="sign">}</span>
-        <a href="#robo443">perl_test</a>
+        <a href="#robo447">perl_test</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="perl2ecygclass2fsrc5finstall2028perl29"></a>
-<a name="robo449"></a><h2>src_install (perl)</h2>
+<a name="robo453"></a><h2>src_install (perl)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo427">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo431">perl.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo179">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_install_cygpart.html#robo182">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">B</a><span class="sign">}</span>
-        <a href="#robo444">perl_install</a>
+        <a href="#robo448">perl_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/perl.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-05-02 21:48:11</p>
+<p>Generated from ./cygport/cygclass/perl.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-07-03 13:09:12</p>
 </div> <!-- footer -->
 </body>
 </html>

@@ -34,19 +34,19 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo332">python3-distutils.cygclass</a></li>
+<li><a href="#robo335">python3-distutils.cygclass</a></li>
 <ul>
-<li><a href="#robo333">python3_distutils_compile</a></li>
-<li><a href="#robo334">python3_distutils_install</a></li>
-<li><a href="#robo335">src_compile (python3-distutils)</a></li>
-<li><a href="#robo336">src_install (python3-distutils)</a></li>
+<li><a href="#robo336">python3_distutils_compile</a></li>
+<li><a href="#robo337">python3_distutils_install</a></li>
+<li><a href="#robo338">src_compile (python3-distutils)</a></li>
+<li><a href="#robo339">src_install (python3-distutils)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fpython32ddistutils2ecygclass"></a>
-<a name="robo332"></a><h2>python3-distutils.cygclass</h2>
+<a name="robo335"></a><h2>python3-distutils.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo529">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo533">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Distutils is the most common method for building and installing Python
   libraries and programs.  The build is <a href="./syntax_cygpart.html#robo78">defined</a> by a setup.py file in the
@@ -58,7 +58,7 @@
 <p>  This cygclass handles the building of Python 3.x distutils-based packages.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./python_org_cygclass.html#robo_top_of_doc">python.org.cygclass</a>, <a href="./python3_cygclass.html#robo313">python3.cygclass</a>
+<p>  <a href="./python_org_cygclass.html#robo361">python.org.cygclass</a>, <a href="./python3_cygclass.html#robo316">python3.cygclass</a>
 </p>
 <p class="item_name">REQUIRES</p>
 <p>  python3
@@ -66,9 +66,9 @@
 
 <hr />
 <a name="python32ddistutils2ecygclass2fpython35fdistutils5fcompile"></a>
-<a name="robo333"></a><h2>python3_distutils_compile</h2>
+<a name="robo336"></a><h2>python3_distutils_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo332">python3-distutils.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo335">python3-distutils.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>python3_distutils_compile</strong> [OPTIONS]
 </pre>
@@ -78,9 +78,9 @@
 
 <hr />
 <a name="python32ddistutils2ecygclass2fpython35fdistutils5finstall"></a>
-<a name="robo334"></a><h2>python3_distutils_install</h2>
+<a name="robo337"></a><h2>python3_distutils_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo332">python3-distutils.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo335">python3-distutils.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>python3_distutils_install</strong> [OPTIONS]
 </pre>
@@ -91,32 +91,32 @@
 
 <hr />
 <a name="python32ddistutils2ecygclass2fsrc5fcompile2028python32ddistutils29"></a>
-<a name="robo335"></a><h2>src_compile (python3-distutils)</h2>
+<a name="robo338"></a><h2>src_compile (python3-distutils)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo332">python3-distutils.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo335">python3-distutils.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo186">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        <a href="./src_compile_cygpart.html#robo183">lndirs</a>
+<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        <a href="./src_compile_cygpart.html#robo186">lndirs</a>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">B</a><span class="sign">}</span>
-        <a href="#robo333">python3_distutils_compile</a>
+        <a href="#robo336">python3_distutils_compile</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="python32ddistutils2ecygclass2fsrc5finstall2028python32ddistutils29"></a>
-<a name="robo336"></a><h2>src_install (python3-distutils)</h2>
+<a name="robo339"></a><h2>src_install (python3-distutils)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo332">python3-distutils.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo335">python3-distutils.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo179">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+<pre class="source"><a href="./src_install_cygpart.html#robo182">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">B</a><span class="sign">}</span>
-        <a href="#robo334">python3_distutils_install</a>
+        <a href="#robo337">python3_distutils_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/python3-distutils.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-05-02 21:48:11</p>
+<p>Generated from ./cygport/cygclass/python3-distutils.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-07-03 13:09:12</p>
 </div> <!-- footer -->
 </body>
 </html>
