@@ -37,7 +37,7 @@ check_prog() {
 
 	for _prog
 	do
-		if ! hash ${_prog} &> /dev/null
+		if ! command -v ${_prog} &> /dev/null
 		then
 			return 1;
 		fi
