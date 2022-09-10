@@ -61,7 +61,10 @@ check_prog_req() {
 
 	if ! check_prog ${prog}
 	then
-		error "${pkg} is required to build this package";
+		if [ ! ${__cygport_check_prog_req_nonfatal} ]
+		then
+			error "${pkg} is required to build this package";
+		fi
 	fi
 
 	return 0;
