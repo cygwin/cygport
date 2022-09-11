@@ -153,11 +153,16 @@ to be processed.  All other arguments are interpreted as a COMMAND, which may be
 
 Other COMMANDs are meant primarily for maintainers:
 
-    fetch    - download the original source from the Internet
+    fetch    - download any missing upstream sources
+    fetchall - download any all upstream sources
     check    - run the testsuite
     postinst - re-run post-installation steps
     list     - create a file listing suitable for the Cygwin README
     deps     - list direct dependencies of all executables
+    info     - show a summary of package information
+    diff     - write a patch file capturing changes to source in the working directory
+    stage    - as upload, but don't request processing of uploaded packages
+    announce - compose and send a package announcement
 
 The standard arguments --help or --version may also be passed to cygport.
 

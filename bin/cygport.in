@@ -150,7 +150,7 @@ source ${_privlibdir}/syntax.cygpart
 #  USAGE
 #  See
 #  |html <a href="cygport.1.html">the manpage</a>
-#  for command line options.
+#  for sub-commands and command line options.
 #  REQUIRES
 #  The following packages are required to build packages with cygport:
 #   autoconf, automake, bash, binutils, bzip2, coreutils, diffstat, diffutils,

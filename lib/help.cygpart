@@ -28,9 +28,11 @@ __show_help() {
 
 		OPTIONS may include the following:
 
-		  --32, -4     build package for i686 Cygwin
-		  --64, -8     build package for x86_64 Cygwin
-		  --debug      enable debugging messages
+		  --32, -4      build package for i686 Cygwin
+		  --64, -8      build package for x86_64 Cygwin
+		  --debug       enable debugging messages
+		  --version, -v show the version
+		  --help, -h    show this help
 
 		The --32 and --64 options are mutually exclusive.
 
