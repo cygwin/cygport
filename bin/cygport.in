@@ -467,6 +467,13 @@ then
 	fi
 fi
 
+for VAR in "HOMEPAGE" "LICENSE"
+do
+	if [ ! -v ${VAR} ]
+	then
+		warning "${VAR} not defined"
+	fi
+done
 
 for restrict in ${RESTRICT//,/ }
 do

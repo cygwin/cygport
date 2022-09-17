@@ -34,10 +34,10 @@
 #  Since a .cygport file is itself not a functioning script, the she-bang
 #  header (#!/bin/bash) should be omitted, and the file should not be executable.
 #
-#  The bare minimum for a working .cygport file includes a SRC_URI definition,
-#  and src_compile and src_install functions.  Note that several Cygclasses
-#  provide some or all of these, so in some cases a single line inherit
-#  command will suffice.
+#  The bare minimum for a working .cygport file includes HOMEPAGE, LICENSE, a
+#  SRC_URI definition, and src_compile and src_install functions.  Note that
+#  several Cygclasses provide some or all of these, so in some cases a single
+#  line inherit command will suffice.
 #****
 
 #****** Format/Syntax
