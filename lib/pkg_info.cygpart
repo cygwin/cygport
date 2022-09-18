@@ -364,6 +364,10 @@ __list_deps() {
 	if check_prog ocamlc.opt
 	then
 		mldir=$(ocamlc.opt -where)
+		if [ ! -d ${mldir} ]
+		then
+			mldir=""
+		fi
 		if [ -d ${D}${mldir} ]
 		then
 			for cma in $(find ${D}${mldir} ${mldir} -name '*.cma')
