@@ -59,6 +59,9 @@
 #  their basenames to PATCH_URI.  This provides an easy way to carry
 #  Cygwin-specific patches forward between releases.
 #
+#  Compressed patches and patch archives will be uncompressed on-the-fly.
+#  Supported compression formats are gzip, bzip2, xz and zstd.
+#
 #  NOTE
 #
 #  For historical reasons, patches with basenames of ${PVR}.{cygwin,src}.patch

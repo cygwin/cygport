@@ -240,7 +240,7 @@ cygpatch() {
 					patchlevel=$(( ${#srcdir_depth} + 2 ));
 				fi
 				;;
-			*.bz2|*.gz)
+			*.bz2|*.gz|*.xz|*.zst)
 				pushd ${T}
 				unpack ${patchfile_path}
 				popd
@@ -419,7 +419,7 @@ __src_prep() {
 			src_patch=${top}/${src_patch};
 		fi
 		case ${src_patch} in
-			*.tar.gz|*.tgz|*.tar.bz2|*.tbz2)
+			*.tar.gz|*.tgz|*.tar.bz2|*.tbz2|*.tar.xz|*.tar.zst)
 				pushd ${T};
 				unpack ${src_patch};
 				popd;
