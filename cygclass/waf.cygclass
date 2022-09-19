@@ -80,7 +80,7 @@ waf_compile() {
 #  DESCRIPTION
 #  String containing additional arguments to pass to 'waf build'.
 #****
-	${WAF} build ${WAF_BUILD_FLAGS} || error "waf build failed"
+	${WAF} build ${_nproc} ${WAF_BUILD_FLAGS} || error "waf build failed"
 }
 
 #****T* waf.cygclass/waf_test

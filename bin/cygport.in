@@ -179,6 +179,11 @@ do
 		set -x;
 		shift;
 		;;
+	--jobs|-j)
+		shift;
+		_nproc="-j $1";
+		shift;
+		;;
 	--32|-4)
 		if defined _host_arch && [ ${_host_arch} != i686 ]
 		then
@@ -254,7 +259,8 @@ fi
 
 # Values which can be overridden either system-wide or per package
 
-declare    MAKEOPTS="-j$(($(nproc 2>/dev/null) + 1)) ";
+# default: use all available processors plus one more job
+declare    MAKEOPTS="${_nproc:--j $(($(nproc 2>/dev/null) + 1))} "
 
 # load configuration
 for conf in "${HOME}/.config/cygport.conf" \

@@ -45,7 +45,7 @@ cygninja() {
 	then
 		error "cygninja: build.ninja: file not found"
 	fi
-	ninja ${@} || error "cygninja: command failed: ${@:-all}"
+	ninja ${_nproc} ${@} || error "cygninja: command failed: ${@:-all}"
 }
 
 #****T* ninja.cygclass/ninja_test
