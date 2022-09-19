@@ -99,6 +99,7 @@ ignore files:
 	*.rej
 	*.txt
 	*~
+	#*#
 header markers:
 	#****
 remark markers:
