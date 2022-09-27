@@ -599,7 +599,7 @@ do
 			__DL_ONLY_MISSING=1 __src_fetch;
 			_status=$?;
 			;;
-		prep|unpack)
+		prepare|unpack|prep)
 			__stage Preparing;
 			__src_prep;
 			_status=$?;
