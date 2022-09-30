@@ -71,7 +71,7 @@ mirror_apache+=" https://downloads.apache.org"
 #  SEE ALSO
 #  perl.cygclass
 #****
-# cat SITES.html | egrep '^ *<A HREF=.*(CPAN|cpan).*(ht|f)tp:' | \
+# cat SITES.html | grep -E '^ *<A HREF=.*(CPAN|cpan).*(ht|f)tp:' | \
 #   sed -e 's! *<A HREF="!\t!g' -e 's!">.*!!g' -e 's!/$!!g'
 mirror_cpan+=" https://cpan.metacpan.org"
 
@@ -154,7 +154,7 @@ mirror_gcc+="
 #  SEE ALSO
 #  mirror_portage
 #****
-# egrep '^<a href="(ht|f)tp:.*</a><br>$' mirrors.xml | \
+# grep -E '^<a href="(ht|f)tp:.*</a><br>$' mirrors.xml | \
 #	sed -e 's#<a href="\(.*\)".*</a>.*#\t\1#' -e 's#/$##' -e 's#$#/distfiles#'
 mirror_gentoo+=" https://gentoo.osuosl.org/distfiles"
 
@@ -363,7 +363,7 @@ mirror_trolltech+=" ${mirror_qt}"
 #  MIRROR LIST
 #  http://vim.sourceforge.net/mirrors.php
 #****
-# cat mirrors.php | egrep '^  <a href="(ht|f)tp:' | \
+# cat mirrors.php | grep -E '^  <a href="(ht|f)tp:' | \
 #	sed -e 's#  <a.*>\(.*\)</a>.*#\t\1#' -e 's#/$##'
 mirror_vim+=" http://ftp.vim.org/pub/vim"
 

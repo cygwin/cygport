@@ -121,7 +121,7 @@ __pkg_upload() {
 		if ssh-add -l >/dev/null 2>/dev/null
 		then
 			# ssh-agent is already running. Get key fingerprint:
-			key_fingerprint=$(ssh-keygen -l -f "$SSH_KEY" | egrep -o '[0-9a-f]{2}(:[0-9a-f]{2}){15}|SHA256:[A-Za-z0-9+/=]{43}') \
+			key_fingerprint=$(ssh-keygen -l -f "$SSH_KEY" | grep -E -o '[0-9a-f]{2}(:[0-9a-f]{2}){15}|SHA256:[A-Za-z0-9+/=]{43}') \
 			|| error "Can't read key fingerprint of ${SSH_KEY}. Not a private key file, or corresponding public key file is missing?"
 
 			# Load key into ssh-agent, if it's not already loaded (prompts for passphrase):
