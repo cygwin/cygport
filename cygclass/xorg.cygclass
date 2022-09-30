@@ -143,6 +143,10 @@ SUMMARY="X.Org ${ORIG_PN} component"
 #  DEFINITION
 HOMEPAGE="https://www.x.org/"
 #****
+#****o* xorg.cygclass/LICENSE (xorg)
+#  DEFINITION
+LICENSE="MIT"
+#****
 
 #****o* xorg.cygclass/XORG_SRC_COMPRESSION
 #  DESCRIPTION

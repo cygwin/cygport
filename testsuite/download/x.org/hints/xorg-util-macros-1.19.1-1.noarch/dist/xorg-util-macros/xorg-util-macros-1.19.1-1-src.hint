@@ -5,3 +5,4 @@ ldesc: "X.Org aclocal macros"
 skip:
 
 homepage: https://www.x.org/
+license: MIT
