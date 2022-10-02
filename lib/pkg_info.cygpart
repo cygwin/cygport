@@ -364,17 +364,18 @@ __list_deps() {
 	if check_prog ocamlc.opt
 	then
 		mldir=$(ocamlc.opt -where)
-		if [ ! -d ${mldir} ]
+		sys_mldir=$mldir
+		if [ ! -d ${sys_mldir} ]
 		then
-			mldir=""
+			sys_mldir=""
 		fi
 		if [ -d ${D}${mldir} ]
 		then
-			for cma in $(find ${D}${mldir} ${mldir} -name '*.cma')
+			for cma in $(find ${D}${mldir} ${sys_mldir} -name '*.cma')
 			do
 				ocamlobjinfo $cma | sed -nr "s#(Unit|Module) name: #$cma:#p"
 			done > ${T}/.cmaobjinfo.out
-			for cmxa in $(find ${D}${mldir} ${mldir} -name '*.cmxa')
+			for cmxa in $(find ${D}${mldir} ${sys_mldir} -name '*.cmxa')
 			do
 				ocamlobjinfo $cmxa | sed -nr "s#(Unit|Module) name: #$cmxa:#p"
 			done > ${T}/.cmxaobjinfo.out
