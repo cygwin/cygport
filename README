@@ -176,14 +176,16 @@ are available in the Cygwin package git repositories[5].
 Please see the Cygport Reference Manual, included with this package, for
 documentation on the cygport API.
 
-A Cygwin README file should be included in the CYGWIN-PATCHES directory,
+A Cygwin README file may be included in the CYGWIN-PATCHES directory,
 named README.  A standard template for this purpose is available from
-the Cygwin distribution website[2].  The setup.hint files should also be
+the Cygwin distribution website[2].
+
+If .hint file auto-generation isn't being used, setup.hint files may also be
 included in CYGWIN-PATCHES.
     
 Custom postinstall and preremove commands may be included in the
 CYGWIN-PATCHES directory as postinstall.sh and preremove.sh; these
-scripts should be written as stubs, without the she-bang header.
+scripts should be written as stubs, without the sh-bang header.
 
 
 5. REQUIREMENTS
