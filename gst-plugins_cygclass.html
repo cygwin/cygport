@@ -34,30 +34,30 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo635">gst-plugins.cygclass</a></li>
+<li><a href="#robo636">gst-plugins.cygclass</a></li>
 <ul>
-<li><a href="#robo636">GST_PLUGINS_ENABLE</a></li>
-<li><a href="#robo637">GST_PLUGINS_DISABLE</a></li>
-<li><a href="#robo638">SUMMARY (gst-plugins)</a></li>
-<li><a href="#robo639">gst_plugins_autoreconf</a></li>
-<li><a href="#robo640">gst_plugins_compile</a></li>
-<li><a href="#robo641">gst_plugins_install</a></li>
-<li><a href="#robo642">src_compile (gst-plugins)</a></li>
-<li><a href="#robo643">src_install (gst-plugins)</a></li>
+<li><a href="#robo637">GST_PLUGINS_ENABLE</a></li>
+<li><a href="#robo638">GST_PLUGINS_DISABLE</a></li>
+<li><a href="#robo639">SUMMARY (gst-plugins)</a></li>
+<li><a href="#robo640">gst_plugins_autoreconf</a></li>
+<li><a href="#robo641">gst_plugins_compile</a></li>
+<li><a href="#robo642">gst_plugins_install</a></li>
+<li><a href="#robo643">src_compile (gst-plugins)</a></li>
+<li><a href="#robo644">src_install (gst-plugins)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fgst2dplugins2ecygclass"></a>
-<a name="robo635"></a><h2>gst-plugins.cygclass</h2>
+<a name="robo636"></a><h2>gst-plugins.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo533">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo534">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo636">GST_PLUGINS_ENABLE</a>=...
-  [<a href="#robo637">GST_PLUGINS_DISABLE</a>=...]
-  <a href="./inheritance_cygpart.html#robo583">inherit</a> gst-plugins
+<pre>  <a href="#robo637">GST_PLUGINS_ENABLE</a>=...
+  [<a href="#robo638">GST_PLUGINS_DISABLE</a>=...]
+  <a href="./inheritance_cygpart.html#robo584">inherit</a> gst-plugins
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  For an introduction to GStreamer, see <a href="./gstreamer_cygclass.html#robo_top_of_doc">gstreamer.cygclass</a>.
+<p>  For an introduction to GStreamer, see <a href="./gstreamer_cygclass.html#robo630">gstreamer.cygclass</a>.
 </p>
 
 <p>  Since the 0.9/0.10 series, GStreamer ships most of their plugins in four
@@ -71,17 +71,17 @@
   well as the de/selection of plugins with external dependencies.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./autotools_cygclass.html#robo800">autotools.cygclass</a>, <a href="./gstreamer_cygclass.html#robo_top_of_doc">gstreamer.cygclass</a>
+<p>  <a href="./autotools_cygclass.html#robo801">autotools.cygclass</a>, <a href="./gstreamer_cygclass.html#robo630">gstreamer.cygclass</a>
 </p>
 
 <hr />
 <a name="gst2dplugins2ecygclass2fGST5fPLUGINS5fENABLE"></a>
-<a name="robo636"></a><h2>GST_PLUGINS_ENABLE</h2>
+<a name="robo637"></a><h2>GST_PLUGINS_ENABLE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo635">gst-plugins.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo636">gst-plugins.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  This variable controls which plugins with external dependencies will be
-  built.  It must be <a href="./syntax_cygpart.html#robo78">defined</a> as a string, with plugins indicated by their
+  built.  It must be <a href="./syntax_cygpart.html#robo79">defined</a> as a string, with plugins indicated by their
   configure argument.
 </p>
 
@@ -90,96 +90,96 @@
   with a 'for' loop with this variable as the iterator collection.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="#robo637">GST_PLUGINS_DISABLE</a>
+<p>  <a href="#robo638">GST_PLUGINS_DISABLE</a>
 </p>
 
 <hr />
 <a name="gst2dplugins2ecygclass2fGST5fPLUGINS5fDISABLE"></a>
-<a name="robo637"></a><h2>GST_PLUGINS_DISABLE</h2>
+<a name="robo638"></a><h2>GST_PLUGINS_DISABLE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo635">gst-plugins.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo636">gst-plugins.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  This variable controls which plugins will not be built, even if their
-  dependencies are present. It must be <a href="./syntax_cygpart.html#robo78">defined</a> as a string, with plugins
+  dependencies are present. It must be <a href="./syntax_cygpart.html#robo79">defined</a> as a string, with plugins
   indicated by their configure argument.
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="#robo636">GST_PLUGINS_ENABLE</a>
+<p>  <a href="#robo637">GST_PLUGINS_ENABLE</a>
 </p>
 
 <hr />
 <a name="gst2dplugins2ecygclass2fSUMMARY2028gst2dplugins29"></a>
-<a name="robo638"></a><h2>SUMMARY (gst-plugins)</h2>
+<a name="robo639"></a><h2>SUMMARY (gst-plugins)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo635">gst-plugins.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo636">gst-plugins.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./pkg_pkg_cygpart.html#robo391">SUMMARY</a><span class="sign">=</span><span class="quote">"${gst_pn} plugin for the GStreamer multimedia framework"</span>
+<pre class="source"><a href="./pkg_pkg_cygpart.html#robo392">SUMMARY</a><span class="sign">=</span><span class="quote">"${gst_pn} plugin for the GStreamer multimedia framework"</span>
 </pre>
 
 <hr />
 <a name="gst2dplugins2ecygclass2fgst5fplugins5fautoreconf"></a>
-<a name="robo639"></a><h2>gst_plugins_autoreconf</h2>
+<a name="robo640"></a><h2>gst_plugins_autoreconf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo635">gst-plugins.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo636">gst-plugins.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Alias for <a href="./gstreamer_cygclass.html#robo634">gstreamer_autoreconf</a>.
+<p>  Alias for <a href="./gstreamer_cygclass.html#robo635">gstreamer_autoreconf</a>.
 </p>
 
 <hr />
 <a name="gst2dplugins2ecygclass2fgst5fplugins5fcompile"></a>
-<a name="robo640"></a><h2>gst_plugins_compile</h2>
+<a name="robo641"></a><h2>gst_plugins_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo635">gst-plugins.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo636">gst-plugins.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  First, <a href="./autotools_cygclass.html#robo812">cygconf</a> is called with several GStreamer-specific arguments which
+<p>  First, <a href="./autotools_cygclass.html#robo813">cygconf</a> is called with several GStreamer-specific arguments which
   apply to all plugin packages, as well as the necessary arguments to enable
   or disable plugins with external dependencies, per the value of
-  <a href="#robo636">GST_PLUGINS_ENABLE</a> and <a href="#robo637">GST_PLUGINS_DISABLE</a>. Then <a href="./src_compile_cygpart.html#robo188">cygmake</a> is called to build
+  <a href="#robo637">GST_PLUGINS_ENABLE</a> and <a href="#robo638">GST_PLUGINS_DISABLE</a>. Then <a href="./src_compile_cygpart.html#robo189">cygmake</a> is called to build
   the package.
 </p>
 
 <p>  <strong>gst_plugins_compile</strong> optionally accepts additional configure flags as
-  arguments, which are passed to <a href="./autotools_cygclass.html#robo812">cygconf</a>.
+  arguments, which are passed to <a href="./autotools_cygclass.html#robo813">cygconf</a>.
 </p>
 
 <hr />
 <a name="gst2dplugins2ecygclass2fgst5fplugins5finstall"></a>
-<a name="robo641"></a><h2>gst_plugins_install</h2>
+<a name="robo642"></a><h2>gst_plugins_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo635">gst-plugins.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo636">gst-plugins.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Alias for <a href="./src_install_cygpart.html#robo180">cyginstall</a>.
+<p>  Alias for <a href="./src_install_cygpart.html#robo181">cyginstall</a>.
 </p>
 
 <hr />
 <a name="gst2dplugins2ecygclass2fsrc5fcompile2028gst2dplugins29"></a>
-<a name="robo642"></a><h2>src_compile (gst-plugins)</h2>
+<a name="robo643"></a><h2>src_compile (gst-plugins)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo635">gst-plugins.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo636">gst-plugins.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">S</a><span class="sign">}</span>
-        <a href="#robo639">gst_plugins_autoreconf</a>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">B</a><span class="sign">}</span>
-        <a href="#robo640">gst_plugins_compile</a>
+<pre class="source"><a href="./src_compile_cygpart.html#robo190">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">S</a><span class="sign">}</span>
+        <a href="#robo640">gst_plugins_autoreconf</a>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo641">gst_plugins_compile</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="gst2dplugins2ecygclass2fsrc5finstall2028gst2dplugins29"></a>
-<a name="robo643"></a><h2>src_install (gst-plugins)</h2>
+<a name="robo644"></a><h2>src_install (gst-plugins)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo635">gst-plugins.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo636">gst-plugins.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo182">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">B</a><span class="sign">}</span>
-        <a href="#robo641">gst_plugins_install</a>
+<pre class="source"><a href="./src_install_cygpart.html#robo183">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+        <a href="#robo642">gst_plugins_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/gst-plugins.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-09-19 18:43:05</p>
+<p>Generated from ./cygport/cygclass/gst-plugins.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-10-14 13:57:45</p>
 </div> <!-- footer -->
 </body>
 </html>

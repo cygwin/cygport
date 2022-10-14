@@ -34,22 +34,22 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo495">multilib.cygclass</a></li>
+<li><a href="#robo496">multilib.cygclass</a></li>
 <ul>
-<li><a href="#robo496">multilib_precompile</a></li>
-<li><a href="#robo497">multilib_compile</a></li>
-<li><a href="#robo498">multilib_install</a></li>
-<li><a href="#robo499">multilib_postinstall</a></li>
+<li><a href="#robo497">multilib_precompile</a></li>
+<li><a href="#robo498">multilib_compile</a></li>
+<li><a href="#robo499">multilib_install</a></li>
+<li><a href="#robo500">multilib_postinstall</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fmultilib2ecygclass"></a>
-<a name="robo495"></a><h2>multilib.cygclass</h2>
+<a name="robo496"></a><h2>multilib.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo533">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo534">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./cross_cygclass.html#robo731">CROSS_HOST</a>="..."
-  <a href="./inheritance_cygpart.html#robo583">inherit</a> cross multilib
+<pre>  <a href="./cross_cygclass.html#robo732">CROSS_HOST</a>="..."
+  <a href="./inheritance_cygpart.html#robo584">inherit</a> cross multilib
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Some architectures, particularly embedded systems, support multiple,
@@ -64,10 +64,10 @@
   in libdir and compiler flags for each ABI iteration automatically.
 </p>
 <p class="item_name">NOTES</p>
-<ul><li>  Unlike other cygclasses, the <a href="./src_compile_cygpart.html#robo189">src_compile</a> and <a href="./src_install_cygpart.html#robo182">src_install</a> functions
+<ul><li>  Unlike other cygclasses, the <a href="./src_compile_cygpart.html#robo190">src_compile</a> and <a href="./src_install_cygpart.html#robo183">src_install</a> functions
     provided herein are mandatory; the build may only be controlled via
     the functions documented below.  Therefore, if other cygclasses are
-    used as well, they must precede multilib in the <a href="./inheritance_cygpart.html#robo583">inherit</a> command.
+    used as well, they must precede multilib in the <a href="./inheritance_cygpart.html#robo584">inherit</a> command.
 </li>
 <li>  Do not attempt to use multilib with a PE architecture (such as Cygwin and
     MinGW), as the placement of DLLs in $libdir/../bin does not allow for
@@ -76,125 +76,125 @@
 </ul>
 <p></p>
 <p class="item_name">EXAMPLE</p>
-<pre>  <a href="./cross_cygclass.html#robo731">CROSS_HOST</a>="x86_64-pc-linux-gnu" # supports x86-64 and x32
-  <a href="./inheritance_cygpart.html#robo583">inherit</a> cross multilib
+<pre>  <a href="./cross_cygclass.html#robo732">CROSS_HOST</a>="x86_64-pc-linux-gnu" # supports x86-64 and x32
+  <a href="./inheritance_cygpart.html#robo584">inherit</a> cross multilib
   
-  <a href="./syntax_cygpart.html#robo89">NAME</a>="linux-x86_64-zlib"
-  <a href="./syntax_cygpart.html#robo90">VERSION</a>=1.2.8
-  <a href="./syntax_cygpart.html#robo91">RELEASE</a>=1
-  <a href="./pkg_pkg_cygpart.html#robo389">CATEGORY</a>="Devel"
-  <a href="./pkg_pkg_cygpart.html#robo391">SUMMARY</a>="zlib for Linux x86-64/x32 toolchain"
-  <a href="./pkg_info_cygpart.html#robo404">HOMEPAGE</a>="<a href="https://www.zlib.net/"">https://www.zlib.net/"</a>
-  <a href="./src_fetch_cygpart.html#robo184">SRC_URI</a>="mirror://sourceforge/libpng/zlib-${<a href="./syntax_cygpart.html#robo90">VERSION</a>}.tar.gz"
-  <a href="./src_prep_cygpart.html#robo115">SRC_DIR</a>="zlib-${<a href="./syntax_cygpart.html#robo90">VERSION</a>}"
+  <a href="./syntax_cygpart.html#robo90">NAME</a>="linux-x86_64-zlib"
+  <a href="./syntax_cygpart.html#robo91">VERSION</a>=1.2.8
+  <a href="./syntax_cygpart.html#robo92">RELEASE</a>=1
+  <a href="./pkg_pkg_cygpart.html#robo390">CATEGORY</a>="Devel"
+  <a href="./pkg_pkg_cygpart.html#robo392">SUMMARY</a>="zlib for Linux x86-64/x32 toolchain"
+  <a href="./pkg_info_cygpart.html#robo405">HOMEPAGE</a>="<a href="https://www.zlib.net/"">https://www.zlib.net/"</a>
+  <a href="./src_fetch_cygpart.html#robo185">SRC_URI</a>="mirror://sourceforge/libpng/zlib-${<a href="./syntax_cygpart.html#robo91">VERSION</a>}.tar.gz"
+  <a href="./src_prep_cygpart.html#robo116">SRC_DIR</a>="zlib-${<a href="./syntax_cygpart.html#robo91">VERSION</a>}"
   
-  <a href="#robo497">multilib_compile</a>() {
-    <a href="./src_compile_cygpart.html#robo186">lndirs</a> ${<a href="./syntax_cygpart.html#robo98">S</a>}
+  <a href="#robo498">multilib_compile</a>() {
+    <a href="./src_compile_cygpart.html#robo187">lndirs</a> ${<a href="./syntax_cygpart.html#robo99">S</a>}
     rm -f Makefile
-    <a href="./compilers_cygpart.html#robo743">CC</a>="${<a href="./compilers_cygpart.html#robo743">CC</a>}" <a href="./compilers_cygpart.html#robo744">CFLAGS</a>="${<a href="./compilers_cygpart.html#robo744">CFLAGS</a>}" CHOST=${<a href="./cross_cygclass.html#robo731">CROSS_HOST</a>} \
-    ./configure --prefix=${<a href="./cross_cygclass.html#robo733">CROSS_PREFIX</a>} --libdir=${<a href="./cross_cygclass.html#robo736">CROSS_LIBDIR</a>}
-    <a href="./src_compile_cygpart.html#robo188">cygmake</a>
+    <a href="./compilers_cygpart.html#robo744">CC</a>="${<a href="./compilers_cygpart.html#robo744">CC</a>}" <a href="./compilers_cygpart.html#robo745">CFLAGS</a>="${<a href="./compilers_cygpart.html#robo745">CFLAGS</a>}" CHOST=${<a href="./cross_cygclass.html#robo732">CROSS_HOST</a>} \
+    ./configure --prefix=${<a href="./cross_cygclass.html#robo734">CROSS_PREFIX</a>} --libdir=${<a href="./cross_cygclass.html#robo737">CROSS_LIBDIR</a>}
+    <a href="./src_compile_cygpart.html#robo189">cygmake</a>
   }
   
-  <a href="#robo498">multilib_install</a>() {
-    <a href="./src_install_cygpart.html#robo180">cyginstall</a>
+  <a href="#robo499">multilib_install</a>() {
+    <a href="./src_install_cygpart.html#robo181">cyginstall</a>
   }
   
-  <a href="#robo499">multilib_postinstall</a>() {
+  <a href="#robo500">multilib_postinstall</a>() {
     # already provided by native zlib
-    rm -fr ${<a href="./syntax_cygpart.html#robo101">D</a>}${<a href="./cross_cygclass.html#robo737">CROSS_DATADIR</a>}/man
+    rm -fr ${<a href="./syntax_cygpart.html#robo102">D</a>}${<a href="./cross_cygclass.html#robo738">CROSS_DATADIR</a>}/man
   }
 </pre>
 
 <hr />
 <a name="multilib2ecygclass2fmultilib5fprecompile"></a>
-<a name="robo496"></a><h2>multilib_precompile</h2>
+<a name="robo497"></a><h2>multilib_precompile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo495">multilib.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo496">multilib.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>multilib_precompile</strong>() {
     PRECOMPILE_COMMAND; [PRECOMPILE_COMMAND ...]
   }
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  This function, if <a href="./syntax_cygpart.html#robo78">defined</a>, will be run once in total prior to the loop which
-  calls <a href="#robo497">multilib_compile</a>.  This function is intended to include <a href="./autotools_cygclass.html#robo802">cygautoreconf</a>
+<p>  This function, if <a href="./syntax_cygpart.html#robo79">defined</a>, will be run once in total prior to the loop which
+  calls <a href="#robo498">multilib_compile</a>.  This function is intended to include <a href="./autotools_cygclass.html#robo803">cygautoreconf</a>
   and similar commands.  Directory traversal is completely within control of
-  the function (e.g. cd ${<a href="./syntax_cygpart.html#robo98">S</a>} must still be called before <a href="./autotools_cygclass.html#robo802">cygautoreconf</a>).
+  the function (e.g. cd ${<a href="./syntax_cygpart.html#robo99">S</a>} must still be called before <a href="./autotools_cygclass.html#robo803">cygautoreconf</a>).
 </p>
 
 <hr />
 <a name="multilib2ecygclass2fmultilib5fcompile"></a>
-<a name="robo497"></a><h2>multilib_compile</h2>
+<a name="robo498"></a><h2>multilib_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo495">multilib.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo496">multilib.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>multilib_compile</strong>() {
     COMPILE_COMMAND; [COMPILE_COMMAND ...]
   }
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  This function must include all compile commands, such as <a href="./autotools_cygclass.html#robo812">cygconf</a> and
-  <a href="./src_compile_cygpart.html#robo188">cygmake</a>.  This function will be called once per ABI, during which the
+<p>  This function must include all compile commands, such as <a href="./autotools_cygclass.html#robo813">cygconf</a> and
+  <a href="./src_compile_cygpart.html#robo189">cygmake</a>.  This function will be called once per ABI, during which the
   following variables will be altered to match the ABI:
 </p>
-<ul><li>  <a href="./compilers_cygpart.html#robo743">CC</a>/<a href="./compilers_cygpart.html#robo746">CXX</a>/etc. have the corresponding ABI flag(s) added;
+<ul><li>  <a href="./compilers_cygpart.html#robo744">CC</a>/<a href="./compilers_cygpart.html#robo747">CXX</a>/etc. have the corresponding ABI flag(s) added;
 </li>
-<li>  <a href="./cross_cygclass.html#robo736">CROSS_LIBDIR</a> is adjusted to match the ABI-specific libdir;
+<li>  <a href="./cross_cygclass.html#robo737">CROSS_LIBDIR</a> is adjusted to match the ABI-specific libdir;
 </li>
-<li>  pkg-config's environment variables are adjusted to use <a href="./cross_cygclass.html#robo736">CROSS_LIBDIR</a>.
+<li>  pkg-config's environment variables are adjusted to use <a href="./cross_cygclass.html#robo737">CROSS_LIBDIR</a>.
 </li>
 </ul>
 <p>  The working directory of <strong>multilib_compile</strong> is unique for each ABI.  Do not
-  attempt to call cd ${<a href="./syntax_cygpart.html#robo99">B</a>} or the like, but if you may traverse into a
-  relative subdirectory with <a href="./syntax_cygpart.html#robo79">pushd</a>/<a href="./syntax_cygpart.html#robo80">popd</a>.
+  attempt to call cd ${<a href="./syntax_cygpart.html#robo100">B</a>} or the like, but if you may traverse into a
+  relative subdirectory with <a href="./syntax_cygpart.html#robo80">pushd</a>/<a href="./syntax_cygpart.html#robo81">popd</a>.
 </p>
 
 <hr />
 <a name="multilib2ecygclass2fmultilib5finstall"></a>
-<a name="robo498"></a><h2>multilib_install</h2>
+<a name="robo499"></a><h2>multilib_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo495">multilib.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo496">multilib.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>multilib_install</strong>() {
     INSTALL_COMMAND; [INSTALL_COMMAND ...]
   }
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  This function must include all install commands, such as <a href="./src_install_cygpart.html#robo180">cyginstall</a>.
+<p>  This function must include all install commands, such as <a href="./src_install_cygpart.html#robo181">cyginstall</a>.
   This function will be called once per ABI, during which the following
   variables will be altered to match the ABI:
 </p>
-<ul><li>  <a href="./cross_cygclass.html#robo736">CROSS_LIBDIR</a> is adjusted to match the ABI-specific libdir;
+<ul><li>  <a href="./cross_cygclass.html#robo737">CROSS_LIBDIR</a> is adjusted to match the ABI-specific libdir;
 </li>
-<li>  pkg-config's environment variables are adjusted to use <a href="./cross_cygclass.html#robo736">CROSS_LIBDIR</a>.
+<li>  pkg-config's environment variables are adjusted to use <a href="./cross_cygclass.html#robo737">CROSS_LIBDIR</a>.
 </li>
 </ul>
 <p>  The working directory of <strong>multilib_install</strong> is unique for each ABI.  Do not
-  attempt to call cd ${<a href="./syntax_cygpart.html#robo99">B</a>} or the like, but if you may traverse into a
-  relative subdirectory with <a href="./syntax_cygpart.html#robo79">pushd</a>/<a href="./syntax_cygpart.html#robo80">popd</a>.
+  attempt to call cd ${<a href="./syntax_cygpart.html#robo100">B</a>} or the like, but if you may traverse into a
+  relative subdirectory with <a href="./syntax_cygpart.html#robo80">pushd</a>/<a href="./syntax_cygpart.html#robo81">popd</a>.
 </p>
 
 <hr />
 <a name="multilib2ecygclass2fmultilib5fpostinstall"></a>
-<a name="robo499"></a><h2>multilib_postinstall</h2>
+<a name="robo500"></a><h2>multilib_postinstall</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo495">multilib.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo496">multilib.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>multilib_postinstall</strong>() {
     POSTINSTALL_COMMAND; [POSTINSTALL_COMMAND ...]
   }
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  This function, if <a href="./syntax_cygpart.html#robo78">defined</a>, will be run once in total after the loop which
-  calls <a href="#robo498">multilib_install</a> is complete.  This function is intended to include
+<p>  This function, if <a href="./syntax_cygpart.html#robo79">defined</a>, will be run once in total after the loop which
+  calls <a href="#robo499">multilib_install</a> is complete.  This function is intended to include
   cleanup commands, such as removing superfluous documentation from the sysroot.
   Directory traversal is completely within control of the function.
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/multilib.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-09-19 18:43:04</p>
+<p>Generated from ./cygport/cygclass/multilib.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-10-14 13:57:45</p>
 </div> <!-- footer -->
 </body>
 </html>

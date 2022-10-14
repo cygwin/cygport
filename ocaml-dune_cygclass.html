@@ -34,24 +34,24 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo483">ocaml-dune.cygclass</a></li>
+<li><a href="#robo484">ocaml-dune.cygclass</a></li>
 <ul>
-<li><a href="#robo484">OCAML_DUNE_BUILD_ARGS</a></li>
-<li><a href="#robo485">ocaml_dune_compile</a></li>
-<li><a href="#robo486">ocaml_dune_install</a></li>
-<li><a href="#robo487">ocaml_dune_test</a></li>
-<li><a href="#robo488">src_compile (ocaml-dune)</a></li>
-<li><a href="#robo489">src_install (ocaml-dune)</a></li>
-<li><a href="#robo490">src_test (ocaml-dune)</a></li>
+<li><a href="#robo485">OCAML_DUNE_BUILD_ARGS</a></li>
+<li><a href="#robo486">ocaml_dune_compile</a></li>
+<li><a href="#robo487">ocaml_dune_install</a></li>
+<li><a href="#robo488">ocaml_dune_test</a></li>
+<li><a href="#robo489">src_compile (ocaml-dune)</a></li>
+<li><a href="#robo490">src_install (ocaml-dune)</a></li>
+<li><a href="#robo491">src_test (ocaml-dune)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2focaml2ddune2ecygclass"></a>
-<a name="robo483"></a><h2>ocaml-dune.cygclass</h2>
+<a name="robo484"></a><h2>ocaml-dune.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo533">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo534">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo583">inherit</a> ocaml-dune
+<pre>  <a href="./inheritance_cygpart.html#robo584">inherit</a> ocaml-dune
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Dune is a relatively new, and increasingly popular, build system designed
@@ -61,7 +61,7 @@
 <p>  This cygclass provides functions for building Dune-based OCaml packages.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./ocaml_cygclass.html#robo467">ocaml.cygclass</a>
+<p>  <a href="./ocaml_cygclass.html#robo_top_of_doc">ocaml.cygclass</a>
 </p>
 <p class="item_name">REQUIRES</p>
 <p>  ocaml-dune
@@ -69,80 +69,80 @@
 
 <hr />
 <a name="ocaml2ddune2ecygclass2fOCAML5fDUNE5fBUILD5fARGS"></a>
-<a name="robo484"></a><h2>OCAML_DUNE_BUILD_ARGS</h2>
+<a name="robo485"></a><h2>OCAML_DUNE_BUILD_ARGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo483">ocaml-dune.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo484">ocaml-dune.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Arguments, usually build targets, to be passed to "dune build"
-  by <a href="#robo485">ocaml_dune_compile</a>.
+  by <a href="#robo486">ocaml_dune_compile</a>.
 </p>
 
 <hr />
 <a name="ocaml2ddune2ecygclass2focaml5fdune5fcompile"></a>
-<a name="robo485"></a><h2>ocaml_dune_compile</h2>
+<a name="robo486"></a><h2>ocaml_dune_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo483">ocaml-dune.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo484">ocaml-dune.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Runs "dune build", passing <a href="#robo484">OCAML_DUNE_BUILD_ARGS</a> and any given arguments.
+<p>  Runs "dune build", passing <a href="#robo485">OCAML_DUNE_BUILD_ARGS</a> and any given arguments.
 </p>
 
 <hr />
 <a name="ocaml2ddune2ecygclass2focaml5fdune5finstall"></a>
-<a name="robo486"></a><h2>ocaml_dune_install</h2>
+<a name="robo487"></a><h2>ocaml_dune_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo483">ocaml-dune.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo484">ocaml-dune.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Runs "dune install" with a destdir of $<a href="./syntax_cygpart.html#robo101">D</a>.
+<p>  Runs "dune install" with a destdir of $<a href="./syntax_cygpart.html#robo102">D</a>.
 </p>
 
 <hr />
 <a name="ocaml2ddune2ecygclass2focaml5fdune5ftest"></a>
-<a name="robo487"></a><h2>ocaml_dune_test</h2>
+<a name="robo488"></a><h2>ocaml_dune_test</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo483">ocaml-dune.cygclass</a> ] [ <a href="./cygport_testsuite_functions.html#robo_top_of_doc">Testsuite Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo484">ocaml-dune.cygclass</a> ] [ <a href="./cygport_testsuite_functions.html#robo_top_of_doc">Testsuite Functions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Runs "dune runtest" with any given test directories.
 </p>
 
 <hr />
 <a name="ocaml2ddune2ecygclass2fsrc5fcompile2028ocaml2ddune29"></a>
-<a name="robo488"></a><h2>src_compile (ocaml-dune)</h2>
+<a name="robo489"></a><h2>src_compile (ocaml-dune)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo483">ocaml-dune.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo484">ocaml-dune.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo189">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">S</a><span class="sign">}</span>
-        <a href="#robo485">ocaml_dune_compile</a>
+<pre class="source"><a href="./src_compile_cygpart.html#robo190">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">S</a><span class="sign">}</span>
+        <a href="#robo486">ocaml_dune_compile</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="ocaml2ddune2ecygclass2fsrc5finstall2028ocaml2ddune29"></a>
-<a name="robo489"></a><h2>src_install (ocaml-dune)</h2>
+<a name="robo490"></a><h2>src_install (ocaml-dune)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo483">ocaml-dune.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo484">ocaml-dune.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo182">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">S</a><span class="sign">}</span>
-        <a href="#robo486">ocaml_dune_install</a>
+<pre class="source"><a href="./src_install_cygpart.html#robo183">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">S</a><span class="sign">}</span>
+        <a href="#robo487">ocaml_dune_install</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="ocaml2ddune2ecygclass2fsrc5ftest2028ocaml2ddune29"></a>
-<a name="robo490"></a><h2>src_test (ocaml-dune)</h2>
+<a name="robo491"></a><h2>src_test (ocaml-dune)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo483">ocaml-dune.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo484">ocaml-dune.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_test_cygpart.html#robo112">src_test</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo98">S</a><span class="sign">}</span>
-        <a href="#robo487">ocaml_dune_test</a>
+<pre class="source"><a href="./src_test_cygpart.html#robo113">src_test</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">S</a><span class="sign">}</span>
+        <a href="#robo488">ocaml_dune_test</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/ocaml-dune.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-09-19 18:43:04</p>
+<p>Generated from ./cygport/cygclass/ocaml-dune.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-10-14 13:57:45</p>
 </div> <!-- footer -->
 </body>
 </html>
