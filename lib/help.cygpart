@@ -38,7 +38,7 @@ __show_help() {
 
 		On Cygwin, if neither the --32 nor --64 options are enabled,
 		the package will be built for the architecture on which cygport
-		is run.  On other systems, one of those options is required.
+		is run.  On other systems, the x86_64 architecture is the default.
 
 		COMMAND may be one or more of the following:
 
