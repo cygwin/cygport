@@ -1,5 +1,5 @@
 category: Libs
-requires: libcairomm1.0-devel libglibmm2.4-devel libpango1.0-devel libpangomm1.4_1 pkg-config 
+requires: libcairomm1.0-devel libglibmm2.4-devel libpango1.0-devel libpangomm1.4_1 pkg-config
 sdesc: "C++ bindings for Pango"
 ldesc: "gtkmm is the official C++ interface for the popular GUI library
 GTK+. It closely follows GTK+ development. Highlights include typesafe

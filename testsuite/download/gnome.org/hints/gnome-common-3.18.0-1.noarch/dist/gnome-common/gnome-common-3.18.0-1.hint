@@ -1,5 +1,5 @@
 category: Devel
-requires:  
+requires: 
 sdesc: "Common development files for GNOME packages"
 ldesc: "Common development files for GNOME packages"
 

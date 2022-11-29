@@ -1,5 +1,5 @@
 category: PHP
-requires: cygwin php 
+requires: cygwin php
 sdesc: "PHP bitset manipulation library"
 ldesc: "The BitSet library assists by providing a mechanism to manage sets
 of bits. This provides a similar API (object-based) to java.util.BitSet with

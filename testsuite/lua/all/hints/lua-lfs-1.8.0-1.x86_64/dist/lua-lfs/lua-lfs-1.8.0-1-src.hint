@@ -1,5 +1,5 @@
 category: Lua
-build-depends: cygport   lua  liblua-devel
+build-depends: cygport lua liblua-devel
 sdesc: "Lua file system library"
 ldesc: "LuaFileSystem is a Lua library developed to complement the set of
 functions related to file systems offered by the standard Lua

@@ -1,5 +1,5 @@
 category: Admin
-requires:  
+requires: 
 sdesc: "NT/W2K service initiator"
 ldesc: "NT/W2K service initiator"
 

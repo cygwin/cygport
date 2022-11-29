@@ -1,5 +1,5 @@
 category: Libs
-requires: girepository-GLib2.0 libjson-glib1.0_0 
+requires: girepository-GLib2.0 libjson-glib1.0_0
 sdesc: "GObject JSON parser library"
 ldesc: "GLib JSON manipulation library"
 external-source: json-glib1.0

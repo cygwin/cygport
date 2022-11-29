@@ -1,5 +1,5 @@
 category: X11
-requires:  
+requires: 
 sdesc: "Inconsolata monospace font"
 ldesc: "Inconsolata is a monospace font, designed for code listings and
 the like, in print."

@@ -1,5 +1,5 @@
 category: Libs
-requires: cygwin libQt5Core5 libQt5Gui5 libQt5XdgIconLoader2 libstdc++6 
+requires: cygwin libQt5Core5 libQt5Gui5 libQt5XdgIconLoader2 libstdc++6
 sdesc: "Qt5 XDG library"
 ldesc: "A Qt5 implementation of Freedesktop.org specifications"
 external-source: libqt5xdg

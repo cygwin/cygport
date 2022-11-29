@@ -1,5 +1,5 @@
 category: X11
-requires:  
+requires: 
 sdesc: "GTK3 Unico theme engine"
 ldesc: "Unico is a Gtk+ engine that aims to be the more complete yet
 powerful theming engine for Gtk+ 3.0 and newer. It’s the first Gtk+ engine

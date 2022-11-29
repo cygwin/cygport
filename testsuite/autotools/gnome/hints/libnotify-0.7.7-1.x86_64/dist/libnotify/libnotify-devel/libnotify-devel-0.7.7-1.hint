@@ -1,5 +1,5 @@
 category: Libs
-requires: libgdk_pixbuf2.0-devel libglib2.0-devel libnotify4 pkg-config 
+requires: libgdk_pixbuf2.0-devel libglib2.0-devel libnotify4 pkg-config
 sdesc: "GObject desktop notification utility"
 ldesc: "GNOME desktop notification library"
 external-source: libnotify

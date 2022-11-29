@@ -1,5 +1,5 @@
 category: Libs
-requires: cygwin libglib2.0_0 libnotify4 
+requires: cygwin libglib2.0_0 libnotify4
 sdesc: "GObject desktop notification utility"
 ldesc: "GNOME desktop notification library"
 

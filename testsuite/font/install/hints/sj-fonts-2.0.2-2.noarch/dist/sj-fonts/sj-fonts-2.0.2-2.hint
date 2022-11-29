@@ -1,5 +1,5 @@
 category: X11
-requires:  
+requires: 
 sdesc: "Cursive handwriting TTF fonts"
 ldesc: "Two cursive handwriting fonts by Steve Jordi released under the GPL"
 obsoletes: font-sjfonts-ttf

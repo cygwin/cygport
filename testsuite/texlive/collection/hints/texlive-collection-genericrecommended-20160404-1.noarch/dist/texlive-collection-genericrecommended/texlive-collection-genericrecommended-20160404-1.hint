@@ -1,5 +1,5 @@
 category: Publishing
-requires: coreutils texlive-collection-basic 
+requires: coreutils texlive-collection-basic
 sdesc: "TeX Live genericrecommended package collection"
 ldesc: "TeX Live is an easy way to get up and running with the TeX
 document production system.  It includes all the major TeX-related

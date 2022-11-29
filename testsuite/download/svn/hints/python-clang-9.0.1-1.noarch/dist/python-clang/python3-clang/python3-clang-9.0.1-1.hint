@@ -1,5 +1,5 @@
 category: Python Virtual
-requires:  python39-clang
+requires: python39-clang
 sdesc: "Python bindings for Clang-C Source Indexing Library"
 ldesc: "The python3-clang virtual package. Selecting this package for installation will cause the python39-clang package to be installed."
 external-source: python-clang

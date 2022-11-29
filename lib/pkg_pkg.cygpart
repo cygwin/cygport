@@ -459,6 +459,10 @@ __gpg_sign() {
 	gpg --detach-sign ${1};
 }
 
+__squeeze_whitespace() {
+	echo -n "$*" | tr -s '[:space:]' ' '
+}
+
 __pkg_srcpkg() {
 	local src;
 	local pkg_tag=${1};
@@ -545,8 +549,8 @@ __pkg_srcpkg() {
 			-a -n "${!pkg_summary_var:-${SUMMARY}}${!pkg_description_var:-${DESCRIPTION}}" ]
 		then
 			cat > ${distdir}/${PN}/${PN}-${PVR}-src.hint <<-_EOF
-category: ${!pkg_category_var:-${CATEGORY}}
-build-depends: cygport ${BUILD_REQUIRES}
+category: $(__squeeze_whitespace ${!pkg_category_var:-${CATEGORY}})
+build-depends: cygport $(__squeeze_whitespace ${BUILD_REQUIRES})
 sdesc: "${!pkg_summary_var:-${SUMMARY}}"
 ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
 skip:
@@ -820,29 +824,29 @@ __pkg_dist() {
 			fi
 
 			cat > ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
-category: ${!pkg_category_var:-${CATEGORY}}
-requires: ${pkg_bin_requires} ${!pkg_requires_var}
+category: $(__squeeze_whitespace ${!pkg_category_var:-${CATEGORY}})
+requires: $(__squeeze_whitespace ${pkg_bin_requires} ${!pkg_requires_var})
 sdesc: "${!pkg_summary_var:-${SUMMARY}}"
 ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
 _EOF
 			if [ -n "${!pkg_obsoletes_var}" ]
 			then
 				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
-obsoletes: ${!pkg_obsoletes_var}
+obsoletes: $(__squeeze_whitespace ${!pkg_obsoletes_var})
 _EOF
 			fi
 
 			if [ -n "${!pkg_provides_var}" ]
 			then
 				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
-provides: ${!pkg_provides_var}
+provides: $(__squeeze_whitespace ${!pkg_provides_var})
 _EOF
 			fi
 
 			if [ -n "${!pkg_conflicts_var}" ]
 			then
 				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
-conflicts: ${!pkg_conflicts_var}
+conflicts: $(__squeeze_whitespace ${!pkg_conflicts_var})
 _EOF
 			fi
 
@@ -893,7 +897,7 @@ _EOF
 			if [ -n "${!dbg_obsoletes_var}" ]
 			then
 				cat >> ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.hint <<-_EOF
-obsoletes: ${!dbg_obsoletes_var}
+obsoletes: $(__squeeze_whitespace ${!dbg_obsoletes_var})
 _EOF
 			fi
 		fi

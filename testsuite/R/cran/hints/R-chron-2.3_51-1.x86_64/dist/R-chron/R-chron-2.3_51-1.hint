@@ -1,5 +1,5 @@
 category: Math
-requires: cygwin R 
+requires: cygwin R
 sdesc: "Chronological Objects for R"
 ldesc: "Provides chronological objects which can handle dates and times."
 

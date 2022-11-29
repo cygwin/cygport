@@ -1,5 +1,5 @@
 category: Doc
-requires:  
+requires: 
 sdesc: "GObject desktop notification utility"
 ldesc: "GNOME desktop notification library"
 external-source: libnotify

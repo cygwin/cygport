@@ -1,5 +1,5 @@
 category: Libs
-requires: cygwin 
+requires: cygwin
 sdesc: "S3TC implementation"
 ldesc: "Software implementation of the S3 Texture Compression algorithm"
 

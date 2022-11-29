@@ -1,5 +1,5 @@
 category: Devel
-requires: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-qt5-base 
+requires: mingw64-i686-gcc-core mingw64-i686-gcc-g++ mingw64-i686-qt5-base
 sdesc: "Qt5 settings for Win32 toolchain"
 ldesc: "This program allows users to configure Qt5 settings (theme,
 font, icons, etc.) under DE/WM without Qt integration."

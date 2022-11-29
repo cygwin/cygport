@@ -1,5 +1,5 @@
 category: Perl
-requires:  
+requires: 
 sdesc: "Perl Text::Glob distribution"
 ldesc: "Perl module for matching globbing patterns against text"
 

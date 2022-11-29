@@ -1,5 +1,5 @@
 category: Web
-requires:  
+requires: 
 sdesc: "Monotone web interface"
 ldesc: "ViewMTN is a web interface to the ​Monotone distributed version
 control system. It aims to provide a convenient and useful web interface to

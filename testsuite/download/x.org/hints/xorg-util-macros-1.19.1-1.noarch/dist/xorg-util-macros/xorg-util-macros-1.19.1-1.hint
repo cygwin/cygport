@@ -1,5 +1,5 @@
 category: Devel
-requires:  
+requires: 
 sdesc: "X.Org aclocal macros"
 ldesc: "X.Org aclocal macros"
 

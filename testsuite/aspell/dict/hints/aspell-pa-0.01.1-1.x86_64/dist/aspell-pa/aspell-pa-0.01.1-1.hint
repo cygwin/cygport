@@ -1,5 +1,5 @@
 category: Text
-requires:  
+requires: 
 sdesc: "Aspell Punjabi dictionaries"
 ldesc: "GNU Aspell is a Free and Open Source spell checker designed to
 eventually replace Ispell. It can either be used as a library or as an

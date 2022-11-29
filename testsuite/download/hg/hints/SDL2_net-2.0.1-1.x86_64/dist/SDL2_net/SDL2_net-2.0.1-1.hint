@@ -1,5 +1,5 @@
 category: Libs
-requires:  
+requires: 
 sdesc: "SDL network library"
 ldesc: "This is an example portable network library for use with SDL."
 

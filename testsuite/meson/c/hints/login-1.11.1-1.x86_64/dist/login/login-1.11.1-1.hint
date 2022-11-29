@@ -1,5 +1,5 @@
 category: Base
-requires: cygwin 
+requires: cygwin
 sdesc: "Sign on to a system"
 ldesc: "Sign on to a system"
 
