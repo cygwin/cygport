@@ -125,7 +125,7 @@ warning() {
 #  Displays an informational message.
 #****
 inform() {
-	echo -e "\e[1;32m*** Info:\e[0;0m ${1}";
+	echo -e "\e[1;32m*** Info:\e[0;0m ${1}" >&2;
 }
 
 #****f* Messages/verbose
