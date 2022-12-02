@@ -24,9 +24,10 @@
 #****h* Cygclasses/python-wheel.cygclass
 #  DESCRIPTION
 #  Wheels are the new standard for installing Python libraries and programs.
-#  The build is defined by a setup.py file in the top source directory, which
-#  controls the installation of files and the building of C Python extensions.
-#  Many such packages are hosted on the Python Package Index (PyPI).
+#  The build is defined by a PEP 517 conformant source tree, or by a top-level
+#  setup.py file, which controls the installation of files and the building of C
+#  Python extensions.  Many such packages are hosted on the Python Package Index
+#  (PyPI).
 #
 #  This cygclass handles the building of wheel-based Python module packages
 #  for multiple Python versions simultaneously.
@@ -148,23 +149,30 @@ fi
 #  SYNOPSIS
 #  python_wheel_compile [OPTIONS]
 #  DESCRIPTION
-#  Runs the setup.py 'bdist_wheel' command, to which any arguments are passed.
+#  If a setup.py file is present, runs the setup.py 'bdist_wheel' command, to
+#  which any arguments are passed.  Otherwise, for a PEP 517 conformant source
+#  tree, runs 'pip wheel'.
 #****
 python_wheel_compile() {
 	local ver
 
-	if [ ! -e setup.py ]
+	if [ ! -e setup.py ] && [ ! -e setup.cfg ]
 	then
-		error "No Python Distutils module detected"
+		error "No Python Distutils module detected in source tree"
 	fi
 
 	for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
 	do
 		[ ! -d build/lib ] || find build/lib -delete
-		# setuptools.launch imports setuptools hooks regardles of setup.py
 		if [ ! -f dist/*-py2.py3*-none-any.whl -a ! -f dist/*py${ver:0:1}-none-any.whl ]
 		then
-			/usr/bin/python${ver} -msetuptools.launch setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
+			if [ ! -e setup.py ]
+			then
+				pip${ver} wheel --no-deps -w dist . || error "pip${ver} wheel failed"
+			else
+				# setuptools.launch imports setuptools hooks regardles of setup.py
+				/usr/bin/python${ver} -msetuptools.launch setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
+			fi
 		fi
 	done
 }
@@ -178,9 +186,9 @@ python_wheel_compile() {
 python_wheel_install() {
 	local ver whl
 
-	if [ ! -e setup.py ]
+	if [ ! -e setup.py ] && [ ! -e setup.cfg ]
 	then
-		error "No Python Distutils module detected"
+		error "No Python Distutils module detected in source tree"
 	fi
 
 	for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
