@@ -1,5 +1,12 @@
 0.35.5:
 	* Default to x86_64-pc-cygwin target on Linux.
+	* 'inform' messages are now sent to stderr
+	* Canonicalize whitespace in the values of .hint file keys which are
+           single-line, space-separated lists
+	* python-wheel: Handle PEP 517 projects without a setup.py
+	* Umprove auto-decompression for patches to handle .xz & .zst
+	* Decompress SRC_URI archives and files using ZStandard compression
+	* Implement --jobs/-j N option to specify number of build jobs to use
 
 0.35.4:
 	* Replace 'egrep' with 'grep -E' throughout
