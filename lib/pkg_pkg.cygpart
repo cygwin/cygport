@@ -65,7 +65,7 @@ __tar() {
 			error "tar option for TAR_COMPRESSION_EXT='${TAR_COMPRESSION_EXT}' unknown"
 			;;
 	esac
-	tar ${TAR_COMPRESSION_OPT} -cvf "$@"
+	tar ${TAR_COMPRESSION_OPT} --owner=Guest:501 --group=None:513 -cvf "$@"
 }
 
 __pkg_binpkg() {
