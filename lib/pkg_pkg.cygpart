@@ -517,17 +517,17 @@ __pkg_srcpkg() {
 
 	if [ -s ${patchdir}/${cygwin_patchfile} ]
 	then
-		cp ${patchdir}/${cygwin_patchfile} ${spkgdir};
+		cp --preserve=timestamps ${patchdir}/${cygwin_patchfile} ${spkgdir};
 	fi
 
 	if [ -s ${patchdir}/${src_patchfile} ]
 	then
-		cp ${patchdir}/${src_patchfile} ${spkgdir};
+		cp --preserve=timestamps ${patchdir}/${src_patchfile} ${spkgdir};
 	fi
 
 	__step "Creating source package";
 
-	cp ${top}/${cygportfile} ${spkgdir};
+	cp --preserve=timestamps ${top}/${cygportfile} ${spkgdir};
 
 	for src in ${_src_orig_pkgs} ${_src_orig_patches}
 	do
@@ -540,7 +540,7 @@ __pkg_srcpkg() {
 		else
 			src=${top}/${src};
 		fi
-		cp ${src} ${spkgdir};
+		cp --preserve=timestamps ${src} ${spkgdir};
 	done
 
 	if __arg_bool SIG
