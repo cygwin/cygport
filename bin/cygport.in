@@ -431,7 +431,10 @@ do
     n=0
     while (( n < ${#ARCHES[*]} ))
     do
-        read -r < <(declare ARCH=${ARCHES[$n]}; declare ARCH_${ARCH}=1; source ${top}/${cygportfile} 2>/dev/null; eval echo "\$${VAR}")
+        # the '\n' at the end ensures that if the source-ing fails, the process
+        # substitution still outputs something, so read has some input and
+        # doesn't fail on seeing an end-of-file
+        read -r < <( (declare ARCH=${ARCHES[$n]}; declare ARCH_${ARCH}=1; source ${top}/${cygportfile} 2>/dev/null ; eval echo "\$${VAR}}" ) || echo "\n" )
         VALUE[$n]=${REPLY}
         if (( n > 0 ))
         then
@@ -447,7 +450,7 @@ unset n VALUE ARCHES VAR
 
 # probe if the cygport sets ARCH - if it does, set ARCHES to that value,
 # otherwise set it to the default value "all".
-PROBE_ARCH=$(unset ARCH; source ${top}/${cygportfile} 2>/dev/null; echo "${ARCH}")
+PROBE_ARCH=$( (unset ARCH; source ${top}/${cygportfile} 2>/dev/null ; echo "${ARCH}") || true )
 if [ -z "${PROBE_ARCH}" ]
 then
 	declare -r ARCHES="all"
