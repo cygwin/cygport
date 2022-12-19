@@ -1,0 +1,3 @@
+declare -r ARCHES="all"
+declare -- CROSS_HOST=""
+declare -- INHERITED="git ninja meson autotools "

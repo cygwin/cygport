@@ -1,0 +1,3 @@
+declare -r ARCHES="noarch"
+declare -- CROSS_HOST=""
+declare -- INHERITED="font autotools "

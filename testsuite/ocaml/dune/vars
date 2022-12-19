@@ -1,0 +1,4 @@
+declare -r ARCHES="all"
+declare -- BUILD_REQUIRES="ocaml ocaml-dune"
+declare -- CROSS_HOST=""
+declare -- INHERITED="ocaml ocaml-dune autotools "

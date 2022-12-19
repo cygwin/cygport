@@ -1,0 +1,3 @@
+declare -r ARCHES="noarch"
+declare -- CROSS_HOST="i686-w64-mingw32"
+declare -- INHERITED="qt5 qt5-qmake cross autotools "

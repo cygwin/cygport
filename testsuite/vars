@@ -1,0 +1,35 @@
+#!/bin/bash
+set -e
+
+cd ${top_srcdir}/testsuite/
+for c in $(find . -name \*.cygport -not -path './logic/*')
+do
+  test=$(dirname ${c})
+  cygport=$(basename ${c})
+
+  test -d ${top_builddir}/testsuite/$test || mkdir -p ${top_builddir}/testsuite/$test
+  cd ${top_builddir}/testsuite/$test
+  cp -f ${top_srcdir}/testsuite/$test/$cygport $cygport
+
+  ${top_builddir}/bin/cygport-inplace $cygport vars ARCHES BUILD_REQUIRES CROSS_HOST INHERITED >vars
+
+  # compare results
+  if [ -a ${top_srcdir}/testsuite/$test/vars ];
+  then
+      diff -u ${top_srcdir}/testsuite/$test/vars vars || test_failed=1
+  else
+      # if CREATE_VARS is set, create the expected vars file for use in future testing
+      if [ -z ${CREATE_VARS+x} ]
+      then
+          echo "can't verify vars as expected vars ${top_srcdir}/testsuite/$test/vars not found." >&2
+          test_failed=1
+      else
+          cp vars ${top_srcdir}/testsuite/$test/vars
+      fi
+    fi
+done
+
+if [ -n "$test_failed" ]
+then
+    exit 1
+fi

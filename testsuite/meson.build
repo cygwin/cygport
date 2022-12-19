@@ -44,3 +44,5 @@ test(t[0], test_driver,
      is_parallel: t.length() > 1 ? false : true,
      timeout: t.length() > 1 ? t[1] : 240)
 endforeach
+
+test('vars', find_program('vars'), env: testenv, timeout: 0)

@@ -1,0 +1,4 @@
+declare -r ARCHES="all"
+declare -- BUILD_REQUIRES="  lua  liblua-devel"
+declare -- CROSS_HOST=""
+declare -- INHERITED="lua autotools "
