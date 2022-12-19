@@ -360,9 +360,14 @@ __target_is_embedded() {
 #****
 #****d* Globals/C
 #  DESCRIPTION
-#  The CYGWIN-PATCHES directory where Cygwin READMEs, setup.hint files,
-#  custom postinstall scripts, and other Cygwin-specific files are placed
-#  before packaging.
+#  The directory where Cygwin READMEs, custom post-install scripts, shell
+#  profile scripts, PKG.list files, and other Cygwin-specific files are placed.
+#  NOTE
+#  Providing setup.hint or PKG.hint files in this directory (rather than
+#  allowing .hint files to be automatically generated) is an obsolete feature
+#  and should not be used in new packages.
+#
+#  For historical reasons, this directory is named 'CYGWIN-PATCHES'.
 #****
 #****d* Globals/D
 #  DESCRIPTION

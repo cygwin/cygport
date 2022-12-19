@@ -420,6 +420,11 @@ _EOF
 #  DESCRIPTION
 #  Standard documentation files in $S will be automatically installed into
 #  $D/usr/share/doc/PN.  Empty files will be skipped.
+#
+#  Any README in $C will be automatically installed into /usr/share/doc/Cygwin/
+#  as $PN.README. Any PKG.README will be automatically installed into
+#  /usr/share/doc/Cygwin/ (where PKG is the name of a binary package).
+#
 #  SEE ALSO
 #  RESTRICT
 #****
@@ -561,6 +566,21 @@ __prepetc() {
 	local -i n;
 	local s;
 
+#****P* Postinstall/Post-install and Pre-remove Scripts
+#  DESCRIPTION
+#  Any postinstall.sh or $PN.postinstall in $C will be automatically appended to
+#  /etc/postinstall/$PN.sh. Any PKG.postinstall in $C will be automatically
+#  appended to /etc/postinstall/$PKG.sh (where PKG is the name of a binary
+#  package).
+#
+#  Likewise, any preremove.sh or $PN.preremove in $C will be automatically
+#  appended to /etc/preremove/$PN.sh. Any PKG.preremove in $C will be
+#  automatically appended to /etc/preremove/$PKG.sh
+#
+#  As they are appended, these scripts should be written as stubs, without the
+#  shebang header.
+#****
+
 	for s in postinstall preremove
 	do
 		if [ -f ${C}/${s}.sh -a -f ${C}/${PN}.${s} ]
@@ -588,6 +608,12 @@ __prepetc() {
 			n+=1
 		done
 	done
+
+#****P* Postinstall/Shell Profile Files
+#  DESCRIPTION
+#  Any profile.d.{sh,csh,fish} in $C will be automatically installed into
+#  /etc/profile.d/ as ${PN}.{sh,csh,fish}
+#****
 
 	if [ -f ${C}/profile.d.sh ]
 	then

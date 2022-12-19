@@ -185,7 +185,7 @@ included in CYGWIN-PATCHES.
     
 Custom postinstall and preremove commands may be included in the
 CYGWIN-PATCHES directory as postinstall.sh and preremove.sh; these
-scripts should be written as stubs, without the sh-bang header.
+scripts should be written as stubs, without the shebang header.
 
 
 5. REQUIREMENTS
