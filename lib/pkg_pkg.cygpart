@@ -318,6 +318,7 @@ __pkg_diff() {
 	local diff_excludes_x;
 	local difflevel;
 	local exclude;
+	local optional_patchfiles;
 
 	default_excludes="CYGWIN-PATCHES aclocal.m4~ aclocal.m4t autom4te.cache
 		config.cache config.guess config.log config.status config.sub
@@ -461,18 +462,28 @@ __pkg_diff() {
 			;;
 	esac
 
-	# diff exits >0 when targets differ, hence catch exception with true
 	if [ "${SRC_DIR}" = "." ]
 	then
-		diff -urN -x '*~' \
-			${origsrcdir##*/}/CYGWIN-PATCHES ${srcdir##*/}/CYGWIN-PATCHES \
-			> ${patchdir}/${cygwin_patchfile} || true;
 		difflevel=1;
 	else
-		diff -urN -x '*~' \
-			${origsrcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES ${srcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES \
-			> ${patchdir}/${cygwin_patchfile} || true;
+
 		difflevel=2;
+	fi
+
+	if [ -z "${CYGWIN_FILES}" ]
+	then
+		# diff exits >0 when targets differ, hence catch exception with true
+		if [ "${SRC_DIR}" = "." ]
+		then
+			diff -urN -x '*~' \
+				${origsrcdir##*/}/CYGWIN-PATCHES ${srcdir##*/}/CYGWIN-PATCHES \
+				> ${patchdir}/${cygwin_patchfile} || true;
+		else
+			diff -urN -x '*~' \
+				${origsrcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES ${srcdir##*/}/${SRC_DIR}/CYGWIN-PATCHES \
+				> ${patchdir}/${cygwin_patchfile} || true;
+		fi
+		optional_patchfiles=${patchdir}/${cygwin_patchfile}
 	fi
 
 	if defined _CYGPORT_RESTRICT_diff_
@@ -485,9 +496,9 @@ __pkg_diff() {
 			> ${patchdir}/${src_patchfile} || true;
 	fi
 
-	sed -b -e '/^diff -u/d' -i ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
+	sed -b -e '/^diff -u/d' -i ${optional_patchfiles} ${patchdir}/${src_patchfile};
 
-	diffstat -p${difflevel} ${patchdir}/${cygwin_patchfile} ${patchdir}/${src_patchfile};
+	diffstat -p${difflevel} ${optional_patchfiles} ${patchdir}/${src_patchfile};
 }
 
 __gpg_sign() {
@@ -502,6 +513,7 @@ __squeeze_whitespace() {
 }
 
 __pkg_srcpkg() {
+	local cygwin_file;
 	local src;
 	local pkg_tag=${1};
 
@@ -528,6 +540,11 @@ __pkg_srcpkg() {
 
 	__step "Creating source package";
 
+	for cygwin_file in ${CYGWIN_FILES}
+	do
+		cp --preserve=timestamps ${C}/${cygwin_file} ${spkgdir}
+	done
+
 	cp --preserve=timestamps ${top}/${cygportfile} ${spkgdir};
 
 	for src in ${_src_orig_pkgs} ${_src_orig_patches}
@@ -553,6 +570,12 @@ __pkg_srcpkg() {
 			if [ -f ${spkgdir}/${cygwin_patchfile} ]
 			then
 				__gpg_sign ${spkgdir}/${cygwin_patchfile} "CYGWIN PATCH";
+			fi
+
+			if [ -n "${CYGWIN_FILES}" && check_prog sha512sum ]
+			then
+				(cd ${spkgdir} ; sha512sum ${CYGWIN_FILES} >${spkgdir}/sha512.sum)
+				__gpg_sign ${spkgdir}/sha512.sum "CYGWIN FILES MANIFEST";
 			fi
 
 			if [ -f ${spkgdir}/${src_patchfile} ]
