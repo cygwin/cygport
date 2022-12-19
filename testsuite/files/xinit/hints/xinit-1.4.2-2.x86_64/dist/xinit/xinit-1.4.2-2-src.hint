@@ -1,0 +1,10 @@
+category: X11
+build-depends: cygport 
+sdesc: "X.Org X server launcher"
+ldesc: "This package contains programs used to start the X Window System
+server and a first client program in environments that use multiple window
+systems."
+skip:
+
+homepage: https://www.x.org/
+license: MIT

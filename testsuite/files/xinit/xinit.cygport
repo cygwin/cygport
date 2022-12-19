@@ -1,0 +1,44 @@
+# A simplified version of xinit.cygport to excercize the CYGWIN_FILES feature
+
+NAME="xinit"
+VERSION=1.4.2
+RELEASE=2
+CATEGORY="X11"
+SUMMARY="X.Org X server launcher"
+DESCRIPTION="This package contains programs used to start the X Window System
+server and a first client program in environments that use multiple window
+systems."
+HOMEPAGE="https://www.x.org/"
+LICENSE="MIT"
+
+SRC_DIR="."
+
+SRC_URI="
+	startxdmcp.bat
+	startxwin
+	startxwin.1
+"
+
+CYGWIN_FILES="
+	README
+	postinstall.sh
+	preremove.sh
+	profile.d.csh
+	profile.d.fish
+	profile.d.sh
+"
+
+xinit_REQUIRES="adwaita-themes dbus-x11 run sed util-linux setxkbmap xauth xdg-user-dirs xmodmap xrdb xorg-server xterm xwin-xdg-menu"
+# make sure we do not forget to add postinstall/preremove
+xinit_CONTENTS="etc/postinstall/ etc/preremove/ etc/profile.d/ usr/"
+
+src_compile() {
+	:
+}
+
+src_install() {
+	cd ${S}
+	dobin startxdmcp.bat startxwin
+	unix2dos ${D}/usr/bin/*.bat
+	doman startxwin.1
+}

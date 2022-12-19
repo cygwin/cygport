@@ -1,0 +1,7 @@
+category: X11
+requires: bash coreutils cygutils adwaita-themes dbus-x11 run sed util-linux setxkbmap xauth xdg-user-dirs xmodmap xrdb xorg-server xterm xwin-xdg-menu
+sdesc: "X.Org X server launcher"
+ldesc: "This package contains programs used to start the X Window System
+server and a first client program in environments that use multiple window
+systems."
+

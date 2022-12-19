@@ -1,0 +1,9 @@
+/etc/postinstall/xinit.sh
+/etc/preremove/xinit.sh
+/etc/profile.d/xinit.csh
+/etc/profile.d/xinit.fish
+/etc/profile.d/xinit.sh
+/usr/bin/startxdmcp.bat
+/usr/bin/startxwin
+/usr/share/doc/Cygwin/xinit.README
+/usr/share/man/man1/startxwin.1.gz

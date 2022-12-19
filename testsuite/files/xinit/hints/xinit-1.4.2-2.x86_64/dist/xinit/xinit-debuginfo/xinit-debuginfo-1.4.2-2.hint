@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: xinit
+sdesc: "Debug info for xinit"
+ldesc: "This package contains files necessary for debugging the
+xinit package with gdb."
+

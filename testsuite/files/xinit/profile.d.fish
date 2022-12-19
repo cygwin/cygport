@@ -1,0 +1,4 @@
+set -e XAPPLRESDIR
+set -e XCMSDB
+set -e XKEYSYMDB
+set -e XNLSPATH
