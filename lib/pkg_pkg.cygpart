@@ -98,9 +98,11 @@ __pkg_binpkg() {
 #  PKG_NAMES="foo libfoo1 libfoo-devel libfoo-doc"
 #  PKG_HINTS="setup runtime devel doc"
 #  DESCRIPTION
-#  A list of unsuffixed .hint files which should be used for each given
+#  A list of unsuffixed .hint files in $C, which should be used for each given
 #  binary package in PKG_NAMES.
 #  NOTES
+#  * This variable is obsolete, and allowing cygport to automatically generate
+#    hints should be used in new packages.
 #  * If PN is not included in PKG_NAMES, a file named $PN.hint or setup.hint
 #    is still required for the source package, but should not be listed in
 #    PKG_HINTS.
@@ -131,8 +133,7 @@ __pkg_binpkg() {
 #    form of an array.  This form should be considered deprecated in favour
 #    of explicitly-named variables as described above.
 #  * If the contents of a package are too many or complicated to easily
-#    describe in this form, a PN.list file can be used instead and placed
-#    in C before the packaging stage.
+#    describe in this form, a PKG.list file in $C can be used instead.
 #****
 
 	pkg_list=(${PKG_LISTS:-${PKG_NAMES}});
