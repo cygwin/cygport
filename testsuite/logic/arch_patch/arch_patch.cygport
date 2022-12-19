@@ -1,0 +1,12 @@
+NAME=arch_patch
+VERSION=1
+RELEASE=1
+
+case ${ARCH} in
+  "i686")
+    PATCH_URI="fix-for-x86.patch"
+    ;;
+  "x86_64")
+    PATCH_URI="fix-for-x86_64.patch"
+    ;;
+esac

@@ -1,0 +1,12 @@
+NAME=arch_src
+VERSION=1
+RELEASE=1
+
+case ${ARCH} in
+  "i686")
+    SRC_URI="https://invalid.com/source-x86.tar.xz"
+    ;;
+  "x86_64")
+    SRC_URI="https://invalid.com/source-x86_64.tar.xz"
+    ;;
+esac
