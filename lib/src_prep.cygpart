@@ -1,4 +1,3 @@
-
 ################################################################################
 #
 # src_prep.cygpart - cygport source unpacking and preparation functions
@@ -286,6 +285,7 @@ cygpatch() {
 }
 
 __src_prep() {
+	local cygwin_file;
 	local sigext;
 	local sig_exts="asc sig sign";
 	local src_orig_patch;
@@ -463,6 +463,41 @@ __src_prep() {
 
 	mkdir -p ${C};
 	ln -sfn ${C} ${workdir}/CYGWIN-PATCHES;
+
+#****v* Preparation/CYGWIN_FILES
+#  DESCRIPTION
+#  A list of files which are to be included in the source package, and installed
+#  into ${C}.
+#  NOTE
+#  Historically, files in $C were created by a patch file named
+#  ${PF}.cygwin.patch, which is automatically applied and generated.  This
+#  variable should not be set if that file is present.
+#
+#  In the absence of a ${PF}.cygwin.patch file, the default value is 'README' if
+#  a file of that name exists, otherwise empty.
+#
+#****
+
+	if [ ! -e ${top}/${cygwin_patchfile} ]
+	then
+		if [ -f ${top}/README ]
+		then
+			CYGWIN_FILES="${CYGWIN_FILES:-README}"
+		fi
+	fi
+
+	if [ -n "${CYGWIN_FILES}" ]
+	then
+		if [ -f ${top}/${cygwin_patchfile} ]
+		then
+			error "Use only the CYGWIN_FILES variable or a ${cygwin_patchfile} patchfile, not both"
+		fi
+
+		for cygwin_file in ${CYGWIN_FILES}
+		do
+			 cp -a ${top}/${cygwin_file} ${C}/
+		done
+	fi
 
 	cd ${S};
 

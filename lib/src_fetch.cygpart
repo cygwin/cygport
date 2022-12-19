@@ -64,9 +64,9 @@
 #
 #  NOTE
 #
-#  For historical reasons, patches with basenames of ${PVR}.{cygwin,src}.patch
+#  For historical reasons, patches with basenames of ${PF}.{cygwin,src}.patch
 #  should not be listed in PATCH_URI, as they are treated specially and are
-#  automatically applied, if present.
+#  automatically applied, if present, and generated, if required.
 #
 #  NOTE
 #
