@@ -68,7 +68,11 @@ case "${ASPELL_COMPAT}" in
 	*)	error "aspell-dict: invalid value for ASPELL_COMPAT: ${ASPELL_COMPAT}" ;;
 esac
 
-check_prog_req aspell
+__aspell_check() {
+	check_prog_req aspell
+}
+
+__hook_add __aspell_check
 
 #****d* aspell-dict.cygclass/ASPELL_DATADIR
 #  DESCRIPTION
@@ -201,4 +205,4 @@ src_compile() {
 }
 #****
 
-readonly -f aspell_dict_compile doaspelldict doaspelldata
+readonly -f __aspell_check aspell_dict_compile doaspelldict doaspelldata

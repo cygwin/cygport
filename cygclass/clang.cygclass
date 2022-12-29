@@ -63,7 +63,18 @@ else
 fi
 unset cc
 
-if ! check_prog ${CC%% *}
-then
-	error "This package requires ${CHOST} clang"
-fi
+__clang_check() {
+	if test $1 != 'compile'
+	then
+		return 0
+	fi
+
+	if ! check_prog ${CC%% *}
+	then
+		error "This package requires ${CHOST} clang"
+	fi
+}
+
+__hook_add __clang_check
+
+readonly -f __clang_check

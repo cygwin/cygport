@@ -124,7 +124,11 @@ HTTPD_MOD_NAME=${HTTPD_MOD_NAME:-${PN#httpd-}}
 #****
 HTTPD_APXS=/usr/bin/apxs
 
-check_prog_req ${HTTPD_APXS} httpd-devel
+__apsx_check() {
+	check_prog_req ${HTTPD_APXS} httpd-devel
+}
+
+__hook_add __apxs_check
 
 #****d* httpd.cygclass/HTTPD
 #  DESCRIPTION
@@ -420,4 +424,4 @@ httpd_loadmodules() {
 }
 
 readonly -f httpd_mod_compile httpd_apxs_compile dohttpdconf \
-            dohttpdmod httpd_loadmodules
+            dohttpdmod httpd_loadmodules __apsx_check

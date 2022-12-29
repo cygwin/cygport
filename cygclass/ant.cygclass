@@ -44,7 +44,19 @@
 
 inherit java
 
-check_prog_req ant
+__ant_check() {
+	case $1 in
+		compile|test|install)
+			;;
+		*)
+			return 0
+			;;
+	esac
+
+	check_prog_req ant
+}
+
+__hook_add __ant_check
 
 #****id* ant.cygclass/ANT
 #  DESCRIPTION
@@ -217,4 +229,4 @@ src_install() {
 }
 #****
 
-readonly -f cygant doanttask ant_install
+readonly -f __ant_check cygant doanttask ant_install
