@@ -988,10 +988,15 @@ src_install() {
 }
 #****
 
+__src_install() {
+	__hooks_run 'install'
+	src_install
+}
+
 # protect functions
 readonly -f __doinstall __fix_shebang \
             dodir keepdir dobin newbin docinto dodoc newdoc \
             exeinto doexe newexe insinto doins newins doicon newicon \
             dolib doman newman domenu newmenu dosbin newsbin dosym \
             make_autostart_entry make_desktop_entry make_etc_defaults \
-            update_etc_shells __prepinstalldirs cyginstall
+            update_etc_shells __prepinstalldirs cyginstall __src_install

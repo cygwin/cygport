@@ -152,6 +152,8 @@ __src_fetch() {
 	local rcs;
 	local uri;
 
+	__hooks_run 'download'
+
 	# FIXME: Versions < 0.3.1 would allow only one in any case.
 	# While theoretically possible to use more than one of the RCS_fetch cmds
 	# it's not assured because the tarball names could be the same.

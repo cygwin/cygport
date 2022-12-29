@@ -66,6 +66,8 @@ __pkg_upload() {
 	local -a pkg_files
 	local ready=true
 
+	__hooks_run 'upload'
+
 	if defined _CYGPORT_RESTRICT_upload_
 	then
 		error "Package ${NAME} may not be uploaded"

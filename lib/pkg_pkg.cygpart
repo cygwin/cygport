@@ -965,6 +965,10 @@ _EOF
 	fi
 }
 
+__pkg_pkg() {
+	__hooks_run 'package'
+}
+
 # protect functions
 readonly -f __pkg_binpkg __pkg_diff __gpg_sign __pkg_srcpkg __pkg_dist \
-	 __squeeze_whitespace __tar
+	 __squeeze_whitespace __tar __pkg_pkg

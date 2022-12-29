@@ -300,6 +300,10 @@ source ${_privlibdir}/src_fetch.cygpart
 source ${_privdatadir}/mirrors
 ###
 
+### __hooks_run and friends
+source ${_privlibdir}/hook.cygpart
+###
+
 ### unpack, cygpatch, __src_prep and friends
 source ${_privlibdir}/src_prep.cygpart
 ###
@@ -617,19 +621,19 @@ do
 			__stage Compiling;
 			__log_init ${compilelog};
 			__check_depends && \
-			src_compile 2>&1 | tee -a ${compilelog};
+			__src_compile 2>&1 | tee -a ${compilelog};
 			_status=${PIPESTATUS[0]};
 			;;
 		check|test)
 			__stage Testing;
 			__log_init ${checklog};
-			src_test 2>&1 | tee -a ${checklog};
+			__src_test 2>&1 | tee -a ${checklog};
 			_status=${PIPESTATUS[0]};
 			;;
 		inst*)
 			__stage Installing;
 			__log_init ${installlog};
-			(__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog};
+			(__prepinstalldirs && __src_install && __src_postinst) 2>&1 | tee -a ${installlog};
 			_status=${PIPESTATUS[0]};
 			;;
 		postinst*)
@@ -667,7 +671,7 @@ do
 		package|pkg)
 			__stage "Packaging${_pkg_tag:+ ${_pkg_tag%:} release}";
 			__log_init ${pkglog};
-			(__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg ${_pkg_tag} && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog};
+			(__pkg_pkg && __pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg ${_pkg_tag} && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog};
 			_status=${PIPESTATUS[0]};
 			;;
 		srcpackage-test|srcpkg-test)
@@ -676,7 +680,7 @@ do
 		srcpackage|srcpkg)
 			__stage "Packaging${_pkg_tag:+ ${_pkg_tag%:} source}";
 			__log_init ${pkglog};
-			(__pkg_srcpkg ${_pkg_tag}) 2>&1 | tee -a ${pkglog};
+			(__pkg_pkg && __pkg_srcpkg ${_pkg_tag}) 2>&1 | tee -a ${pkglog};
 			_status=${PIPESTATUS[0]};
 			;;
 		diff|mkdiff|mkpatch)
@@ -711,13 +715,13 @@ do
 			__stage Preparing && __src_prep && \
 			__log_init ${compilelog} && \
 			__check_depends && \
-			__stage Compiling && src_compile 2>&1 | tee -a ${compilelog} && \
+			__stage Compiling && __src_compile 2>&1 | tee -a ${compilelog} && \
 			test ${PIPESTATUS[0]} -eq 0 && \
 			__log_init ${installlog} && \
-			__stage Installing && (__prepinstalldirs && src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
+			__stage Installing && (__prepinstalldirs && __src_install && __src_postinst) 2>&1 | tee -a ${installlog} && \
 			test ${PIPESTATUS[0]} -eq 0 && \
 			__log_init ${pkglog} && \
-			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg ${_pkg_tag} && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog} && \
+			__stage Packaging && (__pkg_pkg && __pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg ${_pkg_tag} && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog} && \
 			test ${PIPESTATUS[0]} -eq 0
 			_status=$?;
 			;;

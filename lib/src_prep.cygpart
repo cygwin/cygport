@@ -294,6 +294,8 @@ __src_prep() {
 	local tar_patch;
 	local n=1;
 
+	__hooks_run 'prep'
+
 	cd ${top};
 
 	__mkdirs;

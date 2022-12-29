@@ -84,4 +84,9 @@ cygmake() {
 #  The default src_compile function is provided by autotools.cygclass.
 #****
 
-readonly -f lndirs cygmake
+__src_compile() {
+	__hooks_run 'compile'
+	src_compile
+}
+
+readonly -f lndirs cygmake __src_compile

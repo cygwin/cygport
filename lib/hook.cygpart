@@ -1,0 +1,64 @@
+################################################################################
+#
+# check_hook.cygpart - cygport check_hook functions
+#
+# Copyright (C) 2022 Cygport authors
+# Provided by the Cygwin project <https://cygwin.com/>
+#
+# cygport is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# cygport is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cygport.  If not, see <https://www.gnu.org/licenses/>.
+#
+################################################################################
+
+declare -a __hooks
+
+__hook_add() {
+	__hooks+=($1)
+}
+
+__hooks_run() {
+	# run internal hooks
+	for hook in "${__hooks[@]}"
+	do
+		if ! $hook $1
+		then
+			# internal hooks should error, but if we forget...
+			error "cygport $1 stopped by $hook"
+		fi
+	done
+
+#****v* Preparation/src_hook
+#  DESCRIPTION
+
+#  src_hook() is an optional function which can be defined to perform additional
+#  checks on the environment, or manipulate files before a cygport command is
+#  run.
+#
+#  It receives the cygport sub-command as an argument ('download', 'prep',
+#  'compile', 'test', 'install', 'package' or 'upload'). Calling error, or
+#  returning a non-zero result causes the subcommand to stop with an error.
+#
+#  (This API is not yet stable and is subject to change)
+#****
+
+	# run user hook
+	if __check_function src_patch_apply_hook
+	then
+		if ! src_hook $1
+		then
+			error "cygport $1 stopped by src_check_hook"
+		fi
+	fi
+}
+
+readonly -f __hook_add __hooks_run

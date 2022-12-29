@@ -3,6 +3,7 @@ cygparts = files(
     'compilers.cygpart',
     'config_registry.cygpart',
     'help.cygpart',
+    'hook.cygpart',
     'inheritance.cygpart',
     'pkg_cleanup.cygpart',
     'pkg_info.cygpart',
