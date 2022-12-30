@@ -53,6 +53,7 @@
 #  CATEGORY="Devel"
 #  SUMMARY="zlib for Linux x86-64/x32 toolchain"
 #  HOMEPAGE="https://www.zlib.net/"
+#  LICENSE="Zlib"
 #  SRC_URI="mirror://sourceforge/libpng/zlib-${VERSION}.tar.gz"
 #  SRC_DIR="zlib-${VERSION}"
 #  

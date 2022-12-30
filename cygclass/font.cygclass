@@ -38,6 +38,7 @@
 #    Humanist sans serif, and was developed for on-screen reading; in particular,
 #    reading web pages on a mobile phone."
 #    HOMEPAGE="https://gitlab.gnome.org/GNOME/cantarell-fonts/"
+#    LICENSE="OFL"
 #    
 #    src_compile() { :; }
 #    

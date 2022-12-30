@@ -47,6 +47,8 @@
 #    to eventually replace Ispell. It can either be used as a library or as an
 #    independent spell checker.
 #    This package provides English dictionaries for Aspell."
+#    HOMEPAGE="http://aspell.net/"
+#    LICENSE="MIT and BSD"
 #
 #  REQUIRES
 #  aspell

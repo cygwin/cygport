@@ -48,6 +48,7 @@
 #    delivered by the proxy module (mod_proxy) for viruses using the Clamav
 #    virus scanning engine."
 #    HOMEPAGE="http://software.othello.ch/mod_clamav/"
+#    LICENSE="GPL-2.0-only"
 #    SRC_URI="http://software.othello.ch/mod_clamav/mod_clamav-${VERSION}.tar.gz"
 #    SRC_DIR="mod_clamav-${VERSION}"
 #    PATCH_URI="0.22-cygwin-layout.patch"
@@ -78,6 +79,7 @@
 #    city that a web request originated from.  It uses the GeoIP library and
 #    database to perform the lookup."
 #    HOMEPAGE="https://dev.maxmind.com/geoip/legacy/mod_geoip2/"
+#    LICENSE="Apache-1.1"
 #    SRC_URI="https://github.com/maxmind/geoip-api-mod_geoip2/archive/v${VERSION}.tar.gz"
 #    SRC_DIR="geoip-api-mod_geoip2-${VERSION}"
 #    

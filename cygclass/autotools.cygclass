@@ -42,6 +42,7 @@
 #    containing a match to a specified pattern. By default, grep prints the
 #    matching lines."
 #    HOMEPAGE="https://www.gnu.org/software/grep/"
+#    LICENSE="GPL-2.0-or-later"
 #    SRC_URI="mirror://gnu/grep/grep-${VERSION}.tar.xz"
 #
 #  If the only customization needed is to add configure flags, use CYGCONF_ARGS:
@@ -57,6 +58,7 @@
 #    column number, auto-indentation, feature toggles, internationalization support,
 #    and filename tab completion."
 #    HOMEPAGE="https://www.nano-editor.org/"
+#    LICENSE="GPL-3.0-or-later"
 #    SRC_URI="https://www.nano-editor.org/dist/v${VERSION%.*}/nano-${VERSION}.tar.gz"
 #    PATCH_URI="2.2.4-wchar.patch"
 #    
@@ -74,6 +76,8 @@
 #    SUMMARY="Double-array digital search tree library"
 #    DESCRIPTION="This is an implementation of double-array structure for
 #    representing trie, as proposed by Junichi Aoe."
+#    HOMEPAGE="https://linux.thai.net/~thep/datrie/datrie.html"
+#    LICENSE="LGPL"
 #    
 #    PKG_NAMES="${NAME}1 ${NAME}-devel ${NAME}-doc"
 #    # see PKG_CONTENTS
