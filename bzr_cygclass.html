@@ -9,7 +9,7 @@
 <script src="./robodoc.js"></script>
 <title>bzr.cygclass</title>
 <!-- Source: ./cygport/cygclass/bzr.cygclass -->
-<!-- Generated with ROBODoc Version 4.99.45 (Jan  8 2022) -->
+<!-- Generated with ROBODoc Version 4.99.45 (Dec 31 2022) -->
 </head>
 <body>
 <div id="logo">
@@ -34,21 +34,21 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo798">bzr.cygclass</a></li>
+<li><a href="#bzr.cygclass">bzr.cygclass</a></li>
 <ul>
-<li><a href="#robo799">BZR_URI</a></li>
-<li><a href="#robo800">BZR_REV</a></li>
+<li><a href="#BZR_URI">BZR_URI</a></li>
+<li><a href="#BZR_REV">BZR_REV</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fbzr2ecygclass"></a>
-<a name="robo798"></a><h2>bzr.cygclass</h2>
+<a name="bzr.cygclass"></a><h2>bzr.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo534">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#Cygclasses">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo799">BZR_URI</a>="..."
-  [<a href="#robo800">BZR_REV</a>="..."]
-  <a href="./inheritance_cygpart.html#robo584">inherit</a> bzr
+<pre>  <a href="#BZR_URI">BZR_URI</a>="..."
+  [<a href="#BZR_REV">BZR_REV</a>="..."]
+  <a href="./inheritance_cygpart.html#inherit">inherit</a> bzr
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  Developed by Canonical Ltd., the company behind Ubuntu Linux,
@@ -60,8 +60,8 @@
 <p>  This cygclass creates source tarballs from Bazaar checkouts.
 </p>
 <p class="item_name">NOTES</p>
-<p>  This cygclass sets a special <a href="./src_fetch_cygpart.html#robo185">SRC_URI</a> for the tarball it creates.  If
-  additional sources are required, be sure to _add_ to <a href="./src_fetch_cygpart.html#robo185">SRC_URI</a> rather than
+<p>  This cygclass sets a special <a href="./src_fetch_cygpart.html#SRC_URI">SRC_URI</a> for the tarball it creates.  If
+  additional sources are required, be sure to _add_ to <a href="./src_fetch_cygpart.html#SRC_URI">SRC_URI</a> rather than
   outright setting it.
 </p>
 <p class="item_name">REQUIRES</p>
@@ -70,14 +70,14 @@
 
 <hr />
 <a name="bzr2ecygclass2fBZR5fURI"></a>
-<a name="robo799"></a><h2>BZR_URI</h2>
+<a name="BZR_URI"></a><h2>BZR_URI</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo798">bzr.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#bzr.cygclass">bzr.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  URI of upstream Bazaar repository/branch
 </p>
 <p class="item_name">NOTES</p>
-<p>  This variable is required when <a href="./inheritance_cygpart.html#robo584">inherit</a>()ing bzr.
+<p>  This variable is required when <a href="./inheritance_cygpart.html#inherit">inherit</a>()ing bzr.
 </p>
 
 <p>  Software hosted on Launchpad will have a special URI beginning with "lp:";
@@ -86,15 +86,15 @@
 
 <hr />
 <a name="bzr2ecygclass2fBZR5fREV"></a>
-<a name="robo800"></a><h2>BZR_REV</h2>
+<a name="BZR_REV"></a><h2>BZR_REV</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo798">bzr.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#bzr.cygclass">bzr.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Specific revision to checkout
 </p>
 <p class="item_name">NOTES</p>
 <p>  This variable is optional.  If unset, the latest revision for the branch
-  specified in <a href="#robo799">BZR_URI</a> will be fetched.
+  specified in <a href="#BZR_URI">BZR_URI</a> will be fetched.
 </p>
 
 <p>  See `bzr help revisionspec' for possible forms of revision identifiers.
@@ -102,7 +102,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/bzr.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-12-06 18:43:21</p>
+<p>Generated from ./cygport/cygclass/bzr.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-12-31 16:27:10</p>
 </div> <!-- footer -->
 </body>
 </html>

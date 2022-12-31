@@ -9,7 +9,7 @@
 <script src="./robodoc.js"></script>
 <title>cygport.conf</title>
 <!-- Source: ./cygport/data/cygport.conf -->
-<!-- Generated with ROBODoc Version 4.99.45 (Jan  8 2022) -->
+<!-- Generated with ROBODoc Version 4.99.45 (Dec 31 2022) -->
 </head>
 <body>
 <div id="logo">
@@ -34,35 +34,35 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo711">Configuration</a></li>
+<li><a href="#Configuration">Configuration</a></li>
 <ul>
-<li><a href="#robo712">cygport.conf</a></li>
-<li><a href="#robo713">DISTDIR</a></li>
-<li><a href="#robo714">MAKEOPTS</a></li>
-<li><a href="#robo715">SSH_KEY</a></li>
-<li><a href="#robo716">SIG</a></li>
-<li><a href="#robo717">BROWSER</a></li>
-<li><a href="#robo718">EDITOR</a></li>
-<li><a href="#robo719">PAGER</a></li>
-<li><a href="#robo720">SMTP_SENDER</a></li>
-<li><a href="#robo721">SMTP_SERVER</a></li>
-<li><a href="#robo722">SMTP_SERVER_PORT</a></li>
-<li><a href="#robo723">SMTP_ENCRYPTION</a></li>
-<li><a href="#robo724">SMTP_USER</a></li>
-<li><a href="#robo725">SMTP_PASS</a></li>
+<li><a href="#cygport.conf">cygport.conf</a></li>
+<li><a href="#DISTDIR">DISTDIR</a></li>
+<li><a href="#MAKEOPTS">MAKEOPTS</a></li>
+<li><a href="#SSH_KEY">SSH_KEY</a></li>
+<li><a href="#SIG">SIG</a></li>
+<li><a href="#BROWSER">BROWSER</a></li>
+<li><a href="#EDITOR">EDITOR</a></li>
+<li><a href="#PAGER">PAGER</a></li>
+<li><a href="#SMTP_SENDER">SMTP_SENDER</a></li>
+<li><a href="#SMTP_SERVER">SMTP_SERVER</a></li>
+<li><a href="#SMTP_SERVER_PORT">SMTP_SERVER_PORT</a></li>
+<li><a href="#SMTP_ENCRYPTION">SMTP_ENCRYPTION</a></li>
+<li><a href="#SMTP_USER">SMTP_USER</a></li>
+<li><a href="#SMTP_PASS">SMTP_PASS</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Chapter2022fConfiguration"></a>
-<a name="robo711"></a><h2>Configuration</h2>
+<a name="Configuration"></a><h2>Configuration</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#robo697">Chapter 2</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./cygport_in.html#Chapter 2">Chapter 2</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
 
 <hr />
 <a name="Configuration2fcygport2econf"></a>
-<a name="robo712"></a><h2>cygport.conf</h2>
+<a name="cygport.conf"></a><h2>cygport.conf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The <strong>cygport.conf</strong> file can be used by users to customize certain aspects
   of cygport's behaviour.  Users who wish to customize their settings should
@@ -72,9 +72,9 @@
 
 <hr />
 <a name="Configuration2fDISTDIR"></a>
-<a name="robo713"></a><h2>DISTDIR</h2>
+<a name="DISTDIR"></a><h2>DISTDIR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  A directory where downloaded sources should be saved, saving time and
   bandwidth (at the expense of storage space) should the same sources be
@@ -84,14 +84,14 @@
 
 <hr />
 <a name="Configuration2fMAKEOPTS"></a>
-<a name="robo714"></a><h2>MAKEOPTS</h2>
+<a name="MAKEOPTS"></a><h2>MAKEOPTS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Flags passed to <a href="./src_compile_cygpart.html#robo189">cygmake</a>.  The primary purpose of <strong>MAKEOPTS</strong> is to control
+<p>  Flags passed to <a href="./src_compile_cygpart.html#cygmake">cygmake</a>.  The primary purpose of <strong>MAKEOPTS</strong> is to control
   parallel make.  Some packages may not build correctly with parallel make
   due to broken Makefile rules; such packages, if not easily patched, can
-  append "-j1" to <strong>MAKEOPTS</strong> or <a href="./src_compile_cygpart.html#robo189">cygmake</a> to force serial make for that package.
+  append "-j1" to <strong>MAKEOPTS</strong> or <a href="./src_compile_cygpart.html#cygmake">cygmake</a> to force serial make for that package.
 </p>
 <p class="item_name">DEFAULT VALUE</p>
 <pre>  -j [nprocs + 1]
@@ -99,9 +99,9 @@
 
 <hr />
 <a name="Configuration2fSSH5fKEY"></a>
-<a name="robo715"></a><h2>SSH_KEY</h2>
+<a name="SSH_KEY"></a><h2>SSH_KEY</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Path to the SSH private key corresponding to the public key registered
   for uploading on sourceware. You'll need to set this if your private key
@@ -114,11 +114,11 @@
 
 <hr />
 <a name="Configuration2fSIG"></a>
-<a name="robo716"></a><h2>SIG</h2>
+<a name="SIG"></a><h2>SIG</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  If <a href="./syntax_cygpart.html#robo79">defined</a> to a <a href="./syntax_cygpart.html#robo87">boolean</a> true value, activates GPG signing of .cygport files
+<p>  If <a href="./syntax_cygpart.html#defined">defined</a> to a <a href="./syntax_cygpart.html#boolean">boolean</a> true value, activates GPG signing of .cygport files
   and patches, providing that the gnupg package is installed.
 </p>
 <p class="item_name">NOTE</p>
@@ -127,9 +127,9 @@
 
 <hr />
 <a name="Configuration2fBROWSER"></a>
-<a name="robo717"></a><h2>BROWSER</h2>
+<a name="BROWSER"></a><h2>BROWSER</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Preferred web browser to be used by cygport's homepage command.  If
   undefined, 'xdg-open' will be used if present, otherwise 'cygstart' will
@@ -141,9 +141,9 @@
 
 <hr />
 <a name="Configuration2fEDITOR"></a>
-<a name="robo718"></a><h2>EDITOR</h2>
+<a name="EDITOR"></a><h2>EDITOR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Preferred text editor to be used by cygport's announce command.  If
   undefined, 'vi' will be used.
@@ -154,9 +154,9 @@
 
 <hr />
 <a name="Configuration2fPAGER"></a>
-<a name="robo719"></a><h2>PAGER</h2>
+<a name="PAGER"></a><h2>PAGER</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Preferred pager to be used by cygport's info, list, listdebug, and depends
   commands.  If undefined, 'less' will be used if present.
@@ -167,9 +167,9 @@
 
 <hr />
 <a name="Configuration2fSMTP5fSENDER"></a>
-<a name="robo720"></a><h2>SMTP_SENDER</h2>
+<a name="SMTP_SENDER"></a><h2>SMTP_SENDER</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Name and email address, in the form of "First Last &lt;user@domain&gt;" to be used
   by cygport's announcement command.
@@ -182,9 +182,9 @@
 
 <hr />
 <a name="Configuration2fSMTP5fSERVER"></a>
-<a name="robo721"></a><h2>SMTP_SERVER</h2>
+<a name="SMTP_SERVER"></a><h2>SMTP_SERVER</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The SMTP server to be used by cygport's announce command.  If unset,
   'localhost' will be used by default.
@@ -192,53 +192,53 @@
 
 <hr />
 <a name="Configuration2fSMTP5fSERVER5fPORT"></a>
-<a name="robo722"></a><h2>SMTP_SERVER_PORT</h2>
+<a name="SMTP_SERVER_PORT"></a><h2>SMTP_SERVER_PORT</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Port number for <a href="#robo721">SMTP_SERVER</a>.  If undefined, port 465 will be used if
-  <a href="#robo723">SMTP_ENCRYPTION</a> is 'ssl', otherwise port 25 will be used by default.
+<p>  Port number for <a href="#SMTP_SERVER">SMTP_SERVER</a>.  If undefined, port 465 will be used if
+  <a href="#SMTP_ENCRYPTION">SMTP_ENCRYPTION</a> is 'ssl', otherwise port 25 will be used by default.
 </p>
 
 <hr />
 <a name="Configuration2fSMTP5fENCRYPTION"></a>
-<a name="robo723"></a><h2>SMTP_ENCRYPTION</h2>
+<a name="SMTP_ENCRYPTION"></a><h2>SMTP_ENCRYPTION</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Encryption method for connection to <a href="#robo721">SMTP_SERVER</a>.  Valid values are 'ssl'
+<p>  Encryption method for connection to <a href="#SMTP_SERVER">SMTP_SERVER</a>.  Valid values are 'ssl'
   for SMTPS and 'tls' for SMTP+STARTTLS.  If undefined, no encryption will
   be used (not recommended).
 </p>
 <p class="item_name">NOTE</p>
-<p>  If set to 'ssl', <a href="#robo722">SMTP_SERVER_PORT</a> will default to port 465.
+<p>  If set to 'ssl', <a href="#SMTP_SERVER_PORT">SMTP_SERVER_PORT</a> will default to port 465.
 </p>
 
 <hr />
 <a name="Configuration2fSMTP5fUSER"></a>
-<a name="robo724"></a><h2>SMTP_USER</h2>
+<a name="SMTP_USER"></a><h2>SMTP_USER</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Username for authenticating with <a href="#robo721">SMTP_SERVER</a>, if required.
+<p>  Username for authenticating with <a href="#SMTP_SERVER">SMTP_SERVER</a>, if required.
 </p>
 
 <hr />
 <a name="Configuration2fSMTP5fPASS"></a>
-<a name="robo725"></a><h2>SMTP_PASS</h2>
+<a name="SMTP_PASS"></a><h2>SMTP_PASS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo711">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Password for authenticating with <a href="#robo721">SMTP_SERVER</a>, if required.
+<p>  Password for authenticating with <a href="#SMTP_SERVER">SMTP_SERVER</a>, if required.
 </p>
 <p class="item_name">WARNING</p>
-<p>  If <a href="./syntax_cygpart.html#robo79">defined</a>, be sure that this file has 0600 permissions so that other
+<p>  If <a href="./syntax_cygpart.html#defined">defined</a>, be sure that this file has 0600 permissions so that other
   users may not read your password.
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/data/cygport.conf with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-12-06 18:43:21</p>
+<p>Generated from ./cygport/data/cygport.conf with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-12-31 16:27:10</p>
 </div> <!-- footer -->
 </body>
 </html>

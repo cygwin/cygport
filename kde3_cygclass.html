@@ -9,7 +9,7 @@
 <script src="./robodoc.js"></script>
 <title>kde3.cygclass</title>
 <!-- Source: ./cygport/cygclass/kde3.cygclass -->
-<!-- Generated with ROBODoc Version 4.99.45 (Jan  8 2022) -->
+<!-- Generated with ROBODoc Version 4.99.45 (Dec 31 2022) -->
 </head>
 <body>
 <div id="logo">
@@ -34,33 +34,33 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo569">kde3.cygclass</a></li>
+<li><a href="#kde3.cygclass">kde3.cygclass</a></li>
 <ul>
-<li><a href="#robo570">PATCH_URI (kde3)</a></li>
-<li><a href="#robo571">CXXFLAGS (kde3)</a></li>
-<li><a href="#robo572">kde3_autoreconf</a></li>
-<li><a href="#robo573">kde3_compile</a></li>
+<li><a href="#PATCH_URI (kde3)">PATCH_URI (kde3)</a></li>
+<li><a href="#CXXFLAGS (kde3)">CXXFLAGS (kde3)</a></li>
+<li><a href="#kde3_autoreconf">kde3_autoreconf</a></li>
+<li><a href="#kde3_compile">kde3_compile</a></li>
 <ul>
-<li><a href="#robo574">DO_NOT_COMPILE</a></li>
+<li><a href="#DO_NOT_COMPILE">DO_NOT_COMPILE</a></li>
 </ul>
-<li><a href="#robo575">kde3_install</a></li>
-<li><a href="#robo576">KEEP_LA_FILES (kde3)</a></li>
-<li><a href="#robo577">src_compile (kde3)</a></li>
-<li><a href="#robo578">src_install (kde3)</a></li>
+<li><a href="#kde3_install">kde3_install</a></li>
+<li><a href="#KEEP_LA_FILES (kde3)">KEEP_LA_FILES (kde3)</a></li>
+<li><a href="#src_compile (kde3)">src_compile (kde3)</a></li>
+<li><a href="#src_install (kde3)">src_install (kde3)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fkde32ecygclass"></a>
-<a name="robo569"></a><h2>kde3.cygclass</h2>
+<a name="kde3.cygclass"></a><h2>kde3.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo534">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#Cygclasses">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo584">inherit</a> kde3
+<pre>  <a href="./inheritance_cygpart.html#inherit">inherit</a> kde3
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  The KDE project provides a full-featured X desktop with a wide variety
-  of applications, built on a library stack all based on the Qt <a href="./syntax_cygpart.html#robo101">C</a>++ library.
-  Most packages are written in <a href="./syntax_cygpart.html#robo101">C</a>++ and are built with a modified autotools
+  of applications, built on a library stack all based on the Qt <a href="./syntax_cygpart.html#C">C</a>++ library.
+  Most packages are written in <a href="./syntax_cygpart.html#C">C</a>++ and are built with a modified autotools
   system.
 </p>
 
@@ -75,22 +75,22 @@
 </ul>
 <p></p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./autotools_cygclass.html#robo801">autotools.cygclass</a>, <a href="./kde_org_cygclass.html#robo579">kde.org.cygclass</a>, <a href="./qt3_cygclass.html#robo297">qt3.cygclass</a>
+<p>  <a href="./autotools_cygclass.html#robo_top_of_doc">autotools.cygclass</a>, <a href="./kde_org_cygclass.html#robo_top_of_doc">kde.org.cygclass</a>, <a href="./qt3_cygclass.html#qt3.cygclass">qt3.cygclass</a>
 </p>
 
 <hr />
 <a name="kde32ecygclass2fPATCH5fURI2028kde329"></a>
-<a name="robo570"></a><h2>PATCH_URI (kde3)</h2>
+<a name="PATCH_URI (kde3)"></a><h2>PATCH_URI (kde3)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo569">kde3.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#kde3.cygclass">kde3.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Several autotool compatibility patches are automatically applied to
   KDE 3.5.10 packages.  If further patches are required, be sure to append,
-  not replace, <a href="./src_fetch_cygpart.html#robo186">PATCH_URI</a>.
+  not replace, <a href="./src_fetch_cygpart.html#PATCH_URI">PATCH_URI</a>.
   Other KDE3-based packages will need to backport these changes themselves.
 </p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_fetch_cygpart.html#robo186">PATCH_URI</a><span class="sign">=</span><span class="quote">"
+<pre class="source"><a href="./src_fetch_cygpart.html#PATCH_URI">PATCH_URI</a><span class="sign">=</span><span class="quote">"
         https://src.fedoraproject.org/rpms/kdelibs3/raw/master/f/kde3-acinclude.patch
         https://src.fedoraproject.org/rpms/kdelibs3/raw/master/f/kde3-automake-version.patch
         https://src.fedoraproject.org/rpms/kdelibs3/raw/master/f/kde3-automake-add-missing.patch
@@ -99,20 +99,20 @@
 
 <hr />
 <a name="kde32ecygclass2fCXXFLAGS2028kde329"></a>
-<a name="robo571"></a><h2>CXXFLAGS (kde3)</h2>
+<a name="CXXFLAGS (kde3)"></a><h2>CXXFLAGS (kde3)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo569">kde3.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#kde3.cygclass">kde3.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./compilers_cygpart.html#robo748">CXXFLAGS</a><span class="sign">+</span><span class="sign">=</span><span class="quote">" -Wno-narrowing -std=gnu++98"</span>
+<pre class="source"><a href="./compilers_cygpart.html#CXXFLAGS">CXXFLAGS</a><span class="sign">+</span><span class="sign">=</span><span class="quote">" -Wno-narrowing -std=gnu++98"</span>
 </pre>
 
 <hr />
 <a name="kde32ecygclass2fkde35fautoreconf"></a>
-<a name="robo572"></a><h2>kde3_autoreconf</h2>
+<a name="kde3_autoreconf"></a><h2>kde3_autoreconf</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo569">kde3.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#kde3.cygclass">kde3.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  cd $<a href="./syntax_cygpart.html#robo99">S</a>
+<pre>  cd $<a href="./syntax_cygpart.html#S">S</a>
   <strong>kde3_autoreconf</strong>
 </pre>
 <p class="item_name">DESCRIPTION</p>
@@ -130,31 +130,31 @@
 <p>  autoconf, automake, libtool, perl
 </p>
 <p class="item_name">SEE ALSO</p>
-<p>  <a href="./autotools_cygclass.html#robo803">cygautoreconf</a>
+<p>  <a href="./autotools_cygclass.html#cygautoreconf">cygautoreconf</a>
 </p>
 
 <hr />
 <a name="kde32ecygclass2fkde35fcompile"></a>
-<a name="robo573"></a><h2>kde3_compile</h2>
+<a name="kde3_compile"></a><h2>kde3_compile</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo569">kde3.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#kde3.cygclass">kde3.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>kde3_compile</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Runs <a href="./autotools_cygclass.html#robo813">cygconf</a> to configure the package with several Cygwin- and KDE-specific
-  options, then runs <a href="./src_compile_cygpart.html#robo189">cygmake</a> to compile.  Options, in the form of configure
-  flags, are passed on to <a href="./autotools_cygclass.html#robo813">cygconf</a>.
+<p>  Runs <a href="./autotools_cygclass.html#cygconf">cygconf</a> to configure the package with several Cygwin- and KDE-specific
+  options, then runs <a href="./src_compile_cygpart.html#cygmake">cygmake</a> to compile.  Options, in the form of configure
+  flags, are passed on to <a href="./autotools_cygclass.html#cygconf">cygconf</a>.
 </p>
 <p class="item_name">NOTE</p>
-<p>  Select source subdirectories can be not built by defining <a href="#robo574">DO_NOT_COMPILE</a>.
+<p>  Select source subdirectories can be not built by defining <a href="#DO_NOT_COMPILE">DO_NOT_COMPILE</a>.
 </p>
 
 <hr />
 <a name="kde35fcompile2fDO5fNOT5fCOMPILE"></a>
-<a name="robo574"></a><h2>DO_NOT_COMPILE</h2>
+<a name="DO_NOT_COMPILE"></a><h2>DO_NOT_COMPILE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo573">kde3_compile</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#kde3_compile">kde3_compile</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>DO_NOT_COMPILE</strong>="DIRECTORY1 [DIRECTORY2] ..."
 </pre>
@@ -165,33 +165,33 @@
 
 <hr />
 <a name="kde32ecygclass2fkde35finstall"></a>
-<a name="robo575"></a><h2>kde3_install</h2>
+<a name="kde3_install"></a><h2>kde3_install</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo569">kde3.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#kde3.cygclass">kde3.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>kde3_install</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installs a KDE3 package with <a href="./src_install_cygpart.html#robo181">cyginstall</a> into $<a href="./syntax_cygpart.html#robo102">D</a> with some additional steps:
+<p>  Installs a KDE3 package with <a href="./src_install_cygpart.html#cyginstall">cyginstall</a> into $<a href="./syntax_cygpart.html#D">D</a> with some additional steps:
 </p>
 <ul><li>  Import libraries for libkdeinit_* libraries are removed, as they are never used.
 </li>
 <li>  Import libraries are rearranged to avoid conflicting with KDE 4.
 </li>
-<li>  Help documentation for components listed in <a href="#robo574">DO_NOT_COMPILE</a> is removed.
+<li>  Help documentation for components listed in <a href="#DO_NOT_COMPILE">DO_NOT_COMPILE</a> is removed.
 </li>
-<li>  README docs for subpackages in <a href="./pkg_pkg_cygpart.html#robo385">PKG_NAMES</a> are installed into their own
-    subdirectories of /usr/share/doc/ under $<a href="./syntax_cygpart.html#robo102">D</a>.
+<li>  README docs for subpackages in <a href="./pkg_pkg_cygpart.html#PKG_NAMES">PKG_NAMES</a> are installed into their own
+    subdirectories of /usr/share/doc/ under $<a href="./syntax_cygpart.html#D">D</a>.
 </li>
 </ul>
-<p>  Options, if any, are passed on to <a href="./src_install_cygpart.html#robo181">cyginstall</a>.
+<p>  Options, if any, are passed on to <a href="./src_install_cygpart.html#cyginstall">cyginstall</a>.
 </p>
 
 <hr />
 <a name="kde32ecygclass2fKEEP5fLA5fFILES2028kde329"></a>
-<a name="robo576"></a><h2>KEEP_LA_FILES (kde3)</h2>
+<a name="KEEP_LA_FILES (kde3)"></a><h2>KEEP_LA_FILES (kde3)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo569">kde3.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#kde3.cygclass">kde3.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  KDE 3 uses a custom libltdl to load modules, and the build system
   generally links with only the highest level libraries, e.g. just -lkdeui,
@@ -199,42 +199,42 @@
   libtool library files are present.
 </p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_postinst_cygpart.html#robo144">KEEP_LA_FILES</a><span class="sign">=</span><span class="quote">"all"</span>
+<pre class="source"><a href="./src_postinst_cygpart.html#KEEP_LA_FILES">KEEP_LA_FILES</a><span class="sign">=</span><span class="quote">"all"</span>
 </pre>
 
 <hr />
 <a name="kde32ecygclass2fsrc5fcompile2028kde329"></a>
-<a name="robo577"></a><h2>src_compile (kde3)</h2>
+<a name="src_compile (kde3)"></a><h2>src_compile (kde3)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo569">kde3.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#kde3.cygclass">kde3.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo190">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo99">S</a><span class="sign">}</span>
-        case <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo90">NAME</a><span class="sign">}</span> in
+<pre class="source"><a href="./src_compile_cygpart.html#src_compile">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#S">S</a><span class="sign">}</span>
+        case <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#NAME">NAME</a><span class="sign">}</span> in
         kde<span class="sign">-</span>i18n<span class="sign">-</span><span class="sign">*</span><span class="sign">|</span>koffice<span class="sign">-</span>l10n<span class="sign">-</span><span class="sign">*</span><span class="sign">)</span> <span class="sign">;</span><span class="sign">;</span>
-        <span class="sign">*</span><span class="sign">)</span>      <a href="#robo572">kde3_autoreconf</a> <span class="sign">;</span><span class="sign">;</span>
+        <span class="sign">*</span><span class="sign">)</span>      <a href="#kde3_autoreconf">kde3_autoreconf</a> <span class="sign">;</span><span class="sign">;</span>
         esac
 
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
-        <a href="#robo573">kde3_compile</a>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#B">B</a><span class="sign">}</span>
+        <a href="#kde3_compile">kde3_compile</a>
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="kde32ecygclass2fsrc5finstall2028kde329"></a>
-<a name="robo578"></a><h2>src_install (kde3)</h2>
+<a name="src_install (kde3)"></a><h2>src_install (kde3)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo569">kde3.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#kde3.cygclass">kde3.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo183">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
-        <a href="#robo575">kde3_install</a>
+<pre class="source"><a href="./src_install_cygpart.html#src_install">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#B">B</a><span class="sign">}</span>
+        <a href="#kde3_install">kde3_install</a>
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/kde3.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-12-06 18:43:21</p>
+<p>Generated from ./cygport/cygclass/kde3.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-12-31 16:27:10</p>
 </div> <!-- footer -->
 </body>
 </html>

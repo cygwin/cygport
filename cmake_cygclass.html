@@ -9,7 +9,7 @@
 <script src="./robodoc.js"></script>
 <title>cmake.cygclass</title>
 <!-- Source: ./cygport/cygclass/cmake.cygclass -->
-<!-- Generated with ROBODoc Version 4.99.45 (Jan  8 2022) -->
+<!-- Generated with ROBODoc Version 4.99.45 (Dec 31 2022) -->
 </head>
 <body>
 <div id="logo">
@@ -34,25 +34,25 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo771">cmake.cygclass</a></li>
+<li><a href="#cmake.cygclass">cmake.cygclass</a></li>
 <ul>
-<li><a href="#robo772">cygcmake</a></li>
+<li><a href="#cygcmake">cygcmake</a></li>
 <ul>
-<li><a href="#robo773">CYGCMAKE_SOURCE</a></li>
-<li><a href="#robo774">CYGCMAKE_ARGS</a></li>
-<li><a href="#robo775">CYGCMAKE_GENERATOR</a></li>
+<li><a href="#CYGCMAKE_SOURCE">CYGCMAKE_SOURCE</a></li>
+<li><a href="#CYGCMAKE_ARGS">CYGCMAKE_ARGS</a></li>
+<li><a href="#CYGCMAKE_GENERATOR">CYGCMAKE_GENERATOR</a></li>
 </ul>
-<li><a href="#robo776">src_compile (cmake)</a></li>
-<li><a href="#robo777">src_install (cmake)</a></li>
+<li><a href="#src_compile (cmake)">src_compile (cmake)</a></li>
+<li><a href="#src_install (cmake)">src_install (cmake)</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fcmake2ecygclass"></a>
-<a name="robo771"></a><h2>cmake.cygclass</h2>
+<a name="cmake.cygclass"></a><h2>cmake.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo534">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#Cygclasses">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="./inheritance_cygpart.html#robo584">inherit</a> cmake
+<pre>  <a href="./inheritance_cygpart.html#inherit">inherit</a> cmake
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  CMake is a build system which can be used instead of autoconf and automake.
@@ -65,7 +65,7 @@
   used in KDE and some Qt-based packages.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./ninja_cygclass.html#robo_top_of_doc">ninja.cygclass</a>
+<p>  <a href="./ninja_cygclass.html#ninja.cygclass">ninja.cygclass</a>
 </p>
 <p class="item_name">INHERITED BY</p>
 <p>  <a href="./kde4_cygclass.html#robo_top_of_doc">kde4.cygclass</a>, kf5-cygclass, <a href="./qt4-cmake_cygclass.html#robo_top_of_doc">qt4-cmake.cygclass</a>
@@ -73,9 +73,9 @@
 
 <hr />
 <a name="cmake2ecygclass2fcygcmake"></a>
-<a name="robo772"></a><h2>cygcmake</h2>
+<a name="cygcmake"></a><h2>cygcmake</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo771">cmake.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#cmake.cygclass">cmake.cygclass</a> ] [ <a href="./cygport_compile_functions.html#robo_top_of_doc">Compile Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>cygcmake</strong> [OPTIONS]
 </pre>
@@ -85,16 +85,16 @@
 <a href="https://www.pathname.com/fhs/">Filesystem Hierarchy Standard</a> and the
 <a href="https://cygwin.com/packaging-package-files.html#package_contents">Cygwin package guidelines</a>.
   In addition, all arguments to <strong>cygcmake</strong> are passed to cmake, followed by
-  <a href="#robo774">CYGCMAKE_ARGS</a>, if set.
+  <a href="#CYGCMAKE_ARGS">CYGCMAKE_ARGS</a>, if set.
 </p>
 <p class="item_name">NOTES</p>
-<ul><li>  <strong>cygcmake</strong> should be run in or under $<a href="./syntax_cygpart.html#robo100">B</a>, as it defines the build directory of
+<ul><li>  <strong>cygcmake</strong> should be run in or under $<a href="./syntax_cygpart.html#B">B</a>, as it defines the build directory of
     the package and creates numerous files.
 </li>
-<li>  If the top-level CMakeLists.txt is not in $<a href="./syntax_cygpart.html#robo99">S</a>, see <a href="#robo773">CYGCMAKE_SOURCE</a>.
+<li>  If the top-level CMakeLists.txt is not in $<a href="./syntax_cygpart.html#S">S</a>, see <a href="#CYGCMAKE_SOURCE">CYGCMAKE_SOURCE</a>.
 </li>
-<li>  Packages configured with <strong>cygcmake</strong> use either <a href="./src_compile_cygpart.html#robo189">cygmake</a> or <a href="./ninja_cygclass.html#robo493">cygninja</a> to
-    compile, depending on the value of <a href="#robo775">CYGCMAKE_GENERATOR</a>.
+<li>  Packages configured with <strong>cygcmake</strong> use either <a href="./src_compile_cygpart.html#cygmake">cygmake</a> or <a href="./ninja_cygclass.html#cygninja">cygninja</a> to
+    compile, depending on the value of <a href="#CYGCMAKE_GENERATOR">CYGCMAKE_GENERATOR</a>.
 </li>
 </ul>
 <p></p>
@@ -104,86 +104,86 @@
 
 <hr />
 <a name="cygcmake2fCYGCMAKE5fSOURCE"></a>
-<a name="robo773"></a><h2>CYGCMAKE_SOURCE</h2>
+<a name="CYGCMAKE_SOURCE"></a><h2>CYGCMAKE_SOURCE</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo772">cygcmake</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#cygcmake">cygcmake</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Set this variable to the directory containing the top-level CMakeLists.txt.
-  This is only necessary when the top-level CMakeLists.txt is not in $<a href="./syntax_cygpart.html#robo99">S</a> and
-  <a href="#robo772">cygcmake</a> is not being run in the same subdirectory of $<a href="./syntax_cygpart.html#robo100">B</a> which under $<a href="./syntax_cygpart.html#robo99">S</a>
+  This is only necessary when the top-level CMakeLists.txt is not in $<a href="./syntax_cygpart.html#S">S</a> and
+  <a href="#cygcmake">cygcmake</a> is not being run in the same subdirectory of $<a href="./syntax_cygpart.html#B">B</a> which under $<a href="./syntax_cygpart.html#S">S</a>
   contains the top-level CMakeLists.txt.  (IOW if the top-level CMakeLists.txt
-  is in $<a href="./syntax_cygpart.html#robo99">S</a>/unix and <a href="#robo772">cygcmake</a> is run from $<a href="./syntax_cygpart.html#robo100">B</a>/unix, setting <strong>CYGCMAKE_SOURCE</strong>
+  is in $<a href="./syntax_cygpart.html#S">S</a>/unix and <a href="#cygcmake">cygcmake</a> is run from $<a href="./syntax_cygpart.html#B">B</a>/unix, setting <strong>CYGCMAKE_SOURCE</strong>
   would not be necessary.)
 </p>
 
 <hr />
 <a name="cygcmake2fCYGCMAKE5fARGS"></a>
-<a name="robo774"></a><h2>CYGCMAKE_ARGS</h2>
+<a name="CYGCMAKE_ARGS"></a><h2>CYGCMAKE_ARGS</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo772">cygcmake</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#cygcmake">cygcmake</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Additional flags to pass to cmake during <a href="#robo772">cygcmake</a>.
+<p>  Additional flags to pass to cmake during <a href="#cygcmake">cygcmake</a>.
 </p>
 <p class="item_name">NOTES</p>
 <p>  Flags in <strong>CYGCMAKE_ARGS</strong> follow, and therefore override, flags passed by
-  default and as arguments to <a href="#robo772">cygcmake</a>.
+  default and as arguments to <a href="#cygcmake">cygcmake</a>.
 </p>
 
 <hr />
 <a name="cygcmake2fCYGCMAKE5fGENERATOR"></a>
-<a name="robo775"></a><h2>CYGCMAKE_GENERATOR</h2>
+<a name="CYGCMAKE_GENERATOR"></a><h2>CYGCMAKE_GENERATOR</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo772">cygcmake</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#cygcmake">cygcmake</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  The CMake Generator to be used in this build, either "Ninja" or "Unix Makefiles".
 </p>
 <p class="item_name">NOTES</p>
-<p>  If <a href="#robo772">cygcmake</a> is called explicitly, the default is "Unix Makefiles" for
-  backwards compatibility.  If the default <a href="./src_compile_cygpart.html#robo190">src_compile</a> is used, then "Ninja"
-  will be the default; note that in this case, if the default <a href="./src_install_cygpart.html#robo183">src_install</a> is
+<p>  If <a href="#cygcmake">cygcmake</a> is called explicitly, the default is "Unix Makefiles" for
+  backwards compatibility.  If the default <a href="./src_compile_cygpart.html#src_compile">src_compile</a> is used, then "Ninja"
+  will be the default; note that in this case, if the default <a href="./src_install_cygpart.html#src_install">src_install</a> is
   not used, then it will fail until either <strong>CYGCMAKE_GENERATOR</strong> is set to
-  "Unix Makefiles", or <a href="./src_install_cygpart.html#robo181">cyginstall</a> replaced by <a href="./ninja_cygclass.html#robo495">ninja_install</a>.
+  "Unix Makefiles", or <a href="./src_install_cygpart.html#cyginstall">cyginstall</a> replaced by <a href="./ninja_cygclass.html#ninja_install">ninja_install</a>.
 </p>
 
 <hr />
 <a name="cmake2ecygclass2fsrc5fcompile2028cmake29"></a>
-<a name="robo776"></a><h2>src_compile (cmake)</h2>
+<a name="src_compile (cmake)"></a><h2>src_compile (cmake)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo771">cmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#cmake.cygclass">cmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_compile_cygpart.html#robo190">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
-        <span class="sign">:</span> <span class="sign">$</span><span class="sign">{</span><a href="#robo775">CYGCMAKE_GENERATOR</a><span class="sign">=</span>Ninja<span class="sign">}</span>
-        <a href="#robo772">cygcmake</a>
+<pre class="source"><a href="./src_compile_cygpart.html#src_compile">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#B">B</a><span class="sign">}</span>
+        <span class="sign">:</span> <span class="sign">$</span><span class="sign">{</span><a href="#CYGCMAKE_GENERATOR">CYGCMAKE_GENERATOR</a><span class="sign">=</span>Ninja<span class="sign">}</span>
+        <a href="#cygcmake">cygcmake</a>
         if <span class="sign">[</span> <span class="sign">-</span>f build<span class="sign">.</span>ninja <span class="sign">]</span>
         then
-                <a href="./ninja_cygclass.html#robo493">cygninja</a>
+                <a href="./ninja_cygclass.html#cygninja">cygninja</a>
         else
-                <a href="./src_compile_cygpart.html#robo189">cygmake</a>
+                <a href="./src_compile_cygpart.html#cygmake">cygmake</a>
         fi
 <span class="sign">}</span>
 </pre>
 
 <hr />
 <a name="cmake2ecygclass2fsrc5finstall2028cmake29"></a>
-<a name="robo777"></a><h2>src_install (cmake)</h2>
+<a name="src_install (cmake)"></a><h2>src_install (cmake)</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo771">cmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#cmake.cygclass">cmake.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
-<pre class="source"><a href="./src_install_cygpart.html#robo183">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#robo100">B</a><span class="sign">}</span>
+<pre class="source"><a href="./src_install_cygpart.html#src_install">src_install</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
+        cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#B">B</a><span class="sign">}</span>
         if <span class="sign">[</span> <span class="sign">-</span>f build<span class="sign">.</span>ninja <span class="sign">]</span>
         then
-                <a href="./ninja_cygclass.html#robo495">ninja_install</a>
+                <a href="./ninja_cygclass.html#ninja_install">ninja_install</a>
         else
-                <a href="./src_install_cygpart.html#robo181">cyginstall</a>
+                <a href="./src_install_cygpart.html#cyginstall">cyginstall</a>
         fi
 <span class="sign">}</span>
 </pre>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/cmake.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-12-06 18:43:21</p>
+<p>Generated from ./cygport/cygclass/cmake.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-12-31 16:27:10</p>
 </div> <!-- footer -->
 </body>
 </html>

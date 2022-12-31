@@ -9,7 +9,7 @@
 <script src="./robodoc.js"></script>
 <title>vim.cygclass</title>
 <!-- Source: ./cygport/cygclass/vim.cygclass -->
-<!-- Generated with ROBODoc Version 4.99.45 (Jan  8 2022) -->
+<!-- Generated with ROBODoc Version 4.99.45 (Dec 31 2022) -->
 </head>
 <body>
 <div id="logo">
@@ -34,20 +34,20 @@
 <div id="content">
 <h3>TABLE OF CONTENTS</h3>
 <ul>
-<li><a href="#robo36">vim.cygclass</a></li>
+<li><a href="#vim.cygclass">vim.cygclass</a></li>
 <ul>
-<li><a href="#robo37">VIM</a></li>
-<li><a href="#robo38">VIMFILES</a></li>
-<li><a href="#robo39">viminto</a></li>
-<li><a href="#robo40">dovim</a></li>
-<li><a href="#robo41">newvim</a></li>
+<li><a href="#VIM">VIM</a></li>
+<li><a href="#VIMFILES">VIMFILES</a></li>
+<li><a href="#viminto">viminto</a></li>
+<li><a href="#dovim">dovim</a></li>
+<li><a href="#newvim">newvim</a></li>
 </ul>
 </ul>
 <hr />
 <a name="Cygclasses2fvim2ecygclass"></a>
-<a name="robo36"></a><h2>vim.cygclass</h2>
+<a name="vim.cygclass"></a><h2>vim.cygclass</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#robo534">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#Cygclasses">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Vim is a text editor which is extensible through scripts written in its
   own Vimscript language.
@@ -58,9 +58,9 @@
 
 <hr />
 <a name="vim2ecygclass2fVIM"></a>
-<a name="robo37"></a><h2>VIM</h2>
+<a name="VIM"></a><h2>VIM</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo36">vim.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#vim.cygclass">vim.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Root data directory for the Vim editor.
 </p>
@@ -70,23 +70,23 @@
 
 <hr />
 <a name="vim2ecygclass2fVIMFILES"></a>
-<a name="robo38"></a><h2>VIMFILES</h2>
+<a name="VIMFILES"></a><h2>VIMFILES</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo36">vim.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#vim.cygclass">vim.cygclass</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  Installation path for third-party Vim scripts.
 </p>
 
 <hr />
 <a name="vim2ecygclass2fviminto"></a>
-<a name="robo39"></a><h2>viminto</h2>
+<a name="viminto"></a><h2>viminto</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo36">vim.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#vim.cygclass">vim.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
 <pre>  <strong>viminto</strong> SUBDIRECTORY
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Subdirectory into which <a href="#robo40">dovim</a> and <a href="#robo41">newvim</a> should install.  Subdirectories
+<p>  Subdirectory into which <a href="#dovim">dovim</a> and <a href="#newvim">newvim</a> should install.  Subdirectories
   supported by Vim are:
 </p>
 <ul><li>  autoload: automatically loaded functions
@@ -120,36 +120,36 @@
 
 <hr />
 <a name="vim2ecygclass2fdovim"></a>
-<a name="robo40"></a><h2>dovim</h2>
+<a name="dovim"></a><h2>dovim</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo36">vim.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#vim.cygclass">vim.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo39">viminto</a> SUBDIRECTORY
+<pre>  <a href="#viminto">viminto</a> SUBDIRECTORY
   <strong>dovim</strong> SCRIPT [SCRIPT2] ...
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installs the given Vim script(s) into the subdirectory of <a href="#robo38">VIMFILES</a> declared
-  by the preceding call to <a href="#robo39">viminto</a>.
+<p>  Installs the given Vim script(s) into the subdirectory of <a href="#VIMFILES">VIMFILES</a> declared
+  by the preceding call to <a href="#viminto">viminto</a>.
 </p>
 
 <hr />
 <a name="vim2ecygclass2fnewvim"></a>
-<a name="robo41"></a><h2>newvim</h2>
+<a name="newvim"></a><h2>newvim</h2>
 
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo36">vim.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#vim.cygclass">vim.cygclass</a> ] [ <a href="./cygport_install_functions.html#robo_top_of_doc">Install Functions</a> ]</p>
 <p class="item_name">SYNOPSIS</p>
-<pre>  <a href="#robo39">viminto</a> SUBDIRECTORY
+<pre>  <a href="#viminto">viminto</a> SUBDIRECTORY
   <strong>newvim</strong> SCRIPT_FILE NEW_SCRIPT_NAME
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installs the given Vim script into the subdirectory of <a href="#robo38">VIMFILES</a> declared
-  by the preceding call to <a href="#robo39">viminto</a>, renaming it as indicated by the second
+<p>  Installs the given Vim script into the subdirectory of <a href="#VIMFILES">VIMFILES</a> declared
+  by the preceding call to <a href="#viminto">viminto</a>, renaming it as indicated by the second
   argument.
 </p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/vim.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-12-06 18:43:21</p>
+<p>Generated from ./cygport/cygclass/vim.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-12-31 16:27:10</p>
 </div> <!-- footer -->
 </body>
 </html>
