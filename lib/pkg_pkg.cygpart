@@ -759,9 +759,9 @@ __pkg_dist() {
 #****
 #****v* Packaging/OBSOLETES
 #  DESCRIPTION
-#  A single-line string containing a list of package(s) which this
-#  package replaces.  An empty package will be created for each listed
-#  obsoletion which will cause this package to be installed in its place.
+#  A single-line string containing a list of package(s) which this package
+#  replaces.  This package's metadata will include the listed obsoletions, which
+#  will cause this package to be installed in their place.
 #  NOTE
 #  If there is more than one package in PKG_NAMES, this variable will be
 #  ignored; you must use PKG_OBSOLETES instead.
@@ -770,9 +770,9 @@ __pkg_dist() {
 #****
 #****v* Packaging/PKG_OBSOLETES
 #  DESCRIPTION
-#  A single-line string containing a list of package(s) which this
-#  package replaces.  An empty package will be created for each listed
-#  obsoletion which will cause PKG to be installed in its place.
+#  A single-line string containing a list of package(s) which PKG replaces.
+#  PKG's metadata will include the listed obsoletions, which will cause PKG to
+#  be installed in their place.
 #
 #  Note that the PKG_OBSOLETES name is descriptive rather than literal,
 #  where "PKG" should be substituted with the name of the binary package
@@ -780,6 +780,12 @@ __pkg_dist() {
 #  cannot be used in a shell variable name (namely '+', '-', and '.'),
 #  that character must be substituted with an underscore ('_'), e.g.
 #  libfoo-devel will use libfoo_devel_OBSOLETES.
+#
+#  NOTES
+#  * Additionally, if a debuginfo package is automatically generated, you may
+#  specify a PN_debuginfo_OBSOLETES value, even though PN_debuginfo is not
+#  explicitly listed in PKG_NAMES.
+#
 #****
 #****v* Packaging/PROVIDES
 #  DESCRIPTION
