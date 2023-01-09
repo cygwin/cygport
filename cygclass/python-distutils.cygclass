@@ -27,6 +27,9 @@
 #  INHERITS
 #  python2-distutils.cygclass, python.cygclass
 #****
+
+warning "python-distutils.cygclass: deprecated compatibility wrapper for the python2-distutils cygclass"
+
 inherit python2-distutils python
 
 #****iC* python-distutils.cygclass/python_distutils_compile

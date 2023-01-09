@@ -21,6 +21,8 @@
 #
 ################################################################################
 
+warning "python2-distutils.cygclass: python distutils is deprecated. Please migrate to the python-wheel cygclass."
+
 #****h* Cygclasses/python2-distutils.cygclass
 #  DESCRIPTION
 #  Distutils is the most common method for building and installing Python
