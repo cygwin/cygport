@@ -57,7 +57,7 @@ inherit python.org
 
 #****v* python-wheel.cygclass/PYTHON_WHEEL_VERSIONS
 #  SYNOPSIS
-#  PYTHON_WHEEL_VERSIONS="2.7:3.5" # e.g. added to stdlib in 3.6
+#  PYTHON_WHEEL_VERSIONS="3.5:3.6" # e.g. added to stdlib in 3.7
 #  inherit python-wheel
 #  DESCRIPTION
 #  A colon-seperated list of version(s) for which this module should be built.
@@ -71,11 +71,8 @@ inherit python.org
 #  If undefined, "default" is assumed.
 #  NOTES
 #  * Python 2.7 is no longer supported upstream, and all code should be moving
-#    to Python 3.y.  While the 2.7 packages will remain for now, they should
-#    only be used when absolutely needed.  Therefore, 2.7 has been dropped from
-#    the all/default/future sets.  If you still need to provide your module for
-#    2.7 -- and 2.7 is still supported by the module -- then set a value of
-#    e.g. PYTHON_WHEEL_VERSIONS="2:default".
+#    to Python 3.y.  A 2.x version appearing in PYTHON_WHEEL_VERSIONS is now an
+#    error.
 #  * It is not generally expected for wheel packages to be built with "all".
 #    This option is primarily intended for the most basic modules used to
 #    build, install, and run other modules (e.g. setuptools, wheel, pip, and
@@ -107,6 +104,12 @@ unset _tmp_wheel_v
 
 for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
 do
+	case "${ver}" in
+	2.*)
+		error "${ver} in PYTHON_WHEEL_VERSIONS"
+		;;
+	esac
+
 	check_prog_req pip${ver} python${ver//.}-pip
 done
 
