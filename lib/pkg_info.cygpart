@@ -137,9 +137,9 @@ __list_deps() {
 	export PATH+="${D}$(__host_prefix)/bin:${os_path}";
 
 	# only on Cygwin: assure Windows\System32 is present for w32api DLLs
-	if check_prog cygpath
+	if check_prog /bin/cygpath
 	then
-		PATH+=":$(cygpath -S)"
+		PATH+=":$(/bin/cygpath -S)"
 	fi
 
 	if (cross_compiling || [ "${CHOST}" != "${CTARGET}" ]) && ! __target_is_embedded && check_target_tool gcc
