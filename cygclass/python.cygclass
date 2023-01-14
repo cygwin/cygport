@@ -30,6 +30,8 @@
 #  python2.cygclass
 #****
 
+warning "python.cygclass: deprecated compatibility wrapper for the python2 cygclass"
+
 inherit python2
 
 #****id* python.cygclass/PYTHON

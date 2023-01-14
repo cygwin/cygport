@@ -40,6 +40,8 @@
 #  gnome.org.cygclass (unless mate.cygclass has been inherit()ed), python.cygclass
 #****
 
+warning "pygtk.cygclass: pygtk bindings are limited to got gtk+2 and python2 and considered obsolete."
+
 case ${PN#python-} in
 	${PN})
 		# for packages which provide pygtk bindings together with the C lib.

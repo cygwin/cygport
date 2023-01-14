@@ -50,6 +50,9 @@
 #  REQUIRES
 #  python2, python2-pip
 #****
+
+error "python2-wheel.cyclass: python2 was sunsetted on 1 January, 2020.  Please use python3 instead."
+
 inherit python2
 PYTHON_WHEEL_VERSIONS=${PYTHON2_VERSION}
 inherit python-wheel

@@ -22,6 +22,7 @@
 ################################################################################
 
 warning "python2-distutils.cygclass: python distutils is deprecated. Please migrate to the python-wheel cygclass."
+error "python2-distutils.cyclass: python2 was sunsetted on 1 January, 2020.  Please use python3 instead."
 
 #****h* Cygclasses/python2-distutils.cygclass
 #  DESCRIPTION

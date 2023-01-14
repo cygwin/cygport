@@ -43,6 +43,8 @@
 #  python2
 #****
 
+error "python2.cyclass: python2 was sunsetted on 1 January, 2020.  Please use python3 instead."
+
 # cross-compiling is not (yet?) supported
 __cross_compiling_error
 
