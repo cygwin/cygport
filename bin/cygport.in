@@ -57,7 +57,7 @@ source ${_privlibdir}/syntax.cygpart
 #  The Cygport Reference Manual documents cygport, a utility for creating and
 #  building software packages for the Cygwin platform.
 #
-#  |html Copyright &#169; 2006-2020 Cygport authors
+#  |html Copyright &#169; 2006-2023 Cygport authors
 #
 #  Permission is granted to copy, distribute and/or modify this manual
 #  under the terms of the GNU Free Documentation License, Version 1.3 or
