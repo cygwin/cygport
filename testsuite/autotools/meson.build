@@ -24,7 +24,7 @@ endif
 if kde3.found() and libexif.found()
 tests += [['autotools/kde3', 720]]
 endif
-if mate_common.found() and gi.found() and python2.found()
+if mate_common.found() and gi.found()
 tests += [['autotools/mate', 720]]
 endif
 if xdt.found() and xfce4_panel.found()

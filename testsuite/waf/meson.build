@@ -1,3 +1,3 @@
-if python2.found()
+if python3.found()
 tests += [['waf/all']]
 endif

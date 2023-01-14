@@ -1,4 +1,4 @@
-inherit mate python2
+inherit mate
 
 NAME="mate-menus"
 VERSION=1.18.0
@@ -9,9 +9,9 @@ DESCRIPTION="MATE is a fork of the GNOME 2 desktop. It provides an intuitive
 and attractive desktop to Linux users using traditional metaphors."
 
 PATCH_URI="1.2.0-no-undefined.patch"
-export PYTHON="python2"
+CYGCONF_ARGS="--disable-python"
 
-PKG_NAMES="${NAME} libmate-menu2 libmate-menu-devel girepository-MateMenu2.0 python2-matemenu"
+PKG_NAMES="${NAME} libmate-menu2 libmate-menu-devel girepository-MateMenu2.0"
 mate_menus_CATEGORY="MATE"
 mate_menus_CONTENTS="etc/ usr/share/doc/ usr/share/locale/ usr/share/mate/"
 libmate_menu2_SUMMARY="MATE Desktop Menu Specification library (runtime)"
@@ -21,7 +21,3 @@ libmate_menu_devel_SUMMARY="MATE Desktop Menu Specification library (development
 libmate_menu_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/"
 girepository_MateMenu2_0_SUMMARY="MATE Desktop Menu Specification library (GObject Introspection)"
 girepository_MateMenu2_0_CONTENTS="usr/*/gir*/MateMenu-2.0.*"
-python2_matemenu_CATEGORY="Python"
-python2_matemenu_SUMMARY="MATE Desktop Menu Specification library (Python bindings)"
-python2_matemenu_OBSOLETES="python-matemenu"
-python2_matemenu_CONTENTS="${PYTHON2_SITELIB#/}/matemenu.dll usr/share/mate-menus/examples/"

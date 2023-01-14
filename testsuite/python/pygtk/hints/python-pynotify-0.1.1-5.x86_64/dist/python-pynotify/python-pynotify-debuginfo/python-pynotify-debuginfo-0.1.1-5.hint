@@ -1,7 +1,0 @@
-category: Debug
-requires: cygwin-debuginfo
-external-source: python-pynotify
-sdesc: "Debug info for python-pynotify"
-ldesc: "This package contains files necessary for debugging the
-python-pynotify package with gdb."
-

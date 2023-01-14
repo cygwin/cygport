@@ -1,3 +1,0 @@
-declare -r ARCHES="all"
-declare -- CROSS_HOST=""
-declare -- INHERITED="python2 python gnome.org pygtk autotools "

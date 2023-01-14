@@ -1,19 +1,21 @@
-ORIG_PN="BeautifulSoup"
+ORIG_PN="beautifulsoup4"
 inherit distutils
 
-NAME="python-beautifulsoup"
-VERSION=3.2.1
+NAME="python3-beautifulsoup"
+VERSION=4.11.1
 RELEASE=1
 CATEGORY="Python"
 SUMMARY="Python HTML/XML parser"
 DESCRIPTION="Beautiful Soup is a Python HTML/XML parser designed for quick
 turnaround projects like screen-scraping. Beautiful Soup parses anything you
 give it, and does the tree traversal stuff for you."
-HOMEPAGE="http://www.crummy.com/software/BeautifulSoup/"
-SRC_URI="http://www.crummy.com/software/BeautifulSoup/download/3.x/${ORIG_PN}-${PV}.tar.gz"
+HOMEPAGE="https://www.crummy.com/software/BeautifulSoup/"
+SRC_URI="https://www.crummy.com/software/BeautifulSoup/bs4/download/${PV%.*}/${ORIG_PN}-${PV}.tar.gz"
 
-PKG_NAMES="python2-beautifulsoup"
-python2_beautifulsoup_OBSOLETES=${NAME}
-python2_beautifulsoup_CONTENTS="*"
+PKG_NAMES="python3-beautifulsoup"
+python3_beautifulsoup_OBSOLETES="python-beautifulsoup"
+python3_beautifulsoup_CONTENTS="*"
 
 DOCS="PKG-INFO"
+
+export SETUPTOOLS_USE_DISTUTILS=local

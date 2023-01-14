@@ -6,7 +6,6 @@
 /usr/lib/girepository-1.0/MateMenu-2.0.typelib
 /usr/lib/libmate-menu.dll.a
 /usr/lib/pkgconfig/libmate-menu.pc
-/usr/lib/python2.7/site-packages/matemenu.dll
 /usr/share/doc/mate-menus/AUTHORS
 /usr/share/doc/mate-menus/COPYING
 /usr/share/doc/mate-menus/COPYING.LIB
@@ -121,7 +120,6 @@
 /usr/share/locale/zh_CN/LC_MESSAGES/mate-menus.mo
 /usr/share/locale/zh_HK/LC_MESSAGES/mate-menus.mo
 /usr/share/locale/zh_TW/LC_MESSAGES/mate-menus.mo
-/usr/share/mate-menus/examples/mate-menus-ls.py
 /usr/share/mate/desktop-directories/mate-audio-video.directory
 /usr/share/mate/desktop-directories/mate-development.directory
 /usr/share/mate/desktop-directories/mate-education.directory

@@ -1,3 +1,3 @@
 declare -r ARCHES="all"
 declare -- CROSS_HOST=""
-declare -- INHERITED="python python2 python.org python2-distutils python-distutils distutils autotools "
+declare -- INHERITED="python3 python.org python3-distutils distutils autotools "

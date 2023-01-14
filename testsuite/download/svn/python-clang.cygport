@@ -1,7 +1,7 @@
 SVN_URI="https://github.com/llvm/llvm-project"
 SVN_BRANCH="tags/llvmorg-${PV}/clang/bindings/python"
 SVN_MODULE="python-clang"
-PYTHON_WHEEL_VERSIONS="2:default"
+PYTHON_WHEEL_VERSIONS="default"
 inherit python-wheel svn
 
 NAME="python-clang"
