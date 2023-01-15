@@ -1,5 +1,5 @@
 category: Python
-requires: python38 
+requires: python38
 sdesc: "Python 2 and 3 compatibility library"
 ldesc: "Six is a Python 2 and 3 compatibility library. It provides
 utility functions for smoothing over the differences between the Python

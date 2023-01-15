@@ -100,6 +100,9 @@ jobs:
         python27-pip,^
         python27-setuptools,^
         python27-wheel,^
+        python37-pip,^
+        python37-setuptools,^
+        python37-wheel,^
         python38-pip,^
         python38-setuptools,^
         python38-wheel,^
