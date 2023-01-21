@@ -675,7 +675,7 @@ cygconf() {
 	confver_min=${confver##*.}
 	if [ -z $confver_maj ]
 	then
-		error "could not detect autoconf version; perhaps set AUTOCONF_VERSION?";
+		error "could not determine the autoconf version used to generate ./configure; perhaps set AUTOCONF_VERSION?";
 	fi
 	if [ $confver_maj -ne 2 ]
 	then
