@@ -83,6 +83,11 @@ fetch() {
 	urifile=${urifile%\?*};
 	urifile=${urifile##*/};
 
+	if [ -z "${urifile}" ]
+	then
+		error "Won't fetch URI '$1', as it doesn't have a basename. Please specify one by appending #/FILENAME. See SRC_URI in the reference manual for details."
+	fi
+
 	if defined __DL_ONLY_MISSING && defined DISTDIR && [ -f ${DISTDIR}/${urifile} ]
 	then
 		inform "Using ${urifile} from DISTDIR"
