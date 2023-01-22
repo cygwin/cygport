@@ -1,3 +1,13 @@
+0.36.0:
+	* Allow package compression to be specified with TAR_COMPRESSION_EXT
+	* Add CYGWIN_FILES to place files in $C, as an alternative to creating
+           them with a ${PF}.cygwin.patch file
+	* python{,2,3}-distutils: Warn that distutils is deprecated
+	* python2{,-disutils,-wheel}: Stop with an error because python2 is
+           sunset
+	* python-wheel: Stop with an error if PYTHON_WHEEL_VERSIONS contains "2"
+           or "2.x"
+
 0.35.5:
 	* Default to x86_64-pc-cygwin target on Linux.
 	* 'inform' messages are now sent to stderr
