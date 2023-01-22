@@ -64,10 +64,18 @@
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Configuration">Configuration</a> ] [ <a href="./cygport_concepts.html#robo_top_of_doc">Concepts</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  The <strong>cygport.conf</strong> file can be used by users to customize certain aspects
-  of cygport's behaviour.  Users who wish to customize their settings should
-  copy the default /etc/<strong>cygport.conf</strong> file to $HOME/.<strong>cygport.conf</strong> and edit the
-  latter.
+<p>  The <strong>cygport.conf</strong> file can be used by users to customize certain aspects of
+  cygport's behaviour.  Users who wish to customize their settings should copy
+  the respective settings from /etc/<strong>cygport.conf</strong> file to $HOME/.<strong>cygport.conf</strong>
+  and edit the latter.
+</p>
+
+<p>  Settings in /etc/<strong>cygport.conf</strong> are read first and can be changed via
+  user-<a href="./syntax_cygpart.html#defined">defined</a> settings in $HOME/.config/<strong>cygport.conf</strong>,
+  $HOME/.cygport/<strong>cygport.conf</strong>, $HOME/.<strong>cygport.conf</strong>, $HOME/.cygportrc in that
+  order.  The last one is for backwards compatibility with older versions of
+  cygport, usually just one of these user-<a href="./syntax_cygpart.html#defined">defined</a> configuration files should
+  exist.
 </p>
 
 <hr />
@@ -238,7 +246,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/data/cygport.conf with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2022-12-31 16:27:10</p>
+<p>Generated from ./cygport/data/cygport.conf with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2023-01-22 13:51:43</p>
 </div> <!-- footer -->
 </body>
 </html>
