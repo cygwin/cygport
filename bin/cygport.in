@@ -572,6 +572,23 @@ declare -r src_patchfile=${PF}.src.patch;
 declare -ar pkg_name=(${PKG_NAMES:-${PN}});
 declare -r  pkg_count=${#pkg_name[*]};
 
+# this requires workdir to be already defined
+mkdir -p ${workdir}
+rm -f ${workdir}/.probe_case_sensitivity
+touch ${workdir}/.PROBE_CASE_SENSITIVITY
+probe=$( [ -f ${workdir}/.probe_case_sensitivity ] && echo "failed" || echo "" )
+rm -f ${workdir}/.PROBE_CASE_SENSITIVITY
+if [ -n "$probe" ]
+then
+	if defined _CYGPORT_RESTRICT_case_insensitive_
+	then
+		error "Package ${NAME} cannot be built on a case-insensitive filesystem";
+	else
+		warning "Building on a case-insensitive filesystem";
+	fi
+fi
+unset probe
+
 # this requires S and B to be already defined
 if ! defined _CYGPORT_RESTRICT_debuginfo_
 then

@@ -1449,19 +1449,25 @@ __prep_libtool_modules() {
 #****v* Postinstall/RESTRICT
 #  DESCRIPTION
 #  List of automatic postinstall or packaging step(s) which should be skipped
-#  for this package.  Supported values are:
-#  * debuginfo: do not create a debuginfo subpackage
+#  for this package, and restrictions on package use.
+#
+# Supported values are:
+#
+#  * case-insensitive: do not build on case-insensitive filesystems.
+#  * debuginfo: do not create a debuginfo subpackage.
 #  * diff: do not generate a .src.patch file of changes made in $S.
 #  * postinst-doc: do not install standard documentation files.
 #  * postinst-gconf: do not create postinstall commands for GConf schemas.
 #  * postinst-info: do not compress info documentation.
 #  * strip: do not strip binaries.
 #  * upload: do not allow uploading binary packages to cygwin.com.
+#
 #  Of these, "diff" is the only one that should be considered useful, e.g.
 #  with very large data-only packages which will have no useful diff.
 #  "debuginfo" is useful on a temporary, per-build basis to debug a package
-#  in the build tree (e.g. a noinst test package).  "upload" makes it safer
-#  for cygport to be used for building private packages.
+#  in the build tree (e.g. a noinst test package).
+#
+#  "upload" makes it safer for cygport to be used for building private packages.
 #
 #  If you find yourself using any of the others to work around cygport's
 #  default behaviour, in all likelyhood it is either a bug in cygport or in
