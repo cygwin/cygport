@@ -368,12 +368,23 @@ __prep_xsessions() {
 	dodir /etc/postinstall /etc/preremove /etc/X11/xinit/Xclients.d
 
 	cat >> ${D}/etc/postinstall/${PN}.sh <<_EOF
-case \$(uname -s) in *-WOW*) wow64=" (32-bit)" ;; esac
-/usr/bin/mkdir -p "\$(/usr/bin/cygpath \$CYGWINFORALL -P)/Cygwin-X\${wow64}"
+if [ ! -v CYGWIN_START_MENU_SUFFIX ]
+then
+  case \$(uname -s) in *-WOW*) CYGWIN_START_MENU_SUFFIX=" (32-bit)" ;; esac
+fi
+
+case \${CYGWIN_SETUP_OPTIONS} in
+  *no-startmenu*)
+  ;;
+  *)
+  /usr/bin/mkdir -p "\$(/usr/bin/cygpath \$CYGWINFORALL -P)/Cygwin-X\${CYGWIN_START_MENU_SUFFIX}"
 _EOF
 
 	cat >> ${D}/etc/preremove/${PN}.sh <<_EOF
-case \$(uname -s) in *-WOW*) wow64=" (32-bit)" ;; esac
+if [ ! -v CYGWIN_START_MENU_SUFFIX ]
+then
+  case \$(uname -s) in *-WOW*) CYGWIN_START_MENU_SUFFIX=" (32-bit)" ;; esac
+fi
 _EOF
 
 	for s in ${D}/usr/share/xsessions/*.desktop
@@ -401,16 +412,21 @@ _EOF
 		chmod +x ${D}/etc/X11/xinit/Xclients.d/Xclients.${sname}.sh
 
 		cat >> ${D}/etc/postinstall/${PN}.sh <<_EOF
-/usr/bin/mkshortcut \$CYGWINFORALL -P -w / -i ${ico} -n "Cygwin-X\${wow64}/${Name}" -a "--quote /usr/bin/bash.exe -l -c \"cd; XSESSION_ICON=${Icon} exec /usr/bin/startx /etc/X11/xinit/Xsession ${sname}\"" /usr/bin/run.exe
+  /usr/bin/mkshortcut \$CYGWINFORALL -P -w / -i ${ico} -n "Cygwin-X\${CYGWIN_START_MENU_SUFFIX}/${Name}" -a "--quote /usr/bin/bash.exe -l -c \"cd; XSESSION_ICON=${Icon} exec /usr/bin/startx /etc/X11/xinit/Xsession ${sname}\"" /usr/bin/run.exe
 _EOF
 
 		cat >> ${D}/etc/preremove/${PN}.sh <<_EOF
-/bin/rm -f "\$(/usr/bin/cygpath \$CYGWINFORALL -P)/Cygwin-X\${wow64}/${Name}.lnk"
+/bin/rm -f "\$(/usr/bin/cygpath \$CYGWINFORALL -P)/Cygwin-X\${CYGWIN_START_MENU_SUFFIX}/${Name}.lnk"
 _EOF
 	done
 
+	cat >> ${D}/etc/postinstall/${PN}.sh <<_EOF
+  ;;
+esac
+_EOF
+
 	cat >> ${D}/etc/preremove/${PN}.sh <<_EOF
-/bin/rmdir --ignore-fail-on-non-empty "\$(/usr/bin/cygpath \$CYGWINFORALL -P)/Cygwin-X\${wow64}"
+/bin/rmdir --ignore-fail-on-non-empty "\$(/usr/bin/cygpath \$CYGWINFORALL -P)/Cygwin-X\${CYGWIN_START_MENU_SUFFIX}"
 _EOF
 }
 
