@@ -1346,7 +1346,7 @@ __prep_libtool_modules() {
 				else
 					origdlname=${dlname}
 
-					while [ $(readlink -f ${ltlibdir}/${dlname%/bin/*}) != ${D}$(__host_prefix) ]
+					while [ $(readlink -f ${ltlibdir}/${dlname%/bin/*}) != $(readlink -f ${D}$(__host_prefix)) ]
 					do
 						dlname=../${dlname}
 					done
