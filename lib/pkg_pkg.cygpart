@@ -630,7 +630,7 @@ license: ${LICENSE}
 _EOF
 			fi
 		else
-			warning "${PN}-src.hint is missing";
+			error "Cannot generate ${PN}-src.hint. A category and summary must be specified";
 		fi
 	fi
 }
@@ -682,7 +682,9 @@ __pkg_dist() {
 #  libfoo-devel will use libfoo_devel_CATEGORY.
 #  NOTE
 #  A list of official categories is available on the
-#  |htmlf <a href="https://cygwin.com/packaging-hint-files.html">Cygwin website</a>.
+#  |html <a href="https://cygwin.com/packaging-hint-files.html">Cygwin website</a>.
+#
+#  Specifying the categories for a package is mandatory.
 #****
 #****v* Packaging/SUMMARY
 #  DESCRIPTION
@@ -702,6 +704,9 @@ __pkg_dist() {
 #  cannot be used in a shell variable name (namely '+', '-', and '.'),
 #  that character must be substituted with an underscore ('_'), e.g.
 #  libfoo-devel will use libfoo_devel_SUMMARY.
+#
+#  NOTE
+#  Specifying a summary for a package is mandatory.
 #****
 #****v* Packaging/DESCRIPTION
 #  DESCRIPTION
@@ -933,7 +938,7 @@ _EOF
 ${pkg_tag}
 _EOF
 		else
-			warning "${pkg_hint[${n}]%.hint}.hint is missing";
+			error "Cannot generate ${pkg_hint[${n}]%.hint}.hint. A category and summary must be specified.";
 		fi
 
 		n+=1;
