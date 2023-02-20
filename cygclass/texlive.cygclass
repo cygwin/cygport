@@ -116,7 +116,6 @@ done
 for pkg in ${TEXLIVE_ARCH_PKGS//,/ }
 do
 	SRC_URI+=" ${tlnet}/archive/$pkg.tar.xz"
-	SRC_URI+=" ${tlnet}/archive/$pkg.i386-cygwin.tar.xz"
 	SRC_URI+=" ${tlnet}/archive/$pkg.x86_64-cygwin.tar.xz"
 done
 for pkg in ${TEXLIVE_DOC_PKGS//,/ }
@@ -149,7 +148,7 @@ texlive_install() {
 	done
 	for pkg in ${TEXLIVE_ARCH_PKGS//,/ }
 	do
-		pkgs+="$pkg $pkg.i386-cygwin $pkg.x86_64-cygwin "
+		pkgs+="$pkg $pkg.x86_64-cygwin "
 	done
 	for pkg in ${TEXLIVE_DOC_PKGS//,/ }
 	do
@@ -170,7 +169,7 @@ texlive_install() {
 			*.bat)
 				# only needed for native Win32
 				continue ;;
-			bin/i386-cygwin/*)
+			bin/x86_64-cygwin/*)
 				if [ ! -L ${f} ]
 				then
 					dobin $f
@@ -182,9 +181,6 @@ texlive_install() {
 					*) dosym ${dst} /usr/bin/${f##*/} ;;
 					esac
 				fi
-				continue ;;
-			bin/x86_64-cygwin/*)
-				# duplicate to i386-cygwin handled above
 				continue ;;
 			*doc/info/dir)
 				# system-managed file
