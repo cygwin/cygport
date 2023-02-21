@@ -613,9 +613,16 @@ __prepetc() {
 			fi
 		done
 
-		n=1;
+		n=0;
 		while [ -n "${pkg_name[${n}]}" ]
 		do
+			# avoid appending script for PN twice
+			if [ "${pkg_name[${n}]}" = "$PN" ]
+			then
+			   n+=1
+			   continue;
+			fi
+
 			if [ -f ${C}/${pkg_name[${n}]}.${s} ]
 			then
 				dodir /etc/${s};
