@@ -1,3 +1,15 @@
+0.36.1:
+	* Report an error when SRC_URI has no basename and #/FILENAME isn't used
+	* Add RESTRICT 'case-insensitive' and warn about using a case-insenstive
+           filesystem.
+	* Take notice of CYGWIN_SETUP_OPTIONS and use CYGWIN_START_MENU_SUFFIX
+           in X session shortcut folder naming
+	* Fix a potential infinite loop in __prep_libtool_modules if working
+           directory includes a symlink
+	* Update error if CATEGORY or SUMMARY isn't set
+	* Fix $PKG[0] == $PN assumption in src_postinstall
+	* texlive.cygclass: remove references to i386-cygwin
+
 0.36.0:
 	* Allow package compression to be specified with TAR_COMPRESSION_EXT
 	* Add CYGWIN_FILES to place files in $C, as an alternative to creating
@@ -14,7 +26,7 @@
 	* Canonicalize whitespace in the values of .hint file keys which are
            single-line, space-separated lists
 	* python-wheel: Handle PEP 517 projects without a setup.py
-	* Umprove auto-decompression for patches to handle .xz & .zst
+	* Improve auto-decompression for patches to handle .xz & .zst
 	* Decompress SRC_URI archives and files using ZStandard compression
 	* Implement --jobs/-j N option to specify number of build jobs to use
 
