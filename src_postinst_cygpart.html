@@ -9,7 +9,7 @@
 <script src="./robodoc.js"></script>
 <title>src_postinst.cygpart</title>
 <!-- Source: ./cygport/lib/src_postinst.cygpart -->
-<!-- Generated with ROBODoc Version 4.99.45 (Dec 31 2022) -->
+<!-- Generated with ROBODoc Version 4.99.44 (Jan 29 2023) -->
 </head>
 <body>
 <div id="logo">
@@ -489,28 +489,29 @@
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Postinstall">Postinstall</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  List of automatic postinstall or packaging step(s) which should be skipped
-  for this package.  Supported values are:
+  for this package, and restrictions on package use.
 </p>
-<ul><li>  debuginfo: do not create a debuginfo subpackage
-</li>
-<li>  diff: do not generate a .src.patch file of changes made in $<a href="./syntax_cygpart.html#S">S</a>.
-</li>
-<li>  postinst-doc: do not install standard documentation files.
-</li>
-<li>  postinst-gconf: do not create postinstall commands for GConf schemas.
-</li>
-<li>  postinst-info: do not compress info documentation.
-</li>
-<li>  strip: do not strip binaries.
-</li>
-<li>  upload: do not allow uploading binary packages to cygwin.com.
-</li>
-</ul>
+
+<p> Supported values are:
+</p>
+
+<p>  * case-insensitive: do not build on case-insensitive filesystems.
+  * debuginfo: do not create a debuginfo subpackage.
+  * diff: do not generate a .src.patch file of changes made in $<a href="./syntax_cygpart.html#S">S</a>.
+  * postinst-doc: do not install standard documentation files.
+  * postinst-gconf: do not create postinstall commands for GConf schemas.
+  * postinst-info: do not compress info documentation.
+  * strip: do not strip binaries.
+  * upload: do not allow uploading binary packages to cygwin.com.
+</p>
+
 <p>  Of these, "diff" is the only one that should be considered useful, e.g.
   with very large data-only packages which will have no useful diff.
   "debuginfo" is useful on a temporary, per-build basis to debug a package
-  in the build tree (e.g. a noinst test package).  "upload" makes it safer
-  for cygport to be used for building private packages.
+  in the build tree (e.g. a noinst test package).
+</p>
+
+<p>  "upload" makes it safer for cygport to be used for building private packages.
 </p>
 
 <p>  If you find yourself using any of the others to work around cygport's
@@ -520,7 +521,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/lib/src_postinst.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.45 on 2023-01-22 13:51:43</p>
+<p>Generated from ./cygport/lib/src_postinst.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2023-03-11 16:27:12</p>
 </div> <!-- footer -->
 </body>
 </html>
