@@ -23,11 +23,11 @@
 
 #****h* Cygclasses/python-wheel.cygclass
 #  DESCRIPTION
-#  Wheels are the new standard for installing Python libraries and programs.
-#  The build is defined by a PEP 517 conformant source tree, or by a top-level
-#  setup.py file, which controls the installation of files and the building of C
-#  Python extensions.  Many such packages are hosted on the Python Package Index
-#  (PyPI).
+#  Wheels are the standard for installing Python libraries and programs.
+#  The build is defined by a PEP 518 conformant source tree, or by a top-level
+#  setup.cfg or setup.py file, which controls the installation of files and the
+#  building of C Python extensions.  Many such packages are hosted on the Python
+#  Package Index (PyPI).
 #
 #  This cygclass handles the building of wheel-based Python module packages
 #  for multiple Python versions simultaneously.
@@ -153,15 +153,15 @@ fi
 #  python_wheel_compile [OPTIONS]
 #  DESCRIPTION
 #  If a setup.py file is present, runs the setup.py 'bdist_wheel' command, to
-#  which any arguments are passed.  Otherwise, for a PEP 517 conformant source
+#  which any arguments are passed.  Otherwise, for a PEP 518 conformant source
 #  tree, runs 'pip wheel'.
 #****
 python_wheel_compile() {
 	local ver
 
-	if [ ! -e setup.py ] && [ ! -e setup.cfg ]
+	if [ ! -e pyproject.toml ] && [ ! -e setup.py ] && [ ! -e setup.cfg ]
 	then
-		error "No Python Distutils module detected in source tree"
+		error "No pyproject.toml (PEP 518), setup.cfg or setup.py detected in source tree"
 	fi
 
 	for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
@@ -169,6 +169,8 @@ python_wheel_compile() {
 		[ ! -d build/lib ] || find build/lib -delete
 		if [ ! -f dist/*-py2.py3*-none-any.whl -a ! -f dist/*py${ver:0:1}-none-any.whl ]
 		then
+			# for the moment, we retain the historical behaviour of
+			# building projects which have a setup.py using setuptools
 			if [ ! -e setup.py ]
 			then
 				pip${ver} wheel --no-deps -w dist . || error "pip${ver} wheel failed"
@@ -189,9 +191,9 @@ python_wheel_compile() {
 python_wheel_install() {
 	local ver whl
 
-	if [ ! -e setup.py ] && [ ! -e setup.cfg ]
+	if [ ! -e pyproject.toml ] && [ ! -e setup.py ] && [ ! -e setup.cfg ]
 	then
-		error "No Python Distutils module detected in source tree"
+		error "No pyproject.toml (PEP 518), setup.cfg or setup.py detected in source tree"
 	fi
 
 	for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
