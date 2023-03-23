@@ -93,7 +93,7 @@ git_fetch() {
 
 #****v* git.cygclass/GIT_BRANCH
 #  DESCRIPTION
-#  Branch from which to clone.  If undefined, the 'master' branch is used.
+#  Branch from which to clone.  If undefined, the 'master' or 'main' branch is used.
 #****
 #****v* git.cygclass/GIT_REV
 #  DESCRIPTION
@@ -116,7 +116,7 @@ git_fetch() {
 	then
 		verbose git checkout ${GIT_REV} || error "git checkout failed"
 	else
-		verbose git checkout master || error "git checkout failed"
+		verbose git checkout master || verbose git checkout main || error "git checkout failed"
 	fi
 
 	if [ -f .gitmodules ]
