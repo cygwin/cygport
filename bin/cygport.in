@@ -574,6 +574,12 @@ declare -r  pkg_count=${#pkg_name[*]};
 
 # this requires workdir to be already defined
 mkdir -p ${workdir}
+
+if [ $OSTYPE = "cygwin" ]
+then
+	chattr -fR +C ${workdir} >/dev/null 2>&1 || true
+fi
+
 rm -f ${workdir}/.probe_case_sensitivity
 touch ${workdir}/.PROBE_CASE_SENSITIVITY
 probe=$( [ -f ${workdir}/.probe_case_sensitivity ] && echo "failed" || echo "" )
