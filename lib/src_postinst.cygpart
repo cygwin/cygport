@@ -929,9 +929,10 @@ __prep_empty_dirs() {
 #  RESTRICT
 #****
 
-__prepstrip() {
+__prepstrip_one() {
 	local dbg;
-	local exe;
+	local exe=$1;
+	local oxt=$2;
 	local all_exes;
 	local arch_tree;
 	local ibase;
@@ -942,6 +943,175 @@ __prepstrip() {
 	local lines;
 	local tmpvar;
 
+	# assure this is actually a binary object
+	if [ "$(head -c 2 "${exe}")" = '#!' ]
+	then
+		# sometimes .exe will be appended where it does not belong
+		case "${exe}" in
+		usr/lib/hevea/*.exe) ;;
+		*.exe)	mv "${exe}" "${exe%.exe}" ;;
+		esac
+		return 0
+	fi
+
+	case "${exe}" in
+	usr/*/lib*/*.[ao]|usr/*/sys-root/*)
+		tmpvar="${exe#usr/}"
+		arch_tree="${tmpvar%%/*}"
+		;;
+	usr/lib/gcc/*/lib*|usr/lib/gcc/*/*.o)
+		tmpvar="${exe#usr/lib/gcc/}"
+		arch_tree="${tmpvar%%/*}"
+		;;
+	esac
+
+	if defined arch_tree && check_prog ${arch_tree}-objcopy && ${arch_tree}-size -f "${exe}" &>/dev/null
+	then
+		# for cross-compiled libs or cross-GCC target libs
+		# built without cross.cygclass or toolchain.cygclass
+		objcopy="${arch_tree}-objcopy"
+		unset arch_tree
+	elif check_prog ${CTARGET}-objcopy && ${CTARGET}-size -f "${exe}" &>/dev/null
+	then
+		# for cross-compiled libs, cross-GCC target libs,
+		# or non-cross packages built on non-Cygwin systems
+		objcopy="${CTARGET}-objcopy"
+	elif check_prog ${CHOST}-objcopy && ${CHOST}-size -f "${exe}" &>/dev/null
+	then
+		# for cross-compilers built on non-Cygwin systems
+		objcopy="${CHOST}-objcopy"
+	elif size -f "${exe}" &>/dev/null
+	then
+		objcopy="objcopy"
+	else
+		return 0
+	fi
+
+	objdump=${objcopy/copy/dump}
+
+	# Static libraries should not be fully stripped, but we can
+	# still provide split debuginfo if desired
+	case "${exe}" in
+	*.a|*.o)
+		if defined _CYGPORT_RESTRICT_debuginfo_
+		then
+			echo "        ${exe}";
+			${objcopy} --strip-debug "${exe}";
+		else
+			${objdump} -d -l "${exe}" 2>/dev/null | sed -ne "s|.*\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u > ${T}/.dbgsrc.out.${oxt};
+		fi
+		return 0
+		;;
+	esac
+
+	# Mono assemblies must not be stripped, but remove .mdb debug symbols,
+	# and make them non-executable so they're not launched by MS .NET
+	if LC_ALL=C file -b "${exe}" 2>&1 | grep -q "Mono/\.Net assembly"
+	then
+		chmod 0644 "${exe}"
+		rm -f "${exe}.mdb"
+		return 0
+	fi
+
+	# check for DLLs with low-address manual ImageBase, either
+	# due to -Wl,--image-base, or BASE directive in .def file;
+	# use CTARGET to avoid false positives from cross-gcc
+	case ${CTARGET} in
+	x86_64-*-cygwin*)
+		case "${exe##*/}" in
+		cygwin1.dll|cyglsa64.dll|cyglto_plugin.dll) ;;
+		# Flexlink'ed DLLs are special
+		dll*.so|*.cmxs) ;;
+		*.dll|*.so|*.oct|*.mex)
+			if [ ${objdump} = "llvm-objdump" ]
+			then
+				ibase=$(llvm-readobj -file-headers "${exe}" | sed -ne '/ImageBase:/s/^.*: *//gp')
+			else
+				ibase=$(${objdump} -p "${exe}" | sed -ne '/^ImageBase/s/.*\t/0x/gp')
+			fi
+			if echo $ibase | gawk '{ exit (strtonum($1) <= 0x400000000 ? 0 : 1) }'
+			then
+				warning "${exe} was not linked with -Wl,--enable-auto-image-base"
+			fi
+		esac
+	esac
+
+	# check for .exe from non-automake Makefile which install(1) didn't fix
+	# strip(1) used to take care of this, but not anymore
+	case ${CHOST} in
+	*-*-cygwin*|*-*-mingw*|*-*-msys*)
+		case "${exe##*/}" in
+		*.dll|*.exe|*.sfx|*.so|*.so.[0-9]*|*.oct|*.mex|*.cmxs) ;;
+		# make sure this isn't some oddly named DLL
+		*.*)	if LC_ALL=C ${objdump} -f "${exe}" | grep -Eq '^start address 0x(0000000[01])?00401[0-9a-e][0-9a-e]0'
+			then
+				mv "${exe}" "${exe}.exe"
+				exe+=.exe
+			fi ;;
+		*)	mv "${exe}" "${exe}.exe"; exe+=.exe ;;
+		esac
+		;;
+	esac
+
+	# OCaml bytecode must not be stripped
+	# Magic number is at end of file:
+	# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=256900#74
+	# https://sourceware.org/legacy-ml/cygwin-apps/2010-10/msg00057.html
+	#
+	# Perl Archive (PAR) binaries must not be stripped
+	# https://rt.cpan.org/Public/Bug/Display.html?id=18536
+	# https://sourceware.org/legacy-ml/cygwin-apps/2012-07/msg00088.html
+	#
+	# Neko bytecode must not be stripped
+	# https://github.com/HaxeFoundation/neko/issues/130
+	case $(tail -c 12 "${exe}" | tr '\012\0' '%') in
+	*%PAR\.pm%)  return 0 ;;
+	Caml1999X0[0-9][0-9])  return 0 ;;
+	*NEKO*)  return 0 ;;
+	esac
+
+	echo "        ${exe}";
+	# keep sticky bit if present
+	chmod u+w,a+x "${exe}";
+
+	if defined _CYGPORT_RESTRICT_debuginfo_
+	then
+		${objcopy} --strip-all "${exe}";
+	else
+		dbg="/usr/lib/debug/${exe}.dbg";
+
+		lines=$(${objdump} -d -l "${exe}" 2>/dev/null | sed -ne "s|.*\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u | tee -a ${T}/.dbgsrc.out.${oxt} | wc -l);
+
+		# we expect --add-gnu-debuglink to fail if a
+		# .gnu_debuglink section already exists (e.g. binutils,
+		# which uses hardlinks, or cygwin which creates a custom
+		# .dbg file), but leave it alone to make sure we don't
+		# mess it up.
+		if ${objdump} -h "${exe}" | grep -q '\.gnu_deb'
+		then
+			return 0;
+		fi
+
+		# only create split debuginfo if it's going to contain
+		# some symbols for which this package has the
+		# corresponding source files
+		if (( lines == 0 ))
+		then
+			${objcopy} --strip-all "${exe}";
+			return 0;
+		fi
+
+		dodir "${dbg%/*}";
+		${objcopy} --long-section-names enable --add-gnu-debuglink=/dev/null --only-keep-debug "${exe}" "${D}${dbg}";
+		chmod 0644 "${D}${dbg}";
+		${objcopy} --strip-all "${exe}";
+		${objcopy} --long-section-names enable --add-gnu-debuglink="${D}${dbg}" "${exe}" 2>/dev/null;
+
+	fi
+}
+__prepstrip() {
+	local exe;
+
 	if defined _CYGPORT_RESTRICT_strip_
 	then
 		inform "Skipping strip step per request.";
@@ -950,185 +1120,46 @@ __prepstrip() {
 
 	cd ${D};
 
-	> ${T}/.dbgsrc.out
+	rm -f ${T}/.dbgsrc.*
+	> ${T}/.dbgsrc.dbg
+	> ${T}/.dbgsrc.out.0 # dummy
 
 	echo "Stripping executables:";
+	echo "    ... starting" >> ${T}/.dbgsrc.dbg
+
+	local start="$(date --iso-8601=ns)";
+	local njobs;
+	local nproc=$(nproc)
+	local ord=0;
+	local oxt;
 
 	# *.so: Apache2 modules, OCaml stublibs, Ruby modules
 	# *.oct: Octave modules
 	# *.mex: Octave MATLAB-compatible MEX modules
 	# *.cmxs: OCaml natdynlink modules: http://gallium.inria.fr/~frisch/ndl.txt
-	find * -type f ! -name '*.dll.a' ! -name '*.lib' \
-		-a \( -name '*.a' -o -name '*.o' -o -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.so.*' -o -name '*.oct' -o -name '*.mex' -o -name '*.cmxs' \) -print0 \
-		-o -type f -executable ! -name '*.dll' ! -name '*.exe' ! -name '*.so' ! -name '*.so.[0-9]*' ! -name '*.oct' ! -name '*.mex' ! -name '*.cmxs' ! -name '*.a' ! -name '*.la' ! -name '*.lib' ! -name '*.exe.manifest' ! -name '*.exe.config' ! -name '*.dll.config' ! -name '*.mdb' ! -name '*-config' ! -name '*.csh' ! -name '*.sh' ! -name '*.fish' ! -name '*.pl' ! -name '*.pm' ! -name '*.py' ! -name '*.rb' ! -name '*.tcl' -print0 | \
-	while read -d $'\0' exe
+	while IFS= read -r -d '' exe
 	do
-		# assure this is actually a binary object
-		if [ "$(head -c 2 "${exe}")" = '#!' ]
-		then
-			# sometimes .exe will be appended where it does not belong
-			case "${exe}" in
-			usr/lib/hevea/*.exe) ;;
-			*.exe)	mv "${exe}" "${exe%.exe}" ;;
-			esac
-			continue
-		fi
-
-		case "${exe}" in
-		usr/*/lib*/*.[ao]|usr/*/sys-root/*)
-			tmpvar="${exe#usr/}"
-			arch_tree="${tmpvar%%/*}"
-			;;
-		usr/lib/gcc/*/lib*|usr/lib/gcc/*/*.o)
-			tmpvar="${exe#usr/lib/gcc/}"
-			arch_tree="${tmpvar%%/*}"
-			;;
-		esac
-
-		if defined arch_tree && check_prog ${arch_tree}-objcopy && ${arch_tree}-size -f "${exe}" &>/dev/null
-		then
-			# for cross-compiled libs or cross-GCC target libs
-			# built without cross.cygclass or toolchain.cygclass
-			objcopy="${arch_tree}-objcopy"
-			unset arch_tree
-		elif check_prog ${CTARGET}-objcopy && ${CTARGET}-size -f "${exe}" &>/dev/null
-		then
-			# for cross-compiled libs, cross-GCC target libs,
-			# or non-cross packages built on non-Cygwin systems
-			objcopy="${CTARGET}-objcopy"
-		elif check_prog ${CHOST}-objcopy && ${CHOST}-size -f "${exe}" &>/dev/null
-		then
-			# for cross-compilers built on non-Cygwin systems
-			objcopy="${CHOST}-objcopy"
-		elif size -f "${exe}" &>/dev/null
-		then
-			objcopy="objcopy"
-		else
-			continue
-		fi
-
-		objdump=${objcopy/copy/dump}
-
-		# Static libraries should not be fully stripped, but we can
-		# still provide split debuginfo if desired
-		case "${exe}" in
-		*.a|*.o)
-			if defined _CYGPORT_RESTRICT_debuginfo_
-			then
-				echo "        ${exe}";
-				${objcopy} --strip-debug "${exe}";
-			else
-				${objdump} -d -l "${exe}" 2>/dev/null | sed -ne "s|.*\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u >> ${T}/.dbgsrc.out;
-			fi
-			continue
-			;;
-		esac
-
-		# Mono assemblies must not be stripped, but remove .mdb debug symbols,
-		# and make them non-executable so they're not launched by MS .NET
-		if LC_ALL=C file -b "${exe}" 2>&1 | grep -q "Mono/\.Net assembly"
-		then
-			chmod 0644 "${exe}"
-			rm -f "${exe}.mdb"
-			continue
-		fi
-
-		# check for DLLs with low-address manual ImageBase, either
-		# due to -Wl,--image-base, or BASE directive in .def file;
-		# use CTARGET to avoid false positives from cross-gcc
-		case ${CTARGET} in
-		x86_64-*-cygwin*)
-			case "${exe##*/}" in
-			cygwin1.dll|cyglsa64.dll|cyglto_plugin.dll) ;;
-			# Flexlink'ed DLLs are special
-			dll*.so|*.cmxs) ;;
-			*.dll|*.so|*.oct|*.mex)
-				if [ ${objdump} = "llvm-objdump" ]
-				then
-					ibase=$(llvm-readobj -file-headers "${exe}" | sed -ne '/ImageBase:/s/^.*: *//gp')
-				else
-					ibase=$(${objdump} -p "${exe}" | sed -ne '/^ImageBase/s/.*\t/0x/gp')
-				fi
-				if echo $ibase | gawk '{ exit (strtonum($1) <= 0x400000000 ? 0 : 1) }'
-				then
-					warning "${exe} was not linked with -Wl,--enable-auto-image-base"
-				fi
-			esac
-		esac
-
-		# check for .exe from non-automake Makefile which install(1) didn't fix
-		# strip(1) used to take care of this, but not anymore
-		case ${CHOST} in
-		*-*-cygwin*|*-*-mingw*|*-*-msys*)
-			case "${exe##*/}" in
-			*.dll|*.exe|*.sfx|*.so|*.so.[0-9]*|*.oct|*.mex|*.cmxs) ;;
-			# make sure this isn't some oddly named DLL
-			*.*)	if LC_ALL=C ${objdump} -f "${exe}" | grep -Eq '^start address 0x(0000000[01])?00401[0-9a-e][0-9a-e]0'
-				then
-					mv "${exe}" "${exe}.exe"
-					exe+=.exe
-				fi ;;
-			*)	mv "${exe}" "${exe}.exe"; exe+=.exe ;;
-			esac
-			;;
-		esac
-
-		# OCaml bytecode must not be stripped
-		# Magic number is at end of file:
-		# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=256900#74
-		# https://sourceware.org/legacy-ml/cygwin-apps/2010-10/msg00057.html
-		#
-		# Perl Archive (PAR) binaries must not be stripped
-		# https://rt.cpan.org/Public/Bug/Display.html?id=18536
-		# https://sourceware.org/legacy-ml/cygwin-apps/2012-07/msg00088.html
-		#
-		# Neko bytecode must not be stripped
-		# https://github.com/HaxeFoundation/neko/issues/130
-		case $(tail -c 12 "${exe}" | tr '\012\0' '%') in
-			*%PAR\.pm%)  continue ;;
-			Caml1999X0[0-9][0-9])  continue ;;
-			*NEKO*)  continue ;;
-		esac
-
-		echo "        ${exe}";
-		# keep sticky bit if present
-		chmod u+w,a+x "${exe}";
-
-		if defined _CYGPORT_RESTRICT_debuginfo_
-		then
-			${objcopy} --strip-all "${exe}";
-		else
-			dbg="/usr/lib/debug/${exe}.dbg";
-
-			lines=$(${objdump} -d -l "${exe}" 2>/dev/null | sed -ne "s|.*\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u | tee -a ${T}/.dbgsrc.out | wc -l);
-
-			# we expect --add-gnu-debuglink to fail if a
-			# .gnu_debuglink section already exists (e.g. binutils,
-			# which uses hardlinks, or cygwin which creates a custom
-			# .dbg file), but leave it alone to make sure we don't
-			# mess it up.
-			if ${objdump} -h "${exe}" | grep -q '\.gnu_deb'
-			then
-				continue;
-			fi
-
-			# only create split debuginfo if it's going to contain
-			# some symbols for which this package has the
-			# corresponding source files
-			if (( lines == 0 ))
-			then
-				${objcopy} --strip-all "${exe}";
-				continue;
-			fi
-
-			dodir "${dbg%/*}";
-			${objcopy} --long-section-names enable --add-gnu-debuglink=/dev/null --only-keep-debug "${exe}" "${D}${dbg}";
-			chmod 0644 "${D}${dbg}";
-			${objcopy} --strip-all "${exe}";
-			${objcopy} --long-section-names enable --add-gnu-debuglink="${D}${dbg}" "${exe}" 2>/dev/null;
-
-		fi
+		njobs=$(jobs -p | tee -a ${T}/.dbgsrc.dbg |  wc -l)
+		echo "    ... $(date --iso-8601=ns) ($njobs / $nproc)" >> ${T}/.dbgsrc.dbg
+		while ((njobs >= nproc)) ; do
+			wait -n
+			njobs=$(jobs -p | wc -l)
+		done
+		((++ord))
+		oxt=$(printf "%05d" "${ord}")
+		__prepstrip_one "${exe}" "${oxt}" &
+		echo "    ... ${exe} ==> .dbgsrc.out.${oxt}" >> ${T}/.dbgsrc.dbg
+	done < <(find * -type f ! -name '*.dll.a' ! -name '*.lib' \
+		      -a \( -name '*.a' -o -name '*.o' -o -name '*.dll' -o -name '*.exe' -o -name '*.so' -o -name '*.so.*' -o -name '*.oct' -o -name '*.mex' -o -name '*.cmxs' \) -print0 \
+		      -o -type f -executable ! -name '*.dll' ! -name '*.exe' ! -name '*.so' ! -name '*.so.[0-9]*' ! -name '*.oct' ! -name '*.mex' ! -name '*.cmxs' ! -name '*.a' ! -name '*.la' ! -name '*.lib' ! -name '*.exe.manifest' ! -name '*.exe.config' ! -name '*.dll.config' ! -name '*.mdb' ! -name '*-config' ! -name '*.csh' ! -name '*.sh' ! -name '*.fish' ! -name '*.pl' ! -name '*.pm' ! -name '*.py' ! -name '*.rb' ! -name '*.tcl' -print0)
+	echo "    ... $(date --iso-8601=ns) winddown" >> ${T}/.dbgsrc.dbg
+	while ((njobs > 0)) ; do
+		wait -n
+		njobs=$(jobs -p | tee -a ${T}/.dbgsrc.dbg | wc -l)
+		echo "    ... $(date --iso-8601=ns) winddown ($njobs / $nproc)" >> ${T}/.dbgsrc.dbg
 	done
+	wait # safety
+	echo "    ... $(date --iso-8601=ns) done (started $start)" >> ${T}/.dbgsrc.dbg
 }
 
 #****P* Postinstall/Split Debugging Information
@@ -1156,7 +1187,7 @@ __prepdebugsrc() {
 
 	printf "Preparing debuginfo source files:\n";
 
-	sort -u ${T}/.dbgsrc.out | \
+	sort -u ${T}/.dbgsrc.out.* | \
 	while read dbgsrc
 	do
 		# make sure that paths with '../' don't leave $dbgsrcdir
@@ -1518,5 +1549,5 @@ readonly -f __prep_fonts_dir __prep_freedesktop_mime __prep_gconf_schemas \
             __prep_python_bytecompile __prep_texlive __prep_xsessions \
             __prepdoc __prepemacs __prepetc __prepman __prepinfo __prepperl \
             __prepvargames __prep_empty_dirs \
-            __prepstrip __prepdebugsrc __prep_symlinks \
+            __prepstrip __prepstrip_one __prepdebugsrc __prep_symlinks \
             __prep_libtool_modules __src_postinst
