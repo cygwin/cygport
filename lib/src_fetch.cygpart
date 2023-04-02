@@ -77,6 +77,8 @@
 fetch() {
 	local uri;
 	local urifile;
+	local prog;
+	local rc;
 
 	uri=${1%\#/*};
 	urifile=${1##*\#/};
@@ -94,24 +96,29 @@ fetch() {
 		return 0
 	elif check_prog wget
 	then
-		if wget --no-check-certificate -O ${urifile}.tmp ${uri}
-		then
-			mv -f ${urifile}.tmp ${urifile}
-		else
-			rm -f ${urifile}.tmp
-			error "wget ${uri} failed"
-		fi
+		prog=wget
+		wget --no-check-certificate -O ${urifile}.tmp ${uri}
+		rc=$?
 	elif check_prog curl
 	then
-		if curl -R -k --url ${uri} -o ${urifile}.tmp
-		then
-			mv -f ${urifile}.tmp ${urifile}
-		else
-			rm -f ${urifile}.tmp
-			error "curl ${uri} failed"
-		fi
+		prog=curl
+		curl -R -k --url ${uri} -o ${urifile}.tmp
+		rc=$?
 	else
 		error "Either wget or curl are required to fetch sources.";
+	fi
+
+	if [ 0 = ${rc} ]
+	then
+		mv -f ${urifile}.tmp ${urifile}
+	else
+		if defined __DL_MIRROR_LIST
+		then
+			return ${rc}
+		else
+			rm -f ${urifile}.tmp
+			error "${prog} ${uri} failed"
+		fi
 	fi
 
 	if defined DISTDIR && [ -f ${urifile} ]
@@ -127,6 +134,7 @@ __mirror_fetch() {
 	local mirvar;
 	local -a mirlist;
 	local -i n;
+	local dl_mirrors;
 
 	miruri=${1#mirror://};
 	mirname=${miruri%%/*};
@@ -139,17 +147,22 @@ __mirror_fetch() {
 
 	mirlist=(${!mirvar});
 
+	if [ ${#mirlist[*]} -gt 1 ]	# iterate thru list > 1
+	then
+		dl_mirrors=${#mirlist[*]}
+	fi
+
 	n=0;
 	while (( n < ${#mirlist[*]} ))
 	do
-		if fetch ${mirlist[${n}]}/${miruri#*/}
+		if __DL_MIRROR_LIST=${dl_mirrors} fetch ${mirlist[${n}]}/${miruri#*/}
 		then
 			return 0;
 		fi
 		n+=1;
 	done
 
-	error "Could not download ${1##*/}";
+	error "Could not download ${1##*/} from ${mirname} mirror(s)";
 }
 
 # downloads all sources through method-specific functions
