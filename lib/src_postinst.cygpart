@@ -1112,17 +1112,19 @@ __prepstrip_one() {
 __prepstrip() {
 	local exe;
 
+	cd ${D};
+
+	rm -f ${T}/.dbgsrc.*
+	> ${T}/.dbgsrc.dbg
+	# ensure glob for files to sort in __prepdebugsrc() always finds at
+	# least one filename
+	> ${T}/.dbgsrc.out.0
+
 	if defined _CYGPORT_RESTRICT_strip_
 	then
 		inform "Skipping strip step per request.";
 		return 0;
 	fi
-
-	cd ${D};
-
-	rm -f ${T}/.dbgsrc.*
-	> ${T}/.dbgsrc.dbg
-	> ${T}/.dbgsrc.out.0 # dummy
 
 	echo "Stripping executables:";
 	echo "    ... starting" >> ${T}/.dbgsrc.dbg
