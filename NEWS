@@ -1,3 +1,10 @@
+0.36.2:
+	* git: Try to fetch 'main' branch if 'master' branch doesn't exist.
+	* python-wheel: Handle PEP 518 projects with only pyproject.toml
+	* Try to turn on case-sensitivity on working directory (on Cygwin)
+	* Iterate thru mirror list, if download fail
+	* Parallelize __prepstrip
+
 0.36.1:
 	* Report an error when SRC_URI has no basename and #/FILENAME isn't used
 	* Add RESTRICT 'case-insensitive' and warn about using a case-insenstive
