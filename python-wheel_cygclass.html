@@ -51,11 +51,11 @@
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="./meson_build.html#Cygclasses">Cygclasses</a> ] [ <a href="./cygport_cygclasses.html#robo_top_of_doc">Cygclasses</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  Wheels are the new standard for installing Python libraries and programs.
-  The build is <a href="./syntax_cygpart.html#defined">defined</a> by a PEP 517 conformant source tree, or by a top-level
-  setup.py file, which controls the installation of files and the building of <a href="./syntax_cygpart.html#C">C</a>
-  Python extensions.  Many such packages are hosted on the Python Package Index
-  (PyPI).
+<p>  Wheels are the standard for installing Python libraries and programs.
+  The build is <a href="./syntax_cygpart.html#defined">defined</a> by a PEP 518 conformant source tree, or by a top-level
+  setup.cfg or setup.py file, which controls the installation of files and the
+  building of <a href="./syntax_cygpart.html#C">C</a> Python extensions.  Many such packages are hosted on the Python
+  Package Index (PyPI).
 </p>
 
 <p>  This cygclass handles the building of wheel-based Python module packages
@@ -153,7 +153,7 @@
 </pre>
 <p class="item_name">DESCRIPTION</p>
 <p>  If a setup.py file is present, runs the setup.py 'bdist_wheel' command, to
-  which any arguments are passed.  Otherwise, for a PEP 517 conformant source
+  which any arguments are passed.  Otherwise, for a PEP 518 conformant source
   tree, runs 'pip wheel'.
 </p>
 
@@ -209,7 +209,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2023-03-11 16:27:12</p>
+<p>Generated from ./cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2023-04-13 17:09:56</p>
 </div> <!-- footer -->
 </body>
 </html>
