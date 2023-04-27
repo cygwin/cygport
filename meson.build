@@ -1,5 +1,5 @@
 project('cygport',
-        version: '0.36.2')
+        version: '0.36.3')
 
 bindir = join_paths(get_option('prefix'), get_option('bindir'))
 datadir = join_paths(get_option('prefix'), get_option('datadir'))

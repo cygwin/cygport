@@ -1,3 +1,6 @@
+0.36.3:
+	* Add automatic determination of the appropriate rub_xy requirement
+
 0.36.2:
 	* git: Try to fetch 'main' branch if 'master' branch doesn't exist.
 	* python-wheel: Handle PEP 518 projects with only pyproject.toml
