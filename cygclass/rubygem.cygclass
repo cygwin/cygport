@@ -132,7 +132,7 @@ rubygem_install() {
 #****
 	CONFIGURE_ARGS="--with-cflags='${CFLAGS} -fdebug-prefix-map=${D}${RUBYGEM_INSTDIR}=/usr/src/debug/${NAME}-${VERSION}-${RELEASE}' $RUBYGEM_CONFIGURE_ARGS $@" \
 	gem install -V --local --ignore-dependencies --document=rdoc,ri \
-		--build-root ${D} --install-dir ${RUBYGEM_DIR} --bindir ${D}$(__host_prefix)/bin \
+		--build-root ${D} --install-dir ${RUBYGEM_DIR} --bindir $(__host_prefix)/bin \
 		${RUBYGEM_NAME}-${VERSION}.gem || error "gem install failed"
 
 	# used later to clean up RUBYGEM_INSTDIR
