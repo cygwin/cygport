@@ -1,3 +1,6 @@
+0.36.4:
+	* rubygem: Make 'gem build|install' errors fatal, and fix bindir.
+
 0.36.3:
 	* Add automatic determination of the appropriate rub_xy requirement
 
