@@ -112,7 +112,7 @@ RUBYGEM_EXTDIR=$(${RUBY} -e 'print Gem.default_dirs[:system][:ext_dir]')/ruby/${
 #  prepares it for installation.
 #****
 rubygem_compile() {
-	gem build ${RUBYGEM_NAME}.gemspec
+	gem build ${RUBYGEM_NAME}.gemspec || error "gem build failed"
 }
 
 #****I* rubygem.cygclass/rubygem_install
@@ -133,7 +133,7 @@ rubygem_install() {
 	CONFIGURE_ARGS="--with-cflags='${CFLAGS} -fdebug-prefix-map=${D}${RUBYGEM_INSTDIR}=/usr/src/debug/${NAME}-${VERSION}-${RELEASE}' $RUBYGEM_CONFIGURE_ARGS $@" \
 	gem install -V --local --ignore-dependencies --document=rdoc,ri \
 		--build-root ${D} --install-dir ${RUBYGEM_DIR} --bindir ${D}$(__host_prefix)/bin \
-		${RUBYGEM_NAME}-${VERSION}.gem
+		${RUBYGEM_NAME}-${VERSION}.gem || error "gem install failed"
 
 	# used later to clean up RUBYGEM_INSTDIR
 	gem spec ${RUBYGEM_NAME}-${VERSION}.gem files --yaml \
