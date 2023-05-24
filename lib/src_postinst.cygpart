@@ -1507,8 +1507,7 @@ __prep_libtool_modules() {
 #  List of automatic postinstall or packaging step(s) which should be skipped
 #  for this package, and restrictions on package use.
 #
-# Supported values are:
-#
+#  Supported values are:
 #  * case-insensitive: do not build on case-insensitive filesystems.
 #  * debuginfo: do not create a debuginfo subpackage.
 #  * diff: do not generate a .src.patch file of changes made in $S.
