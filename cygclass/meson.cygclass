@@ -88,7 +88,7 @@ cygmeson() {
 #  Flags in CYGMESON_ARGS follow, and therefore override, flags passed by
 #  default to cygmeson.
 #****
-	PYTHONUNBUFFERED=1 meson --prefix=$(__host_prefix) \
+	PYTHONUNBUFFERED=1 meson setup --prefix=$(__host_prefix) \
 		--localstatedir=$(__host_localstatedir) \
 		--sysconfdir=$(__host_sysconfdir) \
 		--buildtype=plain --wrap-mode=nodownload \
