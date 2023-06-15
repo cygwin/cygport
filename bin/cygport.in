@@ -610,6 +610,18 @@ then
 	unset flags map
 fi
 
+# documented in lib/src_prep.cygport
+if [ ! -e ${top}/${cygwin_patchfile} ]
+then
+	if [ -f ${top}/README ]
+	then
+		CYGWIN_FILES="${CYGWIN_FILES:-README}"
+	elif [ -f ${top}/${PN}.README ]
+	then
+		CYGWIN_FILES="${CYGWIN_FILES:-${PN}.README}"
+	fi
+fi
+
 ################################################################################
 #
 # Command processing

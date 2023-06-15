@@ -473,18 +473,10 @@ __src_prep() {
 #  ${PF}.cygwin.patch, which is automatically applied and generated.  This
 #  variable should not be set if that file is present.
 #
-#  In the absence of a ${PF}.cygwin.patch file, the default value is 'README' if
-#  a file of that name exists, otherwise empty.
+#  In the absence of a ${PF}.cygwin.patch file, the default value is 'README' or
+#  '${PN}.README' if a file of that name exists, otherwise empty.
 #
 #****
-
-	if [ ! -e ${top}/${cygwin_patchfile} ]
-	then
-		if [ -f ${top}/README ]
-		then
-			CYGWIN_FILES="${CYGWIN_FILES:-README}"
-		fi
-	fi
 
 	if [ -n "${CYGWIN_FILES}" ]
 	then
