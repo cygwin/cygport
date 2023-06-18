@@ -1,5 +1,5 @@
 /usr/share/doc/perl-Carp/Changes
 /usr/share/doc/perl-Carp/README
 /usr/share/man/man3/Carp.3pm.gz
-/usr/share/perl5/vendor_perl/5.32/Carp.pm
-/usr/share/perl5/vendor_perl/5.32/Carp/Heavy.pm
+/usr/share/perl5/vendor_perl/5.36/Carp.pm
+/usr/share/perl5/vendor_perl/5.36/Carp/Heavy.pm
