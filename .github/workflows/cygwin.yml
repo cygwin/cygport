@@ -78,6 +78,7 @@ jobs:
         libxfce4ui1-devel,^
         libxfconf0-devel,^
         lndir,^
+        lua,^
         make,^
         mate-common,^
         mercurial,^
