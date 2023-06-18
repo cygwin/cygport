@@ -1,7 +1,7 @@
 inherit R
 
 NAME="R-chron"
-VERSION=2.3_51
+VERSION=2.3_61
 RELEASE=1
 CATEGORY="Math"
 SUMMARY="Chronological Objects for R"
