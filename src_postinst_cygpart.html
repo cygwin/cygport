@@ -492,20 +492,27 @@
   for this package, and restrictions on package use.
 </p>
 
-<p> Supported values are:
+<p>  Supported values are:
 </p>
-
-<p>  * case-insensitive: do not build on case-insensitive filesystems.
-  * debuginfo: do not create a debuginfo subpackage.
-  * diff: do not generate a .src.patch file of changes made in $<a href="./syntax_cygpart.html#S">S</a>.
-  * postinst-doc: do not install standard documentation files.
-  * postinst-gconf: do not create postinstall commands for GConf schemas.
-  * postinst-info: do not compress info documentation.
-  * strip: do not strip binaries.
-  * upload: do not allow uploading binary packages to cygwin.com.
-</p>
-
-<p>  Of these, "diff" is the only one that should be considered useful, e.g.
+<ul><li>  case-insensitive: do not build on case-insensitive filesystems.
+</li>
+<li>  debuginfo: do not create a debuginfo subpackage.
+</li>
+<li>  diff: do not generate a .src.patch file of changes made in $<a href="./syntax_cygpart.html#S">S</a>.
+</li>
+<li>  postinst-doc: do not install standard documentation files.
+</li>
+<li>  postinst-gconf: do not create postinstall commands for GConf schemas.
+</li>
+<li>  postinst-info: do not compress info documentation.
+</li>
+<li>  strip: do not strip binaries.
+</li>
+<li>  upload: do not allow uploading binary packages to cygwin.com.
+</li>
+</ul>
+<p>
+  Of these, "diff" is the only one that should be considered useful, e.g.
   with very large data-only packages which will have no useful diff.
   "debuginfo" is useful on a temporary, per-build basis to debug a package
   in the build tree (e.g. a noinst test package).
@@ -521,7 +528,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/lib/src_postinst.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2023-04-13 17:09:56</p>
+<p>Generated from ./cygport/lib/src_postinst.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2023-06-25 17:29:00</p>
 </div> <!-- footer -->
 </body>
 </html>
