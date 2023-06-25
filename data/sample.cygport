@@ -1,7 +1,7 @@
 inherit meson
 
 NAME="cygport"
-VERSION=0.36.4
+VERSION=0.36.5
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Cygwin source packaging tool"

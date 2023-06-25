@@ -1,3 +1,7 @@
+0.36.5:
+	* meson: explicitly use 'meson setup'.
+	* set the default CYGWIN_FILES for all commands.
+
 0.36.4:
 	* rubygem: Make 'gem build|install' errors fatal, and fix bindir.
 
