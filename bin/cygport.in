@@ -573,18 +573,34 @@ declare -ar pkg_name=(${PKG_NAMES:-${PN}});
 declare -r  pkg_count=${#pkg_name[*]};
 
 # this requires workdir to be already defined
-mkdir -p ${workdir}
 
-if [ $OSTYPE = "cygwin" ]
+__probe_case_sensitivity() {
+	mkdir -p ${workdir}
+	rm -f ${workdir}/.probe_case_sensitivity
+	touch ${workdir}/.PROBE_CASE_SENSITIVITY
+	local probe=$( [ -f ${workdir}/.probe_case_sensitivity ] && echo 1 || echo 0 )
+	rm -f ${workdir}/.PROBE_CASE_SENSITIVITY
+	return $probe
+}
+
+__enable_case_sensitivity() {
+	if [ $OSTYPE = "cygwin" ]
+	then
+		inform "Trying to enable case sensitivity on ${workdir}"
+		chattr -fR +C ${workdir} >/dev/null 2>&1 || true
+	fi
+}
+
+# create workdir if it doesn't already exist, and try to enable case-sensitivity
+# if it appears to be absent
+if [ ! -d ${workdir} ]
 then
-	chattr -fR +C ${workdir} >/dev/null 2>&1 || true
+	mkdir -p ${workdir}
+	__probe_case_sensitivity || __enable_case_sensitivity
 fi
 
-rm -f ${workdir}/.probe_case_sensitivity
-touch ${workdir}/.PROBE_CASE_SENSITIVITY
-probe=$( [ -f ${workdir}/.probe_case_sensitivity ] && echo "failed" || echo "" )
-rm -f ${workdir}/.PROBE_CASE_SENSITIVITY
-if [ -n "$probe" ]
+# in any case, probe for case sensitivity, stop if required but missing
+if ! __probe_case_sensitivity
 then
 	if defined _CYGPORT_RESTRICT_case_insensitive_
 	then
@@ -593,7 +609,6 @@ then
 		warning "Building on a case-insensitive filesystem";
 	fi
 fi
-unset probe
 
 # this requires S and B to be already defined
 if ! defined _CYGPORT_RESTRICT_debuginfo_
