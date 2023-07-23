@@ -1,3 +1,6 @@
+0.36.6:
+	* Be more efficent about trying to turn on case-sensitivity
+
 0.36.5:
 	* meson: explicitly use 'meson setup'.
 	* set the default CYGWIN_FILES for all commands.
