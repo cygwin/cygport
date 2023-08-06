@@ -140,3 +140,9 @@ jobs:
     - name: Test
       run: |
         bash -c 'meson test -C _build --print-errorlogs'
+    - name: Upload test logs
+      uses: actions/upload-artifact@v3
+      with:
+        name: testlogs
+        path: _build/meson-logs/*
+      if: ${{ !cancelled() }}
