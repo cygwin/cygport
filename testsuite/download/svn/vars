@@ -1,3 +1,0 @@
-declare -r ARCHES="noarch"
-declare -- CROSS_HOST=""
-declare -- INHERITED="svn python.org python-wheel autotools "

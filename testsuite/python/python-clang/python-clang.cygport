@@ -1,8 +1,7 @@
-SVN_URI="https://github.com/llvm/llvm-project"
-SVN_BRANCH="tags/llvmorg-${PV}/clang/bindings/python"
-SVN_MODULE="python-clang"
+GIT_URI="https://github.com/llvm/llvm-project"
+GIT_TAG="llvmorg-${PV}"
 PYTHON_WHEEL_VERSIONS="default"
-inherit python-wheel svn
+inherit python-wheel git
 
 NAME="python-clang"
 VERSION=9.0.1
@@ -23,6 +22,15 @@ python38_clang_REQUIRES="libclang${VERSION%%.*}" # ctypes
 python39_clang_REQUIRES="libclang${VERSION%%.*}" # ctypes
 
 CYGPORT_USE_UNSTABLE_API=1
+
+# extract just the clang/bindings/python/ subdir from the archive
+src_unpack_hook() {
+	mkdir tmp
+	mv * tmp
+	mv tmp/clang/bindings/python/* .
+	rm -r tmp
+}
+
 src_patch_hook() {
 	sed -i -e "s|\@CLANG_LIB_VERSION\@|${VERSION%%.*}|" clang/cindex.py
 	cat > setup.py <<_EOF
