@@ -1,0 +1,42 @@
+SVN_URI="svn://svn.code.sf.net/p/unfs3"
+SVN_BRANCH="code/trunk"
+inherit svn
+
+NAME="unfs3"
+VERSION=0.9.23
+RELEASE=0.1.20151008git
+CATEGORY="Net"
+SUMMARY="NFSv3 server"
+DESCRIPTION="UNFS3 is a user-space implementation of the NFSv3 server
+specification. It provides a daemon for the MOUNT and NFS protocols, which
+are used by NFS clients for accessing files on the server."
+HOMEPAGE="http://unfs3.sourceforge.net/"
+#SRC_URI="mirror://sourceforge/unfs3/unfs3-${VERSION}.tar.gz"
+SRC_URI+=" unfsd-config"
+PATCH_URI="
+	0.9.22-libtirpc.patch
+	0.9.22-nobody-guest.patch
+"
+
+REQUIRES="rpcbind"
+
+CFLAGS+=" -I/usr/include/tirpc"
+LIBS="-ltirpc"
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	lndirs
+	cd ${B}
+	cygconf
+	cygmake
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+#	exeinto /etc/rc.d/init.d
+#	newexe ${S}/unfsd.init unfsd
+	dosbin ${S}/unfsd-config
+}

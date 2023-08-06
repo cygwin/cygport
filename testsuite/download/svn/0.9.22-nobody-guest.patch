@@ -1,0 +1,14 @@
+--- origsrc/unfs3-0.9.22/user.c	2008-02-16 13:49:50.000000000 -0600
++++ src/unfs3-0.9.22/user.c	2016-04-28 01:52:33.254893400 -0500
+@@ -44,6 +44,11 @@ void get_squash_ids(void)
+ 	if (passwd) {
+ 	    squash_uid = passwd->pw_uid;
+ 	    squash_gid = passwd->pw_gid;
++#ifdef __CYGWIN__
++	} else if ((passwd = backend_getpwnam("Guest"))) {
++	    squash_uid = passwd->pw_uid;
++	    squash_gid = passwd->pw_gid;
++#endif
+ 	} else {
+ 	    squash_uid = 65534;
+ 	    squash_gid = 65534;

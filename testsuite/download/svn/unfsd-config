@@ -1,0 +1,255 @@
+#!/bin/sh
+#
+# unfsd-config
+#
+# This file is part of the Cygwin port of the Universal NFS Server
+#
+# TODO: Should ask the user how they would like to install
+# the NFS server - as Windows service, or under inetd.
+#
+# For now, assumes an NT/W2K install, and installs things
+# as services.
+
+
+# Variables
+
+README="/usr/share/doc/Cygwin/unfs3.README"
+
+NFSD_USER=
+NFSD_PASS=
+
+PMAP_D='Cygwin rpcbind'
+PMAP_F='Cygwin RPC Port Mapping service'
+NFSD_D='Cygwin unfsd'
+NFSD_F='Cygwin Network File System version 3 (NFSv3) service'
+
+
+# Functions
+
+request()
+{
+	answer=""
+	while [ "X${answer}" != "Xyes" -a "X${answer}" != "Xno" ] ; do
+		echo -n "$1 (yes/no) "
+		read answer
+	done
+	if [ "X${answer}" = "Xyes" ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+# $1 - name
+# $2 - short description
+# $3 - full description
+# $4 - dependencies
+# $5 - executable name
+# $6 - executable argument
+install_service()
+{
+	do_install=1
+	echo ''
+	if cygrunsrv.exe --query "$1" > /dev/null 2>&1 ; then
+		echo "A service named \"$1\" already exists on this machine."
+		if request "Do you want to re-install the $1 service?" ; then
+			echo ''
+			echo "Stopping $1 service ..."
+			cygrunsrv.exe --stop "$1" > /dev/null 2>&1
+			echo "Uninstalling $1 service ..."
+			cygrunsrv.exe --remove "$1" > /dev/null 2>&1
+		else
+			do_install=0
+		fi
+	fi
+	if [ "${do_install}" = "1" ] ; then
+		echo "Installing $1 service ..."
+		DEPS=""
+		if [ "" != "$4" ]; then
+			DEPS="--dep $4"	
+		fi
+		USER=""
+		if [ "" != "${NFSD_USER}" ]; then
+			USER="${DEPS} -u ${NFSD_USER} -w ${NFSD_PASS}"
+		fi
+		cygrunsrv.exe -I "$1" -d "$2" -f "$3" ${DEPS} ${USER} -p /usr/sbin/$5 -e CYGWIN=ntsec -a "$6"
+	fi
+}
+
+
+# Start of execution
+
+cat <<-EOF
+	This script sets up a default configuration for running an NFS server under
+	Cygwin.  As part of this setup, the script will do the following:
+
+	  1) Create a user account to run the services under. [OPTIONAL]
+	  2) Install rpcbind, mountd, and nfsd as Windows services.
+	  3) Create a sample exports file.
+	  4) Create a sample uid/gid mapping file.
+
+	After installing, please read the unfsd README for Cygwin:
+
+	  ${README}
+
+	This document contains notes on installation and documents known problems
+	and workarounds with the NFS server; ex:
+
+	$(grep ISSUE ${README})
+
+EOF
+
+if request 'Do you want to continue?' ; then
+	:
+else
+	exit
+fi
+
+# Ask user if they want to run unfsd under a user account
+
+if true ; then
+
+	echo ''
+	echo -n "User name : "
+	read NFSD_USER
+	echo -n "Password  : "
+	read NFSD_PASS
+	echo ''
+
+	if editrights -u ${NFSD_USER} -l > /dev/null 2>&1 ; then
+		echo "User ${NFSD_USER} already exists"
+	else
+		echo "Creating user ${NFSD_USER} ..."
+		net user ${NFSD_USER} ${NFSD_PASS} \
+                  /fullname:"NFS server" \
+                  /homedir:"$(cygpath -w /var/empty)" \
+                  /comment:'<cygwin home="/var/empty" shell="/bin/false"/>' \
+                  /add /yes
+
+		echo "Adding ${NFSD_USER} to Administrators group ..."
+		net localgroup Administrators ${NFSD_USER} /add
+	fi
+
+	echo "Assigning required privileges to user ${NFSD_USER} ..."
+
+	editrights -u ${NFSD_USER} -a SeAssignPrimaryTokenPrivilege
+	editrights -u ${NFSD_USER} -a SeCreateTokenPrivilege
+	editrights -u ${NFSD_USER} -a SeIncreaseQuotaPrivilege
+	editrights -u ${NFSD_USER} -a SeDenyInteractiveLogonRight
+	editrights -u ${NFSD_USER} -a SeDenyRemoteInteractiveLogonRight
+	editrights -u ${NFSD_USER} -a SeServiceLogonRight
+
+	echo "Adding user ${NFSD_USER} to /etc/passwd ..."
+
+	mkpasswd -l -u ${NFSD_USER} >> /etc/passwd
+
+	echo "Ensuring user ${NFSD_USER} has write persmissions in /var/log ..."
+
+	chmod a+w /var/log
+
+fi
+
+
+# Install services
+
+install_service "rpcbind" "$PMAP_D" "$PMAP_F" ""        rpcbind    "-f"
+install_service "unfsd"   "$NFSD_D" "$NFSD_F" "rpcbind" unfsd   "-d -i /var/run/unfsd.pid"
+
+
+# Create sample /etc/exports (only if it does not already exist)
+
+EXPORTS=/etc/exports
+if [ ! -f ${EXPORTS} ]; then
+	echo ''
+	echo "Creating sample ${EXPORTS} file ..."
+	mkdir -p /etc
+	cat > ${EXPORTS} <<-EOF
+		# sample /etc/exports file
+
+		# Export the entire Cygwin filesystem to machines master and
+		# trusty. In addition to write access, all uid squashing is
+		# turned off for host trusty.
+
+		# /					master(rw) trusty(rw,no_root_squash)
+
+		# Example of wildcard hostnames.
+
+		# /projects			proj*.local.domain(rw)
+
+		# Example of wildcard netgroups (this is the entry '@trusted').
+
+		# /usr				*.local.domain(ro) @trusted(rw)
+
+		# Gives read-only access to the host grimjack.  The UID and GID
+		# for anonymous requests are explicitly set, and all requests
+		# are forced to use the anonymous UID/GID.
+
+		# /home/joe			grimjack(ro,all_squash,anonuid=501,anongid=546)
+
+		# Give read-write access to anyone, and force all requests to
+		# use the default anonymous UID/GID. The insecure option in this
+		# entry also allows clients with NFS implementations that don't
+		# use a reserved port for NFS.
+
+		# /pub				(ro,all_squash)
+
+		# Deny all NFS users access to the private directory that exists
+		# under the public directory.
+
+		# /pub/private		(noaccess)
+	EOF
+	# chmod 664 ${EXPORTS}
+	# chown 18:544 ${EXPORTS}
+fi
+
+
+# Create sample /etc/nfs/server.map (ony if it does not already exist)
+
+SERVERMAP=/etc/nfs/server.map
+if [ ! -f ${SERVERMAP} ]; then
+	echo ''
+	echo "Creating sample ${SERVERMAP} file ..."
+	mkdir -p /etc/nfs
+	cat > ${SERVERMAP} <<-EOF
+		# Sample server map for nfsd
+		#
+		# This file maps 500/500 on an NFS client to the uid/gid of the
+		# user who ran unfsd-config, and maps 0/0 on an NFS client
+		# the uid/gid of the Administrator account.
+		#
+		# Note that a server map is host-specific (which makes sense,
+		# if you think about it ...)  So you can only use a plain IP
+		# address or DNS name to specify a client that uses a map_static.
+		# directive.
+		#
+		# Examples of valid /etc/exports lines using map_static:
+		# 
+		#   /gaunt   192.168.1.42(map_static=/etc/nfs/server.map)
+		#   /chaney  twilley(map_static=/etc/nfs/server.map)
+		#
+	EOF
+	printf "uid\t500\t$(id -u)\t# user id for $(whoami)\n" >> ${SERVERMAP}
+	printf "gid\t500\t$(id -g)\t# group id for $(whoami)\n" >> ${SERVERMAP}
+	printf "uid\t0\t$(id -u Administrator)	# user id for Administrator\n" >> ${SERVERMAP}
+	printf "gid\t0\t$(id -g Administrator)	# group id for Administrator\n\n" >> ${SERVERMAP}
+fi
+
+
+# Check to see if /etc/passwd contains a 'nobody' or 'Guest' user
+
+if [ "" = "`/bin/grep nobody /etc/passwd`" ]; then
+    if [ "" = "`grep Guest /etc/passwd`" ]; then
+	cat <<-EOF
+
+	Could not find user 'Guest' in /etc/passwd
+
+	In order for mountd and nfsd to function properly, you should add the user
+	'Guest' to your /etc/passwd, for example:
+
+	  mkpasswd.exe -l -u Guest >> /etc/passwd
+
+	EOF
+    fi
+fi
+
+

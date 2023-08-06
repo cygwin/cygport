@@ -1,0 +1,133 @@
+#! /bin/bash
+#
+# unfsd   Start/Stop the userspace NFSv3 daemon
+#
+# chkconfig: 2345 90 60
+# description: unfsd is a userspace NFSv3 daemon.
+# processname: unfsd
+# config: /etc/exports
+# pidfile: /var/run/unfsd.pid
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+PREFIX=/usr
+CONFIG=/etc/exports
+PIDFILE=/var/run/unfsd.pid
+LOGFILE=/var/log/unfsd.log
+
+# Source function library.
+if [ -f /etc/init.d/functions ] ; then
+  . /etc/init.d/functions
+fi
+
+RETVAL=0
+
+# See how we were called.
+
+prog="unfsd"
+progdir="/usr/sbin"
+DAEMON="$progdir/$prog.exe"
+
+test -f $DAEMON || exit 0
+
+# Source configuration
+if [ -f /etc/sysconfig/$prog ] ; then
+    . /etc/sysconfig/$prog
+fi
+
+start() {
+        echo -n $"Starting $prog: "
+	# check if cygrunsrv process
+        cygrunsrv --start $prog
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && touch $PIDFILE  && echo "done."
+        return $RETVAL
+}
+
+stop() {
+        echo -n $"Stopping $prog: "
+	cygrunsrv --stop $prog
+        if test -r $PIDFILE; then
+            kill `cat $PIDFILE` 2> /dev/null || echo -n " failed"
+        else
+            echo -n " no PID file"
+        fi
+	# this really needs a long time to stop.
+        RETVAL=$?
+        echo "."
+        [ $RETVAL -eq 0 ] && rm -f $PIDFILE $SOCKET && echo "done."
+        return $RETVAL
+}
+
+rhstatus() {
+        # service status
+        cygrunsrv -Q $prog
+}
+
+restart() {
+        echo -n $"Restarting $prog: "
+        $0 stop
+        sleep 1
+        $0 start
+        echo "done."
+}
+
+install() {
+        echo -n $"Installing $prog daemon: "
+	# some safety measures
+	touch $LOGFILE $PIDFILE
+	chgrp 18 $LOGFILE $PIDFILE
+	chmod g+w $LOGFILE $PIDFILE
+	#it was compiled with uid=18
+	cygrunsrv --install $prog --path $DAEMON -e CYGWIN="$CYGWIN" --dep cygserver --dep rpcbind --disp "CYGWIN Userspace NFSv3 daemon" --args "-d -i $PIDFILE"
+        echo "done."
+}
+uninstall() {
+        echo -n $"Uninstalling $prog daemon: "
+	stop
+	cygrunsrv --remove $prog
+        echo "done."
+}
+reload() {
+        echo -n $"Reloading $prog daemon configuration: "
+	echo "unsupported. $0 restart"
+	return 1
+
+	/usr/bin/kill -HUP `cat $PIDFILE`
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && echo "done."
+        RETVAL=$?
+        return $RETVAL
+}
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart)
+        restart
+        ;;
+  reload)
+        reload
+        ;;
+  install)
+        install
+        ;;
+  uninstall)
+        uninstall
+        ;;
+  status)
+        rhstatus
+        ;;
+  condrestart)
+        [ -f $PIDFILE ] && restart || :
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|status|install|uninstall|restart|condrestart}"
+        exit 1
+esac
+
+exit $?

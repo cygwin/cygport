@@ -38,12 +38,14 @@ jobs:
         R,^
         aspell,^
         automake,^
+        bison,^
         bzr,^
         cmake,^
         cvs,^
         diffstat,^
         dos2unix,^
         extra-cmake-modules,^
+        flex,^
         flexdll,^
         fontforge,^
         gcc-g++,^

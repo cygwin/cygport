@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: unfs3
+sdesc: "Debug info for unfs3"
+ldesc: "This package contains files necessary for debugging the
+unfs3 package with gdb."
+
