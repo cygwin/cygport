@@ -1,0 +1,8 @@
+category: Base
+build-depends: cygport 
+sdesc: "Exercise applying patch files with various compressions"
+ldesc: "Exercise applying patch files with various compressions"
+skip:
+
+homepage: https://cygwin.com/
+license: GPL-3.0-or-later

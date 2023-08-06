@@ -1,0 +1,5 @@
+category: Base
+requires: 
+sdesc: "Exercise applying patch files with various compressions"
+ldesc: "Exercise applying patch files with various compressions"
+

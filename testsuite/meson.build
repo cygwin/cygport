@@ -19,6 +19,7 @@ subdir('hints')
 
 subdir('aspell')
 subdir('autotools')
+subdir('compressions')
 subdir('cmake')
 subdir('cross')
 subdir('docbook')

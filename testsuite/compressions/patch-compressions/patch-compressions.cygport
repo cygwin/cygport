@@ -1,0 +1,28 @@
+NAME="patch-compressions"
+LICENSE="GPL-3.0-or-later"
+VERSION="3.8"
+RELEASE="2"
+ARCH=noarch
+CATEGORY="Base"
+HOMEPAGE="https://cygwin.com/"
+SUMMARY="Exercise applying patch files with various compressions"
+
+patch_compressions_CONTENTS=""
+
+SRC_URI=""
+PATCH_URI="\
+  01-test.patch.bz2\
+  02-test.patch.gz\
+  03-test.patch.xz\
+  04-test.patch.zst\
+"
+
+src_compile()
+{
+  :
+}
+
+src_install()
+{
+  :
+}
