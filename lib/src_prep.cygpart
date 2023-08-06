@@ -136,9 +136,14 @@ unpack() {
 				check_prog_req unzip;
 				unpack_cmd="unzip -oq";
 				;;
+			*.xz)
+				check_prog_req unxz xz;
+				unpack_cmd="unxz -c";
+				unpack_out="${unpack_file_name%.xz}";
+				;;
 			*.zst)
-				check_prog_req zstd;
-				unpack_cmd="unzstd -qo";
+				check_prog_req unzstd zstd;
+				unpack_cmd="unzstd -qfo ${unpack_file_name%.zst}";
 				;;
 			*.7z)
 				if check_prog 7zr
