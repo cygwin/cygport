@@ -1,0 +1,9 @@
+category: Libs
+requires: libattica0.4 pkg-config libQtCore4-devel libQtNetwork4-devel
+sdesc: "Qt Open Collaboration Services library"
+ldesc: "Attica is a Qt library that implements the Open Collaboration
+Services API version 1.4. It grants easy access to the services such as
+querying information about persons and contents. The library is used in
+KNewStuff3 as content provider."
+external-source: attica
+

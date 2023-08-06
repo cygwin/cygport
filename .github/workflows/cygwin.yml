@@ -60,7 +60,11 @@ jobs:
         libKF5XmlGui-devel,^
         libQt5Core-devel,^
         libQt5Svg-devel,^
+        libQtCore4-devel,^
+        libQtGui4-devel,^
+        libQtNetwork4-devel,^
         libQtTest4-devel,^
+        libQtXml4-devel,^
         libRmath,^
         libbz2-devel,^
         libcairomm1.0-devel,^
@@ -74,6 +78,7 @@ jobs:
         libnotify-devel,^
         libpango1.0-devel,^
         libpcre2-devel,^
+        libqca-devel,^
         libqca-qt5-devel,^
         libtirpc-devel,^
         libxfce4ui1-devel,^

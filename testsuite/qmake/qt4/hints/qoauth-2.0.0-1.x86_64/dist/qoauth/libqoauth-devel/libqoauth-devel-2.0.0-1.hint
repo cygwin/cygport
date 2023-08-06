@@ -1,0 +1,7 @@
+category: Libs
+requires: libqca-devel libqoauth1 libQtCore4-devel libQtNetwork4-devel pkg-config
+sdesc: "Qt4 OAuth library"
+ldesc: "QOAuth is an attempt to support interaction with OAuth-powered
+network services in a Qt way, i.e. simply, clearly and efficiently."
+external-source: qoauth
+

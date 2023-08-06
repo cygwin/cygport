@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: attica
+sdesc: "Debug info for attica"
+ldesc: "This package contains files necessary for debugging the
+attica package with gdb."
+
