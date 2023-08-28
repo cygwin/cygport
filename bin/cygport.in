@@ -231,8 +231,9 @@ source ${_privlibdir}/check_funcs.cygpart
 ###
 
 # check now for all mandatory programs
-for _myprog in bzip2 cat chmod cp diff diffstat dos2unix file find gawk grep gzip \
-               install ln mkdir mv patch rm rsync sed sort tar xargs which xz
+for _myprog in bzip2 cat chmod cp date diff diffstat dos2unix file find gawk grep \
+               gzip install ln mkdir mv patch rm rsync sed sort tar touch which \
+               xargs xz
 do
 	if ! check_prog ${_myprog}
 	then
@@ -489,6 +490,18 @@ do
 	declare _CYGPORT_RESTRICT_${restrict//-/_}_=1
 done
 unset restrict
+
+if [ "${SOURCE_DATE_EPOCH+y}" = "y" ]
+then
+	if [ -n "$(echo "${SOURCE_DATE_EPOCH}" | sed -e 's/^$/X/' -e 's/[0-9]//g')" ]
+	then
+		error "SOURCE_DATE_EPOCH must be an integer number (seconds since the unix epoch)"
+	fi
+	case $(peflags --version 2>/dev/null | sed -n '1s/^.* //p') in
+		4.6.[6-9]|4.[7-9]*|[5-9]*) ;;
+		*) error "SOURCE_DATE_EPOCH requires peflags 4.6.6 or later"
+	esac
+fi
 
 
 ################################################################################

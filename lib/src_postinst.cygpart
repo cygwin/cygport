@@ -41,7 +41,7 @@ __prep_fonts_dir() {
 	for catalogue in ${D}${cataloguedir}/*
 	do
 		fontdir=$(readlink -f ${catalogue})
-		find ${D}${fontdir} -name '*.pcf' -exec gzip -q '{}' +
+		find ${D}${fontdir} -name '*.pcf' -exec gzip -q ${SOURCE_DATE_EPOCH:+-n} '{}' +
 		mkfontscale ${D}${fontdir}
 		mkfontdir ${D}${fontdir}
 	done
@@ -775,7 +775,7 @@ __prepman() {
 		while read -d $'\0' manpage
 		do
 			echo "        ${manpage##*/}";
-			gzip -q "${manpage}";
+			gzip -q ${SOURCE_DATE_EPOCH:+-n} "${manpage}";
 		done
 	fi
 }
@@ -819,7 +819,7 @@ __prepinfo() {
 		while read -d $'\0' infopage
 		do
 			echo "        ${infopage##*/}";
-			gzip -q "${infopage}";
+			gzip -q ${SOURCE_DATE_EPOCH:+-n} "${infopage}";
 		done
 	fi
 }
@@ -989,6 +989,12 @@ __prepstrip_one() {
 
 	objdump=${objcopy/copy/dump}
 
+	if [ -n "${SOURCE_DATE_EPOCH}" ]
+	then
+		# Do not embed timestamps for archive members; preserve PE header timestamps
+		objcopy+=" --enable-deterministic-archives --preserve-dates"
+	fi
+
 	# Static libraries should not be fully stripped, but we can
 	# still provide split debuginfo if desired
 	case "${exe}" in
@@ -1073,6 +1079,16 @@ __prepstrip_one() {
 	echo "        ${exe}";
 	# keep sticky bit if present
 	chmod u+w,a+x "${exe}";
+
+	if [ -n "${SOURCE_DATE_EPOCH}" ]
+	then
+		case "${exe}" in
+		*.exe|*.dll|*.so|*.so.*|*.oct|*.mex|*.cmxs)
+			# Ensure PE header timestamp is reproducible and checksum is correct
+			# objcopy later inherits the timestamp to debug info and stripped file
+			peflags --checksum=1 --timestamp=${SOURCE_DATE_EPOCH} ${exe} >/dev/null ;;
+		esac
+	fi
 
 	if defined _CYGPORT_RESTRICT_debuginfo_
 	then

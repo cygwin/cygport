@@ -42,7 +42,7 @@ TAR_COMPRESSION_EXT="${TAR_COMPRESSION_EXT:-xz}"
 #****
 
 __tar() {
-	local TAR_COMPRESSION_OPT;
+	local TAR_COMPRESSION_OPT TAR_SOURCE_DATE_OPTS;
 
 	# We could use --auto-compress, but this also constrains the extension
 	# to the currently valid set. We could probe if tar supports the
@@ -65,7 +65,14 @@ __tar() {
 			error "tar option for TAR_COMPRESSION_EXT='${TAR_COMPRESSION_EXT}' unknown"
 			;;
 	esac
-	tar ${TAR_COMPRESSION_OPT} --owner=Guest:501 --group=None:513 -cvf "$@"
+
+	if [ -n "${SOURCE_DATE_EPOCH}" ]
+	then
+		# Ensure reproducible sort order and last modification times <= SOURCE_DATE_EPOCH
+		TAR_SOURCE_DATE_OPTS="--sort=name --mtime=@${SOURCE_DATE_EPOCH} --clamp-mtime"
+	fi
+
+	tar ${TAR_COMPRESSION_OPT} ${TAR_SOURCE_DATE_OPTS} --owner=Guest:501 --group=None:513 -cvf "$@"
 }
 
 __pkg_binpkg() {
@@ -319,6 +326,7 @@ __pkg_diff() {
 	local difflevel;
 	local exclude;
 	local optional_patchfiles;
+	local source_date;
 
 	default_excludes="CYGWIN-PATCHES aclocal.m4~ aclocal.m4t autom4te.cache
 		config.cache config.guess config.log config.status config.sub
@@ -497,6 +505,14 @@ __pkg_diff() {
 	fi
 
 	sed -b -e '/^diff -u/d' -i ${optional_patchfiles} ${patchdir}/${src_patchfile};
+
+	if [ -n "${SOURCE_DATE_EPOCH}" ]
+	then
+		# Ensure that the timestamp comment in the generated patch file is reproducible
+		source_date=$(date -d @"${SOURCE_DATE_EPOCH}" -u +'%Y-%m-%d %H:%M:%S.000000000 +0000')
+		sed -b -e  "s|^\(+++ [^\t]*\t\).*\$|\1${source_date}|" \
+			-i ${optional_patchfiles} ${patchdir}/${src_patchfile}
+	fi
 
 	diffstat -p${difflevel} ${optional_patchfiles} ${patchdir}/${src_patchfile};
 }
