@@ -570,6 +570,11 @@ __check_depends() {
 
 	__deparenthesize() { echo "$@" | sed -e 's|[a-zA-Z0-9]*(\([^)]*\))|\1|' ; }
 
+	if [ -v DEPEND ]
+	then
+		warning "DEPEND is deprecated, use BUILD_REQUIRES instead."
+	fi
+
 	for atom in ${BUILD_REQUIRES:-${DEPEND}}
 	do
 		case ${atom} in
