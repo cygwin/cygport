@@ -137,7 +137,7 @@ xfce4_autoreconf() {
 
 	export WANT_AUTOMAKE
 
-	sed -n -e 's|^AC_CONFIG_MACRO_DIR(\[*\([^]]*\)\]*).*|\1|p' ${configure_ac} | xargs -r mkdir -p
+	sed -n -e 's|^AC_CONFIG_MACRO_DIR*(\[*\([^]]*\)\]*).*|\1|p' ${configure_ac} | xargs -r mkdir -p
 
 	NOCONFIGURE=1 \
 	XDT_PROG_ACLOCAL=aclocal \

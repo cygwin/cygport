@@ -181,7 +181,7 @@ gnome2_autoreconf() {
 	fi
 
 	# aclocal requires that its directories exist
-	sed -n -e 's|^AC_CONFIG_MACRO_DIR(\[*\([^]]*\)\]*).*|\1|p' ${configure_ac} | xargs -r mkdir -p
+	sed -n -e 's|^AC_CONFIG_MACRO_DIRS*(\[*\([^]]*\)\]*).*|\1|p' ${configure_ac} | xargs -r mkdir -p
 
 	# Automake will exit if these are not present
 	# dodoc won't install these, however, if they are empty

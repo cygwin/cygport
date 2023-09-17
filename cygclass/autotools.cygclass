@@ -311,7 +311,7 @@ cygautoreconf() {
 			then
 				__parse_aclocal_amflags $(grep '^ACLOCAL_AMFLAGS' Makefile.am | sed 's/=/ = /') | xargs -r mkdir -p
 			fi
-			grep '^[^\#]*AC_CONFIG_MACRO_DIR' ${sub_configure_ac} | sed -e "s!.*AC_CONFIG_MACRO_DIR(\[*\(.*\))!${d}/\1!g" -e 's!\]*!!g' | xargs -r mkdir -p
+			grep '^[^\#]*AC_CONFIG_MACRO_DIRS*' ${sub_configure_ac} | sed -e "s!.*AC_CONFIG_MACRO_DIRS*(\[*\(.*\))!${d}/\1!g" -e 's!\]*!!g' | xargs -r mkdir -p
 
 			if [ ! -f ${d}/aclocal.m4 ] || $(head -n 1 ${d}/aclocal.m4 | grep -q 'generated.* by aclocal')
 			then
