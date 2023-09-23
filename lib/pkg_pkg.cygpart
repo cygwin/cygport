@@ -505,7 +505,7 @@ __gpg_sign() {
 	echo "${2} signature needs to be updated";
 	rm -f ${1}.sig;
 	# we 'check_prog gpg' in __pkg_srcpkg()
-	gpg --detach-sign ${1};
+	gpg2 --detach-sign ${1};
 }
 
 __squeeze_whitespace() {
@@ -563,7 +563,7 @@ __pkg_srcpkg() {
 
 	if __arg_bool SIG
 	then
-		if check_prog gpg
+		if check_prog gpg2
 		then
 			__gpg_sign ${spkgdir}/${cygportfile} "CYGPORT SCRIPT";
 

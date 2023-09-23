@@ -181,7 +181,7 @@ __gpg_verify() {
 	local _filetype=${2};
 	local _sigext=${3:-sig};
 
-	if ! check_prog gpg
+	if ! check_prog gpg2
 	then
 		# display notice only once
 		if ! defined _gpg_not_found_
@@ -196,7 +196,7 @@ __gpg_verify() {
 	if [ -f ${_file}.${_sigext} ]
 	then
 		inform "${_filetype} signature follows:";
-		gpg --verify ${_file}.${_sigext} ${_file} || true;
+		gpg2 --verify ${_file}.${_sigext} ${_file} || true;
 	fi
 }
 
