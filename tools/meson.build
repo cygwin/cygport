@@ -1,5 +1,6 @@
 tools = files(
     'deb2targz',
+    'dwarf-parse',
     'pkgrip',
     'sysrootize'
 )

@@ -1,0 +1,49 @@
+#!perl -w
+use common::sense;
+use List::Util qw( sum );
+
+my $filter = shift @ARGV
+    or die "not enough arguments";
+my $obj = shift @ARGV
+    or die "not enough arguments";
+my @objdump = qw( /usr/bin/objdump -WNl );
+open my $DWARF, "-|", @objdump, $obj
+    or die "can't invoke objdump\n$!";
+
+my ( @dirs, @files, %fn, %rn );
+while (<$DWARF>) {
+    if (/^ The Directory Table/../^$/) {
+	if (/^  \d+/) {
+	    my ( $entry, $dir ) = m/^  (\d+)\t.+: (.+)$/;
+	    $dir = "$dirs[0]/$dir" if ($dir =~ m:\A[^/]:);
+	    push @dirs, $dir;
+	}
+    }
+    if (/^ The File Name Table/../^$/) {
+	if (/^  \d+/) {
+	    my ( $idx, $fn, undef ) = m/^  \d+\t(\d+)\t.+: (.+)$/;
+	    $rn{"$dirs[$idx]/$fn"}++;
+	    push @files, "$dirs[$idx]/$fn";
+	}
+    }
+    if (my $rc = /^ Line Number Statements/../^  Offset:/) {
+	$fn{"$files[0]"}++ if ($rc == 1);
+	$fn{"$files[$1]"}++ if m/ Set File Name to entry (\d+) in the File Name Table/;
+	@files = () if ($rc =~ m/E0$/);
+	@dirs  = () if ($rc =~ m/E0$/);
+    }
+    if (/^ No Line Number Statements./../^$/) {
+	@files = ();
+	@dirs  = ();
+    }
+}
+foreach my $fn (grep m:^$filter:, sort keys %fn) {
+    say sprintf "%s", $fn;
+}
+say STDERR sprintf "\tLNS: %6d (%6d locations) <=> FNT: %6d ( %6d locations)",
+    0+grep( m:^$filter:, keys %fn ), sum( values %fn ),
+    0+grep( m:^$filter:, keys %rn ), sum( values %rn )
+    if (0);
+
+close $DWARF
+    or die "failed to close objdump\n$!";
