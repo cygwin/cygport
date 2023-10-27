@@ -1,7 +1,6 @@
 bzr = find_program('bzr', required: false)
 cvs = find_program('cvs', required: false)
 git = find_program('git', required: false)
-hg  = find_program('hg',  required: false)
 mtn = find_program('mtn', required: false)
 svn = find_program('svn', required: false)
 
@@ -15,9 +14,6 @@ if git.found()
 tests += [['download/git']]
 endif
 tests += [['download/gnome.org']]
-if hg.found()
-tests += [['download/hg']]
-endif
 tests += [['download/mate']]
 if mtn.found()
 tests += [['download/mtn']]

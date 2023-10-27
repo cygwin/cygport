@@ -1,5 +1,5 @@
 category: Libs
-requires: 
+requires: cygwin libSDL2-devel libSDL2_2.0_0 pkg-config
 sdesc: "SDL network library"
 ldesc: "This is an example portable network library for use with SDL."
 

@@ -66,6 +66,7 @@ jobs:
         libQtTest4-devel,^
         libQtXml4-devel,^
         libRmath,^
+        libSDL2-devel,^
         libbz2-devel,^
         libcairomm1.0-devel,^
         libcrypt-devel,^

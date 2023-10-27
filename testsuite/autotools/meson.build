@@ -15,6 +15,7 @@ xfce4_panel = dependency('libxfce4panel-1.0', required: false)
 
 if automake.found()
 tests += [['autotools/c', 720]]
+tests += [['autotools/SDL', 720]]
 if gnome_common.found() and gdk_pixbuf.found() and gi.found()
 tests += [['autotools/gnome', 720]]
 endif

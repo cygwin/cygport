@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: SDL2_net
+sdesc: "Debug info for SDL2_net"
+ldesc: "This package contains files necessary for debugging the
+SDL2_net package with gdb."
+
