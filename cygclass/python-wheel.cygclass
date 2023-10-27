@@ -111,6 +111,7 @@ do
 	esac
 
 	check_prog_req pip${ver} python${ver//.}-pip
+	check_prog_req wheel-${ver} python${ver//.}-wheel
 done
 
 #****o* python-wheel.cygclass/PKG_NAMES (python-wheel)
