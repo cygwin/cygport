@@ -1,3 +1,10 @@
+0.36.7:
+	* Fix incorrect options passed to unzstd in unpack()
+	* Warn that DEPEND is deprecated
+	* autotools: Add support for the new (in autoconf 2.69)
+           AC_CONFIG_MACRO_DIRS macro
+	* python-wheel: Check that python-wheel is installed
+
 0.36.6:
 	* Be more efficent about trying to turn on case-sensitivity
 
