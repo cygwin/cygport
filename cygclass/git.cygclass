@@ -78,17 +78,35 @@ git_fetch() {
 		_depth="--depth 1"
 		if defined GIT_TAG
 		then
-			_depth+=" --branch ${GIT_TAG}"
+			_branch="--branch ${GIT_TAG}"
 		elif defined GIT_BRANCH
 		then
-			_depth+=" --branch ${GIT_BRANCH}"
+			_branch="--branch ${GIT_BRANCH}"
 		fi
 	fi
 
 	# T likely doesn't exist at this point, so create it first
 	mkdir -p ${T}
 	cd ${T}
-	verbose git clone ${_depth} --no-checkout ${GIT_URI} ${GIT_MODULE} || error "git clone failed"
+
+	# Try to clone with the depth option (if appropriate), but retry if that
+	# fails due to lack of capabilities of the host of the specified
+	# GIT_URI.
+	_gitlog=${T}/git.$$.log
+	verbose git clone ${_depth} ${_branch} --no-checkout ${GIT_URI} ${GIT_MODULE} |& tee ${_gitlog}
+	if [ ${PIPESTATUS[0]} != 0 ]
+	then
+		grep -q "fatal: dumb http transport does not support shallow capabilities" ${_gitlog}
+		if [ $? = 0 ]
+		then
+			warning "git clone failed, retrying without --depth option"
+			verbose git clone ${_branch} --no-checkout ${GIT_URI} ${GIT_MODULE} || error "git clone failed"
+		else
+			cat ${_gitlog}
+			error "git clone failed"
+		fi
+	fi
+
 	cd ${T}/${GIT_MODULE}
 
 #****v* git.cygclass/GIT_BRANCH
