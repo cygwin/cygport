@@ -215,6 +215,14 @@ src_compile() {
 }
 #****
 
+#****o* cmake.cygclass/src_test (cmake)
+#  DEFINITION
+src_test() {
+	cd ${B}
+	ctest
+}
+#****
+
 #****o* cmake.cygclass/src_install (cmake)
 #  DEFINITION
 src_install() {
