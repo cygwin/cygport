@@ -14,3 +14,5 @@ PKG_NAMES="lib${NAME}_1 lib${NAME}-devel lib${NAME}-doc"
 libpangomm1_4_1_CONTENTS="usr/bin/*mm-1.4-1.dll usr/share/doc/${NAME}/"
 libpangomm1_4_devel_CONTENTS="usr/include/ usr/lib/"
 libpangomm1_4_doc_CONTENTS='usr/share/devhelp/ usr/share/doc/pangomm-1.4/'
+
+PATCH_URI="0001-Don-t-include-individual-pango-headers.patch"

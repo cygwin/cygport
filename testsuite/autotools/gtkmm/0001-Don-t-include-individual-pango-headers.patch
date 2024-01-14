@@ -1,0 +1,38 @@
+From f065a2967e22658565f4228b73b1511d291e343f Mon Sep 17 00:00:00 2001
+From: Matthias Clasen <mclasen@redhat.com>
+Date: Wed, 25 Aug 2021 19:24:35 +0200
+Subject: [PATCH] Don't include individual pango headers
+
+As in every gnome library, you are only supposed
+to include the main pango.h header from the outside.
+
+This was causing build failures after some recent
+pango header rearrangements.
+---
+ pango/src/attributes.hg | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pango/src/attributes.hg b/pango/src/attributes.hg
+index e234497..bd09f0f 100644
+--- a/pango/src/attributes.hg
++++ b/pango/src/attributes.hg
+@@ -21,7 +21,7 @@
+ #include <pangomm/rectangle.h>
+ #include <pangomm/color.h>
+ #include <pangomm/fontdescription.h>
+-#include <pango/pango-attributes.h>
++#include <pango/pango.h>
+ #include <glibmm/slisthandle.h>
+ 
+ _DEFS(pangomm,pango)
+--- a/pango/pangomm/attributes.h
++++ b/pango/pangomm/attributes.h
+@@ -29,7 +29,7 @@
+ #include <pangomm/rectangle.h>
+ #include <pangomm/color.h>
+ #include <pangomm/fontdescription.h>
+-#include <pango/pango-attributes.h>
++#include <pango/pango.h>
+ #include <glibmm/slisthandle.h>
+ 
+ 
