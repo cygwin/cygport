@@ -281,7 +281,7 @@ __pkg_pkgcheck() {
 	sort < ${tmp1} > "${tmp1}.sorted";
 	mv -f "${tmp1}.sorted" ${tmp1};
 
-	if grep -E "^usr/local|\.stackdump$" ${tmp1} > ${T}/pkgcheck.lst
+	if grep -E "^usr/local|\.stackdump$|\.core$" ${tmp1} > ${T}/pkgcheck.lst
 	then
 		warning "Packages contain unexpected files:";
 		cat ${T}/pkgcheck.lst;
