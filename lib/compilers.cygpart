@@ -34,9 +34,9 @@ declare -x CC="gcc";
 #  Flags passed to CC when compiling C code.  Individual packages may append
 #  or override this value if they will not build correctly without it.
 #  DEFAULT VALUE
-#  -ggdb -O2 -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fstack-protector-strong --param=ssp-buffer-size=4
+#  -ggdb -O2 -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=3 -fstack-protector-strong --param=ssp-buffer-size=4
 #****
-declare -x CFLAGS="-ggdb -O2 -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fstack-protector-strong --param=ssp-buffer-size=4";
+declare -x CFLAGS="-ggdb -O2 -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=3 -fstack-protector-strong --param=ssp-buffer-size=4";
 
 #****v* Compiling/CPPFLAGS
 #  DESCRIPTION
