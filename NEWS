@@ -1,3 +1,10 @@
+0.36.8:
+	* Switch from gpg to gpg2 for checking and making signatures
+	* cmake: Add src_test definition
+	* Define _FORTIFY_SOURCE as 3
+	* git: Retry clone without '--depth' if it fails due to dumb transport
+	* Add initial support for SOURCE_DATE_EPOCH
+
 0.36.7:
 	* Fix incorrect options passed to unzstd in unpack()
 	* Warn that DEPEND is deprecated
