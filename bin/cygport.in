@@ -617,10 +617,10 @@ then
 	do
 		for map in ${DEBUG_PREFIX_MAPS[*]}
 		do
-			declare ${flags}+=" -fdebug-prefix-map=${map}=/usr/src/debug/${PF}"
+			declare ${flags}+=" -ffile-prefix-map=${map}=/usr/src/debug/${PF}"
 		done
-		declare ${flags}+=" -fdebug-prefix-map=${B}=/usr/src/debug/${PF}"
-		declare ${flags}+=" -fdebug-prefix-map=${S}=/usr/src/debug/${PF}"
+		declare ${flags}+=" -ffile-prefix-map=${B}=/usr/src/debug/${PF}"
+		declare ${flags}+=" -ffile-prefix-map=${S}=/usr/src/debug/${PF}"
 	done
 	unset flags map
 fi
