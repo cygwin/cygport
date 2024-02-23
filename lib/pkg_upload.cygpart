@@ -225,7 +225,7 @@ if (\$smtp_encryption eq 'tls') {
 	require Net::SMTP::SSL;
 	\$smtp->command('STARTTLS');
 	\$smtp->response();
-	\$smtp->code == 220 or die "$server does not support STARTTLS";
+	\$smtp->code == 220 or die "\$smtp_server does not support STARTTLS";
 	\$smtp = Net::SMTP::SSL->start_SSL(\$smtp) or die "STARTTLS failed";
 	\$smtp->hello(\$smtp_server);
 }
