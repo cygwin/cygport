@@ -508,9 +508,9 @@ __pkg_diff() {
 
 	if [ -n "${SOURCE_DATE_EPOCH}" ]
 	then
-		# Ensure that the timestamp comment in the generated patch file is reproducible
+		# Ensure that the timestamp comments in the generated patch files are reproducible
 		source_date=$(date -d @"${SOURCE_DATE_EPOCH}" -u +'%Y-%m-%d %H:%M:%S.000000000 +0000')
-		sed -b -e  "s|^\(+++ [^\t]*\t\).*\$|\1${source_date}|" \
+		sed -E -b -e "s/^((---|\+\+\+) [^\t]*\t).*\$/\1${source_date}/" \
 			-i ${optional_patchfiles} ${patchdir}/${src_patchfile}
 	fi
 
