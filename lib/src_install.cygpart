@@ -163,10 +163,11 @@ docinto() {
 #  Installs the given files or directories into $D/usr/share/doc/PN/, or a
 #  subdirectory thereof specified by the previous call to docinto.
 #  If a FILE does not exist, FILE.md, FILE.rst and FILE.txt are also
-#  considered.
+#  considered.  A FILE is skipped if the destination file or a compressed
+#  version (.bz2, .gz, .xz, .zstd) of it already exists.
 #****
 dodoc() {
-	local docdir d f i x
+	local docdir d e f i x
 
 	case "${_docinto_dir}" in
 		'')	docdir=/usr/share/doc/${PN} ;;
@@ -193,6 +194,10 @@ dodoc() {
 			do
 				if [ -s "${i}${x}" -a ! -f "${D}${docdir}/${i}${x}" ]
 				then
+					for e in bz2 gz xz zst
+					do
+						! [ -f "${D}${docdir}/${i}${x}.${e}" ] || continue 2
+					done
 					__doinstall 0644 "${i}${x}" ${docdir} || error "dodoc ${i} failed"
 					break
 				fi
