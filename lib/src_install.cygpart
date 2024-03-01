@@ -162,6 +162,8 @@ docinto() {
 #  DESCRIPTION
 #  Installs the given files or directories into $D/usr/share/doc/PN/, or a
 #  subdirectory thereof specified by the previous call to docinto.
+#  If a FILE does not exist, FILE.md, FILE.rst and FILE.txt are also
+#  considered.
 #****
 dodoc() {
 	local docdir d f i x
