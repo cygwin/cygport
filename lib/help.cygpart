@@ -56,6 +56,9 @@ __show_help() {
 		  finish        delete the working directory
 		  all           run prep, compile, install and package
 		  all-test      run prep, compile, install and package-test
+		  repro-build   rebuild from created source package to temp directory
+		  repro-diff    check whether packages from original and rebuild differ
+		  repro-check   run repro-build and repro-diff
 
 		See the included README file for further documentation.
 

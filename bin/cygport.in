@@ -29,6 +29,10 @@ set -e;
 #
 ################################################################################
 
+# Preserve original environment for repro-check command
+declare -r _cygport_orig_env=$(export)
+declare -r _cygport_orig_pwd=$(pwd)
+
 # for regexes, sort, etc.
 export LC_COLLATE=C
 
@@ -783,6 +787,19 @@ do
 			__stage Packaging && (__pkg_binpkg && __pkg_pkgcheck && __pkg_srcpkg ${_pkg_tag} && __pkg_dist ${_pkg_tag}) 2>&1 | tee -a ${pkglog} && \
 			test ${PIPESTATUS[0]} -eq 0
 			_status=$?;
+			;;
+		repro-build)
+			__pkg_repro_build
+			_status=$?
+			;;
+		repro-diff)
+			__pkg_repro_diff
+			_status=$?
+			;;
+		repro-check)
+			__pkg_repro_build && \
+			__pkg_repro_diff
+			_status=$?
 			;;
 		help)
 			__show_help;

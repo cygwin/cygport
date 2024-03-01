@@ -992,6 +992,62 @@ _EOF
 	fi
 }
 
+__pkg_repro_build() {
+	local srcpkg=${distdir}/${PN}/${PF}-src.tar.${TAR_COMPRESSION_EXT}
+	local t_spkgdir=${T}/${spkgdir##*/}
+	local t_workdir=${t_spkgdir}/${PF}.${ARCH}
+	local t_cygport="cygport ${cygportfile} finish all"
+	local rc
+
+	__stage "Rebuilding"
+	__step "Unpacking ${srcpkg}"
+	[ -f ${srcpkg} ] || error "Packages not built yet"
+	tar xf ${srcpkg} -C ${T} || error "tar xf ${srcpkg} -C ${T} failed"
+
+	__step "Rebuilding in ${t_spkgdir}"
+	echo "${_cygport_orig_env}" > ${T}/.cygport_orig_env
+	echo
+	__step "=== Start: ${t_cygport} ================================="
+
+	# Start nested cygport with original environment in temp directory
+	rc=0
+	env --chdir=${_cygport_orig_pwd} --ignore-environment /bin/bash -c \
+		"source ${T}/.cygport_orig_env && cd ${t_spkgdir} && ${t_cygport}" \
+		|| rc=$?
+
+	__step "=== Done: ${t_cygport} (exit $rc) ========================="
+	echo
+	[ $rc = 0 ] || error "Rebuild failed"
+}
+
+__pkg_repro_diff() {
+	local t_spkgdir=${T}/${spkgdir##*/}
+	local t_workdir=${t_spkgdir}/${PF}.${ARCH}
+	local t_srcpkg=${t_workdir}/dist/${PN}/${PF}-src.tar.${TAR_COMPRESSION_EXT}
+	local d
+
+	__stage "Comparing original and rebuild of"
+	inform "Rebuild dir: ${t_spkgdir}"
+	[ -f ${t_srcpkg} ] || error "Packages not rebuilt yet"
+
+	if ! diff -qr --no-dereference ${distdir} ${t_workdir}/dist >/dev/null
+	then
+		echo "Differing files found:"
+		for d in dist inst spkg
+		do
+			LC_MESSAGES=C \
+			diff -qr --no-dereference ${workdir}/${d} ${t_workdir}/${d} \
+				| sed -n -e "s|^Files ${workdir}/\([^ ][^ ]*\) and .* differ\$|! \\1|p" \
+					 -e "s|^Only in ${workdir}/\(${d}/[^:]*\): |- \\1/|p" \
+					 -e "s|^Only in ${t_workdir}/\(${d}/[^:]*\): |+ \\1/|p"
+		done
+		echo
+		error "Rebuild differs from original"
+	fi
+	echo
+	inform "Rebuild produced identical packages"
+}
+
 # protect functions
 readonly -f __pkg_binpkg __pkg_diff __gpg_sign __pkg_srcpkg __pkg_dist \
-	 __squeeze_whitespace __tar
+	 __pkg_repro_build __pkg_repro_diff __squeeze_whitespace __tar
