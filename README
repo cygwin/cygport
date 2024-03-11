@@ -163,9 +163,10 @@ Other COMMANDs are meant primarily for maintainers:
     diff     - write a patch file capturing changes to source in the working directory
     stage    - as upload, but don't request processing of uploaded packages
     announce - compose and send a package announcement
-    repro-build - rebuild from created source package to temp directory
-    repro-diff  - check whether packages from original and rebuild differ
-    repro-check - run repro-build and repro-diff
+    repro-build  - rebuild from created source package to temp directory
+    repro-diff   - check whether packages from original and rebuild differ
+    repro-check  - run repro-build and repro-diff
+    repro-finish - delete the temp directory used for rebuild
 
 The standard arguments --help or --version may also be passed to cygport.
 

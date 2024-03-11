@@ -801,6 +801,10 @@ do
 			__pkg_repro_diff
 			_status=$?
 			;;
+		repro-finish)
+			__pkg_repro_finish
+			_status=$?
+			;;
 		help)
 			__show_help;
 			exit 0;

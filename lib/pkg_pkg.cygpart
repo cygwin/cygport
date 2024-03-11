@@ -1048,6 +1048,28 @@ __pkg_repro_diff() {
 	inform "Rebuild produced identical packages"
 }
 
+__pkg_repro_finish() {
+	local t_spkgdir=${T}/${spkgdir##*/}
+
+	cd ${top}
+
+	__step "Removing rebuild directory in 2 seconds..."
+	inform "Rebuild dir: ${t_spkgdir}"
+	if ! [ -d ${t_spkgdir} ]
+	then
+		inform "Rebuild directory does not exist"
+		return 0
+	fi
+
+	sleep 2 || exit $?
+
+	__step "Removing rebuild directory NOW."
+	rm -rf ${t_spkgdir}
+
+	__step "Finished."
+}
+
 # protect functions
 readonly -f __pkg_binpkg __pkg_diff __gpg_sign __pkg_srcpkg __pkg_dist \
-	 __pkg_repro_build __pkg_repro_diff __squeeze_whitespace __tar
+	 __pkg_repro_build __pkg_repro_diff __pkg_repro_finish \
+	 __squeeze_whitespace __tar
