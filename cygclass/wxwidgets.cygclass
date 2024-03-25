@@ -47,8 +47,8 @@
 #  The desired major.minor branch of the wxWidgets toolkit.  This variable must
 #  be set before inherit()ing the wxwidgets.cygclass.
 #  NOTE
-#  Even minor version numbers represent stable branches; versions 2.6, 2.8
-#  and 3.0 are supported.
+#  Even minor version numbers represent stable branches; versions 2.8, 3.0
+#  and 3.1 are supported.
 #****
 #****v* wxwidgets.cygclass/WX_TOOLKIT
 #  DESCRIPTION
