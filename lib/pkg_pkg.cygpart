@@ -180,7 +180,7 @@ __pkg_binpkg() {
 		*-[0-9]*) error "Package ${pkg_name[${n}]}: Use underscore instead of hyphen when followed by digit" ;;
 		esac
 
-		__step "${pkg_name[${n}]}-${PVR}.tar.${TAR_COMPRESSION_EXT}";
+		__step "${pkg_name[${n}]}-${PVR}-${ARCH}.tar.${TAR_COMPRESSION_EXT}";
 
 		pkg_contents_var=${pkg_name[${n}]//[-+\.]/_}_CONTENTS;
 		pkg_docs_var=${pkg_name[${n}]//[-+\.]/_}_DOCS;
@@ -214,7 +214,7 @@ __pkg_binpkg() {
 		if defined pkg_contents
 		then
 			mkdir -p ${distdir}/${PN}/${distsubdir};
-			__tar ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.tar.${TAR_COMPRESSION_EXT} \
+			__tar ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.tar.${TAR_COMPRESSION_EXT} \
 				--exclude=usr/lib/debug --exclude=usr/src \
 				--exclude=${autoloaddir} \
 				${pkg_contents} \
@@ -223,7 +223,7 @@ __pkg_binpkg() {
 		else
 			inform "Creating empty package"
 			mkdir -p ${distdir}/${PN}/${distsubdir};
-			__tar ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.tar.${TAR_COMPRESSION_EXT} \
+			__tar ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.tar.${TAR_COMPRESSION_EXT} \
 				--files-from /dev/null \
 				|| error "Empty package creation failed"
 			> ${T}/.${pkg_name[${n}]}.lst
@@ -237,9 +237,9 @@ __pkg_binpkg() {
 		[ -d ${autoloaddir} ] || autoloaddir=
 		local dbg_contents_var=${PN//[-+\.]/_}_debuginfo_CONTENTS;
 
-		__step "${PN}-debuginfo-${PVR}.tar.${TAR_COMPRESSION_EXT}";
+		__step "${PN}-debuginfo-${PVR}-${ARCH}.tar.${TAR_COMPRESSION_EXT}";
 		mkdir -p ${distdir}/${PN}/${PN}-debuginfo;
-		__tar ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.tar.${TAR_COMPRESSION_EXT} \
+		__tar ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}-${ARCH}.tar.${TAR_COMPRESSION_EXT} \
 			usr/*/debug/ ${autoloaddir} ${!dbg_contents_var} \
 			| tee ${T}/.${PN}-debuginfo.lst \
 			|| error "Debuginfo package creation failed: ${PN}-debuginfo"
@@ -268,7 +268,7 @@ __pkg_pkgcheck() {
 		n+=1
 	done
 
-	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.tar.${TAR_COMPRESSION_EXT} ]
+	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}-${ARCH}.tar.${TAR_COMPRESSION_EXT} ]
 	then
 		grep -Ev "/$" ${T}/.${PN}-debuginfo.lst >> ${tmp1}
 	fi
@@ -897,7 +897,7 @@ __pkg_dist() {
 
 		if [ -f ${C}/${pkg_hint[${n}]%.hint}.hint ]
 		then
-			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint;
+			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.hint;
 		elif [ -n "${!pkg_category_var:-${CATEGORY}}" -a -n "${!pkg_summary_var:-${SUMMARY}}" ]
 		then
 			if [ "${CBUILD##*-}" = "cygwin" ]
@@ -915,10 +915,10 @@ __pkg_dist() {
 				__step "${pkg_name[${n}]} requires: ${pkg_bin_requires} ${!pkg_requires_var}"
 			else
 				pkg_bin_requires=
-				inform "ADD ${distsubdir:-${PN}} DLL DEPENDENCIES TO ${PN}${distsubdir:+/}${distsubdir}/${pkg_name[${n}]}-${PVR}.hint"
+				inform "ADD ${distsubdir:-${PN}} DLL DEPENDENCIES TO ${PN}${distsubdir:+/}${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.hint"
 			fi
 
-			cat > ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
+			cat > ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.hint <<-_EOF
 category: $(__squeeze_whitespace ${!pkg_category_var:-${CATEGORY}})
 requires: $(__squeeze_whitespace ${pkg_bin_requires} ${!pkg_requires_var})
 sdesc: "${!pkg_summary_var:-${SUMMARY}}"
@@ -926,38 +926,38 @@ ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}
 _EOF
 			if [ -n "${!pkg_obsoletes_var}" ]
 			then
-				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
+				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.hint <<-_EOF
 obsoletes: $(__squeeze_whitespace ${!pkg_obsoletes_var})
 _EOF
 			fi
 
 			if [ -n "${!pkg_provides_var}" ]
 			then
-				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
+				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.hint <<-_EOF
 provides: $(__squeeze_whitespace ${!pkg_provides_var})
 _EOF
 			fi
 
 			if [ -n "${!pkg_conflicts_var}" ]
 			then
-				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
+				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.hint <<-_EOF
 conflicts: $(__squeeze_whitespace ${!pkg_conflicts_var})
 _EOF
 			fi
 
 			if defined distsubdir
 			then
-				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
+				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.hint <<-_EOF
 external-source: ${PN}
 _EOF
 			fi
 			if defined ${pkg_message_var}
 			then
-				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
+				cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.hint <<-_EOF
 message: ${pkg_name[${n}]} "${!pkg_message_var}"
 _EOF
 			fi
-			cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint <<-_EOF
+			cat >> ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.hint <<-_EOF
 ${pkg_tag}
 _EOF
 		else
@@ -967,20 +967,20 @@ _EOF
 		n+=1;
 	done
 
-	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.tar.${TAR_COMPRESSION_EXT} ]
+	if ! defined _CYGPORT_RESTRICT_debuginfo_ && [ -f ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}-${ARCH}.tar.${TAR_COMPRESSION_EXT} ]
 	then
 		if [ -f ${C}/${PN}-debuginfo.hint ]
 		then
-			cp ${C}/${PN}-debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.hint
+			cp ${C}/${PN}-debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}-${ARCH}.hint
 		elif [ -f ${C}/debuginfo.hint ]
 		then
-			cp ${C}/debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.hint
+			cp ${C}/debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}-${ARCH}.hint
 		else
 			if [ "${PN}" != "cygwin" ]
 			then
 				pkg_debug_requires=cygwin-debuginfo
 			fi
-			cat > ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.hint <<-_EOF
+			cat > ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}-${ARCH}.hint <<-_EOF
 category: Debug
 requires: ${pkg_debug_requires}
 external-source: ${PN}
@@ -991,7 +991,7 @@ ${pkg_tag}
 _EOF
 			if [ -n "${!dbg_obsoletes_var}" ]
 			then
-				cat >> ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.hint <<-_EOF
+				cat >> ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}-${ARCH}.hint <<-_EOF
 obsoletes: $(__squeeze_whitespace ${!dbg_obsoletes_var})
 _EOF
 			fi

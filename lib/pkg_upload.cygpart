@@ -90,13 +90,13 @@ __pkg_upload() {
 		*)      distsubdir=${pkg_name[${n}]} ;;
 		esac
 
-		pkg_files+=("${NAME}/${distsubdir}/${pkg_name[${n}]}-${PVR}.tar.${TAR_COMPRESSION_EXT}" "${NAME}/${distsubdir}/${pkg_name[${n}]}-${PVR}.hint")
+		pkg_files+=("${NAME}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.tar.${TAR_COMPRESSION_EXT}" "${NAME}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.hint")
 		n+=1
 	done
 
 	if [ -d ${NAME}/${NAME}-debuginfo ]
 	then
-		pkg_files+=("${NAME}/${NAME}-debuginfo/${NAME}-debuginfo-${PVR}.tar.${TAR_COMPRESSION_EXT}" "${NAME}/${NAME}-debuginfo/${NAME}-debuginfo-${PVR}.hint")
+		pkg_files+=("${NAME}/${NAME}-debuginfo/${NAME}-debuginfo-${PVR}-${ARCH}.tar.${TAR_COMPRESSION_EXT}" "${NAME}/${NAME}-debuginfo/${NAME}-debuginfo-${PVR}-${ARCH}.hint")
 	fi
 
 	for file in "${pkg_files[@]}"
