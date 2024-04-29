@@ -969,7 +969,7 @@ _EOF
 		then
 			cp ${C}/debuginfo.hint ${distdir}/${PN}/${PN}-debuginfo/${PN}-debuginfo-${PVR}.hint
 		else
-			if [ "${PN}" != "cygwin-debuginfo" ]
+			if [ "${PN}" != "cygwin" ]
 			then
 				pkg_debug_requires=cygwin-debuginfo
 			fi
