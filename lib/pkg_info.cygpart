@@ -557,7 +557,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 		done
 	done
 
-	if check_prog ruby
+	if [ "${PN}" != "ruby" ] && check_prog ruby
 	then
 		rbdirs=($(ruby -e 'print($:.join(" "))'))
 		rbdirs+=" ${DEPS_PATH//:/ }"
@@ -597,19 +597,19 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 				done
 			done
 		done
-	fi
 
-	rbver=( $(find "${@//^_^/ }" -path "usr/*/ruby/vendor_ruby/[0-9].[0-9]/*" \
-	        | sed -E 's!usr/.*/ruby/vendor_ruby/([0-9]).([0-9])/.*!ruby_\1\2!' \
-	        | sort -ru) )
-	if [ "${#rbver[@]}" -gt 1 ]
-	then
-		warning "More than one targeted Ruby version: ${rbver[*]},"
-		warning "using only the latest as dependency: ${rbver[0]}."
-	fi
-	if [ "${#rbver[@]}" -gt 0 ] && [ "${PN}" != "ruby" ]
-	then
-		echo "${rbver[0]}"
+		rbver=( $(find "${@//^_^/ }" -path "usr/*/ruby/vendor_ruby/[0-9].[0-9]/*" \
+				| sed -E 's!usr/.*/ruby/vendor_ruby/([0-9]).([0-9])/.*!ruby_\1\2!' \
+				| sort -ru) )
+		if [ "${#rbver[@]}" -gt 1 ]
+		then
+			warning "More than one targeted Ruby version: ${rbver[*]},"
+			warning "using only the latest as dependency: ${rbver[0]}."
+		fi
+		if [ "${#rbver[@]}" -gt 0 ]
+		then
+			echo "${rbver[0]}"
+		fi
 	fi
 
 	if [ $(find "${@//^_^/ }" -path 'usr/share/doc/*' -prune \
