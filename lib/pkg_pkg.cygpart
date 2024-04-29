@@ -902,8 +902,15 @@ __pkg_dist() {
 		then
 			if [ "${CBUILD##*-}" = "cygwin" ]
 			then
+				# process the output of list_deps:
+				# - drop self-dependencies
+				# - trim version-release from package names returned by cygcheck -f
+				# - drop dependency on own provides
+				# - squash into a single line
+				#
 				pkg_bin_requires=$(__list_deps $(sort -fu ${T}/.${pkg_name[${n}]}.lst | sed -e '\|/$|d;s| |^_^|g') \
 						   | sed -e "/^${pkg_name[${n}]}-[0-9].*$/d;s/-[0-9].*$//g" \
+						   | grep -v "^${!pkg_provides_var}\$" \
 						   | sort -fu | sed -e ':a;N;$!ba;s/\n/ /g' )
 				__step "${pkg_name[${n}]} requires: ${pkg_bin_requires} ${!pkg_requires_var}"
 			else
