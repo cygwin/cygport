@@ -22,7 +22,7 @@ jobs:
     - uses: actions/checkout@v1
       with:
         submodules: true
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: C:\cygwin-packages
         key: cygwin-packages-${{ hashFiles('C:\cygwin-packages\**') }}
@@ -142,7 +142,7 @@ jobs:
       run: |
         bash -c 'meson test -C _build --print-errorlogs'
     - name: Upload test logs
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: testlogs
         path: _build/meson-logs/*
