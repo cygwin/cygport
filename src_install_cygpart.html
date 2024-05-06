@@ -166,6 +166,9 @@
 <p class="item_name">DESCRIPTION</p>
 <p>  Installs the given files or directories into $<a href="./syntax_cygpart.html#D">D</a>/usr/share/doc/<a href="./syntax_cygpart.html#PN">PN</a>/, or a
   subdirectory thereof specified by the previous call to <a href="#docinto">docinto</a>.
+  If a FILE does not exist, FILE.md, FILE.rst and FILE.txt are also
+  considered.  A FILE is skipped if the destination file or a compressed
+  version (.bz2, .gz, .xz, .zstd) of it already exists.
 </p>
 
 <hr />
@@ -665,7 +668,7 @@ the <a href="https://specifications.freedesktop.org/desktop-entry-spec/desktop-e
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/lib/src_install.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2024-02-11 16:57:55</p>
+<p>Generated from ./cygport/lib/src_install.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2024-05-06 16:11:34</p>
 </div> <!-- footer -->
 </body>
 </html>
