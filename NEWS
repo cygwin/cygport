@@ -1,3 +1,8 @@
+0.36.9:
+	* Add repro-build, repro-diff, repro-check and repo-finish commands
+	* Avoid a package's provides appearing in it's requires
+	* Avoid using ruby to look for dependencies when building the ruby package
+
 0.36.8:
 	* Switch from gpg to gpg2 for checking and making signatures
 	* cmake: Add src_test definition
