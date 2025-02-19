@@ -40,7 +40,6 @@ jobs:
         automake,^
         bison,^
         cmake,^
-        cvs,^
         diffstat,^
         dos2unix,^
         extra-cmake-modules,^
