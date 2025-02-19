@@ -120,6 +120,11 @@ case ${ORIG_PN} in
 		xorg_git="xorg/test/xts"
 		;;
 
+	rendercheck)
+		xorg_cat="test"
+		xorg_git="xorg/test/rendercheck"
+		;;
+
 	xorg-server)
 		xorg_cat="xserver"
 		xorg_git="xorg/xserver"
