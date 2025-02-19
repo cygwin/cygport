@@ -6,3 +6,5 @@ RELEASE=1
 CATEGORY="Math"
 SUMMARY="Chronological Objects for R"
 DESCRIPTION="Provides chronological objects which can handle dates and times."
+
+DEPS_PATH="/usr/lib"

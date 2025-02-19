@@ -69,6 +69,7 @@ jobs:
         libbz2-devel,^
         libcairomm1.0-devel,^
         libcrypt-devel,^
+        libdeflate-devel,^
         libgdk_pixbuf2.0-devel,^
         libgirepository1.0-devel,^
         libglibmm2.4-devel,^
@@ -102,8 +103,7 @@ jobs:
         perl,^
         perl-Module-Build,^
         php-PEAR,^
-        python38-devel,^
-        python27-wheel,^
+        python39-devel,^
         python37-pip,^
         python37-setuptools,^
         python37-wheel,^
@@ -127,10 +127,6 @@ jobs:
     - name: Fixup Cygwin installation
       run: |
         bash --login
-        bash -c '/usr/sbin/alternatives --set python /usr/bin/python3.8'
-        bash -c '/usr/sbin/alternatives --set python3 /usr/bin/python3.8'
-        bash -c '/usr/sbin/alternatives --set python3-config /usr/bin/python3.8-config'
-        bash -c 'sed -i s#/usr/bin/python\$#/usr/bin/python3.9# /usr/bin/pip3.9'
         bash -c 'git config --system --add safe.directory /cygdrive/d/a/cygport/cygport'
         bash -c 'git config --system --add safe.directory /cygdrive/d/a/cygport/cygport/data/gnuconfig'
       continue-on-error: true
