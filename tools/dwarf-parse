@@ -1,49 +1,74 @@
 #!perl -w
+#
+# Run 'objdump -Wl' to dump out the raw DWARF .debug_line section.
+#
+# Parse the human readable output to extract the list of source files
+#
+# Only output pathnames which match a filter string (the package source
+# directory, after file-prefix-map is taken into account), to omit unrelated
+# source files (e.g system headers and external libraries)
+#
+# N.B. DWARF v5 information is assumed
+#
+
 use common::sense;
 use List::Util qw( sum );
+
+my $debug = 0;
 
 my $filter = shift @ARGV
     or die "not enough arguments";
 my $obj = shift @ARGV
     or die "not enough arguments";
-my @objdump = qw( /usr/bin/objdump -WNl );
-open my $DWARF, "-|", @objdump, $obj
+
+my $objdump = $ENV{OBJDUMP} || "/usr/bin/objdump";
+open my $DWARF, "-|", $objdump, "-WNl", $obj
     or die "can't invoke objdump\n$!";
 
 my ( @dirs, @files, %fn, %rn );
+
+# loop over multiple CUs
 while (<$DWARF>) {
+    # collect directory list
     if (/^ The Directory Table/../^$/) {
 	if (/^  \d+/) {
 	    my ( $entry, $dir ) = m/^  (\d+)\t.+: (.+)$/;
-	    $dir = "$dirs[0]/$dir" if ($dir =~ m:\A[^/]:);
+	    $dir = "$dirs[0]/$dir" if ($dir =~ m:^[^/]:);  # if relative, make absolute (using current directory in first entry)
 	    push @dirs, $dir;
 	}
     }
+    # collect file list
     if (/^ The File Name Table/../^$/) {
 	if (/^  \d+/) {
-	    my ( $idx, $fn, undef ) = m/^  \d+\t(\d+)\t.+: (.+)$/;
+	    my ( $idx, $fn ) = m/^  \d+\t(\d+)\t.+: (.+)$/;
 	    $rn{"$dirs[$idx]/$fn"}++;
-	    push @files, "$dirs[$idx]/$fn";
+	    push @files, "$dirs[$idx]/$fn";  # prepend with directory name looked up by index
 	}
     }
+    # line number statements
     if (my $rc = /^ Line Number Statements/../^  Offset:/) {
-	$fn{"$files[0]"}++ if ($rc == 1);
-	$fn{"$files[$1]"}++ if m/ Set File Name to entry (\d+) in the File Name Table/;
+	$fn{"$files[0]"}++ if ($rc == 1);  # the first entry in the file name table is used by default
+	$fn{"$files[$1]"}++  if m/ Set File Name to entry (\d+) in the File Name Table/;
+	# reset file and directory lists for next CU at end of range
 	@files = () if ($rc =~ m/E0$/);
 	@dirs  = () if ($rc =~ m/E0$/);
     }
     if (/^ No Line Number Statements./../^$/) {
+	# ... also reset if there are no line number statements
 	@files = ();
 	@dirs  = ();
     }
 }
+
+# output filenames matching filter
 foreach my $fn (grep m:^$filter:, sort keys %fn) {
     say sprintf "%s", $fn;
 }
+
 say STDERR sprintf "\tLNS: %6d (%6d locations) <=> FNT: %6d ( %6d locations)",
     0+grep( m:^$filter:, keys %fn ), sum( values %fn ),
     0+grep( m:^$filter:, keys %rn ), sum( values %rn )
-    if (0);
+    if ($debug);
 
 close $DWARF
     or die "failed to close objdump\n$!";

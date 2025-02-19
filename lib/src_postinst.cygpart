@@ -1098,7 +1098,7 @@ __prepstrip_one() {
 
 		if defined DWARF_PARSE
 		then
-			lines=$(${DWARF_PARSE} /usr/src/debug/${PF}/ "${exe}" | tee -a ${T}/.dbgsrc.out.${oxt} | wc -l);
+			lines=$(OBJDUMP=${objdump} ${DWARF_PARSE} /usr/src/debug/${PF}/ "${exe}" | tee -a ${T}/.dbgsrc.out.${oxt} | wc -l);
 		else
 			lines=$(${objdump} -d -l "${exe}" 2>/dev/null | sed -ne "s|.*\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u | tee -a ${T}/.dbgsrc.out.${oxt} | wc -l);
 		fi
