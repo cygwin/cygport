@@ -409,7 +409,7 @@ httpd_loadmodules() {
 			esac
 		fi
 
-		if ! ${OBJDUMP} -p ${mod} 2> /dev/null | grep -q "\] ${sym}$"
+		if ! ${OBJDUMP} -p ${mod} 2> /dev/null | grep -q "\].* ${sym}$"
 		then
 			error "Cannot determine module symbol name for ${mod##*/}"
 		fi
