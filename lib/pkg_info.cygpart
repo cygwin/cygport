@@ -124,6 +124,12 @@ __list_deps() {
 		fi
 	done
 
+#****v* Information/REQUIRES_EXCLUDE_FROM
+#  DESCRIPTION
+#  A colon-separated list of pathname globs, which are excluded from automatic
+#  dependency detection.
+#****
+
 	for d in ${REQUIRES_EXCLUDE_FROM//:/ }
 	do
 		deps_prune+=" -o -path ${d#/} -prune"
