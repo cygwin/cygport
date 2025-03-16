@@ -7,7 +7,7 @@ CATEGORY="Devel"
 SUMMARY="Cygwin source packaging tool"
 DESCRIPTION="cygport is the standard method for building and maintaining
 packages for the Cygwin distribution."
-HOMEPAGE="https://cygwin.com/"
+HOMEPAGE="https://sourceware.org/cygwin-apps/cygport.html"
 LICENSE="GPL-3.0-only"
 SRC_URI="https://github.com/cygwin/cygport/${VERSION}/cygport-${VERSION}.tar.gz"
 
