@@ -1096,9 +1096,9 @@ __prepstrip_one() {
 	else
 		dbg="/usr/lib/debug/${exe}.dbg";
 
-		if defined DWARF_PARSE
+		if defined DEBUG_FILELIST_EXTRACT
 		then
-			lines=$(OBJDUMP=${objdump} ${DWARF_PARSE} /usr/src/debug/${PF}/ "${exe}" | tee -a ${T}/.dbgsrc.out.${oxt} | wc -l);
+			lines=$(OBJDUMP=${objdump} ${DEBUG_FILELIST_EXTRACT} /usr/src/debug/${PF}/ "${exe}" | tee -a ${T}/.dbgsrc.out.${oxt} | wc -l);
 		else
 			lines=$(${objdump} -d -l "${exe}" 2>/dev/null | sed -ne "s|.*\(/usr/src/debug/${PF}/.*\):[0-9]*$|\1|gp" | sort -u | tee -a ${T}/.dbgsrc.out.${oxt} | wc -l);
 		fi
