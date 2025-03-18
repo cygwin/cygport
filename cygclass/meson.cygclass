@@ -93,7 +93,7 @@ cygmeson() {
 		--sysconfdir=$(__host_sysconfdir) \
 		--buildtype=plain --wrap-mode=nodownload \
 		--auto-features=enabled \
-		${crossargs} ${CYGMESON_ARGS} "${@}" ${CHOST} \
+		${crossargs} ${CYGMESON_ARGS} "${@}" _build.${CHOST} \
 		|| error "meson failed"
 }
 
@@ -108,7 +108,7 @@ cygmeson() {
 #****
 meson_compile() {
 	cygmeson ${@}
-	cygninja -C ${CHOST}
+	cygninja -C _build.${CHOST}
 }
 
 #****T* meson.cygclass/meson_test
@@ -120,7 +120,7 @@ meson_compile() {
 #  meson_test should be run in the directory containing the top-level meson.build.
 #****
 meson_test() {
-	ninja_test -C ${CHOST}
+	ninja_test -C _build.${CHOST}
 }
 
 #****I* meson.cygclass/meson_install
@@ -132,7 +132,7 @@ meson_test() {
 #  meson_install should be run in the directory containing the top-level meson.build.
 #****
 meson_install() {
-	ninja_install -C ${CHOST}
+	ninja_install -C _build.${CHOST}
 }
 
 #****o* meson.cygclass/src_compile (meson)

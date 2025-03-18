@@ -335,7 +335,7 @@ __pkg_diff() {
 		 *.mo *.gmo *.orig *.rej *.spec *.temp *.whl *~ *.stackdump";
 
 	# as an alternative build directory to ${B}
-	default_excludes+=" ${CHOST}";
+	default_excludes+=" _build.* ${CHOST}";
 
 	if __config_equals with_aclocal 1
 	then
