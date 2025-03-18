@@ -1147,7 +1147,12 @@ __prepstrip() {
 		return 0;
 	fi
 
+	if defined DEBUG_FILELIST_EXTRACT
+	then
+		inform "Using ${DEBUG_FILELIST_EXTRACT} to build debuginfo source files list"
+	fi
 	echo "Stripping executables:";
+
 	echo "    ... starting" >> ${T}/.dbgsrc.dbg
 
 	local start="$(date --iso-8601=ns)";
