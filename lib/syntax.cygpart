@@ -377,6 +377,10 @@ __target_is_embedded() {
 #  The installation staging directory.  All installation and postinstall steps
 #  occur in or into this directory.
 #****
+#****d* Globals/T
+#  DESCRIPTION
+#  The temporary directory, where cygport creates its working files.
+#****
 
 #****** Format/State
 #****
