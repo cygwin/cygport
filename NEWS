@@ -1,3 +1,12 @@
+0.37.0:
+	* Include arch tag in output archive/hint filenames
+	* Define CMAKE_SYSTEM_PROCESSOR when cross-compiling with cmake
+	* Add configuration DEBUG_FILELIST_EXTRACT for the command to extract
+           the list of source files for a debuginfo package. Provide
+           debug-filelist-extract script which does that.
+	* httpd.cygclass: Fix with binutils >2.43
+	* Rename meson builddir to avoid bad interaction with cross-pkgconf
+	* Document REQUIRES_EXCLUDE_FROM and T
 0.36.9:
 	* Add repro-build, repro-diff, repro-check and repo-finish commands
 	* Avoid a package's provides appearing in it's requires
