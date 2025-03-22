@@ -21,7 +21,7 @@ BUILD_REQUIRES="git-archive-all groff help2man robodoc"
 REQUIRES="autoconf automake binutils bzip2 coreutils diffstat diffutils \
 dos2unix findutils file gawk gcc-core gcc-g++ grep gzip lftp libtool lndir \
 lzip make openssh patch perl-common-sense perl-Authen-SASL perl-MIME-tools \
-perl-Net-SMTP-SSL rsync sed tar texinfo unzip util-linux wget which xz"
+perl-Net-SMTP-SSL pkg-config rsync sed tar texinfo unzip util-linux wget which xz"
 
 # We use the src_compile and src_test provided by meson.cygclass
 
