@@ -1,4 +1,4 @@
-#!perl -w
+#!/usr/bin/perl -w
 #
 # Run 'objdump -Wl' to dump out the raw DWARF .debug_line section.
 #

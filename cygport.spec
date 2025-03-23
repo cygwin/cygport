@@ -2,7 +2,7 @@
 
 Name:           cygport
 Version:        0.37.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cygwin package building tool
 
 License:        GPLv3+
