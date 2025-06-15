@@ -54,14 +54,26 @@ ocaml_dune_compile() {
 	dune build --display=verbose --profile=release ${OCAML_DUNE_BUILD_ARGS} ${@} || error "dune build failed"
 }
 
+#****v* ocaml-dune.cygclass/OCAML_DUNE_INSTALL_ARGS
+#  DESCRIPTION
+#  Arguments, usually install targets, to be passed to "dune install"
+#  by ocaml_dune_install.
+#****
+
 #****I* ocaml-dune.cygclass/ocaml_dune_install
 #  DESCRIPTION
 #  Runs "dune install" with a destdir of $D.
 #****
 ocaml_dune_install() {
 	DUNE_BUILD_DIR=${B} \
-	dune install --display=verbose --destdir ${D} || error "dune install failed"
+	dune install --display=verbose --destdir ${D} ${OCAML_DUNE_INSTALL_ARGS} ${@} || error "dune install failed"
 }
+
+#****v* ocaml-dune.cygclass/OCAML_DUNE_TEST_TARGETS
+#  DESCRIPTION
+#  Arguments, usually test targets, to be passed to "dune runtest"
+#  by ocaml_dune_test.
+#****
 
 #****T* ocaml-dune.cygclass/ocaml_dune_test
 #  DESCRIPTION
