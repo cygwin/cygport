@@ -170,15 +170,7 @@ python_wheel_compile() {
 		[ ! -d build/lib ] || find build/lib -delete
 		if [ ! -f dist/*-py2.py3*-none-any.whl -a ! -f dist/*py${ver:0:1}-none-any.whl ]
 		then
-			# for the moment, we retain the historical behaviour of
-			# building projects which have a setup.py using setuptools
-			if [ ! -e setup.py ]
-			then
-				pip${ver} wheel --no-deps -w dist . || error "pip${ver} wheel failed"
-			else
-				# setuptools.launch imports setuptools hooks regardles of setup.py
-				/usr/bin/python${ver} -msetuptools.launch setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
-			fi
+			pip${ver} wheel --no-deps -w dist . || error "pip${ver} wheel failed"
 		fi
 	done
 }
