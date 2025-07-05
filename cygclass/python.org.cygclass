@@ -40,6 +40,21 @@
 
 PYTHON_ORG_NAME=${ORIG_PN:-${PN}}
 
+#****o* python.org.cygclass/PYPI_NO_NORMALIZE
+#  DESCRIPTION
+#  If set, disable normalization of the Python project name.
+#
+#  By default, the project name is normalized according to PEP 625 rules (which
+#  transforms all uppercase letters to lowercase, and replaces all contiguous
+#  runs of ._- characters with a single underscore).
+#****
+
+if [ ! -v PYPI_NO_NORMALIZE ]
+then
+	PYTHON_ORG_NAME=$(echo "${PYTHON_ORG_NAME}" | tr -s '._-' '_')
+	PYTHON_ORG_NAME=${PYTHON_ORG_NAME,,}
+fi
+
 #****o* python.org.cygclass/HOMEPAGE (python.org)
 #  DESCRIPTION
 #  Default homepage of the Python module on the Python Package Index.
@@ -50,4 +65,5 @@ HOMEPAGE="https://pypi.org/project/${PYTHON_ORG_NAME}"
 #  DESCRIPTION
 #  Download location of the Python module on the Python Package Index.
 #****
+
 SRC_URI="https://files.pythonhosted.org/packages/source/${PYTHON_ORG_NAME:0:1}/${PYTHON_ORG_NAME}/${PYTHON_ORG_NAME}-${PV}.tar.gz"
