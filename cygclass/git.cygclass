@@ -42,6 +42,16 @@
 #  git
 #****
 
+#****v* git.cygclass/GIT_COMPRESSION_EXT
+#  SYNOPSIS
+#  GIT_COMPRESSION_EXT="bz2"
+#  DESCRIPTION
+#  The compression to be used for the source tarballs created from the Git
+#  repository. Defaults to 'bz2'.
+#  DEFINITION
+GIT_COMPRESSION_EXT="${GIT_COMPRESSION_EXT:-bz2}"
+#****
+
 #****v* git.cygclass/GIT_URI
 #  DESCRIPTION
 #  Address of Git repository from which to clone.  Must be defined before
@@ -60,7 +70,7 @@ then
 	GIT_MODULE=${GIT_MODULE%.git}
 fi
 
-git_tarball="${GIT_MODULE}-${PV}.tar.bz2"
+git_tarball="${GIT_MODULE}-${PV}.tar.${GIT_COMPRESSION_EXT}"
 
 SRC_URI="${git_tarball} "
 SRC_DIR="${GIT_MODULE}${GIT_SUBDIR+/}${GIT_SUBDIR}"
@@ -144,7 +154,7 @@ git_fetch() {
 	fi
 
 	cd ${T}/
-	tar ${_tar_bz2_flag} -cf ${top}/${git_tarball} --exclude-vcs ${GIT_MODULE}/${GIT_SUBDIR}
+	tar $(__tar_compress_opt ${GIT_COMPRESSION_EXT}) -cf ${top}/${git_tarball} --exclude-vcs ${GIT_MODULE}/${GIT_SUBDIR}
 }
 
 readonly -f git_fetch

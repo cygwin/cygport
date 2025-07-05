@@ -41,30 +41,45 @@
 TAR_COMPRESSION_EXT="${TAR_COMPRESSION_EXT:-xz}"
 #****
 
-__tar() {
-	local TAR_COMPRESSION_OPT TAR_SOURCE_DATE_OPTS;
+__tar_compress_opt() {
+	local _COMPRESSION_OPT _COMPRESSION_EXT;
+
+	if [ $# -eq 0 ]; then
+		# Assume .xz as default compression engine
+		_COMPRESSION_EXT="xz"
+	else
+		_COMPRESSION_EXT="$1"
+	fi
 
 	# We could use --auto-compress, but this also constrains the extension
 	# to the currently valid set. We could probe if tar supports the
 	# compression and/or use an external compressor.
-	case ${TAR_COMPRESSION_EXT} in
+	case ${_COMPRESSION_EXT} in
 		bz2)
-			TAR_COMPRESSION_OPT="-j"
+			_COMPRESSION_OPT="${_tar_bz2_flag}"
 			;;
 		gz)
-			TAR_COMPRESSION_OPT="-z"
+			_COMPRESSION_OPT="-z"
 			warning "gzip compression for packages is considered obsolete"
 			;;
 		xz)
-			TAR_COMPRESSION_OPT="-J"
+			_COMPRESSION_OPT="-J"
 			;;
 		zst)
-			TAR_COMPRESSION_OPT="--zstd"
+			_COMPRESSION_OPT="--zstd"
 			;;
 		*)
-			error "tar option for TAR_COMPRESSION_EXT='${TAR_COMPRESSION_EXT}' unknown"
+			error "tar compressor '${_COMPRESSION_EXT}' is unknown"
 			;;
 	esac
+
+	echo -n ${_COMPRESSION_OPT}
+}
+
+__tar() {
+	local TAR_COMPRESSION_OPT TAR_SOURCE_DATE_OPTS;
+
+	TAR_COMPRESSION_OPT=$(__tar_compress_opt ${TAR_COMPRESSION_EXT})
 
 	if [ -n "${SOURCE_DATE_EPOCH}" ]
 	then
@@ -1079,4 +1094,4 @@ __pkg_repro_finish() {
 # protect functions
 readonly -f __pkg_binpkg __pkg_diff __gpg_sign __pkg_srcpkg __pkg_dist \
 	 __pkg_repro_build __pkg_repro_diff __pkg_repro_finish \
-	 __squeeze_whitespace __tar
+	 __squeeze_whitespace __tar __tar_compress_opt
