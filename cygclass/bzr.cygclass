@@ -87,7 +87,7 @@ bzr_fetch() {
 	cd ${T}
 	verbose bzr branch ${BZR_URI} ${BZR_MODULE} ${bzr_rev}
 
-	tar ${_tar_bz2_flag}cf ${top}/${bzr_tarball} --exclude-vcs ${BZR_MODULE}
+	tar ${_tar_bz2_flag} -cf ${top}/${bzr_tarball} --exclude-vcs ${BZR_MODULE}
 }
 
 readonly -f bzr_fetch

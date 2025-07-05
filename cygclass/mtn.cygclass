@@ -107,7 +107,7 @@ mtn_fetch() {
 	[ -d ${MTN_MODULE} ] && rm -fr ${MTN_MODULE}/
 	verbose mtn -d ${MTN_MODULE}.mtn checkout -b ${MTN_BRANCH} ${mtn_rev} ${MTN_MODULE}
 
-	tar ${_tar_bz2_flag}cf ${top}/${mtn_tarball} --exclude=_MTN --exclude=.mtn-ignore ${MTN_MODULE}
+	tar ${_tar_bz2_flag} -cf ${top}/${mtn_tarball} --exclude=_MTN --exclude=.mtn-ignore ${MTN_MODULE}
 }
 
 readonly -f mtn_fetch
