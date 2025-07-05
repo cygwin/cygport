@@ -1,8 +1,8 @@
 %define debug_package %{nil}
 
 Name:           cygport
-Version:        0.37.0
-Release:        2%{?dist}
+Version:        0.37.1
+Release:        1%{?dist}
 Summary:        Cygwin package building tool
 
 License:        GPLv3+
