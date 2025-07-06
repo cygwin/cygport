@@ -74,7 +74,7 @@ then
 	MTN_BRANCH+="${MTN_MODULE}"
 fi
 
-mtn_tarball="${MTN_MODULE}-mtn-${PV}.tar.bz2"
+mtn_tarball="${MTN_MODULE}-mtn-${PV}.tar.${VCS_COMPRESSION_EXT}"
 
 SRC_URI="${mtn_tarball} "
 SRC_DIR="${MTN_MODULE}"
@@ -107,7 +107,7 @@ mtn_fetch() {
 	[ -d ${MTN_MODULE} ] && rm -fr ${MTN_MODULE}/
 	verbose mtn -d ${MTN_MODULE}.mtn checkout -b ${MTN_BRANCH} ${mtn_rev} ${MTN_MODULE}
 
-	tar ${_tar_bz2_flag} -cf ${top}/${mtn_tarball} --exclude=_MTN --exclude=.mtn-ignore ${MTN_MODULE}
+	tar $(__tar_compress_opt ${VCS_COMPRESSION_EXT}) -cf ${top}/${mtn_tarball} --exclude=_MTN --exclude=.mtn-ignore ${MTN_MODULE}
 }
 
 readonly -f mtn_fetch

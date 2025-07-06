@@ -44,7 +44,7 @@
 # is this truly needed?
 BZR_MODULE=${BZR_MODULE:-${ORIG_PN:-${PN}}}
 
-bzr_tarball="${BZR_MODULE}-bzr-${PV}.tar.bz2"
+bzr_tarball="${BZR_MODULE}-bzr-${PV}.tar.${VCS_COMPRESSION_EXT}"
 
 SRC_URI="${bzr_tarball} "
 SRC_DIR="${BZR_MODULE}"
@@ -87,7 +87,7 @@ bzr_fetch() {
 	cd ${T}
 	verbose bzr branch ${BZR_URI} ${BZR_MODULE} ${bzr_rev}
 
-	tar ${_tar_bz2_flag} -cf ${top}/${bzr_tarball} --exclude-vcs ${BZR_MODULE}
+	tar $(__tar_compress_opt ${VCS_COMPRESSION_EXT}) -cf ${top}/${bzr_tarball} --exclude-vcs ${BZR_MODULE}
 }
 
 readonly -f bzr_fetch

@@ -42,7 +42,7 @@
 # is this truly necessary?
 FOSSIL_MODULE=${FOSSIL_MODULE:-${ORIG_PN:-${PN}}}
 
-fossil_tarball="${FOSSIL_MODULE}-${PV}_fossil.tar.bz2"
+fossil_tarball="${FOSSIL_MODULE}-${PV}_fossil.tar.${VCS_COMPRESSION_EXT}"
 
 SRC_URI="${fossil_tarball} "
 SRC_DIR="${FOSSIL_MODULE}"
@@ -89,7 +89,7 @@ fossil_fetch() {
 	popd
 
 	# manifest and manifest.uuid may be used in sources (e.g. fossil itself)
-	tar ${_tar_bz2_flag} -cf ${top}/${fossil_tarball} --exclude=.fslckout --exclude=_FOSSIL_ ${FOSSIL_MODULE}
+	tar $(__tar_compress_opt ${VCS_COMPRESSION_EXT}) -cf ${top}/${fossil_tarball} --exclude=.fslckout --exclude=_FOSSIL_ ${FOSSIL_MODULE}
 }
 
 readonly -f fossil_fetch

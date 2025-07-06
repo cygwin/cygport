@@ -205,4 +205,17 @@ __src_fetch() {
 	done
 }
 
+#****v* Downloading//VCS_COMPRESSION_EXT
+#  SYNOPSIS
+#  VCS_COMPRESSION_EXT="bz2"
+#  DESCRIPTION
+#  The compression to be used for source tarballs created from a VCS.
+#  Defaults to 'bz2'.
+#  DEFINITION
+VCS_COMPRESSION_EXT="${VCS_COMPRESSION_EXT:-bz2}"
+#  SEE ALSO
+#  bzr.cygclass, cvs.cygclass, fossil.cygclass, git.cygclass, hg.cygclass,
+#  mtn.cygclass, svn.cygclass, Mirrors.
+#****
+
 readonly -f fetch __mirror_fetch __src_fetch

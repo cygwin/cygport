@@ -44,7 +44,7 @@
 
 CVS_MODULE=${CVS_MODULE:-${ORIG_PN:-${PN}}}
 
-cvs_tarball="${CVS_MODULE//\//-}-${PV}.tar.bz2"
+cvs_tarball="${CVS_MODULE//\//-}-${PV}.tar.${VCS_COMPRESSION_EXT}"
 
 SRC_URI="${cvs_tarball} "
 SRC_DIR=${SRC_DIR:-${CVS_MODULE}}
@@ -101,7 +101,7 @@ cvs_fetch() {
 	cd ${T}
 	verbose cvs -d ${CVS_URI} checkout ${cvs_branch} ${cvs_date} ${CVS_MODULE}
 
-	tar ${_tar_bz2_flag} -cf ${top}/${cvs_tarball} --exclude-vcs ${SRC_DIR}
+	tar $(__tar_compress_opt ${VCS_COMPRESSION_EXT}) -cf ${top}/${cvs_tarball} --exclude-vcs ${SRC_DIR}
 }
 
 readonly -f cvs_fetch

@@ -105,7 +105,7 @@ case ${SVN_URI} in
 esac
 
 SVN_MODULE=${SVN_MODULE:-${SVN_URI##*/}}
-svn_tarball="${SVN_MODULE}-${PV}.tar.bz2"
+svn_tarball="${SVN_MODULE}-${PV}.tar.${VCS_COMPRESSION_EXT}"
 
 SRC_URI="${svn_tarball} "
 SRC_DIR="${SVN_MODULE}"
@@ -128,7 +128,7 @@ svn_fetch() {
 	cd ${T}
 	verbose svn export ${svn_uri} ${svn_rev} ${SVN_MODULE}
 
-	tar ${_tar_bz2_flag} -cf ${top}/${svn_tarball} --exclude-vcs ${SVN_MODULE}
+	tar $(__tar_compress_opt ${VCS_COMPRESSION_EXT}) -cf ${top}/${svn_tarball} --exclude-vcs ${SVN_MODULE}
 }
 
 readonly -f svn_fetch
