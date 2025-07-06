@@ -205,7 +205,7 @@ __src_fetch() {
 	done
 }
 
-#****v* Downloading//VCS_COMPRESSION_EXT
+#****v* Downloading/VCS_COMPRESSION_EXT
 #  SYNOPSIS
 #  VCS_COMPRESSION_EXT="bz2"
 #  DESCRIPTION
