@@ -1,0 +1,10 @@
+category: Python
+build-depends: cygport python3-devel
+sdesc: "Python license expression utility library"
+ldesc: "Python comprehensive utility library to parse, compare, simplify
+and normalize license expressions (such as SPDX license expressions)
+using boolean logic."
+skip:
+
+homepage: https://pypi.org/project/license_expression
+license: Apache-2.0

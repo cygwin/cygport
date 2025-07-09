@@ -1,0 +1,4 @@
+declare -r ARCHES="noarch"
+declare -- BUILD_REQUIRES="python3-devel"
+declare -- CROSS_HOST=""
+declare -- INHERITED="python.org python-wheel python3 python3-wheel autotools "

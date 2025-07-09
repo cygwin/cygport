@@ -9,3 +9,5 @@ endif
 if pip37.found() and pip38.found()
 tests += [['python/wheel']]
 endif
+
+tests += [['python/normalization']]

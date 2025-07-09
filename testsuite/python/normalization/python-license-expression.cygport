@@ -1,0 +1,24 @@
+# python-license-expression.cygport - Python license-expression Cygwin package build control script definitions
+
+inherit python3-wheel
+
+NAME=python-license-expression
+VERSION=30.4.3
+RELEASE=1
+
+CATEGORY=Python
+SUMMARY="Python license expression utility library"
+DESCRIPTION="Python comprehensive utility library to parse, compare, simplify
+and normalize license expressions (such as SPDX license expressions)
+using boolean logic."
+
+ARCH=noarch
+
+BUILD_REQUIRES="python3-devel"
+
+LICENSE=Apache-2.0
+
+DOCS="
+	license-expression.ABOUT
+	AUTHORS.rst CHANGELOG.rst CODE_OF_CONDUCT.rst README.rst
+"

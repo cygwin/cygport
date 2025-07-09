@@ -1,0 +1,8 @@
+category: Python
+requires: python39
+sdesc: "Python license expression utility library"
+ldesc: "Python comprehensive utility library to parse, compare, simplify
+and normalize license expressions (such as SPDX license expressions)
+using boolean logic."
+external-source: python-license-expression
+

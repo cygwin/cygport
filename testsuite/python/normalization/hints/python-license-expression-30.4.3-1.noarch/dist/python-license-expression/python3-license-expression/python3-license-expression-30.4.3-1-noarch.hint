@@ -1,0 +1,6 @@
+category: Python Virtual
+requires: python39-license-expression
+sdesc: "Python license expression utility library"
+ldesc: "The python3-license-expression virtual package. Selecting this package for installation will cause the python39-license-expression package to be installed."
+external-source: python-license-expression
+
