@@ -47,12 +47,15 @@ PYTHON_ORG_NAME=${ORIG_PN:-${PN}}
 #  By default, the project name is normalized according to PEP 625 rules (which
 #  transforms all uppercase letters to lowercase, and replaces all contiguous
 #  runs of ._- characters with a single underscore).
+#
+#  This normalized name is then used to construct HOMEPAGE, SRC_URI and SRC_DIR.
 #****
 
 if [ ! -v PYPI_NO_NORMALIZE ]
 then
 	PYTHON_ORG_NAME=$(echo "${PYTHON_ORG_NAME}" | tr -s '._-' '_')
 	PYTHON_ORG_NAME=${PYTHON_ORG_NAME,,}
+	SRC_DIR=${PYTHON_ORG_NAME}-${PV}
 fi
 
 #****o* python.org.cygclass/HOMEPAGE (python.org)
