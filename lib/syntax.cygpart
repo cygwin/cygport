@@ -312,20 +312,36 @@ __target_is_embedded() {
 #  the upstream name is to append a version "slot" where multiple versions of
 #  a package are completely parallel installable (e.g. gtk1.2 and gtk2.0, both
 #  from gtk+).  In this case, define ORIG_PN to the upstream package name.
+#
 #  NOTE
 #  See https://cygwin.com/packaging-package-files.html#naming for more details
 #  of the policy on package naming and versioning.
+#
+#  NOTE
+#  This variable should be assigned a literal value, since cygport expects to
+#  be able to extract the line defining NAME from the file and evaluate it on
+#  its own.
 #****
 #****v* Globals/VERSION
 #  DESCRIPTION
 #  The upstream package version number.  VERSION must begin with a digit 0-9, and
 #  subsequent characters can be a digit, letter, dot, plus-sign or underscore.
+#
+#  NOTE
+#  This variable should be assigned a literal value, since cygport expects to
+#  be able to extract the line defining VERSION from the file and evaluate it on
+#  its own.
 #****
 #****v* Globals/RELEASE
 #  DESCRIPTION
 #  The Cygwin package release number, e.g. the "1" in foo-2.3.4-1.  The first
 #  release of a new version is usually 1, and is incremented if subsequent
 #  releases are made of the same version.
+#
+#  NOTE
+#  This variable should be assigned a literal value, since cygport expects to
+#  be able to extract the line defining RELEASE from the file and evaluate it on
+#  its own.
 #****
 #****d* Globals/PN
 #  DESCRIPTION
