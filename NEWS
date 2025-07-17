@@ -1,3 +1,5 @@
+0.37.2:
+	* python.org: Also set SRC_DIR appropriately
 0.37.1:
 	* python.org: Form PyPI URLs using PEP 625 project name normalization
 	* ocaml-dune: Allow customized arguments to dune install
