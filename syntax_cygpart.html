@@ -254,6 +254,11 @@
 <p>  See <a href="https://cygwin.com/packaging-package-files.html#naming">https://cygwin.com/packaging-package-files.html#naming</a> for more details
   of the policy on package naming and versioning.
 </p>
+<p class="item_name">NOTE</p>
+<p>  This variable should be assigned a literal value, since cygport expects to
+  be able to extract the line defining <strong>NAME</strong> from the file and evaluate it on
+  its own.
+</p>
 
 <hr />
 <a name="Globals2fVERSION"></a>
@@ -263,6 +268,11 @@
 <p class="item_name">DESCRIPTION</p>
 <p>  The upstream package version number.  <strong>VERSION</strong> must begin with a digit 0-9, and
   subsequent characters can be a digit, letter, dot, plus-sign or underscore.
+</p>
+<p class="item_name">NOTE</p>
+<p>  This variable should be assigned a literal value, since cygport expects to
+  be able to extract the line defining <strong>VERSION</strong> from the file and evaluate it on
+  its own.
 </p>
 
 <hr />
@@ -274,6 +284,11 @@
 <p>  The Cygwin package release number, e.g. the "1" in foo-2.3.4-1.  The first
   release of a new version is usually 1, and is incremented if subsequent
   releases are made of the same version.
+</p>
+<p class="item_name">NOTE</p>
+<p>  This variable should be assigned a literal value, since cygport expects to
+  be able to extract the line defining <strong>RELEASE</strong> from the file and evaluate it on
+  its own.
 </p>
 
 <hr />
@@ -415,7 +430,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/lib/syntax.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2025-07-06 17:07:09</p>
+<p>Generated from ./cygport/lib/syntax.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2025-07-19 21:57:01</p>
 </div> <!-- footer -->
 </body>
 </html>
