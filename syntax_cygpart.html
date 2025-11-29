@@ -58,6 +58,7 @@
 <li><a href="#NAME">NAME</a></li>
 <li><a href="#VERSION">VERSION</a></li>
 <li><a href="#RELEASE">RELEASE</a></li>
+<li><a href="#EPOCH">EPOCH</a></li>
 <li><a href="#PN">PN</a></li>
 <li><a href="#PV">PV</a></li>
 <li><a href="#PR">PR</a></li>
@@ -292,6 +293,24 @@
 </p>
 
 <hr />
+<a name="Globals2fEPOCH"></a>
+<a name="EPOCH"></a><h2>EPOCH</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Globals">Globals</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  The upstream versioning epoch.
+</p>
+<p class="item_name">NOTE</p>
+<p>  The epoch is an unsigned integer. Increment it when the upstream version
+  numbering scheme changes in such a way that the first number in the new
+  scheme would normally be considered to be older than existing versions.
+</p>
+
+<p>  Use this with care, as it can be confusing. This is intended as a last resort
+  to solve version comparison issues
+</p>
+
+<hr />
 <a name="Globals2fPN"></a>
 <a name="PN"></a><h2>PN</h2>
 
@@ -371,8 +390,9 @@
 
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Globals">Globals</a> ] [ <a href="./cygport_definitions.html#robo_top_of_doc">Definitions</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
-<p>  The directory where Cygwin READMEs, custom post-install scripts, shell
-  profile scripts, PKG.list files, and other Cygwin-specific files are placed.
+<p>  The directory where Cygwin READMEs, custom post-install and pre-remove
+  scripts, shell profile scripts, PKG.list files, and other Cygwin-specific
+  files are placed.
 </p>
 <p class="item_name">NOTE</p>
 <p>  Providing setup.hint or PKG.hint files in this directory (rather than
@@ -430,7 +450,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/lib/syntax.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2025-07-19 21:57:01</p>
+<p>Generated from ./cygport/lib/syntax.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2025-11-29 13:55:29</p>
 </div> <!-- footer -->
 </body>
 </html>
