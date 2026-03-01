@@ -77,7 +77,7 @@
     <a href="./compilers_cygpart.html#ARCH">ARCH</a>=noarch
 </pre>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./python_org_cygclass.html#robo_top_of_doc">python.org.cygclass</a>
+<p>  <a href="./python_org_cygclass.html#python.org.cygclass">python.org.cygclass</a>
 </p>
 <p class="item_name">REQUIRES</p>
 <p>  pythonXY, pythonXY-pip (for each X.Y version of Python being built)
@@ -135,12 +135,29 @@
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#python-wheel.cygclass">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  For a <a href="./syntax_cygpart.html#NAME">NAME</a> of python-foo, pythonXY-foo binary packages are created
-  automatically, corresponding to each X.Y version in <a href="#PYTHON_WHEEL_VERSIONS">PYTHON_WHEEL_VERSIONS</a>.
-  Each package also includes its own independent copy of the automatically
-  installed documentation (COPYING, README, etc.).  For those packages which
-  install scripts into /usr/bin, these should be added to the respective
-  pythonXY_foo_CONTENTS.
+  automatically, corresponding to each X.Y version in <a href="./python3-wheel_cygclass.html#PYTHON_WHEEL_VERSIONS_1">PYTHON_WHEEL_VERSIONS</a>.
 </p>
+
+<p>  Each package also includes its own independent copy of the automatically
+  installed documentation (COPYING, README, etc.).
+</p>
+<p class="item_name">NOTES</p>
+<p>  For those packages which install scripts into /usr/bin, they should be added
+  to the respective pythonXY_foo_CONTENTS, for example:
+</p>
+
+<pre>    declare python${<a href="./python3_cygclass.html#PYTHON3_PKGVERSION">PYTHON3_PKGVERSION</a>}_foo_CONTENTS+=" usr/bin/foo"
+</pre>
+<p>
+  or
+</p>
+
+<pre>    for v in ${<a href="./python3-wheel_cygclass.html#PYTHON_WHEEL_VERSIONS_1">PYTHON_WHEEL_VERSIONS</a>//:/ }
+      do
+        declare python${v/./}_foo_CONTENTS+=" usr/bin/foo${v}"
+      done
+</pre>
+<p></p>
 
 <hr />
 <a name="python2dwheel2ecygclass2fpython5fwheel5fcompile"></a>
@@ -211,7 +228,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-01-02 16:59:11</p>
+<p>Generated from ./cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-03-01 19:17:05</p>
 </div> <!-- footer -->
 </body>
 </html>

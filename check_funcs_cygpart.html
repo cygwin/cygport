@@ -46,7 +46,6 @@
 <li><a href="#check_ocaml_module">check_ocaml_module</a></li>
 <li><a href="#check_perl_module">check_perl_module</a></li>
 <li><a href="#check_php_module">check_php_module</a></li>
-<li><a href="#check_python2_module">check_python2_module</a></li>
 <li><a href="#check_python3_module">check_python3_module</a></li>
 <li><a href="#check_R_module">check_R_module</a></li>
 <li><a href="#check_ruby_module">check_ruby_module</a></li>
@@ -237,32 +236,6 @@
 </p>
 
 <hr />
-<a name="Checks2fcheck5fpython25fmodule"></a>
-<a name="check_python2_module"></a><h2>check_python2_module</h2>
-
-<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#Checks">Checks</a> ] [ <a href="./cygport_general_functions.html#robo_top_of_doc">General Functions</a> ]</p>
-<p class="item_name">SYNOPSIS</p>
-<pre>  <strong>check_python2_module</strong> MODULE [MODULE2] ...
-</pre>
-<p class="item_name">DESCRIPTION</p>
-<p>  <a href="#Checks">Checks</a> the presence of the given Python2 module(s).  If all given module(s)
-  are present, returns TRUE, else FALSE.
-</p>
-<p class="item_name">NOTES</p>
-<ul><li>  <strong>check_python2_module</strong> does not distinguish how the given module(s) were
-    installed, whether they are from a Cygwin package or manually.
-</li>
-<li>  For Python 3 modules, use <a href="#check_python3_module">check_python3_module</a>.
-</li>
-<li>  For PyPy modules, use check_pypy_module.
-</li>
-</ul>
-<p></p>
-<p class="item_name">REQUIRES</p>
-<p>  python2
-</p>
-
-<hr />
 <a name="Checks2fcheck5fpython35fmodule"></a>
 <a name="check_python3_module"></a><h2>check_python3_module</h2>
 
@@ -278,7 +251,7 @@
 <ul><li>  <strong>check_python3_module</strong> does not distinguish how the given module(s) were
     installed, whether they are from a Cygwin package or manually.
 </li>
-<li>  For Python 2 modules, use <a href="#check_python2_module">check_python2_module</a>.
+<li>  For Python 2 modules, use check_python2_module.
 </li>
 <li>  For PyPy modules, use check_pypy_module.
 </li>
@@ -415,7 +388,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/lib/check_funcs.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-01-02 16:59:11</p>
+<p>Generated from ./cygport/lib/check_funcs.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-03-01 19:17:05</p>
 </div> <!-- footer -->
 </body>
 </html>

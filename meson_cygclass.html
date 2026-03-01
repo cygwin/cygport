@@ -39,6 +39,7 @@
 <li><a href="#cygmeson">cygmeson</a></li>
 <ul>
 <li><a href="#CYGMESON_ARGS">CYGMESON_ARGS</a></li>
+<li><a href="#CYGMESON_TEST_ARGS">CYGMESON_TEST_ARGS</a></li>
 </ul>
 <li><a href="#meson_compile">meson_compile</a></li>
 <li><a href="#meson_test">meson_test</a></li>
@@ -46,6 +47,7 @@
 <li><a href="#src_compile (meson)">src_compile (meson)</a></li>
 <li><a href="#src_test (meson)">src_test (meson)</a></li>
 <li><a href="#src_install (meson)">src_install (meson)</a></li>
+<li><a href="./xvfb_cygclass.html#src_test (xvfb)">src_test (xvfb)</a></li>
 </ul>
 </ul>
 <hr />
@@ -65,7 +67,7 @@
   configure, and ninja replaces automake and make.
 </p>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./ninja_cygclass.html#ninja.cygclass">ninja.cygclass</a>
+<p>  <a href="./ninja_cygclass.html#robo_top_of_doc">ninja.cygclass</a>
 </p>
 <p class="item_name">REQUIRES</p>
 <p>  meson
@@ -136,6 +138,21 @@
 </p>
 
 <hr />
+<a name="cygmeson2fCYGMESON5fTEST5fARGS"></a>
+<a name="CYGMESON_TEST_ARGS"></a><h2>CYGMESON_TEST_ARGS</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#cygmeson">cygmeson</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">DESCRIPTION</p>
+<p>  Additional flags to pass to meson test, as a string.
+</p>
+<p class="item_name">DEFINITION</p>
+<pre class="source"><strong>CYGMESON_TEST_ARGS</strong><span class="sign">=</span><span class="sign">$</span><span class="sign">{</span><strong>CYGMESON_TEST_ARGS</strong><span class="sign">:</span><span class="sign">-</span><span class="quote">"--timeout-multiplier=2"</span><span class="sign">}</span>
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>    <strong>CYGMESON_TEST_ARGS</strong>="--timeout-multiplier=10"
+</pre>
+
+<hr />
 <a name="meson2ecygclass2fmeson5finstall"></a>
 <a name="meson_install"></a><h2>meson_install</h2>
 
@@ -188,7 +205,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/meson.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-01-02 16:59:11</p>
+<p>Generated from ./cygport/cygclass/meson.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-03-01 19:17:05</p>
 </div> <!-- footer -->
 </body>
 </html>
