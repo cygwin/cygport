@@ -135,7 +135,7 @@ xvfb_run() {
 # XXX: maybe should check that src_test is defined?
 eval wrapped_previous_"$(declare -f src_test)"
 
-#****o* meson.cygclass/src_test (xvfb)
+#****o* xvfb.cygclass/src_test (xvfb)
 #  DEFINITION
 src_test() {
 	cd ${S}
