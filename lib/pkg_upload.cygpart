@@ -177,7 +177,7 @@ __pkg_announce() {
 	[ $pkg_count != 1 ] || s_have=" has"
 
 	cat > ${msg} <<_EOF
-From cygwin-announce-${PF} $(date '+%a %b %d %H:%M:%S %Y' --date=${msgat})
+From cygwin-announce-${PF} $(LANG=C date '+%a %b %d %H:%M:%S %Y' --date=${msgat})
 From: ${SMTP_SENDER}
 To: cygwin-announce@cygwin.com
 Date: $(date -R --date=${msgat})
