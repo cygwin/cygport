@@ -42,13 +42,16 @@
 
 #****v* gnome.org.cygclass/GNOME_ORG_TARBALL_SUFFIX
 #  DESCRIPTION
-#  The compression format for tarballs on gnome.org.  Until December 2011,
-#  almost all sources were available with at least bz2 compression, but from
-#  that point on, only xz-compressed tarballs are being published.
+#  The compression format for tarballs on gnome.org
+#
+#  Until December 2011, almost all sources were available with at least bz2 or
+#  gz compression, but from that point on, only xz-compressed tarballs were
+#  being published.
 #
 #  If undefined, the server is checked to find which type of tarball exists.
 #  This variable can be set to avoid the server check, or if the extension
-#  is neither "bz2" nor "xz".
+#  is neither "bz2", "xz", nor "gz".
+#
 #  NOTE
 #  This must be defined before inherit()ing gnome.org.cygclass.
 #****
@@ -58,8 +61,12 @@ then
 	if wget -q --spider https://download.gnome.org/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2
 	then
 		GNOME_ORG_TARBALL_SUFFIX="bz2"
-	else
+	elif wget -q --spider https://download.gnome.org/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.xz
+	then
 		GNOME_ORG_TARBALL_SUFFIX="xz"
+	elif wget -q --spider https://download.gnome.org/sources/${ORIG_PN:-${PN}}/${PVP[0]}.${PVP[1]}/${ORIG_PN:-${PN}}-${PV}.tar.gz
+	then
+		GNOME_ORG_TARBALL_SUFFIX="gz"
 	fi
 fi
 
