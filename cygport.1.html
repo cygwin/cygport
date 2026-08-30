@@ -1,11 +1,11 @@
-<!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Mon Mar  2 13:08:34 2026 -->
+<!-- Creator     : groff version 1.24.1 -->
+<!-- CreationDate: Sun Aug 30 20:54:04 2026 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, see www.gnu.org">
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="Content-Style" content="text/css">
 <style type="text/css">
        p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
@@ -34,15 +34,15 @@
 </h2>
 
 
-<p style="margin-left:9%; margin-top: 1em">cygport &minus;
-Cygwin source packaging tool</p>
+<p style="margin-left:6%; margin-top: 1em">cygport - Cygwin
+source packaging tool</p>
 
 <h2>SYNOPSIS
 <a name="SYNOPSIS"></a>
 </h2>
 
 
-<p style="margin-left:9%; margin-top: 1em"><b>cygport</b>
+<p style="margin-left:6%; margin-top: 1em"><b>cygport</b>
 [<i>OPTIONS</i>] <i>CYGPORT_FILE COMMAND</i>
 [<i>COMMAND2</i> ...]</p>
 
@@ -51,204 +51,180 @@ Cygwin source packaging tool</p>
 </h2>
 
 
-<p style="margin-left:9%; margin-top: 1em">cygport is a
+<p style="margin-left:6%; margin-top: 1em">cygport is a
 utility for creating and building Cygwin software
 packages.</p>
 
-<p style="margin-left:9%; margin-top: 1em">OPTIONS may
+<p style="margin-left:6%; margin-top: 1em">OPTIONS may
 include the following: <b><br>
-&minus;&minus;jobs</b>, <b>&minus;j</b> N</p>
+--jobs</b>, <b>-j</b> N</p>
 
-<p style="margin-left:18%;">specify the number of jobs to
+<p style="margin-left:15%;">specify the number of jobs to
 use</p>
 
-<p style="margin-left:9%;"><b>&minus;&minus;32</b>,
-<b>&minus;4</b></p>
+<p style="margin-left:6%;"><b>--32</b>, <b>-4</b></p>
 
-<p style="margin-left:18%;">build package for i686
+<p style="margin-left:15%;">build package for i686
 Cygwin</p>
 
-<p style="margin-left:9%;"><b>&minus;&minus;64</b>,
-<b>&minus;8</b></p>
+<p style="margin-left:6%;"><b>--64</b>, <b>-8</b></p>
 
-<p style="margin-left:18%;">build package for x86_64
+<p style="margin-left:15%;">build package for x86_64
 Cygwin</p>
 
-<p style="margin-left:9%;"><b>&minus;&minus;debug</b></p>
+<p style="margin-left:6%;"><b>--debug</b></p>
 
-<p style="margin-left:18%;">enable debugging messages</p>
+<p style="margin-left:15%;">enable debugging messages</p>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="9%"></td>
+<td width="6%"></td>
 <td width="38%">
 
 
-<p style="margin-top: 1em"><b>&minus;&minus;version</b>,
-<b>&minus;v</b> show the version</p></td>
-<td width="53%">
+<p style="margin-top: 1em"><b>--version</b>, <b>-v</b> show
+the version</p></td>
+<td width="56%">
 </td></tr>
 </table>
 
-<p><b>&minus;&minus;help</b>, <b>&minus;h</b></p></table>
+<p><b>--help</b>, <b>-h</b></p></table>
 
-<p style="margin-left:18%;">show this help</p>
+<p style="margin-left:15%;">show this help</p>
 
-<p style="margin-left:9%; margin-top: 1em">The
-<b>&minus;&minus;32</b> and <b>&minus;&minus;64</b> options
-are mutually exclusive.</p>
+<p style="margin-left:6%; margin-top: 1em">The <b>--32</b>
+and <b>--64</b> options are mutually exclusive.</p>
 
-<p style="margin-left:9%; margin-top: 1em">On Cygwin, if
-neither the <b>&minus;&minus;32</b> nor
-<b>&minus;&minus;64</b> options are enabled, the package
-will be built for the architecture on which cygport is run.
-On other systems, the x86_64 architecture is the
-default.</p>
+<p style="margin-left:6%; margin-top: 1em">On Cygwin, if
+neither the <b>--32</b> nor <b>--64</b> options are enabled,
+the package will be built for the architecture on which
+cygport is run. On other systems, the x86_64 architecture is
+the default.</p>
 
-<p style="margin-left:9%; margin-top: 1em">COMMAND may be
+<p style="margin-left:6%; margin-top: 1em">COMMAND may be
 one or more of the following: <br>
 download</p>
 
-<p style="margin-left:18%;">download upstream sources from
+<p style="margin-left:15%;">download upstream sources from
 Internet</p>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="9%"></td>
+<td width="6%"></td>
 <td width="5%">
 
 
 <p>prep</p></td>
 <td width="4%"></td>
-<td width="74%">
+<td width="73%">
 
 
 <p>create working directory, unpack sources and apply
 patches</p> </td>
-<td width="8%">
+<td width="12%">
 </td></tr>
 </table>
 
-<p style="margin-left:9%;">compile</p>
+<p style="margin-left:6%;">compile</p>
 
-<p style="margin-left:18%;">run all compilation steps</p>
+<p style="margin-left:15%;">run all compilation steps</p>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="9%"></td>
+<td width="6%"></td>
 <td width="5%">
 
 
 <p>test</p></td>
 <td width="4%"></td>
-<td width="55%">
+<td width="54%">
 
 
 <p>run the package&rsquo;s test suite, if one exists</p></td>
-<td width="27%">
+<td width="31%">
 </td></tr>
 </table>
 
-<p style="margin-left:9%;">install</p>
+<p style="margin-left:6%;">install</p>
 
-<p style="margin-left:18%;">install into a DESTDIR, and run
-post&minus;installation steps</p>
+<p style="margin-left:15%;">install into a DESTDIR, and run
+post-installation steps</p>
 
-<p style="margin-left:9%;">srcpackage</p>
+<p style="margin-left:6%;">srcpackage</p>
 
-<p style="margin-left:18%;">create source package</p>
+<p style="margin-left:15%;">create source package</p>
 
-<p style="margin-left:9%;">package</p>
+<p style="margin-left:6%;">package</p>
 
-<p style="margin-left:18%;">create binary and source
+<p style="margin-left:15%;">create binary and source
 packages</p>
 
-<p style="margin-left:9%;">package&minus;test</p>
+<p style="margin-left:6%;">package-test</p>
 
-<p style="margin-left:18%;">create binary and source
+<p style="margin-left:15%;">create binary and source
 packages, marked as test</p>
 
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="9%"></td>
-<td width="8%">
+<p style="margin-left:6%;">upload</p>
 
-
-<p>upload</p></td>
-<td width="1%"></td>
-<td width="49%">
-
-
-<p>upload finished packages to cygwin.com</p></td>
-<td width="33%">
-</td></tr>
-</table>
-
-<p style="margin-left:9%;">announce</p>
-
-<p style="margin-left:18%;">send an announcement email to
+<p style="margin-left:15%;">upload finished packages to
 cygwin.com</p>
 
+<p style="margin-left:6%;">announce</p>
+
+<p style="margin-left:15%;">send an announcement email to
+cygwin.com</p>
+
+<p style="margin-left:6%;">finish</p>
+
+<p style="margin-left:15%;">delete the working
+directory</p>
+
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="9%"></td>
-<td width="8%">
-
-
-<p>finish</p></td>
-<td width="1%"></td>
-<td width="49%">
-
-
-<p>delete the working directory</p></td>
-<td width="33%">
-</td></tr>
-<tr valign="top" align="left">
-<td width="9%"></td>
-<td width="8%">
+<td width="6%"></td>
+<td width="4%">
 
 
 <p>all</p></td>
-<td width="1%"></td>
-<td width="49%">
+<td width="5%"></td>
+<td width="48%">
 
 
 <p>run prep, compile, install and package</p></td>
-<td width="33%">
+<td width="37%">
 </td></tr>
 </table>
 
-<p style="margin-left:9%;">all&minus;test</p>
+<p style="margin-left:6%;">all-test</p>
 
-<p style="margin-left:18%;">run prep, compile, install and
-package&minus;test</p>
+<p style="margin-left:15%;">run prep, compile, install and
+package-test</p>
 
-<p style="margin-left:9%;">repro&minus;build</p>
+<p style="margin-left:6%;">repro-build</p>
 
-<p style="margin-left:18%;">rebuild from created source
+<p style="margin-left:15%;">rebuild from created source
 package to temp directory</p>
 
-<p style="margin-left:9%;">repro&minus;diff</p>
+<p style="margin-left:6%;">repro-diff</p>
 
-<p style="margin-left:18%;">check whether packages from
+<p style="margin-left:15%;">check whether packages from
 original and rebuild differ</p>
 
-<p style="margin-left:9%;">repro&minus;check</p>
+<p style="margin-left:6%;">repro-check</p>
 
-<p style="margin-left:18%;">run repro&minus;build and
-repro&minus;diff</p>
+<p style="margin-left:15%;">run repro-build and
+repro-diff</p>
 
-<p style="margin-left:9%;">repro&minus;finish</p>
+<p style="margin-left:6%;">repro-finish</p>
 
-<p style="margin-left:18%;">delete the temp directory used
+<p style="margin-left:15%;">delete the temp directory used
 for rebuild</p>
 
-<p style="margin-left:9%; margin-top: 1em">See the included
+<p style="margin-left:6%; margin-top: 1em">See the included
 README file for further documentation.</p>
 
 <h2>REPORTING BUGS
@@ -256,31 +232,31 @@ README file for further documentation.</p>
 </h2>
 
 
-<p style="margin-left:9%; margin-top: 1em">Report bugs to
-&lt;cygwin&minus;apps@cygwin.com&gt;.</p>
+<p style="margin-left:6%; margin-top: 1em">Report bugs to
+&lt;cygwin-apps@cygwin.com&gt;.</p>
 
 <h2>COPYRIGHT
 <a name="COPYRIGHT"></a>
 </h2>
 
 
-<p style="margin-left:9%; margin-top: 1em">Copyright &copy;
+<p style="margin-left:6%; margin-top: 1em">Copyright &copy;
 2020 Cygport authors</p>
 
-<p style="margin-left:9%; margin-top: 1em">This program
+<p style="margin-left:6%; margin-top: 1em">This program
 comes with NO WARRANTY, to the extent permitted by law.</p>
 
-<p style="margin-left:9%; margin-top: 1em">You may
+<p style="margin-left:6%; margin-top: 1em">You may
 redistribute copies of this program under the terms of the
 GNU General Public License as published by the Free Software
 Foundation, either version 3 of the License, or (at your
 option) any later version.</p>
 
-<p style="margin-left:9%; margin-top: 1em">For more
+<p style="margin-left:6%; margin-top: 1em">For more
 information about these matters, see the file named
 COPYING.</p>
 
-<p style="margin-left:9%; margin-top: 1em">Written for the
+<p style="margin-left:6%; margin-top: 1em">Written for the
 Cygwin project &lt;https://cygwin.com/&gt;.</p>
 <hr>
 </body>
