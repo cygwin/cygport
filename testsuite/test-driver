@@ -25,20 +25,20 @@ DISTDIR=${DISTDIR} RESTRICT=${RESTRICT} ${top_builddir}/bin/cygport-inplace *.cy
 # compare hints
 for hint in $(find -name \*.hint)
 do
-    if [ -a ${top_srcdir}/testsuite/$test/hints/$hint ];
+    # if CREATE_HINTS is set, create the expected hint file for use in future testing
+    if [ -n ${CREATE_HINTS+x} ]
     then
-        diff -u ${top_srcdir}/testsuite/$test/hints/$hint $hint
+        mkdir -p $(dirname ${top_srcdir}/testsuite/$test/hints/$hint)
+        cp $hint ${top_srcdir}/testsuite/$test/hints/$hint
     else
-        # if CREATE_HINTS is set, create the expected hint file for use in future testing
-        if [ -z ${CREATE_HINTS+x} ]
+        if [ -a ${top_srcdir}/testsuite/$test/hints/$hint ];
         then
+            diff -u ${top_srcdir}/testsuite/$test/hints/$hint $hint
+        else
             echo "can't verify hint $hint, as expected hint ${top_srcdir}/testsuite/$test/hints/$hint not found." >&2
             missing_hints=1
-        else
-            mkdir -p $(dirname ${top_srcdir}/testsuite/$test/hints/$hint)
-            cp $hint ${top_srcdir}/testsuite/$test/hints/$hint
-        fi
     fi
+  fi
 done
 
 if [ -n "$missing_hints" ]
@@ -47,12 +47,12 @@ then
 fi
 
 # compare overall filelist
-if [ -z ${CREATE_FILELISTS+x} ]
+if [ -n ${CREATE_FILELISTS+x} ]
 then
-        diff -u ${CASE_INSENSITIVE:+-i} ${top_srcdir}/testsuite/$test/*.list <(${top_builddir}/bin/cygport-inplace *.cygport list)
-else
         cygport=$(echo *.cygport)
         ${top_builddir}/bin/cygport-inplace ${cygport} list >${top_srcdir}/testsuite/$test/${cygport/%.cygport/.list}
+else
+        diff -u ${CASE_INSENSITIVE:+-i} ${top_srcdir}/testsuite/$test/*.list <(${top_builddir}/bin/cygport-inplace *.cygport list)
 fi
 
 # compare package filelists
@@ -61,18 +61,18 @@ do
     filelist=${archive/%.tar*/.list}
     tar -atf ${archive} >${filelist}
 
-    if [ -a ${top_srcdir}/testsuite/$test/filelists/$filelist ];
+    # if CREATE_FILELISTS is set, create the expected list file for use in future testing
+    if [ -n ${CREATE_FILELISTS+x} ]
     then
-        diff -u ${CASE_INSENSITIVE:+-i} ${top_srcdir}/testsuite/$test/filelists/$filelist $filelist
+        mkdir -p $(dirname ${top_srcdir}/testsuite/$test/filelists/$filelist)
+        cp $filelist ${top_srcdir}/testsuite/$test/filelists/$filelist
     else
-        # if CREATE_FILELISTS is set, create the expected list file for use in future testing
-        if [ -z ${CREATE_FILELISTS+x} ]
+        if [ -a ${top_srcdir}/testsuite/$test/filelists/$filelist ];
         then
+            diff -u ${CASE_INSENSITIVE:+-i} ${top_srcdir}/testsuite/$test/filelists/$filelist $filelist
+        else
             echo "can't verify filelist $filelist, as expected filelist ${top_srcdir}/testsuite/$test/filelists/$filelist not found." >&2
             missing_filelists=1
-        else
-            mkdir -p $(dirname ${top_srcdir}/testsuite/$test/filelists/$filelist)
-            cp $filelist ${top_srcdir}/testsuite/$test/filelists/$filelist
         fi
     fi
 done
