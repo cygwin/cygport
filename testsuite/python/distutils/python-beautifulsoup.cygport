@@ -17,5 +17,3 @@ python3_beautifulsoup_OBSOLETES="python-beautifulsoup"
 python3_beautifulsoup_CONTENTS="*"
 
 DOCS="PKG-INFO"
-
-export SETUPTOOLS_USE_DISTUTILS=local
