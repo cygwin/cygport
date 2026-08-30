@@ -1,3 +1,8 @@
+0.37.8:
+	* python-wheel: Make 3.12 the default python3 version
+	* gnome.org: Also check for gz compression
+	* announce: Ensure From line doesn't contain a localized date
+	* Update gnuconfig submodule
 0.37.7:
 	* autotools: Handle more autoconf version formats
 	* xvfb: Automatically wrap the existing src_test in xvfb_run
