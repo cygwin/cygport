@@ -64,10 +64,10 @@ inherit python.org
 #  DESCRIPTION
 #  A colon-seperated list of version(s) for which this module should be built.
 #  Some aliases are also accepted:
-#  * all: all supported 3.y versions (currently: 3.8, 3.9, 3.12)
-#  * future: the default and upcoming 3.y versions (currently: 3.9, 3.12)
-#  * default: the default 3.y version(s) (currently: 3.9, 3.12)
-#  * 3: the default 3.x version (currently: 3.9)
+#  * all: all available 3.y versions (currently: 3.8, 3.9, 3.12)
+#  * default: the default set of 3.y version(s) (currently: 3.9, 3.12)
+#  * future: the default and any upcoming 3.y versions (currently: 3.9, 3.12)
+#  * 3: the default 3.x version (currently: 3.12)
 #
 #  If defined, this variable must be set before inheriting python-wheel.cygclass.
 #  If undefined, "default" is assumed.
@@ -97,7 +97,7 @@ do
 	future)	_tmp_wheel_v+=3.9:3.12: ;;
 	default)	_tmp_wheel_v+=3.9:3.12: ;;
 	2)		_tmp_wheel_v+=2.7: ;;
-	3)		_tmp_wheel_v+=3.9: ;;
+	3)		_tmp_wheel_v+=3.12: ;;
 	*)		_tmp_wheel_v+=$ver: ;;
 	esac
 done
@@ -151,7 +151,7 @@ then
 		PKG_NAMES+=" python${ver/.}-${PYTHON_WHEEL_NAME}"
 		case ${ver} in
 		# this is the default 3.x version
-		3.9)
+		3.12)
 		    # If we are making a 3.x package (where x is the default),
 		    # also make a python3-wheelname virtual package, which just
 		    # requires python3x-wheelname
@@ -288,7 +288,7 @@ python_wheel_install() {
 		# that gets to install them
 
 		case ${ver} in
-		3.9) export ENSUREPIP_OPTIONS="install" ;;
+		3.12) export ENSUREPIP_OPTIONS="install" ;;
 		*) export ENSUREPIP_OPTIONS="altinstall" ;;
 		esac
 		pip${ver} --disable-pip-version-check install -I dist/${whl} --root ${D} --prefix /usr --no-compile --no-deps --no-warn-script-location || error "pip${ver} install failed"
