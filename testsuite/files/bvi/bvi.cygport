@@ -19,3 +19,5 @@ src_compile () {
 
 DIFF_EXCLUDES="install-sh"
 BUILD_REQUIRES="libncurses-devel"
+
+CFLAGS="-std=gnu90"

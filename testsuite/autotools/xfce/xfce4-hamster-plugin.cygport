@@ -12,3 +12,5 @@ SRC_URI="${HOMEPAGE}/archive/${VERSION}/${NAME}-${VERSION}.tar.gz"
 PATCH_URI="1.6.1-no-undefined.patch"
 
 REQUIRES="hamster-time-tracker"
+
+CFLAGS="-std=gnu90"

@@ -1,5 +1,5 @@
 category: Python
-requires: python39 python39-html5lib python39-lxml python39-pytest
+requires: python312 python312-pytest
 sdesc: "Python HTML/XML parser"
 ldesc: "Beautiful Soup is a Python HTML/XML parser designed for quick
 turnaround projects like screen-scraping. Beautiful Soup parses anything you

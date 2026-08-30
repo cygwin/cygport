@@ -9,7 +9,7 @@ usr/share/man/man3/
 usr/share/man/man3/Carp.3pm.gz
 usr/share/perl5/
 usr/share/perl5/vendor_perl/
-usr/share/perl5/vendor_perl/5.40/
-usr/share/perl5/vendor_perl/5.40/Carp/
-usr/share/perl5/vendor_perl/5.40/Carp/Heavy.pm
-usr/share/perl5/vendor_perl/5.40/Carp.pm
+usr/share/perl5/vendor_perl/5.44/
+usr/share/perl5/vendor_perl/5.44/Carp/
+usr/share/perl5/vendor_perl/5.44/Carp/Heavy.pm
+usr/share/perl5/vendor_perl/5.44/Carp.pm

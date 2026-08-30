@@ -3,11 +3,11 @@ usr/lib/debug/usr/
 usr/lib/debug/usr/lib/
 usr/lib/debug/usr/lib/perl5/
 usr/lib/debug/usr/lib/perl5/vendor_perl/
-usr/lib/debug/usr/lib/perl5/vendor_perl/5.40/
-usr/lib/debug/usr/lib/perl5/vendor_perl/5.40/x86_64-cygwin-threads/
-usr/lib/debug/usr/lib/perl5/vendor_perl/5.40/x86_64-cygwin-threads/auto/
-usr/lib/debug/usr/lib/perl5/vendor_perl/5.40/x86_64-cygwin-threads/auto/Lchown/
-usr/lib/debug/usr/lib/perl5/vendor_perl/5.40/x86_64-cygwin-threads/auto/Lchown/Lchown.dll.dbg
+usr/lib/debug/usr/lib/perl5/vendor_perl/5.44/
+usr/lib/debug/usr/lib/perl5/vendor_perl/5.44/x86_64-cygwin-threads/
+usr/lib/debug/usr/lib/perl5/vendor_perl/5.44/x86_64-cygwin-threads/auto/
+usr/lib/debug/usr/lib/perl5/vendor_perl/5.44/x86_64-cygwin-threads/auto/Lchown/
+usr/lib/debug/usr/lib/perl5/vendor_perl/5.44/x86_64-cygwin-threads/auto/Lchown/Lchown.dll.dbg
 usr/src/debug/
 usr/src/debug/perl-Lchown-1.01-1/
 usr/src/debug/perl-Lchown-1.01-1/lib/

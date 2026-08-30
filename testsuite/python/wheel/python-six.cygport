@@ -1,4 +1,4 @@
-PYTHON_WHEEL_VERSIONS="3.7:3.8"
+PYTHON_WHEEL_VERSIONS="3.8:3.9"
 inherit python-wheel
 
 NAME="python-six"
