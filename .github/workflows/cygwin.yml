@@ -133,6 +133,7 @@ jobs:
         bash --login
         bash -c 'git config --system --add safe.directory /cygdrive/d/a/cygport/cygport'
         bash -c 'git config --system --add safe.directory /cygdrive/d/a/cygport/cygport/data/gnuconfig'
+        sed s/posix=0/posix=1/ /etc/fstab
       continue-on-error: true
     - name: Build
       run: |
