@@ -30,7 +30,7 @@ cygport_manual = custom_target('cygport-manual',
                                output: 'manual',
                                depend_files: cygport_in + cygclasses + cygclass_top + cygparts + datadocs,
                                command: [robodoc_cmd,
-                                         meson.source_root(), meson.build_root()],
+                                         meson.project_source_root(), meson.project_build_root()],
                                install: true,
                                install_dir: htmldir)
 install_data('index.html',

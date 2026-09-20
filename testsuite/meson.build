@@ -1,9 +1,9 @@
 testenv = environment()
-testenv.set('HOME', meson.build_root())
+testenv.set('HOME', meson.project_build_root())
 testenv.set('PACKAGE', meson.project_name())
 testenv.set('VERSION', meson.project_version())
-testenv.set('top_srcdir', meson.source_root())
-testenv.set('top_builddir', meson.build_root())
+testenv.set('top_srcdir', meson.project_source_root())
+testenv.set('top_builddir', meson.project_build_root())
 testenv.set('CMAKE_POLICY_VERSION_MINIMUM', '3.5')
 
 subdir('basic')
