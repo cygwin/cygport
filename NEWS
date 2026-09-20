@@ -1,3 +1,6 @@
+0.37.9:
+	* Handle directories in CYGWIN_FILES
+	* Add '--arch' option to specify cross-compilation architecture
 0.37.8:
 	* python-wheel: Make 3.12 the default python3 version
 	* gnome.org: Also check for gz compression
