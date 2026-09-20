@@ -213,7 +213,11 @@ case ${CBUILD} in
 # https://sourceware.org/legacy-ml/cygwin-developers/2013-02/msg00132.html
 x86_64-unknown-cygwin)  CBUILD="x86_64-pc-cygwin" ;&
 *-cygwin)  CHOST="${_host_arch:-${CBUILD%%-*}}-pc-cygwin" ;;
-*)         defined _host_arch || (warning "cross-compiling but --arch is unspecified, assuming x86_64" && _host_arch="x86_64")
+*)         if ! defined _host_arch
+           then
+               _host_arch="x86_64"
+               warning "cross-compiling but --arch is unspecified, assuming ${_host_arch}"
+           fi
            CHOST="${_host_arch}-pc-cygwin" ;;
 esac
 unset _host_arch

@@ -229,7 +229,7 @@ do
 		;;
 
 	--64|-8)
-		warning "The option --64 is deprecated. Use --arch x86 instead"
+		warning "The option --64 is deprecated. Use --arch x86_64 instead"
 
 		if defined _host_arch && [ ${_host_arch} != x86_64 ]
 		then
