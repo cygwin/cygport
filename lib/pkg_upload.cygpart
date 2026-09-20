@@ -147,6 +147,7 @@ __pkg_upload() {
 	case ${ARCH} in
 	i686)	archdir=x86 ;;
 	x86_64)	archdir=x86_64 ;;
+	aarch64)	archdir=aarch64 ;;
 	noarch) archdir=noarch ;;
 	*)  error "Don't know where to upload packages with architecture ${ARCH}" ;;
 	esac
