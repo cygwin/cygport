@@ -1023,7 +1023,7 @@ __prepstrip_one() {
 	# due to -Wl,--image-base, or BASE directive in .def file;
 	# use CTARGET to avoid false positives from cross-gcc
 	case ${CTARGET} in
-	x86_64-*-cygwin*)
+	x86_64-*-cygwin*|aarch64-*-cygwin)
 		case "${exe##*/}" in
 		cygwin1.dll|cyglsa64.dll|cyglto_plugin.dll) ;;
 		# Flexlink'ed DLLs are special
