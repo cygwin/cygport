@@ -23,6 +23,25 @@
 #****** Chapter 8/Compiling
 #****
 
+# system triplets
+declare    CBUILD=$(${_privgnuconfigdir}/config.guess)
+case ${CBUILD} in
+# https://sourceware.org/legacy-ml/cygwin-developers/2013-02/msg00132.html
+x86_64-unknown-cygwin)  CBUILD="x86_64-pc-cygwin" ;&
+*-cygwin)  CHOST="${_host_arch:-${CBUILD%%-*}}-pc-cygwin" ;;
+*)         if ! defined _host_arch
+           then
+               _host_arch="x86_64"
+               warning "cross-compiling but --arch is unspecified, assuming ${_host_arch}"
+           fi
+           CHOST="${_host_arch}-pc-cygwin" ;;
+esac
+unset _host_arch
+declare    CTARGET=${CHOST};
+declare    CROSS_HOST="";
+declare    CROSS_SYSROOT="";
+declare    TOOLCHAIN_TARGET="";
+
 #****d* Compiling/CC
 #  DESCRIPTION
 #  The GCC C compiler.
@@ -37,6 +56,15 @@ declare -x CC="gcc";
 #  -ggdb -O2 -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=3 -fstack-protector-strong --param=ssp-buffer-size=4
 #****
 declare -x CFLAGS="-ggdb -O2 -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=3 -fstack-protector-strong --param=ssp-buffer-size=4";
+
+# (temporarily) disable optimization on aarch64-cygwin to work around toolchain
+# bugs
+case ${CHOST} in
+        aarch64-*-cygwin)
+                warning "Disabling compiler optimizations due to ${CHOST} target"
+                CFLAGS=${CFLAGS/-O2/-O0}
+        ;;
+esac
 
 #****v* Compiling/CPPFLAGS
 #  DESCRIPTION
@@ -206,25 +234,6 @@ PKG_CONFIG="pkg-config"
 #  cross-compiled; see CROSS_SYSROOT instead.
 #****
 declare   CC_SYSROOT="";
-
-# system triplets
-declare    CBUILD=$(${_privgnuconfigdir}/config.guess)
-case ${CBUILD} in
-# https://sourceware.org/legacy-ml/cygwin-developers/2013-02/msg00132.html
-x86_64-unknown-cygwin)  CBUILD="x86_64-pc-cygwin" ;&
-*-cygwin)  CHOST="${_host_arch:-${CBUILD%%-*}}-pc-cygwin" ;;
-*)         if ! defined _host_arch
-           then
-               _host_arch="x86_64"
-               warning "cross-compiling but --arch is unspecified, assuming ${_host_arch}"
-           fi
-           CHOST="${_host_arch}-pc-cygwin" ;;
-esac
-unset _host_arch
-declare    CTARGET=${CHOST};
-declare    CROSS_HOST="";
-declare    CROSS_SYSROOT="";
-declare    TOOLCHAIN_TARGET="";
 
 #****d* Compiling/ARCH
 #  DESCRIPTION
