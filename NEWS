@@ -1,3 +1,6 @@
+0.37.10:
+	* Add more handling for aarch64
+	* Fix default arch when cross-compiling and --arch not specified
 0.37.9:
 	* Handle directories in CYGWIN_FILES
 	* Add '--arch' option to specify cross-compilation architecture
