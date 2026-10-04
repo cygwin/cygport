@@ -159,10 +159,9 @@ __pkg_upload() {
 		set cmd:interactive on
 		set net:max-retries 1
 		open ${connect_string}
-		cd /${archdir}/release
-		rm -f ${NAME}/!ready || echo -n
-		mirror -v -eR ${NAME}
-		${ready:+put /dev/null -o ${NAME}/!ready}
+		rm -f ${archdir}/release/${NAME}/!ready || echo -n
+		mirror -v -eR ${NAME} ${archdir}/release/
+		${ready:+put /dev/null -o ${archdir}/release/${NAME}/!ready}
 EOF
 	) || error "Upload failed"
 
