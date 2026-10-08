@@ -61,8 +61,8 @@ declare -x CFLAGS="-ggdb -O2 -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_
 # bugs
 case ${CHOST} in
         aarch64-*-cygwin)
-                warning "Disabling compiler optimizations due to ${CHOST} target"
-                CFLAGS=${CFLAGS/-O2/-O0}
+                warning "Disabling compiler optimizations and hardening due to ${CHOST} target"
+                CFLAGS="-ggdb -O0 -pipe -Wall -Werror=format-security";
         ;;
 esac
 
