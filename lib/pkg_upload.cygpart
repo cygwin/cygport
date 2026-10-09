@@ -77,11 +77,9 @@ __pkg_upload() {
 	*) error "Internal syntax error" ;;
 	esac
 
-	cd "${distdir}"
-
 	# Check that binary and source package files exist
 
-	pkg_files=("${NAME}/${NAME}-${PVR}-src.tar.${TAR_COMPRESSION_EXT}" "${NAME}/${NAME}-${PVR}-src.hint")
+	spkg_files=("${NAME}/${NAME}-${PVR}-src.tar.${TAR_COMPRESSION_EXT}" "${NAME}/${NAME}-${PVR}-src.hint")
 
 	while (( n < pkg_count ))
 	do
@@ -94,17 +92,34 @@ __pkg_upload() {
 		n+=1
 	done
 
-	if [ -d ${NAME}/${NAME}-debuginfo ]
+	if [ -d ${distdir}/${NAME}/${NAME}-debuginfo ]
 	then
 		pkg_files+=("${NAME}/${NAME}-debuginfo/${NAME}-debuginfo-${PVR}-${ARCH}.tar.${TAR_COMPRESSION_EXT}" "${NAME}/${NAME}-debuginfo/${NAME}-debuginfo-${PVR}-${ARCH}.hint")
 	fi
 
-	for file in "${pkg_files[@]}"
+	for file in "${spkg_files[@]}" "${pkg_files[@]}"
 	do
-		if [ ! -f "${file}" ]
+		if [ ! -f "${distdir}/${file}" ]
 		then
 			error "Package file ${file} doesn't exist. Run \"cygport ${cygportfile} pkg\" to build it."
 		fi
+	done
+
+	# Prepare files in upload directory
+
+	uploaddir="${workdir}/upload";
+	mkdir -p ${uploaddir};
+
+	for file in "${spkg_files[@]}"
+	do
+		mkdir -p $(dirname ${uploaddir}/srcpkg/${file})
+		cp -p ${distdir}/${file} ${uploaddir}/srcpkg/${file}
+	done
+
+	for file in "${pkg_files[@]}"
+	do
+		mkdir -p $(dirname ${uploaddir}/binpkg/${file})
+		cp -p ${distdir}/${file} ${uploaddir}/binpkg/${file}
 	done
 
 	if ! defined SSH_KEY
@@ -154,16 +169,24 @@ __pkg_upload() {
 
 	__step "Running lftp ${connect_string}"
 
+	cd "${uploaddir}"
+
 	lftp -f <(cat <<-EOF
 		set cmd:fail-exit on
 		set cmd:interactive on
 		set net:max-retries 1
 		open ${connect_string}
 		rm -f ${archdir}/release/${NAME}/!ready || echo -n
-		mirror -v -eR ${NAME} ${archdir}/release/
+		mirror -v -eR binpkg/${NAME} ${archdir}/release/
 		${ready:+put /dev/null -o ${archdir}/release/${NAME}/!ready}
+		rm -f src/release/${NAME}/!ready || echo -n
+		mirror -v -eR srcpkg/${NAME} src/release/
+		${ready:+put /dev/null -o src/release/${NAME}/!ready}
 EOF
 	) || error "Upload failed"
+
+	# clean up
+	rm -r ${uploaddir}
 
 	echo "Upload complete."
 }
