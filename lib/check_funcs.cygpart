@@ -550,12 +550,11 @@ check_vala_module() {
 #  SYNOPSIS
 #  BUILD_REQUIRES="ATOM [ATOM] ..."
 #  DESCRIPTION
-#  A single-line strings containing a list of packages on which this source
-#  package depends at build-time. This will be added to the build-depends:
-#  field of the auto-generated -src.hint file.
+#  A string containing a list of packages on which this source package depends
+#  on at build-time. This will be added to the build-depends: field of the
+#  auto-generated -src.hint file.
 #  NOTES
 #  * Unlike REQUIRES, there is no auto-detection of build-time requirements.
-#  * Any newlines in this variable must be escaped.
 #  * Unlike the deprecated DEPEND variable, only actual package names, or
 #    atoms that are listed PROVIDES of other packages, may be used in this
 #    variable.
