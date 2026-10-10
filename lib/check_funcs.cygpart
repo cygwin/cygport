@@ -559,6 +559,9 @@ check_vala_module() {
 #  * Unlike the deprecated DEPEND variable, only actual package names, or
 #    atoms that are listed PROVIDES of other packages, may be used in this
 #    variable.
+#  * An ATOM may end with the architecture qualifier ":native". When
+#    cross-compiling, this indicates that the package is required to run on the
+#    build machine (e.g for tools like code generators).
 #****
 __check_depends() {
 	local atom failed_atoms;
@@ -577,6 +580,8 @@ __check_depends() {
 
 	for atom in ${BUILD_REQUIRES:-${DEPEND}}
 	do
+		atom=${atom/%:native/}
+
 		case ${atom} in
 		girepository\(*)
 			check_girepository_module $(__deparenthesize ${atom}) \

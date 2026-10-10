@@ -551,6 +551,7 @@ __pkg_srcpkg() {
 	local cygwin_file;
 	local src;
 	local pkg_tag=${1};
+	local _build_requires;
 
 	mkdir -p ${spkgdir};
 	rm -fr ${spkgdir}/*;
@@ -644,9 +645,15 @@ __pkg_srcpkg() {
 		elif [ -n "${!pkg_category_var:-${CATEGORY}}" \
 			-a -n "${!pkg_summary_var:-${SUMMARY}}${!pkg_description_var:-${DESCRIPTION}}" ]
 		then
+			for atom in ${BUILD_REQUIRES}
+			do
+				atom=${atom/%:native/}
+				_build_requires+="${atom} "
+			done
+
 			cat > ${distdir}/${PN}/${PN}-${PVR}-src.hint <<-_EOF
 category: $(__squeeze_whitespace ${!pkg_category_var:-${CATEGORY}})
-build-depends: cygport $(__squeeze_whitespace ${BUILD_REQUIRES})
+build-depends: cygport $(__squeeze_whitespace ${_build_requires})
 sdesc: "${!pkg_summary_var:-${SUMMARY}}"
 ldesc: "${!pkg_description_var:-${DESCRIPTION:-${!pkg_summary_var:-${SUMMARY}}}}"
 skip:
