@@ -653,7 +653,7 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	# symlinks, possibly to other (sub)packages
 	# FIXME: could be improved in the case of relative links where
 	# the target is from another package
-	alldeps+=" "$(find "${@//^_^/ }" -type l | xargs -r readlink -f)
+	alldeps+=" "$(find "${@//^_^/ }" -type l | xargs -r readlink -f || true)
 
 	# add perl5_0xy requirement if linked with cygperl5_xy.dll
 	# add ruby_xy requirement if linked with cygrubyxy0.dll
