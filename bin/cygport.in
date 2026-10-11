@@ -290,7 +290,6 @@ else
 	readonly _tar_bz2_flag="-j"
 fi
 
-
 ################################################################################
 #
 # Import user settings
@@ -387,6 +386,19 @@ _autotools_CYGCLASS_stage1_=1
 inherit autotools;
 unset _autotools_CYGCLASS_ _autotools_CYGCLASS_stage1_
 
+#
+# select file_to_package_tool once we've determined CHOST when we're
+# cross-compiling
+#
+if check_prog cygcheck
+then
+	# use full path to ensure we always use the system cygcheck, even if
+	# we're in the middle of packaging cygwin itself
+	readonly _file_to_package_tool="$(which cygcheck) -f"
+elif check_prog cygwin-pkg-tool
+then
+	readonly _file_to_package_tool="cygwin-pkg-tool --arch ${CHOST%%-*} files"
+fi
 
 ################################################################################
 #

@@ -679,13 +679,13 @@ for suffix, mode, type in imp.get_suffixes(): print(suffix)')
 	    esac
 	done
 
-	if [ "${CBUILD##*-}" = "cygwin" ]
+	if [ -n "$_file_to_package_tool" ]
 	then
 	    if [ -n "$expldeps" ]
 	    then
 	       echo $expldeps | sort -u;
 	    fi
-	    echo $alldeps | sort -u | xargs -r /bin/cygcheck -f;
+	    echo $alldeps | sort -u | xargs -r ${_file_to_package_tool};
 	else
 	    # cannot determine Cygwin package dependencies, but we can give
 	    # some guidance by listing the necessary libraries

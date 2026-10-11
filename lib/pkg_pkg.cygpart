@@ -932,7 +932,7 @@ __pkg_dist() {
 			cp ${C}/${pkg_hint[${n}]%.hint}.hint ${distdir}/${PN}/${distsubdir}/${pkg_name[${n}]}-${PVR}-${ARCH}.hint;
 		elif [ -n "${!pkg_category_var:-${CATEGORY}}" -a -n "${!pkg_summary_var:-${SUMMARY}}" ]
 		then
-			if [ "${CBUILD##*-}" = "cygwin" ]
+			if [ -n "$_file_to_package_tool" ]
 			then
 				# process the output of list_deps:
 				# - drop self-dependencies
