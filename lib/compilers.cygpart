@@ -66,6 +66,9 @@ case ${CHOST} in
         ;;
 esac
 
+# instruct gcc to always colourize output
+CFLAGS+=" -fdiagnostics-color"
+
 #****v* Compiling/CPPFLAGS
 #  DESCRIPTION
 #  Flags passed to the preprocessor.  Individual packages may append
