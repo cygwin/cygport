@@ -194,7 +194,7 @@ python_wheel_compile() {
 	local ver
 	local bdist_args
 
-	if [ ! -e pyproject.toml ] && [ ! -e setup.py ] && [ ! -e setup.cfg ]
+	if [ ! -e ${S}/pyproject.toml ] && [ ! -e ${S}/setup.py ] && [ ! -e ${S}/setup.cfg ]
 	then
 		error "No pyproject.toml (PEP 518), setup.cfg or setup.py detected in source tree"
 	fi
@@ -216,11 +216,11 @@ python_wheel_compile() {
 			;;
 
 			"pip")
-				pip${ver} --disable-pip-version-check --verbose wheel --no-deps --no-build-isolation -w dist ${bdist_args} . || error "pip${ver} wheel failed"
+				pip${ver} --disable-pip-version-check --verbose wheel --no-deps --no-build-isolation -w dist ${bdist_args} ${S} || error "pip${ver} wheel failed"
 			;;
 
 			"build")
-				/usr/bin/python${ver} -m build --wheel --outdir dist --skip-dependency-check --no-isolation . || error "pyproject-build${ver} failed"
+				/usr/bin/python${ver} -m build --wheel --outdir dist --skip-dependency-check --no-isolation ${S} || error "pyproject-build${ver} failed"
 			;;
 
 			*)
@@ -241,7 +241,7 @@ python_wheel_compile() {
 python_wheel_install() {
 	local ver whl
 
-	if [ ! -e pyproject.toml ] && [ ! -e setup.py ] && [ ! -e setup.cfg ]
+	if [ ! -e ${S}/pyproject.toml ] && [ ! -e ${S}/setup.py ] && [ ! -e ${S}/setup.cfg ]
 	then
 		error "No pyproject.toml (PEP 518), setup.cfg or setup.py detected in source tree"
 	fi
@@ -323,7 +323,19 @@ dowheel() {
 #****o* python-wheel.cygclass/src_compile (python-wheel)
 #  DEFINITION
 src_compile() {
-	lndirs
+
+	case "${PYTHON_WHEEL_BUILD_METHOD}" in
+		"setuptools")
+			# populate ${B} (which is where we run setup.py) with
+			# run with links to ${S}
+			lndirs
+			;;
+
+		"pip"|"build")
+			# srcdir is explicitly specified in python_wheel_compile
+			;;
+	esac
+
 	cd ${B}
 	python_wheel_compile
 }
