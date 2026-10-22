@@ -216,7 +216,7 @@ python_wheel_compile() {
 			;;
 
 			"pip")
-				pip${ver} --disable-pip-version-check wheel --no-deps --no-build-isolation -w dist ${bdist_args} . || error "pip${ver} wheel failed"
+				pip${ver} --disable-pip-version-check --verbose wheel --no-deps --no-build-isolation -w dist ${bdist_args} . || error "pip${ver} wheel failed"
 			;;
 
 			"build")
