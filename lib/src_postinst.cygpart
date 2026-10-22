@@ -1572,7 +1572,7 @@ __prep_libtool_modules() {
 #  "upload" makes it safer for cygport to be used for building private packages.
 #
 #  If you find yourself using any of the others to work around cygport's
-#  default behaviour, in all likelyhood it is either a bug in cygport or in
+#  default behaviour, in all likelihood it is either a bug in cygport or in
 #  the .cygport file.
 #****
 

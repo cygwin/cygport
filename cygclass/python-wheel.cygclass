@@ -177,7 +177,7 @@ fi
 #  if that is invoked by the build.
 #****
 
-#****iv* python-wheel.cygclass/PYTHON_WHEEL_BUILD_METHOD
+#****v* python-wheel.cygclass/PYTHON_WHEEL_BUILD_METHOD
 #  SYNOPSIS
 #  PYTHON_WHEEL_BUILD_METHOD="pip"
 #  DESCRIPTION
