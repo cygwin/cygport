@@ -370,25 +370,27 @@
 <pre>  <strong>BUILD_REQUIRES</strong>="ATOM [ATOM] ..."
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  A single-line strings containing a list of packages on which this source
-  package depends at build-time. This will be added to the build-depends:
-  field of the auto-generated -src.hint file.
+<p>  A string containing a list of packages on which this source package depends
+  on at build-time. This will be added to the build-depends: field of the
+  auto-generated -src.hint file.
 </p>
 <p class="item_name">NOTES</p>
 <ul><li>  Unlike <a href="./pkg_pkg_cygpart.html#REQUIRES">REQUIRES</a>, there is no auto-detection of build-time requirements.
 </li>
-<li>  Any newlines in this variable must be escaped.
-</li>
 <li>  Unlike the deprecated DEPEND variable, only actual package names, or
     atoms that are listed <a href="./pkg_pkg_cygpart.html#PROVIDES">PROVIDES</a> of other packages, may be used in this
     variable.
+</li>
+<li>  An ATOM may end with the architecture qualifier ":native". When
+    cross-compiling, this indicates that the package is required to run on the
+    build machine (e.g for tools like code generators).
 </li>
 </ul>
 <p></p>
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/lib/check_funcs.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-09-20 13:13:05</p>
+<p>Generated from ./cygport/lib/check_funcs.cygpart with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-10-23 15:20:27</p>
 </div> <!-- footer -->
 </body>
 </html>

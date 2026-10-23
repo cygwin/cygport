@@ -39,6 +39,7 @@
 <li><a href="#PYTHON_WHEEL_VERSIONS">PYTHON_WHEEL_VERSIONS</a></li>
 <li><a href="#PKG_NAMES (python-wheel)">PKG_NAMES (python-wheel)</a></li>
 <li><a href="#python_wheel_compile">python_wheel_compile</a></li>
+<li><a href="#PYTHON_WHEEL_BUILD_METHOD">PYTHON_WHEEL_BUILD_METHOD</a></li>
 <li><a href="#python_wheel_install">python_wheel_install</a></li>
 <li><a href="#dowheel">dowheel</a></li>
 <li><a href="#src_compile (python-wheel)">src_compile (python-wheel)</a></li>
@@ -135,7 +136,7 @@
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#python-wheel.cygclass">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DESCRIPTION</p>
 <p>  For a <a href="./syntax_cygpart.html#NAME">NAME</a> of python-foo, pythonXY-foo binary packages are created
-  automatically, corresponding to each X.Y version in <a href="./python3-wheel_cygclass.html#PYTHON_WHEEL_VERSIONS_1">PYTHON_WHEEL_VERSIONS</a>.
+  automatically, corresponding to each X.Y version in <a href="#PYTHON_WHEEL_VERSIONS">PYTHON_WHEEL_VERSIONS</a>.
 </p>
 
 <p>  Each package also includes its own independent copy of the automatically
@@ -152,7 +153,7 @@
   or
 </p>
 
-<pre>    for v in ${<a href="./python3-wheel_cygclass.html#PYTHON_WHEEL_VERSIONS_1">PYTHON_WHEEL_VERSIONS</a>//:/ }
+<pre>    for v in ${<a href="#PYTHON_WHEEL_VERSIONS">PYTHON_WHEEL_VERSIONS</a>//:/ }
       do
         declare python${v/./}_foo_CONTENTS+=" usr/bin/foo${v}"
       done
@@ -174,6 +175,30 @@
 
 <p>  Any arguments provided will be passed as arguments to 'setup.py bdist_wheel',
   if that is invoked by the build.
+</p>
+
+<hr />
+<a name="python2dwheel2ecygclass2fPYTHON5fWHEEL5fBUILD5fMETHOD"></a>
+<a name="PYTHON_WHEEL_BUILD_METHOD"></a><h2>PYTHON_WHEEL_BUILD_METHOD</h2>
+
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#python-wheel.cygclass">python-wheel.cygclass</a> ] [ <a href="./cygport_variables.html#robo_top_of_doc">Variables</a> ]</p>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>PYTHON_WHEEL_BUILD_METHOD</strong>="pip"
+</pre>
+<p class="item_name">DESCRIPTION</p>
+<p>  Selects the method used to build a binary wheel:
+</p>
+<ul><li>  'build': Uses pyproject-build (the 'build' module).
+</li>
+<li>  'pip': Uses 'pip wheel'.
+</li>
+<li>  'setuptools': Uses 'setup.py bdist_wheel'.
+</li>
+</ul>
+<p></p>
+<p class="item_name">NOTES</p>
+<p>   If you find yourself using this to override cygport's default behaviour, that
+   is in all likelihood a bug in cygport.
 </p>
 
 <hr />
@@ -208,7 +233,19 @@
 <p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#python-wheel.cygclass">python-wheel.cygclass</a> ] [ <a href="./cygport_overloads.html#robo_top_of_doc">Overloads</a> ]</p>
 <p class="item_name">DEFINITION</p>
 <pre class="source"><a href="./src_compile_cygpart.html#src_compile">src_compile</a><span class="sign">(</span><span class="sign">)</span> <span class="sign">{</span>
-        <a href="./src_compile_cygpart.html#lndirs">lndirs</a>
+
+        case <span class="quote">"${<a href="#PYTHON_WHEEL_BUILD_METHOD">PYTHON_WHEEL_BUILD_METHOD</a>}"</span> in
+                <span class="quote">"setuptools"</span><span class="sign">)</span>
+                        <span class="comment"># populate ${<a href="./syntax_cygpart.html#B">B</a>} (which is where we run setup.py) with</span>
+                        <span class="comment"># run with links to ${<a href="./syntax_cygpart.html#S">S</a>}</span>
+                        <a href="./src_compile_cygpart.html#lndirs">lndirs</a>
+                        <span class="sign">;</span><span class="sign">;</span>
+
+                <span class="quote">"pip"</span><span class="sign">|</span><span class="quote">"build"</span><span class="sign">)</span>
+                        <span class="comment"># srcdir is explicitly specified in <a href="#python_wheel_compile">python_wheel_compile</a></span>
+                        <span class="sign">;</span><span class="sign">;</span>
+        esac
+
         cd <span class="sign">$</span><span class="sign">{</span><a href="./syntax_cygpart.html#B">B</a><span class="sign">}</span>
         <a href="#python_wheel_compile">python_wheel_compile</a>
 <span class="sign">}</span>
@@ -228,7 +265,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-09-20 13:13:05</p>
+<p>Generated from ./cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-10-23 15:20:27</p>
 </div> <!-- footer -->
 </body>
 </html>
