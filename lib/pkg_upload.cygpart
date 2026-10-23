@@ -167,6 +167,9 @@ __pkg_upload() {
 	*)  error "Don't know where to upload packages with architecture ${ARCH}" ;;
 	esac
 
+	# connect string may be overridden in cygport.conf
+	connect_string="${UPLOAD_URL:-${connect_string}}"
+
 	__step "Running lftp ${connect_string}"
 
 	cd "${uploaddir}"
