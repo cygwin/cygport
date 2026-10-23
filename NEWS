@@ -1,3 +1,11 @@
+0.37.11:
+	* pkg_upload: Upload src and bin packages to src/release/ and
+           ${arch}/release, respectively
+	* Define ':native' arch qualifier for BUILD_REQUIRES
+	* fix 'dep' command silently printing nothing when readlink -f fails on
+           a symlink
+	* compilers: Instruct gcc to always colourize its output
+	* python-wheel: Have python_wheel_compile() use source in ${S}
 0.37.10:
 	* Add more handling for aarch64
 	* Fix default arch when cross-compiling and --arch not specified
