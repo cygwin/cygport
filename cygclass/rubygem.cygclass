@@ -40,7 +40,7 @@ inherit ruby
 
 check_prog_req gem rubygems
 
-#****o* rubygem.cygclass/RUBYGEM_NAME
+#****v* rubygem.cygclass/RUBYGEM_NAME
 #  DESCRIPTION
 #  The original package name of the package as listed on RubyGems.  The default
 #  value is NAME without the leading "ruby-", which covers most RubyGems packages.

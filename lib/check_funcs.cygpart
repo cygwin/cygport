@@ -546,7 +546,7 @@ check_vala_module() {
 	return ${ret};
 }
 
-#****f* Information/BUILD_REQUIRES
+#****v* Information/BUILD_REQUIRES
 #  SYNOPSIS
 #  BUILD_REQUIRES="ATOM [ATOM] ..."
 #  DESCRIPTION

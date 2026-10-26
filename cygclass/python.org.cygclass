@@ -40,7 +40,7 @@
 
 PYTHON_ORG_NAME=${ORIG_PN:-${PN}}
 
-#****o* python.org.cygclass/PYPI_NO_NORMALIZE
+#****v* python.org.cygclass/PYPI_NO_NORMALIZE
 #  DESCRIPTION
 #  If set, disable normalization of the Python project name.
 #

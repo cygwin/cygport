@@ -153,7 +153,7 @@ HOMEPAGE="https://www.x.org/"
 LICENSE="MIT"
 #****
 
-#****o* xorg.cygclass/XORG_SRC_COMPRESSION
+#****v* xorg.cygclass/XORG_SRC_COMPRESSION
 #  DESCRIPTION
 #  The compression extension used in the default SRC_URI, set by the xorg
 #  cygclass.  For backwards compatibility, this defaults to 'bz2', but a
