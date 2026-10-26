@@ -70,7 +70,7 @@ inherit python-wheel
 #  SYNOPSIS
 #  python3_wheel_compile [OPTIONS]
 #  DESCRIPTION
-#  Runs the setup.py 'bdist_wheel' command, to which any arguments are passed.
+#  Build python wheel from a setup.py or a PEP 518 conformant source tree.
 #****
 python3_wheel_compile() { python_wheel_compile "${@}" ; }
 
@@ -78,25 +78,16 @@ python3_wheel_compile() { python_wheel_compile "${@}" ; }
 #  SYNOPSIS
 #  python3_wheel_install [OPTIONS]
 #  DESCRIPTION
-#  Installs the previously built wheel into $D with 'pip3 install'.
+#  Installs the previously built wheel into $D.
 #****
 python3_wheel_install() { python_wheel_install ; }
 
 #****o* python3-wheel.cygclass/src_compile (python3-wheel)
-#  DEFINITION
-src_compile() {
-	lndirs
-	cd ${B}
-	python3_wheel_compile
-}
+#  SEE ALSO
+#  python-wheel.cygclass
 #****
 
 #****o* python3-wheel.cygclass/src_install (python3-wheel)
-#  DEFINITION
-src_install() {
-	cd ${B}
-	python3_wheel_install
-}
+#  SEE ALSO
+#  python-wheel.cygclass
 #****
-
-readonly -f python3_wheel_compile python3_wheel_install

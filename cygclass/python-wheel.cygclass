@@ -170,8 +170,7 @@ fi
 #  SYNOPSIS
 #  python_wheel_compile [OPTIONS]
 #  DESCRIPTION
-#  Runs the 'pip wheel' command to build python wheel from a setup.py or a PEP
-#  518 conformant source tree.
+#  Build python wheels from a setup.py or a PEP 518 conformant source tree.
 #
 #  Any arguments provided will be passed as arguments to 'setup.py bdist_wheel',
 #  if that is invoked by the build.
@@ -236,7 +235,7 @@ python_wheel_compile() {
 #  SYNOPSIS
 #  python_wheel_install
 #  DESCRIPTION
-#  Installs the previously built wheel into $D.
+#  Installs the previously built wheels into $D.
 #****
 python_wheel_install() {
 	local ver whl
