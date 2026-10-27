@@ -115,11 +115,16 @@ do
 	check_prog_req pip${ver} python${ver//.}-pip
 	check_prog_req wheel-${ver} python${ver//.}-wheel
 
-	if [ "${PYTHON_WHEEL_BUILD_METHOD}" = "build" ]
+	if [ "${PYTHON_WHEEL_BUILD_METHOD}" == "build" ]
 	then
 		python${ver} -c 'import build' 2>/dev/null || error "pyproject-build${ver} is required to build this package";
 	fi
 done
+
+if [ "${PYTHON_WHEEL_BUILD_METHOD}" == "setuptools" ]
+then
+	warning "PYTHON_WHEEL_BUILD_METHOD=setuptools is deprecated"
+fi
 
 #****o* python-wheel.cygclass/PKG_NAMES (python-wheel)
 #  DESCRIPTION
@@ -185,6 +190,8 @@ fi
 #  * 'pip': Uses 'pip wheel'.
 #  * 'setuptools': Uses 'setup.py bdist_wheel'.
 #  NOTES
+#   This should be defined before inheriting the python-wheel class.
+#
 #   If you find yourself using this to override cygport's default behaviour, that
 #   is in all likelihood a bug in cygport.
 #****
