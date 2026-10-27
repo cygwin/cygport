@@ -212,11 +212,13 @@ python_wheel_compile() {
 
 	for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
 	do
-		[ ! -d build/lib ] || find build/lib -delete
 		if [ ! -f dist/*-py2.py3*-none-any.whl -a ! -f dist/*py${ver:0:1}-none-any.whl ]
 		then
 			case "${PYTHON_WHEEL_BUILD_METHOD}" in
+
 			"setuptools")
+				# clean the build dir in ${B} from any previous iteration
+				[ ! -d build/lib ] || find build/lib -delete
 				# setuptools.launch imports setuptools hooks regardles of setup.py
 				/usr/bin/python${ver} -msetuptools.launch setup.py bdist_wheel "${@}" || error "setup.py bdist_wheel failed"
 			;;
@@ -235,6 +237,13 @@ python_wheel_compile() {
 
 			esac
 		fi
+
+	# clean the build dir afterwards, so it doesn't pollute ${S}
+	#
+	# (this is terrible, but there doesn't seem to be a way to control where
+	# any of the above build methods put this...)
+	[ ! -d ${S}/build/lib ] || find ${S}/build/lib -delete
+
 	done
 }
 
