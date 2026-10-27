@@ -212,9 +212,8 @@ python_wheel_compile() {
 
 	for ver in ${PYTHON_WHEEL_VERSIONS//:/ }
 	do
-		if [ ! -f dist/*-py2.py3*-none-any.whl -a ! -f dist/*py${ver:0:1}-none-any.whl ]
-		then
-			case "${PYTHON_WHEEL_BUILD_METHOD}" in
+
+		case "${PYTHON_WHEEL_BUILD_METHOD}" in
 
 			"setuptools")
 				# clean the build dir in ${B} from any previous iteration
@@ -235,14 +234,20 @@ python_wheel_compile() {
 				error "unknown PYTHON_WHEEL_BUILD_METHOD: ${PYTHON_WHEEL_BUILD_METHOD}"
 			;;
 
-			esac
-		fi
+		esac
 
 	# clean the build dir afterwards, so it doesn't pollute ${S}
 	#
 	# (this is terrible, but there doesn't seem to be a way to control where
 	# any of the above build methods put this...)
 	[ ! -d ${S}/build/lib ] || find ${S}/build/lib -delete
+
+	# if we made a universal or pure python wheel, there's no need to repeat
+	# the build for a different ${ver}
+	if [ -f dist/*-py2.py3*-none-any.whl -o -f dist/*py${ver:0:1}-none-any.whl ]
+	then
+		break
+	fi
 
 	done
 }
