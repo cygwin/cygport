@@ -78,7 +78,7 @@
     <a href="./compilers_cygpart.html#ARCH">ARCH</a>=noarch
 </pre>
 <p class="item_name">INHERITS</p>
-<p>  <a href="./python_org_cygclass.html#python.org.cygclass">python.org.cygclass</a>
+<p>  <a href="./python_org_cygclass.html#robo_top_of_doc">python.org.cygclass</a>
 </p>
 <p class="item_name">REQUIRES</p>
 <p>  pythonXY, pythonXY-pip (for each X.Y version of Python being built)
@@ -107,7 +107,7 @@
 </li>
 </ul>
 <p>
-  If <a href="./syntax_cygpart.html#defined">defined</a>, this variable must be set before inheriting <a href="#python-wheel.cygclass">python-wheel.cygclass</a>.
+  If <a href="./syntax_cygpart.html#defined">defined</a>, this variable must be set before inheriting <a href="#robo_top_of_doc">python-wheel.cygclass</a>.
   If undefined, "default" is assumed.
 </p>
 <p class="item_name">NOTES</p>
@@ -169,8 +169,7 @@
 <pre>  <strong>python_wheel_compile</strong> [OPTIONS]
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Runs the 'pip wheel' command to build python wheel from a setup.py or a PEP
-  518 conformant source tree.
+<p>  Build python wheels from a setup.py or a PEP 518 conformant source tree.
 </p>
 
 <p>  Any arguments provided will be passed as arguments to 'setup.py bdist_wheel',
@@ -197,6 +196,9 @@
 </ul>
 <p></p>
 <p class="item_name">NOTES</p>
+<p>   This should be <a href="./syntax_cygpart.html#defined">defined</a> before inheriting the python-wheel class.
+</p>
+
 <p>   If you find yourself using this to override cygport's default behaviour, that
    is in all likelihood a bug in cygport.
 </p>
@@ -210,7 +212,7 @@
 <pre>  <strong>python_wheel_install</strong>
 </pre>
 <p class="item_name">DESCRIPTION</p>
-<p>  Installs the previously built wheel into $<a href="./syntax_cygpart.html#D">D</a>.
+<p>  Installs the previously built wheels into $<a href="./syntax_cygpart.html#D">D</a>.
 </p>
 
 <hr />
@@ -265,7 +267,7 @@
 
 </div> <!-- content -->
 <div id="footer">
-<p>Generated from ./cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-10-23 15:20:27</p>
+<p>Generated from ./cygport/cygclass/python-wheel.cygclass with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.44 on 2026-10-28 13:13:05</p>
 </div> <!-- footer -->
 </body>
 </html>
