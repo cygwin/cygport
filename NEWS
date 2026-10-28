@@ -1,3 +1,7 @@
+0.37.12:
+	* python-wheel: Avoid files created in ${S}/build/lib causing
+           a src.patch to be generated
+	* Add UPLOAD_URL to cygport.conf to override upload target
 0.37.11:
 	* pkg_upload: Upload src and bin packages to src/release/ and
            ${arch}/release, respectively
