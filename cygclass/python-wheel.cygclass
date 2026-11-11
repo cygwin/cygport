@@ -240,7 +240,7 @@ python_wheel_compile() {
 	#
 	# (this is terrible, but there doesn't seem to be a way to control where
 	# any of the above build methods put this...)
-	[ ! -d ${S}/build/lib ] || find ${S}/build/lib -delete
+	[ ! -d ${S}/build ] || find ${S}/build -delete
 
 	# if we made a universal or pure python wheel, there's no need to repeat
 	# the build for a different ${ver}
