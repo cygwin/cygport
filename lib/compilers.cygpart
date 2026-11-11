@@ -57,15 +57,6 @@ declare -x CC="gcc";
 #****
 declare -x CFLAGS="-ggdb -O2 -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=3 -fstack-protector-strong --param=ssp-buffer-size=4";
 
-# (temporarily) disable optimization on aarch64-cygwin to work around toolchain
-# bugs
-case ${CHOST} in
-        aarch64-*-cygwin)
-                warning "Disabling compiler optimizations due to ${CHOST} target"
-                CFLAGS=${CFLAGS/-O2/-O0}
-        ;;
-esac
-
 # instruct gcc to always colourize output
 CFLAGS+=" -fdiagnostics-color"
 
