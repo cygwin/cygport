@@ -16,27 +16,36 @@ BuildRequires:  groff-base
 BuildRequires:  help2man
 BuildRequires:  robodoc
 
-Requires:       autoconf automake libtool pkgconfig
-Requires:       bzip2 gzip unzip
-Requires:       cygwin64-binutils
-Requires:       cygwin64-gcc
-Requires:       cygwin64-libtool
-Requires:       cygwin64-pkg-config
+Requires:       autoconf
+Requires:       automake
+Requires:       bash
+Requires:       bzip2
+Requires:       coreutils
 Requires:       diffstat
 Requires:       diffutils
 Requires:       dos2unix
 Requires:       file
+Requires:       findutils
 Requires:       gawk
 Requires:       grep
+Requires:       gzip
 Requires:       imake
 Requires:       lftp
+Requires:       libtool
+Requires:       lzip
 Requires:       make
 Requires:       openssh
 Requires:       patch
 Requires:       perl(Authen::SASL)
 Requires:       perl(MIME::Parser)
 Requires:       perl(Net::SMTP::SSL)
+Requires:       perl(common::sense)
+Requires:       pkgconfig
 Requires:       rsync
+Requires:       sed
+Requires:       tar
+Requires:       texinfo
+Requires:       unzip
 Requires:       util-linux
 Requires:       vim-filesystem
 Requires:       wget
@@ -47,6 +56,11 @@ Suggests:       cygwin32-binutils
 Suggests:       cygwin32-gcc
 Suggests:       cygwin32-libtool
 Suggests:       cygwin32-pkg-config
+
+Requires:       cygwin64-binutils
+Requires:       cygwin64-gcc
+Requires:       cygwin64-libtool
+Requires:       cygwin64-pkg-config
 
 %description
 Cygwin package building tool.
