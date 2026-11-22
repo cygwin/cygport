@@ -41,12 +41,8 @@ HOMEPAGE="https://mate-desktop.org/"
 
 #****o* mate.cygclass/SRC_URI (mate)
 #  DEFINITION
-
+SRC_URI="https://github.com/mate-desktop/${ORIG_PN:-${PN}}/archive/refs/tags/v${PV}.tar.gz"
 #****
-case ${PV} in
-1.1.*) SRC_URI="https://pub.mate-desktop.org/releases/${PV[1]}.${PV[2]}/${ORIG_PN:-${PN}}-${PV}.tar.bz2" ;;
-*) SRC_URI="https://pub.mate-desktop.org/releases/${PV[1]}.${PV[2]}/${ORIG_PN:-${PN}}-${PV}.tar.xz" ;;
-esac
 
 if ! defined GIT_URI
 then
